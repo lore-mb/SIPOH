@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PoderJudicial.SIPOH.AccesoDatos", "PoderJudicial.SIPOH.AccesoDatos\PoderJudicial.SIPOH.AccesoDatos.csproj", "{91D4688A-E4D7-42EB-9E65-8D6A1453B563}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PoderJudicial.SIPOH.Entidades", "PoderJudicial.SIPOH.Entidades\PoderJudicial.SIPOH.Entidades.csproj", "{5B679286-5F8A-490B-AF41-06322870BFCA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PoderJudicial.SIPOH.Negocio", "PoderJudicial.SIPOH.Negocio\PoderJudicial.SIPOH.Negocio.csproj", "{7587105B-9EEB-486D-9796-72971CF140C0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PoderJudicial.SIPOH.UT", "PoderJudicial.SIPOH.UT\PoderJudicial.SIPOH.UT.csproj", "{417333BE-F696-4447-BC04-545ED282F39D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PoderJudicial.SIPOH.OperationalManagment", "PoderJudicial.SIPOH.OperationalManagment\PoderJudicial.SIPOH.OperationalManagment.csproj", "{24FAC28D-B605-4D5A-89B3-5A455BCB49A5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PoderJudicial.SIPOH.WebApp", "PoderJudicial.SIPOH.WebApp\PoderJudicial.SIPOH.WebApp.csproj", "{F5E950CD-8610-439A-AE4C-D986C3866155}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{91D4688A-E4D7-42EB-9E65-8D6A1453B563}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91D4688A-E4D7-42EB-9E65-8D6A1453B563}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91D4688A-E4D7-42EB-9E65-8D6A1453B563}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91D4688A-E4D7-42EB-9E65-8D6A1453B563}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B679286-5F8A-490B-AF41-06322870BFCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B679286-5F8A-490B-AF41-06322870BFCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B679286-5F8A-490B-AF41-06322870BFCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B679286-5F8A-490B-AF41-06322870BFCA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7587105B-9EEB-486D-9796-72971CF140C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7587105B-9EEB-486D-9796-72971CF140C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7587105B-9EEB-486D-9796-72971CF140C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7587105B-9EEB-486D-9796-72971CF140C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{417333BE-F696-4447-BC04-545ED282F39D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{417333BE-F696-4447-BC04-545ED282F39D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{417333BE-F696-4447-BC04-545ED282F39D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{417333BE-F696-4447-BC04-545ED282F39D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24FAC28D-B605-4D5A-89B3-5A455BCB49A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24FAC28D-B605-4D5A-89B3-5A455BCB49A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24FAC28D-B605-4D5A-89B3-5A455BCB49A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24FAC28D-B605-4D5A-89B3-5A455BCB49A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5E950CD-8610-439A-AE4C-D986C3866155}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5E950CD-8610-439A-AE4C-D986C3866155}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5E950CD-8610-439A-AE4C-D986C3866155}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5E950CD-8610-439A-AE4C-D986C3866155}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {95C543C3-62AF-48B2-8F80-B45706DE6327}
+	EndGlobalSection
+EndGlobal
