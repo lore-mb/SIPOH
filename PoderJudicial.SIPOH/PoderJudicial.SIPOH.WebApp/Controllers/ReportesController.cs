@@ -9,7 +9,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
     public class ReportesController : BaseController
     {
         // GET: Reportes
-        public ActionResult Index()
+        public ActionResult Reportes()
         {
             return View();
         }

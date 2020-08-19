@@ -1,43 +1,172 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Mi aplicación ASP.NET</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>SIPOH - @ViewBag.Title</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="robots" content="all,follow">
+    <!-- Estilos del sitio -->
+    @Styles.Render("~/Content/Master/Bootstrap")
+    @Styles.Render("~/Content/Master/FontAwesome")
+    @Styles.Render("~/Content/Master/FontSite")
+    @Styles.Render("~/Content/Master/Customize")
 </head>
+
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Nombre de la aplicación", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Acerca de", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>
+    <div class="page">
+        <!-- Navbar Principal -->
+        <header class="header">
+            <nav class="navbar">
+                <!-- Caja de Buqueda -->
+                <div class="search-box">
+                    <button class="dismiss"><i class="fa fa-times-circle"></i></button>
+                    <form id="searchForm" action="#" role="search">
+                        <input type="search" placeholder="Buscar en el sistema" class="form-control">
+                    </form>
+                </div>
+                <div class="container-fluid">
+                    <div class="navbar-holder d-flex align-items-center justify-content-between">
+                        <!-- Navbar Cabecera -->
+                        <div class="navbar-header">
+                            <!-- Navbar Brand --><a href="#" class="navbar-brand d-none d-sm-inline-block">
+                                <div class="brand-text d-none d-lg-inline-block"><span>Sistema </span><strong> SIPOH</strong></div>
+                                <div class="brand-text d-none d-sm-inline-block d-lg-none"><strong>SS</strong></div>
+                            </a>
+                            <!-- Button de Herramienta -->
+                            <a id="toggle-btn" href="#" class="menu-btn active"><span></span><span></span><span></span></a>
+                        </div>
+                        <!-- Navbar Menu -->
+                        <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
+                            <!-- Icono Busqueda -->
+                            <li class="nav-item d-flex align-items-center"><a id="search" href="#"><i class="fas fa-search"></i></a></li>
+                            <!-- Notificationes -->
+                            <li class="nav-item dropdown">
+                                <a id="notifications" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="far fa-bell"></i><span class="badge bg-red badge-corner">1</span></a>
+                                <ul aria-labelledby="notifications" class="dropdown-menu">
+                                    <li>
+                                        <a rel="nofollow" href="#" class="dropdown-item">
+                                            <div class="notification">
+                                                <div class="notification-content"><i class="fas fa-envelope bg-green"></i>Nueva Notificación</div>
+                                                <div class="notification-time"><small>Hace 4 minutos</small></div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center"> <strong>Ver todas las notificaciones</strong></a></li>
+                                </ul>
+                            </li>
+                            <!-- Salir -->
+                            <li class="nav-item dropdown">
+                                <a id="micuenta" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="fas fa-user"></i> Administrar</a>
+                                <ul aria-labelledby="micuenta" class="dropdown-menu">
+                                    <li>
+                                        <a rel="nofollow" href="#" class="dropdown-item">
+                                            <div class="notification text-center">
+                                                <div class="notification-content"><i class="fas fa-user-cog bg-warning"></i>Configuración de Perfil</div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center"><strong>Cerrar Sesión</strong></a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <div class="page-content d-flex align-items-stretch">
+            <!-- Side Navbar -->
+            <nav class="side-navbar">
+                <!-- Sidebar Header-->
+                <div class="sidebar-header d-flex align-items-center">
+                    <div class="avatar"><img src="~/Images/user_default.png" alt="..." class="img-fluid rounded-circle"></div>
+                    <div class="title">
+                        <h1 class="h4">Administrador</h1>
+                        <p>Primer Juzgado</p>
+                    </div>
+                </div>
+                <!-- Sidebar Navidation Menus-->
+                <span class="heading">Panel de control</span>
+                <ul class="list-unstyled">
+                    <li><a href="@Url.Action("Index", "Home")"><i class="fas fa-home"></i>Inicio</a></li>
+                    <!-- Dropdown Control-->
+                    <li>
+                        <a href="#controlDropdown" aria-expanded="false" data-toggle="collapse"><i class="fas fa-landmark"></i>Control</a>
+                        <ul id="controlDropdown" class="collapse list-unstyled ">
+                            <li><a href="#">Sub Modulo 1</a></li>
+                            <li><a href="#">Sub Modulo 2</a></li>
+                            <li><a href="#">Sub Modulo 3</a></li>
+
+                        </ul>
+                    </li>
+                    <!-- Dropdown Ejecución -->
+                    <li>
+                        <a href="#ejecucionDropdown" aria-expanded="false" data-toggle="collapse"> <i class="fas fa-synagogue"></i>Ejecución</a>
+                        <ul id="ejecucionDropdown" class="collapse list-unstyled ">
+                            <li><a href="@Url.Action("Iniciales","Iniciales")">Iniciales</a></li>
+                            <li><a href="@Url.Action("Promociones","Promociones")">Promociones</a></li>
+                            <li><a href="@Url.Action("Busquedas","Busquedas")">Busquedas</a></li>
+                            <li><a href="@Url.Action("ConsignacionesHistoricas","ConsignacionesHistoricas")">Consignaciones Historicas</a></li>
+                            <li><a href="@Url.Action("Reportes","Reportes")">Reportes</a></li>
+                        </ul>
+                    </li>
+                    <!-- Dropdow Juicios Orales -->
+                    <li>
+                        <a href="#juiciosDropdown" aria-expanded="false" data-toggle="collapse"><i class="fas fa-balance-scale"></i>Juicios Orales</a>
+                        <ul id="juiciosDropdown" class="collapse list-unstyled ">
+                            <li><a href="#">Sub Modulo 1</a></li>
+                            <li><a href="#">Sub Modulo 2</a></li>
+                            <li><a href="#">Sub Modulo 3</a></li>
+                        </ul>
+                    </li>
+                </ul><span class="heading">Utilidades</span>
+                <ul class="list-unstyled">
+                    <li> <a href="#"> <i class="fa fa-support"></i> Soporte Técnico </a></li>
+                    <li> <a href="#"> <i class="fas fa-book"></i>Manual de Usuario </a></li>
+                    <li> <a href="#"> <i class="fas fa-bug"></i>Reportar Error </a></li>
                 </ul>
+            </nav>
+            <div class="content-inner">
+                <!-- Page Header-->
+                <div class="container-fluid">
+                    <div class="card bg-white" style="margin-top:1.5%">
+                        <ol class="card-body breadcrumb">
+                            @if (ViewContext.RouteData.Values["controller"].ToString() != "Home")
+                            {
+                                <li class="breadcrumb-item"><i class="fas fa-home"></i> @Html.ActionLink("Inicio", "Index", "Home")</li>
+                                <li class="breadcrumb-item">Ejecución</li>
+                                <li class="breadcrumb-item active">@Html.ActionLink(ViewContext.RouteData.Values["controller"].ToString(), "Iniciales")</li>
+                            }
+                            else
+                            {
+                                <li class="breadcrumb-item active"><i class="fas fa-home"></i> Inicio</li>
+                            }
+                        </ol>
+                    </div>
+                </div>
+                <!-- Renderizar Vistas Parciales -->
+                @RenderBody()
+
+                <!-- Pie de Pagina-->
+                <footer class="main-footer">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <p>Poder Judicial del Estado de Hidalgo &copy; 2020</p>
+                            </div>
+                            <div class="col-sm-6 text-right">
+                                <p class="text-bold">@DateTime.Now.ToString("dddd, MMMM dd, yyyy h:mm:ss tt")</p>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
             </div>
         </div>
     </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Mi aplicación ASP.NET</p>
-        </footer>
-    </div>
-
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+    <!-- Renderizar Scripts -->
+    @Scripts.Render("~/Scripts/Master/Jquery")
+    @Scripts.Render("~/Scripts/Master/Bootstrap")
+    @Scripts.Render("~/Scripts/Master/Front")
 </body>
 </html>

@@ -170,31 +170,61 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap-theme.min.css" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Master\Customize\all.css" />
+    <Content Include="Content\Master\Bootstrap\bootstrap.min.css" />
+    <Content Include="Content\Master\FontSite\css.css" />
+    <Content Include="Content\Master\Customize\custom.css" />
+    <Content Include="Content\Master\FontAwesome\font-awesome.min.css" />
+    <Content Include="Content\Master\Customize\style.default.css" />
+    <Content Include="Content\Master\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\Master\webfonts\fa-brands-400.svg" />
+    <Content Include="Content\Master\webfonts\fa-regular-400.svg" />
+    <Content Include="Content\Master\webfonts\fa-solid-900.svg" />
+    <Content Include="Content\Recovery\bootstrap-theme.css" />
+    <Content Include="Content\Recovery\bootstrap-theme.min.css" />
+    <Content Include="Content\Recovery\bootstrap.css" />
+    <Content Include="Content\Recovery\bootstrap.min.css" />
     <Content Include="favicon.ico" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Content\Recovery\Site.css" />
+    <Content Include="Images\user_default.png" />
+    <Content Include="Scripts\Master\Bootstrap\bootstrap.min.js" />
+    <Content Include="Scripts\Master\Customize\front.js" />
+    <Content Include="Scripts\Master\Jquery\jquery.min.js" />
+    <Content Include="Scripts\Recovery\bootstrap.js" />
+    <Content Include="Scripts\Recovery\bootstrap.min.js" />
+    <Content Include="Content\Master\webfonts\fa-brands-400.eot" />
+    <Content Include="Content\Master\webfonts\fa-brands-400.ttf" />
+    <Content Include="Content\Master\webfonts\fa-brands-400.woff" />
+    <Content Include="Content\Master\webfonts\fa-brands-400.woff2" />
+    <Content Include="Content\Master\webfonts\fa-regular-400.eot" />
+    <Content Include="Content\Master\webfonts\fa-regular-400.ttf" />
+    <Content Include="Content\Master\webfonts\fa-regular-400.woff" />
+    <Content Include="Content\Master\webfonts\fa-regular-400.woff2" />
+    <Content Include="Content\Master\webfonts\fa-solid-900.eot" />
+    <Content Include="Content\Master\webfonts\fa-solid-900.ttf" />
+    <Content Include="Content\Master\webfonts\fa-solid-900.woff" />
+    <Content Include="Content\Master\webfonts\fa-solid-900.woff2" />
+    <Content Include="Content\Master\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\Master\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\Master\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\Master\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\Master\fonts\FontAwesome.otf" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
-    <Content Include="Scripts\jquery-3.4.1.js" />
-    <Content Include="Scripts\jquery-3.4.1.min.js" />
-    <Content Include="Scripts\jquery-3.4.1.slim.js" />
-    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <None Include="Scripts\Recovery\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\Recovery\jquery-3.4.1.js" />
+    <Content Include="Scripts\Recovery\jquery-3.4.1.min.js" />
+    <Content Include="Scripts\Recovery\jquery-3.4.1.slim.js" />
+    <Content Include="Scripts\Recovery\jquery-3.4.1.slim.min.js" />
+    <None Include="Scripts\Recovery\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\Recovery\jquery.validate.js" />
+    <Content Include="Scripts\Recovery\jquery.validate.min.js" />
+    <Content Include="Scripts\Recovery\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\Recovery\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\Recovery\modernizr-2.8.3.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -209,27 +239,30 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Iniciales\Iniciales.cshtml" />
+    <Content Include="Views\Promociones\Promociones.cshtml" />
+    <Content Include="Views\Busquedas\Busquedas.cshtml" />
+    <Content Include="Views\ConsignacionesHistoricas\ConsignacionesHistoricas.cshtml" />
+    <Content Include="Views\Reportes\Reportes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Busquedas\" />
-    <Folder Include="Views\ConsignacionesHistoricas\" />
-    <Folder Include="Views\Iniciales\" />
-    <Folder Include="Views\Promociones\" />
-    <Folder Include="Views\Reportes\" />
+    <Folder Include="Scripts\Modules\Control\" />
+    <Folder Include="Scripts\Modules\Ejecucion\Busquedas\" />
+    <Folder Include="Scripts\Modules\Ejecucion\Consignaciones\" />
+    <Folder Include="Scripts\Modules\Ejecucion\Iniciales\" />
+    <Folder Include="Scripts\Modules\Ejecucion\Promociones\" />
+    <Folder Include="Scripts\Modules\Ejecucion\Reportes\" />
+    <Folder Include="Scripts\Modules\Juicios\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-theme.min.css.map" />
-    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\Recovery\bootstrap.min.css.map" />
+    <Content Include="Content\Recovery\bootstrap.css.map" />
+    <Content Include="Content\Recovery\bootstrap-theme.min.css.map" />
+    <Content Include="Content\Recovery\bootstrap-theme.css.map" />
     <None Include="packages.config" />
-    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
-    <Content Include="Scripts\jquery-3.4.1.min.map" />
+    <Content Include="Scripts\Recovery\jquery-3.4.1.slim.min.map" />
+    <Content Include="Scripts\Recovery\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PoderJudicial.SIPOH.AccesoDatos\PoderJudicial.SIPOH.AccesoDatos.csproj">

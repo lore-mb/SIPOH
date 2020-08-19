@@ -9,7 +9,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
     public class InicialesController : BaseController
     {
         // GET: Iniciales
-        public ActionResult Index()
+        public ActionResult Iniciales()
         {
             return View();
         }

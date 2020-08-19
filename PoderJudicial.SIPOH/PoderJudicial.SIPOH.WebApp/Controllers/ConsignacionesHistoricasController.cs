@@ -9,7 +9,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
     public class ConsignacionesHistoricasController : BaseController
     {
         // GET: ConsignacionesHistoricas
-        public ActionResult Index()
+        public ActionResult ConsignacionesHistoricas()
         {
             return View();
         }
