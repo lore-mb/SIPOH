@@ -192,6 +192,11 @@
     <Content Include="Scripts\Master\Customize\front.js" />
     <Content Include="Scripts\Master\Jquery\jquery.min.js" />
     <Content Include="Scripts\Modules\Control\Control.js" />
+    <Content Include="Scripts\Modules\Ejecucion\Busquedas\Busquedas.js" />
+    <Content Include="Scripts\Modules\Ejecucion\Consignaciones\Consignaciones.js" />
+    <Content Include="Scripts\Modules\Ejecucion\Iniciales\Iniciales.js" />
+    <Content Include="Scripts\Modules\Ejecucion\Promociones\Promociones.js" />
+    <Content Include="Scripts\Modules\Ejecucion\Reportes\Reportes.js" />
     <Content Include="Scripts\Modules\Juicios\Juicios.js" />
     <Content Include="Scripts\Recovery\bootstrap.js" />
     <Content Include="Scripts\Recovery\bootstrap.min.js" />
@@ -249,11 +254,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Scripts\Modules\Ejecucion\Busquedas\" />
-    <Folder Include="Scripts\Modules\Ejecucion\Consignaciones\" />
-    <Folder Include="Scripts\Modules\Ejecucion\Iniciales\" />
-    <Folder Include="Scripts\Modules\Ejecucion\Promociones\" />
-    <Folder Include="Scripts\Modules\Ejecucion\Reportes\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Recovery\bootstrap.min.css.map" />
