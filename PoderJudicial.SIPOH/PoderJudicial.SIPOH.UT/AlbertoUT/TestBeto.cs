@@ -9,6 +9,7 @@ namespace PoderJudicial.SIPOH.UT.AlbertoUT
         [TestMethod]
         public void TestMethod1()
         {
+            var beto = "hola mundo";
         }
     }
 }
