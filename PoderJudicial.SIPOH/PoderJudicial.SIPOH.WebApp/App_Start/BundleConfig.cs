@@ -30,11 +30,15 @@ namespace PoderJudicial.SIPOH.WebApp
             bundles.Add(new ScriptBundle("~/Scripts/Master/Jquery").Include(
               "~/Scripts/Master/Jquery/jquery.min.js"));
 
+            // Scripts Popper
+            bundles.Add(new ScriptBundle("~/Scripts/Master/Popper").Include(
+                "~/Scripts/Master/Popper/popper.min.js"));
+
             // Scripts Bootstrap
             bundles.Add(new ScriptBundle("~/Scripts/Master/Bootstrap").Include(
                 "~/Scripts/Master/Bootstrap/bootstrap.min.js"));
 
-            // Scripts Bootstrap
+            // Scripts Front
             bundles.Add(new ScriptBundle("~/Scripts/Master/Front").Include(
                 "~/Scripts/Master/Customize/front.js"));
         }

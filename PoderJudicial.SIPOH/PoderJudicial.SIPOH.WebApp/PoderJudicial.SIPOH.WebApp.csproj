@@ -177,6 +177,7 @@
     <Content Include="Content\Master\FontAwesome\font-awesome.min.css" />
     <Content Include="Content\Master\Customize\style.default.css" />
     <Content Include="Content\Master\fonts\fontawesome-webfont.svg" />
+    <Content Include="Scripts\Master\Popper\popper.min.js" />
     <Content Include="Content\Master\webfonts\fa-brands-400.svg" />
     <Content Include="Content\Master\webfonts\fa-regular-400.svg" />
     <Content Include="Content\Master\webfonts\fa-solid-900.svg" />
