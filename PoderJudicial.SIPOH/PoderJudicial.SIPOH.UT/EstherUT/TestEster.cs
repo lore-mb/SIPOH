@@ -9,6 +9,7 @@ namespace PoderJudicial.SIPOH.UT.EstherUT
         [TestMethod]
         public void TestMethod1()
         {
+            var Est = 2;
         }
     }
 }
