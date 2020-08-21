@@ -58,7 +58,7 @@
                             </li>
                             <!-- Salir -->
                             <li class="nav-item dropdown">
-                                <a id="micuenta" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="fas fa-user"></i> Administrar</a>
+                                <a id="micuenta" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="fas fa-house-user"></i> Mi Perfil</a>
                                 <ul aria-labelledby="micuenta" class="dropdown-menu">
                                     <li>
                                         <a rel="nofollow" href="#" class="dropdown-item">
@@ -90,28 +90,39 @@
                 <span class="heading">Panel de control</span>
                 <ul class="list-unstyled">
                     <li><a href="@Url.Action("Index", "Home")"><i class="fas fa-home"></i>Inicio</a></li>
-                    <!-- Dropdown Control-->
+                    <!-- Collapse Control -->
                     <li>
                         <a href="#controlDropdown" aria-expanded="false" data-toggle="collapse"><i class="fas fa-landmark"></i>Control</a>
-                        <ul id="controlDropdown" class="collapse list-unstyled ">
-                            <li><a href="#">Sub Modulo 1</a></li>
-                            <li><a href="#">Sub Modulo 2</a></li>
-                            <li><a href="#">Sub Modulo 3</a></li>
-
+                        <ul id="controlDropdown" class="collapse list-unstyled">
+                            <li><a href="#"><i class="fa fa-book"></i>Consulta</a></li>
+                            <li><a href="#"><i class="fa fa-book"></i>Historicos</a></li>
+                            <li class="navbar-collapse">
+                                <a href="#submenuIniciales" aria-expanded="false" data-toggle="collapse"><i class="fa fa-book"></i>Iniciales</a>
+                                <ul id="submenuIniciales" class="collapse">
+                                    <li><a><i class="fas fa-circle invisible"></i>Amparo</a></li>
+                                    <li><a><i class="fas fa-circle invisible"></i>Causas</a></li>
+                                    <li><a><i class="fas fa-circle invisible"></i>Cupres</a></li>
+                                    <li><a><i class="fas fa-circle invisible"></i>Exortos</a></li>
+                                    <li><a><i class="fas fa-circle invisible"></i>Requisitorio</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#"><i class="fa fa-book"></i>Promociones</a></li>
+                            <li><a href="#"><i class="fa fa-book"></i>Reportes</a></li>
+                            <li><a href="#"><i class="fa fa-book"></i>Solicitud CD</a></li>
                         </ul>
                     </li>
-                    <!-- Dropdown Ejecución -->
+                    <!-- Collapse Ejecución -->
                     <li>
                         <a href="#ejecucionDropdown" aria-expanded="false" data-toggle="collapse"> <i class="fas fa-synagogue"></i>Ejecución</a>
                         <ul id="ejecucionDropdown" class="collapse list-unstyled ">
-                            <li><a href="@Url.Action("Iniciales","Iniciales")">Iniciales</a></li>
-                            <li><a href="@Url.Action("Promociones","Promociones")">Promociones</a></li>
-                            <li><a href="@Url.Action("Busquedas","Busquedas")">Busquedas</a></li>
-                            <li><a href="@Url.Action("ConsignacionesHistoricas","ConsignacionesHistoricas")">Consignaciones Historicas</a></li>
-                            <li><a href="@Url.Action("Reportes","Reportes")">Reportes</a></li>
+                            <li><a href="@Url.Action("Iniciales","Iniciales")"><i class="fa fa-book"></i>Iniciales</a></li>
+                            <li><a href="@Url.Action("Promociones","Promociones")"><i class="fa fa-book"></i>Promociones</a></li>
+                            <li><a href="@Url.Action("Busquedas","Busquedas")"><i class="fa fa-book"></i>Busquedas</a></li>
+                            <li><a href="@Url.Action("ConsignacionesHistoricas","ConsignacionesHistoricas")"><i class="fa fa-book"></i>Consig. Historicas</a></li>
+                            <li><a href="@Url.Action("Reportes","Reportes")"><i class="fa fa-book"></i>Reportes</a></li>
                         </ul>
                     </li>
-                    <!-- Dropdow Juicios Orales -->
+                    <!-- Collapse Juicios Orales -->
                     <li>
                         <a href="#juiciosDropdown" aria-expanded="false" data-toggle="collapse"><i class="fas fa-balance-scale"></i>Juicios Orales</a>
                         <ul id="juiciosDropdown" class="collapse list-unstyled ">
@@ -128,7 +139,7 @@
                 </ul>
             </nav>
             <div class="content-inner">
-                <!-- Page Header-->
+                <!-- Breadcrumb -->
                 <div class="container-fluid">
                     <div class="card bg-white" style="margin-top:1.5%">
                         <ol class="card-body breadcrumb">
@@ -166,7 +177,8 @@
     </div>
     <!-- Renderizar Scripts -->
     @Scripts.Render("~/Scripts/Master/Jquery")
-    @Scripts.Render("~/Scripts/Master/Popper")
+    @Styles.Render("~/Content/Master/DataTables")
+    @Scripts.Render("~/Scripts/Master/DataTables")
     @Scripts.Render("~/Scripts/Master/Bootstrap")
     @Scripts.Render("~/Scripts/Master/Front")
 </body>

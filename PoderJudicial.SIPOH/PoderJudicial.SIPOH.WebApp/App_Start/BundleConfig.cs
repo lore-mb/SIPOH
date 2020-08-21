@@ -11,15 +11,19 @@ namespace PoderJudicial.SIPOH.WebApp
             // Estilos Bootstrap
             bundles.Add(new StyleBundle("~/Content/Master/Bootstrap").Include(
                 "~/Content/Master/Bootstrap/bootstrap.min.css"));
-            
+
+            // Estilos DataTables
+            bundles.Add(new StyleBundle("~/Content/Master/DataTables").Include(
+                "~/Content/Master/DataTables/dataTables.min.css"));
+
             // Estilos FontAwesome
             bundles.Add(new StyleBundle("~/Content/Master/FontAwesome").Include(
                 "~/Content/Master/FontAwesome/font-awesome.min.css"));
-            
+
             // Fuentes del Sitio
             bundles.Add(new StyleBundle("~/Content/Master/FontSite").Include(
                 "~/Content/Master/FontSite/css?family=Poppins:300,400,700"));
-            
+
             // Estilos Personalizados
             bundles.Add(new StyleBundle("~/Content/Master/Customize").Include(
                 "~/Content/Master/Customize/style.default.css",
@@ -30,17 +34,21 @@ namespace PoderJudicial.SIPOH.WebApp
             bundles.Add(new ScriptBundle("~/Scripts/Master/Jquery").Include(
               "~/Scripts/Master/Jquery/jquery.min.js"));
 
-            // Scripts Popper
-            bundles.Add(new ScriptBundle("~/Scripts/Master/Popper").Include(
-                "~/Scripts/Master/Popper/popper.min.js"));
-
             // Scripts Bootstrap
             bundles.Add(new ScriptBundle("~/Scripts/Master/Bootstrap").Include(
                 "~/Scripts/Master/Bootstrap/bootstrap.min.js"));
 
+            // Scripts DataTables
+            bundles.Add(new ScriptBundle("~/Scripts/Master/DataTables").Include(
+                "~/Scripts/Master/DataTables/dataTables.min.js"));
+
             // Scripts Front
             bundles.Add(new ScriptBundle("~/Scripts/Master/Front").Include(
                 "~/Scripts/Master/Customize/front.js"));
+
+            // Scripts Submodulo Iniciales
+            bundles.Add(new ScriptBundle("~/Scripts/Modules/Ejecucion/Iniciales").Include(
+                "~/Scripts/Modules/Ejecucion/Iniciales/Iniciales.js"));
         }
     }
 }

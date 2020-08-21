@@ -8,10 +8,110 @@
         <div class="col-lg-12">
             <div class="card shadow-sm">
                 <div class="card-body">
-                    <!-- Todo el contenido aquí -->
+
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="juzgadoT-tab" data-toggle="tab" href="#JuzgadoT" role="tab" aria-controls="JuzgadoT" aria-selected="true">Juzgado Tradicional</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="juzgadoA-tab" data-toggle="tab" href="#JuzgadoA" role="tab" aria-controls="JuzgadoA" aria-selected="false">Juzgado Acusatorio</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="JuzgadoT" role="tabpanel" aria-labelledby="juzgadoT-tab">
+                            <!-- Todo el contenido aquí -->
+                            <form class="needs-validation mt-4 ml-2" novalidate>
+                                <div class="form-row">
+                                    <div class="col-md-2 mb-3">
+                                        <label for="slctCircuito">Circuito</label>
+                                        <select class="custom-select" id="slctCircuito" disabled>
+                                            <option disabled value="">Seleccionar Opcíón</option>
+                                            <option value="1" selected>Circuito Uno</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label for="validationCustom04">Juzgado de Procedencia</label>
+                                        <select class="custom-select" id="validationCustom04" required>
+                                            <option selected disabled value="">Seleccionar Opcíón</option>
+                                            <option>JUZGADO PENAL ACUSATORIO PACHUCA</option>
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            Selecciona un Juzgado.
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 mb-3">
+                                        <label for="slcNumero">N° Causa o  Nuc</label>
+                                        <select class="custom-select" id="slcNumero" required>
+                                            <option selectedvalue="" disabled>Seleccionar Opcíón</option>
+                                            <option value="1">NUMERO UNICO DE CASO</option>
+                                            <option value="2">NUMERO DE CAUSA</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3 mb-3">
+                                        <label for="validationCustomUsername">Numero</label>
+                                        <div class="input-group" id="divNUC">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="inpNUC">NUC</span>
+                                            </div>
+                                            <input type="text" class="form-control mr-3" id="inpNUC" aria-describedby="inpNUC" placeholder="0000/0000" required>
+                                            <button class="btn btn-success" type="submit" id="btnNUC"><i class="fas fa-save"></i></button>
+                                            <div class="invalid-feedback">
+                                                Introduce Numero Unico de Caso.
+                                            </div>
+                                        </div>
+                                        <div class="input-group" id="divCAU">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="inputGroupPrepend">CAUSA</span>
+                                            </div>
+                                            <input type="text" class="form-control mr-3" id="inpCAU" aria-describedby="inpCAU" placeholder="00-0000-0000" required>
+                                            <button class="btn btn-success" type="submit" id="btnCAU"><i class="fas fa-save"></i></button>
+                                            <div class="invalid-feedback">
+                                                Introduce Numero de Causa.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+
+                                </div>
+                            </form>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-hover table-sm" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>N° Juzgado</th>
+                                                <th>Causa|Nuc</th>
+                                                <th>Ofendido (s)</th>
+                                                <th>Inculpado (s)</th>
+                                                <th>Delito (s)</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>JUZGADO PENAL ACUSATORIO PACHUCA</td>
+                                                <td>12-2015-0079</td>
+                                                <td>ANTOLIN ALFREDO ORTIZ GUTIERREZ, JOSE SOCORRO HERNANDEZ VELAZQUEZ</td>
+                                                <td>FERNANDO FUENTES CRUZ, SERGIO ALBERTO VALENTIN MONZALVO</td>
+                                                <td>ASALTO AGRAVADO, ROBO</td>
+                                                <td class="text-center"><div class="btn btn-danger btn-sm"><i class="fa fa-close"></i></div></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="JuzgadoA" role="tabpanel" aria-labelledby="juzgadoA-tab">...</div>
+
+                    </div>
+
+
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+@Scripts.Render("~/Scripts/Master/Jquery")
+@Scripts.Render("~/Scripts/Modules/Ejecucion/Iniciales")
