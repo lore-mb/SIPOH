@@ -62,16 +62,6 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             return RedirectToAction("index", "home");
         }
 
-        public ActionResult InformacionUsuarioLogeado()
-        {
-            LogedUserModelView usuarioViewModel = new LogedUserModelView();
-            usuarioViewModel.Nombre = Usuario.Nombre;
-            usuarioViewModel.NombreJuzgado = Usuario.NombreJuzgado;
-            usuarioViewModel.Cargo = "Administrador";
-
-            return PartialView("_InfoUsuario", usuarioViewModel);
-        }
-
         #endregion
 
         #region Metodos privados del Controlador

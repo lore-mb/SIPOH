@@ -82,8 +82,10 @@
                 <div class="sidebar-header d-flex align-items-center">
                     <div class="avatar"><img src="~/img/user_default.png" alt="..." class="img-fluid rounded-circle"></div>
                     <div class="title">
-                        @Usuario.Nombre
-                        @*@{ Html.RenderAction("InformacionUsuarioLogeado", "Cuenta");}*@
+
+                       <h4>@Usuario.Nombre </h4>
+                       <p> @Usuario.NombreJuzgado</p>
+
                     </div>
                 </div>
                 <!-- Sidebar Navidation Menus-->
