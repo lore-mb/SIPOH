@@ -11,8 +11,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         }
 
         public ActionResult Index()
-        {
-           
+        {     
             return View();
         }
 

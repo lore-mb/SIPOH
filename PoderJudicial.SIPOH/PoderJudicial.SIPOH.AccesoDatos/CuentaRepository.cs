@@ -49,10 +49,16 @@ namespace PoderJudicial.SIPOH.AccesoDatos.Interfaces
                 List<Usuario> usuarios = DataTableToList<Usuario>(tabla);
                 if (usuarios.Count > 0)
                 {
-                    Usuario usuario = usuarios.FirstOrDefault();
+                    Usuario usuario = usuarios.FirstOrDefault();                    
                     usuario.Activo = true;
-                    resultado = Resultado.OK;
-                    return usuario;
+
+                    //Valida que el usuario se encuentre activo
+                    if (usuario.Activo)
+                    {
+                        resultado = Resultado.OK;
+                        return usuario;
+                    }
+                    resultado = Resultado.INACTIVO;
                 }
 
                 return null;

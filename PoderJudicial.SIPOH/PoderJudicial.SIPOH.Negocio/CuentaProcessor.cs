@@ -26,12 +26,15 @@ namespace PoderJudicial.SIPOH.Negocio
 
             if (resultado != Resultado.OK)
             {
+                if(resultado == Resultado.INACTIVO)
+                Mensaje = "Cuenta desactivada.";
+
                 if (resultado == Resultado.SIN_RESULTADO)
                 Mensaje = "Usuario/Contraseña Invalidos.";
 
                 else if (resultado == Resultado.ERROR)
                 {
-                    Mensaje = "Ocurrio un Error no controlado por el sistema";
+                    Mensaje = "No es posible iniciar sesion, contacte a soporte";
                     string mensajeLogger = repositorio.MensajeError;
                 }
             }

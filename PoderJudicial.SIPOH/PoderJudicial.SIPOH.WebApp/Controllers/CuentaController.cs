@@ -42,7 +42,6 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             }
 
             Usuario usuario = processor.ValidarLogInUsuario(model.Usuario, model.Password);
-
             if (usuario != null)
             {
                 FirmaUsuario(usuario);
@@ -53,6 +52,26 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             ModelState.AddModelError("", processor.Mensaje);
             return View(model);
         }
+
+        public ActionResult LogOut()
+        {
+            var ctx = Request.GetOwinContext();
+            var authManager = ctx.Authentication;
+
+            authManager.SignOut("SipohAppCookie");
+            return RedirectToAction("index", "home");
+        }
+
+        public ActionResult InformacionUsuarioLogeado()
+        {
+            LogedUserModelView usuarioViewModel = new LogedUserModelView();
+            usuarioViewModel.Nombre = Usuario.Nombre;
+            usuarioViewModel.NombreJuzgado = Usuario.NombreJuzgado;
+            usuarioViewModel.Cargo = "Administrador";
+
+            return PartialView("_InfoUsuario", usuarioViewModel);
+        }
+
         #endregion
 
         #region Metodos privados del Controlador
@@ -65,7 +84,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 new Claim(ClaimTypes.Locality, usuario.IdJuzgado.ToString()),
                 new Claim(ClaimTypes.StreetAddress, usuario.NombreJuzgado),
                 new Claim(ClaimTypes.SerialNumber, usuario.IdDistrito.ToString()),
-                new Claim(ClaimTypes.StreetAddress, usuario.IdCircuito.ToString()),
+                new Claim(ClaimTypes.Country, usuario.IdCircuito.ToString()),
                 new Claim(ClaimTypes.Role, usuario.Rol)
             }, "SipohAppCookie");
 
@@ -84,7 +103,6 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
 
             return returnUrl;
         }
-
         #endregion
     }
 }

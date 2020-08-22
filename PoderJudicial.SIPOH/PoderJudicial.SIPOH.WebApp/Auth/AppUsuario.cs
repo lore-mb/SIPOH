@@ -5,22 +5,6 @@ namespace PoderJudicial.SIPOH.WebApp.Auth
 {  
     public class AppUsuario : ClaimsPrincipal
     {
-        public string Name
-        {
-            get
-            {
-                return FindFirst(ClaimTypes.Name).Value;
-            }
-        }
-
-        public string Email
-        {
-            get
-            {
-                return FindFirst(ClaimTypes.Email).Value;
-            }
-        }
-
         public int Id
         {
             get
@@ -29,11 +13,51 @@ namespace PoderJudicial.SIPOH.WebApp.Auth
             }
         }
 
-        public int IdCircuito
+        public string Nombre
+        {
+            get
+            {
+                return FindFirst(ClaimTypes.Name).Value;
+            }
+        }
+
+        public int IdJuzgado
         {
             get
             {
                 return Convert.ToInt32(FindFirst(ClaimTypes.Locality).Value);
+            }
+        }
+
+        public string NombreJuzgado
+        {
+            get
+            {
+                return FindFirst(ClaimTypes.StreetAddress).Value;
+            }
+        }
+
+        public int IdDistrito
+        {
+            get
+            {
+                return Convert.ToInt32(FindFirst(ClaimTypes.SerialNumber).Value);
+            }
+        }
+
+        public int IdCircuito
+        {
+            get
+            {
+                return Convert.ToInt32(FindFirst(ClaimTypes.Country).Value);
+            }
+        }
+
+        public string Rol
+        {
+            get
+            {
+                return FindFirst(ClaimTypes.Role).Value;
             }
         }
 

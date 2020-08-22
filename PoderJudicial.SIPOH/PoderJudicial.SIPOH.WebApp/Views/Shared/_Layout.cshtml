@@ -67,7 +67,7 @@
                                             </div>
                                         </a>
                                     </li>
-                                    <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center"><strong>Cerrar Sesión</strong></a></li>
+                                    <li><a rel="nofollow" href="/Cuenta/LogOut" class="dropdown-item all-notifications text-center"><strong>Cerrar Sesión</strong></a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -80,10 +80,9 @@
             <nav class="side-navbar">
                 <!-- Sidebar Header-->
                 <div class="sidebar-header d-flex align-items-center">
-                    <div class="avatar"><img src="~/Images/user_default.png" alt="..." class="img-fluid rounded-circle"></div>
+                    <div class="avatar"><img src="~/img/user_default.png" alt="..." class="img-fluid rounded-circle"></div>
                     <div class="title">
-                        <h1 class="h4">Administrador</h1>
-                        <p>Primer Juzgado</p>
+                        @{ Html.RenderAction("InformacionUsuarioLogeado", "Cuenta");}
                     </div>
                 </div>
                 <!-- Sidebar Navidation Menus-->

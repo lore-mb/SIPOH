@@ -52,7 +52,7 @@ namespace PoderJudicial.SIPOH.WebApp
 
             // Script Cuenta
             bundles.Add(new ScriptBundle("~/Scripts/Modules/Cuenta").Include(
-                "~/Scripts/Modules/Cuenta/Cuenta.js"));
+                "~/Scripts/Modules/Cuenta/LogIn.js"));
 
         }
     }

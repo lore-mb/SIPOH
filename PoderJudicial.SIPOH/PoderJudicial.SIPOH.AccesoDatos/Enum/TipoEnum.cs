@@ -7,6 +7,8 @@ namespace PoderJudicial.SIPOH.AccesoDatos.Enum
         OK = 1,
         ERROR = 2,
         DUPLICADO = 3,
-        NO_DUPLICADO = 4
+        NO_DUPLICADO = 4,
+        ACTIVO = 5,
+        INACTIVO = 6
     }
 }

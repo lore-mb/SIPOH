@@ -1,27 +1,50 @@
-﻿
+﻿@model PoderJudicial.SIPOH.WebApp.Models.LogInModelView
+
 @{
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
     ViewBag.Title = "LogIn";
 }
 
-     <div class="content">
-         <img class="mb-4 rounded-circle" src="~/img/user_default.png" alt="" width="72" height="72">
-         <h1 class="h3 mb-3 font-weight-normal">Iniciar Sesión</h1>
-         <label for="inputEmail" class="sr-only">Nombre de Usuario:</label>
-         <input type="text" id="inputEmail" class="form-control mb-3" placeholder="Nombre de Usuario" required="" autofocus="">
-         <div class="input-group mb-3">
-         <input ID="txtPassword" type="Password" Class="form-control" placeholder="Contraseña" required="" autofocus="">
-         <div class="input-group-append">
-         <button id="show_password" class="btn btn-dark" type="button" onclick="mostrarPassword()"> <span class="fa fa-eye-slash icon"></span> </button>
-         </div>
-         </div>
-         <div class="checkbox mb-2">
-         <label>
-              <input type="checkbox" value="remember-me"> Recordar Inicio de sesión
-         </label>
-         </div>
-         <button class="btn btn-lg btn-success btn-block" type="submit">Iniciar Sesión</button>
-         <p class="mt-4 mb-3 text-muted">© Poder Judicial del Estado de Hidalgo</p>
-     </div>
-                 
+<style>
+    .custom-validation-summary ul
+    {
+        list-style: none;
+        padding-left: 0;
+    }
+</style>
+
+<div class="content">
+    <img class="mb-4 rounded-circle" src="~/img/user_default.png" alt="" width="72" height="72">
+    <h1 class="h3 mb-3 font-weight-normal">Iniciar Sesión</h1>
+
+    <label for="inputEmail" class="sr-only">Nombre de Usuario:</label>
+
+    <form id="frm" action="" method="post">
+
+        @*<input type="text" id="inputEmail" class="form-control mb-3" placeholder="Nombre de Usuario" required="" autofocus="">*@
+        @Html.EditorFor(model => model.Usuario, new { htmlAttributes = new { @class = "form-control mb-3", @id = "inputEmail", @placeholder = "Nombre de Usuario" } })
+
+        <div class="input-group mb-3">
+
+            @*<input ID="txtPassword" type="Password" Class="form-control" placeholder="Contraseña" required="" autofocus="">*@
+            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @id = "txtPassword", @placeholder = "Contraseña" } })
+            <div class="input-group-append">
+                <button id="show_password" class="btn btn-dark" type="button" onclick="mostrarPassword()"> <span class="fa fa-eye-slash icon"></span> </button>
+            </div>
+        </div>
+
+        @*En este elemento se visualiza la respuesta del servidor*@
+        @Html.ValidationSummary(true, "", new { @class = "text-danger custom-validation-summary" })
+
+        <div class="checkbox mb-2">
+            <label>
+                <input type="checkbox" value="remember-me"> Recordar Inicio de sesión
+            </label>
+        </div>
+        <button class="btn btn-lg btn-success btn-block" type="submit">Iniciar Sesión</button>
+        <p class="mt-4 mb-3 text-muted">© Poder Judicial del Estado de Hidalgo</p>
+    </form>
+</div>
+
+@Scripts.Render("~/Scripts/Master/Jquery")
 @Scripts.Render("~/Scripts/Modules/Cuenta")
