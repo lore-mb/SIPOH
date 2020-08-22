@@ -1662,12 +1662,12 @@ section.charts div[class*="col-"] {
 }
 
 .form-control:focus {
-  color: #495057;
+  color: #23272B;
   background-color: #fff;
-  border-color: #796AEE;
+  border-color: #b0bec5;
   outline: none;
-  -webkit-box-shadow: 0 0 0 0.2rem rgba(121, 106, 238, 0.25);
-  box-shadow: 0 0 0 0.2rem rgba(121, 106, 238, 0.25);
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(55, 71, 79, 0.25);
+  box-shadow: 0 0 0 0.2rem rgba(55, 71, 79, 0.25);
 }
 
 .form-control-sm {
@@ -1900,7 +1900,7 @@ input.input-material.is-invalid ~ label {
   height: 100%;
   display: block;
   z-index: -1;
-  background: url(../img/bg.jpg);
+  background: url(../../../img/bg.jpg);
   background-size: cover;
   -webkit-filter: blur(10px);
   filter: blur(10px);
@@ -1935,7 +1935,7 @@ input.input-material.is-invalid ~ label {
 }
 
 .login-page .form-holder .info {
-  background: rgba(121, 106, 238, 0.9);
+  background: rgba(35, 39, 43, 0.9);
   color: #fff;
 }
 
