@@ -196,6 +196,7 @@
     <Content Include="Scripts\Master\Customize\front.js" />
     <Content Include="Scripts\Master\Jquery\jquery.min.js" />
     <Content Include="Scripts\Modules\Control\Control.js" />
+    <Content Include="Scripts\Modules\Cuenta\Cuenta.js" />
     <Content Include="Scripts\Modules\Ejecucion\Busquedas\Busquedas.js" />
     <Content Include="Scripts\Modules\Ejecucion\Consignaciones\Consignaciones.js" />
     <Content Include="Scripts\Modules\Ejecucion\Iniciales\Iniciales.js" />
