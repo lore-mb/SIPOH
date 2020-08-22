@@ -43,9 +43,7 @@
   <ItemGroup>
     <Compile Include="CuentaProcessor.cs" />
     <Compile Include="Interfaces\ICuentaProcessor.cs" />
-    <Compile Include="Interfaces\IPruebaProcessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PruebaProcessor.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PoderJudicial.SIPOH.AccesoDatos\PoderJudicial.SIPOH.AccesoDatos.csproj">

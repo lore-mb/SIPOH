@@ -10,11 +10,11 @@ namespace PoderJudicial.SIPOH.WebApp.App_Start
 
     using Ninject;
     using Ninject.Web.Common;
-    using PoderJudicial.SIPOH.AccesoDatos;
+
     using PoderJudicial.SIPOH.AccesoDatos.Conexion;
     using PoderJudicial.SIPOH.AccesoDatos.Interfaces;
     using PoderJudicial.SIPOH.Negocio;
-    using PoderJudicial.SIPOH.Negocio.Interfaces;
+
 
     public static class NinjectWebCommon 
     {

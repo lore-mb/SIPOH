@@ -13,7 +13,6 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         //Atributos privados del controlador cuenta
         private readonly ICuentaProcessor processor;
 
-
         //Metodo constructor del controlador cuenta, se le inyecta la interfaz para el proceso de cuentas
         public CuentaController(ICuentaProcessor processor)
         {
@@ -51,7 +50,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             }
 
             // user authN failed
-            ModelState.AddModelError("", "Ocurrio un Error");
+            ModelState.AddModelError("", processor.Mensaje);
             return View(model);
         }
         #endregion
