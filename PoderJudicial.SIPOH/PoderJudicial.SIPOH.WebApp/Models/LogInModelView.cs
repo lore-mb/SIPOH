@@ -7,8 +7,8 @@ namespace PoderJudicial.SIPOH.WebApp.Models
     {
         [Required]
         [DataType(DataType.EmailAddress)]
-        [Display(Name = "Email")]
-        public string Email { get; set; }
+        [Display(Name = "Usuario")]
+        public string Usuario { get; set; }
 
         [Required]
         [DataType(DataType.Password)]

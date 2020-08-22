@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>SIPOH - Inicio de Sesión</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="robots" content="all,follow">
+    <!-- Estilos del sitio -->
+    @Styles.Render("~/Content/Master/Bootstrap")
+    @Styles.Render("~/Content/Master/FontAwesome")
+    @Styles.Render("~/Content/Master/FontSite")
+    @Styles.Render("~/Content/Master/Customize")
+</head>
+
+<body class="page login-page">
+    <div class="login-page">
+        <div class="container d-flex align-items-center">
+            <div class="form-holder">
+                <div class="row">
+                    <!-- Logo & Information Panel-->
+                    <div class="info col-lg-7 text-center">
+                        <div class="text-center mb-4" style="margin-top: 8%;">
+                            <img class="mb-4" src="img/PoderJudicial.png" alt="" width="170" height="170">
+                            <h1 class="h3 mb-3 font-weight-normal">SIPOH</h1>
+                            <p>Dirección de Modernización y Sistemas</p>
+                        </div>
+                    </div>
+                    <!-- Form Panel    -->
+                    <div class="col-lg-4 bg-white text-center">
+                        <div class="form d-flex align-items-center">
+                            @RenderBody()
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Renderizar Scripts -->
+    @Scripts.Render("~/Scripts/Master/Jquery")
+    @Scripts.Render("~/Scripts/Master/Bootstrap")
+    @Scripts.Render("~/Scripts/Master/Front")
+</body>
+
+</html>

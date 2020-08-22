@@ -43,10 +43,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Conexion\ServerConnection.cs" />
+    <Compile Include="Enum\TipoEnum.cs" />
+    <Compile Include="CuentaRepository.cs" />
+    <Compile Include="Interfaces\ICuentaRepository.cs" />
     <Compile Include="Interfaces\IPrueba.cs" />
+    <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Prueba.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\PoderJudicial.SIPOH.Entidades\PoderJudicial.SIPOH.Entidades.csproj">
+      <Project>{5B679286-5F8A-490B-AF41-06322870BFCA}</Project>
+      <Name>PoderJudicial.SIPOH.Entidades</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

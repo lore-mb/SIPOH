@@ -1,18 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
+
 using PoderJudicial.SIPOH.Entidades;
+using PoderJudicial.SIPOH.Negocio;
 using PoderJudicial.SIPOH.WebApp.Models;
 
 namespace PoderJudicial.SIPOH.WebApp.Controllers
 {
     public class CuentaController : BaseController
     {
+        //Atributos privados del controlador cuenta
+        private readonly ICuentaProcessor processor;
+
+
+        //Metodo constructor del controlador cuenta, se le inyecta la interfaz para el proceso de cuentas
+        public CuentaController(ICuentaProcessor processor)
+        {
+            this.processor = processor;
+        }
+
+        #region Metodos publicos del Controlador
         [AllowAnonymous]
-        // GET: Cuenta
         [HttpGet]
         public ActionResult LogIn(string returnUrl)
         {
@@ -33,7 +42,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 return View(model);
             }
 
-            Usuario usuario = new Usuario();
+            Usuario usuario = processor.ValidarLogInUsuario(model.Usuario, model.Password);
 
             if (usuario != null)
             {
@@ -45,16 +54,21 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             ModelState.AddModelError("", "Ocurrio un Error");
             return View(model);
         }
+        #endregion
 
+        #region Metodos privados del Controlador
         private void FirmaUsuario(Usuario usuario)
         {
             var identidad = new ClaimsIdentity(new[]
-                {
-                   new Claim(ClaimTypes.NameIdentifier, usuario.IdUsuario.ToString()),
-                   new Claim(ClaimTypes.Name, usuario.NickName),
-                   new Claim(ClaimTypes.Email, usuario.Correo),
-                   new Claim(ClaimTypes.Locality, usuario.IdCircuito.ToString())
-                }, "SipohAppCookie");
+            {
+                new Claim(ClaimTypes.Sid, usuario.IdUsuario.ToString()),
+                new Claim(ClaimTypes.Name, usuario.NombreUsuario),
+                new Claim(ClaimTypes.Locality, usuario.IdJuzgado.ToString()),
+                new Claim(ClaimTypes.StreetAddress, usuario.NombreJuzgado),
+                new Claim(ClaimTypes.SerialNumber, usuario.IdDistrito.ToString()),
+                new Claim(ClaimTypes.StreetAddress, usuario.IdCircuito.ToString()),
+                new Claim(ClaimTypes.Role, usuario.Rol)
+            }, "SipohAppCookie");
 
             var ctx = Request.GetOwinContext();
             var authManager = ctx.Authentication;
@@ -71,5 +85,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
 
             return returnUrl;
         }
+
+        #endregion
     }
 }

@@ -9,11 +9,14 @@ namespace PoderJudicial.SIPOH.Entidades
     public class Usuario
     {
         public int IdUsuario { get; set; }
-        public string Correo { get; set; }
-        public string Contrasenia { get; set; }
-        public string Nombre { get; set; }
-        public string NickName { get; set; }
-        public int IdCircuito { set; get; }
+        public string NombreUsuario { get; set; }
+        public string Rol { get; set; }
+        public string NombreCircuito { get; set; }
+        public int IdCircuito { get; set; }
+        public string NombreDistrito { set; get; }
+        public int IdDistrito { set; get; }
+        public string NombreJuzgado { set; get; }
+        public int IdJuzgado { set; get; }
         public bool Activo { set; get; }
     }
 }

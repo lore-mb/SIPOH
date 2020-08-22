@@ -1,0 +1,49 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+    ViewBag.Title = "LogIn";
+}
+     <div class="content">
+         <img class="mb-4 rounded-circle" src="img/user_default.png" alt="" width="72" height="72">
+         <h1 class="h3 mb-3 font-weight-normal">Iniciar Sesión</h1>
+         <label for="inputEmail" class="sr-only">Nombre de Usuario:</label>
+         <input type="text" id="inputEmail" class="form-control mb-3" placeholder="Nombre de Usuario" required="" autofocus="">
+         <div class="input-group mb-3">
+         <input ID="txtPassword" type="Password" Class="form-control" placeholder="Contraseña" required="" autofocus="">
+         <div class="input-group-append">
+         <button id="show_password" class="btn btn-dark" type="button" onclick="mostrarPassword()"> <span class="fa fa-eye-slash icon"></span> </button>
+         </div>
+         </div>
+         <div class="checkbox mb-2">
+         <label>
+              <input type="checkbox" value="remember-me"> Recordar Inicio de sesión
+         </label>
+         </div>
+         <button class="btn btn-lg btn-success btn-block" type="submit">Iniciar Sesión</button>
+         <p class="mt-4 mb-3 text-muted">© Poder Judicial del Estado de Hidalgo</p>
+     </div>
+                 
+<script type="text/javascript">
+        function mostrarPassword()
+        {
+          var cambio = document.getElementById("txtPassword");
+          if (cambio.type == "password") {
+              cambio.type = "text";
+              $('.icon').removeClass('fa fa-eye-slash').addClass('fa fa-eye');
+          } else {
+              cambio.type = "password";
+              $('.icon').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
+          }
+      }
+
+      $(document).ready(function ()
+      {
+          //CheckBox mostrar contraseña
+          $('#ShowPassword').click(function ()
+          {
+              $('#Password').attr('type', $(this).is(':checked') ? 'text' : 'password');
+          });
+      });
+</script>
+
+

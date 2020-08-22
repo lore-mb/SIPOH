@@ -178,6 +178,8 @@
     <Content Include="Content\Master\FontAwesome\font-awesome.min.css" />
     <Content Include="Content\Master\Customize\style.default.css" />
     <Content Include="Content\Master\fonts\fontawesome-webfont.svg" />
+    <Content Include="img\bg.jpg" />
+    <Content Include="img\PoderJudicial.png" />
     <Content Include="Scripts\Master\DataTables\datatables.min.js" />
     <Content Include="Content\Master\webfonts\fa-brands-400.svg" />
     <Content Include="Content\Master\webfonts\fa-regular-400.svg" />
@@ -189,7 +191,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Recovery\Site.css" />
-    <Content Include="Images\user_default.png" />
+    <Content Include="img\user_default.png" />
     <Content Include="Scripts\Master\Bootstrap\bootstrap.min.js" />
     <Content Include="Scripts\Master\Customize\front.js" />
     <Content Include="Scripts\Master\Jquery\jquery.min.js" />
@@ -253,7 +255,8 @@
     <Content Include="Views\Busquedas\Busquedas.cshtml" />
     <Content Include="Views\ConsignacionesHistoricas\ConsignacionesHistoricas.cshtml" />
     <Content Include="Views\Reportes\Reportes.cshtml" />
-    <Content Include="Views\Shared\_login.cshtml" />
+    <Content Include="Views\Shared\_LayoutLogin.cshtml" />
+    <Content Include="Views\Cuenta\LogIn.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

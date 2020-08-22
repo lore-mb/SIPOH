@@ -67,9 +67,12 @@ namespace PoderJudicial.SIPOH.WebApp.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             ServerConnection connection = ServerConnection.GetConnection();
-            kernel.Bind<IPrueba>().To<Prueba>().WithConstructorArgument("connection", connection);
+           
+            //Inyeccion de servicios para repositorios de conexion de datos
+            kernel.Bind<ICuentaRepository>().To<CuentaRepository>().WithConstructorArgument("connection", connection);
 
-            kernel.Bind<IPruebaProcessor>().To<PruebaProcessor>();
+            //Inyeccion de servicios para la logica de negocio
+            kernel.Bind<ICuentaProcessor>().To<CuentaProcessor>();
         }        
     }
 }
