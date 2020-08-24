@@ -5,7 +5,7 @@ using System.Web;
 
 namespace PoderJudicial.SIPOH.WebApp.Helpers
 {
-    public enum EstatusRespuestaJSON { OK, ERROR, SIN_RESPUESTA }
+    public enum EstatusRespuestaJSON { SIN_RESPUESTA, OK, ERROR}
     public class RespuestaJson
     {
         public EstatusRespuestaJSON Estatus { get; set; }

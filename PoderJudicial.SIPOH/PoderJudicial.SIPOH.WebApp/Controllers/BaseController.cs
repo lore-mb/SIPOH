@@ -22,12 +22,11 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             }
         }
 
-        protected RespuestaJson Respuesta 
+        protected RespuestaJson Respuesta { set; get; }
+
+        public BaseController() 
         {
-            get 
-            {
-                return new RespuestaJson();
-            }
+            Respuesta = new RespuestaJson();
         }
 
         protected string RenderViewToString(string viewName, object model = null)
