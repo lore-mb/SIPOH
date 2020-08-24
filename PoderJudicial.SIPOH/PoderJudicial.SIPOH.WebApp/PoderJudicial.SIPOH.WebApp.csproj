@@ -161,6 +161,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Helpers.cs" />
+    <Compile Include="Helpers\Opcion.cs" />
+    <Compile Include="Helpers\RespuestaJson.cs" />
     <Compile Include="Models\LogedUserModelView.cs" />
     <Compile Include="Models\LogInModelView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

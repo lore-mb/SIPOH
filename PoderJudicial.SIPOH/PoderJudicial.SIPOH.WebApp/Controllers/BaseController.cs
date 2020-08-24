@@ -1,4 +1,5 @@
 ﻿using PoderJudicial.SIPOH.WebApp.Auth;
+using PoderJudicial.SIPOH.WebApp.Helpers;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,11 +14,19 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
 {
     public class BaseController : Controller
     {
-        public AppUsuario Usuario
+        protected AppUsuario Usuario
         {
             get
             {
                 return new AppUsuario(User as ClaimsPrincipal);
+            }
+        }
+
+        protected RespuestaJson Respuesta 
+        {
+            get 
+            {
+                return new RespuestaJson();
             }
         }
 
