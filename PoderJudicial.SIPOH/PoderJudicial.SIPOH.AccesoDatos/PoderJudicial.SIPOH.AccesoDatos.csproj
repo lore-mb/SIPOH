@@ -42,9 +42,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CatalogosRepository.cs" />
     <Compile Include="Conexion\ServerConnection.cs" />
     <Compile Include="Enum\TipoEnum.cs" />
     <Compile Include="CuentaRepository.cs" />
+    <Compile Include="Interfaces\ICatalogosRepository.cs" />
     <Compile Include="Interfaces\ICuentaRepository.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

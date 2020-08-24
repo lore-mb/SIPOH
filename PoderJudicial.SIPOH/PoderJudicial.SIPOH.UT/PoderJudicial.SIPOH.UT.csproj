@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AlbertoUT\TestBeto.cs" />
+    <Compile Include="AlbertoUT\UTCatalogos.cs" />
     <Compile Include="EstherUT\TestEster.cs" />
     <Compile Include="IgmaUT\TesteIgma.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -58,7 +59,16 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\PoderJudicial.SIPOH.AccesoDatos\PoderJudicial.SIPOH.AccesoDatos.csproj">
+      <Project>{91D4688A-E4D7-42EB-9E65-8D6A1453B563}</Project>
+      <Name>PoderJudicial.SIPOH.AccesoDatos</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PoderJudicial.SIPOH.Entidades\PoderJudicial.SIPOH.Entidades.csproj">
+      <Project>{5B679286-5F8A-490B-AF41-06322870BFCA}</Project>
+      <Name>PoderJudicial.SIPOH.Entidades</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

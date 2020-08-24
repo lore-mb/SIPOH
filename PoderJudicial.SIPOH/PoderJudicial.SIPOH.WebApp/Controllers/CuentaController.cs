@@ -71,10 +71,13 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             {
                 new Claim(ClaimTypes.Sid, usuario.IdUsuario.ToString()),
                 new Claim(ClaimTypes.Name, usuario.NombreUsuario),
+                new Claim(ClaimTypes.NameIdentifier, usuario.NombreIdentificador),
                 new Claim(ClaimTypes.Locality, usuario.IdJuzgado.ToString()),
                 new Claim(ClaimTypes.StreetAddress, usuario.NombreJuzgado),
                 new Claim(ClaimTypes.SerialNumber, usuario.IdDistrito.ToString()),
+                new Claim(ClaimTypes.PostalCode, usuario.NombreJuzgado),
                 new Claim(ClaimTypes.Country, usuario.IdCircuito.ToString()),
+                new Claim(ClaimTypes.GivenName, usuario.NombreCircuito),
                 new Claim(ClaimTypes.Role, usuario.Rol)
             }, "SipohAppCookie");
 

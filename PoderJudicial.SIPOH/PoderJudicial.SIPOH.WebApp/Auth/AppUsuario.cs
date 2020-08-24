@@ -9,7 +9,7 @@ namespace PoderJudicial.SIPOH.WebApp.Auth
         {
             get
             {
-                return Convert.ToInt32(FindFirst(ClaimTypes.NameIdentifier).Value);
+                return Convert.ToInt32(FindFirst(ClaimTypes.Sid).Value);
             }
         }
 
@@ -20,6 +20,15 @@ namespace PoderJudicial.SIPOH.WebApp.Auth
                 return FindFirst(ClaimTypes.Name).Value;
             }
         }
+
+        public string NombreIdentificador
+        {
+            get
+            {
+                return FindFirst(ClaimTypes.NameIdentifier).Value;
+            }
+        }
+
 
         public int IdJuzgado
         {
@@ -45,11 +54,27 @@ namespace PoderJudicial.SIPOH.WebApp.Auth
             }
         }
 
+        public string NombreDistrito
+        {
+            get
+            {
+                return FindFirst(ClaimTypes.PostalCode).Value;
+            }
+        }
+
         public int IdCircuito
         {
             get
             {
                 return Convert.ToInt32(FindFirst(ClaimTypes.Country).Value);
+            }
+        }
+
+        public string NombreCircuito
+        {
+            get
+            {
+                return FindFirst(ClaimTypes.GivenName).Value;
             }
         }
 

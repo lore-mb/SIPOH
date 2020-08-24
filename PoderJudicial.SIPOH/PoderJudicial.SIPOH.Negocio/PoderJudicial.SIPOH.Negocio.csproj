@@ -42,7 +42,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CuentaProcessor.cs" />
+    <Compile Include="Enum\TipoEnum.cs" />
+    <Compile Include="InicialesProcessor.cs" />
     <Compile Include="Interfaces\ICuentaProcessor.cs" />
+    <Compile Include="Interfaces\IInicialesProcessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
