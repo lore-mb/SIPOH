@@ -8,7 +8,6 @@
         <div class="col-lg-12">
             <div class="card shadow-sm">
                 <div class="card-body">
-
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" id="juzgadoT-tab" data-toggle="tab" href="#JuzgadoT" role="tab" aria-controls="JuzgadoT" aria-selected="true">Juzgado Acusatorio</a>
@@ -22,15 +21,15 @@
                             <!-- Todo el contenido aquí -->
                             <form class="needs-validation mt-4 ml-2" novalidate>
                                 <div class="form-row">
-                                    <div class="col-md-2 mb-2">
-                                        <label for="slctCircuito">Circuito</label>
-                                        <select class="custom-select" id="slctCircuito" disabled>
+                                    <div class="col-md-2 mb-3">
+                                        <label for="slctCircuitoAc">Circuito</label>
+                                        <select class="custom-select" id="slctCircuitoAc" disabled>
                                         </select>
                                     </div>
-                                    <div class="col-md-6 mb-3">
+                                    <div class="col-md-4 mb-3">
                                         <label for="validationCustom04">Juzgado de Procedencia</label>
                                         <select class="custom-select" id="slctJuzgado" required>
-
+                                            <option selected value="">SELECCIONAR OPCIÓN</option>
                                         </select>
                                         <div class="invalid-feedback">
                                             Selecciona un Juzgado.
@@ -68,8 +67,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-row">
-
+                                <div class="form-row justify-content-center">
                                 </div>
                             </form>
                             <div class="card-body">
@@ -99,8 +97,45 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="JuzgadoA" role="tabpanel" aria-labelledby="juzgadoA-tab"></div>
+                        <div class="tab-pane fade" id="JuzgadoA" role="tabpanel" aria-labelledby="juzgadoA-tab">
+                            <form class="needs-validation mt-4 ml-2" novalidate>
+                                <div class="form-row">
+                                    <div class="col-md-2 mb-3">
+                                        <label for="slctCircuitoTr">Circuito</label>
+                                        <select class="custom-select" id="slctCircuitoTr" disabled></select>
+                                    </div>
+                                    <div class="col-md-3 mb-3">
+                                        <label for="slcNumero">Distrito de Procedencia</label>
+                                        <select class="custom-select" id="slcNumero" required></select>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label for="validationCustom04">Juzgado de Procedencia</label>
+                                        <select class="custom-select" id="slctJuzgados" required>
+                                            <option selected value="">SELECCIONAR OPCIÓN</option>
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            Selecciona un Juzgado.
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 mb-3">
+                                        <label for="validationCustomUsername">Numero</label>
+                                        <div class="input-group" id="divCAU">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="inputGroupPrepend">CAUSA</span>
+                                            </div>
+                                            <input type="text" class="form-control mr-3" id="inpCAU" aria-describedby="inpCAU" placeholder="00-0000-0000" required>
+                                            <button class="btn btn-success" type="submit" id="btnCAU"><i class="fas fa-save"></i></button>
+                                            <div class="invalid-feedback">
+                                                Introduce Numero de Causa.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row justify-content-center">
+                                </div>
+                            </form>
 
+                        </div>
                     </div>
                 </div>
             </div>

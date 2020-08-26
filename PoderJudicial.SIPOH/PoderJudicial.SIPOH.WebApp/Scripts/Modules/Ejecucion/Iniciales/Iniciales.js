@@ -1,71 +1,78 @@
-﻿
-// Llamar Funcion ListarCircuito, pasar parametros vacios y url
-SolicitudEstandarAjax("/Iniciales/ObtenerCircuito", "", LitarCircuito);
-var parametros = { IdCircuito: 5 };
-SolicitudEstandarAjax("/Iniciales/ObtenerJuzgadoAcusatorio", parametros, ListarJuzgado);
-
-
-// Estatus Respuesta
-var EstatusRespuesta = { SIN_RESPUESTA: 0, OK: 1, ERROR: 2 }
-
-//Solicitud Ajax Get Generico
-function SolicitudEstandarAjax(url, parametros, funcion) {
-    $.ajax({
-        url: url,
-        type: "GET",
-        cache: false,
-        traditional: true,
-        contentType: "application/json; charset=utf-8",
-        data: parametros,
-        beforeSend: function () {
-            $("#loading").fadeIn(); //Animacion Load
-        },
-        success: function (data) {
-            funcion(data);
-        },
-        error: function (xhr) {
-            alert('Error Ajax: ' + xhr.statusText);
-            $("#loading").fadeOut();
-        }
-    });
-}
-
-function LitarCircuito(data) {
-    if (data.Estatus = EstatusRespuesta.OK) {
-        const ObjJSON = [data.Data];
-        var $select = $('#slctCircuito');
-        $.each(ObjJSON, function (id, circuito) {
-            $select.append('<option value=' + circuito.Value + '>' + circuito.Name + '</option>');
-        });
-    } else if (data.Estatus == EstatusRespuesta.ERROR) {
-        customNotice(data.Mensaje, "Error:", "error", 3350);
-    }
-}
-
-function ListarJuzgado(data) {
-    if (data.Estatus = EstatusRespuesta.OK) {
-        const ObjJSONs = [data.Data];
-
-        /*alert(JSON.stringify(ObjJSONs));*/
-
-        var $select = $('#slctJuzgado');
-
-        $.each(ObjJSONs, function (id, juzgado) {
-            for (var i = 0; i < juzgado.length; i++) {
-                $select.append('<option value=' + juzgado[i].Value + '>' + juzgado[i].Text + '</option>');
-            }
-        });
-    } else if (data.Estatus == EstatusRespuesta.ERROR) {
-        customNotice(data.Mensaje, "Error:", "error", 3350);
-    }
-}
+﻿// Ocultar Elementos en FORM
+$("#divCAU").hide();
 
 $(document).ready(function () {
     'use strict';
-    
 
-    // Ocultar Elementos en FORM
-    $("#divCAU").hide();
+    // Parametros para funcion generica Ajax
+    var parametros = { IdCircuito: 5 };
+
+    // Estatus Respuesta
+    var EstatusRespuesta = { SIN_RESPUESTA: 0, OK: 1, ERROR: 2 }
+
+    // Solicitud Ajax Get Generico
+    function SolicitudEstandarAjax(url, parametros, funcion) {
+        $.ajax({
+            url: url,
+            type: "GET",
+            cache: false,
+            traditional: true,
+            contentType: "application/json; charset=utf-8",
+            data: parametros,
+            beforeSend: function () {
+                $("#loading").fadeIn(); //Animacion Load
+            },
+            success: function (data) {
+                funcion(data);
+            },
+            error: function (xhr) {
+                alert('Error Ajax: ' + xhr.statusText);
+                $("#loading").fadeOut();
+            }
+        });
+    }
+
+    // Listar Circuito en Combo
+    SolicitudEstandarAjax("/Iniciales/ObtenerCircuito", "", LitarCircuitoAcusatorio);
+    function LitarCircuitoAcusatorio(data) {
+        if (data.Estatus = EstatusRespuesta.OK) {
+            const objJSONCircuito = [data.Data];
+            var $selectAc = $('#slctCircuitoAc');
+            var $selectTr = $('#slctCircuitoTr');
+            $.each(objJSONCircuito, function (id, circuito) {
+                $selectAc.append('<option value=' + circuito.Value + '>' + circuito.Text + '</option>');
+                $selectTr.append('<option value=' + circuito.Value + '>' + circuito.Text + '</option>');
+            });
+        } else if (data.Estatus == EstatusRespuesta.ERROR) {
+            customNotice(data.Mensaje, "Error:", "error", 3350);
+        }
+    }
+
+    // Listar Juzgado de Procedencia en Combo
+    SolicitudEstandarAjax("/Iniciales/ObtenerJuzgadoAcusatorio", parametros, ListarJuzgado);
+    function ListarJuzgado(data) {
+        if (data.Estatus = EstatusRespuesta.OK) {
+            const objJSONJuzgado = [data.Data];
+            var $select = $('#slctJuzgado');
+            $.each(objJSONJuzgado, function (id, juzgado) {
+                for (var i = 0; i < juzgado.length; i++) {
+                    $select.append('<option value=' + juzgado[i].Value + '>' + juzgado[i].Text + '</option>');
+                }
+            });
+        } else if (data.Estatus == EstatusRespuesta.ERROR) {
+            customNotice(data.Mensaje, "Error:", "error", 3350);
+        }
+    }
+
+    // Listar Distrito de procedencia
+    SolicitudEstandarAjax("", parametros, ListarDistrito);
+    function ListarDistrito(data) {
+        if (data.Estatus = EstatusRespuesta.OK) {
+
+        } else if (data.Estatus == EstatusRespuesta.ERROR) {
+            customNotice(data.Mensaje, "Error:", "error", 3350);
+        }
+    }
 
     // Muestra u oculta los inputs de NUC y CAUSA segun selección.
     $("#slcNumero").change(function () {
@@ -80,11 +87,11 @@ $(document).ready(function () {
         }
     });
 
-    // DataTable Fuc
+    // DataTable
     $("#dataTable").dataTable(
         {
             responsive: true,
-            search: false,
+            searching: false,
             language: {
                 "decimal": "",
                 "emptyTable": "No hay información",
@@ -108,7 +115,7 @@ $(document).ready(function () {
         }
     );
 
-    // Validar Formulario
+    // Validar Formulario Juzgado Acusatorio
     var forms = document.getElementsByClassName('needs-validation');
     var validation = Array.prototype.filter.call(forms, function (form) {
         form.addEventListener('submit', function (event) {

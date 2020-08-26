@@ -160,7 +160,7 @@
                             @if (ViewContext.RouteData.Values["controller"].ToString() != "Home")
                             {
                                 <li class="breadcrumb-item"><i class="fas fa-home"></i> @Html.ActionLink("Inicio", "Index", "Home")</li>
-                                <li class="breadcrumb-item">Ejecución</li>
+                                <li class="breadcrumb-item text-success">Ejecución</li>
                                 <li class="breadcrumb-item active">@Html.ActionLink(ViewContext.RouteData.Values["controller"].ToString(), "Iniciales")</li>
                             }
                             else
@@ -181,7 +181,7 @@
                                 <p>Poder Judicial del Estado de Hidalgo &copy; 2020</p>
                             </div>
                             <div class="col-sm-6 text-right">
-                                <p class="text-bold">@DateTime.Now.ToString("dddd, MMMM dd, yyyy h:mm:ss tt")</p>
+                                <p class="text-bold">@DateTime.Now.ToString("dddd, MMMM dd, yyyy")</p>
                             </div>
                         </div>
                     </div>
