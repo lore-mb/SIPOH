@@ -1,8 +1,8 @@
 ﻿using PoderJudicial.SIPOH.AccesoDatos.Conexion;
-using PoderJudicial.SIPOH.AccesoDatos.Enum;
+using PoderJudicial.SIPOH.AccesoDatos.Helpers;
 using PoderJudicial.SIPOH.AccesoDatos.Interfaces;
 using PoderJudicial.SIPOH.Entidades;
-
+using PoderJudicial.SIPOH.Entidades.Enum;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -17,6 +17,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
     {
         //Atributos Publicos del Repositorio
         public string MensajeError { set; get; }
+        public Estatus Estatus { get; set; }
 
         //Atributos privados del Repositorio
         private SqlConnection Cnx;
@@ -29,14 +30,19 @@ namespace PoderJudicial.SIPOH.AccesoDatos
             IsValidConnection = connection.IsValidConnection;
         }
 
-        public List<Distrito> ObtenerDistritoPorCircuito(int idCircuito, ref Resultado resultado)
+        /// <summary>
+        /// Retorna lista de distritos por medio del cicuito
+        /// </summary>
+        /// <param name="idCircuito">Id del circuito al que pertenece los distritos</param>
+        /// <returns></returns>
+        public List<Distrito> ObtenerDistritos(int idCircuito)
         {
             try
             {
                 if (!IsValidConnection)
                 throw new Exception("No se ha creado una conexion valida");
 
-                SqlCommand comando = new SqlCommand("SP_SIPOH_DistritosPorCircuito", Cnx);
+                SqlCommand comando = new SqlCommand("sipoh_DistritosPorCircuito", Cnx);
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("@idCircuito", SqlDbType.Int).Value = idCircuito;
                 Cnx.Open();
@@ -46,19 +52,19 @@ namespace PoderJudicial.SIPOH.AccesoDatos
                 DataTable tabla = new DataTable();
                 tabla.Load(sqlRespuesta);
 
-                List<Distrito> distritos = DataTableToList<Distrito>(tabla);
+                List<Distrito> distritos = DataHelper.DataTableToList<Distrito>(tabla);
                 
                 if (distritos.Count > 0)
-                resultado = Resultado.OK;
+                Estatus = Estatus.OK;
                 else
-                resultado = Resultado.SIN_RESULTADO;
+                Estatus = Estatus.SIN_RESULTADO;
 
                 return distritos;
             }
             catch (Exception ex)
             {
                 MensajeError = ex.Message;
-                resultado = Resultado.ERROR;
+                Estatus = Estatus.ERROR;
                 return null;
             }
             finally
@@ -68,16 +74,30 @@ namespace PoderJudicial.SIPOH.AccesoDatos
             }
         }
 
-        public List<Juzgado> ObtenerJuzgadosAcusatorio(int idCircuito, ref Resultado resultado)
+        /// <summary>
+        /// Retorna lista de Juzgados filtrados por tipo y distrito o circuito
+        /// </summary>
+        /// <param name="id">Representa el Id del Circuito o Distrito al que pertenece el Juzgado</param>
+        /// <param name="tipoJuzgado">Representa el tipo de Juzgado de retorno</param>
+        /// <returns></returns>
+        public List<Juzgado> ObtenerJuzgados(int id, TipoJuzgado tipoJuzgado)
         {
             try
             {
                 if (!IsValidConnection)
                 throw new Exception("No se ha creado una conexion valida");
 
-                SqlCommand comando = new SqlCommand("SP_SIPOH_JuzgadosPorCircuitoAcusatorio", Cnx);
+                string storeProcedure = tipoJuzgado == TipoJuzgado.ACUSATORIO ? "sipoh_JuzgadosPorCircuitoAcusatorio" : "sipoh_JuzgadosPorDistritoTradicional";
+
+                SqlCommand comando = new SqlCommand(storeProcedure, Cnx);
                 comando.CommandType = CommandType.StoredProcedure;
-                comando.Parameters.Add("@idCircuito", SqlDbType.Int).Value = idCircuito;
+
+                if(tipoJuzgado == TipoJuzgado.ACUSATORIO)
+                comando.Parameters.Add("@idCircuito", SqlDbType.Int).Value = id;
+
+                if (tipoJuzgado == TipoJuzgado.TRADICIONAL)
+                comando.Parameters.Add("@idDistrito", SqlDbType.Int).Value = id;
+
                 Cnx.Open();
 
                 SqlDataReader sqlRespuesta = comando.ExecuteReader();
@@ -85,58 +105,19 @@ namespace PoderJudicial.SIPOH.AccesoDatos
                 DataTable tabla = new DataTable();
                 tabla.Load(sqlRespuesta);
 
-                List<Juzgado> juzgados = DataTableToList<Juzgado>(tabla);
+                List<Juzgado> juzgados = DataHelper.DataTableToList<Juzgado>(tabla);
 
                 if (juzgados.Count > 0)
-                    resultado = Resultado.OK;
+                    Estatus = Estatus.OK;
                 else
-                    resultado = Resultado.SIN_RESULTADO;
+                    Estatus = Estatus.SIN_RESULTADO;
 
                 return juzgados;
             }
             catch (Exception ex)
             {
                 MensajeError = ex.Message;
-                resultado = Resultado.ERROR;
-                return null;
-            }
-            finally
-            {
-                if (IsValidConnection && Cnx.State == ConnectionState.Open)
-                    Cnx.Close();
-            }
-        }
-
-        public List<Juzgado> ObtenerJuzgadosTradicional(int idDistrito, ref Resultado resultado)
-        {
-            try
-            {
-                if (!IsValidConnection)
-                    throw new Exception("No se ha creado una conexion valida");
-
-                SqlCommand comando = new SqlCommand("SP_SIPOH_JuzgadosPorDistritoTradicional", Cnx);
-                comando.CommandType = CommandType.StoredProcedure;
-                comando.Parameters.Add("@idDistrito", SqlDbType.Int).Value = idDistrito;
-                Cnx.Open();
-
-                SqlDataReader sqlRespuesta = comando.ExecuteReader();
-
-                DataTable tabla = new DataTable();
-                tabla.Load(sqlRespuesta);
-
-                List<Juzgado> juzgados = DataTableToList<Juzgado>(tabla);
-
-                if (juzgados.Count > 0)
-                resultado = Resultado.OK;
-                else
-                resultado = Resultado.SIN_RESULTADO;
-
-                return juzgados;
-            }
-            catch (Exception ex)
-            {
-                MensajeError = ex.Message;
-                resultado = Resultado.ERROR;
+                Estatus = Estatus.ERROR;
                 return null;
             }
             finally
@@ -147,26 +128,6 @@ namespace PoderJudicial.SIPOH.AccesoDatos
         }
 
         #region Metodos Privados de la Clase
-
-        private List<T> DataTableToList<T>(DataTable dt)
-        {
-            var columnNames = dt.Columns.Cast<DataColumn>().Select(c => c.ColumnName).ToList();
-            var properties = typeof(T).GetProperties();
-
-            return dt.AsEnumerable().Select(row =>
-            {
-                var objT = Activator.CreateInstance<T>();
-                foreach (var pro in properties)
-                {
-                    if (columnNames.Contains(pro.Name))
-                    {
-                        PropertyInfo pI = objT.GetType().GetProperty(pro.Name);
-                        pro.SetValue(objT, row[pro.Name] == DBNull.Value ? null : Convert.ChangeType(row[pro.Name], pI.PropertyType));
-                    }
-                }
-                return objT;
-            }).ToList();
-        }
         #endregion
 
     }

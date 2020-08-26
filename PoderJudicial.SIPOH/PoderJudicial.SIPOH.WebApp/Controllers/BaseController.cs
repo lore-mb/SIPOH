@@ -87,4 +87,12 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             return new string(a);
         }
     }
+    public enum EstatusRespuestaJSON { SIN_RESPUESTA = 0, OK = 1, ERROR = 2 }
+    public class RespuestaJson
+    {
+        public EstatusRespuestaJSON Estatus { get; set; }
+        public string Mensaje { get; set; }
+        public string VistaRender { get; set; }
+        public object Data { get; set; }
+    }
 }

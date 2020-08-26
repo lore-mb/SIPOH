@@ -71,7 +71,8 @@ namespace PoderJudicial.SIPOH.WebApp.App_Start
             //Inyeccion de servicios para repositorios de conexion de datos
             kernel.Bind<ICuentaRepository>().To<CuentaRepository>().WithConstructorArgument("connection", connection);
             kernel.Bind<ICatalogosRepository>().To<CatalogosRepository>().WithConstructorArgument("connection", connection);
-            
+            kernel.Bind<IExpedienteRepository>().To<ExpedienteRepository>().WithConstructorArgument("connection", connection);
+         
             //Inyeccion de servicios para la logica de negocio
             kernel.Bind<ICuentaProcessor>().To<CuentaProcessor>();
             kernel.Bind<IInicialesProcessor>().To<InicialesProcessor>();
