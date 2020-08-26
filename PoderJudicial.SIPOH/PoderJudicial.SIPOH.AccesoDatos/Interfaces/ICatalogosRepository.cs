@@ -15,5 +15,6 @@ namespace PoderJudicial.SIPOH.AccesoDatos.Interfaces
         Estatus Estatus { get; set; }
         List<Distrito> ObtenerDistritos(int idCircuito);
         List<Juzgado> ObtenerJuzgados(int idCircuito, TipoJuzgado tipoJuzgado);
+        List<Juzgado> ObtenerSalas(TipoJuzgado tipoJuzgado);
     }
 }

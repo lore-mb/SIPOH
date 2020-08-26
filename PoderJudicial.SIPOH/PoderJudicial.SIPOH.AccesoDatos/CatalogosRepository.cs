@@ -7,9 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Reflection;
-
 
 namespace PoderJudicial.SIPOH.AccesoDatos
 {
@@ -23,7 +20,10 @@ namespace PoderJudicial.SIPOH.AccesoDatos
         private SqlConnection Cnx;
         private bool IsValidConnection = false;
 
-        //Metodo constructor del repositorio, se le inyecta la clase ServerConnection
+        /// <summary>
+        /// Metodo contructor del repositorio Catalgos
+        /// </summary>
+        /// <param name="connection">Conexion al servidor SQL</param>
         public CatalogosRepository(ServerConnection connection) 
         {
             Cnx = connection.SqlConnection;
@@ -127,8 +127,53 @@ namespace PoderJudicial.SIPOH.AccesoDatos
             }
         }
 
+        /// <summary>
+        /// Metodo que retorna los salas(Juzgados) por tipo tradicional o acusatorio
+        /// </summary>
+        /// <param name="tipoJuzgado">Filtro para obtener salas de tipo tradicional o acusatorios</param>
+        /// <returns></returns>
+        public List<Juzgado> ObtenerSalas(TipoJuzgado tipoJuzgado)
+        {
+            try
+            {
+                if (!IsValidConnection)
+                throw new Exception("No se ha creado una conexion valida");
+
+                string tipoSistema = tipoJuzgado == TipoJuzgado.ACUSATORIO ? "SA" : "ST";
+
+                SqlCommand comando = new SqlCommand("sipoh_SalasPorTipoSistema", Cnx);
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.Add("@tipoSistema", SqlDbType.VarChar).Value = tipoSistema;
+
+                Cnx.Open();
+
+                SqlDataReader sqlRespuesta = comando.ExecuteReader();
+
+                DataTable tabla = new DataTable();
+                tabla.Load(sqlRespuesta);
+
+                List<Juzgado> juzgados = DataHelper.DataTableToList<Juzgado>(tabla);
+
+                if (juzgados.Count > 0)
+                   Estatus = Estatus.OK;
+                else
+                   Estatus = Estatus.SIN_RESULTADO;
+
+                return juzgados;
+            }
+            catch (Exception ex)
+            {
+                MensajeError = ex.Message;
+                Estatus = Estatus.ERROR;
+                return null;
+            }
+            finally
+            {
+                if (IsValidConnection && Cnx.State == ConnectionState.Open)
+                Cnx.Close();
+            }
+        }
         #region Metodos Privados de la Clase
         #endregion
-
     }
 }

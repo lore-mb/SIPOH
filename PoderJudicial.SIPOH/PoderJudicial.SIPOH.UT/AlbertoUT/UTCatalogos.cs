@@ -11,12 +11,20 @@ namespace PoderJudicial.SIPOH.UT.AlbertoUT
     public class UTCatalogos
     {
         [TestMethod]
-        public void ObtenerCatalogosParaOptions()
+        public void ObtenerCatalogosParaOptionsSalas()
         {
             ServerConnection cnx = ServerConnection.GetConnection();
             CatalogosRepository repo = new CatalogosRepository(cnx);
 
-            Estatus res = Estatus.SIN_RESULTADO;
+            List<Juzgado> juzgadosC1 = repo.ObtenerSalas(TipoJuzgado.ACUSATORIO);
+            List<Juzgado> juzgadosC2 = repo.ObtenerSalas(TipoJuzgado.TRADICIONAL);
+        }
+
+        [TestMethod]
+        public void ObtenerCatalogosParaOptions()
+        {
+            ServerConnection cnx = ServerConnection.GetConnection();
+            CatalogosRepository repo = new CatalogosRepository(cnx);
 
             //TRADICIONAL
             //Recuperar Distritos por circuto

@@ -73,5 +73,21 @@ namespace PoderJudicial.SIPOH.Negocio
 
             return expedientes;
         }
+
+        public List<Juzgado> RecuperaSala(TipoJuzgado tipoJuzgado)
+        {
+            List<Juzgado> juzgados = catalogosRepositorio.ObtenerSalas(tipoJuzgado);
+
+            if (catalogosRepositorio.Estatus == Estatus.SIN_RESULTADO)
+                Mensaje = "La consulta no genero ningun resultado";
+
+            else if (catalogosRepositorio.Estatus == Estatus.ERROR)
+            {
+                Mensaje = "Ocurrio un error interno no controlado, consulte a soporte";
+                string mensajeLogger = catalogosRepositorio.MensajeError;
+                //Logica para ILogger
+            }
+            return juzgados;
+        }
     }
 }

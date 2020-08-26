@@ -22,6 +22,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             return View();
         }
 
+        #region Metodos Publicos del Controlador
         [HttpGet]
         public ActionResult ObtenerCircuito() 
         {
@@ -50,6 +51,28 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
 
             ValidaJuzgados(juzgados);
             Respuesta.Mensaje = inicialesProcessor.Mensaje;
+            return Json(Respuesta, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult ObtenerSalaAcusatorio() 
+        {
+            List<Juzgado> juzgados = inicialesProcessor.RecuperaSala(TipoJuzgado.ACUSATORIO);
+
+            ValidaJuzgados(juzgados);
+            Respuesta.Mensaje = inicialesProcessor.Mensaje;
+
+            return Json(Respuesta, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult ObtenerSalaTradicional()
+        {
+            List<Juzgado> juzgados = inicialesProcessor.RecuperaSala(TipoJuzgado.ACUSATORIO);
+
+            ValidaJuzgados(juzgados);
+            Respuesta.Mensaje = inicialesProcessor.Mensaje;
+
             return Json(Respuesta, JsonRequestBehavior.AllowGet);
         }
 
@@ -104,7 +127,9 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
 
             return Json(Respuesta, JsonRequestBehavior.AllowGet);
         }
+        #endregion
 
+        #region Metodos Privados del Controlador
         private void ValidaJuzgados(List<Juzgado> juzgados) 
         {
             if (juzgados == null)
@@ -150,5 +175,6 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 }
             }
         }
+        #endregion
     }
 }
