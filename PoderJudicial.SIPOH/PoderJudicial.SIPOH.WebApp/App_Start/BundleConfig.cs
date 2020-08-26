@@ -50,6 +50,10 @@ namespace PoderJudicial.SIPOH.WebApp
             bundles.Add(new ScriptBundle("~/Scripts/Modules/Ejecucion/Iniciales").Include(
                 "~/Scripts/Modules/Ejecucion/Iniciales/Iniciales.js"));
 
+            // Scripts Submodulo Iniciales
+            bundles.Add(new ScriptBundle("~/Scripts/Modules/Ejecucion/Busquedas").Include(
+                "~/Scripts/Modules/Ejecucion/Busquedas/Busquedas.js"));
+
             // Script Cuenta
             bundles.Add(new ScriptBundle("~/Scripts/Modules/Cuenta").Include(
                 "~/Scripts/Modules/Cuenta/LogIn.js"));

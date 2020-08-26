@@ -1,1 +1,1 @@
-﻿
+﻿alert("Busquedas OK");

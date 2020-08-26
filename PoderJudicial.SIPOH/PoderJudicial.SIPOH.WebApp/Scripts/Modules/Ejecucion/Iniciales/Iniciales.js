@@ -32,7 +32,7 @@ $(document).ready(function () {
         });
     }
 
-    // Listar Circuito en Combo
+    // Listar Circuito Acusatorio
     SolicitudEstandarAjax("/Iniciales/ObtenerCircuito", "", LitarCircuitoAcusatorio);
     function LitarCircuitoAcusatorio(data) {
         if (data.Estatus = EstatusRespuesta.OK) {
