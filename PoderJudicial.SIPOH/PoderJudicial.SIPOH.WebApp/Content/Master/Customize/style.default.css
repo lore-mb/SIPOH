@@ -1,6 +1,6 @@
 /*
 * ==========================================================
-*     GENERAL STYLES
+*     MODIFICACIONES A ESTILOS BOOTSTRAP
 * ==========================================================
 */
 body {
@@ -845,7 +845,7 @@ nav.navbar .dropdown-menu .dropdown-item i {
   width: 30px;
   height: 30px;
   line-height: 30px;
-  background: #796AEE;
+  background: #ffc36d;
   text-align: center;
   color: #fff;
   border-radius: 50%;
@@ -2947,8 +2947,8 @@ a.text-primary:focus, a.text-primary:hover {
 
 .page-item.active .page-link {
   color: #fff;
-  background-color: #796AEE;
-  border-color: #796AEE;
+  background-color: #28A745;
+  border-color: #28A745;
 }
 
 .page-item.disabled .page-link {
@@ -2961,7 +2961,7 @@ a.text-primary:focus, a.text-primary:hover {
   padding: 0.5rem 0.75rem;
   margin-left: -1px;
   line-height: 1.25;
-  color: #796AEE;
+  color: #28A745;
   background-color: #fff;
   border: 1px solid #ddd;
 }
@@ -3455,10 +3455,10 @@ a > code {
 }
 
 .custom-select:focus {
-  border-color: #00CF54;
+  border-color: #b0bec5;
   outline: 0;
-  -webkit-box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.5);
-  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.5);
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(55, 71, 79, 0.25);
+  box-shadow: 0 0 0 0.2rem rgba(55, 71, 79, 0.25);
 }
 
 .custom-select:focus::-ms-value {

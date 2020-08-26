@@ -57,18 +57,30 @@
                                 </ul>
                             </li>
                             <!-- Salir -->
-                            <li class="nav-item dropdown">
-                                <a id="micuenta" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="fas fa-house-user"></i> Mi Perfil</a>
-                                <ul aria-labelledby="micuenta" class="dropdown-menu">
-                                    <li>
-                                        <a rel="nofollow" href="#" class="dropdown-item">
-                                            <div class="notification text-center">
-                                                <div class="notification-content"><i class="fas fa-user-cog bg-warning"></i>Configuración de Perfil</div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li><a rel="nofollow" href="/Cuenta/LogOut" class="dropdown-item all-notifications text-center"><strong>Cerrar Sesión</strong></a></li>
-                                </ul>
+                            <li class="nav-item dropdown no-arrow">
+                                <a class="nav-link" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="d-none d-lg-inline text-gray-600 small">@Usuario.Nombre</span>
+                                </a>
+                                <!-- Dropdown - User Information -->
+                                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                    <a class="dropdown-item" href="#">
+                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Mi perfil
+                                    </a>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Ajustes
+                                    </a>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Log de Actividades
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="/Cuenta/LogOut">
+                                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Cerrar Sesión
+                                    </a>
+                                </div>
                             </li>
                         </ul>
                     </div>
@@ -83,8 +95,8 @@
                     <div class="avatar"><img src="~/img/user_default.png" alt="..." class="img-fluid rounded-circle"></div>
                     <div class="title">
 
-                       <h4>@Usuario.Nombre </h4>
-                       <p> @Usuario.NombreJuzgado</p>
+                       <h4>ADMINISTRADOR</h4>
+                       <p> Juzgado Primero </p>
 
                     </div>
                 </div>
@@ -148,7 +160,7 @@
                             @if (ViewContext.RouteData.Values["controller"].ToString() != "Home")
                             {
                                 <li class="breadcrumb-item"><i class="fas fa-home"></i> @Html.ActionLink("Inicio", "Index", "Home")</li>
-                                <li class="breadcrumb-item">Ejecución</li>
+                                <li class="breadcrumb-item text-success">Ejecución</li>
                                 <li class="breadcrumb-item active">@Html.ActionLink(ViewContext.RouteData.Values["controller"].ToString(), "Iniciales")</li>
                             }
                             else
@@ -169,7 +181,7 @@
                                 <p>Poder Judicial del Estado de Hidalgo &copy; 2020</p>
                             </div>
                             <div class="col-sm-6 text-right">
-                                <p class="text-bold">@DateTime.Now.ToString("dddd, MMMM dd, yyyy h:mm:ss tt")</p>
+                                <p class="text-bold">@DateTime.Now.ToString("dddd, MMMM dd, yyyy")</p>
                             </div>
                         </div>
                     </div>
