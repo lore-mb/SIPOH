@@ -1,10 +1,7 @@
 ﻿using PoderJudicial.SIPOH.Entidades;
-using PoderJudicial.SIPOH.Negocio.Enum;
-using System;
+using PoderJudicial.SIPOH.Entidades.Enum;
+
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PoderJudicial.SIPOH.Negocio.Interfaces
 {
@@ -13,5 +10,6 @@ namespace PoderJudicial.SIPOH.Negocio.Interfaces
         string Mensaje { get; set; }
         List<Juzgado> RecuperaJuzgado(int idFiltro, TipoJuzgado tipoJuzgado);
         List<Distrito> RecuperaDistrito(int idCircuito);
+        List<Expediente> RecuperaExpedientes(int idJuzgado, string numeroExpediente, TipoExpediente expediente);
     }
 }

@@ -7,9 +7,9 @@ using System.Web;
 
 namespace PoderJudicial.SIPOH.WebApp.Helpers
 {
-    public static class Helpers
+    public static class ViewHelper
     {
-        public static List<Opcion> Options<T>(this List<T> list, string value, string label)
+        public static List<Opcion> Options<T>(List<T> list, string value, string label)
         {
             List<Opcion> opciones = new List<Opcion>();
 
@@ -33,5 +33,10 @@ namespace PoderJudicial.SIPOH.WebApp.Helpers
             }
             return opciones;
         }
+    }
+    public class Opcion
+    {
+        public int Value { set; get; }
+        public string Text { set; get; }
     }
 }

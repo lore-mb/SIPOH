@@ -44,10 +44,12 @@
   <ItemGroup>
     <Compile Include="CatalogosRepository.cs" />
     <Compile Include="Conexion\ServerConnection.cs" />
-    <Compile Include="Enum\TipoEnum.cs" />
     <Compile Include="CuentaRepository.cs" />
+    <Compile Include="ExpedienteRepository.cs" />
+    <Compile Include="Helpers\DataHelper.cs" />
     <Compile Include="Interfaces\ICatalogosRepository.cs" />
     <Compile Include="Interfaces\ICuentaRepository.cs" />
+    <Compile Include="Interfaces\IExpedienteRepository.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -57,5 +59,6 @@
       <Name>PoderJudicial.SIPOH.Entidades</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

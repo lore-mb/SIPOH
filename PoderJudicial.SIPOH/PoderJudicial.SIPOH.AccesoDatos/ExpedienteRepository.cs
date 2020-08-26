@@ -7,12 +7,10 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Reflection;
 
 namespace PoderJudicial.SIPOH.AccesoDatos
 {
-    public class CuentaRepository : ICuentaRepository
+    public class ExpedienteRepository : IExpedienteRepository
     {
         //Atributos Publicos del Repositorio
         public string MensajeError { set; get; }
@@ -23,24 +21,30 @@ namespace PoderJudicial.SIPOH.AccesoDatos
         private bool IsValidConnection = false;
 
         //Metodo constructor del repositorio, se le inyecta la clase ServerConnection
-        public CuentaRepository(ServerConnection connection)
+        public ExpedienteRepository(ServerConnection connection)
         {
             Cnx = connection.SqlConnection;
             IsValidConnection = connection.IsValidConnection;
         }
 
-        #region Metodos Publicos del Repositorio
-        public Usuario LogIn(string email, string password)
+        public List<Expediente> ObtenerExpedientes(int idJuzgado, string numeroExpediente, TipoExpediente expediente)
         {
             try
             {
                 if (!IsValidConnection)
-                throw new Exception("No se ha creado una conexion valida");
+                    throw new Exception("No se ha creado una conexion valida");
 
-                SqlCommand comando = new SqlCommand("sipoh_LogIn", Cnx);
+                string storeProcedure = expediente == TipoExpediente.CAUSA ? "sipoh_ExpedientePorJuzgadoCausa" : "sipoh_ExpedientePorJuzgadoNuc";
+
+                SqlCommand comando = new SqlCommand(storeProcedure, Cnx);
                 comando.CommandType = CommandType.StoredProcedure;
-                comando.Parameters.Add("@usuario", SqlDbType.VarChar).Value = email;
-                comando.Parameters.Add("@contrasenia", SqlDbType.VarChar).Value = password;
+                comando.Parameters.Add("@idJuzgado", SqlDbType.Int).Value = idJuzgado;
+
+                if (expediente == TipoExpediente.CAUSA)
+                    comando.Parameters.Add("@numeroCausa", SqlDbType.VarChar).Value = numeroExpediente;
+
+                if (expediente == TipoExpediente.NUC)
+                    comando.Parameters.Add("@nuc", SqlDbType.VarChar).Value = numeroExpediente;
 
                 Cnx.Open();
 
@@ -49,22 +53,15 @@ namespace PoderJudicial.SIPOH.AccesoDatos
                 DataTable tabla = new DataTable();
                 tabla.Load(sqlRespuesta);
 
-                List<Usuario> usuarios = DataHelper.DataTableToList<Usuario>(tabla);
-                if (usuarios.Count > 0)
-                {
-                    Usuario usuario = usuarios.FirstOrDefault();                    
-                    usuario.Activo = true;
+                List<Expediente> expedientes = DataHelper.DataTableToList<Expediente>(tabla);
 
-                    //Valida que el usuario se encuentre activo
-                    if (usuario.Activo)
-                    {
-                        Estatus = Estatus.OK;
-                        return usuario;
-                    }
-                    Estatus = Estatus.INACTIVO;
-                }
+                if (expedientes.Count > 0)
+                    Estatus = Estatus.OK;
 
-                return null;
+                else
+                    Estatus = Estatus.SIN_RESULTADO;
+
+                return expedientes;
             }
             catch (Exception ex)
             {
@@ -75,12 +72,8 @@ namespace PoderJudicial.SIPOH.AccesoDatos
             finally
             {
                 if (IsValidConnection && Cnx.State == ConnectionState.Open)
-                Cnx.Close();
+                    Cnx.Close();
             }
         }
-        #endregion
-
-        #region Metodos Privados de la Clase
-        #endregion
     }
 }

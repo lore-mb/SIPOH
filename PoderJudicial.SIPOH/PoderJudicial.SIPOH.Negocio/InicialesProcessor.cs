@@ -1,7 +1,7 @@
-﻿using PoderJudicial.SIPOH.AccesoDatos.Enum;
+﻿
 using PoderJudicial.SIPOH.AccesoDatos.Interfaces;
 using PoderJudicial.SIPOH.Entidades;
-using PoderJudicial.SIPOH.Negocio.Enum;
+using PoderJudicial.SIPOH.Entidades.Enum;
 using PoderJudicial.SIPOH.Negocio.Interfaces;
 
 using System.Collections.Generic;
@@ -14,58 +14,64 @@ namespace PoderJudicial.SIPOH.Negocio
         public string Mensaje { set; get; }
 
         //Atributos privados del proceso
-        private Resultado resultado;
-        private readonly ICatalogosRepository repositorioCatalogos;
+        private readonly ICatalogosRepository catalogosRepositorio;
+        private readonly IExpedienteRepository expedienteRepositorio;
 
         //Metodo Contructor del proceso, se le inyecta la interfaz CuentaRepositoru
-        public InicialesProcessor(ICatalogosRepository repositorioCatalogos)
+        public InicialesProcessor(ICatalogosRepository catalogosRepositorio, IExpedienteRepository expedienteRepositorio)
         {
-            this.repositorioCatalogos = repositorioCatalogos;
+            this.catalogosRepositorio = catalogosRepositorio;
+            this.expedienteRepositorio = expedienteRepositorio;
         }
 
         public List<Distrito> RecuperaDistrito(int idCircuito)
         {
-            List<Distrito> distritos = repositorioCatalogos.ObtenerDistritoPorCircuito(idCircuito, ref resultado);
+            List<Distrito> distritos = catalogosRepositorio.ObtenerDistritos(idCircuito);
+   
+            if (catalogosRepositorio.Estatus == Estatus.SIN_RESULTADO)
+                Mensaje = "La consulta no genero ningun resultado";
 
-            if (resultado != Resultado.OK) 
+            if (catalogosRepositorio.Estatus == Estatus.ERROR)
             {
-                if (resultado == Resultado.SIN_RESULTADO)
-                    Mensaje = "La consulta no genero ningun resultado";
-
-                else if (resultado == Resultado.ERROR)
-                {
-                    Mensaje = "Ocurrio un error interno no controlado, consulte a soporte";
-                    string mensajeLogger = repositorioCatalogos.MensajeError;
-                    //Logica para ILogger
-                }
+                Mensaje = "Ocurrio un error interno no controlado, consulte a soporte";
+                string mensajeLogger = catalogosRepositorio.MensajeError;
+                //Logica para ILogger
             }
+            
             return distritos;
         }
 
-        public List<Juzgado> RecuperaJuzgado(int idFiltro, TipoJuzgado tipoJuzgado)
+        public List<Juzgado> RecuperaJuzgado(int id, TipoJuzgado tipoJuzgado)
         {
-            List<Juzgado> juzgados = new List<Juzgado>();
+            List<Juzgado> juzgados = catalogosRepositorio.ObtenerJuzgados(id, tipoJuzgado);
 
-            if (tipoJuzgado == TipoJuzgado.ACUSATORIO)
-            juzgados = repositorioCatalogos.ObtenerJuzgadosAcusatorio(idFiltro, ref resultado);
-            
-            if (tipoJuzgado == TipoJuzgado.TRADICIONAL) 
-            juzgados = repositorioCatalogos.ObtenerJuzgadosTradicional(idFiltro, ref resultado);
-              
-            if (resultado != Resultado.OK)
+            if (catalogosRepositorio.Estatus == Estatus.SIN_RESULTADO)
+                Mensaje = "La consulta no genero ningun resultado";
+
+            else if (catalogosRepositorio.Estatus == Estatus.ERROR)
             {
-                if (resultado == Resultado.SIN_RESULTADO)
-                    Mensaje = "La consulta no genero ningun resultado";
+                Mensaje = "Ocurrio un error interno no controlado, consulte a soporte";
+                string mensajeLogger = catalogosRepositorio.MensajeError;
+                //Logica para ILogger
+            }           
+            return juzgados;
+        }
 
-                else if (resultado == Resultado.ERROR)
-                {
-                    Mensaje = "Ocurrio un error interno no controlado, consulte a soporte";
-                    string mensajeLogger = repositorioCatalogos.MensajeError;
-                    //Logica para ILogger
-                }
+        public List<Expediente> RecuperaExpedientes(int idJuzgado, string numeroExpediente, TipoExpediente expediente)
+        {
+            List<Expediente> expedientes = expedienteRepositorio.ObtenerExpedientes(idJuzgado, numeroExpediente, expediente);
+
+            if(expedienteRepositorio.Estatus == Estatus.SIN_RESULTADO)
+                Mensaje = "La consulta no genero ningun resultado";
+
+            else if (expedienteRepositorio.Estatus == Estatus.ERROR)
+            {
+                Mensaje = "Ocurrio un error interno no controlado, consulte a soporte";
+                string mensajeLogger = catalogosRepositorio.MensajeError;
+                //Logica para ILogger
             }
 
-            return juzgados;
+            return expedientes;
         }
     }
 }
