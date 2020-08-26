@@ -11,10 +11,10 @@
 
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active" id="juzgadoT-tab" data-toggle="tab" href="#JuzgadoT" role="tab" aria-controls="JuzgadoT" aria-selected="true">Juzgado Tradicional</a>
+                            <a class="nav-link active" id="juzgadoT-tab" data-toggle="tab" href="#JuzgadoT" role="tab" aria-controls="JuzgadoT" aria-selected="true">Juzgado Acusatorio</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="juzgadoA-tab" data-toggle="tab" href="#JuzgadoA" role="tab" aria-controls="JuzgadoA" aria-selected="false">Juzgado Acusatorio</a>
+                            <a class="nav-link" id="juzgadoA-tab" data-toggle="tab" href="#JuzgadoA" role="tab" aria-controls="JuzgadoA" aria-selected="false">Juzgado Tradicional</a>
                         </li>
                     </ul>
                     <div class="tab-content" id="myTabContent">
@@ -22,18 +22,15 @@
                             <!-- Todo el contenido aquí -->
                             <form class="needs-validation mt-4 ml-2" novalidate>
                                 <div class="form-row">
-                                    <div class="col-md-2 mb-3">
+                                    <div class="col-md-2 mb-2">
                                         <label for="slctCircuito">Circuito</label>
                                         <select class="custom-select" id="slctCircuito" disabled>
-                                            <option disabled value="">Seleccionar Opcíón</option>
-                                            <option value="1" selected>Circuito Uno</option>
                                         </select>
                                     </div>
-                                    <div class="col-md-4 mb-3">
+                                    <div class="col-md-6 mb-3">
                                         <label for="validationCustom04">Juzgado de Procedencia</label>
-                                        <select class="custom-select" id="validationCustom04" required>
-                                            <option selected disabled value="">Seleccionar Opcíón</option>
-                                            <option>JUZGADO PENAL ACUSATORIO PACHUCA</option>
+                                        <select class="custom-select" id="slctJuzgado" required>
+
                                         </select>
                                         <div class="invalid-feedback">
                                             Selecciona un Juzgado.
@@ -102,11 +99,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="JuzgadoA" role="tabpanel" aria-labelledby="juzgadoA-tab">...</div>
+                        <div class="tab-pane fade" id="JuzgadoA" role="tabpanel" aria-labelledby="juzgadoA-tab"></div>
 
                     </div>
-
-
                 </div>
             </div>
         </div>

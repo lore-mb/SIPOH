@@ -22,12 +22,12 @@
     <form id="frm" action="" method="post">
 
         @*<input type="text" id="inputEmail" class="form-control mb-3" placeholder="Nombre de Usuario" required="" autofocus="">*@
-        @Html.EditorFor(model => model.Usuario, new { htmlAttributes = new { @class = "form-control mb-3", @id = "inputEmail", @placeholder = "Nombre de Usuario" } })
+        @Html.EditorFor(model => model.Usuario, new { htmlAttributes = new { @class = "form-control mb-3", @id = "inputEmail", @placeholder = "Nombre de Usuario", @required="" } })
 
         <div class="input-group mb-3">
 
             @*<input ID="txtPassword" type="Password" Class="form-control" placeholder="Contraseña" required="" autofocus="">*@
-            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @id = "txtPassword", @placeholder = "Contraseña" } })
+            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @id = "txtPassword", @placeholder = "Contraseña", @required=""} })
             <div class="input-group-append">
                 <button id="show_password" class="btn btn-dark" type="button" onclick="mostrarPassword()"> <span class="fa fa-eye-slash icon"></span> </button>
             </div>
@@ -36,12 +36,12 @@
         @*En este elemento se visualiza la respuesta del servidor*@
         @Html.ValidationSummary(true, "", new { @class = "text-danger custom-validation-summary" })
 
-        <div class="checkbox mb-2">
+        @*@<div class="checkbox mb-2">
             <label>
                 <input type="checkbox" value="remember-me"> Recordar Inicio de sesión
             </label>
-        </div>
-        <button class="btn btn-lg btn-success btn-block" type="submit">Iniciar Sesión</button>
+        </div>*@
+        <button class="btn btn-lg btn-success btn-block mt-4" type="submit">Iniciar Sesión</button>
         <p class="mt-4 mb-3 text-muted">© Poder Judicial del Estado de Hidalgo</p>
     </form>
 </div>
