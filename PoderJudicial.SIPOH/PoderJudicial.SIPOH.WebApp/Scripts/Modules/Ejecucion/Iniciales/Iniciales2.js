@@ -9,12 +9,11 @@
 var causas = [];
 var dtabla = null;
 
-$(document).ready(function ()
+function PintarTabla()
 {
-    var nombreTabla = "dataTableCausas";
+    var nombreTabla = "dataTable";
 
-    for (var index = 0; index < 500; index++)
-    {
+    for (var index = 0; index < 2; index++) {
         var causa = new Object();
         causa.id = index;
         causa.nJuzgado = "Juzgado de Ejecucion Pro Pachuca";
@@ -26,15 +25,10 @@ $(document).ready(function ()
         causas.push(causa);
     }
 
-    dtabla = GeneraTablaDatos(dtabla, nombreTabla, causas, estructuraTablaCausas);
-});
-
-function imprimirAlert(index)
-{
-    alert(index);
+    dtabla = GeneraTablaDatos(dtabla, nombreTabla, causas, estructuraTablaCausas, false, false, false);
 }
 
-function GeneraTablaDatos(tabla, idTablaHtml, datos, estructuraTabla, mostrar)
+function GeneraTablaDatos(tabla, idTablaHtml, datos, estructuraTabla, ordering, searching, lengthChange)
 {
     if (tabla != null)
     {
@@ -47,9 +41,9 @@ function GeneraTablaDatos(tabla, idTablaHtml, datos, estructuraTabla, mostrar)
         columns: estructuraTabla,
         rowId: 'id',
         responsive: true,
-        "ordering": mostrar,
-        "searching": mostrar,
-        "lengthChange": mostrar,
+        "ordering": ordering,
+        "searching": searching,
+        "lengthChange": lengthChange,
         "pageLength": 5,
         "lengthMenu": [5, 10, 25, 50],
         "language": {
