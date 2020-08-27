@@ -6,7 +6,7 @@ namespace PoderJudicial.SIPOH.Entidades
     {
         public int IdEjecucion { set; get; }
         public string NumeroEjecucion { set; get; }
-        public DateTime FechaEjecucion { set; get; }
+        public string FechaEjecucion { set; get; }
         public string Solicitante { set; get; }
         public string DetalleSolicitante { set; get; }
         public string Solicitud { set; get; }

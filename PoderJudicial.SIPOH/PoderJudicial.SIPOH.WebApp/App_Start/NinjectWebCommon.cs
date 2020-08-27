@@ -5,7 +5,7 @@ namespace PoderJudicial.SIPOH.WebApp.App_Start
 {
     using System;
     using System.Web;
-
+    using AutoMapper;
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 
     using Ninject;
@@ -13,8 +13,10 @@ namespace PoderJudicial.SIPOH.WebApp.App_Start
     using PoderJudicial.SIPOH.AccesoDatos;
     using PoderJudicial.SIPOH.AccesoDatos.Conexion;
     using PoderJudicial.SIPOH.AccesoDatos.Interfaces;
+    using PoderJudicial.SIPOH.Entidades;
     using PoderJudicial.SIPOH.Negocio;
     using PoderJudicial.SIPOH.Negocio.Interfaces;
+    using PoderJudicial.SIPOH.WebApp.Models;
 
     public static class NinjectWebCommon 
     {
@@ -72,10 +74,27 @@ namespace PoderJudicial.SIPOH.WebApp.App_Start
             kernel.Bind<ICuentaRepository>().To<CuentaRepository>().WithConstructorArgument("connection", connection);
             kernel.Bind<ICatalogosRepository>().To<CatalogosRepository>().WithConstructorArgument("connection", connection);
             kernel.Bind<IExpedienteRepository>().To<ExpedienteRepository>().WithConstructorArgument("connection", connection);
-         
+            kernel.Bind<IEjecucionRepository>().To<EjecucionRepository>().WithConstructorArgument("connection", connection);
+
             //Inyeccion de servicios para la logica de negocio
             kernel.Bind<ICuentaProcessor>().To<CuentaProcessor>();
             kernel.Bind<IInicialesProcessor>().To<InicialesProcessor>();
-        }        
+
+            //Mapers *********************************************************
+            var mapperConfiguration = CreateConfiguration();
+            kernel.Bind<MapperConfiguration>().ToConstant(mapperConfiguration).InSingletonScope();
+            kernel.Bind<IMapper>().ToMethod(ctx => new Mapper(mapperConfiguration, type => ctx.Kernel.Get(type)));
+
+        }
+
+        private static MapperConfiguration CreateConfiguration()
+        {
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap <Ejecucion, BeneficiarioDTO>();
+              
+            });
+            return config;
+        }
     }
 }

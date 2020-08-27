@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PoderJudicial.SIPOH.AccesoDatos.Interfaces
 {
-    interface IEjecucionRepository
+    public interface IEjecucionRepository
     {
         string MensajeError { get; set; }
         Estatus Estatus { get; set; }
