@@ -45,10 +45,12 @@
     <Compile Include="CatalogosRepository.cs" />
     <Compile Include="Conexion\ServerConnection.cs" />
     <Compile Include="CuentaRepository.cs" />
+    <Compile Include="EjecucionRepository.cs" />
     <Compile Include="ExpedienteRepository.cs" />
     <Compile Include="Helpers\DataHelper.cs" />
     <Compile Include="Interfaces\ICatalogosRepository.cs" />
     <Compile Include="Interfaces\ICuentaRepository.cs" />
+    <Compile Include="Interfaces\IEjecucionRepository.cs" />
     <Compile Include="Interfaces\IExpedienteRepository.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

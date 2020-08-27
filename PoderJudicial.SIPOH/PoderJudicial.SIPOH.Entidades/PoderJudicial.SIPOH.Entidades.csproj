@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Distrito.cs" />
+    <Compile Include="Ejecucion.cs" />
     <Compile Include="Enum\TiposEnum.cs" />
     <Compile Include="Expediente.cs" />
     <Compile Include="Juzgado.cs" />

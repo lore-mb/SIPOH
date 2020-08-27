@@ -10,10 +10,28 @@ namespace PoderJudicial.SIPOH.UT.AlbertoUT
     [TestClass]
     public class UTCatalogos
     {
+        ServerConnection cnx = null;
+        [TestInitialize]
+        public void GeneraConexion() 
+        {
+            cnx = ServerConnection.GetConnection();
+        }
+
+        [TestMethod]
+        public void ObtenerBeneficiarios()
+        {
+            EjecucionRepository repo = new EjecucionRepository(cnx);
+            string nombre = "Alberto";
+            string apellidop = "Trejo";
+            string apellidom = string.Empty;
+
+            List<Ejecucion> ejecucion = repo.ObtenerSentenciadoBeneficiario(nombre, apellidop, apellidom);
+        }
+
         [TestMethod]
         public void ObtenerCatalogosParaOptionsSalas()
         {
-            ServerConnection cnx = ServerConnection.GetConnection();
+
             CatalogosRepository repo = new CatalogosRepository(cnx);
 
             List<Juzgado> juzgadosC1 = repo.ObtenerSalas(TipoJuzgado.ACUSATORIO);
@@ -23,7 +41,6 @@ namespace PoderJudicial.SIPOH.UT.AlbertoUT
         [TestMethod]
         public void ObtenerCatalogosParaOptions()
         {
-            ServerConnection cnx = ServerConnection.GetConnection();
             CatalogosRepository repo = new CatalogosRepository(cnx);
 
             //TRADICIONAL
