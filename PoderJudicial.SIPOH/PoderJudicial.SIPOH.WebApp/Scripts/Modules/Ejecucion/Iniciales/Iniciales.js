@@ -1,6 +1,5 @@
 ﻿// #region Varaibles Globales
 var idcircuito = null;
-var saludo = null;
 // #endregion
 
 $(document).ready(function () {
@@ -8,30 +7,17 @@ $(document).ready(function () {
     // #region Listar Circuito
     SolicitudEstandarAjax("/Iniciales/ObtenerCircuito", "", ListarCircuito);
     // #endregion
-
     // #region Iniciar Funciones
-    LLenarPickListJuzgado();
-    seteaSaludo();
-    HolaMundo();
+    Circuito_JuzgadoAcusatorio();
     // #endregion
+
 });
-function seteaSaludo()
-{
-    saludo = "Hola Mundo";
-}
 
-function HolaMundo()
-{
-    if (saludo != null) {
-        alert(saludo);
-    }
-
-}
-
-function LLenarPickListJuzgado() {
+function Circuito_JuzgadoAcusatorio(){
     if (idcircuito != null) {
-        var parametros = { idCircuito: idcircuito }
-        SolicitudEstandarAjax("/Iniciales/ObtenerJuzgadoAcusatorio", parametros, ListarJuzgadoAcusatorio);
+        alert("DATA OK")
+        var parobj = { idCircuito: idcircuito }
+        SolicitudEstandarAjax("/Iniciales/ObtenerJuzgadoAcusatorio", parobj, ListarJuzgadoAcusatorio);
     }
 }
 
@@ -66,8 +52,9 @@ function SolicitudEstandarAjax(url, parametros, funcion) {
 function ListarCircuito(data) {
     if (data.Estatus = EstatusRespuesta.OK) {
         const ObjCircuito = [data.Data];
-        var $slctCirAc = $('#slctCircuitoAc');
         idcircuito = data.Data.Value;
+
+        var $slctCirAc = $('#slctCircuitoAc');
         $.each(ObjCircuito, function (id, circuito) {
             $slctCirAc.append('<option value=' + circuito.Value + '>' + circuito.Text + '</option>');
         });
@@ -76,6 +63,14 @@ function ListarCircuito(data) {
     }
 }
 //#endregion
+
+// #region GetPametroCircuito_Acusatorio
+function GetPametroCircuito_Acusatorio() {
+    parametros = { idCircuito: 5 }
+    SolicitudEstandarAjax("/Iniciales/ObtenerJuzgadoAcusatorio", parametros, ListarJuzgadoAcusatorio);
+
+}
+// #endregion
 
 // #region Listar Juzgado [Acusatorio]
 function ListarJuzgadoAcusatorio(data) {
