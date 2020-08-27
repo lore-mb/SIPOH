@@ -203,6 +203,7 @@
     <Content Include="Scripts\Modules\Ejecucion\Busquedas\Busquedas.js" />
     <Content Include="Scripts\Modules\Ejecucion\Consignaciones\Consignaciones.js" />
     <Content Include="Scripts\Modules\Ejecucion\Iniciales\Iniciales.js" />
+    <Content Include="Scripts\Modules\Ejecucion\Iniciales\Iniciales2.js" />
     <Content Include="Scripts\Modules\Ejecucion\Promociones\Promociones.js" />
     <Content Include="Scripts\Modules\Ejecucion\Reportes\Reportes.js" />
     <Content Include="Scripts\Modules\Juicios\Juicios.js" />
