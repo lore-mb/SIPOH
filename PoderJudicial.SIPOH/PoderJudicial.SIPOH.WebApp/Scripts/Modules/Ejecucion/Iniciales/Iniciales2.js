@@ -1,31 +1,79 @@
-﻿var estructuraTablaCausas =
-    [{ data: 'nJuzgado', title: 'N° Juzgado' },
-     { data: 'causaNuc', title: 'Causa|Nuc' },
-     { data: 'ofendido', title: 'Ofendido (s)' },
-     { data: 'inculpado', title: 'Inculpado (s)' },
-     { data: 'delito', title: 'Delitos (s)' },
-     { data: 'eliminar', title: 'Quitar' }];
-
+﻿var estructuraTablaCausas = [{ data: 'nJuzgado', title: 'N° Juzgado' },{ data: 'causaNuc', title: 'Causa|Nuc' },{ data: 'ofendido', title: 'Ofendido (s)' },{ data: 'inculpado', title: 'Inculpado (s)' },{ data: 'delito', title: 'Delitos (s)' },{ data: 'eliminar', title: 'Quitar' }];
+var dataTable = null;
 var causas = [];
-var dtabla = null;
 
 function PintarTabla()
 {
-    var nombreTabla = "dataTable";
+    dataTable = GeneraTablaDatos(dataTable, "dataTable", causas, estructuraTablaCausas, false, false, false);
+}
 
-    for (var index = 0; index < 2; index++) {
-        var causa = new Object();
-        causa.id = index;
-        causa.nJuzgado = "Juzgado de Ejecucion Pro Pachuca";
-        causa.causaNuc = "0027/2017";
-        causa.ofendido = "ANTOLIN ALFREDO ORTIZ GUTIERREZ, JOSE SOCORRO HERNANDEZ VELAZQUEZ";
-        causa.inculpado = "FERNANDO FUENTES CRUZ, SERGIO ALBERTO VALENTIN MONZALVO";
-        causa.delito = "ASALTO AGRAVADO, ROBO";
-        causa.eliminar = '<a href= "#" onclick="imprimirAlert(' + index + ')"><div class="btn btn-danger btn-sm"><i class="fa fa-close"></i></div></a>'
-        causas.push(causa);
+function ConsultarCausas(tradicional)
+{
+    var juzgadoId = 198;
+
+    if (!tradicional)
+    {
+        var nuc = "14-2016-963258";
+        var parametros = { idJuzgado: juzgadoId, nuc: nuc };
+        SolicitudEstandarAjax("/Iniciales/ObtenerExpedientePorNUC", parametros, ListarCausas);
     }
+    else
+    {
+        var numCusa = "";
+        var parametros = { idJuzgado: juzgadoId, numeroCausa: numCusa };
+        SolicitudEstandarAjax("/Iniciales/ObtenerExpedientePorCausa", parametros, ListarCausas);
+    }
+}
 
-    dtabla = GeneraTablaDatos(dtabla, nombreTabla, causas, estructuraTablaCausas, false, false, false);
+function ListarCausas(data)
+{
+    try
+    {
+       if (data.Estatus == EstatusRespuesta.OK)
+       {
+           var expediente = data.Data;
+
+           var causa = new Object();
+
+           causa.id = 1;
+           causa.nJuzgado = expediente.NombreJuzgado;
+           causa.causaNuc = expediente.NumeroCausa == null ? expediente.NUC : expediente.NumeroCausa;
+           causa.ofendido = expediente.Ofendidos;
+           causa.inculpado = expediente.Inculpados;
+           causa.delito = expediente.Delitos;
+           causa.eliminar = "BOTON";
+           //Agrega Causa al Arreglo de Cuasas
+           causas.push(causa);
+
+           dataTable = GeneraTablaDatos(dataTable, "dataTable", causas, estructuraTablaCausas, false, false, false); 
+
+           var causa = new Object();
+
+           causa.id = 2;
+           causa.nJuzgado = expediente.NombreJuzgado;
+           causa.causaNuc = expediente.NumeroCausa == null ? expediente.NUC : expediente.NumeroCausa;
+           causa.ofendido = expediente.Ofendidos;
+           causa.inculpado = expediente.Inculpados;
+           causa.delito = expediente.Delitos;
+           causa.eliminar = "BOTON";
+           //Agrega Causa al Arreglo de Cuasas
+           causas.push(causa);
+
+
+           dataTable = GeneraTablaDatos(dataTable, "dataTable", causas, estructuraTablaCausas, false, false, false);
+           dataTable = GeneraTablaDatos(dataTable, "dataTable", causas, estructuraTablaCausas, false, false, false);
+           dataTable = GeneraTablaDatos(dataTable, "dataTable", causas, estructuraTablaCausas, false, false, false);
+           dataTable = GeneraTablaDatos(dataTable, "dataTable", causas, estructuraTablaCausas, false, false, false);
+       }
+       else if (data.Estatus == EstatusRespuesta.ERROR)
+       {
+           alert(data.Mensaje);
+       }
+    }
+    catch (e)
+    {
+        alert("Ocurrio una excepción InicialesJs.ListarCausas: " + e.message)
+    }
 }
 
 function GeneraTablaDatos(tabla, idTablaHtml, datos, estructuraTabla, ordering, searching, lengthChange)
@@ -72,29 +120,3 @@ function GeneraTablaDatos(tabla, idTablaHtml, datos, estructuraTabla, ordering, 
         }
     });
 }
-
-//$("#dataTable").dataTable(
-//     {
-//        searching: false,
-//        language: {
-//            "decimal": "",
-//            "emptyTable": "No hay información",
-//            "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
-//            "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
-//            "infoFiltered": "(Filtrado de _MAX_ total entradas)",
-//            "infoPostFix": "",
-//            "thousands": ",",
-//            "lengthMenu": "Mostrar _MENU_ Entradas",
-//            "loadingRecords": "Cargando...",
-//            "processing": "Procesando...",
-//            "search": "Buscar:",
-//            "zeroRecords": "Sin resultados encontrados",
-//            "paginate": {
-//                "first": "Primero",
-//                "last": "Ultimo",
-//                "next": "Siguiente",
-//                "previous": "Anterior"
-//            }
-//        },
-//   }
-//);

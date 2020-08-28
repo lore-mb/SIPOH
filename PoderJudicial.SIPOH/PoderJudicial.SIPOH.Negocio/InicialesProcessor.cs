@@ -59,9 +59,9 @@ namespace PoderJudicial.SIPOH.Negocio
             return juzgados;
         }
 
-        public List<Expediente> RecuperaExpedientes(int idJuzgado, string numeroExpediente, TipoExpediente expediente)
+        public Expediente RecuperaExpedientes(int idJuzgado, string numeroExpediente, TipoExpediente expediente)
         {
-            List<Expediente> expedientes = expedienteRepositorio.ObtenerExpedientes(idJuzgado, numeroExpediente, expediente);
+            Expediente expedientes = expedienteRepositorio.ObtenerExpedientes(idJuzgado, numeroExpediente, expediente);
 
             if(expedienteRepositorio.Estatus == Estatus.SIN_RESULTADO)
                 Mensaje = "La consulta no genero ningun resultado";
@@ -72,7 +72,6 @@ namespace PoderJudicial.SIPOH.Negocio
                 string mensajeLogger = catalogosRepositorio.MensajeError;
                 //Logica para ILogger
             }
-
             return expedientes;
         }
 

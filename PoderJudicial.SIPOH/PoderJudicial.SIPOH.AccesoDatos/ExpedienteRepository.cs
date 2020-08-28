@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 
 namespace PoderJudicial.SIPOH.AccesoDatos
 {
@@ -27,7 +28,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
             IsValidConnection = connection.IsValidConnection;
         }
 
-        public List<Expediente> ObtenerExpedientes(int idJuzgado, string numeroExpediente, TipoExpediente expediente)
+        public Expediente ObtenerExpedientes(int idJuzgado, string numeroExpediente, TipoExpediente expediente)
         {
             try
             {
@@ -53,15 +54,20 @@ namespace PoderJudicial.SIPOH.AccesoDatos
                 DataTable tabla = new DataTable();
                 tabla.Load(sqlRespuesta);
 
+                var t = tabla;
+
                 List<Expediente> expedientes = DataHelper.DataTableToList<Expediente>(tabla);
 
                 if (expedientes.Count > 0)
+                { 
+                    Expediente causa = expedientes.FirstOrDefault();
                     Estatus = Estatus.OK;
-
+                    return causa;
+                }
                 else
                     Estatus = Estatus.SIN_RESULTADO;
 
-                return expedientes;
+                return new Expediente();
             }
             catch (Exception ex)
             {
