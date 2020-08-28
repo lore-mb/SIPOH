@@ -1,8 +1,11 @@
-﻿//Variables Globales
+﻿//#region Varaibles Globales
 var EstatusRespuesta = { SIN_RESPUESTA: 0, OK: 1, ERROR: 2 }
 var idcircuito = null;
 
 
+//#endregion
+
+// #region Document Ready [NADA]
 $(document).ready(function ()
 {
     //Elemntos al Cargado
@@ -10,9 +13,11 @@ $(document).ready(function ()
 
     //Solicitudes AJAX
     LlenaPickListCircuito();
-     
+    
 });
+// #endregion
 
+// #region ElementosAlCargado [NADA]
 function ElementosAlCargado()
 {
     //Renderizar Tabla  
@@ -56,29 +61,39 @@ function ElementosAlCargado()
     });
     // #endregion
 }
+// #endregion
 
+// #region GetDataCircuito [NADA]
 function LlenaPickListCircuito()
 {
     SolicitudEstandarAjax("/Iniciales/ObtenerCircuito", "", ListarCircuito);
 }
+// #endregion
 
-//#region ListarCircuito
+//#region PintarCircuito
 function ListarCircuito(data)
 {
     if (data.Estatus = EstatusRespuesta.OK)
     {
         const ObjCircuito = [data.Data];
+        const ObjCircuitoTr = [data.Data];
         idcircuito = data.Data.Value;
 
         var $slctCirAc = $('#slctCircuitoAc');
+        var $slctCirTr = $('#slctCircuitoTr');
 
         $.each(ObjCircuito, function (id, circuito)
         {
             $slctCirAc.append('<option value=' + circuito.Value + '>' + circuito.Text + '</option>');
+            
+        });
+
+        $.each(ObjCircuitoTr, function (id, circuitoTr) {
+            $slctCirTr.append('<option value=' + circuitoTr.Value + '>' + circuitoTr.Text + '</option>');
         });
 
         Circuito_JuzgadoAcusatorio();
-
+        Parametros_Distrito();
     }
     else if (data.Estatus == EstatusRespuesta.ERROR)
     {
@@ -87,6 +102,7 @@ function ListarCircuito(data)
 }
 //#endregion
 
+// #region PasarParametro Circuito - Acusatorio
 function Circuito_JuzgadoAcusatorio()
 {
     if (idcircuito != null)
@@ -99,7 +115,9 @@ function Circuito_JuzgadoAcusatorio()
         alert("Error al obtener los datos");
     }
 }
+// #endregion
 
+// #region Listar Juzgado Acusatorio
 function ListarJuzgadoAcusatorio(data)
 {
     if (data.Estatus = EstatusRespuesta.OK)
@@ -120,6 +138,35 @@ function ListarJuzgadoAcusatorio(data)
         customNotice(data.Mensaje, "Error:", "error", 3350);
     }
 }
+// #endregion
+
+//// #region Parametro Distrito
+//function Parametros_Distrito() {
+//    if (idcircuito != null) {
+//        var Parametros = { idCircuito: idcircuito }
+//        SolicitudEstandarAjax("/Iniciales/ObtenerDistritosPorCircuito", Parametros, ListarDistrito)
+//    } else {
+//        alert("Error de parametro");
+//    }
+//}
+//// #endregion
+
+
+//function ListarDistrito(data) {
+//    if (data.Estatus = EstatusRespuesta.OK) {
+//        // Aquí estoy revisando, me retorna null
+//        alert(JSON.stringify(data));
+//        //var Array = [data.Data]
+//        //var $pickDistrito = $('#slctDistrito');
+//        //$.each(Array, function (id, distrito) {
+//        //    for (var i = 0; i < distrito.length; i++) {
+//        //        $pickDistrito.append('<option value=' + distrito[i].Value + '>' + distrito[i].Text + '</option>');
+//        //    }
+//        //});
+//    } else if (data.Estatus == EstatusRespuesta.ERROR) {
+//        customNotice(data.Mensaje, "Error:", "error", 3350);
+//    }
+//}
 
 //#region Solicitud Ajax Get Generico
 function SolicitudEstandarAjax(url, parametros, funcion)
@@ -146,19 +193,4 @@ function SolicitudEstandarAjax(url, parametros, funcion)
     });
 }
 // #endregion
-
-
-//// #region GetPametroCircuito_Acusatorio
-//function GetPametroCircuito_Acusatorio() {
-//    parametros = { idCircuito: 5 }
-//    SolicitudEstandarAjax("/Iniciales/ObtenerJuzgadoAcusatorio", parametros, ListarJuzgadoAcusatorio);
-
-//}
-//// #endregion
-
-// #region Listar Juzgado [Acusatorio]
-
-// #endregion
-
-
 

@@ -74,6 +74,7 @@ function ListarCausas(data)
     {
         alert("Ocurrio una excepción InicialesJs.ListarCausas: " + e.message)
     }
+    dtabla = GeneraTablaDatos(dtabla, nombreTabla, causas, estructuraTablaCausas, false, false, false);
 }
 
 function GeneraTablaDatos(tabla, idTablaHtml, datos, estructuraTabla, ordering, searching, lengthChange)
