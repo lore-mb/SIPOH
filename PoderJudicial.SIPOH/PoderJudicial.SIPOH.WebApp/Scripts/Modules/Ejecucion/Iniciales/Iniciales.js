@@ -1,4 +1,4 @@
-﻿//region Varaibles Globales
+﻿//region Varaibles Globale!
 var EstatusRespuesta = { SIN_RESPUESTA: 0, OK: 1, ERROR: 2 }
 var idcircuito = null;
 var idDistrito = null;
