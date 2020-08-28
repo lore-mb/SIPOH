@@ -37,8 +37,8 @@
                                     <div class="col-md-3 mb-3">
                                         <label for="slcNumero">N° Causa o  Nuc</label>
                                         <select class="custom-select" id="slcNumero" required>
-                                            <option selected value="">Seleccionar Opcíón</option>
-                                            <option value="1">NUMERO UNICO DE CASO</option>
+                                            @*<option selected value="">Seleccionar Opcíón</option>*@
+                                            <option selected value="1">NUMERO UNICO DE CASO</option>
                                             <option value="2">NUMERO DE CAUSA</option>
                                         </select>
                                         <div class="invalid-feedback">
@@ -51,7 +51,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="inpNUC">NUC</span>
                                             </div>
-                                            <input type="text" class="form-control mr-3" id="inpNUC" aria-describedby="inpNUC" placeholder="0000/0000" required>
+                                            <input type="text" class="form-control mr-3" id="inpNumNUC" aria-describedby="inpNUC" placeholder="0000/0000" required>
                                             <button class="btn btn-success" type="submit" id="btnNUC"><i class="fas fa-save"></i></button>
                                             <div class="invalid-feedback">
                                                 Introducir N° Unico de Caso.
@@ -82,7 +82,12 @@
                                     </div>
                                     <div class="col-md-3 mb-3">
                                         <label for="slcNumero">Distrito de Procedencia</label>
-                                        <select class="custom-select" id="slctDistrito" required></select>
+                                        <select class="custom-select" id="slctDistrito" required>
+                                            <option selected value="">SELECCIONAR OPCIÓN</option>
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            Selecciona un Distrito.
+                                        </div>
                                     </div>
                                     <div class="col-md-4 mb-3">
                                         <label for="validationCustom04">Juzgado de Procedencia</label>
@@ -99,7 +104,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="inputGroupPrepend">CAUSA</span>
                                             </div>
-                                            <input type="text" class="form-control mr-3" id="inpCAU" aria-describedby="inpCAU" placeholder="00-0000-0000" required>
+                                            <input type="text" class="form-control mr-3" id="inpCAUT" aria-describedby="inpCAU" placeholder="00-0000-0000" required>
                                             <button class="btn btn-success" type="submit" id="btnCAU"><i class="fas fa-save"></i></button>
                                             <div class="invalid-feedback">
                                                 Introduce Numero de Causa.
