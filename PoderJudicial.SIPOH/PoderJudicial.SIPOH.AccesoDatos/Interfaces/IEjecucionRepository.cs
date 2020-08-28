@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace PoderJudicial.SIPOH.AccesoDatos.Interfaces
 {
-    public interface IExpedienteRepository
+    public interface IEjecucionRepository
     {
         string MensajeError { get; set; }
         Estatus Estatus { get; set; }
-        Expediente ObtenerExpedientes(int idJuzgado, string causaNuc, TipoExpediente expediente);
+        List<Ejecucion> ObtenerSentenciadoBeneficiario(string nombre, string apellidoPaterno, string apellidoMaterno);
     }
 }

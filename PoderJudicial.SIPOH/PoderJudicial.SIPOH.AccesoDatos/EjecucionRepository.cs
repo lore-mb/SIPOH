@@ -8,10 +8,12 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace PoderJudicial.SIPOH.AccesoDatos
 {
-    public class ExpedienteRepository : IExpedienteRepository
+    public class EjecucionRepository : IEjecucionRepository
     {
         //Atributos Publicos del Repositorio
         public string MensajeError { set; get; }
@@ -22,30 +24,31 @@ namespace PoderJudicial.SIPOH.AccesoDatos
         private bool IsValidConnection = false;
 
         //Metodo constructor del repositorio, se le inyecta la clase ServerConnection
-        public ExpedienteRepository(ServerConnection connection)
+        public EjecucionRepository(ServerConnection connection)
         {
             Cnx = connection.SqlConnection;
             IsValidConnection = connection.IsValidConnection;
         }
 
-        public Expediente ObtenerExpedientes(int idJuzgado, string numeroExpediente, TipoExpediente expediente)
+        /// <summary>
+        /// Metodo que retorna una lista de sentenciados beneficiarios por medio del nombre
+        /// </summary>
+        /// <param name="nombre">Nombre de la Persona Beneficiario</param>
+        /// <param name="apellidoPaterno">Apellido Paterno de la persona beneficiaria</param>
+        /// <param name="apellidoMaterno">Apeliido Materno de la personas beneficiaria</param>
+        /// <returns></returns>
+        public List<Ejecucion> ObtenerSentenciadoBeneficiario(string nombre, string apellidoPaterno, string apellidoMaterno)
         {
             try
             {
                 if (!IsValidConnection)
                     throw new Exception("No se ha creado una conexion valida");
 
-                string storeProcedure = expediente == TipoExpediente.CAUSA ? "sipoh_ExpedientePorJuzgadoCausa" : "sipoh_ExpedientePorJuzgadoNuc";
-
-                SqlCommand comando = new SqlCommand(storeProcedure, Cnx);
+                SqlCommand comando = new SqlCommand("sipoh_ConsultarSentenciadoBeneficiario", Cnx);
                 comando.CommandType = CommandType.StoredProcedure;
-                comando.Parameters.Add("@idJuzgado", SqlDbType.Int).Value = idJuzgado;
-
-                if (expediente == TipoExpediente.CAUSA)
-                    comando.Parameters.Add("@numeroCausa", SqlDbType.VarChar).Value = numeroExpediente;
-
-                if (expediente == TipoExpediente.NUC)
-                    comando.Parameters.Add("@nuc", SqlDbType.VarChar).Value = numeroExpediente;
+                comando.Parameters.Add("@nombre", SqlDbType.VarChar).Value = nombre;
+                comando.Parameters.Add("@apellidoPaterno", SqlDbType.VarChar).Value = apellidoPaterno;
+                comando.Parameters.Add("@apellidoMaterno", SqlDbType.VarChar).Value = apellidoMaterno;
 
                 Cnx.Open();
 
@@ -54,20 +57,14 @@ namespace PoderJudicial.SIPOH.AccesoDatos
                 DataTable tabla = new DataTable();
                 tabla.Load(sqlRespuesta);
 
-                var t = tabla;
+                List<Ejecucion> beneficiaios = DataHelper.DataTableToList<Ejecucion>(tabla);
 
-                List<Expediente> expedientes = DataHelper.DataTableToList<Expediente>(tabla);
-
-                if (expedientes.Count > 0)
-                { 
-                    Expediente causa = expedientes.FirstOrDefault();
+                if (beneficiaios.Count > 0)
                     Estatus = Estatus.OK;
-                    return causa;
-                }
                 else
                     Estatus = Estatus.SIN_RESULTADO;
 
-                return new Expediente();
+                return beneficiaios;
             }
             catch (Exception ex)
             {

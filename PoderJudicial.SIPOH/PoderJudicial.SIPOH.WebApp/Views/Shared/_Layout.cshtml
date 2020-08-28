@@ -94,10 +94,8 @@
                 <div class="sidebar-header d-flex align-items-center">
                     <div class="avatar"><img src="~/img/user_default.png" alt="..." class="img-fluid rounded-circle"></div>
                     <div class="title">
-
                        <h4>ADMINISTRADOR</h4>
-                       <p> Juzgado Primero </p>
-
+                       <p>@Usuario.NombreCircuito</p>
                     </div>
                 </div>
                 <!-- Sidebar Navidation Menus-->
@@ -153,6 +151,12 @@
                 </ul>
             </nav>
             <div class="content-inner">
+
+                <header class="page-header">
+                    <div class="container-fluid title form-inline">
+                         <h4 class="no-margin-bottom"><i class="fas fa-landmark"></i> @Usuario.NombreDistrito</h4>
+                    </div>
+                </header>
                 <!-- Breadcrumb -->
                 <div class="container-fluid">
                     <div class="card bg-white" style="margin-top:1.5%">
@@ -167,9 +171,11 @@
                             {
                                 <li class="breadcrumb-item active"><i class="fas fa-home"></i> Inicio</li>
                             }
+
                         </ol>
                     </div>
                 </div>
+
                 <!-- Renderizar Vistas Parciales -->
                 @RenderBody()
 
