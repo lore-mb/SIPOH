@@ -51,20 +51,10 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="inpNUC">NUC</span>
                                             </div>
-                                            <input type="text" class="form-control mr-3" id="inpNumNUC" aria-describedby="inpNUC" placeholder="0000/0000" required>
+                                            <input type="text" class="form-control mr-3" id="inpNumero" aria-describedby="inpNUC" placeholder="0000/0000" required>
                                             <button class="btn btn-success" type="submit" id="btnNUC"><i class="fas fa-save"></i></button>
                                             <div class="invalid-feedback">
                                                 Introducir N° Unico de Caso.
-                                            </div>
-                                        </div>
-                                        <div class="input-group" id="divCAU">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text" id="inputGroupPrepend">CAUSA</span>
-                                            </div>
-                                            <input type="text" class="form-control mr-3" id="inpCAU" aria-describedby="inpCAU" placeholder="00-0000-0000" required>
-                                            <button class="btn btn-success" type="submit" id="btnCAU"><i class="fas fa-save"></i></button>
-                                            <div class="invalid-feedback">
-                                                Introducir N° de Causa.
                                             </div>
                                         </div>
                                     </div>
@@ -130,9 +120,9 @@
     </div>
 </div>
 
-    @Scripts.Render("~/Scripts/Master/Jquery")
-    @Scripts.Render("~/Scripts/Modules/Ejecucion/Iniciales")
-
+@Scripts.Render("~/Scripts/Master/Jquery")
+@Scripts.Render("~/Scripts/Modules/Ejecucion/Iniciales")
+<script src="~/Scripts/Modules/Ejecucion/Iniciales/PruebaValidaciones.js"></script>
 
 
 

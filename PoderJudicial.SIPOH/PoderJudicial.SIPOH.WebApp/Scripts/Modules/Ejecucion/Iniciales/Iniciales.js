@@ -46,11 +46,10 @@ function ElementosAlCargado()
             $('#inpCAU').val("BB");           
         }
     });
-
     $("#divCAU").hide();
     $('#inpCAU').val("BB");
 
-    //Funcionalidad para 
+    //Funcionalidad para validar formularios
     var forms = document.getElementsByClassName('needs-validation');
     Array.prototype.filter.call(forms, function (form)
     {
