@@ -113,7 +113,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         [HttpGet]
         public ActionResult ObtenerExpedientePorNUC(int idJuzgado, string nuc) 
         {
-            List<Expediente> expedientes = inicialesProcessor.RecuperaExpedientes(idJuzgado, nuc, TipoExpediente.NUC);
+            Expediente expedientes = inicialesProcessor.RecuperaExpedientes(idJuzgado, nuc, TipoExpediente.NUC);
 
             ValidaExpedientes(expedientes);
             Respuesta.Mensaje = inicialesProcessor.Mensaje;
@@ -124,7 +124,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         [HttpGet]
         public ActionResult ObtenerExpedientePorCausa(int idJuzgado, string numeroCausa)
         {
-            List<Expediente> expedientes = inicialesProcessor.RecuperaExpedientes(idJuzgado, numeroCausa, TipoExpediente.CAUSA);
+            Expediente expedientes = inicialesProcessor.RecuperaExpedientes(idJuzgado, numeroCausa, TipoExpediente.CAUSA);
             
             ValidaExpedientes(expedientes);
             Respuesta.Mensaje = inicialesProcessor.Mensaje;
@@ -189,25 +189,24 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             }
         }
 
-        private void ValidaExpedientes(List<Expediente> expedientes) 
+        private void ValidaExpedientes(Expediente expediente) 
         {
-            if (expedientes == null)
+            if (expediente == null)
             {
                 Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
                 Respuesta.Data = null;
             }
             else
             {
-                if (expedientes.Count > 0)
+                if (expediente.IdExpediente == default)
                 {
-                    var lista = expedientes;
-                    Respuesta.Estatus = EstatusRespuestaJSON.OK;
-                    Respuesta.Data = lista;
+                    Respuesta.Estatus = EstatusRespuestaJSON.SIN_RESPUESTA;
+                    Respuesta.Data = null;
                 }
                 else
                 {
-                    Respuesta.Data = new object();
-                    Respuesta.Estatus = EstatusRespuestaJSON.SIN_RESPUESTA;
+                    Respuesta.Estatus = EstatusRespuestaJSON.OK;
+                    Respuesta.Data = expediente;
                 }
             }
         }
