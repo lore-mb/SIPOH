@@ -162,11 +162,13 @@
                                 <li class="breadcrumb-item"><i class="fas fa-home"></i> @Html.ActionLink("Inicio", "Index", "Home")</li>
                                 <li class="breadcrumb-item text-success">Ejecución</li>
                                 <li class="breadcrumb-item active">@Html.ActionLink(ViewContext.RouteData.Values["controller"].ToString(), "Iniciales")</li>
+                                <li class="breadcrumb-item active d-flex">@Usuario.NombreDistrito</li>
                             }
                             else
                             {
                                 <li class="breadcrumb-item active"><i class="fas fa-home"></i> Inicio</li>
                             }
+
                         </ol>
                     </div>
                 </div>

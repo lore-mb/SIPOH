@@ -24,7 +24,6 @@ function PintarTabla()
         causa.eliminar = '<a href= "#" onclick="imprimirAlert(' + index + ')"><div class="btn btn-danger btn-sm"><i class="fa fa-close"></i></div></a>'
         causas.push(causa);
     }
-
     dtabla = GeneraTablaDatos(dtabla, nombreTabla, causas, estructuraTablaCausas, false, false, false);
 }
 
