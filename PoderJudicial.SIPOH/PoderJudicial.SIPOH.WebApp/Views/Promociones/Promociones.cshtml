@@ -9,6 +9,228 @@
             <div class="card shadow-sm">
                 <div class="card-body">
                     <!-- Todo el contenido aquí -->
+                    <!-- FILA MASTER 1 -->
+                    <div class="form-group row" style="margin-top:3%">
+
+                        <!-- DIVISION FILA 2 COL-->
+                        <label class="col-sm-2">Juzgados</label>
+
+                        <!-- DIVISION FILA 5 COL-->
+                        <div class="col-sm-5">
+                            <div class="input-group">
+                                <label for="inlineFormCustomSelect" class="sr-only">Camp 1</label>
+                                <select class="custom-select" id="inlineFormCustomSelect">
+                                    <option selected>Selecciona Juzgado</option>
+                                    <option value="1">Juzgado Penal Acusatorio Pachuca</option>
+                                    <option value="2">Juzgado Penal Acusatorio Tizayuca</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- DIVISION FILA 5 COL -->
+                        <div class="col-sm-5">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">N° Ejecucion</span>
+                                <input type="text" placeholder="0001/2200" class="form-control mr-3 col-sm-4">
+                                <button type="button" class="btn btn-success"><i class="fas fa-search"></i></button>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- CONTENEDOR -->
+                    <div class="form-group row" style="margin-top:6%">
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-sm-5" style="margin-left:0%">
+                                    <!---DIVISION FILA 2 COLUMNAS-->
+                                    <div class="row">
+                                        @*primer input*@
+                                        <div class="col-12">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">Numero Ejecucion</span>
+                                                        </div>
+                                                        <input type="text" placeholder="1234/2025" disabled class="form-control" style="width:90%">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">Juzgado:</span>
+                                                        </div>
+                                                        <input type="text" placeholder="PRIMERO PENAL ACUSATORIO" disabled class="form-control">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">Solicitante</span>
+                                                        </div>
+                                                        <input type="text" placeholder="OTRO N/A" disabled class="form-control">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">Sentenciado/Beneficiario</span>
+                                                        </div>
+                                                        <input type="text" placeholder="BETO ROMERO PARDO" disabled class="form-control">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">Solicitante:</span>
+                                                        </div>
+                                                        <input type="text" placeholder="ESTHER VAZQ VAZQ" disabled class="form-control">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="text-left col-sm-4" style="margin-top:3%">
+                                                    <button type="button" class="btn btn-success"><i>Relacionar Causa</i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-7">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="table-responsive text-center">
+                                                <table class="table table-hover table-sm">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Juzgado</th>
+                                                            <th>Causa</th>
+                                                            <th>NUC</th>
+                                                            <th>Ofendido (s)</th>
+                                                            <th>Inculpado (s)</th>
+                                                            <th>Delitos (s)</th>
+                                                            <th class="text-center">Acciones</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <th scope="row">Segundo Penal Pachuca</th>
+                                                            <td>0177/2003</td>
+                                                            <td>22-03-1234</td>
+                                                            <td>CLARA ISABEL MARTINEZ</td>
+                                                            <td>ESTHER VAZQUEZ</td>
+                                                            <td>SECUESTRO</td>
+
+                                                            <td class="text-center"><button class="btn btn-danger btn-sm"><i class="fa fa-remove"></i></button></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">Segundo Penal Pachuca</th>
+                                                            <td>0002/1978</td>
+                                                            <td>26-01-1995</td>
+                                                            <td>CARLOS MOCTEZUMA ALDANA</td>
+                                                            <td>ESTHER VAZQUEZ</td>
+                                                            <td>SECUESTRO</td>
+                                                            <td class="text-center"><button class="btn btn-danger btn-sm"><i class="fa fa-remove"></i></button></td>
+
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top:5%" class="row">
+                        @*CREE NUEVA FILA DEBAJO DE MI TABAL Y ETIQUETAS *@
+                        <div class="line"></div>                   @*poner una lienea divisora*@
+
+                        <div class="col-sm-6 offset-3">
+                            @*le dio formato a fila y, a mi contendeor promovente*@
+                            <div style="margin-top:5%" class="row">
+                                @*Contenedor de promovente*@
+                                <div class="col-sm-4">
+                                    <label>Promovente:</label>
+                                </div>
+                                <div class="col-sm-8">
+                                    @*nuevo div indica nueva columna para elemento*@
+                                    <input type="text" class="form-control" />     @*declara tu caja y darle formato*@
+                                </div>
+                            </div>                   @*etiqueta de cierre del contenedor promovente*@
+                            <div style="margin-top:3%" class="row">
+                                <div class="col-sm-12 text-center">
+                                    <label>ANEXOS:</label>
+                                </div>
+                            </div>
+                            <div style="margin-top:3%" class="row">
+                                <div class="col-sm-4">
+                                    <label>Descripcion:</label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <div class="input-group">
+                                        <label for="inlineFormCustomSelect" class="sr-only">Camp 1</label>
+                                        <select class="custom-select" id="inlineFormCustomSelect">
+                                            <option selected>Selecciona </option>
+                                            <option value="1">Juzgado Penal Acusatorio Pachuca</option>
+                                            <option value="2">Juzgado Penal Acusatorio Tizayuca</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="margin-top:3%" class="row">
+                                <div class="col-sm-4">
+                                    <label>Cantidad:</label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" />     @*declara tu caja y darle formato*@
+                                </div>
+                            </div>
+                            <div style="margin-top:3%" class="row">
+                                @*Contenedor de mi tabal nota:margin #% el porcentaje indicara que es en toda la pantalla*@
+                                <div class="col-sm-12">
+                                    <div class="table-responsive text-center">
+                                        <table class="table table-hover table-sm">
+                                            <thead>
+                                                <tr>
+                                                    <th>Descripcion</th>
+                                                    <th>Cantidad</th>
+                                                    <th class="text-center">Acciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">Libertad condicional</th>
+                                                    <td>2</td>
+                                                    <td class="text-center"><button class="btn btn-danger btn-sm"><i class="fa fa-remove"></i></button></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="margin-top:3%" class="row text-center">
+                                @*"center" darle formato a mi contendeor*@
+                                <div class="col-sm-12">
+                                    <button type="button" class="btn btn-success rounded">
+                                        <i>Guardar</i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -9,9 +9,114 @@
             <div class="card shadow-sm">
                 <div class="card-body">
                     <!-- Todo el contenido aquí -->
+                    <!---FORMULARIO-->
+                    <div style="margin-top:3%">
+                        <div class="col-12">
+                            <div class="form-group row">
+                                <div class="input-group justify-content-center align-items-center mb-2">
+                                    <div class="custom-control form-control-label custom-radio mr-4">
+                                        <input type="radio" id="cbxJPA" name="customRadio" class="custom-control-input" onclick="mostrarInputJPA()">
+                                        <label class="custom-control-label text-center" for="cbxJPA">Juzgado Penal Acusatorio</label>
+                                    </div>
+                                    <div class="custom-control  form-control-label custom-radio">
+                                        <input type="radio" id="cbxJZT" name="customRadio" class="custom-control-input" onclick="mostrarInputJZT()">
+                                        <label class="custom-control-label text-center" for="cbxJZT">Juzgado Tradicional</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!---FILA 2 MASTER-->
+                    <div style="margin-top:4%">
+                        <div class="col-12">
+                            <div class="row justify-content-center align-items-center">
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+                                        <label for="inlineFormCustomSelect" class="sr-only">Camp 1</label>
+                                        <label class="form-control-label">Circuito:</label>
+                                        <select class="custom-select form-control-label" id="inlineFormCustomSelect">
+                                            <option selected>Selecciona </option>
+                                            <option value="1">HUEJUTLA</option>
+                                            <option value="2">IXMIQUILPAN</option>
+                                            <option value="3">PACHUCA</option>
+                                            <option value="4">TULA</option>
+                                            <option value="5">TULANCINGO</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+                                        <label for="inlineFormCustomSelect" class="sr-only">Camp 1</label>
+                                        <label class="form-control-label">Juzgado:</label>
+                                        <select class="custom-select form-control-label" id="inlineFormCustomSelect">
+                                            <option selected>Selecciona </option>
+                                            <option value="1">JUZGADO PENAL ACUSATORIO HUEJUTLA DE REYES</option>
+                                            <option value="2">UZGADO PENAL ACUSATORIO ZACUALTIPAN</option>
+                                            <option value="3">JUZGADO PENAL ACUSATORIO METZTITLAN</option>
+                                            <option value="4">JUZGADO PENAL ACUSATORIO MOLANGO</option>
+                                            <option value="5">JUZGADO SEGUNDO DE EJECUCION CTO HUEJUTLA</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!---FILA 3 MASTER-->
+                    <div style="margin-top:5%">
+                        <div class="col-12">
+                            <div class="row justify-content-center align-items-center">
+                                <div class="col-sm-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Circuito:</span>
+                                        </div>
+                                        <input type="text" placeholder="HUEJUTLA" disabled class="form-control" style="width:90%">
+                                    </div>
+                                </div>
+                                <div class="col-sm-5">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Juzgado:</span>
+                                        </div>
+                                        <input type="text" placeholder="PRIMERO PENAL ACUSATORIO" disabled class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">No.Causa:</span>
+                                        </div>
+                                        <input type="text" placeholder="000/0000" class="form-control" style="width:90%">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!---CUARTA FILA MASTER-->
+                        <div style="margin-top:4%">
+                            <div class="col-12">
+                                <div class="row justify-content-center align-items-center">
+                                    <label class="col-3 form-control-label text-center">NUC:</label>
+                                    <div class="col-3">
+                                        <input type="text" class="form-control" placeholder="01">
+                                    </div>
+                                    <div class="col-3">
+                                        <input type="text" class="form-control" placeholder="03">
+                                    </div>
+                                    <div class="col-3">
+                                        <input type="text" class="form-control" placeholder="2020">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top:4%" class="row text-center">
+                        <div class="col-sm-12">
+                            <button type="button" class="btn btn-success rounded"><i>Guardar</i></button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-

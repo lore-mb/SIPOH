@@ -9,6 +9,548 @@
             <div class="card shadow-sm">
                 <div class="card-body">
                     <!-- Todo el contenido aquí -->
+                    <!-- Formulario de busquedas-->
+                    <div class="form-group row" style="margin-top:3%;" id="slcBus">
+                        <label class="col-sm-4 text-right form-control-label">Tipo de Busqueda:</label>
+                        <div class="col-sm-4 text-left">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <label for="inlineFormCustomSelect" class="sr-only">Camp 1</label>
+                                    <select class="custom-select form-control-label" id="inlineFormCustomSelect">
+                                        <option value="0" selected>Selecciona</option>
+                                        <option value="1">Busqueda por Partes Causa</option>
+                                        <option value="2">Busqueda por Sentenciado/Beneficiario</option>
+                                        <option value="3">Busqueda por Numero de Causa</option>
+                                        <option value="4">Busqueda por NUC</option>
+                                        <option value="5">Busqueda por Solicitante</option>
+                                        <option value="6">Busqueda por Detalle Solicitante</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Busqueda por partes causa-->
+                    <div class="form-group row divcont" style="margin-top:6%" id="divPartes">
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Nombre:</span>
+                                        <input type="text" placeholder="" class="form-control mr-2 col-sm-4">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Apellido Materno:</span>
+                                        <input type="text" placeholder="" class="form-control mr-2 col-sm-4">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Apellido Paterno:</span>
+                                        <input type="text" placeholder="" class="form-control mr-2 col-sm-4">
+                                        <button type="button" class="btn btn-success rounded"><i class="fas fa-search"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row" style="margin-top:7%;" id="divPartest">
+                        <div class="col-12 text-center">
+                            <div class="table-responsive mr-2">
+                                <table class="table table-hover table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>No.Ejecucion</th>
+                                            <th>Juzgado Ejecucion</th>
+                                            <th>Nombre</th>
+                                            <th>Tipo</th>
+                                            <th>Detalle Solictante</th>
+                                            <th>Fecha</th>
+                                            <th>Solictud</th>
+                                            <th>Beneficiario</th>
+                                            <th>Tipo Expediente</th>
+                                            <th class="text-center">Detalles</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">1</th>
+                                            <td>Beto</td>
+                                            <td>Lore</td>
+                                            <td>Esther</td>
+                                            <td>N/A</td>
+                                            <td>25/01/2009</td>
+                                            <td>OTRO</td>
+                                            <td>Esther Maria</td>
+                                            <td>Incidental</td>
+                                            <td class="text-center"><button class="btn btn-success btn-sm"><i class="fa fa-search"></i></button></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td>Igmar</td>
+                                            <td>Tyno</td>
+                                            <td>Laura</td>
+                                            <td>N/A</td>
+                                            <td>25/01/2009</td>
+                                            <td>OTRO</td>
+                                            <td>Esther Maria</td>
+                                            <td>Incidental</td>
+                                            <td class="text-center"><button class="btn btn-success btn-sm"><i class="fa fa-search"></i></button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Busqueda por Sentenciado/Beneficiario-->
+                    <div class="form-group row" style="margin-top:6%" id="divSentenciado">
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">BNombre:</span>
+                                        <input type="text" placeholder="" class="form-control mr-2 col-sm-4">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">BApellido Materno:</span>
+                                        <input type="text" placeholder="" class="form-control mr-2 col-sm-4">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">BApellido Paterno:</span>
+                                        <input type="text" placeholder="" class="form-control mr-2 col-sm-4">
+                                        <button type="button" class="btn btn-success rounded"><i class="fas fa-search"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row" style="margin-top:7%;" id="divSentenciadot">
+                        <div class="col-12 text-center">
+                            <div class="table-responsive mr-2">
+                                <table class="table table-hover table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>No.Ejecucion</th>
+                                            <th>Juzgado Ejecucion</th>
+                                            <th>Nombre</th>
+                                            <th>Tipo</th>
+                                            <th>Detalle Solictante</th>
+                                            <th>Fecha</th>
+                                            <th>Solictud</th>
+                                            <th>Beneficiario</th>
+                                            <th>Tipo Expediente</th>
+                                            <th class="text-center">Detalles</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">1</th>
+                                            <td>Beto</td>
+                                            <td>Lore</td>
+                                            <td>Esther</td>
+                                            <td>N/A</td>
+                                            <td>25/01/2009</td>
+                                            <td>OTRO</td>
+                                            <td>Esther Maria</td>
+                                            <td>Incidental</td>
+                                            <td class="text-center"><button class="btn btn-success btn-sm"><i class="fa fa-search"></i></button></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td>Igmar</td>
+                                            <td>Tyno</td>
+                                            <td>Laura</td>
+                                            <td>N/A</td>
+                                            <td>25/01/2009</td>
+                                            <td>OTRO</td>
+                                            <td>Esther Maria</td>
+                                            <td>Incidental</td>
+                                            <td class="text-center"><button class="btn btn-success btn-sm"><i class="fa fa-search"></i></button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Busqueda por Numero de Causa-->
+                    <div class="form-group row" style="margin-top:6%" id="divCirNumC">
+                        <label class="col-sm-3  form-control-label">Distrito:</label>
+                        <label class="col-sm-3  form-control-label">Juzgado:</label>
+                        <div class="col-12 justify-content-center">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="input-group">
+                                        <label for="slcDistrito" class="sr-only">Campo1</label>
+                                        <select class="custom-select form-control-label" id="slcDistrito">
+                                            <option disabled value="0">Selecciona</option>
+                                            <option value="1" selected>ACTOPAN</option>
+                                            <option value="2">APAN</option>
+                                            <option value="3">ATOTONILCO EL GRANDE</option>
+                                            <option value="4">HUEJUTLA DE REYES</option>
+                                            <option value="5">HUICHAPAN DE VILLAGRAN</option>
+                                            <option value="6">IXMIQUILPAN</option>
+                                            <option value="7">JACALA DE LEDEZMA</option>
+                                            <option value="8">METZTITLAN</option>
+                                            <option value="9">MIXQUIAHUALA DE JUAREZ</option>
+                                            <option value="10">MOLANGO</option>
+                                            <option value="11">PACHUCA DE SOTO</option>
+                                            <option value="12">TENANGO DE DORIA</option>
+                                            <option value="13">TEPEJI DEL RIO</option>
+                                            <option value="14">TIZAYUCA</option>
+                                            <option value="15">TULA DE ALLENDE</option>
+                                            <option value="16">TULANCINGO DE BRAVO</option>
+                                            <option value="17">ZACUALTIPAN</option>
+                                            <option value="18">ZIMAPAN</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 justify-content-center">
+                                    <div class="input-group-prepend justify-content-center">
+                                        <div class="input-group">
+                                            <label for="slcJuzagdo" class="sr-only">Campo2</label>
+                                            <select class="custom-select form-control-label" id="slcJuzagdo">
+                                                <option disabled value="0">Selecciona</option>
+                                                <option value="1" selected>PENAL ACTOPAN</option>
+                                                <option value="2">JUZGADO PENAL ACUSATORIO ACTOPAN</option>
+                                                <option value="3">PENAL APAN</option>
+                                                <option value="4">JUZGADO PENAL ACUSATORIO APAN</option>
+                                                <option value="5">MIXTO 1RA.INST.ATOTONILCO</option>
+                                                <option value="6">JUZGADO PENAL ACUSATORIO ATOTONILCO</option>
+                                                <option value="7">PENAL DE JALTOCAN EN HUEJUTLA</option>
+                                                <option value="8">JUZGADO PENAL ACUSATORIO HUEJUTLA DE REYES</option>
+                                                <option value="9">PENAL DE HUICHAPAN</option>
+                                                <option value="10">JUZGADO PENAL ACUSATORIO HUICHAPAN</option>
+                                                <option value="11">PENAL IXMIQUILPAN</option>
+                                                <option value="12">JUZGADO PENAL ACUSATORIO IXMIQUILPAN</option>
+                                                <option value="13">MIXTO 1RA.INST.JACALA</option>
+                                                <option value="14">JUZGADO PENAL ACUSATORIO JACALA</option>
+                                                <option value="15">MIXTO.1RA.INST.METZTITLAN</option>
+                                                <option value="16">JUZGADO PENAL ACUSATORIO METZTITLAN</option>
+                                                <option value="17">MIXQUIAHUALA PENAL</option>
+                                                <option value="18">JUZGADO PENAL ACUSATORIO MIXQUIAHUALA</option>
+                                                <option value="19">MIXTO 1RA.INST.MOLANGO</option>
+                                                <option value="20">JUZGADO PENAL ACUSATORIO MOLANGO</option>
+                                                <option value="21">PRIMERO PENAL PACHUCA</option>
+                                                <option value="22">SEGUNDO PENAL PACHUCA</option>
+                                                <option value="23">TERCERO PENAL PACHUCA</option>
+                                                <option value="24">CUARTO PENAL PACHUCA</option>
+                                                <option value="25">PRIMERO ESPECIALIZADO EN ADOLESCENTES</option>
+                                                <option value="26">SEGUNDO ESPECIALIZADO EN ADOLESCENTES</option>
+                                                <option value="27">JUZGADO PRIMERO DE DISTRITO CON RES.EN PACHUCA</option>
+                                                <option value="28">JUZGADO PENAL ACUSATORIO PACHUCA</option>
+                                                <option value="29">ESPECIALIZADO PARA ADOLESCENTES EN EL SITEMA ACUSATORIO Y ORAL</option>
+                                                <option value="30">MIXTO 1RA.INST.TENANGO</option>
+                                                <option value="31">JUZGADO PENAL ACUSATORIO TENANGO DE DORIA</option>
+                                                <option value="32">MIXTO 1RA.INST.TEPEJI DEL RIO</option>
+                                                <option value="33">PENAL DE TIZAYUCA</option>
+                                                <option value="34">JUZGADO PENAL ACUSATORIO TIZAYUCA</option>
+                                                <option value="35">PRIMERO PENAL TULA</option>
+                                                <option value="36">SEGUNDO PENAL TULA</option>
+                                                <option value="37">JUZGADO PENAL ACUSATORIO TULA DE ALLENDE</option>
+                                                <option value="38">PRIMERO PENAL TULANCINGO</option>
+                                                <option value="39">SEGUNDO PENAL TULANCINGO</option>
+                                                <option value="40">JUZGADO PENAL ACUSATORIO TULANCINGO</option>
+                                                <option value="41">MIXTO 1RA.INST.ZACUALTIPAN</option>
+                                                <option value="42">JUZGADO PENAL ACUSATORIO ZACUALTIPAN</option>
+                                                <option value="43">MIXTO 1RA.INST.ZIMAPAN</option>
+                                                <option value="44">JUZGADO PENAL ACUSATORIO ZIMAPAN</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-prepend justify-content-center">
+                                            <span class="input-group-text">Causa:</span>
+                                            <input type="text" placeholder="0000/0000" class="form-control mr-2 col-sm-5">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top:3%" id="divBotonC">
+                        <div class="col-sm-11 text-center">
+                            <div class="input-group-prepend justify-content-center">
+                                <button class="btn btn-success btn-sm">Consultar<i class=""></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row" style="margin-top:7%;" id="divNumCt">
+                        <div class="col-12 text-center">
+                            <div class="table-responsive mr-2">
+                                <table class="table table-hover table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>No.Ejecucion</th>
+                                            <th>Juzgado Ejecucion</th>
+                                            <th>Nombre</th>
+                                            <th>Tipo</th>
+                                            <th>Detalle Solictante</th>
+                                            <th>Fecha</th>
+                                            <th>Solictud</th>
+                                            <th>Beneficiario</th>
+                                            <th>Tipo Expediente</th>
+                                            <th class="text-center">Detalles</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">1</th>
+                                            <td>Beto</td>
+                                            <td>Lore</td>
+                                            <td>Esther</td>
+                                            <td>N/A</td>
+                                            <td>25/01/2009</td>
+                                            <td>OTRO</td>
+                                            <td>Esther Maria</td>
+                                            <td>Incidental</td>
+                                            <td class="text-center"><button class="btn btn-success btn-sm"><i class="fa fa-search"></i></button></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td>Igmar</td>
+                                            <td>Tyno</td>
+                                            <td>Laura</td>
+                                            <td>N/A</td>
+                                            <td>25/01/2009</td>
+                                            <td>OTRO</td>
+                                            <td>Esther Maria</td>
+                                            <td>Incidental</td>
+                                            <td class="text-center"><button class="btn btn-success btn-sm"><i class="fa fa-search"></i></button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Busqueda por NUC-->
+                    <div class="form-group row" style="margin-top:6%" id="divCirNUC">
+                        <div class="col-12 justify-content-center">
+                            <div class="row">
+                                <div class="col-sm-5">
+                                    <div class="input-group">
+                                        <label class="col-sm-5  form-control-label">Circuito:</label>
+                                        <select class="custom-select form-control-label" id="slcCircuito">
+                                            <option disabled value="0">Selecciona</option>
+                                            <option value="1" selected>ACTOPAN</option>
+                                            <option value="2">HUEJUTLA</option>
+                                            <option value="3">IXMIQUILPAN</option>
+                                            <option value="4">PACHUCA</option>
+                                            <option value="5">TULA</option>
+                                            <option value="6">TULANCINGO</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6" id="divNucLstJuzg">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group">
+                                            <label class="col-sm-3  form-control-label">Juzgado:</label>
+                                            <select class="custom-select form-control-label" id="slcJuzagdo">
+                                                <option disabled value="0">Selecciona</option>
+                                                <option value="1" selected>PENAL ACTOPAN</option>
+                                                <option value="2">JUZGADO PENAL ACUSATORIO ACTOPAN</option>
+                                                <option value="3">PENAL APAN</option>
+                                                <option value="4">JUZGADO PENAL ACUSATORIO APAN</option>
+                                                <option value="6">JUZGADO PENAL ACUSATORIO ATOTONILCO</option>
+                                                <option value="7">PENAL DE JALTOCAN EN HUEJUTLA</option>
+                                                <option value="8">JUZGADO PENAL ACUSATORIO HUEJUTLA DE REYES</option>
+                                                <option value="9">PENAL DE HUICHAPAN</option>
+                                                <option value="10">JUZGADO PENAL ACUSATORIO HUICHAPAN</option>
+                                                <option value="11">PENAL IXMIQUILPAN</option>
+                                                <option value="12">JUZGADO PENAL ACUSATORIO IXMIQUILPAN</option>
+                                                <option value="13">JUZGADO PENAL ACUSATORIO JACALA</option>
+                                                <option value="14">JUZGADO PENAL ACUSATORIO METZTITLAN</option>
+                                                <option value="15">MIXQUIAHUALA PENAL</option>
+                                                <option value="16">JUZGADO PENAL ACUSATORIO MIXQUIAHUALA</option>
+                                                <option value="17">JUZGADO PENAL ACUSATORIO MOLANGO</option>
+                                                <option value="18">PRIMERO PENAL PACHUCA</option>
+                                                <option value="19">SEGUNDO PENAL PACHUCA</option>
+                                                <option value="20">TERCERO PENAL PACHUCA</option>
+                                                <option value="21">CUARTO PENAL PACHUCA</option>
+                                                <option value="22">PRIMERO ESPECIALIZADO EN ADOLESCENTES</option>
+                                                <option value="23">SEGUNDO ESPECIALIZADO EN ADOLESCENTES</option>
+                                                <option value="24">JUZGADO PRIMERO DE DISTRITO CON RES.EN PACHUCA</option>
+                                                <option value="25">JUZGADO PENAL ACUSATORIO PACHUCA</option>
+                                                <option value="26">ESPECIALIZADO PARA ADOLESCENTES EN EL SITEMA ACUSATORIO Y ORAL</option>
+                                                <option value="27">MIXTO 1RA.INST.TENANGO</option>
+                                                <option value="28">JUZGADO PENAL ACUSATORIO TENANGO DE DORIA</option>
+                                                <option value="29">PENAL DE TIZAYUCA</option>
+                                                <option value="30">JUZGADO PENAL ACUSATORIO TIZAYUCA</option>
+                                                <option value="31">PRIMERO PENAL TULA</option>
+                                                <option value="32">SEGUNDO PENAL TULA</option>
+                                                <option value="33">JUZGADO PENAL ACUSATORIO TULA DE ALLENDE</option>
+                                                <option value="34">PRIMERO PENAL TULANCINGO</option>
+                                                <option value="35">SEGUNDO PENAL TULANCINGO</option>
+                                                <option value="36">JUZGADO PENAL ACUSATORIO TULANCINGO</option>
+                                                <option value="37">JUZGADO PENAL ACUSATORIO ZACUALTIPAN</option>
+                                                <option value="38">JUZGADO PENAL ACUSATORIO ZIMAPAN</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row" style="margin-top:6%" id="divInpNUC">
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="input-group-prepend">
+                                        <label class="col-sm-3  form-control-label">NUC:</label>
+                                        <span class="input-group-text">Distrito:</span>
+                                        <input type="text" placeholder="" class="form-control mr-2 col-sm-4">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Año:</span>
+                                        <input type="text" placeholder="" class="form-control mr-2 col-sm-4">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Folio:</span>
+                                        <input type="text" placeholder="" class="form-control mr-2 col-sm-4">
+                                        <button type="button" class="btn btn-success rounded"><i class="fas fa-search"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Busqueda por Solicitante-->
+                    <div class="form-group row" style="margin-top:6%" id="divSolic">
+                        <div class="col-12">
+                            <div class="row justify-content-center align-items-center">
+                                <div class="col-sm-5">
+                                    <div class="input-group">
+                                        <label class="col-sm-4 form-control-label">Solicitante:</label>
+                                        <select class="custom-select form-control-label" id="slcCircuito">
+                                            <option disabled value="0">Selecciona</option>
+                                            <option value="1" selected>JUZGADO</option>
+                                            <option value="2">CEREZO</option>
+                                            <option value="3">SOLICITUD DE SENTENCIADO</option>
+                                            <option value="4">VICTIMA</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row" style="margin-top:7%;" id="divSolict">
+                        <div class="col-12 text-center">
+                            <div class="table-responsive mr-2">
+                                <table class="table table-hover table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>No.Ejecucion</th>
+                                            <th>Juzgado Ejecucion</th>
+                                            <th>Nombre</th>
+                                            <th>Tipo</th>
+                                            <th>Detalle Solictante</th>
+                                            <th>Fecha</th>
+                                            <th>Solictud</th>
+                                            <th>Beneficiario</th>
+                                            <th>Tipo Expediente</th>
+                                            <th class="text-center">Detalles</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">1</th>
+                                            <td>Beto</td>
+                                            <td>Lore</td>
+                                            <td>Esther</td>
+                                            <td>N/A</td>
+                                            <td>25/01/2009</td>
+                                            <td>OTRO</td>
+                                            <td>Esther Maria</td>
+                                            <td>Incidental</td>
+                                            <td class="text-center"><button class="btn btn-success btn-sm"><i class="fa fa-search"></i></button></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td>Igmar</td>
+                                            <td>Tyno</td>
+                                            <td>Laura</td>
+                                            <td>N/A</td>
+                                            <td>25/01/2009</td>
+                                            <td>OTRO</td>
+                                            <td>Esther Maria</td>
+                                            <td>Incidental</td>
+                                            <td class="text-center"><button class="btn btn-success btn-sm"><i class="fa fa-search"></i></button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Busqueda por DetalleSolicitante-->
+                    <div class="form-group row" style="margin-top:5%" id="divInpDsolicitante">
+                        <div class="col-12">
+                            <div class="row justify-content-center align-items-center">
+                                <div class="col-sm-6 justify-content-center">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Detalle Solicitante:</span>
+                                        <input type="text" class="form-control mr-2 col-sm-5">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row" style="margin-top:7%;" id="divDsolicitantet">
+                        <div class="col-12 text-center">
+                            <div class="table-responsive mr-2">
+                                <table class="table table-hover table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>No.Ejecucion</th>
+                                            <th>Juzgado Ejecucion</th>
+                                            <th>Nombre</th>
+                                            <th>Tipo</th>
+                                            <th>Detalle Solictante</th>
+                                            <th>Fecha</th>
+                                            <th>Solictud</th>
+                                            <th>Beneficiario</th>
+                                            <th>Tipo Expediente</th>
+                                            <th class="text-center">Detalles</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">1</th>
+                                            <td>Beto</td>
+                                            <td>Lore</td>
+                                            <td>Esther</td>
+                                            <td>N/A</td>
+                                            <td>25/01/2009</td>
+                                            <td>OTRO</td>
+                                            <td>Esther Maria</td>
+                                            <td>Incidental</td>
+                                            <td class="text-center"><button class="btn btn-success btn-sm"><i class="fa fa-search"></i></button></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td>Igmar</td>
+                                            <td>Tyno</td>
+                                            <td>Laura</td>
+                                            <td>N/A</td>
+                                            <td>25/01/2009</td>
+                                            <td>OTRO</td>
+                                            <td>Esther Maria</td>
+                                            <td>Incidental</td>
+                                            <td class="text-center"><button class="btn btn-success btn-sm"><i class="fa fa-search"></i></button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

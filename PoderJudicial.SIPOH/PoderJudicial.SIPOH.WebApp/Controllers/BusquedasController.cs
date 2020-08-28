@@ -8,7 +8,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
 {
     public class BusquedasController : BaseController
     {
-        // GET: Busquedas
+        // GET: Busquedas metodo para mandar a llamar con ajax
         public ActionResult Busquedas()
         {
             return View();
