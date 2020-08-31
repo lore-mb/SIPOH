@@ -14,6 +14,7 @@ var causas = [];
 var estructuraTablaAnexos = [{ data: 'cantidad', title: 'Cantidad' }, { data: 'descripcion', title: 'Descripción' }];
 var anexos = [];
 
+
 //Funciones que se detonan al terminado del renderizado 
 $(document).ready(function ()
 {
@@ -28,33 +29,32 @@ $(document).ready(function ()
     LlenaPickListCircuito();  
 });
 
+// Variables
+var InputNumero = $("#Numero");
+var lblNumero = $("#NumeroLabel");
+var slctNumero = $("#slctNumero");
+slctNumero.prop('selectedIndex', 0);
+InputNumero.val('');
+InputNumero.inputmask("9999/9999");
+//var ValorSeleccionado = $(this).children("option:selected").val();
+slctNumero.change(function () {
+    if ($(this).val() == 1) {
+        InputNumero.inputmask("9999/9999");
+        InputNumero.val('');
+
+        lblNumero.html("Numero Unico de Caso:");
+    } else if ($(this).val() == 2) {
+        InputNumero.inputmask("99-9999-9999");
+        $("#Numero").val('');
+
+        lblNumero.html("Numero Unico de Causa:");
+    }
+});
+
 //Elementos al Cargado
 function ElementosAlCargado()
 {
-    //Funcionalidad para mostrar u ocultar NUC o Causa
-    //$("#slcNumero").change(function ()
-    //{
-    //    if ($(this).val() == "2")
-    //    {
-    //        $('#inpCAU').val("");
-    //        $('#divCAU').show();
-    //        $('#divNUC').hide();
-
-    //        //Trampa
-    //        $('#inpNumNUC').val("AA");
-    //    }
-    //    else if ($(this).val() == "1")
-    //    {
-    //        $('#inpNumNUC').val("");
-    //        $('#divNUC').show();
-    //        $('#divCAU').hide();
-
-    //        //Trampa
-    //        $('#inpCAU').val("BB");           
-    //    }
-    //});
-    //$("#divCAU").hide();
-    //$('#inpCAU').val("BB");
+ 
 
     //$("#contenedorBeneficiario").hide();
     //$("#seccionBeneficiario").hide();
@@ -233,7 +233,6 @@ function ListarJuzgadoTradicional(data)
         customNotice(data.Mensaje, "Error:", "error", 3350);
     }
 }
-
 
 // #region Parametro Distrito
 function Parametros_Distrito()
