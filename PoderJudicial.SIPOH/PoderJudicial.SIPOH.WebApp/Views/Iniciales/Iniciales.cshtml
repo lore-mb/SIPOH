@@ -176,7 +176,29 @@
                                                 <span class="input-group-text" id="inpBusquedaSentenciado">Consultar</span>
                                             </div>
                                             <input type="text" class="form-control mr-3" id="inpBusquedaSentenciado" aria-describedby="inpNumero" disabled>
-                                            <div class="btn btn-success" id="btnTotalBusqueda"><i class="fa fa-eye icon"></i></div>
+
+                                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#Modal"><i class="fa fa-eye icon"></i></button>
+
+                                            <!-- Este es el modal -->
+                                            <div class="modal fade" id="Modal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="staticBackdropLabel">Titulo del modal</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Contenido...
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                                            <button type="button" class="btn btn-primary">Aceptar</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -212,30 +234,7 @@
                                         <div class="invalid-feedback">
                                             Seleccionar Juzgado.
                                         </div>
-                                        <input type="text" class="form-control mr-3" id="inpNumero" aria-describedby="inpNumero" disabled>
-                                        <!-- Button trigger modal -->
-                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#Modal"><i class="fa fa-eye icon"></i></button>
-
-                                        <!-- Este es el modal -->
-                                        <div class="modal fade" id="Modal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="staticBackdropLabel">Titulo del modal</h5>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        Contenido...
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                                        <button type="button" class="btn btn-primary">Aceptar</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+       
                                     </div>
                                     <div class="col-12 col-md-8 mt-3 mt-md-5">
                                         <div class="input-group" id="divNombreSentenciado">

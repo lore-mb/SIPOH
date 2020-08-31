@@ -56,10 +56,10 @@ function ElementosAlCargado()
     //$("#divCAU").hide();
     //$('#inpCAU').val("BB");
 
-    $("#contenedorBeneficiario").hide();
-    $("#seccionBeneficiario").hide();
-    $("#seccionBusquedaAnexos").hide();
-    $("#seccionTablaAnexos").hide();
+    //$("#contenedorBeneficiario").hide();
+    //$("#seccionBeneficiario").hide();
+    //$("#seccionBusquedaAnexos").hide();
+    //$("#seccionTablaAnexos").hide();
 
     //Funcionalidad para validar formularios
     var forms = document.getElementsByClassName('needs-validation');
