@@ -32,7 +32,11 @@ namespace PoderJudicial.SIPOH.WebApp
 
             // Scripts Jquery
             bundles.Add(new ScriptBundle("~/Scripts/Master/Jquery").Include(
-              "~/Scripts/Master/Jquery/jquery.min.js"));
+              "~/Scripts/Master/Jquery/jquery-3.5.1.min.js"));
+
+            // Scripts InputMask
+            bundles.Add(new ScriptBundle("~/Scripts/Master/InptuMask").Include(
+                "~/Scripts/Master/InptuMask/jquery.inputmask.js"));
 
             // Scripts Bootstrap
             bundles.Add(new ScriptBundle("~/Scripts/Master/Bootstrap").Include(

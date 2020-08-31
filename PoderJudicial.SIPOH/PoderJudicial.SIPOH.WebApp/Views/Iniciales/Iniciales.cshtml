@@ -35,23 +35,28 @@
                                         </div>
                                     </div>
                                     <div class="col-md-3 mb-3">
-                                        <label for="slcNumero">N° Causa o  Nuc</label>
-                                        <select class="custom-select" id="slcNumero" required>
-                                            @*<option selected value="">Seleccionar Opcíón</option>*@
+                                        <label for="slcNumero">N° Unico Caso - N° Causa</label>
+                                        <select class="custom-select" id="slctNumero">
+                                            <option value="1">NUMERO UNICO DE CASO</option>
+                                            <option value="2">NUMERO UNICO DE CAUSA</option>
+                                        </select>
+                                        @*<select class="custom-select" id="slcNumero" required>
+                                            <option selected value="">Seleccionar Opcíón</option>
                                             <option selected value="1">NUMERO UNICO DE CASO</option>
                                             <option value="2">NUMERO DE CAUSA</option>
-                                        </select>
+                                        </select>*@
                                         <div class="invalid-feedback">
                                             Seleccionar N° Unico de Caso / N° Causa.
                                         </div>
                                     </div>
                                     <div class="col-md-3 mb-3">
-                                        <label for="validationCustomUsername">Numero</label>
+                                        <label class="my-1 mr-2" for="inpNumero" id="NumeroLabel">Numero Unico de Caso:</label>
                                         <div class="input-group" id="divNUC">
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text" id="inpNUC">NUC</span>
+                                                <span class="input-group-text" id="inpNUC"># CASO</span>
                                             </div>
-                                            <input type="text" class="form-control mr-3" id="inpNumero" aria-describedby="inpNUC" placeholder="0000/0000" required>
+                                            <input type="text" id="Numero" name="Numero" class="form-control mr-3" data-inputmask-clearmaskonlostfocus="true" required />
+                                            @*<input type="text" class="form-control mr-3" id="inpNumero" aria-describedby="inpNUC" placeholder="0000/0000" required>*@
                                             <button class="btn btn-success" type="submit" id="btnNUC"><i class="fas fa-search"></i></button>
                                             <div class="invalid-feedback">
                                                 Introducir N° Unico de Caso.
@@ -341,8 +346,5 @@
 
 
 @Scripts.Render("~/Scripts/Master/Jquery")
+@Scripts.Render("~/Scripts/Master/InptuMask")
 @Scripts.Render("~/Scripts/Modules/Ejecucion/Iniciales")
-<script src="~/Scripts/Modules/Ejecucion/Iniciales/PruebaValidaciones.js"></script>
-
-
-

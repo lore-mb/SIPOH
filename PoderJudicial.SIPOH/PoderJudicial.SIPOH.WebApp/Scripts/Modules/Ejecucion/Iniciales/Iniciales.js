@@ -18,6 +18,7 @@ var anexos = [];
 var estructuraTablaBeneficiarios = [{ data: 'cantidad', title: 'Cantidad' }, { data: 'descripcion', title: 'Descripción' }];
 var beneficarios = [];
 
+
 //Funciones que se detonan al terminado del renderizado 
 $(document).ready(function ()
 {
@@ -32,6 +33,28 @@ $(document).ready(function ()
     LlenaPickListCircuito();  
 });
 
+// Variables
+var InputNumero = $("#Numero");
+var lblNumero = $("#NumeroLabel");
+var slctNumero = $("#slctNumero");
+slctNumero.prop('selectedIndex', 0);
+InputNumero.val('');
+InputNumero.inputmask("9999/9999");
+//var ValorSeleccionado = $(this).children("option:selected").val();
+slctNumero.change(function () {
+    if ($(this).val() == 1) {
+        InputNumero.inputmask("9999/9999");
+        InputNumero.val('');
+
+        lblNumero.html("Numero Unico de Caso:");
+    } else if ($(this).val() == 2) {
+        InputNumero.inputmask("99-9999-9999");
+        $("#Numero").val('');
+
+        lblNumero.html("Numero Unico de Causa:");
+    }
+});
+
 //Elementos al Cargado
 function ElementosAlCargado()
 {
@@ -39,6 +62,12 @@ function ElementosAlCargado()
    //$("#seccionBeneficiario").hide();
     $("#seccionBusquedaAnexos").hide();
     $("#seccionTablaAnexos").hide();
+ 
+
+    //$("#contenedorBeneficiario").hide();
+    //$("#seccionBeneficiario").hide();
+    //$("#seccionBusquedaAnexos").hide();
+    //$("#seccionTablaAnexos").hide();
 
     //Funcionalidad para validar formularios
     var forms = document.getElementsByClassName('needs-validation');
@@ -266,6 +295,7 @@ function ListarJuzgadoTradicional(data)
     }
 }
 
+// #region Parametro Distrito
 function Parametros_Distrito()
 {
     if (idcircuito != null)
