@@ -56,11 +56,13 @@ function ElementosAlCargado()
     //$("#divCAU").hide();
     //$('#inpCAU').val("BB");
 
+    $("#contenedorBeneficiario").hide();
+    $("#seccionBeneficiario").hide();
+    $("#seccionBusquedaAnexos").hide();
+    $("#seccionTablaAnexos").hide();
+
     //Funcionalidad para validar formularios
     var forms = document.getElementsByClassName('needs-validation');
-
-    //var forms = document.getElementById("formCausas");
-
 
     Array.prototype.filter.call(forms, function (form)
     {
@@ -307,6 +309,9 @@ function ListarCausas(data)
         {
             var expediente = data.Data;
 
+            if (causas.length == 0)
+            $("#contenedorBeneficiario").show();
+
             if (!ValidarCuasaEnTabla(expediente.IdExpediente))
             {
                 var causa = new Object();
@@ -371,6 +376,9 @@ function EliminarCausa(id)
 
     //Genera nuevamente la tabla
     dataTable = GeneraTablaDatos(dataTable, "dataTable", causas, estructuraTablaCausas, false, false, false);
+
+    if (causas.length == 0)
+        $("#contenedorBeneficiario").hide();
 }
 
 //#region Solicitud Ajax Get Generico
