@@ -150,9 +150,8 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             {
                 if (beneficiariosDTO.Count > 0)
                 {
-                    var lista = beneficiariosDTO;
                     Respuesta.Estatus = EstatusRespuestaJSON.OK;
-                    Respuesta.Data = lista;
+                    Respuesta.Data = new { beneficiarios = beneficiariosDTO, total = beneficiariosDTO.Count };
                 }
                 else
                 {

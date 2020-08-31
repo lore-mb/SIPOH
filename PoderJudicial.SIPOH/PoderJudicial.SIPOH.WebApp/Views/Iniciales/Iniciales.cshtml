@@ -176,29 +176,7 @@
                                                 <span class="input-group-text" id="inpBusquedaSentenciado">Consultar</span>
                                             </div>
                                             <input type="text" class="form-control mr-3" id="inpBusquedaSentenciado" aria-describedby="inpNumero" disabled>
-
-                                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#Modal"><i class="fa fa-eye icon"></i></button>
-
-                                            <!-- Este es el modal -->
-                                            <div class="modal fade" id="Modal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="staticBackdropLabel">Titulo del modal</h5>
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            Contenido...
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                                            <button type="button" class="btn btn-primary">Aceptar</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <button id="botonMostrarBeneficiarios" type="button" class="btn btn-success"><i class="fa fa-eye icon"></i></button>
                                         </div>
                                     </div>
                                 </div>
@@ -234,7 +212,7 @@
                                         <div class="invalid-feedback">
                                             Seleccionar Juzgado.
                                         </div>
-       
+
                                     </div>
                                     <div class="col-12 col-md-8 mt-3 mt-md-5">
                                         <div class="input-group" id="divNombreSentenciado">
@@ -331,6 +309,31 @@
 
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Ventana modal para agregar u editar un estudiante -->
+<div id="ejecucionModal" class="modal fade" data-backdrop="static" data-keyboard="false" role="dialog">
+    <div class="modal-dialog">
+        <!-- Contenido del modal -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <div type="button" class="close" data-dismiss="modal">
+                    <i class="btn btn-sm glyphicon glyphicon-remove"></i>
+                </div>
+                <h3 id="contactModelHeader"></h3>
+                <div id="ErrorMessageContainer"></div>
+            </div>
+            <div class="modal-body">
+                <div id="modalContainer">
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <input type="button" value="Cancelar" id="btnCancelar" class="btn btn-danger" />
+                <input type="button" value="Aceptar" id="btnAceptar" class="btn btn-success" />
             </div>
         </div>
     </div>

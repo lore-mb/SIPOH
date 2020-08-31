@@ -7,12 +7,16 @@ var esJuzgadoAcusatorio = true;
 //Estructura para data tables
 var dataTable = null;
 var dataTableAnex = null;
+var dataTableBeneficiario = null;
 
 var estructuraTablaCausas = [{ data: 'nJuzgado', title: 'N° Juzgado' }, { data: 'causaNuc', title: 'Causa|Nuc' }, { data: 'ofendido', title: 'Ofendido (s)' }, { data: 'inculpado', title: 'Inculpado (s)' }, { data: 'delito', title: 'Delitos (s)' }, { data: 'eliminar', title: 'Quitar' }];
 var causas = [];
 
 var estructuraTablaAnexos = [{ data: 'cantidad', title: 'Cantidad' }, { data: 'descripcion', title: 'Descripción' }];
 var anexos = [];
+
+var estructuraTablaBeneficiarios = [{ data: 'cantidad', title: 'Cantidad' }, { data: 'descripcion', title: 'Descripción' }];
+var beneficarios = [];
 
 //Funciones que se detonan al terminado del renderizado 
 $(document).ready(function ()
@@ -31,35 +35,10 @@ $(document).ready(function ()
 //Elementos al Cargado
 function ElementosAlCargado()
 {
-    //Funcionalidad para mostrar u ocultar NUC o Causa
-    //$("#slcNumero").change(function ()
-    //{
-    //    if ($(this).val() == "2")
-    //    {
-    //        $('#inpCAU').val("");
-    //        $('#divCAU').show();
-    //        $('#divNUC').hide();
-
-    //        //Trampa
-    //        $('#inpNumNUC').val("AA");
-    //    }
-    //    else if ($(this).val() == "1")
-    //    {
-    //        $('#inpNumNUC').val("");
-    //        $('#divNUC').show();
-    //        $('#divCAU').hide();
-
-    //        //Trampa
-    //        $('#inpCAU').val("BB");           
-    //    }
-    //});
-    //$("#divCAU").hide();
-    //$('#inpCAU').val("BB");
-
-    //$("#contenedorBeneficiario").hide();
-    //$("#seccionBeneficiario").hide();
-    //$("#seccionBusquedaAnexos").hide();
-    //$("#seccionTablaAnexos").hide();
+   //$("#contenedorBeneficiario").hide();
+   //$("#seccionBeneficiario").hide();
+    $("#seccionBusquedaAnexos").hide();
+    $("#seccionTablaAnexos").hide();
 
     //Funcionalidad para validar formularios
     var forms = document.getElementsByClassName('needs-validation');
@@ -102,15 +81,68 @@ function ElementosAlCargado()
 
     });
 
-    //$('#inpCAU').change(function ()
-    //{
-    //    esJuzgadoAcusatorio = true;
-    //});
-
     $('#inpCAUT').change(function ()
     {
         esJuzgadoAcusatorio = false;
     });
+
+    $("#botonMostrarBeneficiarios").click(function ()
+    {
+        MostrarBeneficiarios();
+    });
+
+    $("#btnCancelar").click(function ()
+    {
+        $("#ejecucionModal").modal("hide");
+    });
+
+    $('#inpApellidoPaterno').change(function ()
+    {
+        ValidarBeneficiarios();
+    });
+
+    $('#inpNombreSentenciado').change(function ()
+    {
+        ValidarBeneficiarios();
+    });
+
+}
+
+function MostrarBeneficiarios()
+{
+    var apellidoPBene = $('#inpApellidoPaterno').val();
+    var NombreBene = $('#inpNombreSentenciado').val();
+
+    if (NombreBene != "" && apellidoPBene != "")
+    {
+        $('#ejecucionModal').modal('show');
+    }
+}
+
+function ValidarBeneficiarios()
+{
+    var apellidoPBene = $('#inpApellidoPaterno').val();
+    var apellidoMBene = $('#inpApellidoMaterno').val();
+    var NombreBene = $('#inpNombreSentenciado').val();
+
+    if (NombreBene != "" && apellidoPBene != "")
+    {
+        //Consumir Metodo del Controlador
+        var parametros = { nombreBene: NombreBene, apellidoPaternoBene: apellidoPBene, apellidoMaternoBene: apellidoMBene}
+        SolicitudEstandarAjax("/Iniciales/ConsultarSentenciadoBeneficiario", parametros, LlenaTablaConsultaBeneficiarios);
+    }
+}
+
+function LlenaTablaConsultaBeneficiarios(data)
+{
+    if (data.Estatus = EstatusRespuesta.OK)
+    {
+        var data = data.Data;
+    }
+    else
+    {
+
+    }
 }
 
 function LlenaPickListCircuito()
@@ -234,8 +266,6 @@ function ListarJuzgadoTradicional(data)
     }
 }
 
-
-// #region Parametro Distrito
 function Parametros_Distrito()
 {
     if (idcircuito != null)
@@ -248,7 +278,6 @@ function Parametros_Distrito()
         alert("Error de parametro");
     }
 }
-// #endregion
 
 function ListarDistrito(data)
 {
