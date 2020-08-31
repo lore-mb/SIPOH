@@ -19,7 +19,7 @@
                     <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade show active" id="JuzgadoT" role="tabpanel" aria-labelledby="juzgadoT-tab">
                             <!-- Todo el contenido aquí -->
-                            <form class="needs-validation mt-4 ml-2" novalidate>
+                            <form id="formCausas" class="needs-validation mt-4" novalidate>
                                 <div class="form-row">
                                     <div class="col-md-2 mb-3">
                                         <label for="slctCircuitoAc">Circuito:</label>
@@ -52,7 +52,7 @@
                                                 <span class="input-group-text" id="inpNUC">NUC</span>
                                             </div>
                                             <input type="text" class="form-control mr-3" id="inpNumero" aria-describedby="inpNUC" placeholder="0000/0000" required>
-                                            <button class="btn btn-success" type="submit" id="btnNUC"><i class="fas fa-save"></i></button>
+                                            <button class="btn btn-success" type="submit" id="btnNUC"><i class="fas fa-search"></i></button>
                                             <div class="invalid-feedback">
                                                 Introducir N° Unico de Caso.
                                             </div>
@@ -64,7 +64,7 @@
                             </form>
                         </div>
                         <div class="tab-pane fade" id="JuzgadoA" role="tabpanel" aria-labelledby="juzgadoA-tab">
-                            <form class="needs-validation mt-4 ml-2" novalidate>
+                            <form  id="formCausasTradicional" class="needs-validation mt-4" novalidate>
                                 <div class="form-row">
                                     <div class="col-md-2 mb-3">
                                         <label for="slctCircuitoTr">Circuito</label>
@@ -108,10 +108,189 @@
 
                         </div>
                     </div>
-                    <div class="card-body">
+
+                    <div class="tab-content">
                         <div class="table-responsive">
                             <table class="table table-bordered table-hover table-sm" id="dataTable" width="100%" cellspacing="0">
                             </table>
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="myTabBene">
+
+                        <form id="formEjecucion" class="needs-validation" novalidate>
+
+                            <!-- FILA UNO -->
+                            <div class="form-row mt-4">
+                                <div class="col-12">
+                                    <label for="validationCustomUsername">Sentenciado/Beneficiario</label>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="col-12 col-md-6 mt-1">
+                                    <div class="input-group" id="divNombreSentenciado">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="inpNombreSentenciado">Apellido Paterno</span>
+                                        </div>
+                                        <input type="text" class="form-control" id="inpNumero" aria-describedby="inpNumero" required>
+                                        <div class="invalid-feedback">
+                                            Introducir nombre del Beneficiario
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6 mt-3 mt-md-1">
+                                    <div class="input-group" id="divNombreSentenciado">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="inpNombreSentenciado">Apellido Materno</span>
+                                        </div>
+                                        <input type="text" class="form-control" id="inpNumero" aria-describedby="inpNumero" optional>
+                                        <div class="invalid-feedback">
+                                            Introducir nombre del Beneficiario
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- FILA DOS -->
+                            <div class="form-row">
+                                <div class="col-12 col-md-6 mt-3">
+                                    <div class="input-group" id="divNombreSentenciado ">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="inpNombreSentenciado">Nombre(s)</span>
+                                        </div>
+                                        <input type="text" class="form-control" id="inpNumero" aria-describedby="inpNumero" required>
+                                        <div class="invalid-feedback">
+                                            Introducir nombre del Beneficiario
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 mt-3">
+
+                                    <div class="input-group" id="divBusqueda">
+
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="inpNombreSentenciado">Consultar</span>
+                                        </div>
+                                        <input type="text" class="form-control mr-3" id="inpNumero" aria-describedby="inpNumero" disabled>
+                                        <div class="btn btn-success" id="btnTotalBusqueda"><i class="fa fa-eye icon"></i></div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="form-row">
+                                <div class="col-12 col-md-6 mt-3">
+                                    <label for="validationCustom04"> ¿Sentenciado Interno?</label>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1">
+                                        <label class="form-check-label" for="exampleRadios1">
+                                            Si
+                                        </label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                                        <label class="form-check-label" for="exampleRadios2">
+                                            No
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- FILA TRES -->
+                            <div class="form-row">
+                                <div class="col-12 col-md-4 mt-3">
+                                    <label for="validationCustom04">Solicitante</label>
+                                    <select class="custom-select" id="slctJuzgado" required>
+                                        <option selected value="">SELECCIONAR OPCIÓN</option>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        Seleccionar Juzgado.
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-8 mt-3 mt-md-5">
+                                    <div class="input-group" id="divNombreSentenciado">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="inpNombreSentenciado">Otro</span>
+                                        </div>
+                                        <input type="text" class="form-control" id="inpNumero" aria-describedby="inpNumero" disabled>
+                                        <div class="invalid-feedback">
+                                            Introdusca un valor
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="col-12 mt-3">
+                                    <div class="input-group" id="divNombreSentenciado">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="inpNombreSentenciado">Detalle del Solicitante</span>
+                                        </div>
+                                        <input type="text" class="form-control" id="inpNumero" aria-describedby="inpNumero" required>
+                                        <div class="invalid-feedback">
+                                            Introdusca un valor
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="col-12 col-md-8 mt-3">
+                                    <label for="validationCustom04">Solicitud</label>
+                                    <select class="custom-select" id="slctJuzgado" required>
+                                        <option selected value="">SELECCIONAR OPCIÓN</option>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        Seleccionar Juzgado.
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-4 mt-5">
+                                    <div class="input-group" id="divNombreSentenciado">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text mr-3" id="inpNUC">Crear Inicial</span>
+                                        </div>
+                                        <button class="btn btn-success " type="submit" id="btnNUC"><i class="fas fa-save"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                        <form id="formAnexos" class="needs-validation" novalidate>
+                            <div class="form-row">
+                                <div class="col-12 col-md-8 mt-3">
+                                    <label for="validationCustom04">Anexos</label>
+                                    <select class="custom-select" id="slctJuzgado" required>
+                                        <option selected value="">SELECCIONAR DESCRIPCIÓN</option>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        Seleccione una Descripción
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-4 mt-3 mt-md-5">
+                                    <div class="input-group" id="divNUC">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="inpNUC">Cantidad</span>
+                                        </div>
+                                        <input type="text" class="form-control mr-3" id="inpNumero" aria-describedby="inpNUC" required>
+                                        <button class="btn btn-success" type="submit" id="btnNUC"><i class="fas fa-plus"></i></button>
+                                        <div class="invalid-feedback">
+                                            Introduzca Una Cantidad
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                        <div class="form-row">
+                            <div class="col-8">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-hover table-sm" id="dataTableAnexos" width="100%" cellspacing="0">
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

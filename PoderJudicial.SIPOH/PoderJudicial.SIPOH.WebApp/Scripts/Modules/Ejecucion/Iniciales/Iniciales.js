@@ -5,15 +5,22 @@ var idDistrito = null;
 var esJuzgadoAcusatorio = true;
 
 //Estructura para data tables
-var estructuraTablaCausas = [{ data: 'nJuzgado', title: 'N° Juzgado' }, { data: 'causaNuc', title: 'Causa|Nuc' }, { data: 'ofendido', title: 'Ofendido (s)' }, { data: 'inculpado', title: 'Inculpado (s)' }, { data: 'delito', title: 'Delitos (s)' }, { data: 'eliminar', title: 'Quitar' }];
 var dataTable = null;
+var dataTableAnex = null;
+
+var estructuraTablaCausas = [{ data: 'nJuzgado', title: 'N° Juzgado' }, { data: 'causaNuc', title: 'Causa|Nuc' }, { data: 'ofendido', title: 'Ofendido (s)' }, { data: 'inculpado', title: 'Inculpado (s)' }, { data: 'delito', title: 'Delitos (s)' }, { data: 'eliminar', title: 'Quitar' }];
 var causas = [];
 
+var estructuraTablaAnexos = [{ data: 'cantidad', title: 'Cantidad' }, { data: 'descripcion', title: 'Descripción' }];
+var anexos = [];
+
+//Funciones que se detonan al terminado del renderizado 
 $(document).ready(function ()
 {
     //Pintar Tabla
     dataTable = GeneraTablaDatos(dataTable, "dataTable", causas, estructuraTablaCausas, false, false, false);
-    
+    dataTableAnex = GeneraTablaDatos(dataTableAnex, "dataTableAnexos", anexos, estructuraTablaAnexos, false, false, false);
+
     //Elemntos al Cargado
     ElementosAlCargado();
 
@@ -25,45 +32,55 @@ $(document).ready(function ()
 function ElementosAlCargado()
 {
     //Funcionalidad para mostrar u ocultar NUC o Causa
-    $("#slcNumero").change(function ()
-    {
-        if ($(this).val() == "2")
-        {
-            $('#inpCAU').val("");
-            $('#divCAU').show();
-            $('#divNUC').hide();
+    //$("#slcNumero").change(function ()
+    //{
+    //    if ($(this).val() == "2")
+    //    {
+    //        $('#inpCAU').val("");
+    //        $('#divCAU').show();
+    //        $('#divNUC').hide();
 
-            //Trampa
-            $('#inpNumNUC').val("AA");
-        }
-        else if ($(this).val() == "1")
-        {
-            $('#inpNumNUC').val("");
-            $('#divNUC').show();
-            $('#divCAU').hide();
+    //        //Trampa
+    //        $('#inpNumNUC').val("AA");
+    //    }
+    //    else if ($(this).val() == "1")
+    //    {
+    //        $('#inpNumNUC').val("");
+    //        $('#divNUC').show();
+    //        $('#divCAU').hide();
 
-            //Trampa
-            $('#inpCAU').val("BB");           
-        }
-    });
-    $("#divCAU").hide();
-    $('#inpCAU').val("BB");
+    //        //Trampa
+    //        $('#inpCAU').val("BB");           
+    //    }
+    //});
+    //$("#divCAU").hide();
+    //$('#inpCAU').val("BB");
 
     //Funcionalidad para validar formularios
     var forms = document.getElementsByClassName('needs-validation');
+
+    //var forms = document.getElementById("formCausas");
+
+
     Array.prototype.filter.call(forms, function (form)
     {
         form.addEventListener('submit', function (event)
         {
+            var id = form.id;
+            
             event.preventDefault();
             event.stopPropagation();
 
-            if (form.checkValidity() === true)
+            if (form.checkValidity() === true && (id == "formCausas" || id == "formCausasTradicional"))
             {
-                //alert("CORRECTO, ES ACUSATORIO ? " + esJuzgadoAcusatorio);
                 ConsultarCausas(esJuzgadoAcusatorio);
             }            
-           
+
+            if (form.checkValidity() === true && id == "formAnexos")
+            {
+                alert(id);
+            }
+
             form.classList.add('was-validated');
 
         }, false);
@@ -83,10 +100,10 @@ function ElementosAlCargado()
 
     });
 
-    $('#inpCAU').change(function ()
-    {
-        esJuzgadoAcusatorio = true;
-    });
+    //$('#inpCAU').change(function ()
+    //{
+    //    esJuzgadoAcusatorio = true;
+    //});
 
     $('#inpCAUT').change(function ()
     {
@@ -116,7 +133,8 @@ function ListarCircuito(data)
             
         });
 
-        $.each(ObjCircuitoTr, function (id, circuitoTr) {
+        $.each(ObjCircuitoTr, function (id, circuitoTr)
+        {
             $slctCirTr.append('<option value=' + circuitoTr.Value + '>' + circuitoTr.Text + '</option>');
         });
 
@@ -158,6 +176,13 @@ function ListarJuzgadoAcusatorio(data)
 {
     if (data.Estatus = EstatusRespuesta.OK)
     {
+        var numero = data.Data.length;
+       
+        if (numero == 1)
+        {
+            $("#slctJuzgado").html("");
+        }
+     
         const ObjJuzgadoAcu = [data.Data];
         var $slcJuzAcu = $('#slctJuzgado');
 
@@ -181,8 +206,14 @@ function ListarJuzgadoTradicional(data)
 {
     if (data.Estatus = EstatusRespuesta.OK)
     {
+        var numero = data.Data.length;
+
         $("#slctJuzgadoTradi").html("");
-        $("#slctJuzgadoTradi").append($("<option/>", { value: "", text: "SELECCIONAR OPCIÓN" }));
+
+        if (numero > 1)
+        {
+            $("#slctJuzgadoTradi").append($("<option/>", { value: "", text: "SELECCIONAR OPCIÓN" }));
+        }
 
         const ObjJuzgadoTra = [data.Data];
         var $slcTradi = $('#slctJuzgadoTradi');
@@ -193,7 +224,7 @@ function ListarJuzgadoTradicional(data)
             {
                 $slcTradi.append('<option value=' + juzgado[i].Value + '>' + juzgado[i].Text + '</option>');
             }
-        });   
+        });
     }
     else if (data.Estatus == EstatusRespuesta.ERROR)
     {
@@ -216,7 +247,6 @@ function Parametros_Distrito()
     }
 }
 // #endregion
-
 
 function ListarDistrito(data)
 {
@@ -243,28 +273,28 @@ function ConsultarCausas(esAcusatorio)
 {
     if (esAcusatorio)
     {
-        var nucCusa = $("#slcNumero").find('option:selected').val();
+        var causaNucSelect = $("#slcNumero").find('option:selected').val();
         var juzgadoId = $("#slctJuzgado").find('option:selected').val();
 
-        if (nucCusa == 1)
+        var causaNucText = $('#inpNumero').val();
+
+        if (causaNucSelect == 1)
         {
-            var nuc = $('#inpNumNUC').val();
-            var parametros = { idJuzgado: juzgadoId, nuc: nuc };
+            var parametros = { idJuzgado: juzgadoId, nuc: causaNucText };
             SolicitudEstandarAjax("/Iniciales/ObtenerExpedientePorNUC", parametros, ListarCausas);
         }
         else
-        {
-            var numCusa = $('#inpCAU').val();
-            var parametros = { idJuzgado: juzgadoId, numeroCausa: numCusa };
+        {   
+            var parametros = { idJuzgado: juzgadoId, numeroCausa: causaNucText };
             SolicitudEstandarAjax("/Iniciales/ObtenerExpedientePorCausa", parametros, ListarCausas);
         } 
     }
     else
     {
-        var numCusa = $("#inpCAUT").val();
+        var causaNucText = $("#inpCAUT").val();
         var juzgadoId = $("#slctJuzgadoTradi").find('option:selected').val();
 
-        var parametros = { idJuzgado: juzgadoId, numeroCausa: numCusa };
+        var parametros = { idJuzgado: juzgadoId, numeroCausa: causaNucText };
         SolicitudEstandarAjax("/Iniciales/ObtenerExpedientePorCausa", parametros, ListarCausas);
     }
 }
@@ -277,21 +307,32 @@ function ListarCausas(data)
         {
             var expediente = data.Data;
 
-            var causa = new Object();
-            causa.id = expediente.IdExpediente;
-            causa.nJuzgado = expediente.NombreJuzgado;
-            causa.causaNuc = expediente.NumeroCausa == null ? expediente.NUC : expediente.NumeroCausa;
-            causa.ofendido = expediente.Ofendidos;
-            causa.inculpado = expediente.Inculpados;
-            causa.delito = expediente.Delitos;
-            causa.eliminar = "<a href='#' class='btn btn-danger btn-sm' onclick='EliminarCausa(" + causa.id + ")'><i class='fas fa-trash-alt'></i></a>";
+            if (!ValidarCuasaEnTabla(expediente.IdExpediente))
+            {
+                var causa = new Object();
+                causa.id = expediente.IdExpediente;
+                causa.nJuzgado = expediente.NombreJuzgado;
+                causa.causaNuc = expediente.NumeroCausa == null ? expediente.NUC : expediente.NumeroCausa;
+                causa.ofendido = expediente.Ofendidos;
+                causa.inculpado = expediente.Inculpados;
+                causa.delito = expediente.Delitos;
+                causa.eliminar = "<a href='#' class='btn btn-danger btn-sm' onclick='EliminarCausa(" + causa.id + ")'><i class='fas fa-trash-alt'></i></a>";
 
-            //Agrega Causa al Arreglo de Cuasas
-            causas.push(causa);
-
-            dataTable = GeneraTablaDatos(dataTable, "dataTable", causas, estructuraTablaCausas, false, false, false);
+                //Agrega Causa al Arreglo de Cuasas
+                causas.push(causa);
+                //Generar Tabla
+                dataTable = GeneraTablaDatos(dataTable, "dataTable", causas, estructuraTablaCausas, false, false, false);
+            }
+            else
+            {
+                alert("La causa con Numero de Expediente " + (expediente.NumeroCausa == null ? expediente.NUC : expediente.NumeroCausa ) + " ya se encuentra seleccionada");
+            }
         }
         else if (data.Estatus == EstatusRespuesta.ERROR)
+        {
+            alert(data.Mensaje);
+        }
+        else if (data.Estatus == EstatusRespuesta.SIN_RESPUESTA)
         {
             alert(data.Mensaje);
         }
@@ -302,9 +343,34 @@ function ListarCausas(data)
     }
 }
 
+function ValidarCuasaEnTabla(id)
+{
+    var iterarArreglo = causas;
+
+    for (var index = 0; index < iterarArreglo.length; index++)
+    {
+        if (causas[index].id == id)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
 function EliminarCausa(id) 
 {
-    alert(id);
+    var iterarArreglo = causas;
+
+    for (var index = 0; index < iterarArreglo.length; index++)
+    {
+        if (id == causas[index].id)
+        {
+            causas.splice(index, 1);
+        }
+    }
+
+    //Genera nuevamente la tabla
+    dataTable = GeneraTablaDatos(dataTable, "dataTable", causas, estructuraTablaCausas, false, false, false);
 }
 
 //#region Solicitud Ajax Get Generico
