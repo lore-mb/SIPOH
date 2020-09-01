@@ -64,6 +64,15 @@ namespace PoderJudicial.SIPOH.WebApp
             bundles.Add(new ScriptBundle("~/Scripts/Modules/Cuenta").Include(
                 "~/Scripts/Modules/Cuenta/LogIn.js"));
 
+            // SweetAlerts
+            bundles.Add(new ScriptBundle("~/Scripts/Master/SweetAlert").Include(
+                "~/Scripts/Master/SweetAlert/sweetalert.min.js"));
+            
+            //BootBox
+            bundles.Add(new ScriptBundle("~/Scripts/Master/BootBox").Include(
+            "~/Scripts/Master/BootBox/bootbox.min.js",
+            "~/Scripts/Master/BootBox/popper.min.js"));
+
         }
     }
 }

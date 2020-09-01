@@ -41,10 +41,10 @@
                                             <option value="2">NUMERO UNICO DE CASO</option>
                                         </select>
                                         @*<select class="custom-select" id="slcNumero" required>
-                                            <option selected value="">Seleccionar Opcíón</option>
-                                            <option selected value="1">NUMERO UNICO DE CASO</option>
-                                            <option value="2">NUMERO DE CAUSA</option>
-                                        </select>*@
+                                                <option selected value="">Seleccionar Opcíón</option>
+                                                <option selected value="1">NUMERO UNICO DE CASO</option>
+                                                <option value="2">NUMERO DE CAUSA</option>
+                                            </select>*@
                                         <div class="invalid-feedback">
                                             Seleccionar N° Unico de Caso / N° Causa.
                                         </div>
@@ -178,10 +178,11 @@
                                     <div class="col-12 col-md-6 mt-3">
                                         <div class="input-group" id="divBusquedaSentenciado">
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text" id="inpBusquedaSentenciado">Consultar</span>
+                                                <span class="input-group-text" id="lbBusquedaSentenciado">Consultar</span>
                                             </div>
                                             <input type="text" class="form-control mr-3" id="inpBusquedaSentenciado" aria-describedby="inpNumero" disabled>
-                                            <button id="botonMostrarBeneficiarios" type="button" class="btn btn-success"><i class="fa fa-eye icon"></i></button>
+                                            <button id="botonMostrarBeneficiarios" type="button" class="btn btn-success mr-3"><i class="fa fa-eye icon"></i></button>
+                                            <button id="botonMostrarBeneficiarios" type="button" class="btn btn-success"><i class="fa fa-check-circle icon"></i></button>
                                         </div>
                                     </div>
                                 </div>
@@ -191,19 +192,7 @@
                                 <!-- FILA CUATRO -->
                                 <div class="form-row">
                                     <div class="col-12 col-md-6 mt-3">
-                                        <label for="validationCustom04"> ¿Sentenciado Interno?</label>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1">
-                                            <label class="form-check-label" for="exampleRadios1">
-                                                Si
-                                            </label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                                            <label class="form-check-label" for="exampleRadios2">
-                                                No
-                                            </label>
-                                        </div>
+                                        
                                     </div>
                                 </div>
 
@@ -319,26 +308,36 @@
     </div>
 </div>
 
-<!-- Ventana modal para agregar u editar un estudiante -->
+<!-- MODAL -->
 <div id="ejecucionModal" class="modal fade" data-backdrop="static" data-keyboard="false" role="dialog">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-xl">
         <!-- Contenido del modal -->
         <div class="modal-content">
             <div class="modal-header">
+                <div class="btn btn-success mr-3">
+                    <span class="fa fa-table icon"></span>
+                </div>
+                <b>Beneficiarios</b>
+                @*<button id="botonMostrarBeneficiarios" type="button" class="btn btn-s"><i class="fa fa-eye icon"></i></button>*@
+
                 <div type="button" class="close" data-dismiss="modal">
-                    <i class="btn btn-sm glyphicon glyphicon-remove"></i>
+                    <i class="btn btn-sm"><span class="fa fa-close icon"></span></i>
                 </div>
                 <h3 id="contactModelHeader"></h3>
                 <div id="ErrorMessageContainer"></div>
             </div>
             <div class="modal-body">
                 <div id="modalContainer">
-
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover table-sm" id="dataTableBeneficiarios" width="100%" cellspacing="0">
+                        </table>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <input type="button" value="Cancelar" id="btnCancelar" class="btn btn-danger" />
-                <input type="button" value="Aceptar" id="btnAceptar" class="btn btn-success" />
+                <p class="mr-3">¿Continuar con el Registro?</p>
+                <input type="button" value="Cancelar" id="btnCancelar" class="btn btn-outline-secondary" />
+                <input type="button" value="Aceptar" id="btnAceptar" class="btn btn-outline-success" />
             </div>
         </div>
     </div>
@@ -347,4 +346,7 @@
 
 @Scripts.Render("~/Scripts/Master/Jquery")
 @Scripts.Render("~/Scripts/Master/InptuMask")
+@Scripts.Render("~/Scripts/Master/Bootstrap")
+@Scripts.Render("~/Scripts/Master/BootBox");
 @Scripts.Render("~/Scripts/Modules/Ejecucion/Iniciales")
+
