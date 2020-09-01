@@ -78,33 +78,30 @@
                                             Selecciona un Distrito.
                                         </div>
                                     </div>
-                                    <div class="col-md-3 mb-3">
-                                        <label for="slcNumeroT">N° Unico Caso - N° Causa</label>
-                                        <select class="custom-select" id="slctNumeroT">
-                                            <option value="1">NUMERO DE CAUSA</option>
-                                            <option value="2">NUMERO UNICO DE CASO</option>
+                                    <div class="col-md-4 mb-3">
+                                        <label for="validationCustom04">Juzgado de Procedencia</label>
+                                        <select class="custom-select" id="slctJuzgadoTradi" required>
+                                            <option selected value="">SELECCIONAR OPCIÓN</option>
                                         </select>
-
                                         <div class="invalid-feedback">
-                                            Seleccionar N° Unico de Caso / N° Causa.
+                                            Selecciona un Juzgado.
                                         </div>
                                     </div>
                                     <div class="col-md-3 mb-3">
-                                        <label class="my-1 mr-2" for="inpNumeroT" id="NumeroLabelT">Numero de Causa:</label>
-                                        <div class="input-group" id="divNUC">
+                                        <label for="validationCustomUsername">Numero</label>
+                                        <div class="input-group" id="divCAU">
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text" id="spnNumeroT">CAUSA</span>
+                                                <span class="input-group-text" id="inputGroupPrepend">CAUSA</span>
                                             </div>
-                                            <input type="text" id="NumeroT" name="NumeroT" class="form-control mr-3" data-inputmask-clearmaskonlostfocus="true" required />
-                                            <button class="btn btn-success" type="submit" id="btnNUC"><i class="fas fa-search"></i></button>
+                                            <input type="text" class="form-control mr-3" id="inpCAUT" aria-describedby="inpCAU" placeholder="00-0000-0000" required>
+                                            <button class="btn btn-success" type="submit" id="btnCAU"><i class="fas fa-save"></i></button>
                                             <div class="invalid-feedback">
-                                                Introducir N° Unico de Caso.
+                                                Introduce Numero de Causa.
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-row justify-content-center">
-                                </div>
+                         
                             </form>
                         </div>
                         <!-- #endregion Juzgado Tradicional -->
@@ -397,7 +394,5 @@
 
 @Scripts.Render("~/Scripts/Master/Jquery")
 @Scripts.Render("~/Scripts/Master/InptuMask")
-@Scripts.Render("~/Scripts/Master/Bootstrap")
-@Scripts.Render("~/Scripts/Master/BootBox");
 @Scripts.Render("~/Scripts/Modules/Ejecucion/Iniciales")
 
