@@ -8,24 +8,23 @@
         <div class="col-lg-12">
             <div class="card shadow-sm">
                 <div class="card-body">
+                    <!-- #region Secciones Juzgado Acusatorio - Tradiconal -->
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
-                        <li class="nav-item">
+                        <li class="nav-item" id="Acusatorio">
                             <a class="nav-link active" id="juzgadoT-tab" data-toggle="tab" href="#JuzgadoT" role="tab" aria-controls="JuzgadoT" aria-selected="true">Juzgado Acusatorio</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" id="Tradicional">
                             <a class="nav-link" id="juzgadoA-tab" data-toggle="tab" href="#JuzgadoA" role="tab" aria-controls="JuzgadoA" aria-selected="false">Juzgado Tradicional</a>
                         </li>
                     </ul>
+                    <!-- #endregion Juzgado Acusatorio -->
+                    <!-- #region Navegacion Juzgados-->
                     <div class="tab-content" id="myTabContent">
+                        <!-- #region Juzgado Acusatorio-->
                         <div class="tab-pane fade show active" id="JuzgadoT" role="tabpanel" aria-labelledby="juzgadoT-tab">
-                            <!-- Todo el contenido aquí -->
                             <form id="formCausas" class="needs-validation mt-4" novalidate>
                                 <div class="form-row">
-                                    <div class="col-md-2 mb-3">
-                                        <label for="slctCircuitoAc">Circuito:</label>
-                                        <select class="custom-select" id="slctCircuitoAc" disabled></select>
-                                    </div>
-                                    <div class="col-md-4 mb-3">
+                                    <div class="col-md-6 mb-3">
                                         <label for="validationCustom04">Juzgado de Procedencia:</label>
                                         <select class="custom-select" id="slctJuzgado" required>
                                             <option selected value="">SELECCIONAR OPCIÓN</option>
@@ -40,34 +39,29 @@
                                             <option value="1">NUMERO DE CAUSA</option>
                                             <option value="2">NUMERO UNICO DE CASO</option>
                                         </select>
-                                        @*<select class="custom-select" id="slcNumero" required>
-                                            <option selected value="">Seleccionar Opcíón</option>
-                                            <option selected value="1">NUMERO UNICO DE CASO</option>
-                                            <option value="2">NUMERO DE CAUSA</option>
-                                        </select>*@
                                         <div class="invalid-feedback">
                                             Seleccionar N° Unico de Caso / N° Causa.
                                         </div>
                                     </div>
                                     <div class="col-md-3 mb-3">
-                                        <label class="my-1 mr-2" for="inpNumero" id="NumeroLabel">Numero Unico de Caso:</label>
+                                        <label class="my-1 mr-2" for="inpNumero" id="NumeroLabel">Numero de Causa:</label>
                                         <div class="input-group" id="divNUC">
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text" id="inpNUC"># CASO</span>
+                                                <span class="input-group-text" id="spnNumero">CAUSA</span>
                                             </div>
                                             <input type="text" id="Numero" name="Numero" class="form-control mr-3" data-inputmask-clearmaskonlostfocus="true" required />
-                                            @*<input type="text" class="form-control mr-3" id="inpNumero" aria-describedby="inpNUC" placeholder="0000/0000" required>*@
-                                            <button class="btn btn-success" type="submit" id="btnNUC"><i class="fas fa-search"></i></button>
+                                            <button class="btn btn-success" type="submit" id="btnNUC"><i class="fa fa-plus-circle"></i></button>
                                             <div class="invalid-feedback">
                                                 Introducir N° Unico de Caso.
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-row justify-content-center">
-                                </div>
                             </form>
                         </div>
+
+                        <!-- #endregion Juzgado Acusatorio-->
+                        <!-- #region Juzgado Tradicional -->
                         <div class="tab-pane fade" id="JuzgadoA" role="tabpanel" aria-labelledby="juzgadoA-tab">
                             <form id="formCausasTradicional" class="needs-validation mt-4" novalidate>
                                 <div class="form-row">
@@ -84,25 +78,27 @@
                                             Selecciona un Distrito.
                                         </div>
                                     </div>
-                                    <div class="col-md-4 mb-3">
-                                        <label for="validationCustom04">Juzgado de Procedencia</label>
-                                        <select class="custom-select" id="slctJuzgadoTradi" required>
-                                            <option selected value="">SELECCIONAR OPCIÓN</option>
+                                    <div class="col-md-3 mb-3">
+                                        <label for="slcNumeroT">N° Unico Caso - N° Causa</label>
+                                        <select class="custom-select" id="slctNumeroT">
+                                            <option value="1">NUMERO DE CAUSA</option>
+                                            <option value="2">NUMERO UNICO DE CASO</option>
                                         </select>
+
                                         <div class="invalid-feedback">
-                                            Selecciona un Juzgado.
+                                            Seleccionar N° Unico de Caso / N° Causa.
                                         </div>
                                     </div>
                                     <div class="col-md-3 mb-3">
-                                        <label for="validationCustomUsername">Numero</label>
-                                        <div class="input-group" id="divCAU">
+                                        <label class="my-1 mr-2" for="inpNumeroT" id="NumeroLabelT">Numero de Causa:</label>
+                                        <div class="input-group" id="divNUC">
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text" id="inputGroupPrepend">CAUSA</span>
+                                                <span class="input-group-text" id="spnNumeroT">CAUSA</span>
                                             </div>
-                                            <input type="text" class="form-control mr-3" id="inpCAUT" aria-describedby="inpCAU" placeholder="00-0000-0000" required>
-                                            <button class="btn btn-success" type="submit" id="btnCAU"><i class="fas fa-save"></i></button>
+                                            <input type="text" id="NumeroT" name="NumeroT" class="form-control mr-3" data-inputmask-clearmaskonlostfocus="true" required />
+                                            <button class="btn btn-success" type="submit" id="btnNUC"><i class="fas fa-search"></i></button>
                                             <div class="invalid-feedback">
-                                                Introduce Numero de Causa.
+                                                Introducir N° Unico de Caso.
                                             </div>
                                         </div>
                                     </div>
@@ -110,17 +106,72 @@
                                 <div class="form-row justify-content-center">
                                 </div>
                             </form>
-
                         </div>
+                        <!-- #endregion Juzgado Tradicional -->
                     </div>
-
+                    <!-- #endregion-->
+                    <!--#region Tabla Dinamica Acusatorio - Tradicional-->
                     <div class="tab-content">
                         <div class="table-responsive">
                             <table class="table table-bordered table-hover table-sm" id="dataTable" width="100%" cellspacing="0">
                             </table>
                         </div>
                     </div>
+                    <!-- #endregion -->
 
+                    <!-- #region Formulario Tocas Tradicional-->
+                    <div class="form-row" id="FormTocas">
+                        <div class="col-md-4 mb-3">
+                            <label for="comboSala">Sala Tradicional:</label>
+                            <select class="custom-select" id="comboSala" required>
+                                <option selected value="">SELECCIONAR OPCIÓN</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Seleccionar Sala.
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label class="my-1 mr-2" for="Sala_Tradicional" id="Sala_Tradicional">Numero de Toca:</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="spnSalaTradicional">N°</span>
+                                </div>
+                                <input type="text" id="Sala_Tradicional" name="Sala_Tradicional" class="form-control mr-3" data-inputmask-clearmaskonlostfocus="true" required />
+                                <button class="btn btn-success" type="submit" id="btnSala_Tradicional"><i class="fa fa-plus-circle"></i></button>
+                                <div class="invalid-feedback">
+                                    Introducir N° Unico de Caso.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- #endregion Formulario Tocas-->
+
+                    <!-- #region Formulario Tocas Acusatorio-->
+                    <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            <label for="comboSala_Acusatorio">Sala Acusatorio:</label>
+                            <select class="custom-select" id="comboSala_Acusatorio" required>
+                                <option selected value="">SELECCIONAR OPCIÓN</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Seleccionar Sala.
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label class="my-1 mr-2" for="Sala_Acusatorio" id="NumeroLabel">Numero de Toca:</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="spnSala_Acusatorio">N°</span>
+                                </div>
+                                <input type="text" id="Sala_Acusatorio" name="Sala_Acusatorio" class="form-control mr-3" data-inputmask-clearmaskonlostfocus="true" required />
+                                <button class="btn btn-success" type="submit" id="btnSala_Acusatorio" onclick="Obtener_Val_Sala_Acusatorio()"><i class="fa fa-plus-circle"></i></button>
+                                <div class="invalid-feedback">
+                                    Introducir N° Unico de Caso.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- #endregion Formulario Tocas-->
                     <!-- CONTENEDOR BENEFICIARIO -->
                     <div class="tab-content" id="contenedorBeneficiario">
 
