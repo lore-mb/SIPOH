@@ -8,10 +8,77 @@
         <div class="col-lg-12">
             <div class="card shadow-sm">
                 <div class="card-body">
-                    <!-- Todo el contenido aquí  -->
+                    <!-- Todo el contenido aquí -->
+                    <div class="row justify-content-center align-content-center mt-5">
+                        <div class="col-sm-4">
+                            <label>Reporte por:</label>
+                            <div class="input-group mr-2 mb-2">
+                                <label for="inlineFormCustomSelect" class="sr-only">Camp 1</label>
+                                <select class="custom-select" id="inlineFormCustomSelect">
+                                    <option value="0" selected>Selecciona</option>
+                                    <option value="1">FECHA</option>
+                                    <option value="2">DEL DIA</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Select por Fecha-->
+                    <div class="row justify-content-center align-content-center mt-5" id="reporFecha">
+                        <div class="col-sm-6">
+                            <label>Juzgado:</label>
+                            <div class="input-group mr-2 mb-2">
+                                <label for="inlineFormCustomSelect" class="sr-only">Camp 1</label>
+                                <select class="custom-select" id="inlineFormCustomSelect">
+                                    <option value="0" selected>Selecciona</option>
+                                    <option value="1">JUZGADO PRIMERO DE EJECUCION CTO.PACHUCA</option>
+                                    <option value="2">JUZGADO SEGUNDO DE EJECUCION CTO.PACHUCA</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Calendarios-->
+                    <div class="row" id="calenFecha">
+                        <div class="col-sm-6 mb-5">
+                            <div class=" container mt-5" style="width:300px">
+                                <label>Fecha de Inicial:</label>
+                                <input type="date" id="picker" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class=" container mt-5" style="width:300px">
+                                <label>Fecha de Final:</label>
+                                <input type="date" id="picker" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <!--Boton consulta-->
+                    <div>
+                        <div class="col-sm-12 text-center mt-6 mb-6" id="btnFecha">
+                            <button type="button" id="btnFecha" class="btn btn-success rounded"><i></i>Nueva Consulta</button>
+                        </div>
+                    </div>
+                    <!--Reporte por Dia-->
+                    <div class="row justify-content-center align-content-center mt-5 mb-7" id="reporDia">
+                        <div class="col-sm-6">
+                            <label>Juzgado:</label>
+                            <div class="input-group mr-2 mb-2">
+                                <label for="inlineFormCustomSelect" class="sr-only">Camp 1</label>
+                                <select class="custom-select" id="inlineFormCustomSelect">
+                                    <option value="0" selected>Selecciona</option>
+                                    <option value="1">JUZGADO PRIMERO DE EJECUCION CTO.PACHUCA</option>
+                                    <option value="2">JUZGADO SEGUNDO DE EJECUCION CTO.PACHUCA</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+
+@Scripts.Render("~/Scripts/Master/Jquery")
+@Scripts.Render("~/Scripts/Modules/Ejecucion/Reportes")
+
 

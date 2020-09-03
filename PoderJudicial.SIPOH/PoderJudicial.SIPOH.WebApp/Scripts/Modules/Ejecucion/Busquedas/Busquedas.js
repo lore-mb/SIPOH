@@ -1,5 +1,6 @@
 ﻿
 $("#divPartes").hide();
+$("#divPartes").hide();
 $("#divPartest").hide();
 $("#divSentenciado").hide();
 $("#divSentenciadot").hide();
@@ -143,8 +144,9 @@ $(document).ready(function () {
             $("#divDsolicitantet").show();
             $("#divInpDsolicitante").show();
         }
-           
+
 
     });
 });
+
 
