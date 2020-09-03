@@ -23,6 +23,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         // GET: Iniciales
         public ActionResult Iniciales()
         {
+            ViewBag.IdCircuito = Usuario.IdCircuito;
             return View();
         }
 

@@ -8,6 +8,9 @@
         <div class="col-lg-12">
             <div class="card shadow-sm">
                 <div class="card-body">
+
+                    @Html.Hidden("IdCircuitoHDN", (object)Usuario.IdCircuito)
+
                     <!-- #region Secciones Juzgado Acusatorio - Tradiconal -->
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item" id="Acusatorio">
@@ -33,24 +36,24 @@
                                             Seleccionar Juzgado.
                                         </div>
                                     </div>
-                                    <div class="col-md-3 mb-3">
-                                        <label for="slcNumero">N° Unico Caso - N° Causa</label>
+                                    <div class="col-md-2 mb-3">
+                                        <label for="slcNumero">Causa/Nuc</label>
                                         <select class="custom-select" id="slctNumero">
-                                            <option value="1">NUMERO DE CAUSA</option>
-                                            <option value="2">NUMERO UNICO DE CASO</option>
+                                            <option value="1">CAUSA</option>
+                                            <option value="2">NUC</option>
                                         </select>
                                         <div class="invalid-feedback">
                                             Seleccionar N° Unico de Caso / N° Causa.
                                         </div>
                                     </div>
-                                    <div class="col-md-3 mb-3">
+                                    <div class="col-md-4 mb-3">
                                         <label class="my-1 mr-2" for="inpNumero" id="NumeroLabel">Numero de Causa:</label>
                                         <div class="input-group" id="divNUC">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="spnNumero">CAUSA</span>
                                             </div>
                                             <input type="text" id="Numero" name="Numero" class="form-control mr-3" data-inputmask-clearmaskonlostfocus="true" required />
-                                            <button class="btn btn-success" type="submit" id="btnNUC"><i class="fa fa-plus-circle"></i></button>
+                                            <button class="btn btn-success" type="submit" id="btnNUC"><i class="fa fa-search"></i></button>
                                             <div class="invalid-feedback">
                                                 Introducir N° Unico de Caso.
                                             </div>
@@ -65,10 +68,6 @@
                         <div class="tab-pane fade" id="JuzgadoA" role="tabpanel" aria-labelledby="juzgadoA-tab">
                             <form id="formCausasTradicional" class="needs-validation mt-4" novalidate>
                                 <div class="form-row">
-                                    <div class="col-md-2 mb-3">
-                                        <label for="slctCircuitoTr">Circuito</label>
-                                        <select class="custom-select" id="slctCircuitoTr" disabled></select>
-                                    </div>
                                     <div class="col-md-3 mb-3">
                                         <label for="slcNumero">Distrito de Procedencia</label>
                                         <select class="custom-select" id="slctDistrito" required>
@@ -78,7 +77,7 @@
                                             Selecciona un Distrito.
                                         </div>
                                     </div>
-                                    <div class="col-md-4 mb-3">
+                                    <div class="col-md-5 mb-3">
                                         <label for="validationCustom04">Juzgado de Procedencia</label>
                                         <select class="custom-select" id="slctJuzgadoTradi" required>
                                             <option selected value="">SELECCIONAR OPCIÓN</option>
@@ -87,21 +86,21 @@
                                             Selecciona un Juzgado.
                                         </div>
                                     </div>
-                                    <div class="col-md-3 mb-3">
-                                        <label for="validationCustomUsername">Numero</label>
+                                    <div class="col-md-4 mb-3">
+                                        <label for="validationCustomUsername">Numero de Causa:</label>
                                         <div class="input-group" id="divCAU">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="inputGroupPrepend">CAUSA</span>
                                             </div>
                                             <input type="text" class="form-control mr-3" id="inpCAUT" aria-describedby="inpCAU" placeholder="00-0000-0000" required>
-                                            <button class="btn btn-success" type="submit" id="btnCAU"><i class="fas fa-save"></i></button>
+                                            <button class="btn btn-success" type="submit" id="btnCAU"><i class="fas fa-search"></i></button>
                                             <div class="invalid-feedback">
                                                 Introduce Numero de Causa.
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                         
+
                             </form>
                         </div>
                         <!-- #endregion Juzgado Tradicional -->
@@ -115,7 +114,6 @@
                         </div>
                     </div>
                     <!-- #endregion -->
-
                     <!-- #region Formulario Tocas Tradicional-->
                     <div class="form-row" id="FormTocas">
                         <div class="col-md-4 mb-3">
@@ -142,7 +140,6 @@
                         </div>
                     </div>
                     <!-- #endregion Formulario Tocas-->
-
                     <!-- #region Formulario Tocas Acusatorio-->
                     <div class="form-row">
                         <div class="col-md-4 mb-3">
@@ -171,7 +168,6 @@
                     <!-- #endregion Formulario Tocas-->
                     <!-- CONTENEDOR BENEFICIARIO -->
                     <div class="tab-content" id="contenedorBeneficiario">
-
                         <form id="formEjecucion" class="needs-validation" novalidate>
                             <!-- BUSCADOR BENEFICIARIO -->
                             <div id="seccionBusquedaBeneficiario">
@@ -226,21 +222,29 @@
                                     <div class="col-12 col-md-6 mt-3">
                                         <div class="input-group" id="divBusquedaSentenciado">
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text" id="lbBusquedaSentenciado">Consultar</span>
+                                                <span class="input-group-text" id="lbBusquedaSentenciado">Coincidencias</span>
                                             </div>
                                             <input type="text" class="form-control mr-3" id="inpBusquedaSentenciado" aria-describedby="inpNumero" disabled>
-                                            <button id="botonMostrarBeneficiarios" type="button" class="btn btn-success mr-3"><i class="fa fa-eye icon"></i></button>
-                                            <button id="botonMostrarBeneficiarios" type="button" class="btn btn-success"><i class="fa fa-check-circle icon"></i></button>
+                                            <button id="botonMostrarBeneficiarios" type="button" class="btn btn-secondary mr-3"><i class="fa fa-eye icon"></i></button>
+                                            <button id="botonCheckBeneficiarios" type="button" class="btn btn-secondary mr-3"><i class="fa fa-check-circle icon"></i></button>
+                                            <button id="botonCerrarBeneficiarios" type="button" class="btn btn-secondary"><i class="fa fa-close icon"></i></button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
                             <div id="seccionBeneficiario">
-                                <!-- FILA CUATRO -->
                                 <div class="form-row">
-                                    <div class="col-12 col-md-6 mt-3">
-                                        
+                                    <div class="col-12 mt-3">
+                                        <label for="validationCustom04">¿Sentenciado Interno? </label>
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input" required>
+                                            <label class="custom-control-label" for="customRadioInline1">SI</label>
+                                        </div>
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input" required>
+                                            <label class="custom-control-label" for="customRadioInline2">NO</label>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -248,37 +252,27 @@
                                 <div class="form-row">
                                     <div class="col-12 col-md-4 mt-3">
                                         <label for="validationCustom04">Solicitante</label>
-                                        <select class="custom-select" id="slctJuzgado" required>
+                                        <select class="custom-select" id="slctSolicitante" required>
                                             <option selected value="">SELECCIONAR OPCIÓN</option>
+                                            <option value="J">JUZGADO</option>
+                                            <option value="C">CERESO</option>
+                                            <option value="SS">SOLICITUD DEL SENTENCIADO</option>
+                                            <option value="V">VICTIMA</option>
+                                            <option value="O">OTRO</option>
                                         </select>
                                         <div class="invalid-feedback">
-                                            Seleccionar Juzgado.
+                                            Seleccionar un Solicitante.
                                         </div>
 
                                     </div>
                                     <div class="col-12 col-md-8 mt-3 mt-md-5">
-                                        <div class="input-group" id="divNombreSentenciado">
+                                        <div class="input-group" id="divDetalleSolicitante">
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text" id="inpNombreSentenciado">Otro</span>
+                                                <span class="input-group-text" id="lbDetalleSolicitante">Detalle del Solicitante</span>
                                             </div>
-                                            <input type="text" class="form-control" id="inpNumero" aria-describedby="inpNumero" disabled>
+                                            <input type="text" class="form-control" id="ipnDetalleSolicitante" aria-describedby="ipnDetalleSolicitante" required>
                                             <div class="invalid-feedback">
-                                                Introdusca un valor
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- FILA SEIS -->
-                                <div class="form-row">
-                                    <div class="col-12 mt-3">
-                                        <div class="input-group" id="divNombreSentenciado">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text" id="inpNombreSentenciado">Detalle del Solicitante</span>
-                                            </div>
-                                            <input type="text" class="form-control" id="inpNumero" aria-describedby="inpNumero" required>
-                                            <div class="invalid-feedback">
-                                                Introdusca un valor
+                                                Introduzca un detalle para el solicitante.
                                             </div>
                                         </div>
                                     </div>
@@ -286,29 +280,43 @@
 
                                 <!-- FILA SIETE -->
                                 <div class="form-row">
-                                    <div class="col-12 col-md-8 mt-3">
+                                    <div class="col-12 col-md-5 mt-3">
                                         <label for="validationCustom04">Solicitud</label>
-                                        <select class="custom-select" id="slctJuzgado" required>
+                                        <select class="custom-select" id="slctSolicitud" required>
                                             <option selected value="">SELECCIONAR OPCIÓN</option>
+                                            <option value="LC">LIBERTAD CONDICIONAL</option>
+                                            <option value="RP">REMISIÓN PARCIAL DE LA PENA</option>
+                                            <option value="CP">CONMUTACION DE LA PENA</option>
+                                            <option value="EP">EXTINCIÓN CON REMISIÓN PARCIAL DE LA PENA</option>
+                                            <option value="CUP">CUMPLIMIENTO DE LA PENA</option>
+                                            <option value="RD">REPARACIÓN DEL DAÑO</option>
+                                            <option value="T">TRASLADO</option>
+                                            <option value="DAP">DEMANDA CONTRA AUTORIDAD PENITENCIARIA</option>
+                                            <option value="ES">EJECUCIÓN DE SENTENCIA</option>
+                                            <option value="O">OTRO</option>
                                         </select>
                                         <div class="invalid-feedback">
-                                            Seleccionar Juzgado.
+                                            Seleccione una solicitud
                                         </div>
                                     </div>
-                                    <div class="col-12 col-md-4 mt-5">
-                                        <div class="input-group" id="divNombreSentenciado">
+                                    <div class="col-12 col-md-7 mt-3 mt-md-5">
+
+                                        <div class="input-group" id="divOtraSolicitud">
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text mr-3" id="inpNUC">Crear Inicial</span>
+                                                <span class="input-group-text" id="lbOtraSolicitud">Otro</span>
                                             </div>
-                                            <button class="btn btn-success " type="submit" id="btnNUC"><i class="fas fa-save"></i></button>
+                                            <input type="text" class="form-control" id="inpOtraSolicitud" aria-describedby="inpOtraSolicitud" disabled>
+                                            <div class="invalid-feedback">
+                                                Introduzca otra Solicitud.
+                                            </div>
                                         </div>
+
                                     </div>
                                 </div>
-
                             </div>
                         </form>
 
-                        <!-- FILA OCHO -->
+                        <!-- FILA NUEVE -->
                         <form id="formAnexos" class="needs-validation" novalidate>
                             <div id="seccionBusquedaAnexos">
                                 <div class="form-row">
@@ -327,7 +335,7 @@
                                                 <span class="input-group-text" id="inpNUC">Cantidad</span>
                                             </div>
                                             <input type="text" class="form-control mr-3" id="inpNumero" aria-describedby="inpNUC" required>
-                                            <button class="btn btn-success" type="submit" id="btnNUC"><i class="fas fa-plus"></i></button>
+                                            <button class="btn btn-success" type="submit" id="btnNUC"><i class="fas fa-plus-circle"></i></button>
                                             <div class="invalid-feedback">
                                                 Introduzca Una Cantidad
                                             </div>
@@ -337,7 +345,7 @@
                             </div>
                         </form>
 
-                        <!-- FILA NUEVE -->
+                        <!-- FILA OCHO -->
                         <div id="seccionTablaAnexos">
                             <div class="form-row">
                                 <div class="col-8">
@@ -345,6 +353,15 @@
                                         <table class="table table-bordered table-hover table-sm" id="dataTableAnexos" width="100%" cellspacing="0">
                                         </table>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- FILA SEIS -->
+                        <div id="seccionBotonGuardar">
+                            <div class="form-row">
+                                <div class="col-4 mt-3">
+                                    <button type="submit" form="formEjecucion" class="btn btn-outline-success"><i class="fas fa-save mr-2"></i>GUARDAR</button>
                                 </div>
                             </div>
                         </div>

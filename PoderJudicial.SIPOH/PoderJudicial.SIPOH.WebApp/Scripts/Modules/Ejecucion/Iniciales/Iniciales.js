@@ -1,6 +1,6 @@
 ﻿//region Varaibles Globale!
 var EstatusRespuesta = { SIN_RESPUESTA: 0, OK: 1, ERROR: 2 }
-var idcircuito = null;
+var idCircuito = null;
 var idDistrito = null;
 var esJuzgadoAcusatorio = true;
 
@@ -16,9 +16,12 @@ var causas = [];
 var estructuraTablaAnexos = [{ data: 'cantidad', title: 'Cantidad' }, { data: 'descripcion', title: 'Descripción' }];
 var anexos = [];
 
-var estructuraTablaBeneficiarios = [{ data: 'numeroEjecucion', title: 'Numero de Ejecución' }, { data: 'nombreJuzgado', title: 'Juzgado' }, { data: 'nombreBeneficiario', title: 'Nombre' }, { data: 'apellidos', title: 'Apellidos' }, { data: 'fechaEjecucion', title: 'Fecha de Ejecución' }];
+var estructuraTablaBeneficiarios = [{ data: 'numeroEjecucion', title: 'No. Ejecución' }, { data: 'nombreJuzgado', title: 'Juzgado', width: "60%" }, { data: 'nombreBeneficiario', title: 'Nombre (s)' }, { data: 'apellidoPaterno', title: 'Apellido Paterno' }, { data: 'apellidoMaterno', title: 'Apellido Materno' }, { data: 'fechaEjecucion', title: 'Fecha de Ejecución' }];
 var beneficarios = [];
+
 var encontroBeneficiarios = false;
+var mostrarSeccionesBeneficiario = false;
+var formEjecucionValidado = false;
 
 //Funciones que se detonan al terminado del renderizado 
 $(document).ready(function ()
@@ -27,13 +30,15 @@ $(document).ready(function ()
     dataTable = GeneraTablaDatos(dataTable, "dataTable", causas, estructuraTablaCausas, false, false, false);
     dataTableAnex = GeneraTablaDatos(dataTableAnex, "dataTableAnexos", anexos, estructuraTablaAnexos, false, false, false);
 
+    idCircuito = $("#IdCircuitoHDN").val();
+
     // DEV TOCAS - AMPARO
 
     //Elemntos al Cargado
     ElementosAlCargado();
 
     //Solicitudes AJAX
-    LlenaPickListCircuito();  
+    Circuito_JuzgadoAcusatorio();  
 });
 
 // #region Variables SELECT Juzgado Acusatorio
@@ -100,10 +105,19 @@ slctNumeroT.change(function () {
 //Elementos al Cargado
 function ElementosAlCargado()
 {
-     $("#contenedorBeneficiario").hide();
-     $("#seccionBeneficiario").hide();
-     $("#seccionBusquedaAnexos").hide();
-     $("#seccionTablaAnexos").hide();
+    $("#contenedorBeneficiario").hide();
+    $("#seccionBeneficiario").hide();
+    $("#seccionBusquedaAnexos").hide();
+    $("#seccionTablaAnexos").hide();
+    $("#seccionBotonGuardar").hide();
+
+    $(document).on("keydown", ":input:not(textarea)", function (event)
+    {
+        if (event.key == "Enter")
+        {
+            event.preventDefault();
+        }
+    });
 
     //Funcionalidad para validar formularios
     var forms = document.getElementsByClassName('needs-validation');
@@ -126,6 +140,16 @@ function ElementosAlCargado()
             
             if (form.checkValidity() === true && id == "") {
                 alert(id);
+            }
+
+            if (form.checkValidity() === true && id == "formEjecucion")
+            {
+                alert("Se crea el registro de ejecución");   
+            }
+
+            if (id == "formEjecucion")
+            {
+                formEjecucionValidado = true;
             }
 
             form.classList.add('was-validated');
@@ -156,12 +180,60 @@ function ElementosAlCargado()
 
     $("#botonMostrarBeneficiarios").click(function ()
     {
-        MostrarBeneficiarios();
+        var apellidoPBene = $('#inpApellidoPaterno').val();
+        var NombreBene = $('#inpNombreSentenciado').val();
+
+        if (NombreBene != "" && apellidoPBene != "" && encontroBeneficiarios)
+        {
+            $('#ejecucionModal').modal('show');
+        }
+    });
+
+    $("#botonCheckBeneficiarios").click(function ()
+    {
+        var apellidoPBene = $('#inpApellidoPaterno').val();
+        var NombreBene = $('#inpNombreSentenciado').val();
+
+        if (NombreBene != "" && apellidoPBene != "" && !mostrarSeccionesBeneficiario)
+        {
+            mostrarSeccionesBeneficiario = true;
+            $("#botonCerrarBeneficiarios").removeClass("btn-secondary");
+            $("#botonCerrarBeneficiarios").addClass("btn-danger")
+            $("#seccionBeneficiario").show();
+            $("#seccionBusquedaAnexos").show();
+            $("#seccionTablaAnexos").show();
+            $("#seccionBotonGuardar").show();
+        }
+    });
+
+    $("#botonCerrarBeneficiarios").click(function ()
+    {
+        mostrarSeccionesBeneficiario = false;
+        $("#seccionBeneficiario").hide();
+        $("#seccionBusquedaAnexos").hide();
+        $("#seccionTablaAnexos").hide();
+        $("#seccionBotonGuardar").hide();
+
+        $("#botonCerrarBeneficiarios").removeClass("btn-danger");
+        $("#botonCerrarBeneficiarios").addClass("btn-secondary");
+
+        if (formEjecucionValidado)
+        {
+            var form = $('#formEjecucion')[0];
+            $(form).removeClass('was-validated');
+            formEjecucionValidado = false;
+        }
     });
 
     $("#btnCancelar").click(function ()
     {
         $("#ejecucionModal").modal("hide");
+
+        $("#botonCheckBeneficiarios").removeClass("btn-success");
+        $("#botonCheckBeneficiarios").addClass("btn-secondary");
+
+        $("#botonMostrarBeneficiarios").removeClass("btn-info");
+        $("#botonMostrarBeneficiarios").addClass("btn-secondary");
 
         beneficarios = [];
         $('#inpApellidoPaterno').val("");
@@ -175,16 +247,29 @@ function ElementosAlCargado()
             return '1px solid #b0bec5';
         });
 
+        $("#seccionBeneficiario").hide();
+        $("#seccionBusquedaAnexos").hide();
+        $("#seccionTablaAnexos").hide();
+        $("#seccionBotonGuardar").hide();
+
+        if (formEjecucionValidado)
+        {
+            var form = $('#formEjecucion')[0];
+            $(form).removeClass('was-validated');
+            formEjecucionValidado = false;
+        }
     });
 
     $("#btnAceptar").click(function ()
     {
+        mostrarSeccionesBeneficiario = true;
         $("#ejecucionModal").modal("hide");
-
+        $("#botonCerrarBeneficiarios").removeClass("btn-secondary");
+        $("#botonCerrarBeneficiarios").addClass("btn-danger")
         $("#seccionBeneficiario").show();
         $("#seccionBusquedaAnexos").show();
         $("#seccionTablaAnexos").show();
-
+        $("#seccionBotonGuardar").show();
     });
 
     $('#inpApellidoPaterno').change(function ()
@@ -201,31 +286,61 @@ function ElementosAlCargado()
     {
         ValidarBeneficiarios();
     });
-}
 
-function MostrarBeneficiarios()
-{
-    var apellidoPBene = $('#inpApellidoPaterno').val();
-    var NombreBene = $('#inpNombreSentenciado').val();
-
-    if (NombreBene != "" && apellidoPBene != "" && encontroBeneficiarios)
+    $('#slctSolicitud').change(function ()
     {
-        $('#ejecucionModal').modal('show');
-    }
+        var value = $("#slctSolicitud").find('option:selected').val();
+
+        if (value == "O")
+        {
+            $("#inpOtraSolicitud").prop('disabled', false);    
+            $("#inpOtraSolicitud").prop('required', true);
+        }
+        else
+        {
+            $("#inpOtraSolicitud").prop('disabled', true);
+            $("#inpOtraSolicitud").prop('required', false);
+            $("#inpOtraSolicitud").val("");
+        }
+    });
 }
 
 function ValidarBeneficiarios()
 {
     beneficarios = [];
+
     var apellidoPBene = $('#inpApellidoPaterno').val();
     var apellidoMBene = $('#inpApellidoMaterno').val();
-    var NombreBene = $('#inpNombreSentenciado').val();
+    var nombreBene = $('#inpNombreSentenciado').val();
 
-    if (NombreBene != "" && apellidoPBene != "")
-    {
+    if (nombreBene != "" && apellidoPBene != "") {
+        //Pintar en verde Check
+        $("#botonCheckBeneficiarios").removeClass("btn-secondary");
+        $("#botonCheckBeneficiarios").addClass("btn-success");
+
         //Consumir Metodo del Controlador
-        var parametros = { nombreBene: NombreBene, apellidoPaternoBene: apellidoPBene, apellidoMaternoBene: apellidoMBene}
+        var parametros = { nombreBene: nombreBene, apellidoPaternoBene: apellidoPBene, apellidoMaternoBene: apellidoMBene }
         SolicitudEstandarAjax("/Iniciales/ConsultarSentenciadoBeneficiario", parametros, LlenaTablaConsultaBeneficiarios);
+    }
+    else
+    {
+        if (!mostrarSeccionesBeneficiario)
+        {
+            $("#botonCheckBeneficiarios").removeClass("btn-success");
+            $("#botonCheckBeneficiarios").addClass("btn-secondary");
+        }
+
+        if (encontroBeneficiarios)
+        {
+            $("#botonMostrarBeneficiarios").removeClass("btn-info");
+            $("#botonMostrarBeneficiarios").addClass("btn-secondary");
+
+            $("#inpBusquedaSentenciado").val("Total : 0");
+            $("#inpBusquedaSentenciado").css('border', function ()
+            {
+                return '1px solid #b0bec5';
+            });
+        }
     }
 }
 
@@ -243,7 +358,8 @@ function LlenaTablaConsultaBeneficiarios(data)
             beneficiario.numeroEjecucion = iterarArreglo[index].NumeroEjecucion;
             beneficiario.nombreJuzgado = iterarArreglo[index].NombreJuzgado;
             beneficiario.nombreBeneficiario = iterarArreglo[index].NombreBeneficiario;
-            beneficiario.apellidos = iterarArreglo[index].ApellidoPBeneficiario + " " + iterarArreglo[index].ApellidoMBeneficiario;
+            beneficiario.apellidoPaterno = iterarArreglo[index].ApellidoPBeneficiario;
+            beneficiario.apellidoMaterno = iterarArreglo[index].ApellidoMBeneficiario;
             beneficiario.fechaEjecucion = iterarArreglo[index].FechaEjecucion;
             beneficarios.push(beneficiario);
         }
@@ -254,12 +370,11 @@ function LlenaTablaConsultaBeneficiarios(data)
             return '1px solid #DC3545';
         });
 
-        $("#seccionBeneficiario").hide();
-        $("#seccionBusquedaAnexos").hide();
-        $("#seccionTablaAnexos").hide();
+        //Pintar en mostrar Bene
+        $("#botonMostrarBeneficiarios").removeClass("btn-secondary");
+        $("#botonMostrarBeneficiarios").addClass("btn-info");
 
         dataTableBeneficiario = GeneraTablaDatos(dataTableBeneficiario, "dataTableBeneficiarios", beneficarios, estructuraTablaBeneficiarios, true, true, false);
-
     }
     else if (data.Estatus == EstatusRespuesta.SIN_RESPUESTA)
     {
@@ -270,9 +385,18 @@ function LlenaTablaConsultaBeneficiarios(data)
             return '1px solid #b0bec5';
         });
 
+        $("#botonMostrarBeneficiarios").removeClass("btn-info");
+        $("#botonMostrarBeneficiarios").addClass("btn-secondary");
+
+        $("#botonCerrarBeneficiarios").removeClass("btn-secondary");
+        $("#botonCerrarBeneficiarios").addClass("btn-danger")
+
         $("#seccionBeneficiario").show();
         $("#seccionBusquedaAnexos").show();
         $("#seccionTablaAnexos").show();
+        $("#seccionBotonGuardar").show();
+
+        mostrarSeccionesBeneficiario = true;
     }
     else
     {
@@ -280,46 +404,11 @@ function LlenaTablaConsultaBeneficiarios(data)
     }
 }
 
-function LlenaPickListCircuito()
-{
-    SolicitudEstandarAjax("/Iniciales/ObtenerCircuito", "", ListarCircuito);
-}
-
-function ListarCircuito(data)
-{
-    if (data.Estatus == EstatusRespuesta.OK)
-    {
-        const ObjCircuito = [data.Data];
-        const ObjCircuitoTr = [data.Data];
-        idcircuito = data.Data.Value;
-
-        var $slctCirAc = $('#slctCircuitoAc');
-        var $slctCirTr = $('#slctCircuitoTr');
-
-        $.each(ObjCircuito, function (id, circuito)
-        {
-            $slctCirAc.append('<option value=' + circuito.Value + '>' + circuito.Text + '</option>');
-            
-        });
-
-        $.each(ObjCircuitoTr, function (id, circuitoTr)
-        {
-            $slctCirTr.append('<option value=' + circuitoTr.Value + '>' + circuitoTr.Text + '</option>');
-        });
-
-        Circuito_JuzgadoAcusatorio();
-    }
-    else if (data.Estatus == EstatusRespuesta.ERROR)
-    {
-        customNotice(data.Mensaje, "Error:", "error", 3350);
-    }
-}
-
 function Circuito_JuzgadoAcusatorio()
 {
-    if (idcircuito != null)
+    if (idCircuito != null)
     {
-        var parobj = { idCircuito : idcircuito }
+        var parobj = { idCircuito : idCircuito }
         SolicitudEstandarAjax("/Iniciales/ObtenerJuzgadoAcusatorio", parobj, ListarJuzgadoAcusatorio);
     }
     else
@@ -403,9 +492,9 @@ function ListarJuzgadoTradicional(data)
 
 function Parametros_Distrito()
 {
-    if (idcircuito != null)
+    if (idCircuito != null)
     {
-        var Parametros = { idCircuito: idcircuito }
+        var Parametros = { idCircuito: idCircuito }
         SolicitudEstandarAjax("/Iniciales/ObtenerDistritosPorCircuito", Parametros, ListarDistrito)
     }
     else
