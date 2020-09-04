@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Anexo.cs" />
     <Compile Include="Distrito.cs" />
     <Compile Include="Ejecucion.cs" />
     <Compile Include="Enum\TiposEnum.cs" />

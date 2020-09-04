@@ -13,5 +13,6 @@ namespace PoderJudicial.SIPOH.Negocio.Interfaces
         List<Distrito> RecuperaDistrito(int idCircuito);
         Expediente RecuperaExpedientes(int idJuzgado, string numeroExpediente, TipoExpediente expediente);
         List<Ejecucion> RecuperaSentenciadoBeneficiario(string nombre, string apellidoPaterno, string apellidoMaterno);
+        List<Anexo> RecuperaAnexos(string tipo);
     }
 }

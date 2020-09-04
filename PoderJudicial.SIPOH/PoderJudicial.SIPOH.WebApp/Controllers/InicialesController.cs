@@ -27,12 +27,15 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             List<Distrito> distritos = inicialesProcessor.RecuperaDistrito(Usuario.IdCircuito);
             List<Juzgado> salasAcusatorio = inicialesProcessor.RecuperaSala(TipoJuzgado.ACUSATORIO);
             List<Juzgado> salasTradicional = inicialesProcessor.RecuperaSala(TipoJuzgado.TRADICIONAL);
+            List<Anexo> anexosEjecucion = inicialesProcessor.RecuperaAnexos("A");
 
+            //Parametros al View Bag
             ViewBag.IdCircuito = Usuario.IdCircuito;
             ViewBag.JuzgadosAcusatorios = juzgadosAcusatorios != null ? juzgadosAcusatorios : new List<Juzgado>();
             ViewBag.DistritosPorCircuito = distritos != null ? distritos : new List<Distrito>();
             ViewBag.SalasAcusatorio = salasAcusatorio != null ? salasAcusatorio : new List<Juzgado>();
             ViewBag.SalasTradicional = salasTradicional != null ? salasTradicional : new List<Juzgado>();
+            ViewBag.AnexosInicales = anexosEjecucion != null ? anexosEjecucion : new List<Anexo>();
 
             return View();
         }

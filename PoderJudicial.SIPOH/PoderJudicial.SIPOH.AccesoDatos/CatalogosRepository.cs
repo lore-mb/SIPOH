@@ -173,6 +173,45 @@ namespace PoderJudicial.SIPOH.AccesoDatos
                 Cnx.Close();
             }
         }
+
+        public List<Anexo> ObtenerAnexosEjecucion(string tipo)
+        {
+            try
+            {
+                if (!IsValidConnection)
+                    throw new Exception("No se ha creado una conexion valida");
+
+                SqlCommand comando = new SqlCommand("sipoh_ConsultarAnexosEjecucion", Cnx);
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.Add("@tipo", SqlDbType.VarChar).Value = tipo;
+                Cnx.Open();
+
+                SqlDataReader sqlRespuesta = comando.ExecuteReader();
+
+                DataTable tabla = new DataTable();
+                tabla.Load(sqlRespuesta);
+
+                List<Anexo> distritos = DataHelper.DataTableToList<Anexo>(tabla);
+
+                if (distritos.Count > 0)
+                    Estatus = Estatus.OK;
+                else
+                    Estatus = Estatus.SIN_RESULTADO;
+
+                return distritos;
+            }
+            catch (Exception ex)
+            {
+                MensajeError = ex.Message;
+                Estatus = Estatus.ERROR;
+                return null;
+            }
+            finally
+            {
+                if (IsValidConnection && Cnx.State == ConnectionState.Open)
+                    Cnx.Close();
+            }
+        }
         #region Metodos Privados de la Clase
         #endregion
     }

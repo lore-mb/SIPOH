@@ -70,7 +70,7 @@
                                     <div class="col-md-3 ">
                                         <label for="slcNumero">Distrito de Procedencia</label>
 
-                                        @Html.DropDownList("DistritoPorCircuito", new SelectList(ViewBag.DistritosPorCircuito, "IdDistrito", "Nombre"), "SELECCIONAR OPCIÓN", new { @id = "slctDistrito", @class = "custom-select", @required = "required" })
+                                        @Html.DropDownList("DistritoPorCircuito", new SelectList(ViewBag.DistritosPorCircuito, "IdDistrito", "Nombre"), "SELECCIONAR OPCIÓN", new { @id = "slctDistrito", @class = "custom-select custom-select-sm", @required = "required" })
 
                                         <div class="invalid-feedback">
                                             Selecciona un Distrito.
@@ -78,7 +78,7 @@
                                     </div>
                                     <div class="col-md-5">
                                         <label for="validationCustom04">Juzgado de Procedencia</label>
-                                        <select class="custom-select" id="slctJuzgadoTradi" required>
+                                        <select class="custom-select custom-select-sm" id="slctJuzgadoTradi" required>
                                             <option selected value="">SELECCIONAR OPCIÓN</option>
                                         </select>
                                         <div class="invalid-feedback">
@@ -87,12 +87,12 @@
                                     </div>
                                     <div class="col-md-4">
                                         <label for="validationCustomUsername">Numero de Causa:</label>
-                                        <div class="input-group" id="divCAU">
+                                        <div class="input-group input-group-sm" id="divCAU">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="inputGroupPrepend">CAUSA</span>
                                             </div>
-                                            <input type="text" class="form-control mr-3" id="inpCAUT" aria-describedby="inpCAU" placeholder="00-0000-0000" required>
-                                            <button class="btn btn-success" type="submit" id="btnCAU"><i class="fas fa-search"></i></button>
+                                            <input type="text" class="form-control form-control-sm mr-3" id="inpCAUT" aria-describedby="inpCAU" placeholder="00-0000-0000" required>
+                                            <button class="btn btn-success btn-sm" type="submit" id="btnCAU"><i class="fas fa-search"></i></button>
                                             <div class="invalid-feedback">
                                                 Introduce Numero de Causa.
                                             </div>
@@ -111,7 +111,7 @@
                                 <label>Causas</label>
                             </div>
                         </div>
-                        <div class="table-responsive">
+                        <div class="table-responsive text-small">
                             <table class="table table-bordered table-hover table-sm" id="dataTable" width="100%" cellspacing="0">
                             </table>
                         </div>
@@ -150,7 +150,7 @@
                                     </form>
                                     <div class="form-row">
                                         <div class="col-12">
-                                            <div class="table-responsive">
+                                            <div class="table-responsive text-small">
                                                 <table class="table table-bordered table-hover table-sm" id="dataTableTocas" width="100%" cellspacing="0">
                                                 </table>
                                             </div>
@@ -173,7 +173,7 @@
                                         </div>
                                     </div>
                                     <div class="col-12">
-                                        <div class="table-responsive">
+                                        <div class="table-responsive text-small">
                                             <table class="table table-bordered table-hover table-sm" id="dataTableAmparos" width="100%" cellspacing="0">
                                             </table>
                                         </div>
@@ -199,7 +199,7 @@
                                 <!-- FILA DOS -->
                                 <div class="form-row">
                                     <div class="col-12 col-md-6 mt-1">
-                                        <div class="input-group" id="divApellidoPSentenciado">
+                                        <div class="input-group input-group-sm" id="divApellidoPSentenciado">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="lbApellidoPaterno">Apellido Paterno</span>
                                             </div>
@@ -211,7 +211,7 @@
                                     </div>
 
                                     <div class="col-12 col-md-6 mt-3 mt-md-1">
-                                        <div class="input-group" id="divApellidoMSentenciado">
+                                        <div class="input-group input-group-sm" id="divApellidoMSentenciado">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="lbApellidoMaterno">Apellido Materno</span>
                                             </div>
@@ -226,7 +226,7 @@
                                 <!-- FILA TRES -->
                                 <div class="form-row">
                                     <div class="col-12 col-md-6 mt-3">
-                                        <div class="input-group" id="divNombreSentenciado ">
+                                        <div class="input-group input-group-sm" id="divNombreSentenciado ">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="lbNombreSentenciado">Nombre(s)</span>
                                             </div>
@@ -237,14 +237,14 @@
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-6 mt-3">
-                                        <div class="input-group" id="divBusquedaSentenciado">
+                                        <div class="input-group input-group-sm" id="divBusquedaSentenciado">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="lbBusquedaSentenciado">Coincidencias</span>
                                             </div>
                                             <input type="text" class="form-control mr-3" id="inpBusquedaSentenciado" aria-describedby="inpNumero" disabled>
-                                            <button id="botonMostrarBeneficiarios" type="button" class="btn btn-secondary mr-3"><i class="fa fa-eye icon"></i></button>
-                                            <button id="botonCheckBeneficiarios" type="button" class="btn btn-secondary mr-3"><i class="fa fa-check-circle icon"></i></button>
-                                            <button id="botonCerrarBeneficiarios" type="button" class="btn btn-secondary"><i class="fa fa-close icon"></i></button>
+                                            <button id="botonMostrarBeneficiarios" type="button" class="btn btn-secondary btn-sm mr-3"><i class="fa fa-eye icon"></i></button>
+                                            <button id="botonCheckBeneficiarios" type="button" class="btn btn-secondary btn-sm mr-3"><i class="fa fa-check-circle icon"></i></button>
+                                            <button id="botonCerrarBeneficiarios" type="button" class="btn btn-secondary btn-sm"><i class="fa fa-close icon"></i></button>
                                         </div>
                                     </div>
                                 </div>
@@ -253,12 +253,12 @@
                             <div id="seccionBeneficiario">
                                 <div class="form-row">
                                     <div class="col-12 mt-3">
-                                        <label for="validationCustom04">¿Sentenciado Interno? </label>
-                                        <div class="custom-control custom-radio custom-control-inline">
+                                        <label class="mr-4" for="validationCustom04">¿Sentenciado Interno? </label>
+                                        <div class="custom-control custom-radio custom-control-inline form-control-sm">
                                             <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input" required>
                                             <label class="custom-control-label" for="customRadioInline1">SI</label>
                                         </div>
-                                        <div class="custom-control custom-radio custom-control-inline">
+                                        <div class="custom-control custom-radio custom-control-inline form-control-sm">
                                             <input type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input" required>
                                             <label class="custom-control-label" for="customRadioInline2">NO</label>
                                         </div>
@@ -269,7 +269,7 @@
                                 <div class="form-row">
                                     <div class="col-12 col-md-4 mt-3">
                                         <label for="validationCustom04">Solicitante</label>
-                                        <select class="custom-select" id="slctSolicitante" required>
+                                        <select class="custom-select custom-select-sm" id="slctSolicitante" required>
                                             <option selected value="">SELECCIONAR OPCIÓN</option>
                                             <option value="J">JUZGADO</option>
                                             <option value="C">CERESO</option>
@@ -283,7 +283,7 @@
 
                                     </div>
                                     <div class="col-12 col-md-8 mt-3 mt-md-5">
-                                        <div class="input-group" id="divDetalleSolicitante">
+                                        <div class="input-group input-group-sm" id="divDetalleSolicitante">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="lbDetalleSolicitante">Detalle del Solicitante</span>
                                             </div>
@@ -299,7 +299,7 @@
                                 <div class="form-row">
                                     <div class="col-12 col-md-5 mt-3">
                                         <label for="validationCustom04">Solicitud</label>
-                                        <select class="custom-select" id="slctSolicitud" required>
+                                        <select class="custom-select custom-select-sm" id="slctSolicitud" required>
                                             <option selected value="">SELECCIONAR OPCIÓN</option>
                                             <option value="LC">LIBERTAD CONDICIONAL</option>
                                             <option value="RP">REMISIÓN PARCIAL DE LA PENA</option>
@@ -318,7 +318,7 @@
                                     </div>
                                     <div class="col-12 col-md-7 mt-3 mt-md-5">
 
-                                        <div class="input-group" id="divOtraSolicitud">
+                                        <div class="input-group input-group-sm" id="divOtraSolicitud">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="lbOtraSolicitud">Otro</span>
                                             </div>
@@ -339,7 +339,7 @@
                                 <div class="form-row">
                                     <div class="col-12 col-md-8 mt-3">
                                         <label for="validationCustom04">Anexos</label>
-                                        <select class="custom-select" id="slctJuzgado" required>
+                                        <select class="custom-select custom-select-sm" id="slctJuzgado" required>
                                             <option selected value="">SELECCIONAR DESCRIPCIÓN</option>
                                         </select>
                                         <div class="invalid-feedback">
@@ -347,12 +347,12 @@
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-4 mt-3 mt-md-5">
-                                        <div class="input-group" id="divNUC">
+                                        <div class="input-group input-group-sm" id="divNUC">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="inpNUC">Cantidad</span>
                                             </div>
                                             <input type="text" class="form-control mr-3" id="inpNumero" aria-describedby="inpNUC" required>
-                                            <button class="btn btn-success" type="submit" id="btnNUC"><i class="fas fa-plus-circle"></i></button>
+                                            <button class="btn btn-success btn-sm" type="submit" id="btnNUC"><i class="fas fa-plus-circle"></i></button>
                                             <div class="invalid-feedback">
                                                 Introduzca Una Cantidad
                                             </div>
@@ -366,7 +366,7 @@
                         <div id="seccionTablaAnexos">
                             <div class="form-row">
                                 <div class="col-8">
-                                    <div class="table-responsive">
+                                    <div class="table-responsive text-small">
                                         <table class="table table-bordered table-hover table-sm" id="dataTableAnexos" width="100%" cellspacing="0">
                                         </table>
                                     </div>
@@ -410,7 +410,7 @@
             </div>
             <div class="modal-body">
                 <div id="modalContainer">
-                    <div class="table-responsive">
+                    <div class="table-responsive text-small">
                         <table class="table table-bordered table-hover table-sm" id="dataTableBeneficiarios" width="100%" cellspacing="0">
                         </table>
                     </div>

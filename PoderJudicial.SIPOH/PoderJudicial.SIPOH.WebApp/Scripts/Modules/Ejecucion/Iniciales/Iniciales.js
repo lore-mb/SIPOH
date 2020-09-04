@@ -19,10 +19,10 @@ var anexos = [];
 var estructuraTablaBeneficiarios = [{ data: 'numeroEjecucion', title: 'No. Ejecución' }, { data: 'nombreJuzgado', title: 'Juzgado', width: "60%" }, { data: 'nombreBeneficiario', title: 'Nombre (s)' }, { data: 'apellidoPaterno', title: 'Apellido Paterno' }, { data: 'apellidoMaterno', title: 'Apellido Materno' }, { data: 'fechaEjecucion', title: 'Fecha de Ejecución' }];
 var beneficarios = [];
 
-var estructuraTablaTocas = [{ data: 'sala', title: 'Sala' }, { data: 'numeroToca', title: 'Numero De Toca'}];
+var estructuraTablaTocas = [{ data: 'sala', title: 'Sala' }, { data: 'numeroToca', title: 'Numero De Toca' }, { data: 'eliminar', title: 'Quitar' }];
 var tocas = [];
 
-var estructuraTablaAmparos = [{ data: 'amparo', title: 'Amparo' }];
+var estructuraTablaAmparos = [{ data: 'amparo', title: 'Numero de Amparo' }, { data: 'eliminar', title: 'Quitar' }];
 var amparos = [];
 
 

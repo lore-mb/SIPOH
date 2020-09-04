@@ -110,5 +110,21 @@ namespace PoderJudicial.SIPOH.Negocio
             }
             return beneficiarios;
         }
+
+        public List<Anexo> RecuperaAnexos(string tipo) 
+        {
+            List<Anexo> anexos = catalogosRepositorio.ObtenerAnexosEjecucion(tipo);
+
+            if (catalogosRepositorio.Estatus == Estatus.SIN_RESULTADO)
+                Mensaje = "La consulta no genero ningun resultado";
+
+            else if (catalogosRepositorio.Estatus == Estatus.ERROR)
+            {
+                Mensaje = "Ocurrio un error interno no controlado, consulte a soporte";
+                string mensajeLogger = catalogosRepositorio.MensajeError;
+                //Logica para ILogger
+            }
+            return anexos;
+        }
     }
 }
