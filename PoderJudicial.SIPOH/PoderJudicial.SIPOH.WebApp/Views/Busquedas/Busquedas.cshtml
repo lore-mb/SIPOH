@@ -11,12 +11,12 @@
                     <!-- Todo el contenido aquí -->
                     <!-- Formulario de busquedas-->
                     <div class="form-group row" style="margin-top:3%;" id="slcBus">
-                        <label class="col-sm-4 text-right form-control-label">Tipo de Busqueda:</label>
+                        <label class="col-sm-4 text-right">Tipo de Busqueda:</label>
                         <div class="col-sm-4 text-left">
                             <div class="form-group">
                                 <div class="input-group">
                                     <label for="inlineFormCustomSelect" class="sr-only">Camp 1</label>
-                                    <select class="custom-select form-control-label" id="inlineFormCustomSelect">
+                                    <select class="custom-select" id="inlineFormCustomSelect">
                                         <option value="0" selected>Selecciona</option>
                                         <option value="1">Busqueda por Partes Causa</option>
                                         <option value="2">Busqueda por Sentenciado/Beneficiario</option>
@@ -34,23 +34,24 @@
                         <div class="col-12">
                             <div class="row">
                                 <div class="col-sm-4">
+                                    <label>Nombre:</label>
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text">Nombre:</span>
-                                        <input type="text" placeholder="" class="form-control mr-2 col-sm-4">
+                                        <input type="text" class="form-control" placeholder="">
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
+                                    <label>Apellido Materno:</label>
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text">Apellido Materno:</span>
-                                        <input type="text" placeholder="" class="form-control mr-2 col-sm-4">
+                                        <input type="text" class="form-control" placeholder="">
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">Apellido Paterno:</span>
-                                        <input type="text" placeholder="" class="form-control mr-2 col-sm-4">
-                                        <button type="button" class="btn btn-success rounded"><i class="fas fa-search"></i></button>
-                                    </div>
+                                    <label>Apellido Materno:</label>
+                                    <input type="text" class="form-control" placeholder="">
+
+                                </div>
+                                <div class="col-sm-12 text-center" style="margin-top:3%">
+                                    <button type="button" class="btn btn-success rounded"><i class=""></i>Consultar</button>
                                 </div>
                             </div>
                         </div>
@@ -108,23 +109,24 @@
                         <div class="col-12">
                             <div class="row">
                                 <div class="col-sm-4">
+                                    <label>Nombre:</label>
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text">BNombre:</span>
-                                        <input type="text" placeholder="" class="form-control mr-2 col-sm-4">
+                                        <input type="text" class="form-control" placeholder="">
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
+                                    <label>Apellido Materno:</label>
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text">BApellido Materno:</span>
-                                        <input type="text" placeholder="" class="form-control mr-2 col-sm-4">
+                                        <input type="text" class="form-control" placeholder="">
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">BApellido Paterno:</span>
-                                        <input type="text" placeholder="" class="form-control mr-2 col-sm-4">
-                                        <button type="button" class="btn btn-success rounded"><i class="fas fa-search"></i></button>
-                                    </div>
+                                    <label>Apellido Materno:</label>
+                                    <input type="text" class="form-control" placeholder="">
+
+                                </div>
+                                <div class="col-sm-12 text-center" style="margin-top:3%">
+                                    <button type="button" class="btn btn-success rounded"><i class=""></i>Consultar</button>
                                 </div>
                             </div>
                         </div>
@@ -179,14 +181,14 @@
                     </div>
                     <!--Busqueda por Numero de Causa-->
                     <div class="form-group row" style="margin-top:6%" id="divCirNumC">
-                        <label class="col-sm-3  form-control-label">Distrito:</label>
-                        <label class="col-sm-3  form-control-label">Juzgado:</label>
+                        <label class="col-sm-3">Distrito:</label>
+                        <label class="col-sm-3">Juzgado:</label>
                         <div class="col-12 justify-content-center">
                             <div class="row">
                                 <div class="col-sm-3">
                                     <div class="input-group">
                                         <label for="slcDistrito" class="sr-only">Campo1</label>
-                                        <select class="custom-select form-control-label" id="slcDistrito">
+                                        <select class="custom-select" id="slcDistrito">
                                             <option disabled value="0">Selecciona</option>
                                             <option value="1" selected>ACTOPAN</option>
                                             <option value="2">APAN</option>
@@ -213,7 +215,7 @@
                                     <div class="input-group-prepend justify-content-center">
                                         <div class="input-group">
                                             <label for="slcJuzagdo" class="sr-only">Campo2</label>
-                                            <select class="custom-select form-control-label" id="slcJuzagdo">
+                                            <select class="custom-select" id="slcJuzagdo">
                                                 <option disabled value="0">Selecciona</option>
                                                 <option value="1" selected>PENAL ACTOPAN</option>
                                                 <option value="2">JUZGADO PENAL ACUSATORIO ACTOPAN</option>
@@ -335,8 +337,8 @@
                             <div class="row">
                                 <div class="col-sm-5">
                                     <div class="input-group">
-                                        <label class="col-sm-5  form-control-label">Circuito:</label>
-                                        <select class="custom-select form-control-label" id="slcCircuito">
+                                        <label class="col-sm-5">Circuito:</label>
+                                        <select class="custom-select" id="slcCircuito">
                                             <option disabled value="0">Selecciona</option>
                                             <option value="1" selected>ACTOPAN</option>
                                             <option value="2">HUEJUTLA</option>
@@ -350,8 +352,8 @@
                                 <div class="col-sm-6" id="divNucLstJuzg">
                                     <div class="input-group-prepend">
                                         <div class="input-group">
-                                            <label class="col-sm-3  form-control-label">Juzgado:</label>
-                                            <select class="custom-select form-control-label" id="slcJuzagdo">
+                                            <label class="col-sm-3">Juzgado:</label>
+                                            <select class="custom-select" id="slcJuzagdo">
                                                 <option disabled value="0">Selecciona</option>
                                                 <option value="1" selected>PENAL ACTOPAN</option>
                                                 <option value="2">JUZGADO PENAL ACUSATORIO ACTOPAN</option>
@@ -402,7 +404,7 @@
                             <div class="row">
                                 <div class="col-sm-4">
                                     <div class="input-group-prepend">
-                                        <label class="col-sm-3  form-control-label">NUC:</label>
+                                        <label class="col-sm-3">NUC:</label>
                                         <span class="input-group-text">Distrito:</span>
                                         <input type="text" placeholder="" class="form-control mr-2 col-sm-4">
                                     </div>
@@ -427,12 +429,13 @@
                     <div class="form-group row" style="margin-top:6%" id="divSolic">
                         <div class="col-12">
                             <div class="row justify-content-center align-items-center">
-                                <div class="col-sm-5">
+                                <div class="col-sm-4">
+                                    <label class="form-control-label">Solicitante:</label>
                                     <div class="input-group">
-                                        <label class="col-sm-4 form-control-label">Solicitante:</label>
+
                                         <select class="custom-select form-control-label" id="slcCircuito">
-                                            <option disabled value="0">Selecciona</option>
-                                            <option value="1" selected>JUZGADO</option>
+                                            <option value="0">Selecciona</option>
+                                            <option value="1">JUZGADO</option>
                                             <option value="2">CEREZO</option>
                                             <option value="3">SOLICITUD DE SENTENCIADO</option>
                                             <option value="4">VICTIMA</option>

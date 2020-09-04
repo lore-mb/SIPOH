@@ -73,6 +73,11 @@ namespace PoderJudicial.SIPOH.WebApp
             "~/Scripts/Master/BootBox/bootbox.min.js",
             "~/Scripts/Master/BootBox/popper.min.js"));
 
+            // Script Reportes
+            bundles.Add(new ScriptBundle("~/Scripts/Modules/Ejecucion/Reportes").Include(
+                "~/Scripts/Modules/Ejecucion/Reportes/Reportes.js"));
+
+
         }
     }
 }

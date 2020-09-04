@@ -8,111 +8,319 @@
         <div class="col-lg-12">
             <div class="card shadow-sm">
                 <div class="card-body">
-                    <!-- Todo el contenido aquí -->
-                    <!---FORMULARIO-->
-                    <div style="margin-top:3%">
-                        <div class="col-12">
-                            <div class="form-group row">
-                                <div class="input-group justify-content-center align-items-center mb-2">
-                                    <div class="custom-control form-control-label custom-radio mr-4">
-                                        <input type="radio" id="cbxJPA" name="customRadio" class="custom-control-input" onclick="mostrarInputJPA()">
-                                        <label class="custom-control-label text-center" for="cbxJPA">Juzgado Penal Acusatorio</label>
+                    <!-- Guia -->
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="juzgadoA-tab" data-toggle="tab" href="#JuzgadoA" role="tab" aria-controls="JuzgadoA" aria-selected="true">Juzgado Acusatorio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="juzgadoT-tab" data-toggle="tab" href="#JuzgadoT" role="tab" aria-controls="JuzgadoT" aria-selected="false">Juzgado Tradicional</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <!--Juzgado Acusatorio-->
+                        <div class="tab-pane fade show active" id="JuzgadoA" role="tabpanel" aria-labelledby="juzgadoA-tab">
+                            <!-- contenido-->
+                            <form class="needs-validation mt-4 ml-2" novalidate>
+                                <div class="form-row">
+                                    <div class="col-md-2 mb-3">
+                                        <label for="slctCircuitoAc">Circuito:</label>
+                                        <select class="custom-select" id="slctCircuitoAc" disabled></select>
                                     </div>
-                                    <div class="custom-control  form-control-label custom-radio">
-                                        <input type="radio" id="cbxJZT" name="customRadio" class="custom-control-input" onclick="mostrarInputJZT()">
-                                        <label class="custom-control-label text-center" for="cbxJZT">Juzgado Tradicional</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!---FILA 2 MASTER-->
-                    <div style="margin-top:4%">
-                        <div class="col-12">
-                            <div class="row justify-content-center align-items-center">
-                                <div class="col-sm-4">
-                                    <div class="input-group">
-                                        <label for="inlineFormCustomSelect" class="sr-only">Camp 1</label>
-                                        <label class="form-control-label">Circuito:</label>
-                                        <select class="custom-select form-control-label" id="inlineFormCustomSelect">
-                                            <option selected>Selecciona </option>
-                                            <option value="1">HUEJUTLA</option>
-                                            <option value="2">IXMIQUILPAN</option>
-                                            <option value="3">PACHUCA</option>
-                                            <option value="4">TULA</option>
-                                            <option value="5">TULANCINGO</option>
+                                    <div class="col-md-4 mb-3">
+                                        <label for="validationCustom04">Juzgado de Procedencia:</label>
+                                        <select class="custom-select" id="slctJuzgado" required>
+                                            <option selected value="">SELECCIONAR OPCIÓN</option>
                                         </select>
+                                        <div class="invalid-feedback">
+                                            Seleccionar Juzgado.
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="input-group">
-                                        <label for="inlineFormCustomSelect" class="sr-only">Camp 1</label>
-                                        <label class="form-control-label">Juzgado:</label>
-                                        <select class="custom-select form-control-label" id="inlineFormCustomSelect">
-                                            <option selected>Selecciona </option>
-                                            <option value="1">JUZGADO PENAL ACUSATORIO HUEJUTLA DE REYES</option>
-                                            <option value="2">UZGADO PENAL ACUSATORIO ZACUALTIPAN</option>
-                                            <option value="3">JUZGADO PENAL ACUSATORIO METZTITLAN</option>
-                                            <option value="4">JUZGADO PENAL ACUSATORIO MOLANGO</option>
-                                            <option value="5">JUZGADO SEGUNDO DE EJECUCION CTO HUEJUTLA</option>
+                                    <div class="col-md-3 mb-3">
+                                        <label for="slcNumero">N° Causa o  Nuc</label>
+                                        <select class="custom-select" id="slcNumero" required>
+                                            @*<option selected value="">Seleccionar Opcíón</option>*@
+                                            <option selected value="1">NUMERO UNICO DE CASO</option>
+                                            <option value="2">NUMERO DE CAUSA</option>
                                         </select>
+                                        <div class="invalid-feedback">
+                                            Seleccionar N° Unico de Caso / N° Causa.
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 mb-3">
+                                        <label for="validationCustomUsername">Numero</label>
+                                        <div class="input-group" id="divNUC">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="inpNUC">NUC</span>
+                                            </div>
+                                            <input type="text" class="form-control mr-3" id="inpNumero" aria-describedby="inpNUC" placeholder="0000/0000" required>
+                                            <button class="btn btn-success" type="submit" id="btnNUC"><i class=" fa fa-search"></i></button>
+                                            <div class="invalid-feedback">
+                                                Introducir N° Unico de Caso.
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+                                <div class="form-row justify-content-center">
+                                </div>
+                            </form>
+                        </div>
+                        <!--Juzgado Tradicional-->
+                        <div class="tab-pane fade" id="JuzgadoT" role="tabpanel" aria-labelledby="juzgadoT-tab">
+                            <form class="needs-validation mt-4 ml-2" novalidate>
+                                <div class="form-row">
+                                    <div class="col-md-4 mb-3">
+                                        <label for="slcNumero">Distrito de Procedencia</label>
+                                        <select class="custom-select" id="slctDistrito" required>
+                                            <option selected value="">SELECCIONAR OPCIÓN</option>
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            Selecciona un Distrito.
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label for="validationCustom04">Juzgado de Procedencia</label>
+                                        <select class="custom-select" id="slctJuzgadoTradi" required>
+                                            <option selected value="">SELECCIONAR OPCIÓN</option>
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            Selecciona un Juzgado.
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label for="validationCustomUsername">Numero</label>
+                                        <div class="input-group" id="divCAU">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="inputGroupPrepend">CAUSA</span>
+                                            </div>
+                                            <input type="text" class="form-control mr-2 " id="inpCAUT" aria-describedby="inpCAU" placeholder="0000/0000" required>
+                                            <button class="btn btn-success" type="submit" id="btnCAU"><i class="fa fa-search"></i></button>
+                                            <div class="invalid-feedback">
+                                                Introduce Numero de Causa.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row justify-content-center">
+                                </div>
+                            </form>
+                        </div>
+                        <!--Agregar Calendario-->
+                        <label>Fecha de recepcion:</label>
+                        <div class=" container mt-5" style="width:400px">
+                            <input type="datetime-local" id="picker" class="form-control" />
+                        </div>
+                        <!--Boton continuidad-->
+                        <div>
+                            <div class="col-sm-12 text-center mt-4">
+                                <button type="button" class="btn btn-success rounded"><i class=""></i>Continuar</button>
                             </div>
                         </div>
-
-                    </div>
-                    <!---FILA 3 MASTER-->
-                    <div style="margin-top:5%">
-                        <div class="col-12">
-                            <div class="row justify-content-center align-items-center">
-                                <div class="col-sm-3">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">Circuito:</span>
-                                        </div>
-                                        <input type="text" placeholder="HUEJUTLA" disabled class="form-control" style="width:90%">
-                                    </div>
-                                </div>
-                                <div class="col-sm-5">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">Juzgado:</span>
-                                        </div>
-                                        <input type="text" placeholder="PRIMERO PENAL ACUSATORIO" disabled class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-sm-3">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">No.Causa:</span>
-                                        </div>
-                                        <input type="text" placeholder="000/0000" class="form-control" style="width:90%">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!---CUARTA FILA MASTER-->
-                        <div style="margin-top:4%">
+                        <!--Alta a Imputado-->
+                        <div class="form-group row divcont" style="margin-top:6%" id="divPartes">
                             <div class="col-12">
-                                <div class="row justify-content-center align-items-center">
-                                    <label class="col-3 form-control-label text-center">NUC:</label>
-                                    <div class="col-3">
-                                        <input type="text" class="form-control" placeholder="01">
+                                <label>Nota: En caso de que desconozca algunos de los datos ingrese un punto(.) en la caja de texto del dato que desconoce.</label>
+                                <label>Imputado (s) o Inculpado (s):</label>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <label>Apellido Paterno o razon social:</label>
+                                        <div class="input-group-prepend">
+                                            <input type="text" class="form-control" placeholder="">
+                                        </div>
                                     </div>
-                                    <div class="col-3">
-                                        <input type="text" class="form-control" placeholder="03">
+                                    <div class="col-sm-3">
+                                        <label>Apellido Materno:</label>
+                                        <div class="input-group-prepend">
+                                            <input type="text" class="form-control" placeholder="">
+                                        </div>
                                     </div>
-                                    <div class="col-3">
-                                        <input type="text" class="form-control" placeholder="2020">
+                                    <div class="col-sm-3">
+                                        <label>Nombre:</label>
+                                        <input type="text" class="form-control" placeholder="">
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label>Alias:</label>
+                                        <input type="text" class="form-control" placeholder="">
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div style="margin-top:4%" class="row text-center">
+                        <div class="row">
+                            <div class="col-sm-4 mb-2">
+                                <label class="">Genero:</label>
+                                <div class="input-group">
+                                    <select class="custom-select" id="slcGenero">
+                                        <option value="0">Selecciona</option>
+                                        <option value="1">FEMENINO</option>
+                                        <option value="2">MASCULINO</option>
+                                        <option value="3">OTRO</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="">Catalogo de Delitos:</label>
+                            <div class="input-group align-items-center">
+                                <select class="custom-select" id="slcGenero">
+                                    <option value="0">Selecciona</option>
+                                    <option value="1">ABIGEATO</option>
+                                    <option value="2">ABORTO CULPOSO</option>
+                                    <option value="3">ABUSO SEXUAL</option>
+                                    <option value="4">CONTRA LA SALUD EN SU MODALIDAD DE NARCOMENUDEO CON FINES DE COMERCIALIZACION MARIHUANA Y COCAINA</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row mb-3" id="divDelitos">
+                            <div class="col-12 text-center">
+                                <div class="table-responsive mr-2">
+                                    <table class="table table-hover table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th>Delitos del Inculpado</th>
+                                                <th class="text-center">Detalles</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row">CONTRA LA SALUD EN SU MODALIDAD DE NARCOMENUDEO EN LA CONDUCTA DE POSESION SIMPLE (METANFETAMINA)</th>
+                                                <td class="text-center"><button class="btn btn-success btn-sm"><i class="fa fa-car-crash"></i></button></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">DELITOS CONTRA EL COMERCIO, LA INDUSTRIA, LA AGRICULTURA Y LA ESTABILIDAD ECONOMICA</th>
+                                                <td class="text-center"><button class="btn btn-success btn-sm"><i class="fa fa-car-crash"></i></button></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 justify-content-center">
+                            <div class="row">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text mb-4">Delito Especial* :</span>
+                                    <input type="text" class="form-control col-sm-6 mb-4">
+                                </div>
+                                <!--Botones Inculpado-->
+                                <div class="col-sm-6 mb-2">
+                                    <button type="button" class="btn btn-success rounded"><i class="mr-2"></i>Otro Inculpado</button>
+                                    <button type="button" class="btn btn-success rounded"><i class="mr-2"></i>Siguiente</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!--formulario victima-->
+                        <div class="form-group row divcont" style="margin-top:6%" id="divPartes">
+                            <div class="col-12">
+                                <label>Nota: En caso de que desconozca algunos de los datos ingrese un punto(.) en la caja de texto del dato que desconoce.</label>
+                                <label></label>
+                                <label>Víctima u Ofendidos:</label>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <label>Apellido Paterno o razon social:</label>
+                                        <div class="input-group-prepend">
+                                            <input type="text" class="form-control" placeholder="">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label>Apellido Materno:</label>
+                                        <div class="input-group-prepend">
+                                            <input type="text" class="form-control" placeholder="">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label>Nombre:</label>
+                                        <input type="text" class="form-control" placeholder="">
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label>Alias:</label>
+                                        <input type="text" class="form-control" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-sm-12">
-                            <button type="button" class="btn btn-success rounded"><i>Guardar</i></button>
+                            <div class="row">
+                                <div class="col-sm-4 mb-2">
+                                    <label class="">Genero:</label>
+                                    <div class="input-group">
+                                        <select class="custom-select" id="slcGenero">
+                                            <option value="0">Selecciona</option>
+                                            <option value="1">FEMENINO</option>
+                                            <option value="2">MASCULINO</option>
+                                            <option value="3">OTRO</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <!--Botones Victima-->
+                                <div class="col-sm-6 mb-2 mt-4">
+                                    <button type="button" class="btn btn-success rounded"><i class="mr-2"></i>Otro Ofendido</button>
+                                    <button type="button" class="btn btn-success rounded"><i class="mr-2"></i>Siguiente</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Muestra Informacion final-->
+                        <div class="col-sm-12 sm-3 bm-4 mt-3">
+                            <label>INCULPADO:</label>
+                            <div class="table-responsive text-center">
+                                <table class="table table-hover table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>Apellidp Paterno o Razon Social</th>
+                                            <th>Apellido Materno</th>
+                                            <th>Nombre</th>
+                                            <th>Genero</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Moctezuma</td>
+                                            <td>Aldana</td>
+                                            <td>Carlos Alberto</td>
+                                            <td>MASCULINO</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Mendoza</td>
+                                            <td>Salazar</td>
+                                            <td>Samuel</td>
+                                            <td>MASCULINO</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 sm-3 bm-4 mt-3">
+                            <label>OFENDIDO:</label>
+                            <div class="table-responsive text-center">
+                                <table class="table table-hover table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>Apellido Paterno o Razon Social</th>
+                                            <th>Apellido Materno</th>
+                                            <th>Nombre</th>
+                                            <th>Genero</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>PEREZ</td>
+                                            <td>HERNANDEZ</td>
+                                            <td>MARIA ALEJANDRA</td>
+                                            <td>FEMENINO</td>
+                                        </tr>
+                                        <tr>
+                                            <td>BARRERA</td>
+                                            <td>CORTES</td>
+                                            <td>NADIA</td>
+                                            <td>FEMENICO</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!--Boton Guardar Informacion-->
+                        <div>
+                            <div class="col-sm-12 text-center mt-4">
+                                <button type="button" class="btn btn-success rounded"><i class=""></i>Guardar Informacion</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -120,3 +328,8 @@
         </div>
     </div>
 </div>
+
+
+<!--librerias para Date Time Picker-->
+<link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+<script src="js/bootstrap-datetimepicker.min.js"></script>
