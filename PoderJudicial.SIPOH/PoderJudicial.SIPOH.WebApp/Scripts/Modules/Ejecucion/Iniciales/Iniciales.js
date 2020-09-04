@@ -36,9 +36,6 @@ $(document).ready(function ()
 
     //Elemntos al Cargado
     ElementosAlCargado();
-
-    //Solicitudes AJAX
-    Circuito_JuzgadoAcusatorio();  
 });
 
 // #region Variables SELECT Juzgado Acusatorio
@@ -105,7 +102,7 @@ slctNumeroT.change(function () {
 //Elementos al Cargado
 function ElementosAlCargado()
 {
-    $("#contenedorBeneficiario").hide();
+    //$("#contenedorBeneficiario").hide();
     $("#seccionBeneficiario").hide();
     $("#seccionBusquedaAnexos").hide();
     $("#seccionTablaAnexos").hide();
@@ -159,12 +156,24 @@ function ElementosAlCargado()
 
     $("#inpBusquedaSentenciado").val("Total : 0");   
 
+    $("#slctJuzgadoTradi").prop('disabled', true);
+
     $('#slctDistrito').change(function ()
     {
         idDistrito = $("#slctDistrito").find('option:selected').val();
 
         //Metodo que contiene el proceso para llenado de pick List Juzgados Tradicionales
-        Distrito_JuzgadoTradicional();
+        if (idDistrito != "" && idDistrito != null)
+        {
+            $("#slctJuzgadoTradi").prop('disabled', false);
+            DistritoJuzgadoTradicional();
+        }
+        else
+        {
+            $("#slctJuzgadoTradi").prop('disabled', true);
+            $("#slctJuzgadoTradi").html("");
+            $("#slctJuzgadoTradi").append($("<option/>", { value: "", text: "SELECCIONAR OPCIÓN" }));
+        }
     });
 
     $('#inpNumNUC').change(function ()
@@ -303,6 +312,16 @@ function ElementosAlCargado()
             $("#inpOtraSolicitud").val("");
         }
     });
+
+    $("#juzgadoT-tab").click(function ()
+    {
+        
+    });
+
+    $("#juzgadoA-tab").click(function ()
+    {
+       
+    });
 }
 
 function ValidarBeneficiarios()
@@ -404,20 +423,7 @@ function LlenaTablaConsultaBeneficiarios(data)
     }
 }
 
-function Circuito_JuzgadoAcusatorio()
-{
-    if (idCircuito != null)
-    {
-        var parobj = { idCircuito : idCircuito }
-        SolicitudEstandarAjax("/Iniciales/ObtenerJuzgadoAcusatorio", parobj, ListarJuzgadoAcusatorio);
-    }
-    else
-    {
-        alert("Error al obtener los datos");
-    }
-}
-
-function Distrito_JuzgadoTradicional()
+function DistritoJuzgadoTradicional()
 {
     if (idDistrito != null)
     {
@@ -427,36 +433,6 @@ function Distrito_JuzgadoTradicional()
     else
     {
         alert("Error al obtener los datos");
-    }
-}
-
-function ListarJuzgadoAcusatorio(data)
-{
-    if (data.Estatus == EstatusRespuesta.OK)
-    {
-        var numero = data.Data.length;
-       
-        if (numero == 1)
-        {
-            $("#slctJuzgado").html("");
-        }
-     
-        const ObjJuzgadoAcu = [data.Data];
-        var $slcJuzAcu = $('#slctJuzgado');
-
-        $.each(ObjJuzgadoAcu, function (id, juzgado)
-        {
-            for (var i = 0; i < juzgado.length; i++)
-            {
-                $slcJuzAcu.append('<option value=' + juzgado[i].Value + '>' + juzgado[i].Text + '</option>');
-            }
-        });
-
-        Parametros_Distrito();
-    }
-    else if (data.Estatus == EstatusRespuesta.ERROR)
-    {
-        customNotice(data.Mensaje, "Error:", "error", 3350);
     }
 }
 
@@ -483,42 +459,6 @@ function ListarJuzgadoTradicional(data)
                 $slcTradi.append('<option value=' + juzgado[i].Value + '>' + juzgado[i].Text + '</option>');
             }
         });
-    }
-    else if (data.Estatus == EstatusRespuesta.ERROR)
-    {
-        customNotice(data.Mensaje, "Error:", "error", 3350);
-    }
-}
-
-function Parametros_Distrito()
-{
-    if (idCircuito != null)
-    {
-        var Parametros = { idCircuito: idCircuito }
-        SolicitudEstandarAjax("/Iniciales/ObtenerDistritosPorCircuito", Parametros, ListarDistrito)
-    }
-    else
-    {
-        alert("Error de parametro");
-    }
-}
-
-function ListarDistrito(data)
-{
-    if (data.Estatus == EstatusRespuesta.OK)
-    {
-        var Array = [data.Data]
-        var $pickDistrito = $('#slctDistrito');
-
-        $.each(Array, function (id, distrito)
-        {
-            for (var i = 0; i < distrito.length; i++)
-            {
-                $pickDistrito.append('<option value=' + distrito[i].Value + '>' + distrito[i].Text + '</option>');
-            }
-        });
-        // SONUMO CONTROLADOR 
-        Parametros_Sala_Tradicional();
     }
     else if (data.Estatus == EstatusRespuesta.ERROR)
     {
@@ -576,8 +516,10 @@ function ListarCausas(data)
                 var funcion = function ()
                 {
                     if (causas.length == 0)
-                    $("#contenedorBeneficiario").show();
-
+                    {
+                        $('#contenedorBeneficiario').removeAttr('hidden');
+                        //$("#contenedorBeneficiario").show();
+                    }
                     var causa = new Object();
                     causa.id = expediente.IdExpediente;
                     causa.nJuzgado = expediente.NombreJuzgado;
@@ -648,7 +590,6 @@ function EliminarCausa(id)
     MensajeDeConfirmacion(mensaje, "large", funcion);
 }
 
-//#region Solicitud Ajax Get Generico
 function SolicitudEstandarAjax(url, parametros, funcion)
 {
     $.ajax({
@@ -672,7 +613,6 @@ function SolicitudEstandarAjax(url, parametros, funcion)
         }
     });
 }
-// #endregion
 
 function GeneraTablaDatos(tabla, idTablaHtml, datos, estructuraTabla, ordering, searching, lengthChange)
 {
@@ -807,7 +747,6 @@ function Obtener_Val_Sala_Acusatorio() {
     alert(Val_Combo);
     alert(Val_Input);
 }
-
 
 
 function Pintar_Tabla_Sala_Acusatorio() {

@@ -29,9 +29,9 @@
                                 <div class="form-row">
                                     <div class="col-md-6 mb-3">
                                         <label for="validationCustom04">Juzgado de Procedencia:</label>
-                                        <select class="custom-select" id="slctJuzgado" required>
-                                            <option selected value="">SELECCIONAR OPCIÓN</option>
-                                        </select>
+
+                                        @Html.DropDownList("SelectJuzgadoAcusatorio", new SelectList(ViewBag.JuzgadosAcusatorios, "IdJuzgado", "Nombre"), "SELECCIONAR OPCIÓN", new { @id = "slctJuzgado", @class = "custom-select", @required = "required" })
+
                                         <div class="invalid-feedback">
                                             Seleccionar Juzgado.
                                         </div>
@@ -70,9 +70,9 @@
                                 <div class="form-row">
                                     <div class="col-md-3 mb-3">
                                         <label for="slcNumero">Distrito de Procedencia</label>
-                                        <select class="custom-select" id="slctDistrito" required>
-                                            <option selected value="">SELECCIONAR OPCIÓN</option>
-                                        </select>
+
+                                        @Html.DropDownList("DistritoPorCircuito", new SelectList(ViewBag.DistritosPorCircuito, "IdDistrito", "Nombre"), "SELECCIONAR OPCIÓN", new { @id = "slctDistrito", @class = "custom-select", @required = "required" })
+
                                         <div class="invalid-feedback">
                                             Selecciona un Distrito.
                                         </div>
@@ -100,7 +100,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </form>
                         </div>
                         <!-- #endregion Juzgado Tradicional -->
@@ -108,66 +107,42 @@
                     <!-- #endregion-->
                     <!--#region Tabla Dinamica Acusatorio - Tradicional-->
                     <div class="tab-content">
+                        <div class="form-row mt-2">
+                            <div class="col-12">
+                                <label>Causas</label>
+                            </div>
+                        </div>
                         <div class="table-responsive">
                             <table class="table table-bordered table-hover table-sm" id="dataTable" width="100%" cellspacing="0">
                             </table>
                         </div>
                     </div>
                     <!-- #endregion -->
-                    <!-- #region Formulario Tocas Tradicional-->
-                    <div class="form-row" id="FormTocas">
-                        <div class="col-md-4 mb-3">
-                            <label for="comboSala">Sala Tradicional:</label>
-                            <select class="custom-select" id="comboSala" required>
-                                <option selected value="">SELECCIONAR OPCIÓN</option>
-                            </select>
-                            <div class="invalid-feedback">
-                                Seleccionar Sala.
+
+                    <div class="tab-content">
+                        <div class="form-row mt-3">
+                            <div class="col-12 col-md-7">
+                                <div class="form-row">
+                                    <div class="col-12 col-md-6">
+
+                                        <label for="slcNumero">Sala</label>
+                                        @Html.DropDownList("DistritoPorCircuito", new SelectList(ViewBag.DistritosPorCircuito, "IdDistrito", "Nombre"), "SELECCIONAR OPCIÓN", new { @id = "slctDistrito", @class = "custom-select", @required = "required" })
+
+                                    </div>
+                                    <div class="col-12 col-md-6">BUSCADOR</div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-12">TABLA</div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <label class="my-1 mr-2" for="Sala_Tradicional" id="Sala_Tradicional">Numero de Toca:</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="spnSalaTradicional">N°</span>
-                                </div>
-                                <input type="text" id="Sala_Tradicional" name="Sala_Tradicional" class="form-control mr-3" data-inputmask-clearmaskonlostfocus="true" required />
-                                <button class="btn btn-success" type="submit" id="btnSala_Tradicional"><i class="fa fa-plus-circle"></i></button>
-                                <div class="invalid-feedback">
-                                    Introducir N° Unico de Caso.
-                                </div>
+                            <div class="col-12 col-md-5">
+                                B
                             </div>
                         </div>
                     </div>
-                    <!-- #endregion Formulario Tocas-->
-                    <!-- #region Formulario Tocas Acusatorio-->
-                    <div class="form-row">
-                        <div class="col-md-4 mb-3">
-                            <label for="comboSala_Acusatorio">Sala Acusatorio:</label>
-                            <select class="custom-select" id="comboSala_Acusatorio" required>
-                                <option selected value="">SELECCIONAR OPCIÓN</option>
-                            </select>
-                            <div class="invalid-feedback">
-                                Seleccionar Sala.
-                            </div>
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <label class="my-1 mr-2" for="Sala_Acusatorio" id="NumeroLabel">Numero de Toca:</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="spnSala_Acusatorio">N°</span>
-                                </div>
-                                <input type="text" id="Sala_Acusatorio" name="Sala_Acusatorio" class="form-control mr-3" data-inputmask-clearmaskonlostfocus="true" required />
-                                <button class="btn btn-success" type="submit" id="btnSala_Acusatorio" onclick="Obtener_Val_Sala_Acusatorio()"><i class="fa fa-plus-circle"></i></button>
-                                <div class="invalid-feedback">
-                                    Introducir N° Unico de Caso.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- #endregion Formulario Tocas-->
+
                     <!-- CONTENEDOR BENEFICIARIO -->
-                    <div class="tab-content" id="contenedorBeneficiario">
+                    <div class="tab-content" id="contenedorBeneficiario" hidden>
                         <form id="formEjecucion" class="needs-validation" novalidate>
                             <!-- BUSCADOR BENEFICIARIO -->
                             <div id="seccionBusquedaBeneficiario">
@@ -365,8 +340,8 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
+
                 </div>
             </div>
         </div>

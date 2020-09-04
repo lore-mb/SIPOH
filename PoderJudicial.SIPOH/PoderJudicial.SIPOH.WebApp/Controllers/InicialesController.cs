@@ -24,31 +24,20 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         public ActionResult Iniciales()
         {
             ViewBag.IdCircuito = Usuario.IdCircuito;
+     
+            List<Juzgado> juzgadosAcusatorios = inicialesProcessor.RecuperaJuzgado(Usuario.IdCircuito, TipoJuzgado.ACUSATORIO);
+            List<Distrito> distritos = inicialesProcessor.RecuperaDistrito(Usuario.IdCircuito);
+            List<Juzgado> salasAcusatorio = inicialesProcessor.RecuperaSala(TipoJuzgado.ACUSATORIO);
+
+            ViewBag.JuzgadosAcusatorios = juzgadosAcusatorios != null ? juzgadosAcusatorios : new List<Juzgado>();
+            ViewBag.DistritosPorCircuito = distritos != null ? distritos : new List<Distrito>();
+            ViewBag.SalasAcusatorio = salasAcusatorio 
+
             return View();
         }
 
         #region Metodos Publicos del Controlador
-        [HttpGet]
-        public ActionResult ObtenerCircuito() 
-        {
-            Respuesta.Data = new { Value = Usuario.IdCircuito, Text = Usuario.NombreCircuito };
-            Respuesta.Estatus = EstatusRespuestaJSON.OK;
-            Respuesta.Mensaje = Usuario.NombreCircuito;
-
-            return Json(Respuesta, JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpGet]
-        public ActionResult ObtenerJuzgadoAcusatorio(int idCircuito)
-        {
-            List<Juzgado> juzgados = inicialesProcessor.RecuperaJuzgado(idCircuito, TipoJuzgado.ACUSATORIO);
-
-            ValidaJuzgados(juzgados);
-            Respuesta.Mensaje = inicialesProcessor.Mensaje;
-   
-            return Json(Respuesta, JsonRequestBehavior.AllowGet);
-        }
-
+       
         [HttpGet]
         public ActionResult ObtenerJuzgadoTradicional(int idDistrito)
         {
