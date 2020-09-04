@@ -339,9 +339,9 @@
                                 <div class="form-row">
                                     <div class="col-12 col-md-8 mt-3">
                                         <label for="validationCustom04">Anexos</label>
-                                        <select class="custom-select custom-select-sm" id="slctJuzgado" required>
-                                            <option selected value="">SELECCIONAR DESCRIPCIÓN</option>
-                                        </select>
+
+                                        @Html.DropDownList("AnexosInicales", new SelectList(ViewBag.AnexosInicales, "Tipo", "Descripcion"), "SELECCIONAR OPCIÓN", new { @id = "slctAnexosInicales", @class = "custom-select custom-select-sm", @required = "required" })
+
                                         <div class="invalid-feedback">
                                             Seleccione una Descripción
                                         </div>
