@@ -2,12 +2,12 @@
 var EstatusRespuesta = { SIN_RESPUESTA: 0, OK: 1, ERROR: 2 }
 var idCircuito = null;
 var idDistrito = null;
-var esJuzgadoAcusatorio = true;
 
 var dataTable = null;
 var dataTableAnex = null;
 var dataTableBeneficiario = null;
-var dataTable
+var dataTableTocas = null;
+var dataTableAmparos = null;
 
 //Estructura para data tables
 var estructuraTablaCausas = [{ data: 'nJuzgado', title: 'N° Juzgado' }, { data: 'causaNuc', title: 'Causa|Nuc' }, { data: 'ofendido', title: 'Ofendido (s)' }, { data: 'inculpado', title: 'Inculpado (s)' }, { data: 'delito', title: 'Delitos (s)' }, { data: 'eliminar', title: 'Quitar' }];
@@ -19,6 +19,13 @@ var anexos = [];
 var estructuraTablaBeneficiarios = [{ data: 'numeroEjecucion', title: 'No. Ejecución' }, { data: 'nombreJuzgado', title: 'Juzgado', width: "60%" }, { data: 'nombreBeneficiario', title: 'Nombre (s)' }, { data: 'apellidoPaterno', title: 'Apellido Paterno' }, { data: 'apellidoMaterno', title: 'Apellido Materno' }, { data: 'fechaEjecucion', title: 'Fecha de Ejecución' }];
 var beneficarios = [];
 
+var estructuraTablaTocas = [{ data: 'sala', title: 'Sala' }, { data: 'numeroToca', title: 'Numero De Toca'}];
+var tocas = [];
+
+var estructuraTablaAmparos = [{ data: 'amparo', title: 'Amparo' }];
+var amparos = [];
+
+
 var encontroBeneficiarios = false;
 var mostrarSeccionesBeneficiario = false;
 var formEjecucionValidado = false;
@@ -29,6 +36,8 @@ $(document).ready(function ()
     //Pintar Tabla
     dataTable = GeneraTablaDatos(dataTable, "dataTable", causas, estructuraTablaCausas, false, false, false);
     dataTableAnex = GeneraTablaDatos(dataTableAnex, "dataTableAnexos", anexos, estructuraTablaAnexos, false, false, false);
+    dataTableTocas = GeneraTablaDatos(dataTableTocas, "dataTableTocas", tocas, estructuraTablaTocas, false, false, false);
+    dataTableAmparos = GeneraTablaDatos(dataTableAmparos, "dataTableAmparos", amparos, estructuraTablaAmparos, false, false, false);
 
     idCircuito = $("#IdCircuitoHDN").val();
 
@@ -127,15 +136,23 @@ function ElementosAlCargado()
             event.preventDefault();
             event.stopPropagation();
 
-            if (form.checkValidity() === true && (id == "formCausas" || id == "formCausasTradicional")) {
-                ConsultarCausas(esJuzgadoAcusatorio);
+            if (form.checkValidity() === true && id == "formCausas")
+            {
+                ConsultarCausas(true);
+            } 
+
+            if (form.checkValidity() === true && id == "formCausasTradicional")
+            {
+                ConsultarCausas(false);
             }
 
-            if (form.checkValidity() === true && id == "formAnexos") {
+            if (form.checkValidity() === true && id == "formAnexos")
+            {
                 alert(id);
             }
             
-            if (form.checkValidity() === true && id == "") {
+            if (form.checkValidity() === true && id == "formTocas")
+            {
                 alert(id);
             }
 
@@ -174,17 +191,6 @@ function ElementosAlCargado()
             $("#slctJuzgadoTradi").html("");
             $("#slctJuzgadoTradi").append($("<option/>", { value: "", text: "SELECCIONAR OPCIÓN" }));
         }
-    });
-
-    $('#inpNumNUC').change(function ()
-    {
-        esJuzgadoAcusatorio = true;
-
-    });
-
-    $('#inpCAUT').change(function ()
-    {
-        esJuzgadoAcusatorio = false;
     });
 
     $("#botonMostrarBeneficiarios").click(function ()
@@ -315,12 +321,23 @@ function ElementosAlCargado()
 
     $("#juzgadoT-tab").click(function ()
     {
-        
+        //Para que al cargado no se vea el elemento ocultandose
+        $('#slctSalaTradicional').removeAttr('hidden');
+
+        $('#slctSalaTradicional').show();
+        $("#slctSalaTradicional").prop('required', true);
+
+        $('#slctSalaAcusatorio').hide();
+        $("#slctSalaAcusatorio").prop('required', false);
     });
 
     $("#juzgadoA-tab").click(function ()
     {
-       
+        $('#slctSalaAcusatorio').show();
+        $("#slctSalaAcusatorio").prop('required', true);
+
+        $('#slctSalaTradicional').hide();
+        $("#slctSalaTradicional").prop('required', false);
     });
 }
 
@@ -470,12 +487,12 @@ function ConsultarCausas(esAcusatorio)
 {
     if (esAcusatorio)
     {
-        var causaNucSelect = $("#slcNumero").find('option:selected').val();
+        var causaNucSelect = $("#slctNumero").find('option:selected').val();
         var juzgadoId = $("#slctJuzgado").find('option:selected').val();
 
-        var causaNucText = $('#inpNumero').val();
+        var causaNucText = $('#Numero').val();
 
-        if (causaNucSelect == 1)
+        if (causaNucSelect == 2)
         {
             var parametros = { idJuzgado: juzgadoId, nuc: causaNucText };
             SolicitudEstandarAjax("/Iniciales/ObtenerExpedientePorNUC", parametros, ListarCausas);
@@ -518,7 +535,7 @@ function ListarCausas(data)
                     if (causas.length == 0)
                     {
                         $('#contenedorBeneficiario').removeAttr('hidden');
-                        //$("#contenedorBeneficiario").show();
+                        $("#contenedorBeneficiario").show();
                     }
                     var causa = new Object();
                     causa.id = expediente.IdExpediente;
@@ -702,53 +719,53 @@ function Alerta(mensaje)
 }
 
 
-// Dev TOCAS Y AMPAROS //
+//// Dev TOCAS Y AMPAROS //
 
-$("#FormTocas").hide();
+//$("#FormTocas").hide();
 
-function Parametros_Sala_Tradicional() {
-    SolicitudEstandarAjax("/Iniciales/ObtenerSalaTradicional", "", Obtener_Sala_Tradicional);
-}
-function Obtener_Sala_Tradicional(data) {
-    if (data.Estatus == EstatusRespuesta.OK) {
-        const ArraySalaTradicional = [data.Data];
-        var $SelectSalaAcusatorio = $("#comboSala");
-        $.each(ArraySalaTradicional, function (id, sala) {
-            for (var i = 0; i < sala.length; i++) {
-                $SelectSalaAcusatorio.append('<option value=' + sala[i].Value + '>' + sala[i].Text + '</option>');
-            }
-        });
-        Parametros_Sala_Acusatorio();
-    } else if (data.Estatus == EstatusRespuesta.ERROR) {
-        customNotice(data.Mensaje, "Error:", "error", 3350);
-    }
-}
+//function Parametros_Sala_Tradicional() {
+//    SolicitudEstandarAjax("/Iniciales/ObtenerSalaTradicional", "", Obtener_Sala_Tradicional);
+//}
+//function Obtener_Sala_Tradicional(data) {
+//    if (data.Estatus == EstatusRespuesta.OK) {
+//        const ArraySalaTradicional = [data.Data];
+//        var $SelectSalaAcusatorio = $("#comboSala");
+//        $.each(ArraySalaTradicional, function (id, sala) {
+//            for (var i = 0; i < sala.length; i++) {
+//                $SelectSalaAcusatorio.append('<option value=' + sala[i].Value + '>' + sala[i].Text + '</option>');
+//            }
+//        });
+//        Parametros_Sala_Acusatorio();
+//    } else if (data.Estatus == EstatusRespuesta.ERROR) {
+//        customNotice(data.Mensaje, "Error:", "error", 3350);
+//    }
+//}
 
-function Parametros_Sala_Acusatorio() {
-    SolicitudEstandarAjax("/Iniciales/ObtenerSalaAcusatorio", "", Obtener_Sala_Acusatorio);
-}
-function Obtener_Sala_Acusatorio(data) {
-    if (data.Estatus = EstatusRespuesta.OK) {
-        var Array_Sala_Acusatorio = [data.Data];
-        var $ComboIndex = $("#comboSala_Acusatorio");
-        $.each(Array_Sala_Acusatorio, function (id, sala) {
-            for (var i = 0; i < sala.length; i++) {
-                $ComboIndex.append('<option value=' + sala[i].Value + '>' + sala[i].Text +'</option>');
-            }
-        });
-    } else if (data.Estatus == EstatusRespuesta.ERROR) {
-        customNotice(data.Mensaje, "Error:", "error", 3350);
-    }
-}
+//function Parametros_Sala_Acusatorio() {
+//    SolicitudEstandarAjax("/Iniciales/ObtenerSalaAcusatorio", "", Obtener_Sala_Acusatorio);
+//}
+//function Obtener_Sala_Acusatorio(data) {
+//    if (data.Estatus = EstatusRespuesta.OK) {
+//        var Array_Sala_Acusatorio = [data.Data];
+//        var $ComboIndex = $("#comboSala_Acusatorio");
+//        $.each(Array_Sala_Acusatorio, function (id, sala) {
+//            for (var i = 0; i < sala.length; i++) {
+//                $ComboIndex.append('<option value=' + sala[i].Value + '>' + sala[i].Text +'</option>');
+//            }
+//        });
+//    } else if (data.Estatus == EstatusRespuesta.ERROR) {
+//        customNotice(data.Mensaje, "Error:", "error", 3350);
+//    }
+//}
 
-function Obtener_Val_Sala_Acusatorio() {
-    var Val_Combo = $("#comboSala_Acusatorio").find('option:selected').val();
-    var Val_Input = $("#Sala_Acusatorio").val();
-    alert(Val_Combo);
-    alert(Val_Input);
-}
+//function Obtener_Val_Sala_Acusatorio() {
+//    var Val_Combo = $("#comboSala_Acusatorio").find('option:selected').val();
+//    var Val_Input = $("#Sala_Acusatorio").val();
+//    alert(Val_Combo);
+//    alert(Val_Input);
+//}
 
 
-function Pintar_Tabla_Sala_Acusatorio() {
+//function Pintar_Tabla_Sala_Acusatorio() {
     
-}
+//}

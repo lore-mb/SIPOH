@@ -22,16 +22,17 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         }
         // GET: Iniciales
         public ActionResult Iniciales()
-        {
-            ViewBag.IdCircuito = Usuario.IdCircuito;
-     
+        { 
             List<Juzgado> juzgadosAcusatorios = inicialesProcessor.RecuperaJuzgado(Usuario.IdCircuito, TipoJuzgado.ACUSATORIO);
             List<Distrito> distritos = inicialesProcessor.RecuperaDistrito(Usuario.IdCircuito);
             List<Juzgado> salasAcusatorio = inicialesProcessor.RecuperaSala(TipoJuzgado.ACUSATORIO);
+            List<Juzgado> salasTradicional = inicialesProcessor.RecuperaSala(TipoJuzgado.TRADICIONAL);
 
+            ViewBag.IdCircuito = Usuario.IdCircuito;
             ViewBag.JuzgadosAcusatorios = juzgadosAcusatorios != null ? juzgadosAcusatorios : new List<Juzgado>();
             ViewBag.DistritosPorCircuito = distritos != null ? distritos : new List<Distrito>();
-            ViewBag.SalasAcusatorio = salasAcusatorio 
+            ViewBag.SalasAcusatorio = salasAcusatorio != null ? salasAcusatorio : new List<Juzgado>();
+            ViewBag.SalasTradicional = salasTradicional != null ? salasTradicional : new List<Juzgado>();
 
             return View();
         }
@@ -45,28 +46,6 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
 
             ValidaJuzgados(juzgados);
             Respuesta.Mensaje = inicialesProcessor.Mensaje;
-            return Json(Respuesta, JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpGet]
-        public ActionResult ObtenerSalaAcusatorio() 
-        {
-            List<Juzgado> juzgados = inicialesProcessor.RecuperaSala(TipoJuzgado.ACUSATORIO);
-
-            ValidaJuzgados(juzgados);
-            Respuesta.Mensaje = inicialesProcessor.Mensaje;
-
-            return Json(Respuesta, JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpGet]
-        public ActionResult ObtenerSalaTradicional()
-        {
-            List<Juzgado> juzgados = inicialesProcessor.RecuperaSala(TipoJuzgado.ACUSATORIO);
-
-            ValidaJuzgados(juzgados);
-            Respuesta.Mensaje = inicialesProcessor.Mensaje;
-
             return Json(Respuesta, JsonRequestBehavior.AllowGet);
         }
 

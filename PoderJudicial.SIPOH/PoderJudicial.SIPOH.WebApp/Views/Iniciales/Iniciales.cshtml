@@ -14,50 +14,49 @@
                     <!-- #region Secciones Juzgado Acusatorio - Tradiconal -->
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item" id="Acusatorio">
-                            <a class="nav-link active" id="juzgadoT-tab" data-toggle="tab" href="#JuzgadoT" role="tab" aria-controls="JuzgadoT" aria-selected="true">Juzgado Acusatorio</a>
+                            <a class="nav-link active" id="juzgadoA-tab" data-toggle="tab" href="#JuzgadoA" role="tab" aria-controls="JuzgadoA" aria-selected="true">Juzgado Acusatorio</a>
                         </li>
                         <li class="nav-item" id="Tradicional">
-                            <a class="nav-link" id="juzgadoA-tab" data-toggle="tab" href="#JuzgadoA" role="tab" aria-controls="JuzgadoA" aria-selected="false">Juzgado Tradicional</a>
+                            <a class="nav-link" id="juzgadoT-tab" data-toggle="tab" href="#JuzgadoT" role="tab" aria-controls="JuzgadoT" aria-selected="false">Juzgado Tradicional</a>
                         </li>
                     </ul>
                     <!-- #endregion Juzgado Acusatorio -->
                     <!-- #region Navegacion Juzgados-->
                     <div class="tab-content" id="myTabContent">
                         <!-- #region Juzgado Acusatorio-->
-                        <div class="tab-pane fade show active" id="JuzgadoT" role="tabpanel" aria-labelledby="juzgadoT-tab">
+                        <div class="tab-pane fade show active" id="JuzgadoA" role="tabpanel" aria-labelledby="juzgadoA-tab">
                             <form id="formCausas" class="needs-validation mt-4" novalidate>
                                 <div class="form-row">
-                                    <div class="col-md-6 mb-3">
+                                    <div class="col-md-6">
                                         <label for="validationCustom04">Juzgado de Procedencia:</label>
 
-                                        @Html.DropDownList("SelectJuzgadoAcusatorio", new SelectList(ViewBag.JuzgadosAcusatorios, "IdJuzgado", "Nombre"), "SELECCIONAR OPCIÓN", new { @id = "slctJuzgado", @class = "custom-select", @required = "required" })
+                                        @Html.DropDownList("SelectJuzgadoAcusatorio", new SelectList(ViewBag.JuzgadosAcusatorios, "IdJuzgado", "Nombre"), "SELECCIONAR OPCIÓN", new { @id = "slctJuzgado", @class = "custom-select custom-select-sm", @required = "required" })
 
                                         <div class="invalid-feedback">
                                             Seleccionar Juzgado.
                                         </div>
                                     </div>
-                                    <div class="col-md-2 mb-3">
+                                    <div class="col-md-2">
                                         <label for="slcNumero">Causa/Nuc</label>
-                                        <select class="custom-select" id="slctNumero">
-                                            <option value="1">CAUSA</option>
-                                            <option value="2">NUC</option>
+                                        <select class="custom-select custom-select-sm" id="slctNumero">
+                                            <option value="1">NO. CAUSA</option>
+                                            <option value="2">NO. UNICO DE CASO</option>
                                         </select>
                                         <div class="invalid-feedback">
                                             Seleccionar N° Unico de Caso / N° Causa.
                                         </div>
                                     </div>
-                                    <div class="col-md-4 mb-3">
+                                    <div class="col-md-4">
                                         <label class="my-1 mr-2" for="inpNumero" id="NumeroLabel">Numero de Causa:</label>
-                                        <div class="input-group" id="divNUC">
+                                     
+                                        <div class="input-group input-group-sm">
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text" id="spnNumero">CAUSA</span>
+                                                <span class="input-group-text" id="spnNumero">Causa</span>
                                             </div>
-                                            <input type="text" id="Numero" name="Numero" class="form-control mr-3" data-inputmask-clearmaskonlostfocus="true" required />
-                                            <button class="btn btn-success" type="submit" id="btnNUC"><i class="fa fa-search"></i></button>
-                                            <div class="invalid-feedback">
-                                                Introducir N° Unico de Caso.
-                                            </div>
+                                            <input type="text" id="Numero" name="Numero" class="form-control form-control-sm mr-2" aria-label="Small" aria-describedby="inputGroup-sizing-sm" data-inputmask-clearmaskonlostfocus="true" required >
+                                            <button class="btn btn-success btn-sm" type="submit" id="btnNUC"><i class="fa fa-search"></i></button> 
                                         </div>
+                                    
                                     </div>
                                 </div>
                             </form>
@@ -65,10 +64,10 @@
 
                         <!-- #endregion Juzgado Acusatorio-->
                         <!-- #region Juzgado Tradicional -->
-                        <div class="tab-pane fade" id="JuzgadoA" role="tabpanel" aria-labelledby="juzgadoA-tab">
+                        <div class="tab-pane fade" id="JuzgadoT" role="tabpanel" aria-labelledby="juzgadoT-tab">
                             <form id="formCausasTradicional" class="needs-validation mt-4" novalidate>
                                 <div class="form-row">
-                                    <div class="col-md-3 mb-3">
+                                    <div class="col-md-3 ">
                                         <label for="slcNumero">Distrito de Procedencia</label>
 
                                         @Html.DropDownList("DistritoPorCircuito", new SelectList(ViewBag.DistritosPorCircuito, "IdDistrito", "Nombre"), "SELECCIONAR OPCIÓN", new { @id = "slctDistrito", @class = "custom-select", @required = "required" })
@@ -77,7 +76,7 @@
                                             Selecciona un Distrito.
                                         </div>
                                     </div>
-                                    <div class="col-md-5 mb-3">
+                                    <div class="col-md-5">
                                         <label for="validationCustom04">Juzgado de Procedencia</label>
                                         <select class="custom-select" id="slctJuzgadoTradi" required>
                                             <option selected value="">SELECCIONAR OPCIÓN</option>
@@ -86,7 +85,7 @@
                                             Selecciona un Juzgado.
                                         </div>
                                     </div>
-                                    <div class="col-md-4 mb-3">
+                                    <div class="col-md-4">
                                         <label for="validationCustomUsername">Numero de Causa:</label>
                                         <div class="input-group" id="divCAU">
                                             <div class="input-group-prepend">
@@ -107,7 +106,7 @@
                     <!-- #endregion-->
                     <!--#region Tabla Dinamica Acusatorio - Tradicional-->
                     <div class="tab-content">
-                        <div class="form-row mt-2">
+                        <div class="form-row mt-3">
                             <div class="col-12">
                                 <label>Causas</label>
                             </div>
@@ -120,23 +119,66 @@
                     <!-- #endregion -->
 
                     <div class="tab-content">
-                        <div class="form-row mt-3">
+                        <div class="form-row">
                             <div class="col-12 col-md-7">
-                                <div class="form-row">
-                                    <div class="col-12 col-md-6">
+                                <form id="formTocas" class="needs-validation" novalidate>
+                                    <div class="form-row">
+                                        <div class="col-12 col-md-6 mt-3">
+                                            <label for="validationCustom04">Salas</label>
 
-                                        <label for="slcNumero">Sala</label>
-                                        @Html.DropDownList("DistritoPorCircuito", new SelectList(ViewBag.DistritosPorCircuito, "IdDistrito", "Nombre"), "SELECCIONAR OPCIÓN", new { @id = "slctDistrito", @class = "custom-select", @required = "required" })
+                                            @Html.DropDownList("SalasAcusatorio", new SelectList(ViewBag.SalasAcusatorio, "IdJuzgado", "Nombre"), "SELECCIONAR OPCIÓN", new { @id = "slctSalaAcusatorio", @class = "custom-select custom-select-sm", @required = "required" })
 
+                                            @Html.DropDownList("SalasTradicional", new SelectList(ViewBag.SalasTradicional, "IdJuzgado", "Nombre"), "SELECCIONAR OPCIÓN", new { @id = "slctSalaTradicional", @class = "custom-select custom-select-sm", @hidden = "hidden" })
+
+                                            <div class="invalid-feedback">
+                                                Seleccione una Sala
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-6 mt-3 mt-md-5">
+                                            <div class="input-group input-group-sm" id="divToca">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="inpToca">Toca</span>
+                                                </div>
+                                                <input type="text" class="form-control mr-2" id="inpToca" aria-describedby="inpToca" required>
+                                                <button class="btn btn-success btn-sm" type="submit" id="btnToca"><i class="fas fa-plus-circle"></i></button>
+                                                <div class="invalid-feedback">
+                                                    Introduzca Una Cantidad
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="col-12 col-md-6">BUSCADOR</div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="col-12">TABLA</div>
-                                </div>
+                                    </form>
+                                    <div class="form-row">
+                                        <div class="col-12">
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered table-hover table-sm" id="dataTableTocas" width="100%" cellspacing="0">
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
                             </div>
                             <div class="col-12 col-md-5">
-                                B
+                                <div class="form-row">
+                                    <div class="col-12 mt-3">
+                                        <label for="validationCustom04">Sentencia de Amparo Vinculada</label>
+                                        <div class="input-group input-group-sm" id="divToca">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="inpToca">Amparo</span>
+                                            </div>
+                                            <input type="text" class="form-control mr-2" id="inpToca" aria-describedby="inpToca" required>
+                                            <button class="btn btn-success btn-sm" type="submit" id="btnToca"><i class="fas fa-plus-circle"></i></button>
+                                            <div class="invalid-feedback">
+                                                Introduzca Una Cantidad
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-hover table-sm" id="dataTableAmparos" width="100%" cellspacing="0">
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
