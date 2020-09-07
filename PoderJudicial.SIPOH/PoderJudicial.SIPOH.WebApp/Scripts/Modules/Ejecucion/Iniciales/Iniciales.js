@@ -13,7 +13,7 @@ var dataTableAmparos = null;
 var estructuraTablaCausas = [{ data: 'nJuzgado', title: 'N° Juzgado' }, { data: 'causaNuc', title: 'Causa|Nuc' }, { data: 'ofendido', title: 'Ofendido (s)' }, { data: 'inculpado', title: 'Inculpado (s)' }, { data: 'delito', title: 'Delitos (s)' }, { data: 'eliminar', title: 'Quitar' }];
 var causas = [];
 
-var estructuraTablaAnexos = [{ data: 'cantidad', title: 'Cantidad' }, { data: 'descripcion', title: 'Descripción' }];
+var estructuraTablaAnexos = [{ data: 'cantidad', title: 'Cantidad' }, { data: 'descripcion', title: 'Descripción' }, { data: 'eliminar', title: 'Quitar' }];
 var anexos = [];
 
 var estructuraTablaBeneficiarios = [{ data: 'numeroEjecucion', title: 'No. Ejecución' }, { data: 'nombreJuzgado', title: 'Juzgado', width: "60%" }, { data: 'nombreBeneficiario', title: 'Nombre (s)' }, { data: 'apellidoPaterno', title: 'Apellido Paterno' }, { data: 'apellidoMaterno', title: 'Apellido Materno' }, { data: 'fechaEjecucion', title: 'Fecha de Ejecución' }];
@@ -29,6 +29,7 @@ var amparos = [];
 var encontroBeneficiarios = false;
 var mostrarSeccionesBeneficiario = false;
 var formEjecucionValidado = false;
+var esTradicional = false;
 
 //Funciones que se detonan al terminado del renderizado 
 $(document).ready(function ()
@@ -130,7 +131,8 @@ function ElementosAlCargado()
 
     Array.prototype.filter.call(forms, function (form)
     {
-        form.addEventListener('submit', function (event) {
+        form.addEventListener('submit', function (event)
+        {
             var id = form.id;
 
             event.preventDefault();
@@ -146,16 +148,16 @@ function ElementosAlCargado()
                 ConsultarCausas(false);
             }
 
+            if (form.checkValidity() === true && id == "formTocas")
+            {
+                AgregarTocas();
+            }
+
             if (form.checkValidity() === true && id == "formAnexos")
             {
                 alert(id);
             }
             
-            if (form.checkValidity() === true && id == "formTocas")
-            {
-                alert(id);
-            }
-
             if (form.checkValidity() === true && id == "formEjecucion")
             {
                 alert("Se crea el registro de ejecución");   
@@ -322,6 +324,7 @@ function ElementosAlCargado()
     $("#juzgadoT-tab").click(function ()
     {
         //Para que al cargado no se vea el elemento ocultandose
+        esTradicional = true;
         $('#slctSalaTradicional').removeAttr('hidden');
 
         $('#slctSalaTradicional').show();
@@ -333,11 +336,29 @@ function ElementosAlCargado()
 
     $("#juzgadoA-tab").click(function ()
     {
+        esTradicional = false;
         $('#slctSalaAcusatorio').show();
         $("#slctSalaAcusatorio").prop('required', true);
 
         $('#slctSalaTradicional').hide();
         $("#slctSalaTradicional").prop('required', false);
+    });
+
+    $('#slctAnexosInicales').change(function ()
+    {
+        var value = $("#slctAnexosInicales").find('option:selected').val();
+
+        if (value == "O")
+        {
+            $("#inpOtroAnexo").prop('disabled', false);
+            $("#inpOtroAnexo").prop('required', true);
+        }
+        else
+        {
+            $("#inpOtroAnexo").prop('disabled', true);
+            $("#inpOtroAnexo").prop('required', false);
+            $("#inpOtroAnexo").val("");
+        }
     });
 }
 
@@ -605,6 +626,28 @@ function EliminarCausa(id)
 
     var mensaje = "Desea eliminar la causa."; 
     MensajeDeConfirmacion(mensaje, "large", funcion);
+}
+
+function AgregarTocas()
+{
+    if (!esTradicional)
+    {
+        var idJuzgado = $("#slctSalaAcusatorio").find('option:selected').val();
+        var nombreJuzgado = $("#slctSalaAcusatorio").find('option:selected').text();
+        var numToca = $("#inpToca").val();
+
+        var toca = new Object();
+        toca.idJuzgado = idJuzgado;
+        toca.sala = nombreJuzgado;
+        toca.numeroToca = numToca;
+        toca.eliminar = "<a href='#' class='btn btn-danger btn-sm' onclick='EliminarCausa(1)'><i class='fas fa-trash-alt'></i></a>";
+
+        tocas.push(toca);
+
+        //Generar Tabla
+        dataTableTocas = GeneraTablaDatos(dataTableTocas, "dataTableTocas", tocas, estructuraTablaTocas, false, false, false);  
+
+    }
 }
 
 function SolicitudEstandarAjax(url, parametros, funcion)

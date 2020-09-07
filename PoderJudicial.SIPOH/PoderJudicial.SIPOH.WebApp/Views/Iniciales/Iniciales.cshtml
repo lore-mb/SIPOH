@@ -120,10 +120,10 @@
 
                     <div class="tab-content">
                         <div class="form-row">
-                            <div class="col-12 col-md-7">
+                            <div class="col-12 col-md-6">
                                 <form id="formTocas" class="needs-validation" novalidate>
                                     <div class="form-row">
-                                        <div class="col-12 col-md-6 mt-3">
+                                        <div class="col-12 col-md-7 mt-3">
                                             <label for="validationCustom04">Salas</label>
 
                                             @Html.DropDownList("SalasAcusatorio", new SelectList(ViewBag.SalasAcusatorio, "IdJuzgado", "Nombre"), "SELECCIONAR OPCIÓN", new { @id = "slctSalaAcusatorio", @class = "custom-select custom-select-sm", @required = "required" })
@@ -134,10 +134,10 @@
                                                 Seleccione una Sala
                                             </div>
                                         </div>
-                                        <div class="col-12 col-md-6 mt-3 mt-md-5">
+                                        <div class="col-12 col-md-5 mt-3 mt-md-5">
                                             <div class="input-group input-group-sm" id="divToca">
                                                 <div class="input-group-prepend">
-                                                    <span class="input-group-text" id="inpToca">Toca</span>
+                                                    <span class="input-group-text" id="lbToca">Toca</span>
                                                 </div>
                                                 <input type="text" class="form-control mr-2" id="inpToca" aria-describedby="inpToca" required>
                                                 <button class="btn btn-success btn-sm" type="submit" id="btnToca"><i class="fas fa-plus-circle"></i></button>
@@ -157,15 +157,15 @@
                                         </div>
                                     </div>
                             </div>
-                            <div class="col-12 col-md-5">
+                            <div class="col-12 col-md-6">
                                 <div class="form-row">
                                     <div class="col-12 mt-3">
                                         <label for="validationCustom04">Sentencia de Amparo Vinculada</label>
-                                        <div class="input-group input-group-sm" id="divToca">
+                                        <div class="input-group input-group-sm" id="divAmparo">
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text" id="inpToca">Amparo</span>
+                                                <span class="input-group-text" id="lbAmparo">Amparo</span>
                                             </div>
-                                            <input type="text" class="form-control mr-2" id="inpToca" aria-describedby="inpToca" required>
+                                            <input type="text" class="form-control mr-2" id="ipnAmparo" aria-describedby="inpAmparo" required>
                                             <button class="btn btn-success btn-sm" type="submit" id="btnToca"><i class="fas fa-plus-circle"></i></button>
                                             <div class="invalid-feedback">
                                                 Introduzca Una Cantidad
@@ -267,7 +267,7 @@
 
                                 <!-- FILA CINCO -->
                                 <div class="form-row">
-                                    <div class="col-12 col-md-4 mt-3">
+                                    <div class="col-12 col-md-5 mt-3">
                                         <label for="validationCustom04">Solicitante</label>
                                         <select class="custom-select custom-select-sm" id="slctSolicitante" required>
                                             <option selected value="">SELECCIONAR OPCIÓN</option>
@@ -282,7 +282,7 @@
                                         </div>
 
                                     </div>
-                                    <div class="col-12 col-md-8 mt-3 mt-md-5">
+                                    <div class="col-12 col-md-7 mt-3 mt-md-5">
                                         <div class="input-group input-group-sm" id="divDetalleSolicitante">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="lbDetalleSolicitante">Detalle del Solicitante</span>
@@ -337,7 +337,7 @@
                         <form id="formAnexos" class="needs-validation" novalidate>
                             <div id="seccionBusquedaAnexos">
                                 <div class="form-row">
-                                    <div class="col-12 col-md-8 mt-3">
+                                    <div class="col-12 col-md-9 mt-3">
                                         <label for="validationCustom04">Anexos</label>
 
                                         @Html.DropDownList("AnexosInicales", new SelectList(ViewBag.AnexosInicales, "Tipo", "Descripcion"), "SELECCIONAR OPCIÓN", new { @id = "slctAnexosInicales", @class = "custom-select custom-select-sm", @required = "required" })
@@ -346,15 +346,28 @@
                                             Seleccione una Descripción
                                         </div>
                                     </div>
-                                    <div class="col-12 col-md-4 mt-3 mt-md-5">
-                                        <div class="input-group input-group-sm" id="divNUC">
+                                    <div class="col-12 col-md-3 mt-3 mt-md-5">
+                                        <div class="input-group input-group-sm" id="divAddAnexos">
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text" id="inpNUC">Cantidad</span>
+                                                <span class="input-group-text" id="lbelAddAnexos">Cantidad</span>
                                             </div>
-                                            <input type="text" class="form-control mr-3" id="inpNumero" aria-describedby="inpNUC" required>
-                                            <button class="btn btn-success btn-sm" type="submit" id="btnNUC"><i class="fas fa-plus-circle"></i></button>
+                                            <input type="text" class="form-control mr-3" id="inpAddAnexos" aria-describedby="inpAddAnexos" required>
+                                            <button class="btn btn-success btn-sm" type="submit" id="btnAddAnexos"><i class="fas fa-plus-circle"></i></button>
                                             <div class="invalid-feedback">
-                                                Introduzca Una Cantidad
+                                                Introduzca una cantidad
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-12 col-md-9 mt-2">
+                                        <div class="input-group input-group-sm" id="divOtroAnexo">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="lbOtroAnexo">Otro</span>
+                                            </div>
+                                            <input type="text" class="form-control" id="inpOtroAnexo" aria-describedby="inpOtroAnexo" disabled>
+                                            <div class="invalid-feedback">
+                                                Introduzca otro Anexo.
                                             </div>
                                         </div>
                                     </div>
@@ -365,7 +378,7 @@
                         <!-- FILA OCHO -->
                         <div id="seccionTablaAnexos">
                             <div class="form-row">
-                                <div class="col-8">
+                                <div class="col-12 col-md-9">
                                     <div class="table-responsive text-small">
                                         <table class="table table-bordered table-hover table-sm" id="dataTableAnexos" width="100%" cellspacing="0">
                                         </table>
@@ -377,8 +390,8 @@
                         <!-- FILA SEIS -->
                         <div id="seccionBotonGuardar">
                             <div class="form-row">
-                                <div class="col-4 mt-3">
-                                    <button type="submit" form="formEjecucion" class="btn btn-outline-success"><i class="fas fa-save mr-2"></i>GUARDAR</button>
+                                <div class="col-12">
+                                    <button type="submit" form="formEjecucion" class="btn btn-outline-success text-small"><i class="fas fa-save mr-2"></i>GUARDAR</button>
                                 </div>
                             </div>
                         </div>
