@@ -18,5 +18,13 @@
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
       <Value Profile="(Default)">Data Source=200.79.183.181;Initial Catalog=SIAGAP;User ID=JusPenal;Password=NewSystem201</Value>
     </Setting>
+    <Setting Name="CnxSIAGA2020Dev" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=SISTEMAS;Initial Catalog=SIAGA_2020;User ID=DesarrolloPenal;Password=acusatorio&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=SISTEMAS;Initial Catalog=SIAGA_2020;User ID=DesarrolloPenal;Password=acusatorio</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

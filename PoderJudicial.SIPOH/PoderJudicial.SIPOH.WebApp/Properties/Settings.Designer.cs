@@ -44,5 +44,16 @@ namespace PoderJudicial.SIPOH.WebApp.Properties {
                 return ((string)(this["CnxSIAGADexEx"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=SISTEMAS;Initial Catalog=SIAGA_2020;User ID=DesarrolloPenal;Password=" +
+            "acusatorio")]
+        public string CnxSIAGA2020Dev {
+            get {
+                return ((string)(this["CnxSIAGA2020Dev"]));
+            }
+        }
     }
 }
