@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Iniciales";
 }
 
@@ -11,104 +10,95 @@
 
                     @Html.Hidden("IdCircuitoHDN", (object)Usuario.IdCircuito)
 
-                    <!-- #region Secciones Juzgado Acusatorio - Tradiconal -->
-                    <ul class="nav nav-tabs" id="myTab" role="tablist">
-                        <li class="nav-item" id="Acusatorio">
-                            <a class="nav-link active" id="juzgadoA-tab" data-toggle="tab" href="#JuzgadoA" role="tab" aria-controls="JuzgadoA" aria-selected="true">Juzgado Acusatorio</a>
-                        </li>
-                        <li class="nav-item" id="Tradicional">
-                            <a class="nav-link" id="juzgadoT-tab" data-toggle="tab" href="#JuzgadoT" role="tab" aria-controls="JuzgadoT" aria-selected="false">Juzgado Tradicional</a>
-                        </li>
-                    </ul>
-                    <!-- #endregion Juzgado Acusatorio -->
-                    <!-- #region Navegacion Juzgados-->
-                    <div class="tab-content" id="myTabContent">
-                        <!-- #region Juzgado Acusatorio-->
-                        <div class="tab-pane fade show active" id="JuzgadoA" role="tabpanel" aria-labelledby="juzgadoA-tab">
-                            <form id="formCausas" class="needs-validation mt-4" novalidate>
-                                <div class="form-row">
-                                    <div class="col-md-6">
-                                        <label for="validationCustom04">Juzgado de Procedencia:</label>
 
-                                        @Html.DropDownList("SelectJuzgadoAcusatorio", new SelectList(ViewBag.JuzgadosAcusatorios, "IdJuzgado", "Nombre"), "SELECCIONAR OPCIÓN", new { @id = "slctJuzgado", @class = "custom-select custom-select-sm", @required = "required" })
 
-                                        <div class="invalid-feedback">
-                                            Seleccionar Juzgado.
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <label for="slcNumero">Causa/Nuc</label>
-                                        <select class="custom-select custom-select-sm" id="slctNumero">
-                                            <option value="1">NO. CAUSA</option>
-                                            <option value="2">NO. UNICO DE CASO</option>
-                                        </select>
-                                        <div class="invalid-feedback">
-                                            Seleccionar N° Unico de Caso / N° Causa.
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label class="my-1 mr-2" for="inpNumero" id="NumeroLabel">Numero de Causa:</label>
-                                     
-                                        <div class="input-group input-group-sm">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text" id="spnNumero">Causa</span>
-                                            </div>
-                                            <input type="text" id="Numero" name="Numero" class="form-control form-control-sm mr-2" aria-label="Small" aria-describedby="inputGroup-sizing-sm" data-inputmask-clearmaskonlostfocus="true" required >
-                                            <button class="btn btn-success btn-sm" type="submit" id="btnNUC"><i class="fa fa-search"></i></button> 
-                                        </div>
-                                    
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-
-                        <!-- #endregion Juzgado Acusatorio-->
-                        <!-- #region Juzgado Tradicional -->
-                        <div class="tab-pane fade" id="JuzgadoT" role="tabpanel" aria-labelledby="juzgadoT-tab">
-                            <form id="formCausasTradicional" class="needs-validation mt-4" novalidate>
-                                <div class="form-row">
-                                    <div class="col-md-3 ">
-                                        <label for="slcNumero">Distrito de Procedencia</label>
-
-                                        @Html.DropDownList("DistritoPorCircuito", new SelectList(ViewBag.DistritosPorCircuito, "IdDistrito", "Nombre"), "SELECCIONAR OPCIÓN", new { @id = "slctDistrito", @class = "custom-select custom-select-sm", @required = "required" })
-
-                                        <div class="invalid-feedback">
-                                            Selecciona un Distrito.
-                                        </div>
-                                    </div>
-                                    <div class="col-md-5">
-                                        <label for="validationCustom04">Juzgado de Procedencia</label>
-                                        <select class="custom-select custom-select-sm" id="slctJuzgadoTradi" required>
-                                            <option selected value="">SELECCIONAR OPCIÓN</option>
-                                        </select>
-                                        <div class="invalid-feedback">
-                                            Selecciona un Juzgado.
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label for="validationCustomUsername">Numero de Causa:</label>
-                                        <div class="input-group input-group-sm" id="divCAU">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text" id="inputGroupPrepend">CAUSA</span>
-                                            </div>
-                                            <input type="text" class="form-control form-control-sm mr-3" id="inpCAUT" aria-describedby="inpCAU" placeholder="00-0000-0000" required>
-                                            <button class="btn btn-success btn-sm" type="submit" id="btnCAU"><i class="fas fa-search"></i></button>
+                        <ul class="nav nav-pills nav-success" id="pills-tab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true"><i class="icon-office"></i> Juzgado Acusatorio</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false"><i class="icon-library"></i> Juzgado Tradicional</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content mt-2 mb-3" id="pills-tabContent">
+                            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                                <form id="formCausas" class="needs-validation" novalidate>
+                                    <div class="form-row">
+                                        <div class="col-md-6 form-group">
+                                            <label for="validationCustom04">Juzgado de Procedencia:</label>
+                                            @Html.DropDownList("SelectJuzgadoAcusatorio", new SelectList(ViewBag.JuzgadosAcusatorios, "IdJuzgado", "Nombre"), "SELECCIONAR OPCIÓN", new { @id = "slctJuzgado", @class = "custom-select", @required = "required" })
                                             <div class="invalid-feedback">
-                                                Introduce Numero de Causa.
+                                                Seleccionar Juzgado.
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 form-group">
+                                            <label for="slcNumero">Causa/Nuc</label>
+                                            <select class="custom-select" id="slctNumero">
+                                                <option value="1">NO. CAUSA</option>
+                                                <option value="2">NO. UNICO DE CASO</option>
+                                            </select>
+                                            <div class="invalid-feedback">
+                                                Seleccionar N° Unico de Caso / N° Causa.
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 form-group">
+                                            <label class="" for="inpNumero" id="NumeroLabel">Numero de Causa:</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="spnNumero">Causa</span>
+                                                </div>
+                                                <input type="text" id="Numero" name="Numero" class="form-control mr-2" aria-label="Small" aria-describedby="inputGroup-sizing-sm" data-inputmask-clearmaskonlostfocus="true" required>
+                                                <button class="btn btn-success btn-sm" type="submit" id="btnNUC"><i class="fa fa-search"></i></button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                                <form id="formCausasTradicional" class="needs-validation" novalidate>
+                                    <div class="form-row">
+                                        <div class="col-md-3 form-group">
+                                            <label for="slcNumero">Distrito de Procedencia</label>
+                                            @Html.DropDownList("DistritoPorCircuito", new SelectList(ViewBag.DistritosPorCircuito, "IdDistrito", "Nombre"), "SELECCIONAR OPCIÓN", new { @id = "slctDistrito", @class = "custom-select", @required = "required" })
+                                            <div class="invalid-feedback">
+                                                Selecciona un Distrito.
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5 form-group">
+                                            <label for="validationCustom04">Juzgado de Procedencia</label>
+                                            <select class="custom-select" id="slctJuzgadoTradi" required>
+                                                <option selected value="">SELECCIONAR OPCIÓN</option>
+                                            </select>
+                                            <div class="invalid-feedback">
+                                                Selecciona un Juzgado.
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 form-group">
+                                            <label for="validationCustomUsername">Numero de Causa:</label>
+                                            <div class="input-group" id="divCAU">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="inputGroupPrepend">CAUSA</span>
+                                                </div>
+                                                <input type="text" class="form-control mr-3" id="inpCAUT" aria-describedby="inpCAU" placeholder="00-0000-0000" required>
+                                                <button class="btn btn-success btn-sm" type="submit" id="btnCAU"><i class="fas fa-search"></i></button>
+                                                <div class="invalid-feedback">
+                                                    Introduce Numero de Causa.
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
-                        <!-- #endregion Juzgado Tradicional -->
-                    </div>
-                    <!-- #endregion-->
+
+
+
                     <!--#region Tabla Dinamica Acusatorio - Tradicional-->
                     <div class="tab-content">
-                        <div class="form-row mt-3">
+                        <div class="form-row">
                             <div class="col-12">
-                                <label>Causas</label>
+                                <h5><i class="icon-table2"></i> Causas</h5>
                             </div>
                         </div>
                         <div class="table-responsive text-small">
@@ -147,15 +137,15 @@
                                             </div>
                                         </div>
                                     </div>
-                                    </form>
-                                    <div class="form-row">
-                                        <div class="col-12">
-                                            <div class="table-responsive text-small">
-                                                <table class="table table-bordered table-hover table-sm" id="dataTableTocas" width="100%" cellspacing="0">
-                                                </table>
-                                            </div>
+                                </form>
+                                <div class="form-row">
+                                    <div class="col-12">
+                                        <div class="table-responsive text-small">
+                                            <table class="table table-bordered table-hover table-sm" id="dataTableTocas" width="100%" cellspacing="0">
+                                            </table>
                                         </div>
                                     </div>
+                                </div>
                             </div>
                             <div class="col-12 col-md-6">
                                 <div class="form-row">
@@ -442,4 +432,3 @@
 @Scripts.Render("~/Scripts/Master/Jquery")
 @Scripts.Render("~/Scripts/Master/InptuMask")
 @Scripts.Render("~/Scripts/Modules/Ejecucion/Iniciales")
-
