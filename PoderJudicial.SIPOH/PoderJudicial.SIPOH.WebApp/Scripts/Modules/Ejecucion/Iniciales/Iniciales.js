@@ -34,7 +34,7 @@ var esTradicional = false;
 //Funciones que se detonan al terminado del renderizado 
 $(document).ready(function ()
 {
-    //Pintar Tabla
+    //Pintar Tablas
     dataTable = GeneraTablaDatos(dataTable, "dataTable", causas, estructuraTablaCausas, false, false, false);
     dataTableAnex = GeneraTablaDatos(dataTableAnex, "dataTableAnexos", anexos, estructuraTablaAnexos, false, false, false);
     dataTableTocas = GeneraTablaDatos(dataTableTocas, "dataTableTocas", tocas, estructuraTablaTocas, false, false, false);
@@ -624,30 +624,72 @@ function EliminarCausa(id)
         }
     }
 
-    var mensaje = "Desea eliminar la causa."; 
-    MensajeDeConfirmacion(mensaje, "large", funcion);
+    var mensaje = "¿Desea retirar la causa de la tabla?"; 
+    MensajeDeConfirmacion(mensaje, "small", funcion);
 }
 
 function AgregarTocas()
 {
-    if (!esTradicional)
+    var numToca = $("#inpToca").val();
+
+    if (ValidarTocaEnTabla(numToca))
     {
-        var idJuzgado = $("#slctSalaAcusatorio").find('option:selected').val();
-        var nombreJuzgado = $("#slctSalaAcusatorio").find('option:selected').text();
-        var numToca = $("#inpToca").val();
+        var mensaje = "El numero de Toca <b>" + numToca + "</b> que intenta agregar, ya se encuentra en la tabla.";
+        Alerta(mensaje);
+    }
+    else
+    {
+        var nombreSelect = !esTradicional ? "slctSalaAcusatorio" : "slctSalaTradicional";
+            
+        var idJuzgado = $("#" + nombreSelect).find('option:selected').val();
+        var nombreJuzgado = $("#" + nombreSelect).find('option:selected').text();
+        var numRamdom = Math.floor(Math.random() * 90000) + 10000;
 
         var toca = new Object();
+        toca.id = numToca.substr(0, 4) + numRamdom;
         toca.idJuzgado = idJuzgado;
         toca.sala = nombreJuzgado;
         toca.numeroToca = numToca;
-        toca.eliminar = "<a href='#' class='btn btn-danger btn-sm' onclick='EliminarCausa(1)'><i class='fas fa-trash-alt'></i></a>";
-
+        toca.eliminar = "<a href='#' class='btn btn-danger btn-sm' onclick='EliminarToca(" + toca.id + ")'><i class='fas fa-trash-alt'></i></a>";
         tocas.push(toca);
 
         //Generar Tabla
-        dataTableTocas = GeneraTablaDatos(dataTableTocas, "dataTableTocas", tocas, estructuraTablaTocas, false, false, false);  
-
+        dataTableTocas = GeneraTablaDatos(dataTableTocas, "dataTableTocas", tocas, estructuraTablaTocas, false, false, false);
     }
+}
+
+function ValidarTocaEnTabla(numeroToca)
+{
+    for (var index = 0; index < tocas.length; index++)
+    {
+        if (tocas[index].numeroToca == numeroToca)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+function EliminarToca(id)
+{
+    var funcion = function ()
+    {
+        var iterarArreglo = tocas;
+
+        for (var index = 0; index < iterarArreglo.length; index++)
+        {
+            if (id == tocas[index].id)
+            {
+                tocas.splice(index, 1);
+            }
+        }
+
+        //Genera nuevamente la tabla
+        dataTableTocas = GeneraTablaDatos(dataTableTocas, "dataTableTocas", tocas, estructuraTablaTocas, false, false, false);
+    }
+
+    var mensaje = "¿Desea retirar la toca de la tabla?";
+    MensajeDeConfirmacion(mensaje, "small", funcion);
 }
 
 function SolicitudEstandarAjax(url, parametros, funcion)

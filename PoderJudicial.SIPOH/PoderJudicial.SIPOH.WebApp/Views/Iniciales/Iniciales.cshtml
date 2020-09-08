@@ -14,10 +14,10 @@
 
                         <ul class="nav nav-pills nav-success" id="pills-tab" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true"><i class="icon-office"></i> Juzgado Acusatorio</a>
+                                <a class="nav-link active" id="juzgadoA-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true"><i class="icon-office"></i> Juzgado Acusatorio</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false"><i class="icon-library"></i> Juzgado Tradicional</a>
+                                <a class="nav-link" id="juzgadoT-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false"><i class="icon-library"></i> Juzgado Tradicional</a>
                             </li>
                         </ul>
                         <div class="tab-content mt-2 mb-3" id="pills-tabContent">
@@ -110,22 +110,23 @@
 
                     <div class="tab-content">
                         <div class="form-row">
-                            <div class="col-12 col-md-6">
+                            <div class="col-12 col-md-7">
                                 <form id="formTocas" class="needs-validation" novalidate>
-                                    <div class="form-row">
+                                    <div class="form-row mt">
                                         <div class="col-12 col-md-7 mt-3">
                                             <label for="validationCustom04">Salas</label>
 
-                                            @Html.DropDownList("SalasAcusatorio", new SelectList(ViewBag.SalasAcusatorio, "IdJuzgado", "Nombre"), "SELECCIONAR OPCIÓN", new { @id = "slctSalaAcusatorio", @class = "custom-select custom-select-sm", @required = "required" })
+                                            @Html.DropDownList("SalasAcusatorio", new SelectList(ViewBag.SalasAcusatorio, "IdJuzgado", "Nombre"), "SELECCIONAR OPCIÓN", new { @id = "slctSalaAcusatorio", @class = "custom-select", @required = "required" })
 
-                                            @Html.DropDownList("SalasTradicional", new SelectList(ViewBag.SalasTradicional, "IdJuzgado", "Nombre"), "SELECCIONAR OPCIÓN", new { @id = "slctSalaTradicional", @class = "custom-select custom-select-sm", @hidden = "hidden" })
+                                            @Html.DropDownList("SalasTradicional", new SelectList(ViewBag.SalasTradicional, "IdJuzgado", "Nombre"), "SELECCIONAR OPCIÓN", new { @id = "slctSalaTradicional", @class = "custom-select", @hidden = "hidden" })
 
                                             <div class="invalid-feedback">
                                                 Seleccione una Sala
                                             </div>
                                         </div>
-                                        <div class="col-12 col-md-5 mt-3 mt-md-5">
-                                            <div class="input-group input-group-sm" id="divToca">
+                                        <div class="col-12 col-md-5 mt-3">
+                                            <label for="validationCustom04">Numero De Toca</label>
+                                            <div class="input-group " id="divToca">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text" id="lbToca">Toca</span>
                                                 </div>
@@ -147,7 +148,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12 col-md-6">
+                            <div class="col-12 col-md-5">
                                 <div class="form-row">
                                     <div class="col-12 mt-3">
                                         <label for="validationCustom04">Sentencia de Amparo Vinculada</label>
