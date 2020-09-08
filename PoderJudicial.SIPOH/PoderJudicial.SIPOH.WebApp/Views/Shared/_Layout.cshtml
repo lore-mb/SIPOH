@@ -1,214 +1,531 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>SIPOH - @ViewBag.Title</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="robots" content="all,follow">
-    <!-- Estilos del sitio -->
-    @Styles.Render("~/Content/Master/Bootstrap")
-    @Styles.Render("~/Content/Master/FontAwesome")
-    @Styles.Render("~/Content/Master/FontSite")
-    @Styles.Render("~/Content/Master/Customize")
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Sistema Penal Hidalgo - @ViewBag.title</title>
+    <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+    <link rel="icon" href="~/Content/Master/Img/PoderJudicialHgo.png" type="image/x-icon" />
 
-    <style>
-        option 
-        {
-            font-size: 13px;
-        }
-    </style>
+    <!-- Fonts and icons -->
+    @Scripts.Render("~/Scripts/Master/WebFonts")
+    @Styles.Render("~/Content/Master/Fonts/FontAwesome")
+    <script>
+        WebFont.load({
+            google: { "families": ["Open+Sans:300,400,600,700"] },
+            custom: { urls: ['~/Content/Master/fonts.css'] },
+
+        });
+    </script>
+
+    @Styles.Render("~/Content/Master/Fonts/IcoMoon/")
+    <!-- CSS Files -->
+    @Styles.Render("~/Content/Master/Site")
 
 </head>
-
 <body>
-    <div class="page">
-        <!-- Navbar Principal -->
-        <header class="header">
-            <nav class="navbar">
-                <!-- Caja de Buqueda -->
-                <div class="search-box">
-                    <button class="dismiss"><i class="fa fa-times-circle"></i></button>
-                    <form id="searchForm" action="#" role="search">
-                        <input type="search" placeholder="Buscar en el sistema" class="form-control">
-                    </form>
+    <div class="wrapper">
+        <!--
+            Tip 1: You can change the background color of the main header using: data-background-color="blue | purple | light-blue | green | orange | red"
+        -->
+        <div class="main-header" data-background-color="purple">
+            <!-- Logo Header -->
+            <div class="logo-header">
+
+                <a href="@Url.Action("Index", "Home")" class="logo">
+                    <img src="~/Content/Master/Vectors/Sipoh.svg" alt="SIPOH" class="navbar-brand">
+                </a>
+                <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon">
+                        <i class="fa fa-bars"></i>
+                    </span>
+                </button>
+                <button class="topbar-toggler more"><i class="fa fa-ellipsis-v"></i></button>
+                <div class="navbar-minimize">
+                    <button class="btn btn-minimize btn-rounded">
+                        <i class="fa fa-bars"></i>
+                    </button>
                 </div>
+            </div>
+            <!-- End Logo Header -->
+            <!-- Navbar Header -->
+            <nav class="navbar navbar-header navbar-expand-lg">
+
                 <div class="container-fluid">
-                    <div class="navbar-holder d-flex align-items-center justify-content-between">
-                        <!-- Navbar Cabecera -->
-                        <div class="navbar-header">
-                            <!-- Navbar Brand --><a href="#" class="navbar-brand d-none d-sm-inline-block">
-                                <div class="brand-text d-none d-lg-inline-block"><span>Sistema </span><strong> SIPOH</strong></div>
-                                <div class="brand-text d-none d-sm-inline-block d-lg-none"><strong>SS</strong></div>
+                    <div class="collapse" id="search-nav">
+                        <form class="navbar-left navbar-form nav-search mr-md-3">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <button type="submit" class="btn btn-search pr-1">
+                                        <i class="icon-search search-icon"></i>
+                                    </button>
+                                </div>
+                                <input type="text" placeholder="Buscar ..." class="form-control">
+                            </div>
+                        </form>
+                    </div>
+                    <ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
+                        <li class="nav-item toggle-nav-search hidden-caret">
+                            <a class="nav-link" data-toggle="collapse" href="#search-nav" role="button" aria-expanded="false" aria-controls="search-nav">
+                                <i class="fa fa-search"></i>
                             </a>
-                            <!-- Button de Herramienta -->
-                            <a id="toggle-btn" href="#" class="menu-btn active"><span></span><span></span><span></span></a>
+                        </li>
+                        <li class="nav-item dropdown hidden-caret">
+                            <a class="nav-link dropdown-toggle" href="#" id="messageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="icon-bubbles3"></i>
+                            </a>
+                            <ul class="dropdown-menu messages-notif-box animated fadeIn" aria-labelledby="messageDropdown">
+                                <li>
+                                    <div class="dropdown-title d-flex justify-content-between align-items-center">
+                                        Mensajes
+                                        <a href="#" class="small">Marcar todos como leidos</a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="message-notif-scroll scrollbar-outer">
+                                        <div class="notif-center">
+                                            <a href="#">
+                                                <div class="notif-img">
+                                                    <i class="icon-bubble"></i>
+                                                </div>
+                                                <div class="notif-content">
+                                                    <span class="subject">Jimmy Denis</span>
+                                                    <span class="block">
+                                                        How are you ?
+                                                    </span>
+                                                    <span class="time">5 minutes ago</span>
+                                                </div>
+                                            </a>
+                                            <a href="#">
+                                                <div class="notif-img">
+                                                    <i class="icon-bubble"></i>
+                                                </div>
+                                                <div class="notif-content">
+                                                    <span class="subject">Chad</span>
+                                                    <span class="block">
+                                                        Ok, Thanks !
+                                                    </span>
+                                                    <span class="time">12 minutes ago</span>
+                                                </div>
+                                            </a>
+                                            <a href="#">
+                                                <div class="notif-img">
+                                                    <i class="icon-bubble"></i>
+                                                </div>
+                                                <div class="notif-content">
+                                                    <span class="subject">Jhon Doe</span>
+                                                    <span class="block">
+                                                        Ready for the meeting today...
+                                                    </span>
+                                                    <span class="time">12 minutes ago</span>
+                                                </div>
+                                            </a>
+                                            <a href="#">
+                                                <div class="notif-img">
+                                                    <i class="icon-bubble"></i>
+                                                </div>
+                                                <div class="notif-content">
+                                                    <span class="subject">Talha</span>
+                                                    <span class="block">
+                                                        Hi, Apa Kabar ?
+                                                    </span>
+                                                    <span class="time">17 minutes ago</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <a class="see-all" href="javascript:void(0);">Mirar todos los mensajes<i class="fa fa-angle-right"></i> </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown hidden-caret">
+                            <a class="nav-link dropdown-toggle" href="#" id="notifDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="icon-bell"></i>
+                                <span class="notification">4</span>
+                            </a>
+                            <ul class="dropdown-menu notif-box animated fadeIn" aria-labelledby="notifDropdown">
+                                <li>
+                                    <div class="dropdown-title">Tienes 4 notificaciones</div>
+                                </li>
+                                <li>
+                                    <div class="notif-scroll scrollbar-outer">
+                                        <div class="notif-center">
+                                            <a href="#">
+                                                <div class="notif-icon notif-primary"> <i class="fa fa-user-plus"></i> </div>
+                                                <div class="notif-content">
+                                                    <span class="block">
+                                                        New user registered
+                                                    </span>
+                                                    <span class="time">5 minutes ago</span>
+                                                </div>
+                                            </a>
+                                            <a href="#">
+                                                <div class="notif-icon notif-success"> <i class="fa fa-comment"></i> </div>
+                                                <div class="notif-content">
+                                                    <span class="block">
+                                                        Rahmad commented on Admin
+                                                    </span>
+                                                    <span class="time">12 minutes ago</span>
+                                                </div>
+                                            </a>
+                                            <a href="#">
+                                                <div class="notif-img">
+                                                    <i class="fa fa-comment"></i>
+                                                </div>
+                                                <div class="notif-content">
+                                                    <span class="block">
+                                                        Reza send messages to you
+                                                    </span>
+                                                    <span class="time">12 minutes ago</span>
+                                                </div>
+                                            </a>
+                                            <a href="#">
+                                                <div class="notif-icon notif-danger"> <i class="fa fa-heart"></i> </div>
+                                                <div class="notif-content">
+                                                    <span class="block">
+                                                        Farrah liked Admin
+                                                    </span>
+                                                    <span class="time">17 minutes ago</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <a class="see-all" href="javascript:void(0);">Mirar todas las notificaciones<i class="fa fa-angle-right"></i> </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown hidden-caret">
+                            <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
+                                <div class="avatar-sm">
+                                    <img src="~/Content/Master/Img/user_default_2d.png" alt="..." class="avatar-img rounded-circle">
+                                </div>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user animated fadeIn">
+                                <li>
+                                    <div class="user-box text-center">
+
+                                        <div class="u-text">
+                                            <h4>@Usuario.Nombre</h4>
+                                            <p class="text-muted">Correo@gmail.com</p><a href="profile.html" class="btn btn-rounded btn-danger btn-sm">Ver Perfil</a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">Mi Perfil</a>
+                                    <a class="dropdown-item" href="#">Mensajes</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">Ajustes de Perfil</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item text-danger" href="/Cuenta/LogOut">Cerrar Sesión</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </div>
+            </nav>
+            <!-- End Navbar -->
+        </div>
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+
+            <div class="sidebar-background"></div>
+            <div class="sidebar-wrapper scrollbar-inner">
+                <div class="sidebar-content">
+                    <div class="user">
+                        <div class="avatar-sm float-left mr-2">
+                            <img src="~/Content/Master/Img/PoderJudicialHgo.png" alt="..." class="avatar-img rounded-circle">
                         </div>
-                        <!-- Navbar Menu -->
-                        <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
-                            <!-- Icono Busqueda -->
-                            <li class="nav-item d-flex align-items-center"><a id="search" href="#"><i class="fas fa-search"></i></a></li>
-                            <!-- Notificationes -->
-                            <li class="nav-item dropdown">
-                                <a id="notifications" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="far fa-bell"></i><span class="badge bg-red badge-corner">1</span></a>
-                                <ul aria-labelledby="notifications" class="dropdown-menu">
+                        <div class="info">
+                            <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
+                                <span>
+                                    CIRCUITO @Usuario.NombreCircuito
+                                    <span class="user-level">Administrador</span>
+                                    <span class="caret"></span>
+                                </span>
+                            </a>
+                            <div class="clearfix"></div>
+
+                            <div class="collapse in" id="collapseExample">
+                                <ul class="nav">
+                                    <li class="text-center">
+                                        <span class="text-dark">@Usuario.NombreDistrito</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="nav">
+                        <li class="nav-item active">
+                            <a href="@Url.Action("Index", "Home")">
+                                <i class="icon-home"></i>
+                                <p>Panel de Control</p>
+                                <!--<span class="badge badge-count">5</span>-->
+                            </a>
+                        </li>
+                        <li class="nav-section">
+                            <span class="sidebar-mini-icon">
+                                <i class="fa fa-ellipsis-h"></i>
+                            </span>
+                            <h4 class="text-section text-success">Modulos</h4>
+                        </li>
+                        <li class="nav-item">
+                            <a data-toggle="collapse" href="#submenu">
+                                <i class="icon-library"></i>
+                                <p>Control</p>
+                                <span class="caret"></span>
+                            </a>
+                            <div class="collapse" id="submenu">
+                                <ul class="nav nav-collapse">
                                     <li>
-                                        <a rel="nofollow" href="#" class="dropdown-item">
-                                            <div class="notification">
-                                                <div class="notification-content"><i class="fas fa-envelope bg-green"></i>Nueva Notificación</div>
-                                                <div class="notification-time"><small>Hace 4 minutos</small></div>
-                                            </div>
+                                        <a href="#">
+                                            <span class="sub-item">Consulta</span>
                                         </a>
                                     </li>
-                                    <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center"> <strong>Ver todas las notificaciones</strong></a></li>
+                                    <li>
+                                        <a href="#">
+                                            <span class="sub-item">Historicos</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="collapse" href="#subnav1">
+                                            <span class="sub-item">Iniciales</span>
+                                            <span class="caret"></span>
+                                        </a>
+                                        <div class="collapse" id="subnav1">
+                                            <ul class="nav nav-collapse subnav">
+                                                <li>
+                                                    <a href="#">
+                                                        <span class="sub-item">Amparo</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        <span class="sub-item">Causas</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        <span class="sub-item">Cupres</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        <span class="sub-item">Exorto</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        <span class="sub-item">Requisitorios</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <span class="sub-item">Promociones</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <span class="sub-item">Reportes</span>
+                                        </a>
+                                    </li>
                                 </ul>
-                            </li>
-                            <!-- Salir -->
-                            <li class="nav-item dropdown no-arrow">
-                                <a class="nav-link" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="d-none d-lg-inline text-gray-600 small">@Usuario.Nombre</span>
-                                </a>
-                                <!-- Dropdown - User Information -->
-                                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                                    <a class="dropdown-item" href="#">
-                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Mi perfil
-                                    </a>
-                                    <a class="dropdown-item" href="#">
-                                        <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Ajustes
-                                    </a>
-                                    <a class="dropdown-item" href="#">
-                                        <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Log de Actividades
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="/Cuenta/LogOut">
-                                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Cerrar Sesión
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </header>
-        <div class="page-content d-flex align-items-stretch">
-            <!-- Side Navbar -->
-            <nav class="side-navbar">
-                <!-- Sidebar Header-->
-                <div class="sidebar-header d-flex align-items-center">
-                    <div class="avatar"><img src="~/img/user_default.png" alt="..." class="img-fluid rounded-circle"></div>
-                    <div class="title">
-                        <h4>ADMINISTRADOR</h4>
-                        <p>CIRCUITO @Usuario.NombreCircuito</p>
-                    </div>
-                </div>
-                <!-- Sidebar Navidation Menus-->
-                <span class="heading">Panel de control</span>
-                <ul class="list-unstyled">
-                    <li><a href="@Url.Action("Index", "Home")"><i class="fas fa-home"></i>Inicio</a></li>
-                    <!-- Collapse Control -->
-                    <li>
-                        <a href="#controlDropdown" aria-expanded="false" data-toggle="collapse"><i class="fas fa-landmark"></i>Control</a>
-                        <ul id="controlDropdown" class="collapse list-unstyled">
-                            <li><a href="#"><i class="fa fa-book"></i>Consulta</a></li>
-                            <li><a href="#"><i class="fa fa-book"></i>Historicos</a></li>
-                            <li class="navbar-collapse">
-                                <a href="#submenuIniciales" aria-expanded="false" data-toggle="collapse"><i class="fa fa-book"></i>Iniciales</a>
-                                <ul id="submenuIniciales" class="collapse">
-                                    <li><a><i class="fas fa-circle invisible"></i>Amparo</a></li>
-                                    <li><a><i class="fas fa-circle invisible"></i>Causas</a></li>
-                                    <li><a><i class="fas fa-circle invisible"></i>Cupres</a></li>
-                                    <li><a><i class="fas fa-circle invisible"></i>Exortos</a></li>
-                                    <li><a><i class="fas fa-circle invisible"></i>Requisitorio</a></li>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a data-toggle="collapse" href="#submenuEJ">
+                                <i class="icon-books"></i>
+                                <p>Ejecución</p>
+                                <span class="caret"></span>
+                            </a>
+                            <div class="collapse" id="submenuEJ">
+                                <ul class="nav nav-collapse">
+                                    <li>
+                                        <a href="@Url.Action("Iniciales","Iniciales")">
+                                            <span class="sub-item">Iniciales</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Promociones","Promociones")">
+                                            <span class="sub-item">Promociones</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Busquedas","Busquedas")">
+                                            <span class="sub-item">Busquedas</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("ConsignacionesHistoricas","ConsignacionesHistoricas")">
+                                            <span class="sub-item">Consignaciones Historicas</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Reportes","Reportes")">
+                                            <span class="sub-item">Reportes</span>
+                                        </a>
+                                    </li>
                                 </ul>
-                            </li>
-                            <li><a href="#"><i class="fa fa-book"></i>Promociones</a></li>
-                            <li><a href="#"><i class="fa fa-book"></i>Reportes</a></li>
-                            <li><a href="#"><i class="fa fa-book"></i>Solicitud CD</a></li>
-                        </ul>
-                    </li>
-                    <!-- Collapse Ejecución -->
-                    <li>
-                        <a href="#ejecucionDropdown" aria-expanded="false" data-toggle="collapse"> <i class="fas fa-synagogue"></i>Ejecución</a>
-                        <ul id="ejecucionDropdown" class="collapse list-unstyled ">
-                            <li><a href="@Url.Action("Iniciales","Iniciales")"><i class="fa fa-book"></i>Iniciales</a></li>
-                            <li><a href="@Url.Action("Promociones","Promociones")"><i class="fa fa-book"></i>Promociones</a></li>
-                            <li><a href="@Url.Action("Busquedas","Busquedas")"><i class="fa fa-book"></i>Busquedas</a></li>
-                            <li><a href="@Url.Action("ConsignacionesHistoricas","ConsignacionesHistoricas")"><i class="fa fa-book"></i>Consig. Historicas</a></li>
-                            <li><a href="@Url.Action("Reportes","Reportes")"><i class="fa fa-book"></i>Reportes</a></li>
-                        </ul>
-                    </li>
-                    <!-- Collapse Juicios Orales -->
-                    <li>
-                        <a href="#juiciosDropdown" aria-expanded="false" data-toggle="collapse"><i class="fas fa-balance-scale"></i>Juicios Orales</a>
-                        <ul id="juiciosDropdown" class="collapse list-unstyled ">
-                            <li><a href="#">Sub Modulo 1</a></li>
-                            <li><a href="#">Sub Modulo 2</a></li>
-                            <li><a href="#">Sub Modulo 3</a></li>
-                        </ul>
-                    </li>
-                </ul><span class="heading">Utilidades</span>
-                <ul class="list-unstyled">
-                    <li> <a href="#"> <i class="fa fa-support"></i> Soporte Técnico </a></li>
-                    <li> <a href="#"> <i class="fas fa-book"></i>Manual de Usuario </a></li>
-                    <li> <a href="#"> <i class="fas fa-bug"></i>Reportar Error </a></li>
-                </ul>
-            </nav>
-            <div class="content-inner">
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a data-toggle="collapse" href="#submenuJO">
+                                <i class="icon-hammer2"></i>
+                                <p>Juicios Orales</p>
+                                <span class="caret"></span>
+                            </a>
+                            <div class="collapse" id="submenuJO">
+                                <ul class="nav nav-collapse">
+                                    <li>
+                                        <a data-toggle="collapse" href="#subnav2">
+                                            <span class="sub-item">Level 1</span>
+                                            <span class="caret"></span>
+                                        </a>
+                                        <div class="collapse" id="subnav2">
+                                            <ul class="nav nav-collapse subnav">
+                                                <li>
+                                                    <a href="#">
+                                                        <span class="sub-item">Level 2</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <span class="sub-item">Level 1</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
 
-                <header class="page-header">
-                    <div class="container-fluid title form-inline">
-                        <h4 class="no-margin-bottom"><i class="fas fa-landmark"></i> @Usuario.NombreDistrito</h4>
-                    </div>
-                </header>
-                <!-- Breadcrumb -->
-                <div class="container-fluid">
-                    <div class="card bg-white" style="margin-top:1.5%">
-                        <ol class="card-body breadcrumb">
+                        <li class="nav-section">
+                            <span class="sidebar-mini-icon">
+                                <i class="fa fa-ellipsis-h"></i>
+                            </span>
+                            <h4 class="text-section text-success">Soporte Técnico</h4>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#">
+                                <i class="icon-lifebuoy"></i>
+                                <p>Contactar a Soporte</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#">
+                                <i class="icon-book"></i>
+                                <p>Manual de Usuario</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#">
+                                <i class="icon-bug"></i>
+                                <p>Reportar un Error </p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- End Sidebar -->
+
+        <div class="main-panel">
+            <div class="content">
+                <div class="page-inner">
+                    <div class="page-header">
+
+
+
+                        <h4 class="page-title">@ViewBag.title</h4>
+
+
+                        <ul class="breadcrumbs">
+
                             @if (ViewContext.RouteData.Values["controller"].ToString() != "Home")
                             {
-                                <li class="breadcrumb-item"><i class="fas fa-home"></i> @Html.ActionLink("Inicio", "Index", "Home")</li>
-                                <li class="breadcrumb-item text-success">Ejecución</li>
-                                <li class="breadcrumb-item active">@Html.ActionLink(ViewContext.RouteData.Values["controller"].ToString(), "Iniciales")</li>
+                                <li class="nav-home">
+                                    <a href="@Url.Action("Index", "Home")">
+                                        <i class="icon-home"></i>
+                                    </a>
+                                </li>
+                                <li class="separator">
+                                    <i class="fas fa-angle-right"></i>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#">Ejecución</a>
+                                </li>
+                                <li class="separator">
+                                    <i class="fas fa-angle-right"></i>
+                                </li>
+                                <li class="nav-item text-success">
+                                    <a href="#">@ViewBag.title</a>
+                                </li>
+                                <!-- <li class="breadcrumb-item active">@Html.ActionLink(ViewContext.RouteData.Values["controller"].ToString(), "Iniciales")</li>-->
                             }
                             else
                             {
-                                <li class="breadcrumb-item active"><i class="fas fa-home"></i> Inicio</li>
+                                <li class="nav-home">
+                                    <a href="@Url.Action("Index", "Home")">
+                                        <i class="icon-home"></i>
+                                    </a>
+                                </li>
                             }
+                        </ul>
 
-                        </ol>
-                    </div>
-                </div>
-
-                <!-- Renderizar Vistas Parciales -->
-                @RenderBody()
-
-                <!-- Pie de Pagina-->
-                <footer class="main-footer">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <p>Poder Judicial del Estado de Hidalgo &copy; 2020</p>
-                            </div>
-                            <div class="col-sm-6 text-right">
-                                <p class="text-bold">@DateTime.Now.ToString("dddd, MMMM dd, yyyy")</p>
+                        <div class="btn-group btn-group-page-header ml-auto">
+                            <button type="button" class="btn btn-light btn-round btn-page-header-dropdown dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-ellipsis-h"></i>
+                            </button>
+                            <div class="dropdown-menu">
+                                <div class="arrow"></div>
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Separated link</a>
                             </div>
                         </div>
                     </div>
-                </footer>
+
+                    <!-- Lógica para Render Body-->
+                    @RenderBody()
+                </div>
             </div>
         </div>
     </div>
-    <!-- Renderizar Scripts -->
+
+
+
+    <!--   Core JS Files   -->
     @Scripts.Render("~/Scripts/Master/Jquery")
+    <!-- Style DataTable -->
     @Styles.Render("~/Content/Master/DataTables")
+    <!-- Script DataTable -->
     @Scripts.Render("~/Scripts/Master/DataTables")
+    <!-- Popper Bootstrap -->
+    @Scripts.Render("~/Scripts/Master/Popper")
+    <!-- Bootstrap -->
     @Scripts.Render("~/Scripts/Master/Bootstrap")
-    @Scripts.Render("~/Scripts/Master/BootBox");
-    @Scripts.Render("~/Scripts/Master/Front")
+    <!-- jQuery UI -->
+    @Scripts.Render("~/Scripts/Master/Jquery_UI_Custom")
+    @Scripts.Render("~/Scripts/Master/Jquery_UI_Touch")
+    <!-- jQuery Scrollbar -->
+    @Scripts.Render("~/Scripts/Master/Jquery_Scrollbar")
+    <!-- Ready -->
+    @Scripts.Render("~/Scripts/Master/Ready")
+    <!-- Sweet Alert -->
+    @Scripts.Render("~/Scripts/Master/SweetAlert")
+    <!-- BootBpx -->
+    @Scripts.Render("~/Scripts/Master/BootBox")
+
 </body>
 </html>
