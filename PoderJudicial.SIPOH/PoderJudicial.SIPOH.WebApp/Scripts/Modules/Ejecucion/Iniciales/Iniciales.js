@@ -23,7 +23,7 @@ var estructuraTablaTocas = [{ data: 'sala', title: 'Sala' }, { data: 'numeroToca
 var tocas = [];
 
 var estructuraTablaAmparos = [{ data: 'amparo', title: 'Numero de Amparo' }, { data: 'eliminar', title: 'Quitar' }];
-var anexos = [];
+var amparos = [];
 
 var encontroBeneficiarios = false;
 var mostrarSeccionesBeneficiario = false;
@@ -564,8 +564,7 @@ function ListarCausas(data)
                     causa.ofendido = expediente.Ofendidos;
                     causa.inculpado = expediente.Inculpados;
                     causa.delito = expediente.Delitos;
-                    causa.eliminar = "<a href='#' class='btn btn-danger btn-sm' onclick='EliminarCausa(" + causa.id + ")'><i class='fas fa-trash-alt'></i></a>";
-
+                    causa.eliminar = "<button class='btn btn-danger btn-sm' onclick='EliminarCausa(" + causa.id + ")'><i class='fas fa-trash-alt'></i></button>";
                     //Agrega Causa al Arreglo de Cuasas
                     causas.push(causa);
                     //Generar Tabla
@@ -659,7 +658,7 @@ function AgregarTocas()
         toca.idJuzgado = idJuzgado;
         toca.sala = nombreJuzgado;
         toca.numeroToca = numToca;
-        toca.eliminar = "<a href='#' class='btn btn-danger btn-sm' onclick='EliminarToca(" + toca.id + ")'><i class='fas fa-trash-alt'></i></a>";
+        toca.eliminar = "<button class='btn btn-danger btn-sm' onclick='EliminarToca(" + toca.id + ")'><i class='fas fa-trash-alt'></i></button>";
         tocas.push(toca);
 
         //Generar Tabla
@@ -718,19 +717,19 @@ function AgregaAmparos()
         var amparo = new Object();
         amparo.id = numRamdom;
         amparo.amparo = numAmparo;
-        amparo.eliminar = "<a href='#' class='btn btn-danger btn-sm' onclick='EliminarAmparo(" + amparo.id + ")'><i class='fas fa-trash-alt'></i></a>";
-        anexos.push(amparo);
+        amparo.eliminar = "<button class='btn btn-danger btn-sm' onclick='EliminarAmparo(" + amparo.id + ")'><i class='fas fa-trash-alt'></i></button>";
+        amparos.push(amparo);
 
         //Generar Tabla
-        dataTableAmparos = GeneraTablaDatos(dataTableAmparos, "dataTableAmparos", anexos, estructuraTablaAmparos, false, false, false);
+        dataTableAmparos = GeneraTablaDatos(dataTableAmparos, "dataTableAmparos", amparos, estructuraTablaAmparos, false, false, false);
     }
 }
 
 function ValidarAmparoEnTabla(numeroAmparo)
 {
-    for (var index = 0; index < anexos.length; index++)
+    for (var index = 0; index < amparos.length; index++)
     {
-        if (anexos[index].amparo == numeroAmparo)
+        if (amparos[index].amparo == numeroAmparo)
         {
             return true;
         }
@@ -742,18 +741,18 @@ function EliminarAmparo(id)
 {
     var funcion = function ()
     {
-        var iterarArreglo = anexos;
+        var iterarArreglo = amparos;
 
         for (var index = 0; index < iterarArreglo.length; index++)
         {
-            if (id == anexos[index].id)
+            if (id == amparos[index].id)
             {
-                anexos.splice(index, 1);
+                amparos.splice(index, 1);
             }
         }
 
         //Genera nuevamente la tabla
-        dataTableAmparos = GeneraTablaDatos(dataTableAmparos, "dataTableAmparos", amparo, estructuraTablaAmparos, false, false, false);
+        dataTableAmparos = GeneraTablaDatos(dataTableAmparos, "dataTableAmparos", amparos, estructuraTablaAmparos, false, false, false);
     }
 
     var mensaje = "¿Desea retirar el amparo de la tabla?";
@@ -779,7 +778,8 @@ function AgregarAnexosInicales()
         anexoIniciales.id = idAnexo;
         anexoIniciales.descripcion = descripcionAnexo;
         anexoIniciales.cantidad = cantidadAnexo;
-        anexoIniciales.eliminar = "<a href='#' class='btn btn-danger btn-sm' onclick='EliminarAnexo(" + anexoIniciales.id + ")'><i class='fas fa-trash-alt'></i></a>";
+        anexoIniciales.eliminar = "<button class='btn btn-danger btn-sm' onclick='EliminarAnexo(" + anexoIniciales.id + ")'><i class='fas fa-trash-alt'></i></button>";
+
         anexos.push(anexoIniciales);
     }
 
