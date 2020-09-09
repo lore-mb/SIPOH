@@ -18,7 +18,7 @@ namespace PoderJudicial.SIPOH.Negocio
         private readonly IExpedienteRepository expedienteRepositorio;
         private readonly IEjecucionRepository ejecucionRepository;
 
-        //Metodo Contructor del proceso, se le inyecta la interfaz CuentaRepositoru
+        //Metodo Constructor del proceso, se le inyecta la interfaz CuentaRepositoru
         public InicialesProcessor(ICatalogosRepository catalogosRepositorio, IExpedienteRepository expedienteRepositorio, IEjecucionRepository ejecucionRepository)
         {
             this.catalogosRepositorio = catalogosRepositorio;

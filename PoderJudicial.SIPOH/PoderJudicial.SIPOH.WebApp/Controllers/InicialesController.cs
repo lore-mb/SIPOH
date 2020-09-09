@@ -14,13 +14,14 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         private readonly IInicialesProcessor inicialesProcessor;
         private readonly IMapper mapper;
 
-
         public InicialesController(IInicialesProcessor inicialesProcessor, IMapper mapper) 
         {
             this.inicialesProcessor = inicialesProcessor;
             this.mapper = mapper;
         }
         // GET: Iniciales
+
+        #region Metodos Publicos del Controlador
         public ActionResult Iniciales()
         { 
             List<Juzgado> juzgadosAcusatorios = inicialesProcessor.RecuperaJuzgado(Usuario.IdCircuito, TipoJuzgado.ACUSATORIO);
@@ -40,8 +41,6 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             return View();
         }
 
-        #region Metodos Publicos del Controlador
-       
         [HttpGet]
         public ActionResult ObtenerJuzgadoTradicional(int idDistrito)
         {
@@ -64,7 +63,6 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             }
             else
             {
-
                 if (distritos.Count > 0)
                 {
                     var lista = ViewHelper.Options(distritos, "IdDistrito", "Nombre");

@@ -4,22 +4,20 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-lg-12">
             <div class="card shadow-sm">
                 <div class="card-body">
 
                     @Html.Hidden("IdCircuitoHDN", (object)Usuario.IdCircuito)
 
-
-
                         <ul class="nav nav-pills nav-success" id="pills-tab" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true"><i class="icon-office"></i> Juzgado Acusatorio</a>
+                                <a class="nav-link active" id="juzgadoA-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true"><i class="icon-office"></i> Juzgado Acusatorio</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false"><i class="icon-library"></i> Juzgado Tradicional</a>
+                                <a class="nav-link" id="juzgadoT-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false"><i class="icon-library"></i> Juzgado Tradicional</a>
                             </li>
                         </ul>
+
                         <div class="tab-content mt-2 mb-3" id="pills-tabContent">
                             <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                                 <form id="formCausas" class="needs-validation" novalidate>
@@ -110,22 +108,23 @@
 
                     <div class="tab-content">
                         <div class="form-row">
-                            <div class="col-12 col-md-6">
+                            <div class="col-12 col-md-7">
                                 <form id="formTocas" class="needs-validation" novalidate>
-                                    <div class="form-row">
+                                    <div class="form-row mt">
                                         <div class="col-12 col-md-7 mt-3">
                                             <label for="validationCustom04">Salas</label>
 
-                                            @Html.DropDownList("SalasAcusatorio", new SelectList(ViewBag.SalasAcusatorio, "IdJuzgado", "Nombre"), "SELECCIONAR OPCIÓN", new { @id = "slctSalaAcusatorio", @class = "custom-select custom-select-sm", @required = "required" })
+                                            @Html.DropDownList("SalasAcusatorio", new SelectList(ViewBag.SalasAcusatorio, "IdJuzgado", "Nombre"), "SELECCIONAR OPCIÓN", new { @id = "slctSalaAcusatorio", @class = "custom-select", @required = "required" })
 
-                                            @Html.DropDownList("SalasTradicional", new SelectList(ViewBag.SalasTradicional, "IdJuzgado", "Nombre"), "SELECCIONAR OPCIÓN", new { @id = "slctSalaTradicional", @class = "custom-select custom-select-sm", @hidden = "hidden" })
+                                            @Html.DropDownList("SalasTradicional", new SelectList(ViewBag.SalasTradicional, "IdJuzgado", "Nombre"), "SELECCIONAR OPCIÓN", new { @id = "slctSalaTradicional", @class = "custom-select", @hidden = "hidden" })
 
                                             <div class="invalid-feedback">
                                                 Seleccione una Sala
                                             </div>
                                         </div>
-                                        <div class="col-12 col-md-5 mt-3 mt-md-5">
-                                            <div class="input-group input-group-sm" id="divToca">
+                                        <div class="col-12 col-md-5 mt-3">
+                                            <label for="validationCustom04">Numero De Toca</label>
+                                            <div class="input-group " id="divToca">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text" id="lbToca">Toca</span>
                                                 </div>
@@ -147,28 +146,32 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12 col-md-6">
-                                <div class="form-row">
-                                    <div class="col-12 mt-3">
-                                        <label for="validationCustom04">Sentencia de Amparo Vinculada</label>
-                                        <div class="input-group input-group-sm" id="divAmparo">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text" id="lbAmparo">Amparo</span>
-                                            </div>
-                                            <input type="text" class="form-control mr-2" id="ipnAmparo" aria-describedby="inpAmparo" required>
-                                            <button class="btn btn-success btn-sm" type="submit" id="btnToca"><i class="fas fa-plus-circle"></i></button>
-                                            <div class="invalid-feedback">
-                                                Introduzca Una Cantidad
+                            <div class="col-12 col-md-5">
+                                <form id="formAmparos" class="needs-validation" novalidate>
+                                    <div class="form-row">
+                                        <div class="col-12 mt-3">
+                                            <label for="validationCustom04">Sentencia de Amparo Vinculada</label>
+                                            <div class="input-group" id="divAmparo">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="lbAmparo">Amparo</span>
+                                                </div>
+                                                <input type="text" class="form-control mr-2" id="ipnAmparo" aria-describedby="inpAmparo" required>
+                                                <button class="btn btn-success btn-sm" type="submit" id="btnAmparo"><i class="fas fa-plus-circle"></i></button>
+                                                <div class="invalid-feedback">
+                                                    Introduzca Una Cantidad
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
+                                </form>
+                                <div class="form-row">
                                     <div class="col-12">
                                         <div class="table-responsive text-small">
-                                            <table class="table table-bordered table-hover table-sm" id="dataTableAmparos" width="100%" cellspacing="0">
-                                            </table>
+                                             <table class="table table-bordered table-hover table-sm" id="dataTableAmparos" width="100%" cellspacing="0">
+                                             </table>
                                         </div>
                                     </div>
-                                </div>
+                                </div>                   
                             </div>
                         </div>
                     </div>
@@ -189,7 +192,7 @@
                                 <!-- FILA DOS -->
                                 <div class="form-row">
                                     <div class="col-12 col-md-6 mt-1">
-                                        <div class="input-group input-group-sm" id="divApellidoPSentenciado">
+                                        <div class="input-group" id="divApellidoPSentenciado">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="lbApellidoPaterno">Apellido Paterno</span>
                                             </div>
@@ -200,8 +203,8 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-12 col-md-6 mt-3 mt-md-1">
-                                        <div class="input-group input-group-sm" id="divApellidoMSentenciado">
+                                    <div class="col-12 col-md-6 mt-1">
+                                        <div class="input-group" id="divApellidoMSentenciado">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="lbApellidoMaterno">Apellido Materno</span>
                                             </div>
@@ -215,8 +218,8 @@
 
                                 <!-- FILA TRES -->
                                 <div class="form-row">
-                                    <div class="col-12 col-md-6 mt-3">
-                                        <div class="input-group input-group-sm" id="divNombreSentenciado ">
+                                    <div class="col-12 col-md-6 mt-1">
+                                        <div class="input-group" id="divNombreSentenciado ">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="lbNombreSentenciado">Nombre(s)</span>
                                             </div>
@@ -226,15 +229,15 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-12 col-md-6 mt-3">
-                                        <div class="input-group input-group-sm" id="divBusquedaSentenciado">
+                                    <div class="col-12 col-md-6 mt-1">
+                                        <div class="input-group" id="divBusquedaSentenciado">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="lbBusquedaSentenciado">Coincidencias</span>
                                             </div>
                                             <input type="text" class="form-control mr-3" id="inpBusquedaSentenciado" aria-describedby="inpNumero" disabled>
                                             <button id="botonMostrarBeneficiarios" type="button" class="btn btn-secondary btn-sm mr-3"><i class="fa fa-eye icon"></i></button>
                                             <button id="botonCheckBeneficiarios" type="button" class="btn btn-secondary btn-sm mr-3"><i class="fa fa-check-circle icon"></i></button>
-                                            <button id="botonCerrarBeneficiarios" type="button" class="btn btn-secondary btn-sm"><i class="fa fa-close icon"></i></button>
+                                            <button id="botonCerrarBeneficiarios" type="button" class="btn btn-secondary btn-sm"><i class="fa fa-eraser"></i></button>
                                         </div>
                                     </div>
                                 </div>
@@ -242,24 +245,30 @@
 
                             <div id="seccionBeneficiario">
                                 <div class="form-row">
-                                    <div class="col-12 mt-3">
+                                    <div class="col-12 mt-1">
                                         <label class="mr-4" for="validationCustom04">¿Sentenciado Interno? </label>
-                                        <div class="custom-control custom-radio custom-control-inline form-control-sm">
+                                        <div class="custom-control custom-radio custom-control-inline">
                                             <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input" required>
                                             <label class="custom-control-label" for="customRadioInline1">SI</label>
                                         </div>
-                                        <div class="custom-control custom-radio custom-control-inline form-control-sm">
+                                        <div class="custom-control custom-radio custom-control-inline">
                                             <input type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input" required>
                                             <label class="custom-control-label" for="customRadioInline2">NO</label>
                                         </div>
                                     </div>
                                 </div>
 
+
+                                <div class="form-row mt-3">
+                                    <div class="col-12">
+                                        <label for="validationCustom04">Solicitante</label>
+                                    </div>
+                                </div>
+
                                 <!-- FILA CINCO -->
                                 <div class="form-row">
-                                    <div class="col-12 col-md-5 mt-3">
-                                        <label for="validationCustom04">Solicitante</label>
-                                        <select class="custom-select custom-select-sm" id="slctSolicitante" required>
+                                    <div class="col-12 col-md-5 mt-1">
+                                        <select class="custom-select" id="slctSolicitante" required>
                                             <option selected value="">SELECCIONAR OPCIÓN</option>
                                             <option value="J">JUZGADO</option>
                                             <option value="C">CERESO</option>
@@ -270,10 +279,9 @@
                                         <div class="invalid-feedback">
                                             Seleccionar un Solicitante.
                                         </div>
-
                                     </div>
-                                    <div class="col-12 col-md-7 mt-3 mt-md-5">
-                                        <div class="input-group input-group-sm" id="divDetalleSolicitante">
+                                    <div class="col-12 col-md-7 mt-1">
+                                        <div class="input-group" id="divDetalleSolicitante">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="lbDetalleSolicitante">Detalle del Solicitante</span>
                                             </div>
@@ -285,11 +293,16 @@
                                     </div>
                                 </div>
 
+                                <div class="form-row mt-3">
+                                    <div class="col-12">
+                                        <label for="validationCustom04">Solicitud</label>
+                                    </div>
+                                </div>
+
                                 <!-- FILA SIETE -->
                                 <div class="form-row">
-                                    <div class="col-12 col-md-5 mt-3">
-                                        <label for="validationCustom04">Solicitud</label>
-                                        <select class="custom-select custom-select-sm" id="slctSolicitud" required>
+                                    <div class="col-12 col-md-5 mt-1">
+                                        <select class="custom-select" id="slctSolicitud" required>
                                             <option selected value="">SELECCIONAR OPCIÓN</option>
                                             <option value="LC">LIBERTAD CONDICIONAL</option>
                                             <option value="RP">REMISIÓN PARCIAL DE LA PENA</option>
@@ -306,9 +319,9 @@
                                             Seleccione una solicitud
                                         </div>
                                     </div>
-                                    <div class="col-12 col-md-7 mt-3 mt-md-5">
+                                    <div class="col-12 col-md-7 mt-1">
 
-                                        <div class="input-group input-group-sm" id="divOtraSolicitud">
+                                        <div class="input-group" id="divOtraSolicitud">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="lbOtraSolicitud">Otro</span>
                                             </div>
@@ -326,22 +339,26 @@
                         <!-- FILA NUEVE -->
                         <form id="formAnexos" class="needs-validation" novalidate>
                             <div id="seccionBusquedaAnexos">
-                                <div class="form-row">
-                                    <div class="col-12 col-md-9 mt-3">
+                                <div class="form-row mt-3">
+                                    <div class="col-12">
                                         <label for="validationCustom04">Anexos</label>
-
-                                        @Html.DropDownList("AnexosInicales", new SelectList(ViewBag.AnexosInicales, "Tipo", "Descripcion"), "SELECCIONAR OPCIÓN", new { @id = "slctAnexosInicales", @class = "custom-select custom-select-sm", @required = "required" })
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-12 col-md-9 mt-1">
+                         
+                                        @Html.DropDownList("AnexosInicales", new SelectList(ViewBag.AnexosInicales, "IdAnexo", "Descripcion"), "SELECCIONAR OPCIÓN", new { @id = "slctAnexosInicales", @class = "custom-select", @required = "required" })
 
                                         <div class="invalid-feedback">
                                             Seleccione una Descripción
                                         </div>
                                     </div>
-                                    <div class="col-12 col-md-3 mt-3 mt-md-5">
-                                        <div class="input-group input-group-sm" id="divAddAnexos">
+                                    <div class="col-12 col-md-3 mt-1">
+                                        <div class="input-group" id="divAddAnexos">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="lbelAddAnexos">Cantidad</span>
                                             </div>
-                                            <input type="text" class="form-control mr-3" id="inpAddAnexos" aria-describedby="inpAddAnexos" required>
+                                            <input type="number" min="1" max="99" class="form-control mr-3" id="inpAddAnexos" aria-describedby="inpAddAnexos" required>
                                             <button class="btn btn-success btn-sm" type="submit" id="btnAddAnexos"><i class="fas fa-plus-circle"></i></button>
                                             <div class="invalid-feedback">
                                                 Introduzca una cantidad
@@ -350,8 +367,8 @@
                                     </div>
                                 </div>
                                 <div class="form-row">
-                                    <div class="col-12 col-md-9 mt-2">
-                                        <div class="input-group input-group-sm" id="divOtroAnexo">
+                                    <div class="col-12 col-md-9 mt-1">
+                                        <div class="input-group" id="divOtroAnexo">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="lbOtroAnexo">Otro</span>
                                             </div>
@@ -389,13 +406,12 @@
 
                 </div>
             </div>
-        </div>
     </div>
 </div>
 
 <!-- MODAL -->
 <div id="ejecucionModal" class="modal fade" data-backdrop="static" data-keyboard="false" role="dialog">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-lg">
         <!-- Contenido del modal -->
         <div class="modal-content">
             <div class="modal-header">

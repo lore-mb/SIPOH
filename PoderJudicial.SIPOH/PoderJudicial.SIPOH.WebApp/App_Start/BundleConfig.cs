@@ -9,33 +9,37 @@ namespace PoderJudicial.SIPOH.WebApp
         public static void RegisterBundles(BundleCollection bundles)
         {
 
-            // Estilos del sitio
+            //-------------------------------------//
+            // --------- CSS CORE SIPOH ---------- //
+            //-------------------------------------//
+
+            // CSS CORE para sitio
             bundles.Add(new StyleBundle("~/Content/Master/Site").Include(
                 "~/Content/Master/Site/bootstrap.min.css",
-                "~/Content/Master/Site/azzara.min.css"));
-            
-            // IconMoon
-            bundles.Add(new StyleBundle("~/Content/Master/Fonts/IcoMoon/").Include(
-                "~/Content/Master/Fonts/IcoMoon/style.css"));
+                "~/Content/Master/Site/coresite.min.css"));
 
             bundles.Add(new ScriptBundle("~/Scripts/Master/WebFonts").Include(
                 "~/Scripts/Master/WebFonts/webfont.min.js"));
 
-            // Estilos  FontAwesome
+            //-------------------------------------//
+            // ------------- ICON PACK ----------- //
+            //-------------------------------------//
+
+            // Paqueteria IconMoon [Iconos]
+            bundles.Add(new StyleBundle("~/Content/Master/Fonts/IcoMoon/").Include(
+                "~/Content/Master/Fonts/IcoMoon/style.css"));
+
+            // Paqueteria FontAwesome [Iconos]
             bundles.Add(new StyleBundle("~/Content/Master/Fonts/FontAwesome").Include(
                 "~/Content/Master/Fonts/FontAwesome/all.min.css"));
 
-            // Scripts Jquery
+            //-------------------------------------//
+            // ---------- JQUERY SCRIPTS --------- //
+            //-------------------------------------//
+
+            // Script Jquery 3.5.1
             bundles.Add(new ScriptBundle("~/Scripts/Master/Jquery").Include(
               "~/Scripts/Master/Jquery/jquery-3.5.1.min.js"));
-
-            // Scripts Bootstrap
-            bundles.Add(new ScriptBundle("~/Scripts/Master/Bootstrap").Include(
-                "~/Scripts/Master/Bootstrap/bootstrap.min.js"));         
-
-            // Scripts Popper
-            bundles.Add(new ScriptBundle("~/Scripts/Master/Popper").Include(
-                "~/Scripts/Master/Popper/popper.min.js"));
 
             // Jquery UI - Custom
             bundles.Add(new ScriptBundle("~/Scripts/Master/Jquery_UI_Custom").Include(
@@ -49,9 +53,34 @@ namespace PoderJudicial.SIPOH.WebApp
             bundles.Add(new ScriptBundle("~/Scripts/Master/Jquery_Scrollbar").Include(
                 "~/Scripts/Master/Jquery_Scrollbar/jquery.scrollbar.min.js"));
 
-            // Scripts Ready
-            bundles.Add(new ScriptBundle("~/Scripts/Master/Ready").Include(
-                "~/Scripts/Master/Ready/ready.min.js"));
+            //-------------------------------------//
+            // ---- BOOTSTRAP & DEPENDENCIES ----- //
+            //-------------------------------------//
+
+            // Scripts Bootstrap
+            bundles.Add(new ScriptBundle("~/Scripts/Master/Bootstrap").Include(
+                "~/Scripts/Master/Bootstrap/bootstrap.min.js"));
+
+            // Scripts Popper
+            bundles.Add(new ScriptBundle("~/Scripts/Master/Popper").Include(
+                "~/Scripts/Master/Popper/popper.min.js"));
+
+            //-------------------------------------//
+            // ----------- DATEPICKER ------------ //
+            //-------------------------------------//
+
+            bundles.Add(new StyleBundle("~/Content/Master/DatePicker").Include(
+                "~/Content/Master/DatePicker/bootstrap-datetimepicker.min.css"));
+
+            bundles.Add(new ScriptBundle("~/Scripts/Master/DatePicker").Include(
+                "~/Scripts/Master/DatePicker/bootstrap-datetimepicker.min.js"));
+
+            bundles.Add(new ScriptBundle("~/Scripts/Master/Moment").Include(
+                "~/Scripts/Master/Moment/moment.min.js"));
+
+            //-------------------------------------//
+            // ------- DATATABLES CSS & JS ------- //
+            //-------------------------------------//
 
             // Estilos DataTables
             bundles.Add(new StyleBundle("~/Content/Master/DataTables").Include(
@@ -61,43 +90,58 @@ namespace PoderJudicial.SIPOH.WebApp
             bundles.Add(new ScriptBundle("~/Scripts/Master/DataTables").Include(
                 "~/Scripts/Master/DataTables/datatables.min.js"));
 
-            // Scripts InputMask
-            bundles.Add(new ScriptBundle("~/Scripts/Master/InptuMask").Include(
-                "~/Scripts/Master/InptuMask/jquery.inputmask.js"));
+            //-------------------------------------//
+            // --------- SCRIPTS ALERTS ---------- //
+            //-------------------------------------//
 
-            // Scripts Bootstrap
-            bundles.Add(new ScriptBundle("~/Scripts/Master/Bootstrap").Include(
-                "~/Scripts/Master/Bootstrap/bootstrap.min.js"));
-
-
-
-            // Scripts Submodulo Iniciales
-            bundles.Add(new ScriptBundle("~/Scripts/Modules/Ejecucion/Iniciales").Include(
-                "~/Scripts/Modules/Ejecucion/Iniciales/Iniciales.js",
-                "~/Scripts/Modules/Ejecucion/Iniciales/Iniciales2.js"
-                ));
-
-            // Scripts Submodulo Iniciales
-            bundles.Add(new ScriptBundle("~/Scripts/Modules/Ejecucion/Busquedas").Include(
-                "~/Scripts/Modules/Ejecucion/Busquedas/Busquedas.js"));
-
-            // Script Cuenta User
-            bundles.Add(new ScriptBundle("~/Scripts/Modules/Cuenta").Include(
-                "~/Scripts/Modules/Cuenta/LogIn.js"));
-
-            // SweetAlerts
+            // Script SweetAlert
             bundles.Add(new ScriptBundle("~/Scripts/Master/SweetAlert").Include(
                 "~/Scripts/Master/SweetAlert/sweetalert.min.js"));
-            
-            // BootBox
+
+            // Script BootBox
             bundles.Add(new ScriptBundle("~/Scripts/Master/BootBox").Include(
             "~/Scripts/Master/BootBox/bootbox.min.js",
             "~/Scripts/Master/BootBox/popper.min.js"));
 
-            // Script Reportes
+            //-------------------------------------//
+            // --------- SCRIPT INPUTMASK -------- //
+            //-------------------------------------//
+
+            // Scripts InputMask
+            bundles.Add(new ScriptBundle("~/Scripts/Master/InptuMask").Include(
+                "~/Scripts/Master/InptuMask/jquery.inputmask.js"));
+
+            //-------------------------------------//
+            // ---------- CUSTOM SCRIPTS --------- //
+            //-------------------------------------//
+
+            // Scripts Ready
+            bundles.Add(new ScriptBundle("~/Scripts/Master/Ready").Include(
+                "~/Scripts/Master/Ready/ready.min.js"));
+
+            //-------------------------------------//
+            // ------ SCRIPTS CUENTA USUARIO ----- //
+            //-------------------------------------//
+
+            // Script Cuenta Login
+            bundles.Add(new ScriptBundle("~/Scripts/Modules/Cuenta").Include(
+                "~/Scripts/Modules/Cuenta/LogIn.js"));
+
+            //-------------------------------------//
+            // ---- SCRIPTS MODULO EJECUCIÓN ----- //
+            //-------------------------------------//
+
+            // Script Ejecución - Iniciales
+            bundles.Add(new ScriptBundle("~/Scripts/Modules/Ejecucion/Iniciales").Include(
+                "~/Scripts/Modules/Ejecucion/Iniciales/Iniciales.js"));
+
+            // Script Ejecución - Busquedas
+            bundles.Add(new ScriptBundle("~/Scripts/Modules/Ejecucion/Busquedas").Include(
+                "~/Scripts/Modules/Ejecucion/Busquedas/Busquedas.js"));
+
+            // Script Ejecución - Reportes
             bundles.Add(new ScriptBundle("~/Scripts/Modules/Ejecucion/Reportes").Include(
                 "~/Scripts/Modules/Ejecucion/Reportes/Reportes.js"));
-
 
         }
     }
