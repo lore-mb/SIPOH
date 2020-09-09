@@ -5,6 +5,84 @@
 
 <div class="container-fluid">
     <div class="row">
+        <div class="card shadow-sm col-sm-12">
+            <div class="card-header">
+                <h4 class="card-title"><i class="icon-filter"></i> Filtro</h4>
+            </div>
+            <div class="card-body">
+                <ul class="nav nav-pills nav-success  nav-pills-no-bd nav-pills-icons justify-content-center" id="pills-tab-with-icon" role="tablist">
+                    <li class="nav-item" data-toggle="tooltip" data-placement="top" title="Generar reporte por día">
+                        <a class="nav-link active" id="pills-home-tab-icon" data-toggle="pill" href="#pills-home-icon" role="tab" aria-controls="pills-home-icon" aria-selected="true">
+                            <i class="icon-file-text2"></i>
+                            REPORTE POR DÍA
+                        </a>
+                    </li>
+                    <li class="nav-item" data-toggle="tooltip" data-placement="top" title="Generar reporte por rango de fechas">
+                        <a class="nav-link" id="pills-profile-tab-icon" data-toggle="pill" href="#pills-profile-icon" role="tab" aria-controls="pills-profile-icon" aria-selected="false">
+                            <i class="icon-file-text2"></i>
+                            REPORTE POR FECHA
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content mt-2 mb-3" id="pills-with-icon-tabContent">
+                    <div class="tab-pane fade show active" id="pills-home-icon" role="tabpanel" aria-labelledby="pills-home-tab-icon">
+                       
+                    </div>
+                    <div class="tab-pane fade" id="pills-profile-icon" role="tabpanel" aria-labelledby="pills-profile-tab-icon">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label>Fecha Inicial:</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control text-center" id="datetimepicker6" name="datetime" placeholder="dd/mm/aaaa h:mm hh">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">
+                                                <i class="icon-calendar"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label>Fecha Final:</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control text-center" id="datetimepicker7" name="datetime" placeholder="dd/mm/aaaa h:mm hh">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">
+                                                <i class="icon-calendar"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-1">
+                                <div class="form-group">
+                                    <label class="invisible">Generar Reporte:</label>
+                                    <div class="input-group">
+                                        <button class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Generar reporte"><i class="icon-binoculars"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-1">
+                                <div class="form-group">
+                                    <label class="invisible">Generar Reporte:</label>
+                                    <div class="input-group">
+                                        <button class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Limpiar campos tipo fecha"><i class="icon-bin2"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid">
+    <div class="row">
         <div class="col-lg-12">
             <div class="card shadow-sm">
                 <div class="card-body">
@@ -80,5 +158,4 @@
 
 @Scripts.Render("~/Scripts/Master/Jquery")
 @Scripts.Render("~/Scripts/Modules/Ejecucion/Reportes")
-
 

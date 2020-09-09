@@ -11,9 +11,7 @@
     @Styles.Render("~/Content/Master/Fonts/FontAwesome")
     <script>
         WebFont.load({
-            google: { "families": ["Open+Sans:300,400,600,700"] },
-            custom: { urls: ['~/Content/Master/fonts.css'] },
-
+            google: { "families": ["Open+Sans:300,400,600,700"] }
         });
     </script>
 
@@ -209,7 +207,7 @@
 
                                         <div class="u-text">
                                             <h4>@Usuario.Nombre</h4>
-                                            <p class="text-muted">Correo@gmail.com</p><a href="profile.html" class="btn btn-rounded btn-danger btn-sm">Ver Perfil</a>
+                                            <p class="text-muted">CorreoEletronico@dominio.com</p><a href="profile.html" class="btn btn-rounded btn-danger btn-sm">Ver Perfil</a>
                                         </div>
                                     </div>
                                 </li>
@@ -239,17 +237,19 @@
                 <div class="sidebar-content">
                     <div class="user">
                         <div class="avatar-sm float-left mr-2">
-                            <img src="~/Content/Master/Img/PoderJudicialHgo.png" alt="..." class="avatar-img rounded-circle">
+                            <img src="~/Content/Master/Img/PoderJudicialHgo.png" alt="..." class="avatar-img rounded-circle" height="80">
                         </div>
                         <div class="info">
                             <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
-                                <span>
+                                <span class="mb-2">
+                                    <span class="caret"></span>
                                     CIRCUITO @Usuario.NombreCircuito
                                     <span class="user-level">Administrador</span>
-                                    <span class="caret"></span>
+                                </span>
+                                <span class="text-dark">
+                                    @Usuario.Nombre
                                 </span>
                             </a>
-                            <div class="clearfix"></div>
 
                             <div class="collapse in" id="collapseExample">
                                 <ul class="nav">
@@ -507,6 +507,9 @@
 
     <!--   Core JS Files   -->
     @Scripts.Render("~/Scripts/Master/Jquery")
+
+
+
     <!-- Style DataTable -->
     @Styles.Render("~/Content/Master/DataTables")
     <!-- Script DataTable -->
@@ -520,12 +523,22 @@
     @Scripts.Render("~/Scripts/Master/Jquery_UI_Touch")
     <!-- jQuery Scrollbar -->
     @Scripts.Render("~/Scripts/Master/Jquery_Scrollbar")
+
+    <!-- DatePicker -->
+    @Scripts.Render("~/Scripts/Master/Moment")
+    @Styles.Render("~/Content/Master/DatePicker")
+    @Scripts.Render("~/Scripts/Master/DatePicker")
+
+
     <!-- Ready -->
     @Scripts.Render("~/Scripts/Master/Ready")
     <!-- Sweet Alert -->
     @Scripts.Render("~/Scripts/Master/SweetAlert")
     <!-- BootBpx -->
     @Scripts.Render("~/Scripts/Master/BootBox")
+
+
+
 
 </body>
 </html>
