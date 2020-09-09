@@ -23,8 +23,7 @@ var estructuraTablaTocas = [{ data: 'sala', title: 'Sala' }, { data: 'numeroToca
 var tocas = [];
 
 var estructuraTablaAmparos = [{ data: 'amparo', title: 'Numero de Amparo' }, { data: 'eliminar', title: 'Quitar' }];
-var amparos = [];
-
+var anexos = [];
 
 var encontroBeneficiarios = false;
 var mostrarSeccionesBeneficiario = false;
@@ -38,11 +37,10 @@ $(document).ready(function ()
     dataTable = GeneraTablaDatos(dataTable, "dataTable", causas, estructuraTablaCausas, false, false, false);
     dataTableAnex = GeneraTablaDatos(dataTableAnex, "dataTableAnexos", anexos, estructuraTablaAnexos, false, false, false);
     dataTableTocas = GeneraTablaDatos(dataTableTocas, "dataTableTocas", tocas, estructuraTablaTocas, false, false, false);
-    dataTableAmparos = GeneraTablaDatos(dataTableAmparos, "dataTableAmparos", amparos, estructuraTablaAmparos, false, false, false);
+    dataTableAmparos = GeneraTablaDatos(dataTableAmparos, "dataTableAmparos", anexos, estructuraTablaAmparos, false, false, false);
 
+    //Obtener Circuito
     idCircuito = $("#IdCircuitoHDN").val();
-
-    // DEV TOCAS - AMPARO
 
     //Elemntos al Cargado
     ElementosAlCargado();
@@ -112,7 +110,7 @@ slctNumeroT.change(function () {
 //Elementos al Cargado
 function ElementosAlCargado()
 {
-    //$("#contenedorBeneficiario").hide();
+    $("#contenedorBeneficiario").hide();
     $("#seccionBeneficiario").hide();
     $("#seccionBusquedaAnexos").hide();
     $("#seccionTablaAnexos").hide();
@@ -153,9 +151,14 @@ function ElementosAlCargado()
                 AgregarTocas();
             }
 
+            if (form.checkValidity() === true && id == "formAmparos")
+            {
+                AgregaAmparos();
+            }
+
             if (form.checkValidity() === true && id == "formAnexos")
             {
-                alert(id);
+                AgregarAnexosInicales();
             }
             
             if (form.checkValidity() === true && id == "formEjecucion")
@@ -348,7 +351,7 @@ function ElementosAlCargado()
     {
         var value = $("#slctAnexosInicales").find('option:selected').val();
 
-        if (value == "O")
+        if (value == "8")
         {
             $("#inpOtroAnexo").prop('disabled', false);
             $("#inpOtroAnexo").prop('required', true);
@@ -422,11 +425,7 @@ function LlenaTablaConsultaBeneficiarios(data)
         }
 
         $("#inpBusquedaSentenciado").val("Total : " + data.Data.total);
-        $("#inpBusquedaSentenciado").css('border', function ()
-        {
-            return '1px solid #DC3545';
-        });
-
+        
         //Pintar en mostrar Bene
         $("#botonMostrarBeneficiarios").removeClass("btn-secondary");
         $("#botonMostrarBeneficiarios").addClass("btn-info");
@@ -631,6 +630,14 @@ function EliminarCausa(id)
 function AgregarTocas()
 {
     var numToca = $("#inpToca").val();
+    var anioActual = new Date().getFullYear();
+    var anioToca = numToca.substr(5, 4); 
+
+    if (anioToca > anioActual)
+    {
+        Alerta("El numero de toca que intenta añadir, es mayor al año actual");
+        return;
+    }
 
     if (ValidarTocaEnTabla(numToca))
     {
@@ -643,6 +650,8 @@ function AgregarTocas()
             
         var idJuzgado = $("#" + nombreSelect).find('option:selected').val();
         var nombreJuzgado = $("#" + nombreSelect).find('option:selected').text();
+
+        //Se genera un numero aleatorio para asignar un Id a la toca agregada a la tabla
         var numRamdom = Math.floor(Math.random() * 90000) + 10000;
 
         var toca = new Object();
@@ -691,6 +700,130 @@ function EliminarToca(id)
     var mensaje = "¿Desea retirar la toca de la tabla?";
     MensajeDeConfirmacion(mensaje, "small", funcion);
 }
+
+function AgregaAmparos()
+{
+    var numAmparo = $("#ipnAmparo").val();
+
+    if (ValidarAmparoEnTabla(numAmparo))
+    {
+        var mensaje = "El numero de Amparo <b>" + numAmparo + "</b> que intenta agregar, ya se encuentra en la tabla.";
+        Alerta(mensaje);
+    }
+    else
+    {
+        //Se genera un numero aleatorio para asignar un Id a la toca agregada a la tabla
+        var numRamdom = Math.floor(Math.random() * 90000) + 10000;
+
+        var amparo = new Object();
+        amparo.id = numRamdom;
+        amparo.amparo = numAmparo;
+        amparo.eliminar = "<a href='#' class='btn btn-danger btn-sm' onclick='EliminarAmparo(" + amparo.id + ")'><i class='fas fa-trash-alt'></i></a>";
+        anexos.push(amparo);
+
+        //Generar Tabla
+        dataTableAmparos = GeneraTablaDatos(dataTableAmparos, "dataTableAmparos", anexos, estructuraTablaAmparos, false, false, false);
+    }
+}
+
+function ValidarAmparoEnTabla(numeroAmparo)
+{
+    for (var index = 0; index < anexos.length; index++)
+    {
+        if (anexos[index].amparo == numeroAmparo)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+function EliminarAmparo(id)
+{
+    var funcion = function ()
+    {
+        var iterarArreglo = anexos;
+
+        for (var index = 0; index < iterarArreglo.length; index++)
+        {
+            if (id == anexos[index].id)
+            {
+                anexos.splice(index, 1);
+            }
+        }
+
+        //Genera nuevamente la tabla
+        dataTableAmparos = GeneraTablaDatos(dataTableAmparos, "dataTableAmparos", amparo, estructuraTablaAmparos, false, false, false);
+    }
+
+    var mensaje = "¿Desea retirar el amparo de la tabla?";
+    MensajeDeConfirmacion(mensaje, "small", funcion);
+}
+
+function AgregarAnexosInicales()
+{
+    var tipo = $("#slctAnexosInicales").find('option:selected').val();
+    var descripcionAnexo = $("#slctAnexosInicales").find('option:selected').text();
+    var cantidadAnexo = $("#inpAddAnexos").val(); 
+    var idAnexo = tipo;
+
+    if (tipo == "8")
+    {
+        descripcionAnexo = $("#inpOtroAnexo").val(); 
+        idAnexo = Math.floor(Math.random() * 90000) + 10000;
+    }
+
+    if (!ValidarAnexoEnTabla(idAnexo, cantidadAnexo))
+    {
+        var anexoIniciales = new Object();
+        anexoIniciales.id = idAnexo;
+        anexoIniciales.descripcion = descripcionAnexo;
+        anexoIniciales.cantidad = cantidadAnexo;
+        anexoIniciales.eliminar = "<a href='#' class='btn btn-danger btn-sm' onclick='EliminarAnexo(" + anexoIniciales.id + ")'><i class='fas fa-trash-alt'></i></a>";
+        anexos.push(anexoIniciales);
+    }
+
+    //Generar Tabla
+    dataTableAnex = GeneraTablaDatos(dataTableAnex, "dataTableAnexos", anexos, estructuraTablaAnexos, false, false, false);
+}
+
+function EliminarAnexo(id)
+{
+    var funcion = function ()
+    {
+        var iterarArreglo = anexos;
+
+        for (var index = 0; index < iterarArreglo.length; index++)
+        {
+            if (id == anexos[index].id)
+            {
+                anexos.splice(index, 1);
+            }
+        }
+
+        //Genera nuevamente la tabla
+        dataTableAnex = GeneraTablaDatos(dataTableAnex, "dataTableAnexos", anexos, estructuraTablaAnexos, false, false, false);
+    }
+
+    var mensaje = "¿Desea retirar el anexo de la tabla?";
+    MensajeDeConfirmacion(mensaje, "small", funcion);
+}
+
+function ValidarAnexoEnTabla(id, cantidad)
+{
+    for (var index = 0; index < anexos.length; index++)
+    {
+        if (anexos[index].id == id)
+        {
+            var cantidadActual = parseInt(anexos[index].cantidad);
+            var total = cantidadActual + parseInt(cantidad);
+            anexos[index].cantidad = total;
+            return true;
+        }
+    }
+    return false;
+}
+
 
 function SolicitudEstandarAjax(url, parametros, funcion)
 {
