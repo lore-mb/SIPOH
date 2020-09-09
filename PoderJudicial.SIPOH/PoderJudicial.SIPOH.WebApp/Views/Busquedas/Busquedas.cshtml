@@ -56,54 +56,19 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group row" style="margin-top:7%;" id="divPartest">
-                        <div class="col-12 text-center">
-                            <div class="table-responsive mr-2">
-                                <table class="table table-hover table-sm">
-                                    <thead>
-                                        <tr>
-                                            <th>No.Ejecucion</th>
-                                            <th>Juzgado Ejecucion</th>
-                                            <th>Nombre</th>
-                                            <th>Tipo</th>
-                                            <th>Detalle Solictante</th>
-                                            <th>Fecha</th>
-                                            <th>Solictud</th>
-                                            <th>Beneficiario</th>
-                                            <th>Tipo Expediente</th>
-                                            <th class="text-center">Detalles</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>Beto</td>
-                                            <td>Lore</td>
-                                            <td>Esther</td>
-                                            <td>N/A</td>
-                                            <td>25/01/2009</td>
-                                            <td>OTRO</td>
-                                            <td>Esther Maria</td>
-                                            <td>Incidental</td>
-                                            <td class="text-center"><button class="btn btn-success btn-sm"><i class="fa fa-search"></i></button></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>Igmar</td>
-                                            <td>Tyno</td>
-                                            <td>Laura</td>
-                                            <td>N/A</td>
-                                            <td>25/01/2009</td>
-                                            <td>OTRO</td>
-                                            <td>Esther Maria</td>
-                                            <td>Incidental</td>
-                                            <td class="text-center"><button class="btn btn-success btn-sm"><i class="fa fa-search"></i></button></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                    <!--#region Tabla Dinamica Acusatorio - Tradicional-->
+                    <div class="tab-content">
+                        <div class="form-row">
+                            <div class="col-12">
+                                <h5><i class="icon-table2"></i> Causas</h5>
                             </div>
                         </div>
+                        <div class="table-responsive text-small">
+                            <table class="table table-bordered table-hover table-sm" id="dataTable" width="100%" cellspacing="0">
+                            </table>
+                        </div>
                     </div>
+                    <!-- #endregion -->
                     <!--Busqueda por Sentenciado/Beneficiario-->
                     <div class="form-group row" style="margin-top:6%" id="divSentenciado">
                         <div class="col-12">
@@ -211,7 +176,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-sm-6 justify-content-center">
+                                <div class="col-sm-5 justify-content-center">
                                     <div class="input-group-prepend justify-content-center">
                                         <div class="input-group">
                                             <label for="slcJuzagdo" class="sr-only">Campo2</label>
@@ -265,7 +230,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-3">
+                                <div class="col-sm-4">
                                     <div class="input-group-prepend">
                                         <div class="input-group-prepend justify-content-center">
                                             <span class="input-group-text">Causa:</span>
