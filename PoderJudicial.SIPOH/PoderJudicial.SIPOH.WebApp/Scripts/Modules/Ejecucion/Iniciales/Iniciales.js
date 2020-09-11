@@ -390,7 +390,8 @@ function ValidarBeneficiarios()
     var apellidoMBene = $('#inpApellidoMaterno').val();
     var nombreBene = $('#inpNombreSentenciado').val();
 
-    if (nombreBene != "" && apellidoPBene != "") {
+    if (nombreBene != "" && apellidoPBene != "")
+    {
         //Pintar en verde Check
         $("#botonCheckBeneficiarios").removeClass("btn-secondary");
         $("#botonCheckBeneficiarios").addClass("btn-success");
@@ -675,7 +676,7 @@ function AgregarTocas()
         toca.idJuzgado = idJuzgado;
         toca.sala = nombreJuzgado;
         toca.numeroToca = numToca;
-        toca.eliminar = "<button type='button' class='btn btn-link btn-danger btn-sm' onclick='EliminarCausa(" + toca.id + ")' data-toggle='tooltip' data-placement='top' title='Eliminar'><i class='icon-bin2'></i></button>";
+        toca.eliminar = "<button type='button' class='btn btn-link btn-danger btn-sm' onclick='EliminarToca(" + toca.id + ")' data-toggle='tooltip' data-placement='top' title='Eliminar'><i class='icon-bin2'></i></button>";
         tocas.push(toca);
 
         //Generar Tabla
@@ -734,7 +735,7 @@ function AgregaAmparos()
         var amparo = new Object();
         amparo.id = numRamdom;
         amparo.amparo = numAmparo;
-        amparo.eliminar = "<button type='button' class='btn btn-link btn-danger btn-sm' onclick='EliminarCausa(" + amparo.id + ")' data-toggle='tooltip' data-placement='top' title='Eliminar'><i class='icon-bin2'></i></button>";
+        amparo.eliminar = "<button type='button' class='btn btn-link btn-danger btn-sm' onclick='EliminarAmparo(" + amparo.id + ")' data-toggle='tooltip' data-placement='top' title='Eliminar'><i class='icon-bin2'></i></button>";
         amparos.push(amparo);
 
         //Generar Tabla
