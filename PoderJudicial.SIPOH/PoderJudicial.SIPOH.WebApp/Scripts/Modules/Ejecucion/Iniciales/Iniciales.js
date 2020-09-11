@@ -16,13 +16,13 @@ var causas = [];
 var estructuraTablaAnexos = [{ data: 'cantidad', title: 'Cantidad' }, { data: 'descripcion', title: 'Descripción' }, { data: 'eliminar', title: 'Quitar' }];
 var anexos = [];
 
-var estructuraTablaBeneficiarios = [{ data: 'numeroEjecucion', title: 'No. Ejecución' }, { data: 'nombreJuzgado', title: 'Juzgado', width: "60%" }, { data: 'nombreBeneficiario', title: 'Nombre (s)' }, { data: 'apellidoPaterno', title: 'Apellido Paterno' }, { data: 'apellidoMaterno', title: 'Apellido Materno' }, { data: 'fechaEjecucion', title: 'Fecha de Ejecución' }];
+var estructuraTablaBeneficiarios = [{ data: 'numeroEjecucion', title: 'No. Ejecución', className: "text-center" }, { data: 'nombreJuzgado', title: 'Juzgado', className: "text-center" }, { data: 'nombreBeneficiario', title: 'Nombre (s)', className: "text-center" }, { data: 'apellidoPaterno', title: 'Apellido Paterno', className: "text-center" }, { data: 'apellidoMaterno', title: 'Apellido Materno', className: "text-center" }, { data: 'fechaEjecucion', title: 'Fecha de Ejecución', className: "text-center" }];
 var beneficarios = [];
 
 var estructuraTablaTocas = [{ data: 'sala', title: 'Sala', className: "text-center" }, { data: 'numeroToca', title: 'Numero De Toca', className: "text-center" }, { data: 'eliminar', title: 'Quitar', className: "text-center" }];
 var tocas = [];
 
-var estructuraTablaAmparos = [{ data: 'amparo', title: 'Numero de Amparo', className: "text-center"}, { data: 'eliminar', title: 'Quitar', className: "text-center"}];
+var estructuraTablaAmparos = [{ data: 'amparo', title: 'Numero de Amparo', className: "text-center"}, { data: 'eliminar', title: 'Quitar', className: "text-center, text-bold"}];
 var amparos = [];
 
 var encontroBeneficiarios = false;
@@ -46,17 +46,32 @@ $(document).ready(function ()
     ElementosAlCargado();
 });
 
+// #region Formatear Inputs al Cargado
+function FormatearInputs() {
+    var Inputs = $(".formatInput");
+    Inputs.val('');
+}
+// #endregion
+
+
+// Formaear Select el Cargado
+function FormatearSelects() {
+    var slcData = $(".formatear");
+    slcData.prop('selectedIndex', 0);
+}
+
+function FormatInputMaskCausa() {
+    var InputsMaskCausas = $(".maskcausas");
+    for (var i = 0; i < InputsMaskCausas; i++) {
+        alert(InputsMaskCausas);
+    }
+}
+
 // Formato Numero de Tocas
 var InpNumeroTocas = $("#inpToca");
 InpNumeroTocas.attr('placeholder', '0000/0000');
 InpNumeroTocas.inputmask("9999/9999");
 
-
-// Formaear Select el cargado
-function FormatearElementos() {
-    var slcData = $(".formatear");
-        slcData.prop('selectedIndex', 0);
-}
 
 // #region Variables SELECT Juzgado Acusatorio
 var InputNumero = $("#Numero");
@@ -87,7 +102,6 @@ slctNumero.change(function () {
         InputNumero.inputmask("99-9999-9999");
         InputNumero.val(''); 
         $("#spnNumero").text('NUC');
-
         lblNumero.html("Numero Unico de Caso");
     }
 });
@@ -125,7 +139,8 @@ InpNumeroT.inputmask("9999/9999");
 //Elementos al Cargado
 function ElementosAlCargado()
 {
-    FormatearElementos();
+    FormatearSelects();
+    FormatearInputs();
 
     $("#contenedorBeneficiario").hide();
     $("#seccionBeneficiario").hide();
@@ -269,7 +284,7 @@ function ElementosAlCargado()
         $("#botonCheckBeneficiarios").removeClass("btn-success");
         $("#botonCheckBeneficiarios").addClass("btn-secondary");
 
-        $("#botonMostrarBeneficiarios").removeClass("btn-info");
+        $("#botonMostrarBeneficiarios").removeClass("btn-warning");
         $("#botonMostrarBeneficiarios").addClass("btn-secondary");
 
         beneficarios = [];
@@ -410,7 +425,7 @@ function ValidarBeneficiarios()
 
         if (encontroBeneficiarios)
         {
-            $("#botonMostrarBeneficiarios").removeClass("btn-info");
+            $("#botonMostrarBeneficiarios").removeClass("btn-warning");
             $("#botonMostrarBeneficiarios").addClass("btn-secondary");
 
             $("#inpBusquedaSentenciado").val("Total : 0");
@@ -446,7 +461,7 @@ function LlenaTablaConsultaBeneficiarios(data)
         
         //Pintar en mostrar Bene
         $("#botonMostrarBeneficiarios").removeClass("btn-secondary");
-        $("#botonMostrarBeneficiarios").addClass("btn-info");
+        $("#botonMostrarBeneficiarios").addClass("btn-warning");
 
         dataTableBeneficiario = GeneraTablaDatos(dataTableBeneficiario, "dataTableBeneficiarios", beneficarios, estructuraTablaBeneficiarios, true, true, false);
     }
@@ -459,7 +474,7 @@ function LlenaTablaConsultaBeneficiarios(data)
             return '1px solid #b0bec5';
         });
 
-        $("#botonMostrarBeneficiarios").removeClass("btn-info");
+        $("#botonMostrarBeneficiarios").removeClass("btn-warning");
         $("#botonMostrarBeneficiarios").addClass("btn-secondary");
 
         $("#botonCerrarBeneficiarios").removeClass("btn-secondary");
