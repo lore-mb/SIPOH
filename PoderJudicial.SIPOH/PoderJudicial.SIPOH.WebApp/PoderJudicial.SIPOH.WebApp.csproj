@@ -205,11 +205,12 @@
     <Content Include="Scripts\Master\Jquery_UI_Custom\jquery-ui.min.js" />
     <Content Include="Scripts\Master\Jquery_UI_Touch\jquery.ui.touch-punch.min.js" />
     <Content Include="Scripts\Master\Moment\moment.min.js" />
+    <Content Include="Scripts\Master\Notify\bootstrap-notify.min.js" />
     <Content Include="Scripts\Master\Popper\popper.min.js" />
     <Content Include="Scripts\Master\Ready\ready.min.js" />
-    <Content Include="Scripts\Master\SweetAlert\sweetalert.min.js" />
     <Content Include="Scripts\Master\WebFonts\webfont.min.js" />
     <Content Include="Scripts\Modules\Control\Control.js" />
+    <Content Include="Scripts\Modules\Cuenta\LoggedIn.js" />
     <Content Include="Scripts\Modules\Cuenta\LogIn.js" />
     <Content Include="Scripts\Modules\Ejecucion\Busquedas\Busquedas.js" />
     <Content Include="Scripts\Modules\Ejecucion\Consignaciones\Consignaciones.js" />
