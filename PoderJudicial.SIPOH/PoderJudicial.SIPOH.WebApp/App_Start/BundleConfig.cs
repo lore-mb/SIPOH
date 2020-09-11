@@ -15,8 +15,8 @@ namespace PoderJudicial.SIPOH.WebApp
 
             // CSS CORE para sitio
             bundles.Add(new StyleBundle("~/Content/Master/Site").Include(
-                "~/Content/Master/Site/bootstrap.min.css",
-                "~/Content/Master/Site/coresite.min.css"));
+                "~/Content/Master/Site/bootstrap.css",
+                "~/Content/Master/Site/coresite.css"));
 
             bundles.Add(new ScriptBundle("~/Scripts/Master/WebFonts").Include(
                 "~/Scripts/Master/WebFonts/webfont.min.js"));
@@ -65,6 +65,10 @@ namespace PoderJudicial.SIPOH.WebApp
             bundles.Add(new ScriptBundle("~/Scripts/Master/Popper").Include(
                 "~/Scripts/Master/Popper/popper.min.js"));
 
+            // Scripts Popper
+            bundles.Add(new ScriptBundle("~/Scripts/Master/Notify").Include(
+                "~/Scripts/Master/Notify/bootstrap-notify.min.js"));
+
             //-------------------------------------//
             // ----------- DATEPICKER ------------ //
             //-------------------------------------//
@@ -93,11 +97,6 @@ namespace PoderJudicial.SIPOH.WebApp
             //-------------------------------------//
             // --------- SCRIPTS ALERTS ---------- //
             //-------------------------------------//
-
-            // Script SweetAlert
-            bundles.Add(new ScriptBundle("~/Scripts/Master/SweetAlert").Include(
-                "~/Scripts/Master/SweetAlert/sweetalert.min.js"));
-
             // Script BootBox
             bundles.Add(new ScriptBundle("~/Scripts/Master/BootBox").Include(
             "~/Scripts/Master/BootBox/bootbox.min.js",
@@ -126,6 +125,9 @@ namespace PoderJudicial.SIPOH.WebApp
             // Script Cuenta Login
             bundles.Add(new ScriptBundle("~/Scripts/Modules/Cuenta").Include(
                 "~/Scripts/Modules/Cuenta/LogIn.js"));
+
+            bundles.Add(new ScriptBundle("~/Scripts/Modules/Cuenta/LoggedIn").Include(
+                "~/Scripts/Modules/Cuenta/LoggedIn.js"));
 
             //-------------------------------------//
             // ---- SCRIPTS MODULO EJECUCIÓN ----- //
