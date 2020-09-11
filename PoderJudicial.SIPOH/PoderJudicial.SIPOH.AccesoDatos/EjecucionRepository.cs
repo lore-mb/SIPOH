@@ -78,5 +78,50 @@ namespace PoderJudicial.SIPOH.AccesoDatos
                     Cnx.Close();
             }
         }
+
+        public int? CrearEjecucion(Ejecucion ejecucion, bool circuitoPachuca, int? idJuzgado)
+        {
+            try
+            {
+                if (!IsValidConnection)
+                    throw new Exception("No se ha creado una conexion valida");
+
+                SqlCommand comando = new SqlCommand("sipoh_CrearEjecucion", Cnx);
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.Add("@solicitante", SqlDbType.VarChar).Value = ejecucion.Solicitante;
+                comando.Parameters.Add("@detalleSolicitante", SqlDbType.VarChar).Value = ejecucion.DetalleSolicitante;
+                comando.Parameters.Add("@solicitud", SqlDbType.VarChar).Value = ejecucion.Solicitud;
+                comando.Parameters.Add("@otraSolicita", SqlDbType.VarChar).Value = ejecucion.OtroSolicitante;
+                comando.Parameters.Add("@beneficiarioNombre", SqlDbType.VarChar).Value = ejecucion.NombreBeneficiario;
+                comando.Parameters.Add("@beneficiarioApellidoPaterno", SqlDbType.VarChar).Value = ejecucion.ApellidoPBeneficiario;
+                comando.Parameters.Add("@beneficiarioApellidoMaterno", SqlDbType.VarChar).Value = ejecucion.ApellidoMBeneficiario;
+                comando.Parameters.Add("@interno", SqlDbType.Char).Value = ejecucion.Interno;
+                comando.Parameters.Add("@idUser", SqlDbType.Int).Value = ejecucion.IdUsuario;
+                comando.Parameters.Add("@idUnidad", SqlDbType.Int).Value = idJuzgado;
+                comando.Parameters.Add("@esCircuito", SqlDbType.Bit).Value = circuitoPachuca;
+
+                SqlParameter idEjecucion = new SqlParameter();
+                idEjecucion.ParameterName = "@idEjecucion";
+                idEjecucion.SqlDbType = SqlDbType.Int;
+                idEjecucion.Direction = ParameterDirection.Output;
+                comando.Parameters.Add(idEjecucion);
+
+                Cnx.Open();
+                comando.ExecuteNonQuery();
+
+                return Convert.ToInt32(idEjecucion.Value);
+            }
+            catch (Exception ex)
+            {
+                MensajeError = ex.Message;
+                Estatus = Estatus.ERROR;
+                return null;
+            }
+            finally
+            {
+                if (IsValidConnection && Cnx.State == ConnectionState.Open)
+                    Cnx.Close();
+            }
+        }
     }
 }
