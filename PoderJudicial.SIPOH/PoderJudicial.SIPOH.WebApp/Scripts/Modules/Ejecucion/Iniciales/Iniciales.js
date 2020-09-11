@@ -60,13 +60,6 @@ function FormatearSelects() {
     slcData.prop('selectedIndex', 0);
 }
 
-function FormatInputMaskCausa() {
-    var InputsMaskCausas = $(".maskcausas");
-    for (var i = 0; i < InputsMaskCausas; i++) {
-        alert(InputsMaskCausas);
-    }
-}
-
 // Formato Numero de Tocas
 var InpNumeroTocas = $("#inpToca");
 InpNumeroTocas.attr('placeholder', '0000/0000');
@@ -296,7 +289,7 @@ function ElementosAlCargado()
         $("#inpBusquedaSentenciado").val("Total : 0");
         $("#inpBusquedaSentenciado").css('border', function ()
         {
-            return '1px solid #b0bec5';
+            $("#inpBusquedaSentenciado").addClass("beneficiario-color");
         });
 
         $("#seccionBeneficiario").hide();
@@ -431,7 +424,7 @@ function ValidarBeneficiarios()
             $("#inpBusquedaSentenciado").val("Total : 0");
             $("#inpBusquedaSentenciado").css('border', function ()
             {
-                return '1px solid #b0bec5';
+                $("#inpBusquedaSentenciado").addClass("beneficiario-color");
             });
         }
     }
@@ -471,7 +464,7 @@ function LlenaTablaConsultaBeneficiarios(data)
         $("#inpBusquedaSentenciado").val("Total : 0");  
         $("#inpBusquedaSentenciado").css('border', function ()
         {
-            return '1px solid #b0bec5';
+            $("#inpBusquedaSentenciado").addClass("beneficiario-color");
         });
 
         $("#botonMostrarBeneficiarios").removeClass("btn-warning");

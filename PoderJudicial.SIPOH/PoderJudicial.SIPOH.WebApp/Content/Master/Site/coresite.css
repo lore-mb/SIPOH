@@ -7588,3 +7588,7 @@ div.table-responsive > div.dataTables_wrapper > div.row {
   .container-login {
     width: 100% !important;
     padding: 60px 15px !important; } }
+
+.beneficiario-color {
+    border-color: #f3545d;
+}
