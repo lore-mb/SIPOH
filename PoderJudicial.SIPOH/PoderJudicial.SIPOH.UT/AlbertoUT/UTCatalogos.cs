@@ -12,13 +12,13 @@ namespace PoderJudicial.SIPOH.UT.AlbertoUT
     {
         ServerConnection cnx = null;
         [TestInitialize]
-        public void GeneraConexion() 
+        public void GeneraConexion()
         {
             cnx = ServerConnection.GetConnection();
         }
 
         [TestMethod]
-        public void ObtenerAnexos() 
+        public void ObtenerAnexos()
         {
             CatalogosRepository repo = new CatalogosRepository(cnx);
 
@@ -61,7 +61,7 @@ namespace PoderJudicial.SIPOH.UT.AlbertoUT
             List<Distrito> distritos5 = repo.ObtenerDistritos(5);
 
             //Recuperar Juzgados por Ditrito Traducional
-            foreach (Distrito distrito in distritos1) 
+            foreach (Distrito distrito in distritos1)
             {
                 List<Juzgado> juzgados1 = repo.ObtenerJuzgados(distrito.IdDistrito, TipoJuzgado.TRADICIONAL);
             }
@@ -73,6 +73,24 @@ namespace PoderJudicial.SIPOH.UT.AlbertoUT
             List<Juzgado> juzgadosC3 = repo.ObtenerJuzgados(3, TipoJuzgado.ACUSATORIO);
             List<Juzgado> juzgadosC4 = repo.ObtenerJuzgados(4, TipoJuzgado.ACUSATORIO);
             List<Juzgado> juzgadosC5 = repo.ObtenerJuzgados(5, TipoJuzgado.ACUSATORIO);
+        }
+
+        [TestMethod]
+        public void CrearEjecucion()
+        {
+            EjecucionRepository repo = new EjecucionRepository(cnx);
+            Ejecucion ejecucion = new Ejecucion();
+            ejecucion.Solicitante = "SS";
+            ejecucion.DetalleSolicitante = "ESTE REGISTRO SE CREA DESDE LA UT DE WEB APP";
+            ejecucion.Solicitud = "0";
+            ejecucion.OtroSolicitante = "ESTA ES OTRA SOLICITUD";
+            ejecucion.NombreBeneficiario = "ROMAN";
+            ejecucion.ApellidoPBeneficiario = "ROMERO";
+            ejecucion.ApellidoMBeneficiario = "PARDO";
+            ejecucion.Interno = "S";
+            ejecucion.IdUsuario = 22;
+
+            int? idEjecucion = repo.CrearEjecucion(ejecucion, true, null);           
         }
     }
 }
