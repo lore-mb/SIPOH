@@ -169,6 +169,9 @@
                                 </div>
                             </form>
                             <div class="form-row">
+                                <div class="col-12 mt-3">
+                                    <h6 class="m-0 font-weight-bold text-success"><i class="icon-table2 mr-1"></i>Tabla de Salas</h6>
+                                </div>
                                 <div class="col-12">
                                     <div class="table-responsive text-small">
                                         <table class="table table-hover table-striped table-bordered table-sm nowrap" id="dataTableTocas" width="100%" cellspacing="0">
@@ -199,6 +202,9 @@
                                 </div>
                             </form>
                             <div class="form-row">
+                                <div class="col-12 mt-3">
+                                    <h6 class="m-0 font-weight-bold text-success"><i class="icon-table2 mr-1"></i>Tabla de Amparos</h6>
+                                </div>
                                 <div class="col-12">
                                     <div class="table-responsive text-small">
                                         <table class="table table-hover table-striped table-bordered table-sm nowrap" id="dataTableAmparos" width="100%" cellspacing="0">
@@ -212,15 +218,20 @@
 
                 <!-- CONTENEDOR BENEFICIARIO -->
                 <div class="tab-content" id="contenedorBeneficiario" hidden>
+
+                    <div class="separator-solid"></div>
+
                     <form id="formEjecucion" class="needs-validation" novalidate>
                         <!-- BUSCADOR BENEFICIARIO -->
                         <div id="seccionBusquedaBeneficiario">
+
                             <!-- FILA UNO -->
-                            <div class="form-group mt-4">
+                            <div class="form-row mt-4">
                                 <div class="col-12">
                                     <label for="validationCustomUsername">Sentenciado | Beneficiario</label>
                                 </div>
                             </div>
+
                             <!-- FILA DOS -->
                             <div class="form-row">
                                 <div class="col-12 col-md-6 mt-1">
@@ -234,6 +245,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="col-12 col-md-6 mt-1">
                                     <div class="input-group" id="divApellidoMSentenciado">
                                         <div class="input-group-prepend">
@@ -246,6 +258,7 @@
                                     </div>
                                 </div>
                             </div>
+
                             <!-- FILA TRES -->
                             <div class="form-row">
                                 <div class="col-12 col-md-6 mt-1">
@@ -272,6 +285,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div id="seccionBeneficiario">
                             <div class="form-row">
                                 <div class="col-12 mt-1">
@@ -286,11 +300,14 @@
                                     </div>
                                 </div>
                             </div>
+
+
                             <div class="form-row mt-3">
                                 <div class="col-12">
                                     <label for="validationCustom04">Solicitante</label>
                                 </div>
                             </div>
+
                             <!-- FILA CINCO -->
                             <div class="form-row">
                                 <div class="col-12 col-md-5 mt-1">
@@ -299,7 +316,7 @@
                                         <option value="J">JUZGADO</option>
                                         <option value="C">CERESO</option>
                                         <option value="SS">SOLICITUD DEL SENTENCIADO</option>
-                                        <optio value="V">VICTIMA</optio>
+                                        <option value="V">VICTIMA</option>
                                         <option value="O">OTRO</option>
                                     </select>
                                     <div class="invalid-feedback">
@@ -318,11 +335,13 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="form-row mt-3">
                                 <div class="col-12">
                                     <label for="validationCustom04">Solicitud</label>
                                 </div>
                             </div>
+
                             <!-- FILA SIETE -->
                             <div class="form-row">
                                 <div class="col-12 col-md-5 mt-1">
@@ -344,6 +363,7 @@
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-7 mt-1">
+
                                     <div class="input-group" id="divOtraSolicitud">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="lbOtraSolicitud">Otro</span>
@@ -353,13 +373,13 @@
                                             Introduzca otra Solicitud.
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
                     </form>
 
                     <!-- FILA NUEVE -->
-
                     <form id="formAnexos" class="needs-validation" novalidate>
                         <div id="seccionBusquedaAnexos">
                             <div class="form-row mt-3">
@@ -369,7 +389,9 @@
                             </div>
                             <div class="form-row">
                                 <div class="col-12 col-md-9 mt-1">
+
                                     @Html.DropDownList("AnexosInicales", new SelectList(ViewBag.AnexosInicales, "IdAnexo", "Descripcion"), "SELECCIONAR OPCIÓN", new { @id = "slctAnexosInicales", @class = "custom-select", @required = "required" })
+
                                     <div class="invalid-feedback">
                                         Seleccione una Descripción
                                     </div>
@@ -402,9 +424,13 @@
                             </div>
                         </div>
                     </form>
+
                     <!-- FILA OCHO -->
                     <div id="seccionTablaAnexos">
                         <div class="form-row">
+                            <div class="col-12 mt-3">
+                                <h6 class="m-0 font-weight-bold text-success"><i class="icon-table2 mr-1"></i>Tabla de Anexos</h6>
+                            </div>
                             <div class="col-12 col-md-9">
                                 <div class="table-responsive text-small">
                                     <table class="table table-bordered table-hover table-sm" id="dataTableAnexos" width="100%" cellspacing="0">
@@ -413,8 +439,10 @@
                             </div>
                         </div>
                     </div>
+
                     <!-- FILA SEIS -->
                     <div id="seccionBotonGuardar">
+                        <div class="separator-solid"></div>
                         <div class="form-row">
                             <div class="col-12">
                                 <button type="submit" form="formEjecucion" class="btn btn-outline-success text-small"><i class="fas fa-save mr-2"></i>GUARDAR</button>
@@ -422,6 +450,8 @@
                         </div>
                     </div>
                 </div>
+
+
             </div>
         </div>
     </div>
