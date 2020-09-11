@@ -10,7 +10,7 @@ var dataTableTocas = null;
 var dataTableAmparos = null;
 
 //Estructura para data tables
-var estructuraTablaCausas = [{ data: 'nJuzgado', title: 'N° Juzgado' }, { data: 'causaNuc', title: 'Causa|Nuc' }, { data: 'ofendido', title: 'Ofendido (s)' }, { data: 'inculpado', title: 'Inculpado (s)' }, { data: 'delito', title: 'Delitos (s)' }, { data: 'eliminar', title: 'Quitar' }];
+var estructuraTablaCausas = [{ data: 'nJuzgado', title: 'N° Juzgado', className: "text-center" }, { data: 'causaNuc', title: 'Causa|Nuc', className: "text-center" }, { data: 'ofendido', title: 'Ofendido (s)', className: "text-center" }, { data: 'inculpado', title: 'Inculpado (s)', className: "text-center" }, { data: 'delito', title: 'Delitos (s)', className: "text-center" }, { data: 'eliminar', title: 'Quitar', className: "text-center" }];
 var causas = [];
 
 var estructuraTablaAnexos = [{ data: 'cantidad', title: 'Cantidad' }, { data: 'descripcion', title: 'Descripción' }, { data: 'eliminar', title: 'Quitar' }];
@@ -19,10 +19,10 @@ var anexos = [];
 var estructuraTablaBeneficiarios = [{ data: 'numeroEjecucion', title: 'No. Ejecución' }, { data: 'nombreJuzgado', title: 'Juzgado', width: "60%" }, { data: 'nombreBeneficiario', title: 'Nombre (s)' }, { data: 'apellidoPaterno', title: 'Apellido Paterno' }, { data: 'apellidoMaterno', title: 'Apellido Materno' }, { data: 'fechaEjecucion', title: 'Fecha de Ejecución' }];
 var beneficarios = [];
 
-var estructuraTablaTocas = [{ data: 'sala', title: 'Sala' }, { data: 'numeroToca', title: 'Numero De Toca' }, { data: 'eliminar', title: 'Quitar' }];
+var estructuraTablaTocas = [{ data: 'sala', title: 'Sala', className: "text-center" }, { data: 'numeroToca', title: 'Numero De Toca', className: "text-center" }, { data: 'eliminar', title: 'Quitar', className: "text-center" }];
 var tocas = [];
 
-var estructuraTablaAmparos = [{ data: 'amparo', title: 'Numero de Amparo' }, { data: 'eliminar', title: 'Quitar' }];
+var estructuraTablaAmparos = [{ data: 'amparo', title: 'Numero de Amparo', className: "text-center"}, { data: 'eliminar', title: 'Quitar', className: "text-center"}];
 var amparos = [];
 
 var encontroBeneficiarios = false;
@@ -46,6 +46,18 @@ $(document).ready(function ()
     ElementosAlCargado();
 });
 
+// Formato Numero de Tocas
+var InpNumeroTocas = $("#inpToca");
+InpNumeroTocas.attr('placeholder', '0000/0000');
+InpNumeroTocas.inputmask("9999/9999");
+
+
+// Formaear Select el cargado
+function FormatearElementos() {
+    var slcData = $(".formatear");
+        slcData.prop('selectedIndex', 0);
+}
+
 // #region Variables SELECT Juzgado Acusatorio
 var InputNumero = $("#Numero");
 var lblNumero = $("#NumeroLabel");
@@ -55,6 +67,7 @@ var slctNumero = $("#slctNumero");
 // #region FORMAT LOAD Juzgado Acusatorio
 slctNumero.prop('selectedIndex', 0);
 InputNumero.val('');
+$('#Numero').attr('placeholder', '0000/0000');
 $("#spnNumero").text('CAUSA');
 InputNumero.inputmask("9999/9999");
 //var ValorSeleccionado = $(this).children("option:selected").val();
@@ -64,52 +77,56 @@ InputNumero.inputmask("9999/9999");
 slctNumero.change(function () {
     if ($(this).val() == 1) {
         // #region Acusatorio
+        $('#Numero').attr('placeholder', '0000/0000');
         InputNumero.inputmask("9999/9999");
-        InputNumero.val('');
         $("#spnNumero").text('CAUSA');
-        lblNumero.html("Numero de Causa:");
+        lblNumero.html("Numero de Causa");
         // #endregion
     } else if ($(this).val() == 2) {
+        $('#Numero').attr('placeholder', '00-0000-0000');
         InputNumero.inputmask("99-9999-9999");
-        InputNumero.val('');
+        InputNumero.val(''); 
         $("#spnNumero").text('NUC');
-        lblNumero.html("Numero Unico de Caso:");
+
+        lblNumero.html("Numero Unico de Caso");
     }
 });
 // #endregion
 
 // #region Varibles SELECT Juzgado Tradicional
-var slctNumeroT = $("#slctNumeroT");
-var InpNumeroT = $("#NumeroT");
-var lblNumeroT = $("#NumeroLabelT");
+//var slctNumeroT = $("#slctNumeroT");
+var InpNumeroT = $("#inpCAUT");
+//var lblNumeroT = $("#NumeroLabelT");
 // #endregion
 
 // #region FORMAT LOAD Juzgado Tradicional
-slctNumeroT.prop('selectedIndex', 0);
-InpNumeroT.val('');
-$("#spnNumeroT").text('CAUSA');
+//slctNumeroT.prop('selectedIndex', 0);
+//InpNumeroT.val('');
+//$("#spnNumeroT").text('CAUSA');
 InpNumeroT.inputmask("9999/9999");
 // #endregion
 
 // #region CHANGE Juzgado Tradicional
-slctNumeroT.change(function () {
-    if ($(this).val() == 1) {
-        InpNumeroT.inputmask("9999/9999");
-        InpNumeroT.val('');
-        $("#spnNumeroT").text('CAUSA');
-        lblNumeroT.html("Numero de Causa:");
-    } else if ($(this).val() == 2) {
-        InpNumeroT.inputmask("99-9999-9999");
-        InpNumeroT.val('');
-        $("#spnNumeroT").text('NUC');
-        lblNumeroT.html("Numero Unico de Caso:");
-    }
-});
+//slctNumeroT.change(function () {
+//    if ($(this).val() == 1) {
+//        InpNumeroT.inputmask("9999/9999");
+//        InpNumeroT.val('');
+//        $("#spnNumeroT").text('CAUSA');
+//        lblNumeroT.html("Numero de Causa:");
+//    } else if ($(this).val() == 2) {
+//        InpNumeroT.inputmask("99-9999-9999");
+//        InpNumeroT.val('');
+//        $("#spnNumeroT").text('NUC');
+//        lblNumeroT.html("Numero Unico de Caso:");
+//    }
+//});
 // #endregion
 
 //Elementos al Cargado
 function ElementosAlCargado()
 {
+    FormatearElementos();
+
     $("#contenedorBeneficiario").hide();
     $("#seccionBeneficiario").hide();
     $("#seccionBusquedaAnexos").hide();
@@ -564,7 +581,7 @@ function ListarCausas(data)
                     causa.ofendido = expediente.Ofendidos;
                     causa.inculpado = expediente.Inculpados;
                     causa.delito = expediente.Delitos;
-                    causa.eliminar = "<button class='btn btn-danger btn-sm' onclick='EliminarCausa(" + causa.id + ")'><i class='fas fa-trash-alt'></i></button>";
+                    causa.eliminar = "<button type='button' class='btn btn-link btn-danger btn-sm' onclick='EliminarCausa(" + causa.id + ")' data-toggle='tooltip' data-placement='top' title='Eliminar'><i class='icon-bin2'></i></button>";
                     //Agrega Causa al Arreglo de Cuasas
                     causas.push(causa);
                     //Generar Tabla
@@ -658,7 +675,7 @@ function AgregarTocas()
         toca.idJuzgado = idJuzgado;
         toca.sala = nombreJuzgado;
         toca.numeroToca = numToca;
-        toca.eliminar = "<button class='btn btn-danger btn-sm' onclick='EliminarToca(" + toca.id + ")'><i class='fas fa-trash-alt'></i></button>";
+        toca.eliminar = "<button type='button' class='btn btn-link btn-danger btn-sm' onclick='EliminarCausa(" + toca.id + ")' data-toggle='tooltip' data-placement='top' title='Eliminar'><i class='icon-bin2'></i></button>";
         tocas.push(toca);
 
         //Generar Tabla
@@ -717,7 +734,7 @@ function AgregaAmparos()
         var amparo = new Object();
         amparo.id = numRamdom;
         amparo.amparo = numAmparo;
-        amparo.eliminar = "<button class='btn btn-danger btn-sm' onclick='EliminarAmparo(" + amparo.id + ")'><i class='fas fa-trash-alt'></i></button>";
+        amparo.eliminar = "<button type='button' class='btn btn-link btn-danger btn-sm' onclick='EliminarCausa(" + amparo.id + ")' data-toggle='tooltip' data-placement='top' title='Eliminar'><i class='icon-bin2'></i></button>";
         amparos.push(amparo);
 
         //Generar Tabla
@@ -897,15 +914,15 @@ function GeneraTablaDatos(tabla, idTablaHtml, datos, estructuraTabla, ordering, 
 function MensajeDeConfirmacion(mensaje, tamanio, funcion)
 {
     bootbox.confirm({
-        title: "<b>Mensaje de Confirmación</b>",
+        title: "<h3>Confirmación</h3>",
         message: mensaje,
         buttons: {
             confirm: {
-                label: 'Aceptar',
+                label: '<i class="fa fa-check"></i> Confirmar',
                 className: 'btn btn-outline-success'
             },
             cancel: {
-                label: 'Cancelar',
+                label: '<i class="fa fa-times"></i> Cancelar',
                 className: 'btn btn-outline-secondary'
             }
         },
@@ -923,13 +940,12 @@ function MensajeDeConfirmacion(mensaje, tamanio, funcion)
 function Alerta(mensaje)
 {
     bootbox.alert({
-        title: "<b>Mensaje</b>",
+        title: "<h3>¡Atención!</h3>",
         message: mensaje,
         buttons:
         {
-            ok:
-            {
-                label: 'Aceptar',
+            ok: {
+                label: '<i class="fa fa-check"></i> Confirmar',
                 className: 'btn btn-outline-success'
             }
         }

@@ -20,7 +20,7 @@
     @Styles.Render("~/Content/Master/Site")
 
 </head>
-<body>
+<body data-background-color="bg3">
     <div class="wrapper">
         <!--
             Tip 1: You can change the background color of the main header using: data-background-color="blue | purple | light-blue | green | orange | red"
@@ -54,10 +54,10 @@
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <button type="submit" class="btn btn-search pr-1">
-                                        <i class="icon-search search-icon"></i>
+                                        <i class="icon-library search-icon"></i>
                                     </button>
                                 </div>
-                                <input type="text" placeholder="Buscar ..." class="form-control">
+                                <input type="text" placeholder="@Usuario.NombreDistrito" class="form-control" value="@Usuario.NombreDistrito">
                             </div>
                         </form>
                     </div>
@@ -67,7 +67,7 @@
                                 <i class="fa fa-search"></i>
                             </a>
                         </li>
-                        <li class="nav-item dropdown hidden-caret">
+                        @*<li class="nav-item dropdown hidden-caret">
                             <a class="nav-link dropdown-toggle" href="#" id="messageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="icon-bubbles3"></i>
                             </a>
@@ -136,11 +136,11 @@
                                     <a class="see-all" href="javascript:void(0);">Mirar todos los mensajes<i class="fa fa-angle-right"></i> </a>
                                 </li>
                             </ul>
-                        </li>
+                        </li>*@
                         <li class="nav-item dropdown hidden-caret">
                             <a class="nav-link dropdown-toggle" href="#" id="notifDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="icon-bell"></i>
-                                <span class="notification">4</span>
+                                <span class="notification">0</span>
                             </a>
                             <ul class="dropdown-menu notif-box animated fadeIn" aria-labelledby="notifDropdown">
                                 <li>
@@ -204,7 +204,6 @@
                             <ul class="dropdown-menu dropdown-user animated fadeIn">
                                 <li>
                                     <div class="user-box text-center">
-
                                         <div class="u-text">
                                             <h4>@Usuario.Nombre</h4>
                                             <p class="text-muted">CorreoEletronico@dominio.com</p><a href="profile.html" class="btn btn-rounded btn-danger btn-sm">Ver Perfil</a>
@@ -243,11 +242,8 @@
                             <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
                                 <span class="mb-2">
                                     <span class="caret"></span>
-                                    CIRCUITO @Usuario.NombreCircuito
+                                    CIRC. @Usuario.NombreCircuito
                                     <span class="user-level">Administrador</span>
-                                </span>
-                                <span class="text-dark">
-                                    @Usuario.Nombre
                                 </span>
                             </a>
 
@@ -260,8 +256,9 @@
                             </div>
                         </div>
                     </div>
-                    <ul class="nav">
-                        <li class="nav-item active">
+
+                    <ul class="nav">                      
+                        <li class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")">
                             <a href="@Url.Action("Index", "Home")">
                                 <i class="icon-home"></i>
                                 <p>Panel de Control</p>
@@ -340,7 +337,18 @@
                                 </ul>
                             </div>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item @if (ViewContext.RouteData.Values["Action"].ToString() != "Index") {
+                                                  @(ViewContext.RouteData.Values["Action"].ToString() == "Iniciales" ? "active" : "")
+                                                      if (ViewContext.RouteData.Values["Action"].ToString() != "Index") {
+                                                         @(ViewContext.RouteData.Values["Action"].ToString() == "Promociones" ? "active" : "")
+                                                           if (ViewContext.RouteData.Values["Action"].ToString() != "Index") {
+                                                              @(ViewContext.RouteData.Values["Action"].ToString() == "Busquedas" ? "active" : "")
+                                                                if (ViewContext.RouteData.Values["Action"].ToString() != "Index") { 
+                                                              @(ViewContext.RouteData.Values["Action"].ToString() == "Consignaciones Historicas" ? "active" : "")
+                                                           if (ViewContext.RouteData.Values["Action"].ToString() != "Index") {
+                                                         @(ViewContext.RouteData.Values["Action"].ToString() == "ConsignacionesHistoricas" ? "active" : "")
+                                                      if (ViewContext.RouteData.Values["Action"].ToString() != "Index") { 
+                                                  @(ViewContext.RouteData.Values["Action"].ToString() == "Reportes" ? "active" : "")}}}}}}">
                             <a data-toggle="collapse" href="#submenuEJ">
                                 <i class="icon-books"></i>
                                 <p>Ejecución</p>
@@ -348,27 +356,27 @@
                             </a>
                             <div class="collapse" id="submenuEJ">
                                 <ul class="nav nav-collapse">
-                                    <li>
+                                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Iniciales" ? "active" : "")">
                                         <a href="@Url.Action("Iniciales","Iniciales")">
                                             <span class="sub-item">Iniciales</span>
                                         </a>
                                     </li>
-                                    <li>
+                                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Promociones" ? "active" : "")">
                                         <a href="@Url.Action("Promociones","Promociones")">
                                             <span class="sub-item">Promociones</span>
                                         </a>
                                     </li>
-                                    <li>
+                                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Busquedas" ? "active" : "")">
                                         <a href="@Url.Action("Busquedas","Busquedas")">
                                             <span class="sub-item">Busquedas</span>
                                         </a>
                                     </li>
-                                    <li>
+                                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "ConsignacionesHistoricas" ? "active" : "")">
                                         <a href="@Url.Action("ConsignacionesHistoricas","ConsignacionesHistoricas")">
                                             <span class="sub-item">Consignaciones Historicas</span>
                                         </a>
                                     </li>
-                                    <li>
+                                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Reportes" ? "active" : "")">
                                         <a href="@Url.Action("Reportes","Reportes")">
                                             <span class="sub-item">Reportes</span>
                                         </a>

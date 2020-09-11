@@ -15,8 +15,8 @@ namespace PoderJudicial.SIPOH.WebApp
 
             // CSS CORE para sitio
             bundles.Add(new StyleBundle("~/Content/Master/Site").Include(
-                "~/Content/Master/Site/bootstrap.min.css",
-                "~/Content/Master/Site/coresite.min.css"));
+                "~/Content/Master/Site/bootstrap.css",
+                "~/Content/Master/Site/coresite.css"));
 
             bundles.Add(new ScriptBundle("~/Scripts/Master/WebFonts").Include(
                 "~/Scripts/Master/WebFonts/webfont.min.js"));
