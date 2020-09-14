@@ -2129,7 +2129,7 @@ label {
   box-shadow: 0 1px 15px 1px rgba(39, 39, 39, 0.1); }
   .input-file.input-file-image img.img-upload-preview.img-circle {
     border-radius: 2000px; }
-
+    
 .form-control:disabled, .form-control[readonly] {
   background: #e8e8e8 !important;
   border-color: #e8e8e8 !important; }

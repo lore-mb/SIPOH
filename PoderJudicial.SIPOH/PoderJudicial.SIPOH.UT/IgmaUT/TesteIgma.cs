@@ -1,12 +1,15 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using PoderJudicial.SIPOH.AccesoDatos;
+using PoderJudicial.SIPOH.AccesoDatos.Conexion;
+using PoderJudicial.SIPOH.Entidades;
 
 namespace PoderJudicial.SIPOH.UT.IgmaUT
 {
     [TestClass]
     public class TesteIgma
     {
-        [TestMethod]
+
         ServerConnection cnx = null;
 
         [TestInitialize]
@@ -24,9 +27,9 @@ namespace PoderJudicial.SIPOH.UT.IgmaUT
             ejecucion.DetalleSolicitante = "ESTE REGISTRO SE CREA DESDE LA UT DE WEB APP";
             ejecucion.Solicitud = "0";
             ejecucion.OtroSolicitante = "ESTA ES OTRA SOLICITUD";
-            ejecucion.NombreBeneficiario = "ROMAN";
-            ejecucion.ApellidoPBeneficiario = "ROMERO";
-            ejecucion.ApellidoMBeneficiario = "PARDO";
+            ejecucion.NombreBeneficiario = "IGMAR";
+            ejecucion.ApellidoPBeneficiario = "HERNANDEZ";
+            ejecucion.ApellidoMBeneficiario = "MARTINEZ";
             ejecucion.Interno = "S";
             ejecucion.IdUsuario = 22;
 

@@ -22,7 +22,7 @@ var beneficarios = [];
 var estructuraTablaTocas = [{ data: 'sala', title: 'Sala', className: "text-center" }, { data: 'numeroToca', title: 'Numero De Toca', className: "text-center" }, { data: 'eliminar', title: 'Quitar', className: "text-center" }];
 var tocas = [];
 
-var estructuraTablaAmparos = [{ data: 'amparo', title: 'Numero de Amparo', className: "text-center"}, { data: 'eliminar', title: 'Quitar', className: "text-center, text-bold"}];
+var estructuraTablaAmparos = [{ data: 'amparo', title: 'Numero de Amparo', className: "text-center"}, { data: 'eliminar', title: 'Quitar', className: "text-center"}];
 var amparos = [];
 
 var encontroBeneficiarios = false;
@@ -59,6 +59,7 @@ function FormatearSelects() {
     var slcData = $(".formatear");
     slcData.prop('selectedIndex', 0);
 }
+
 
 // Formato Numero de Tocas
 var InpNumeroTocas = $("#inpToca");
@@ -289,7 +290,7 @@ function ElementosAlCargado()
         $("#inpBusquedaSentenciado").val("Total : 0");
         $("#inpBusquedaSentenciado").css('border', function ()
         {
-            $("#inpBusquedaSentenciado").addClass("beneficiario-color");
+            return '1px solid #b0bec5';
         });
 
         $("#seccionBeneficiario").hide();
@@ -424,7 +425,7 @@ function ValidarBeneficiarios()
             $("#inpBusquedaSentenciado").val("Total : 0");
             $("#inpBusquedaSentenciado").css('border', function ()
             {
-                $("#inpBusquedaSentenciado").addClass("beneficiario-color");
+                return '1px solid #b0bec5';
             });
         }
     }
@@ -464,7 +465,7 @@ function LlenaTablaConsultaBeneficiarios(data)
         $("#inpBusquedaSentenciado").val("Total : 0");  
         $("#inpBusquedaSentenciado").css('border', function ()
         {
-            $("#inpBusquedaSentenciado").addClass("beneficiario-color");
+            return '1px solid #b0bec5';
         });
 
         $("#botonMostrarBeneficiarios").removeClass("btn-warning");
@@ -590,10 +591,10 @@ function ListarCausas(data)
                     causa.ofendido = expediente.Ofendidos;
                     causa.inculpado = expediente.Inculpados;
                     causa.delito = expediente.Delitos;
-                    causa.eliminar = "<button type='button' class='btn btn-link btn-danger btn-sm' onclick='EliminarCausa(" + causa.id + ")' data-toggle='tooltip' data-placement='top' title='Eliminar'><i class='icon-bin2'></i></button>";
+                    causa.eliminar = "<button type='button' class='btn btn-link btn-danger btn-sm' onclick='EliminarCausa(" + causa.id + ")' data-toggle='tooltip' title='Quitar Causa'><i class='icon-bin2'></i></button>";
                     //Agrega Causa al Arreglo de Cuasas
                     causas.push(causa);
-                    //Generar Tabla
+                    //Generar Tabla 
                     dataTable = GeneraTablaDatos(dataTable, "dataTable", causas, estructuraTablaCausas, false, false, false);    
                 }
 
@@ -684,7 +685,7 @@ function AgregarTocas()
         toca.idJuzgado = idJuzgado;
         toca.sala = nombreJuzgado;
         toca.numeroToca = numToca;
-        toca.eliminar = "<button type='button' class='btn btn-link btn-danger btn-sm' onclick='EliminarToca(" + toca.id + ")' data-toggle='tooltip' data-placement='top' title='Eliminar'><i class='icon-bin2'></i></button>";
+        toca.eliminar = "<button type='button' class='btn btn-link btn-danger btn-sm' onclick='EliminarToca(" + toca.id + ")' data-toggle='tooltip' title='Quitar Toca'><i class='icon-bin2'></i></button>";
         tocas.push(toca);
 
         //Generar Tabla
@@ -743,7 +744,7 @@ function AgregaAmparos()
         var amparo = new Object();
         amparo.id = numRamdom;
         amparo.amparo = numAmparo;
-        amparo.eliminar = "<button type='button' class='btn btn-link btn-danger btn-sm' onclick='EliminarAmparo(" + amparo.id + ")' data-toggle='tooltip' data-placement='top' title='Eliminar'><i class='icon-bin2'></i></button>";
+        amparo.eliminar = "<button type='button' class='btn btn-link btn-danger btn-sm' onclick='EliminarAmparo(" + amparo.id + ")' data-toggle='tooltip' data-placement='top' title='Quitar Sentencia de Amparo'><i class='icon-bin2'></i></button>";
         amparos.push(amparo);
 
         //Generar Tabla
@@ -915,9 +916,14 @@ function GeneraTablaDatos(tabla, idTablaHtml, datos, estructuraTabla, ordering, 
             "oAria": {
                 "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
                 "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-            }
+            },      
+
+
+        },
+            drawCallback: function (settings) {
+            $('[data-toggle="tooltip"]').tooltip();
         }
-    });
+    }); 
 }
 
 function MensajeDeConfirmacion(mensaje, tamanio, funcion)
@@ -1005,7 +1011,7 @@ function Alerta(mensaje)
 //    var Val_Combo = $("#comboSala_Acusatorio").find('option:selected').val();
 //    var Val_Input = $("#Sala_Acusatorio").val();
 //    alert(Val_Combo);
-//    alert(Val_Input);
+//    alert(Val_Input); 
 //}
 
 
