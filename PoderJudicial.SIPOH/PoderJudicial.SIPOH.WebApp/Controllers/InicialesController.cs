@@ -13,7 +13,6 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
     {
         private readonly IInicialesProcessor inicialesProcessor;
         private readonly IMapper mapper;
-                                     //objeto             parametro 
         public InicialesController(IInicialesProcessor inicialesProcessor, IMapper mapper) 
         {
             this.inicialesProcessor = inicialesProcessor;
