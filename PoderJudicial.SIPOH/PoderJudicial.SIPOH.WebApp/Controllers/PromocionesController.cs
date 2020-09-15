@@ -7,10 +7,11 @@ using System.Web.Mvc;
 namespace PoderJudicial.SIPOH.WebApp.Controllers
 {
     public class PromocionesController : BaseController
-    {
+    { 
         // GET: Promociones
-        public ActionResult Promociones()
+        public ActionResult CrearPromocion()
         {
+
             return View();
         }
     }
