@@ -1,0 +1,26 @@
+﻿@model PoderJudicial.SIPOH.WebApp.Models.SelloModelView
+
+<div class="tab-content">
+    <div class="form-row">
+        <div class="hijo_uno">
+           <div id="sello">
+              <p class="text-center">
+              TRIBUNAL SUPERIORs<br>
+              DE JUSTICIA<br>
+              DEL ESTADO DE HIDALGO<br>
+              ATENCION CIUDADANA<br>
+              SENTENCIA EJECUTORIADA<br>
+              INICIAL<br>
+              ------------------<br>
+              @Html.DisplayFor(model => model.JuzgadoEjecucion)<br>
+              ------------------<br>
+              </p>
+              <p>
+              Exp. Ejec. : @Html.DisplayFor(model => model.NumeroExpediente)<br>
+              Folio : @Html.DisplayFor(model => model.Folio)<br>
+              Fecha: @Html.DisplayFor(model => model.Fecha)
+              </p>
+           </div>
+        </div>
+    </div>
+</div>

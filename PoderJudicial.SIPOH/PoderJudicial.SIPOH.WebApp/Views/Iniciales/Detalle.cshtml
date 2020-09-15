@@ -1,0 +1,40 @@
+﻿@model PoderJudicial.SIPOH.WebApp.Models.DetalleEjecucionModelView
+
+@{
+    ViewBag.Title = "Detalle Inicial";
+}
+
+<div class="container-fluid">
+   <div class="row">
+       <div class="card shadow-sm col-sm-12">
+           <div class="card-body">
+               <div class="form-row">
+                   <div class="col-7">
+                       @Html.DisplayFor(model => model.JuzgadoEjecucion)
+                   </div>
+                   <div class="col-3">
+                       <b>Numero Expediente: </b> @Html.DisplayFor(model => model.NumeroExpediente)
+                   </div>
+                   <div class="col-2">
+                       <b>Folio: </b> @Html.DisplayFor(model => model.Folio)
+                   </div>
+               </div>
+               <div class="form-row">
+                   <div class="col-12">
+                   
+                   </div>
+               </div>
+               <div class="form-row">
+                   <div class="col-6">
+                       <b>Beneficiario : </b>
+                       @Html.DisplayFor(model => model.NombreBeneficiario)
+                       @Html.DisplayFor(model => model.ApellidoPaternoBeneficiario)
+                       @Html.DisplayFor(model => model.ApellidoMaternoBeneficiario)
+                   </div>
+               </div>
+           </div>
+       </div>
+   </div>
+</div>
+
+

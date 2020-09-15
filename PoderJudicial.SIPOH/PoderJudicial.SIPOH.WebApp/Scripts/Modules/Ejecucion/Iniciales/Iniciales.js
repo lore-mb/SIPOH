@@ -189,7 +189,7 @@ function ElementosAlCargado()
             
             if (form.checkValidity() === true && id == "formEjecucion")
             {
-                alert("Se crea el registro de ejecución");   
+                GenerarEjecucion();
             }
 
             if (id == "formEjecucion")
@@ -851,6 +851,42 @@ function ValidarAnexoEnTabla(id, cantidad)
     return false;
 }
 
+function GenerarEjecucion()
+{
+    $("#loading").fadeIn();
+
+    var parametros =
+    {
+        JuzgadoEjecucion: "",
+        NumeroExpediente: "",
+        NombreBeneficiario: "",
+        ApellidoPaternoBeneficiario: "",
+        ApellidoMaternoBeneficiario: "",
+        SentenciadoInterno: true,
+        Causas: null,
+        Tocas: null,
+        Amparos: null,
+        Anexos: null
+    };
+
+    SolicitudEstandarPostAjax('/Iniciales/CrearEjecucion', parametros, RederizarDetalle);
+}
+
+function RederizarDetalle(data)
+{
+    if (data.Estatus == EstatusRespuesta.OK)
+    {
+        var idEjecucion = data.Data.Folio;
+        var url = "/Iniciales/Detalle?folio=" + idEjecucion;
+
+   
+        window.location.href = url; 
+    }
+    else if (data.Estatus == EstatusRespuesta.ERROR)
+    {
+        $("#loading").fadeOut();
+    }
+}
 
 function SolicitudEstandarAjax(url, parametros, funcion)
 {
@@ -875,6 +911,30 @@ function SolicitudEstandarAjax(url, parametros, funcion)
         }
     });
 }
+
+function SolicitudEstandarPostAjax(urlAction, parameters, functionCallbackSuccess)
+{
+    $.ajax({
+        url: urlAction,
+        type: "POST",
+        traditional: true,
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(parameters), // Debe obtenerse como JSON.stringify
+        dataType: "json",
+        cache: true, // sólo para Internet Explorer 8
+        beforeSend: function () {
+            //$("#loading").fadeIn();
+        },
+        success: function (data) {
+            functionCallbackSuccess(data);
+        },
+        error: function (xhr) {
+            $("#loading").fadeOut();
+            alert('Error Ajax: ' + xhr.statusText);
+        }
+    });
+}
+
 
 function GeneraTablaDatos(tabla, idTablaHtml, datos, estructuraTabla, ordering, searching, lengthChange)
 {

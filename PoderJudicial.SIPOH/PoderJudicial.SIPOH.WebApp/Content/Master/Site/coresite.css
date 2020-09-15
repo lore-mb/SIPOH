@@ -7592,3 +7592,57 @@ div.table-responsive > div.dataTables_wrapper > div.row {
 .beneficiario-color {
     border-color: #f3545d;
 }
+
+#loading 
+{
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 10000;
+}
+
+#loadingcontent 
+{
+    display: table;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#loadingspinner
+{
+    display: table-cell;
+    vertical-align: super;
+    width: 100%;
+    text-align: center;
+    font-size: larger;
+    padding-top: 80px;
+}
+
+.padre {
+    background-color: #fafafa;
+    border: 1px solid #ccc;
+    padding: 0 1rem;
+    margin: 1rem;
+}
+
+.hijo_uno {
+    background-color: yellow;
+    /* IMPORTANTE */
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hijo_dos {
+    background-color: yellow;
+    /* IMPORTANTE */
+    width: 200px;
+    margin: 0 auto;
+}

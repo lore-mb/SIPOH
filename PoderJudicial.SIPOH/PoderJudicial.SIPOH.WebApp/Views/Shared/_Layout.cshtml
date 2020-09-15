@@ -241,7 +241,7 @@
                                     <span class="caret"></span>
                                     CIRC. @Usuario.NombreCircuito
                                     <span class="user-level">Administrador</span>
-                                </span> 
+                                </span>
                             </a>
 
                             <div class="collapse in" id="collapseExample">
@@ -354,7 +354,7 @@
                             <div class="collapse" id="submenuEJ">
                                 <ul class="nav nav-collapse">
                                     <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Iniciales" ? "active" : "")">
-                                        <a href="@Url.Action("Iniciales","Iniciales")">
+                                        <a href="@Url.Action("CrearInicial","Iniciales")">
                                             <span class="sub-item">Iniciales</span>
                                         </a>
                                     </li>
@@ -508,7 +508,14 @@
         </div>
     </div>
 
-
+    <!--SPINNER-->
+    <div id="loading">
+        <div id="loadingcontent">
+            <p id="loadingspinner">
+                <img src="~/Content/Master/Img/loader_puntos.gif" />
+            </p>
+        </div>
+    </div>
 
     <!--   Core JS Files   -->
     @Scripts.Render("~/Scripts/Master/Jquery")

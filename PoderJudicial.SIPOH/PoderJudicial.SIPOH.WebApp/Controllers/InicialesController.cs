@@ -22,7 +22,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         // GET: Iniciales
 
         #region Metodos Publicos del Controlador
-        public ActionResult Iniciales()
+        public ActionResult CrearInicial()
         { 
             List<Juzgado> juzgadosAcusatorios = inicialesProcessor.RecuperaJuzgado(Usuario.IdCircuito, TipoJuzgado.ACUSATORIO);
             List<Distrito> distritos = inicialesProcessor.RecuperaDistrito(Usuario.IdCircuito);
@@ -101,8 +101,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
 
             return Json(Respuesta, JsonRequestBehavior.AllowGet);
         }
-        #endregion
-
+   
         [HttpGet]
         public ActionResult ConsultarSentenciadoBeneficiario(string nombreBene, string apellidoPaternoBene, string apellidoMaternoBene) 
         {
@@ -133,6 +132,59 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             Respuesta.Mensaje = inicialesProcessor.Mensaje;
             return Json(Respuesta, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public ActionResult CrearEjecucion(DetalleEjecucionModelView modelo) 
+        {
+            Respuesta.Estatus = EstatusRespuestaJSON.OK;
+            Respuesta.Mensaje = "Se creo la ejecucion";
+            System.Threading.Thread.Sleep(2000);
+
+            Respuesta.Data = new { Folio = 100 };
+            return Json(Respuesta, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult Detalle(int folio) 
+        {
+            DetalleEjecucionModelView modelo = new DetalleEjecucionModelView();
+            modelo.JuzgadoEjecucion = "JUZGADO PRIMERO DE EJECUCION DEL SISTEMA PROCESAL PENAL ACUSATORIO ORAL";
+            modelo.NombreBeneficiario = "ESTHER";
+            modelo.ApellidoPaternoBeneficiario = "ROMERO";
+            modelo.ApellidoMaternoBeneficiario = "PARDO";
+            modelo.Folio = folio;
+            modelo.NumeroExpediente = "0310/2020";
+            modelo.Causas = new List<CausasModelView>();
+            modelo.Tocas = new List<TocasModelView>();
+            modelo.Amparos = new List<string>();
+            modelo.Anexos = new List<AnexosModelView>();
+            modelo.SentenciadoInterno = false;
+
+            ViewBag.miEjemplo = "HOLA MUNDO";
+            ViewBag.miEjemploII = "HOLA MUNDO II";
+
+            return View(modelo);        
+        }
+
+        [HttpGet]
+        public ActionResult GenerarSello()
+        {
+            Respuesta.Estatus = EstatusRespuestaJSON.OK;
+            Respuesta.Mensaje = "Se creo la ejecucion";
+            System.Threading.Thread.Sleep(2000);
+
+            SelloModelView model = new SelloModelView();
+            model.JuzgadoEjecucion = "JUZGADO PRIMERO DE EJECUCION DEL SISTEMA PROCESAL PENAL ACUSATORIO ORAL";
+            model.NumeroExpediente = "0310/2020";
+            model.Folio = 4606;
+
+            Respuesta.VistaRender = RenderViewToString("_Sello", model);
+            Respuesta.Data = null;
+
+            return Json(Respuesta, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+
 
         #region Metodos Privados del Controlador
         private void ValidaJuzgados(List<Juzgado> juzgados) 

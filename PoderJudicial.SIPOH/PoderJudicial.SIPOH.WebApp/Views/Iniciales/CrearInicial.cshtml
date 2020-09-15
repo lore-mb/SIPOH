@@ -1,5 +1,5 @@
 ﻿@{
-  ViewBag.Title = "Iniciales";
+    ViewBag.Title = "Iniciales";
 }
 
 
@@ -213,7 +213,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>  
+                    </div>
                 </div>
 
                 <!-- CONTENEDOR BENEFICIARIO -->
@@ -272,14 +272,14 @@
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-6 mt-1">
-                                    <div class="input-group" id="divBusquedaSentenciado">   
+                                    <div class="input-group" id="divBusquedaSentenciado">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="lbBusquedaSentenciado">Coincidencias</span>
                                         </div>
                                         <input type="text" class="form-control mr-3" id="inpBusquedaSentenciado" aria-describedby="inpNumero" disabled>
                                         <button id="botonMostrarBeneficiarios" type="button" class="btn btn-secondary btn-sm mr-3" data-toggle="tooltip" data-placement="top" title="Ver Coincidencias"><i class="fa fa-eye icon"></i></button>
                                         <button id="botonCheckBeneficiarios" type="button" class="btn btn-secondary btn-sm mr-3" data-toggle="tooltip" data-placement="top" title="Continuar Registro"><i class="icon-checkmark"></i></button>
-                                        <button id="botonCerrarBeneficiarios" type="button" class="btn btn-secondary btn-sm"  data-toggle="tooltip" data-placement="top" title="Cancelar Registro"><i class="icon-cross"></i></button>
+                                        <button id="botonCerrarBeneficiarios" type="button" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Cancelar Registro"><i class="icon-cross"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -456,7 +456,7 @@
     </div>
 </div>
 
-<!-- MODAL -->
+<!-- MODAL BENEFICIARIOS-->
 <div id="ejecucionModal" class="modal fade" data-backdrop="static" data-keyboard="false" role="dialog">
     <div class="modal-dialog modal-xl">
         <!-- Contenido del modal -->
@@ -466,7 +466,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-            </div>  
+            </div>
             <div class="modal-body">
                 <div id="modalContainer">
                     <div class="table-responsive text-small">
@@ -478,6 +478,32 @@
             <div class="modal-footer">
                 <button type="submit" class="btn btn-outline-secondary" value="Cancelar" id="btnCancelar"><i class="icon-cross"></i> Cancelar</button>
                 <button type="submit" class="btn btn-outline-success" value="Aceptar" id="btnAceptar"><i class="icon-checkmark"></i> Continuar Registro</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL EJECUCION TICKET-->
+<div id="ejecucionModalRespuesta" class="modal fade" data-backdrop="static" data-keyboard="false" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <!-- Contenido del modal -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLongTitle"><i class="fas fa-stamp mr-2"></i>Sello</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body padre">
+                <div id="modalContainer">
+                    <div id="ticket">
+                       
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-outline-success" value="Cancelar" id="btnImprimir"><i class="icon-printer"></i> Imprimir</button>
+                <button type="submit" class="btn btn-outline-success" value="Aceptar" id="btnAceptarEjecucion"><i class="icon-checkmark"></i> Aceptar</button>
             </div>
         </div>
     </div>
