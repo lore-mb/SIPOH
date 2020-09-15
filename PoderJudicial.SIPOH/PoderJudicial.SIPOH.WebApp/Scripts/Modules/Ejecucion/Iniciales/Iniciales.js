@@ -598,7 +598,7 @@ function ListarCausas(data)
                     dataTable = GeneraTablaDatos(dataTable, "dataTable", causas, estructuraTablaCausas, false, false, false);    
                 }
 
-                //Imprime Mensaje de Confiracion
+                //Imprime Mensaje de Confirmacion
                 MensajeDeConfirmacion(mensaje, "large",funcion);
             }
         }

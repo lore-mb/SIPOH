@@ -145,6 +145,13 @@ namespace PoderJudicial.SIPOH.WebApp
             bundles.Add(new ScriptBundle("~/Scripts/Modules/Ejecucion/Reportes").Include(
                 "~/Scripts/Modules/Ejecucion/Reportes/Reportes.js"));
 
+            //-------------------------------------//
+            // --- SCRIPTS MODULO PROMOCIONES ---- //
+            //-------------------------------------//
+
+            bundles.Add(new ScriptBundle("~/Scripts/Modules/Ejecucion/Promociones").Include(
+                "~/Scripts/Modules/Ejecucion/Promociones/Promociones.js"));
+
         }
     }
 }
