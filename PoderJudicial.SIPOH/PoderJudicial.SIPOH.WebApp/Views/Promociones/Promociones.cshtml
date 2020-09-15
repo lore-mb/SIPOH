@@ -1,0 +1,136 @@
+﻿
+@{
+    ViewBag.Title = "Promociones de ejecución";
+}
+<div class="container-fluid">
+    <div class="row">
+        <div class="card shadow-sm col-sm-12">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <h6 class="page-pretitle">
+                            <i class="icon-filter"></i> Filtro de busqueda:
+                        </h6>
+                        <form class="needs-validation" novalidate>
+                            <div class="form-row">
+                                <div class="col-md-6 form-group">
+                                    <label for="slcJuzgado">Nombre de Juzgado</label>
+                                    <select class="custom-select" id="slcJuzgado" required>
+                                        <option value="1">SELECCIONA OPCIÓN</option>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        <i class="icon-notification"></i> Por favor, seleccione juzgado.
+                                    </div>
+                                    <div class="valid-feedback">
+                                        <i class="icon-checkmark"></i> Juzgado Seleccionado.
+                                    </div>
+                                </div>
+                                <div class="col-md-3 form-group">
+                                    <label for="inpNumeroEjecucion">Número de Ejecución</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="inputGroupNumeroEjecucion">#</span>
+                                        </div>
+                                        <input type="text" class="form-control" id="inpNumeroEjecucion" placeholder="0000/0000" aria-describedby="inputGroupNumeroEjecucion" required>
+                                        <div class="invalid-feedback">
+                                            <i class="icon-notification"></i> Por favor, introduce numero de ejecución.
+                                        </div>
+                                        <div class="valid-feedback">
+                                            <i class="icon-checkmark"></i> Numero de Ejecución.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-1 form-group">
+                                    <label for="btnConsultarPromocion" class="invisible">btn</label>
+                                    <button class="btn btn-success form-control" type="submit" id="btnConsultarPromocion" data-toggle="tooltip" data-placement="top" title="Consultar Promoción"><i class="icon-search"></i></button>
+                                </div>
+                                <div class="col-md-1 form-group">
+                                    <label for="btnConsultarPromocion" class="invisible">btn</label>
+                                    <button class="btn btn-success form-control" type="submit" id="btnNuevaConsultaPromocion" data-toggle="tooltip" data-placement="top" title="Nueva Consulta"><i class="icon-pencil"></i></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div id="divResultadoPromocion">
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col-sm-7 col-md-7 mb-3 mb-md-0 transfer-to">
+                                <h3 class="title">Datos Generales</h3>
+                                <div class="account-transfer">
+                                    <div><span>Numero de Ejecución:</span> <span>[data]</span></div>
+                                    <div><span>Juzgado de Ejecución:</span> <span>[data]</span></div>
+                                    <div><span>Solicitante:</span> <span>[data]</span></div>
+                                    <div><span>Sentenciado | Beneficiario:</span> <span>[data]</span></div>
+                                    <div><span>Solicitud:</span> <span>[data]</span></div>
+                                </div>
+                            </div>
+                            <div class="col-sm-5 col-md-7 transfer-total">
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Tabla  Detalles -->
+                    <table id="example" class="table table-striped table-bordere" width="100%">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Position</th>
+                                <th>Office</th>
+                                <th>Age</th>
+                                <th>Start date</th>
+                                <th>Salary</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Tiger Nixon</td>
+                                <td></td>
+                                <td>Edinburgh</td>
+                                <td>61</td>
+                                <td>2011/04/25</td>
+                                <td>$3,120</td>
+                            </tr>
+                            <tr>
+                                <td>Garrett Winters</td>
+                                <td></td>
+                                <td>Edinburgh</td>
+                                <td>63</td>
+                                <td>2011/07/25</td>
+                                <td>$5,300</td>
+                            </tr>
+                            <tr>
+                                <td>Ashton Cox</td>
+                                <td></td>
+                                <td>San Francisco</td>
+                                <td>66</td>
+                                <td>2009/01/12</td>
+                                <td>$4,800</td>
+                            </tr>
+                            <tr>
+                                <td>Cedric Kelly</td>
+                                <td></td>
+                                <td>Edinburgh</td>
+                                <td>22</td>
+                                <td>2012/03/29</td>
+                                <td>$3,600</td>
+                            </tr>
+                            <tr>
+                                <td>Jenna Elliott</td>
+                                <td></td>
+                                <td>Edinburgh</td>
+                                <td>33</td>
+                                <td>2008/11/28</td>
+                                <td>$5,300</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="separator-solid"></div>
+            </div>
+        </div>
+    </div>
+</div>
+@Scripts.Render("~/Scripts/Master/Jquery")
+@Scripts.Render("~/Scripts/Master/InptuMask")
+@Scripts.Render("~/Scripts/Modules/Ejecucion/Promociones")

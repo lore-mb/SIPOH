@@ -51,7 +51,6 @@
                                     <div class="valid-feedback">
                                         <i class="icon-checkmark"></i> Opción seleccionada.
                                     </div>
-
                                 </div>
                                 <div class="col-md-3 form-group">
                                     <label class="" for="inpNumero" id="NumeroLabel">Numero de Causa</label>
@@ -213,7 +212,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>  
                 </div>
 
                 <!-- CONTENEDOR BENEFICIARIO -->
@@ -258,7 +257,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <!-- FILA TRES -->
                             <div class="form-row">
                                 <div class="col-12 col-md-6 mt-1">
@@ -273,14 +271,14 @@
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-6 mt-1">
-                                    <div class="input-group" id="divBusquedaSentenciado">
+                                    <div class="input-group" id="divBusquedaSentenciado">   
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="lbBusquedaSentenciado">Coincidencias</span>
                                         </div>
                                         <input type="text" class="form-control mr-3" id="inpBusquedaSentenciado" aria-describedby="inpNumero" disabled>
-                                        <button id="botonMostrarBeneficiarios" type="button" class="btn btn-secondary btn-sm mr-3"><i class="fa fa-eye icon"></i></button>
-                                        <button id="botonCheckBeneficiarios" type="button" class="btn btn-secondary btn-sm mr-3"><i class="fa fa-check-circle icon"></i></button>
-                                        <button id="botonCerrarBeneficiarios" type="button" class="btn btn-secondary btn-sm"><i class="fa fa-eraser"></i></button>
+                                        <button id="botonMostrarBeneficiarios" type="button" class="btn btn-secondary btn-sm mr-3" data-toggle="tooltip" data-placement="top" title="Ver Coincidencias"><i class="fa fa-eye icon"></i></button>
+                                        <button id="botonCheckBeneficiarios" type="button" class="btn btn-secondary btn-sm mr-3" data-toggle="tooltip" data-placement="top" title="Continuar Registro"><i class="icon-checkmark"></i></button>
+                                        <button id="botonCerrarBeneficiarios" type="button" class="btn btn-secondary btn-sm"  data-toggle="tooltip" data-placement="top" title="Cancelar Registro"><i class="icon-cross"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -463,17 +461,11 @@
         <!-- Contenido del modal -->
         <div class="modal-content">
             <div class="modal-header">
-                <div class="btn btn-success mr-3">
-                    <span class="fa fa-table icon"></span>
-                </div>
-                <b>Beneficiarios</b>
-                @*<button id="botonMostrarBeneficiarios" type="button" class="btn btn-s"><i class="fa fa-eye icon"></i></button>*@
-                <div type="button" class="close" data-dismiss="modal">
-                    <i class="btn btn-sm"><span class="fa fa-close icon"></span></i>
-                </div>
-                <h3 id="contactModelHeader"></h3>
-                <div id="ErrorMessageContainer"></div>
-            </div>
+                <h3 class="modal-title" id="exampleModalLongTitle"><i class="icon-table2"></i> Tabla de beneficiarios asignados a la causa</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>  
             <div class="modal-body">
                 <div id="modalContainer">
                     <div class="table-responsive text-small">
@@ -483,9 +475,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <p class="mr-3">¿Continuar con el Registro?</p>
-                <input type="button" value="Cancelar" id="btnCancelar" class="btn btn-outline-secondary" />
-                <input type="button" value="Aceptar" id="btnAceptar" class="btn btn-outline-success" />
+                <button type="submit" class="btn btn-outline-secondary" value="Cancelar" id="btnCancelar"><i class="icon-cross"></i> Cancelar</button>
+                <button type="submit" class="btn btn-outline-success" value="Aceptar" id="btnAceptar"><i class="icon-checkmark"></i> Continuar Registro</button>
             </div>
         </div>
     </div>
