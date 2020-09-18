@@ -195,6 +195,7 @@
     <Content Include="Content\Master\Img\PoderJudicialHgo.png" />
     <Content Include="Content\Master\Site\bootstrap.css" />
     <Content Include="Content\Master\Site\coresite.css" />
+    <Content Include="Content\Master\Site\sello.css" />
     <Content Include="Content\Master\Vectors\Sipoh.svg" />
     <Content Include="Content\Master\Img\user_default_2d.png" />
     <Content Include="Content\Master\Site\fonts.css" />
@@ -221,7 +222,9 @@
     <Content Include="Scripts\Modules\Cuenta\LogIn.js" />
     <Content Include="Scripts\Modules\Ejecucion\Busquedas\Busquedas.js" />
     <Content Include="Scripts\Modules\Ejecucion\Consignaciones\Consignaciones.js" />
+    <Content Include="Scripts\Modules\Ejecucion\Iniciales\Detalle.js" />
     <Content Include="Scripts\Modules\Ejecucion\Iniciales\Iniciales.js" />
+    <Content Include="Scripts\Modules\Ejecucion\Iniciales\Sello.js" />
     <Content Include="Scripts\Modules\Ejecucion\Promociones\Promociones.js" />
     <Content Include="Scripts\Modules\Ejecucion\Reportes\Reportes.js" />
     <Content Include="Scripts\Modules\Juicios\Juicios.js" />
@@ -266,7 +269,6 @@
     <Content Include="Views\Reportes\Reportes.cshtml" />
     <Content Include="Views\Shared\_LayoutLogin.cshtml" />
     <Content Include="Views\Cuenta\LogIn.cshtml" />
-    <Content Include="Views\Iniciales\_Sello.cshtml" />
     <Content Include="Views\Iniciales\Detalle.cshtml" />
   </ItemGroup>
   <ItemGroup>

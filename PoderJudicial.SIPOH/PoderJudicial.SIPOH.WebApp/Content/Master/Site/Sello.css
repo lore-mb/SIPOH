@@ -1,0 +1,13 @@
+﻿.centrado 
+{
+    text-align: center;
+    align-content: center;
+}
+
+.ticket
+{
+    font-size: 11px;
+    font-family: 'Courier New';
+    width: 155px;
+    max-width: 155px;
+}

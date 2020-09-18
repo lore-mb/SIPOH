@@ -7,9 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PoderJudicial.SIPOH.AccesoDatos
 {
@@ -79,6 +76,13 @@ namespace PoderJudicial.SIPOH.AccesoDatos
             }
         }
 
+        /// <summary>
+        /// Crea un registro de ejecucion
+        /// </summary>
+        /// <param name="ejecucion">Parametro de tipo Ejecucion</param>
+        /// <param name="circuitoPachuca">Parametro booleano para determinar si se uusara la validacion de asignacion de juzgados de ejecucion CTO PACHUCA</param>
+        /// <param name="idJuzgado">Id del juzgado a asignar</param>
+        /// <returns></returns>
         public int? CrearEjecucion(Ejecucion ejecucion, bool circuitoPachuca, int? idJuzgado)
         {
             try
@@ -88,9 +92,9 @@ namespace PoderJudicial.SIPOH.AccesoDatos
 
                 SqlCommand comando = new SqlCommand("sipoh_CrearEjecucion", Cnx);
                 comando.CommandType = CommandType.StoredProcedure;
-                comando.Parameters.Add("@solicitante", SqlDbType.VarChar).Value = ejecucion.Solicitante;
+                comando.Parameters.Add("@idSolicitante", SqlDbType.VarChar).Value = ejecucion.IdSolicitante;
                 comando.Parameters.Add("@detalleSolicitante", SqlDbType.VarChar).Value = ejecucion.DetalleSolicitante;
-                comando.Parameters.Add("@solicitud", SqlDbType.VarChar).Value = ejecucion.Solicitud;
+                comando.Parameters.Add("@idSolicitud", SqlDbType.VarChar).Value = ejecucion.IdSolicitud;
                 comando.Parameters.Add("@otraSolicita", SqlDbType.VarChar).Value = ejecucion.OtroSolicitante;
                 comando.Parameters.Add("@beneficiarioNombre", SqlDbType.VarChar).Value = ejecucion.NombreBeneficiario;
                 comando.Parameters.Add("@beneficiarioApellidoPaterno", SqlDbType.VarChar).Value = ejecucion.ApellidoPBeneficiario;

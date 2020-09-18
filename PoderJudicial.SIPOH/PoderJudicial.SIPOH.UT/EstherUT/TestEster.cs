@@ -27,9 +27,9 @@ namespace PoderJudicial.SIPOH.UT.EstherUT
         {
             EjecucionRepository repo = new EjecucionRepository(cnx);
             Ejecucion ejecucion = new Ejecucion();
-            ejecucion.Solicitante = "SS";
+            ejecucion.IdSolicitante = 1;
             ejecucion.DetalleSolicitante = "ESTE REGISTRO SE CREA DESDE LA UT DE WEB APP";
-            ejecucion.Solicitud = "0";
+            ejecucion.IdSolicitud = 2;
             ejecucion.OtroSolicitante = "ESTA ES OTRA SOLICITUD";
             ejecucion.NombreBeneficiario = "ESTHER";
             ejecucion.ApellidoPBeneficiario = "VAZQUEZ";

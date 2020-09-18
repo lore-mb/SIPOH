@@ -1,40 +1,264 @@
 ﻿@model PoderJudicial.SIPOH.WebApp.Models.DetalleEjecucionModelView
 
 @{
-    ViewBag.Title = "Detalle Inicial";
+    ViewBag.Title = "Inicial Generada";
 }
 
 <div class="container-fluid">
-   <div class="row">
-       <div class="card shadow-sm col-sm-12">
-           <div class="card-body">
-               <div class="form-row">
-                   <div class="col-7">
-                       @Html.DisplayFor(model => model.JuzgadoEjecucion)
-                   </div>
-                   <div class="col-3">
-                       <b>Numero Expediente: </b> @Html.DisplayFor(model => model.NumeroExpediente)
-                   </div>
-                   <div class="col-2">
-                       <b>Folio: </b> @Html.DisplayFor(model => model.Folio)
-                   </div>
-               </div>
-               <div class="form-row">
-                   <div class="col-12">
-                   
-                   </div>
-               </div>
-               <div class="form-row">
-                   <div class="col-6">
-                       <b>Beneficiario : </b>
-                       @Html.DisplayFor(model => model.NombreBeneficiario)
-                       @Html.DisplayFor(model => model.ApellidoPaternoBeneficiario)
-                       @Html.DisplayFor(model => model.ApellidoMaternoBeneficiario)
-                   </div>
-               </div>
-           </div>
-       </div>
-   </div>
+    <div class="row">
+        <div class="card shadow-sm col-sm-12">
+            <div class="card-body">
+                <div class="form-row">
+                    <div class="col-12">
+                        <h3>Ejecución - @Html.DisplayFor(model => model.NumeroExpediente)</h3>
+                    </div>
+                </div>
+
+                <div class="separator-solid"></div>
+
+                <div class="form-row">
+
+                    <div class="col-12">
+                        <button class="btn btn-success" id="btnGeneraSello" data-toggle="tooltip" data-placement="top" title="Genera un sello"><i class="fas fa-stamp mr-2"></i>Generar Sello</button>
+                        <button class="btn btn-success" id="btnNuevaInicial" data-toggle="tooltip" data-placement="top" title="Crea un nuevo registro de iniciales"><i class="fa fa-plus mr-2"></i>Nueva Inicial</button>
+                    </div>
+                </div>
+
+                <div class="form-row mt-3">
+                    <div class="col-12 col-md-8">
+                        <label for="validationCustom04"><b>Juzgado de Ejecución</b></label>
+                        <div class="input-group " id="divToca">
+                            @Html.DisplayFor(model => model.JuzgadoEjecucion)
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-4">
+                        <label for="validationCustom04"><b>Numero de Ejecución</b></label>
+                        <div class="input-group " id="divToca">
+                            @Html.DisplayFor(model => model.NumeroExpediente)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row mt-2 mt-md-3">
+                    <div class="col-12 col-md-4">
+                        <label for="validationCustom04"><b>Sentenciado/Beneficiario</b></label>
+                        <div class="input-group " id="divToca">
+                            @Html.DisplayFor(model => model.NombreBeneficiario)
+                            @Html.DisplayFor(model => model.ApellidoPaternoBeneficiario)
+                            @Html.DisplayFor(model => model.ApellidoMaternoBeneficiario)
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-4">
+                        <label for="validationCustom04"><b>Solicitante</b></label>
+                        <div class="input-group " id="divToca">
+                            @Html.DisplayFor(model => model.Solicitante) - @Html.DisplayFor(model => model.DetalleSolicitante)
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-4">
+                        <label for="validationCustom04"><b>Solicitud</b></label>
+                        <div class="input-group " id="divToca">
+                            @Html.DisplayFor(model => model.Solicitud)
+                        </div>
+                    </div>
+
+                    <div class="col-12 mt-1 mt-md-3">
+                        <label for="validationCustom04"><b>Sentenciando Interno</b></label>
+                        <div class="input-group " id="divToca">
+                            @(Html.Raw(Model.SentenciadoInterno ? "SI" : "NO"))
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content">
+                    <div class="form-row mt-4">
+                        <div class="col-12">
+                            <h6 class="m-0 font-weight-bold text-success"><i class="icon-table2"></i> Tabla de Causas</h6>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table id="dataTableCausas" class="display table table-hover table-striped table-bordered table-sm nowrap text-center" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>N° Juzgado</th>
+                                    <th>Causa|Nuc</th>
+                                    <th>Ofendido (s)</th>
+                                    <th>Inculpado (s)</th>
+                                    <th>Delitos (s)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Causas)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.NombreJuzgado)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.CausaNuc)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Ofendidos)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Inculpados)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Delitos)
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="tab-content">
+                    <div class="form-row">
+                        <div class="col-12 col-md-7 form-group">
+
+                            <div class="form-row">
+                                <div class="col-12 mt-3">
+                                    <h6 class="m-0 font-weight-bold text-success"><i class="icon-table2 mr-1"></i>Tabla de Salas</h6>
+                                </div>
+                                <div class="col-12">
+                                    <div class="table-responsive">
+
+                                        <table id="dataTableTocas" class="display table table-hover table-striped table-bordered table-sm nowrap text-center" width="100%">
+                                            <thead>
+                                                <tr>
+                                                    <th>Sala</th>
+                                                    <th>Numero De Toca</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var item in Model.Tocas)
+                                                {
+                                                    <tr>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.Sala)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.NumeroDeToca)
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-5 form-group">
+                            <div class="form-row">
+                                <div class="col-12 mt-3">
+                                    <h6 class="m-0 font-weight-bold text-success"><i class="icon-table2 mr-1"></i>Tabla de Amparos</h6>
+                                </div>
+                                <div class="col-12">
+                                    <div class="table-responsive text-small">
+                                        <table id="dataTableAmparos" class="display table table-hover table-striped table-bordered table-sm nowrap text-center" width="100%">
+                                            <thead>
+                                                <tr>
+                                                    <th>Numero de Amparo</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var item in Model.Amparos)
+                                                {
+                                                    <tr>
+                                                        <td>
+                                                            @item
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 form-group">
+                            <div class="form-row">
+                                <div class="col-12 mt-3">
+                                    <h6 class="m-0 font-weight-bold text-success"><i class="icon-table2 mr-1"></i>Tabla de Anexos</h6>
+                                </div>
+                                <div class="col-12">
+                                    <div class="table-responsive">
+                                        <table id="dataTableAnexos" class="display table table-hover table-striped table-bordered table-sm nowrap text-center" width="100%">
+                                            <thead>
+                                                <tr>
+                                                    <th>Anexos</th>
+                                                    <th>Cantidad</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var item in Model.Anexos)
+                                                {
+                                                    <tr>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.Descripcion)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.Cantidad)
+                                                        </td>
+
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
+<div id="ejecucionModal" class="modal fade" data-backdrop="static" data-keyboard="false" role="dialog">
+<div class="modal-dialog modal-xl">
+    <!-- Contenido del modal -->
+    <div class="modal-content">
+        <div class="modal-header">
+            
+        </div>
+        <div class="modal-body">
+            <div id="modalContainer">
+                <div id="sello">
+                    <div class="ticket">
+                        <p class="centrado">
+                            TRIBUNAL SUPERIOR<br>
+                            DE JUSTICIA<br>
+                            DEL ESTADO DE HIDALGO<br>
+                            ATENCION CIUDADANA<br>
+                            SENTENCIA EJECUTORIADA<br>
+                            INICIAL<br>
+                            ------------------<br>
+                            @Html.DisplayFor(model => model.JuzgadoEjecucion)<br>
+                            ------------------<br>
+                        </p>
+                        <p>
+                            Exp. Ejec. : @Html.DisplayFor(model => model.NumeroExpediente)<br>
+                            Folio : @Html.DisplayFor(model => model.Folio)<br>
+                            Fecha: @Html.DisplayFor(model => model.Fecha)
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+        </div>
+    </div>
+</div>
+</div>
+
+@Scripts.Render("~/Scripts/Master/Jquery")
+@Scripts.Render("~/Scripts/Master/InptuMask")
+@Scripts.Render("~/Scripts/Modules/Ejecucion/Detalle")
 

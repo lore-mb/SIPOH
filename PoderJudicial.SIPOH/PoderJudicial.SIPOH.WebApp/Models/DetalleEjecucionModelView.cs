@@ -14,6 +14,9 @@ namespace PoderJudicial.SIPOH.WebApp.Models
         public string NombreBeneficiario { set; get; }
         public string ApellidoPaternoBeneficiario { set; get; }
         public string ApellidoMaternoBeneficiario { set; get; }
+        public string Solicitante { set; get; }
+        public string DetalleSolicitante { set; get; }
+        public string Solicitud { set; get; }
         public bool SentenciadoInterno { set; get; }
         public List<CausasModelView> Causas { set; get; }
         public List<TocasModelView> Tocas { set; get; }
