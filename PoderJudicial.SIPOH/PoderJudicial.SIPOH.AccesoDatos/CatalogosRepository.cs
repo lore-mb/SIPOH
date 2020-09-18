@@ -5,6 +5,7 @@ using PoderJudicial.SIPOH.Entidades;
 using PoderJudicial.SIPOH.Entidades.Enum;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -212,6 +213,85 @@ namespace PoderJudicial.SIPOH.AccesoDatos
                     Cnx.Close();
             }
         }
+
+        public List<Solicitud> ObtenerSolicitudes()
+        {
+            try
+            {
+                if (!IsValidConnection)
+                    throw new Exception("No se ha creado una conexion valida");
+
+                string query = "SELECT * FROM P_Solicitud";
+
+                SqlCommand comando = new SqlCommand(query, Cnx);
+                Cnx.Open();
+
+                SqlDataReader sqlRespuesta = comando.ExecuteReader();
+
+                DataTable tabla = new DataTable();
+                tabla.Load(sqlRespuesta);
+
+                List<Solicitud> solicitud = DataHelper.DataTableToList<Solicitud>(tabla);
+
+                if (solicitud.Count > 0)
+                    Estatus = Estatus.OK;
+                else
+                    Estatus = Estatus.SIN_RESULTADO;
+
+                return solicitud;
+            }
+            catch (Exception ex)
+            {
+                MensajeError = ex.Message;
+                Estatus = Estatus.ERROR;
+                return null;
+            }
+            finally
+            {
+                if (IsValidConnection && Cnx.State == ConnectionState.Open)
+                    Cnx.Close();
+            }
+        }
+
+        public List<Solicitante> ObtenerSolicitantes()
+        {
+            try
+            {
+                if (!IsValidConnection)
+                    throw new Exception("No se ha creado una conexion valida");
+
+                string query = "SELECT * FROM P_Solicitante";
+
+                SqlCommand comando = new SqlCommand(query, Cnx);
+                Cnx.Open();
+
+                SqlDataReader sqlRespuesta = comando.ExecuteReader();
+
+                DataTable tabla = new DataTable();
+                tabla.Load(sqlRespuesta);
+
+                List<Solicitante> solicitante = DataHelper.DataTableToList<Solicitante>(tabla);
+
+                if (solicitante.Count > 0)
+                    Estatus = Estatus.OK;
+                else
+                    Estatus = Estatus.SIN_RESULTADO;
+
+                return solicitante;
+            }
+            catch (Exception ex)
+            {
+                MensajeError = ex.Message;
+                Estatus = Estatus.ERROR;
+                return null;
+            }
+            finally
+            {
+                if (IsValidConnection && Cnx.State == ConnectionState.Open)
+                    Cnx.Close();
+            }
+        }
+
         #region Metodos Privados de la Clase
         #endregion
     }

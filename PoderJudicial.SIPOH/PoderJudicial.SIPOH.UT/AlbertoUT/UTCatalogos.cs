@@ -80,9 +80,9 @@ namespace PoderJudicial.SIPOH.UT.AlbertoUT
         {
             EjecucionRepository repo = new EjecucionRepository(cnx);
             Ejecucion ejecucion = new Ejecucion();
-            ejecucion.Solicitante = "SS";
+            ejecucion.IdSolicitante = 3;
             ejecucion.DetalleSolicitante = "ESTE REGISTRO SE CREA DESDE LA UT DE WEB APP";
-            ejecucion.Solicitud = "0";
+            ejecucion.IdSolicitud = 1;
             ejecucion.OtroSolicitante = "ESTA ES OTRA SOLICITUD";
             ejecucion.NombreBeneficiario = "ROMAN";
             ejecucion.ApellidoPBeneficiario = "ROMERO";
@@ -92,5 +92,14 @@ namespace PoderJudicial.SIPOH.UT.AlbertoUT
 
             int? idEjecucion = repo.CrearEjecucion(ejecucion, true, null);           
         }
+
+        [TestMethod]
+        public void SolicitantesSolicitud()
+        {
+            CatalogosRepository repo = new CatalogosRepository(cnx);
+            List<Solicitud> solicitud = repo.ObtenerSolicitudes();
+            List<Solicitante> solicitantes = repo.ObtenerSolicitantes();
+        }
+
     }
 }

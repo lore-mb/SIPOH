@@ -17,5 +17,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos.Interfaces
         List<Juzgado> ObtenerJuzgados(int idCircuito, TipoJuzgado tipoJuzgado);
         List<Juzgado> ObtenerSalas(TipoJuzgado tipoJuzgado);
         List<Anexo> ObtenerAnexosEjecucion(string tipo);
+        List<Solicitud> ObtenerSolicitudes();
+        List<Solicitante> ObtenerSolicitantes();
     }
 }

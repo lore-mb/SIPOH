@@ -879,7 +879,7 @@ function RederizarDetalle(data)
         var idEjecucion = data.Data.Folio;
         var url = "/Iniciales/Detalle?folio=" + idEjecucion;
 
-   
+        //Redirecciona a la vista detalle
         window.location.href = url; 
     }
     else if (data.Estatus == EstatusRespuesta.ERROR)

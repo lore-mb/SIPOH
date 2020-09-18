@@ -309,14 +309,17 @@
                             <!-- FILA CINCO -->
                             <div class="form-row">
                                 <div class="col-12 col-md-5 mt-1">
-                                    <select class="custom-select" id="slctSolicitante" required>
+                                    @*<select class="custom-select" id="slctSolicitante" required>
                                         <option selected value="">SELECCIONAR OPCIÓN</option>
                                         <option value="J">JUZGADO</option>
                                         <option value="C">CERESO</option>
                                         <option value="SS">SOLICITUD DEL SENTENCIADO</option>
                                         <option value="V">VICTIMA</option>
                                         <option value="O">OTRO</option>
-                                    </select>
+                                    </select>*@
+
+                                    @Html.DropDownList("Solicitante", new SelectList(ViewBag.Solicitantes, "Tipo", "Descripcion"), "SELECCIONAR OPCIÓN", new { @id = "slctSolicitante", @class = "custom-select formatear", @required = "required" })
+
                                     <div class="invalid-feedback">
                                         Seleccionar un Solicitante.
                                     </div>
@@ -343,7 +346,7 @@
                             <!-- FILA SIETE -->
                             <div class="form-row">
                                 <div class="col-12 col-md-5 mt-1">
-                                    <select class="custom-select" id="slctSolicitud" required>
+                                    @*<select class="custom-select" id="slctSolicitud" required>
                                         <option selected value="">SELECCIONAR OPCIÓN</option>
                                         <option value="LC">LIBERTAD CONDICIONAL</option>
                                         <option value="RP">REMISIÓN PARCIAL DE LA PENA</option>
@@ -355,7 +358,10 @@
                                         <option value="DAP">DEMANDA CONTRA AUTORIDAD PENITENCIARIA</option>
                                         <option value="ES">EJECUCIÓN DE SENTENCIA</option>
                                         <option value="O">OTRO</option>
-                                    </select>
+                                    </select>*@
+                                    
+                                    @Html.DropDownList("Solicitud", new SelectList(ViewBag.Solicitudes, "Tipo", "Descripcion"), "SELECCIONAR OPCIÓN", new { @id = "slctSolicitud", @class = "custom-select formatear", @required = "required" })
+
                                     <div class="invalid-feedback">
                                         Seleccione una solicitud
                                     </div>
@@ -477,32 +483,6 @@
             <div class="modal-footer">
                 <button type="submit" class="btn btn-outline-secondary" value="Cancelar" id="btnCancelar"><i class="icon-cross"></i> Cancelar</button>
                 <button type="submit" class="btn btn-outline-success" value="Aceptar" id="btnAceptar"><i class="icon-checkmark"></i> Continuar Registro</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- MODAL EJECUCION TICKET-->
-<div id="ejecucionModalRespuesta" class="modal fade" data-backdrop="static" data-keyboard="false" role="dialog">
-    <div class="modal-dialog modal-sm">
-        <!-- Contenido del modal -->
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title" id="exampleModalLongTitle"><i class="fas fa-stamp mr-2"></i>Sello</h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body padre">
-                <div id="modalContainer">
-                    <div id="ticket">
-                       
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-outline-success" value="Cancelar" id="btnImprimir"><i class="icon-printer"></i> Imprimir</button>
-                <button type="submit" class="btn btn-outline-success" value="Aceptar" id="btnAceptarEjecucion"><i class="icon-checkmark"></i> Aceptar</button>
             </div>
         </div>
     </div>

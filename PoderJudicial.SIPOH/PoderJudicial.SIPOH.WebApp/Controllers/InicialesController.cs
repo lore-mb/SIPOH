@@ -4,6 +4,7 @@ using PoderJudicial.SIPOH.Entidades.Enum;
 using PoderJudicial.SIPOH.Negocio.Interfaces;
 using PoderJudicial.SIPOH.WebApp.Helpers;
 using PoderJudicial.SIPOH.WebApp.Models;
+using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
@@ -28,6 +29,8 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             List<Juzgado> salasAcusatorio = inicialesProcessor.RecuperaSala(TipoJuzgado.ACUSATORIO);
             List<Juzgado> salasTradicional = inicialesProcessor.RecuperaSala(TipoJuzgado.TRADICIONAL);
             List<Anexo> anexosEjecucion = inicialesProcessor.RecuperaAnexos("A");
+            List<Solicitud> solicitudes = inicialesProcessor.RecuperaSolicitud();
+            List<Solicitante> solicitantes = inicialesProcessor.RecuperaSolicitante();
 
             //Parametros al View Bag
             ViewBag.IdCircuito = Usuario.IdCircuito;
@@ -36,7 +39,8 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             ViewBag.SalasAcusatorio = salasAcusatorio != null ? salasAcusatorio : new List<Juzgado>();
             ViewBag.SalasTradicional = salasTradicional != null ? salasTradicional : new List<Juzgado>();
             ViewBag.AnexosInicales = anexosEjecucion != null ? anexosEjecucion : new List<Anexo>();
-
+            ViewBag.Solicitudes = solicitudes != null ? solicitudes : new List<Solicitud>();
+            ViewBag.Solicitantes = solicitantes != null ? solicitantes : new List<Solicitante>();
             return View();
         }
 
@@ -144,7 +148,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         }
 
         [HttpGet]
-        public ActionResult Detalle(int folio) 
+        public ActionResult Detalle(int folio)
         {
             DetalleEjecucionModelView modelo = new DetalleEjecucionModelView();
             modelo.JuzgadoEjecucion = "JUZGADO PRIMERO DE EJECUCION DEL SISTEMA PROCESAL PENAL ACUSATORIO ORAL";
@@ -153,15 +157,47 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             modelo.ApellidoMaternoBeneficiario = "PARDO";
             modelo.Folio = folio;
             modelo.NumeroExpediente = "0310/2020";
-            modelo.Causas = new List<CausasModelView>();
-            modelo.Tocas = new List<TocasModelView>();
-            modelo.Amparos = new List<string>();
-            modelo.Anexos = new List<AnexosModelView>();
+            modelo.Solicitante = "JUZGADO";
+            modelo.Solicitud = "REMISIÓN PARCIAL DE LA PENA";
+            modelo.DetalleSolicitante = "EL DETALLE"; 
+            modelo.Causas = new List<CausasModelView> 
+            { 
+                new CausasModelView() 
+                { 
+                    Delitos = "Delto",
+                    NombreJuzgado = "Juzgado",
+                    CausaNuc = "0001/2020", 
+                    Inculpados = "Alberto Romero", 
+                    Ofendidos = "Pedro alcatraz" 
+                } 
+            };
+            modelo.Tocas = new List<TocasModelView>() 
+            {
+              new TocasModelView()
+              {
+                 Sala = "PRIMERA SALA PENAL",
+                 NumeroDeToca = "0023/2014"
+              },
+              new TocasModelView()
+              {
+                 Sala = "SALA UNITARIA PARA ADOLECENTES",
+                 NumeroDeToca = "0023/2014"
+              }
+            };
+            modelo.Amparos = new List<string>()
+            {
+                "232344", "12312"
+            };
+            modelo.Anexos = new List<AnexosModelView>()
+            {
+                new AnexosModelView()
+                {
+                    Cantidad = 2,
+                    Descripcion = "COPIA CERTIFICADA DE CONSTANCIA DE EJECUCIÓN DE PENA"
+                }
+            };
             modelo.SentenciadoInterno = false;
-
-            ViewBag.miEjemplo = "HOLA MUNDO";
-            ViewBag.miEjemploII = "HOLA MUNDO II";
-
+            modelo.Fecha = DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss");
             return View(modelo);        
         }
 

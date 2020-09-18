@@ -126,5 +126,37 @@ namespace PoderJudicial.SIPOH.Negocio
             }
             return anexos;
         }
+
+        public List<Solicitante> RecuperaSolicitante()
+        {
+            List<Solicitante> solicitantes = catalogosRepositorio.ObtenerSolicitantes();
+
+            if (catalogosRepositorio.Estatus == Estatus.SIN_RESULTADO)
+                Mensaje = "La consulta no genero ningun resultado";
+
+            else if (catalogosRepositorio.Estatus == Estatus.ERROR)
+            {
+                Mensaje = "Ocurrio un error interno no controlado, consulte a soporte";
+                string mensajeLogger = catalogosRepositorio.MensajeError;
+                //Logica para ILogger
+            }
+            return solicitantes;
+        }
+
+        public List<Solicitud> RecuperaSolicitud()
+        {
+            List<Solicitud> solcitudes = catalogosRepositorio.ObtenerSolicitudes();
+
+            if (catalogosRepositorio.Estatus == Estatus.SIN_RESULTADO)
+                Mensaje = "La consulta no genero ningun resultado";
+
+            else if (catalogosRepositorio.Estatus == Estatus.ERROR)
+            {
+                Mensaje = "Ocurrio un error interno no controlado, consulte a soporte";
+                string mensajeLogger = catalogosRepositorio.MensajeError;
+                //Logica para ILogger
+            }
+            return solcitudes;
+        }
     }
 }
