@@ -63,10 +63,54 @@ namespace PoderJudicial.SIPOH.AccesoDatos
                     Expediente causa = expedientes.FirstOrDefault();
                     Estatus = Estatus.OK;
                     return causa;
-                }
+                }   
                 else
                     Estatus = Estatus.SIN_RESULTADO;
+                    
+                return new Expediente();
+            }
+            catch (Exception ex)    
+            {
+                MensajeError = ex.Message;
+                Estatus = Estatus.ERROR;
+                return null;
+            }
+            finally
+            {
+                if (IsValidConnection && Cnx.State == ConnectionState.Open)
+                    Cnx.Close();
+            }
+        }
+            
 
+        public Expediente ObtenerExpedienteEjecucionCausa (int idExpediente) 
+        {
+            try
+            {
+                if (!IsValidConnection)
+                    throw new Exception("No se ha creado una conexion valida");
+
+                SqlCommand comando = new SqlCommand("sipoh_ConsultaCausasRealacionadasEjecucion",Cnx);
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.Add("@idExpediente", SqlDbType.Int).Value = idExpediente;
+                Cnx.Open();
+
+                SqlDataReader sqlRespuesta = comando.ExecuteReader();
+                DataTable tabla = new DataTable();
+                tabla.Load(sqlRespuesta);
+
+                List<Expediente> expediente = DataHelper.DataTableToList<Expediente>(tabla);
+
+                if (expediente.Count > 0)
+                {
+                    // Retorna el primer elemento, si no, devuelve un (null - predeterminado).
+                    Expediente exp = expediente.FirstOrDefault();
+                    Estatus = Estatus.OK;
+                    return exp;
+                }
+                else {
+                    Estatus = Estatus.SIN_RESULTADO;
+                }
                 return new Expediente();
             }
             catch (Exception ex)
@@ -75,8 +119,8 @@ namespace PoderJudicial.SIPOH.AccesoDatos
                 Estatus = Estatus.ERROR;
                 return null;
             }
-            finally
-            {
+
+            finally {
                 if (IsValidConnection && Cnx.State == ConnectionState.Open)
                     Cnx.Close();
             }

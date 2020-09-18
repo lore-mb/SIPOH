@@ -79,6 +79,7 @@ namespace PoderJudicial.SIPOH.WebApp.App_Start
             //Inyeccion de servicios para la logica de negocio
             kernel.Bind<ICuentaProcessor>().To<CuentaProcessor>();
             kernel.Bind<IInicialesProcessor>().To<InicialesProcessor>();
+            kernel.Bind<IPromocionesProcessor>().To<PromocionesProcessor>();
 
             //Mapers *********************************************************
             var mapperConfiguration = CreateConfiguration();

@@ -14,5 +14,6 @@ namespace PoderJudicial.SIPOH.AccesoDatos.Interfaces
         Estatus Estatus { get; set; }
         List<Ejecucion> ObtenerSentenciadoBeneficiario(string nombre, string apellidoPaterno, string apellidoMaterno);
         int? CrearEjecucion(Ejecucion ejecucion, bool circuitoPachuca, int? idJuzgado);
+        List<Ejecucion> ObtenerEjecucionPorJuzgado(int Juzgado, string NoEjecucion);
     }
 }

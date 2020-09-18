@@ -1,4 +1,12 @@
-﻿$(document).ready(function () {
+﻿
+var idCircuito = 1;
+
+$.get("/Promociones/ObtenerJuzgadoEjecucionPorCircuito/?idcircuito=" + idCircuito, function (data) {
+    alert(JSON.stringify(data));
+})
+
+
+$(document).ready(function () {
     OcultarElementos();
     MostrarElementos();
 });
@@ -42,7 +50,6 @@ function NuevaConsulta() {
     }, false);
 })();
 
-TablaDatos();
 
 // Función Generica dataTable
 function TablaDatos(tabla, idTablaHtml, datos, estructuraTabla, ordering, searching, lengthChange) {

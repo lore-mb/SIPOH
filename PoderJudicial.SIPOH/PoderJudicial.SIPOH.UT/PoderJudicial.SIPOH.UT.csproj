@@ -53,6 +53,7 @@
     <Compile Include="AlbertoUT\UTCatalogos.cs" />
     <Compile Include="EstherUT\TestEster.cs" />
     <Compile Include="IgmaUT\TesteIgma.cs" />
+    <Compile Include="IgmaUT\UTPromociones.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

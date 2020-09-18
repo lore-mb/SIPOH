@@ -212,6 +212,43 @@ namespace PoderJudicial.SIPOH.AccesoDatos
                     Cnx.Close();
             }
         }
+
+        public List<Juzgado> ObtenerJuzgadoEjecucionPorCircuito(int idcircuito)
+        {
+            try
+            {
+                if (!IsValidConnection) throw new Exception("No se ha creado una conexión valida.");
+
+                SqlCommand comando = new SqlCommand("sipoh_JuzgadosEjecucionPorCircuito", Cnx);
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.Add("@idcircuito", SqlDbType.Int).Value = idcircuito;
+                Cnx.Open();
+
+                SqlDataReader sqlRespuesta = comando.ExecuteReader();
+
+                DataTable tabla = new DataTable();
+                tabla.Load(sqlRespuesta);
+
+                List<Juzgado> JuzgadoEjec = DataHelper.DataTableToList<Juzgado>(tabla);
+                if (JuzgadoEjec.Count > 0)
+                    Estatus = Estatus.OK;
+                else Estatus = Estatus.SIN_RESULTADO;
+                return JuzgadoEjec;
+
+            }
+            catch (Exception ex)
+            {
+                MensajeError = ex.Message;
+                Estatus = Estatus.ERROR;
+                return null;
+            }
+            finally {
+                if (IsValidConnection && Cnx.State == ConnectionState.Open)
+                    Cnx.Close();
+            }
+        }
+
+
         #region Metodos Privados de la Clase
         #endregion
     }

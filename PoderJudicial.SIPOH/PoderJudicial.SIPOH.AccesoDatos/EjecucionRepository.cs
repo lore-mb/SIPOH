@@ -123,5 +123,47 @@ namespace PoderJudicial.SIPOH.AccesoDatos
                     Cnx.Close();
             }
         }
+
+        public List<Ejecucion> ObtenerEjecucionPorJuzgado(int IdJuzgado, string NumeroEjecucion) {
+
+            try
+            {
+                if (!IsValidConnection)
+                    throw new Exception("Conexión no valida");
+                SqlCommand comando = new SqlCommand("sipoh_ConsultaEjecucionPorJuzgado",Cnx);
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.Add("@Juzgado", SqlDbType.Int).Value = IdJuzgado;
+                comando.Parameters.Add("@NoEjecucion", SqlDbType.VarChar).Value = NumeroEjecucion;
+                Cnx.Open();
+
+                SqlDataReader sqldataReader = comando.ExecuteReader();
+
+                DataTable tabladata = new DataTable();
+                tabladata.Load(sqldataReader);
+
+                List<Ejecucion> EjecucionJuzgado = DataHelper.DataTableToList<Ejecucion>(tabladata);
+
+                if (EjecucionJuzgado.Count > 0)
+
+                    Estatus = Estatus.OK;
+
+                else 
+                    Estatus = Estatus.SIN_RESULTADO;
+
+                return EjecucionJuzgado;
+                
+            }
+            catch (Exception ex)
+            {
+                MensajeError = ex.Message;
+                Estatus = Estatus.ERROR;
+                return null;
+            }
+
+            finally {
+                if (IsValidConnection && Cnx.State == ConnectionState.Open)
+                    Cnx.Close();
+            }       
+        }
     }
 }
