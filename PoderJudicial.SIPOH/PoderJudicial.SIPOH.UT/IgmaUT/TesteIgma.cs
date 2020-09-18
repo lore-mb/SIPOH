@@ -23,9 +23,9 @@ namespace PoderJudicial.SIPOH.UT.IgmaUT
         {
             EjecucionRepository repo = new EjecucionRepository(cnx);
             Ejecucion ejecucion = new Ejecucion();
-            ejecucion.Solicitante = "SS";
+            ejecucion.IdSolicitante = 3;
             ejecucion.DetalleSolicitante = "ESTE REGISTRO SE CREA DESDE LA UT DE WEB APP";
-            ejecucion.Solicitud = "0";
+            ejecucion.IdSolicitud = 1;
             ejecucion.OtroSolicitante = "ESTA ES OTRA SOLICITUD";
             ejecucion.NombreBeneficiario = "IGMAR";
             ejecucion.ApellidoPBeneficiario = "HERNANDEZ";

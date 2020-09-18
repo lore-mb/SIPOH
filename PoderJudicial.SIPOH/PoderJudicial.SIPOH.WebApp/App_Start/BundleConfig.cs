@@ -136,6 +136,8 @@ namespace PoderJudicial.SIPOH.WebApp
             // Script Ejecución - Iniciales
             bundles.Add(new ScriptBundle("~/Scripts/Modules/Ejecucion/Iniciales").Include(
                 "~/Scripts/Modules/Ejecucion/Iniciales/Iniciales.js"));
+            bundles.Add(new ScriptBundle("~/Scripts/Modules/Ejecucion/Detalle").Include(
+            "~/Scripts/Modules/Ejecucion/Iniciales/Detalle.js"));
 
             // Script Ejecución - Busquedas
             bundles.Add(new ScriptBundle("~/Scripts/Modules/Ejecucion/Busquedas").Include(
