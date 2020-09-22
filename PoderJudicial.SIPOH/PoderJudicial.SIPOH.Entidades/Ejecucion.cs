@@ -19,5 +19,8 @@ namespace PoderJudicial.SIPOH.Entidades
         public string Interno { set; get; }
         public int IdUsuario { set; get; }
         public string Tipo { set; get; }
+        public string DescripcionSolicitante { set; get; }
+        public string DescripcionSolicitud { set; get; }
+        public int IdExpediente { set; get; }
     }
 }

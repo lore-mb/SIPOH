@@ -2805,7 +2805,7 @@ label.error {
 
 /*    Button    */
 .btn {
-  padding: .6rem 1rem;
+/*  padding: .6rem 1rem;*/
   font-size: 13px;
   opacity: 1;
   border-radius: 3px; }

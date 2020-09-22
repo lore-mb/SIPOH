@@ -17,14 +17,19 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             this.promocionesProcessor = promocionesProcessor;
         }
 
+        #region Public Methods
+
         // GET: Promociones
         public ActionResult CrearPromocion()
         {
+            List<Juzgado> ListaJuzgadosPick = promocionesProcessor.ObtenerJuzgadoEjecucionPorCircuito(Usuario.IdCircuito);
+            ViewBag.JuzgadoCircuit = ListaJuzgadosPick != null ? ListaJuzgadosPick : new List<Juzgado>();
             return View();
         }
 
         [HttpGet]
-        public ActionResult ObtenerJuzgadoEjecucionPorCircuito(int idcircuito) {
+        public ActionResult ObtenerJuzgadoEjecucionPorCircuito(int idcircuito)
+        {
             List<Juzgado> ListaJuzgados = promocionesProcessor.ObtenerJuzgadoEjecucionPorCircuito(idcircuito);
             // Validacion Formulario
             ValidarJuzgado(ListaJuzgados);
@@ -33,22 +38,61 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         }
 
         [HttpGet]
-        public ActionResult ObtenerEjecucionPorJuzgado(int Juzgado, string NoEjecución) {
-            List<Ejecucion> ListaInformacion = promocionesProcessor.ObtenerEjecucionPorJuzgado(Juzgado, NoEjecución);
+        public ActionResult ObtenerEjecucionPorJuzgado(int Juzgado, string NoEjecucion)
+        {
+            List<Ejecucion> ListaInformacion = promocionesProcessor.ObtenerEjecucionPorJuzgado(Juzgado, NoEjecucion);
+
+            if (ListaInformacion == null)
+            {
+                Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
+                Respuesta.Data = null;
+            }
+            else {
+                if (ListaInformacion.Count > 0)
+                {
+                    Respuesta.Estatus = EstatusRespuestaJSON.OK;
+                    Respuesta.Data = new { ListaInformacion };
+                }
+                else {
+                    Respuesta.Estatus = EstatusRespuestaJSON.SIN_RESPUESTA;
+                    Respuesta.Data = new object();
+                }
+            } 
             Respuesta.Mensaje = promocionesProcessor.Mensaje;
             return Json(Respuesta, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
-        public ActionResult ObtenerExpedienteEjecucionCausa(int idExpediente) {
+        public ActionResult ObtenerExpedienteEjecucionCausa(int idExpediente)
+        {
             Expediente ExpedienteCRE = promocionesProcessor.ObtenerExpedienteEjecucionCausa(idExpediente);
+
+            if (ExpedienteCRE == null)
+            {
+                Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
+                Respuesta.Data = null;
+            }
+            else
+            {
+                if (ExpedienteCRE.IdExpediente == default)
+                {
+                    Respuesta.Estatus = EstatusRespuestaJSON.SIN_RESPUESTA;
+                    Respuesta.Data = null;
+                }
+                else
+                {
+                    Respuesta.Estatus = EstatusRespuestaJSON.OK;
+                    Respuesta.Data = ExpedienteCRE;
+                }
+            }
             Respuesta.Mensaje = promocionesProcessor.Mensaje;
             return Json(Respuesta, JsonRequestBehavior.AllowGet);
         }
+        #endregion
 
         #region Private method
 
-        public void ValidarJuzgado(List<Juzgado> ListaJuzgados) {
+        private void ValidarJuzgado(List<Juzgado> ListaJuzgados) {
             if (ListaJuzgados == null)
             {
                 Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
