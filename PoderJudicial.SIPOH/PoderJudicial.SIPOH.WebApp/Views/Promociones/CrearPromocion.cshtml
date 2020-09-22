@@ -10,42 +10,34 @@
                         <h6 class="page-pretitle">
                             <i class="icon-filter"></i> Filtro de busqueda:
                         </h6>
-                        <form class="needs-validation" novalidate>
+                        <form class="needs-validation" id="FrmCausaEjecucion" novalidate>
                             <div class="form-row">
-                                <div class="col-md-6 form-group">
-                                    <label for="slcJuzgado">Nombre de Juzgado</label>
-                                    <select class="custom-select" id="slcJuzgado" required>
-                                        <option value="1">SELECCIONA OPCIÓN</option>
-                                    </select>
-                                    <div class="invalid-feedback">
-                                        <i class="icon-notification"></i> Por favor, seleccione juzgado.
-                                    </div>
+                                <div class="col-md-8 form-group">
+                                    <label for="validationCustom01">Nombre de Juzgado</label>
+                                    @Html.DropDownList("SelectJuzgadoPorCircuito", new SelectList(ViewBag.JuzgadoCircuit, "IdJuzgado", "Nombre"), "SELECCIONAR OPCIÓN", new { @id = "slctJuzgadoPorCircuito", @class = "custom-select form-control", @required = "required" })
                                     <div class="valid-feedback">
-                                        <i class="icon-checkmark"></i> Juzgado Seleccionado.
+                                        <i class="icon-checkmark"></i> Juzgado Seleccionado
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        <i class="icon-cancel-circle"></i> Por favor, selecciona un juzgado.
                                     </div>
                                 </div>
-                                <div class="col-md-3 form-group">
-                                    <label for="inpNumeroEjecucion">Número de Ejecución</label>
+                                <div class="col-md-4 form-group">
+                                    <label for="validationCustomUsername">Numero de Ejecución</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text" id="inputGroupNumeroEjecucion">#</span>
+                                            <span class="input-group-text" id="inputGroupPrepend"><i class="icon-key"></i></span>
                                         </div>
-                                        <input type="text" class="form-control" id="inpNumeroEjecucion" placeholder="0000/0000" aria-describedby="inputGroupNumeroEjecucion" required>
-                                        <div class="invalid-feedback">
-                                            <i class="icon-notification"></i> Por favor, introduce numero de ejecución.
-                                        </div>
+                                        <input type="text" class="form-control mr-2" id="inpNumeroEjecucion" placeholder="0000/0000" aria-describedby="inputGroupPrepend" required>
+                                        <button class="btn btn-success mr-2" type="submit" id="btnConsultarPromocion" data-toggle="tooltip" data-placement="top" title="Consultar"><i class="icon-search"></i></button>
+                                        <button class="btn btn-secondary disoff" data-toggle="tooltip" data-placement="top" title="Nueva Consulta"><i class="icon-paint-format"></i></button>
                                         <div class="valid-feedback">
-                                            <i class="icon-checkmark"></i> Numero de Ejecución.
+                                            <i class="icon-checkmark"></i> Numero de ejecución
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            <i class="icon-cancel-circle"></i> Por favor, introduce numero de ejecución.
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-1 form-group">
-                                    <label for="btnConsultarPromocion" class="invisible">btn</label>
-                                    <button class="btn btn-success form-control" type="submit" id="btnConsultarPromocion" data-toggle="tooltip" data-placement="top" title="Consultar Promoción"><i class="icon-search"></i></button>
-                                </div>
-                                <div class="col-md-1 form-group">
-                                    <label for="btnConsultarPromocion" class="invisible">btn</label>
-                                    <button class="btn btn-success form-control" type="submit" id="btnNuevaConsultaPromocion" data-toggle="tooltip" data-placement="top" title="Nueva Consulta"><i class="icon-pencil"></i></button>
                                 </div>
                             </div>
                         </form>
@@ -53,83 +45,134 @@
                 </div>
                 <div id="divResultadoPromocion">
                     <div class="card-footer">
-                        <div class="row">
-                            <div class="col-sm-7 col-md-7 mb-3 mb-md-0 transfer-to">
-                                <h3 class="title">Datos Generales</h3>
-                                <div class="account-transfer">
-                                    <div><span>Numero de Ejecución:</span> <span>[data]</span></div>
-                                    <div><span>Juzgado de Ejecución:</span> <span>[data]</span></div>
-                                    <div><span>Solicitante:</span> <span>[data]</span></div>
-                                    <div><span>Sentenciado | Beneficiario:</span> <span>[data]</span></div>
-                                    <div><span>Solicitud:</span> <span>[data]</span></div>
+                        <div class="form-row">
+                            <div class="col-md-3 mb-3">
+                                <label for="validationCustom01">Numero de Ejecución</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroupPrepend">#</span>
+                                    </div>
+                                    <input type="text" class="form-control disabled" id="NumeroEjecucion" aria-describedby="inputGroupPrepend">
                                 </div>
                             </div>
-                            <div class="col-sm-5 col-md-7 transfer-total">
-
+                            <div class="col-md-9 mb-3">
+                                <label for="validationCustom02">Juzgado de Ejecución</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="icon-office"><i class="icon-office"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control disabled" id="NombreJuzgado" aria-describedby="inputGroupPrepend">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label for="validationCustomUsername">Solicitante</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroupPrepend"><i class="icon-clipboard"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control disabled" id="DecSolicitante" aria-describedby="inputGroupPrepend">
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="validationCustomUsername">Sentenciado | Beneficiario</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroupPrepend"><i class="icon-user"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control disabled" id="NombreBeneficiario" aria-describedby="inputGroupPrepend">
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="validationCustomUsername">Solicitud</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroupPrepend"><i class="icon-file-text2"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control disabled" id="DecSolicitud" aria-describedby="inputGroupPrepend">
+                                </div>
+                            </div>
+                        </div>
+                        @*<button class="btn btn-success" type="submit" disabled>Relacionar Causa</button>*@
+                    </div>
+                    <!-- Tabla  Detalles -->
+                    <div class="tab-content">
+                        <div class="form-row">
+                            <div class="col-12">
+                                <h6 class="m-0 font-weight-bold text-success"><i class="icon-table2"></i> Tabla de Causas </h6>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table id="_TablaCausasEjecucion" class="display table table-hover table-striped table-bordered table-sm nowrap" width="100%">
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label for="validationCustom02">Promovente</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control mr-2" id="validationCustom02" placeholder="Nombre de promovente" required>
+                            <button class="btn btn-success" type="submit" data-toggle="tooltip" data-placement="top" title="Agregar Promovente"><i class="fas fa-user-plus"></i></button>
+                            <div class="invalid-feedback">
+                                <i class="icon-cancel-circle"></i> Por favor, introdusca nombre de promovente.
+                            </div>
+                            <div class="valid-feedback">
+                                <i class="icon-checkmark"></i> Nombre de promovente.
                             </div>
                         </div>
                     </div>
-                    <!-- Tabla  Detalles -->
-                    <table id="example" class="table table-striped table-bordere" width="100%">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Position</th>
-                                <th>Office</th>
-                                <th>Age</th>
-                                <th>Start date</th>
-                                <th>Salary</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Tiger Nixon</td>
-                                <td></td>
-                                <td>Edinburgh</td>
-                                <td>61</td>
-                                <td>2011/04/25</td>
-                                <td>$3,120</td>
-                            </tr>
-                            <tr>
-                                <td>Garrett Winters</td>
-                                <td></td>
-                                <td>Edinburgh</td>
-                                <td>63</td>
-                                <td>2011/07/25</td>
-                                <td>$5,300</td>
-                            </tr>
-                            <tr>
-                                <td>Ashton Cox</td>
-                                <td></td>
-                                <td>San Francisco</td>
-                                <td>66</td>
-                                <td>2009/01/12</td>
-                                <td>$4,800</td>
-                            </tr>
-                            <tr>
-                                <td>Cedric Kelly</td>
-                                <td></td>
-                                <td>Edinburgh</td>
-                                <td>22</td>
-                                <td>2012/03/29</td>
-                                <td>$3,600</td>
-                            </tr>
-                            <tr>
-                                <td>Jenna Elliott</td>
-                                <td></td>
-                                <td>Edinburgh</td>
-                                <td>33</td>
-                                <td>2008/11/28</td>
-                                <td>$5,300</td>
-                            </tr>
-                        </tbody>
-                    </table>
                 </div>
                 <div class="separator-solid"></div>
+                <form class="needs-validation" novalidate>
+                    <div class="form-row">
+                        <div class="col-md-5 form-group">
+                            <label for="validationCustom01">Anexos</label>
+                            <select class=" form-control custom-select">
+                                <option value="1">SELECCIONAR OPCION</option>
+                            </select>
+                            <div class="valid-feedback">
+                                <i class="icon-checkmark"></i> Anexo Seleccionado
+                            </div>
+                            <div class="invalid-feedback">
+                                <i class=" icon-cancel-circle"></i> Por favor, seleccione un anexo.
+                            </div>
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label for="validationCustom02">Cantidad</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control mr-2"  placeholder="0" id="quantity" name="quantity" min="0" max="3000">
+                                <button class="btn btn-success mr-2" type="submit" data-toggle="tooltip" data-placement="top" title="Agregar Anexo"><i class="fa fa-plus-circle"></i></button>
+                                <button class="btn btn-secondary mr-2 disoff" type="submit" data-toggle="tooltip" data-placement="top" title="Guardar Anexos"><i class="fa fa-save"></i></button>
+                                <button class="btn btn-secondary disoff" type="submit" data-toggle="tooltip" data-placement="top" title="Imprimir"><i class="icon-printer"></i></button>
+                                <div class="invalid-feedback">
+                                    <i class="icon-cancel-circle"></i> Determine cantidad.
+                                </div>
+                                <div class="valid-feedback">
+                                    <i class="icon-checkmark"></i> Cantidad determinada.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Tabla  Detalles -->
+                <div class="tab-content">
+                    <div class="form-row">
+                        <div class="col-12">
+                            <h6 class="m-0 font-weight-bold text-success"><i class="icon-table2"></i> Tabla de Causas </h6>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table id="_TablaAnexosHTM" class="display table table-hover table-striped table-bordered table-sm nowrap" width="100%">
+                        </table>
+                    </div>
+                </div>
+            </div>
             </div>
         </div>
     </div>
-</div>
 
 @Scripts.Render("~/Scripts/Master/Jquery")
 @Scripts.Render("~/Scripts/Master/InptuMask")

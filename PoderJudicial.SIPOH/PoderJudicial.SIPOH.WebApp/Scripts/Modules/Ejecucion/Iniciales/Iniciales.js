@@ -60,12 +60,10 @@ function FormatearSelects() {
     slcData.prop('selectedIndex', 0);
 }
 
-
 // Formato Numero de Tocas
 var InpNumeroTocas = $("#inpToca");
 InpNumeroTocas.attr('placeholder', '0000/0000');
 InpNumeroTocas.inputmask("9999/9999");
-
 
 // #region Variables SELECT Juzgado Acusatorio
 var InputNumero = $("#Numero");
@@ -530,7 +528,7 @@ function ListarJuzgadoTradicional(data)
     }
 }
 
-function ConsultarCausas(esAcusatorio)
+function ConsultarCausas(esAcusatorio)      
 {
     if (esAcusatorio)
     {
