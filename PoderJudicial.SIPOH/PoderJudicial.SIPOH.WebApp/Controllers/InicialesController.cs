@@ -6,6 +6,7 @@ using PoderJudicial.SIPOH.WebApp.Helpers;
 using PoderJudicial.SIPOH.WebApp.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace PoderJudicial.SIPOH.WebApp.Controllers
@@ -32,6 +33,11 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             List<Solicitud> solicitudes = inicialesProcessor.RecuperaSolicitud();
             List<Solicitante> solicitantes = inicialesProcessor.RecuperaSolicitante();
 
+            //Obtiene los Ids del tipo "OTRO" para la validacion de Pick List
+            int idOtroAnexos = anexosEjecucion.Where(x => x.Tipo == "O").Select(x => x.IdAnexo).FirstOrDefault();
+            int idOtroSolicitud = solicitudes.Where(x => x.Tipo == "O").Select(x => x.IdSolicitud).FirstOrDefault();
+            int idOtroSolicitante = solicitantes.Where(x => x.Tipo == "O").Select(x => x.IdSolicitante).FirstOrDefault();
+
             //Parametros al View Bag
             ViewBag.IdCircuito = Usuario.IdCircuito;
             ViewBag.JuzgadosAcusatorios = juzgadosAcusatorios != null ? juzgadosAcusatorios : new List<Juzgado>();
@@ -41,6 +47,10 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             ViewBag.AnexosInicales = anexosEjecucion != null ? anexosEjecucion : new List<Anexo>();
             ViewBag.Solicitudes = solicitudes != null ? solicitudes : new List<Solicitud>();
             ViewBag.Solicitantes = solicitantes != null ? solicitantes : new List<Solicitante>();
+            ViewBag.IdOtroAnexos = idOtroAnexos;
+            ViewBag.IdOtroSolicitud = idOtroSolicitud;
+            ViewBag.IdOtroSolicitante = idOtroSolicitante;
+
             return View();
         }
 
@@ -137,26 +147,48 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult CrearEjecucion(DetalleEjecucionModelView modelo) 
+        public ActionResult CrearEjecucion(EjecucionModelView modelo) 
         {
-            Respuesta.Estatus = EstatusRespuestaJSON.OK;
-            Respuesta.Mensaje = "Se creo la ejecucion";
-            System.Threading.Thread.Sleep(2000);
+            //Se mapea la informacion a Ejecucion
+            Ejecucion ejecucion = mapper.Map<EjecucionModelView, Ejecucion>(modelo);
+            
+            //Id del usuario logeado
+            ejecucion.IdUsuario = Usuario.Id;
 
-            Respuesta.Data = new { Folio = 100 };
+            List<Expediente> tocas = mapper.Map<List<TocasModelView>, List<Expediente>>(modelo.Tocas);
+            List<Anexo> anexos = mapper.Map<List<AnexosModelView>, List<Anexo>>(modelo.Anexos);
+            List<int> causas = modelo.Causas.Select(x => x.IdCausa).ToList();
+            List<string> amparos = modelo.Amparos != null ? modelo.Amparos : new List<string>();
+
+            int ? folio = inicialesProcessor.CrearEjecucion(ejecucion, tocas, anexos, amparos, causas, Usuario.IdCircuito);
+
+            if (folio == null) 
+            {
+                Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
+                Respuesta.Mensaje = inicialesProcessor.Mensaje;
+            }
+
+            if (folio != null) 
+            {
+                Respuesta.Estatus = EstatusRespuestaJSON.OK;
+                Respuesta.Mensaje = inicialesProcessor.Mensaje;
+                Respuesta.Data = new { Folio = folio };
+            }
+   
+            System.Threading.Thread.Sleep(2000);
             return Json(Respuesta, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
-        public ActionResult Detalle(int folio)
+        public ActionResult Detalle(int ejecucion)
         {
-            DetalleEjecucionModelView modelo = new DetalleEjecucionModelView();
-            modelo.JuzgadoEjecucion = "JUZGADO PRIMERO DE EJECUCION DEL SISTEMA PROCESAL PENAL ACUSATORIO ORAL";
+            EjecucionModelView modelo = new EjecucionModelView();
+            modelo.IdJuzgado = "JUZGADO PRIMERO DE EJECUCION DEL SISTEMA PROCESAL PENAL ACUSATORIO ORAL";
             modelo.NombreBeneficiario = "ESTHER";
-            modelo.ApellidoPaternoBeneficiario = "ROMERO";
-            modelo.ApellidoMaternoBeneficiario = "PARDO";
-            modelo.Folio = folio;
-            modelo.NumeroExpediente = "0310/2020";
+            modelo.ApellidoPBeneficiario = "ROMERO";
+            modelo.ApellidoMBeneficiario = "PARDO";
+            modelo.IdEjecucion = ejecucion;
+            modelo.NumeroEjecucion = "0310/2020";
             modelo.Solicitante = "JUZGADO";
             modelo.Solicitud = "REMISIÓN PARCIAL DE LA PENA";
             modelo.DetalleSolicitante = "EL DETALLE"; 
@@ -196,8 +228,8 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                     Descripcion = "COPIA CERTIFICADA DE CONSTANCIA DE EJECUCIÓN DE PENA"
                 }
             };
-            modelo.SentenciadoInterno = false;
-            modelo.Fecha = DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss");
+            modelo.Interno = "SI";
+            modelo.FechaEjecucion = DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss");
             return View(modelo);        
         }
 
@@ -219,7 +251,6 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             return Json(Respuesta, JsonRequestBehavior.AllowGet);
         }
         #endregion
-
 
         #region Metodos Privados del Controlador
         private void ValidaJuzgados(List<Juzgado> juzgados) 

@@ -1,7 +1,10 @@
-﻿//region Varaibles Globale!
+﻿// #region Varaibles Globales
 var EstatusRespuesta = { SIN_RESPUESTA: 0, OK: 1, ERROR: 2 }
 var idCircuito = null;
 var idDistrito = null;
+var idOtroSolicitante = null;
+var idOtroSolicitud = null;
+var idOtroAnexos = null;
 
 var dataTable = null;
 var dataTableAnex = null;
@@ -13,13 +16,13 @@ var dataTableAmparos = null;
 var estructuraTablaCausas = [{ data: 'nJuzgado', title: 'N° Juzgado', className: "text-center" }, { data: 'causaNuc', title: 'Causa|Nuc', className: "text-center" }, { data: 'ofendido', title: 'Ofendido (s)', className: "text-center" }, { data: 'inculpado', title: 'Inculpado (s)', className: "text-center" }, { data: 'delito', title: 'Delitos (s)', className: "text-center" }, { data: 'eliminar', title: 'Quitar', className: "text-center" }];
 var causas = [];
 
-var estructuraTablaAnexos = [{ data: 'cantidad', title: 'Cantidad' }, { data: 'descripcion', title: 'Descripción' }, { data: 'eliminar', title: 'Quitar' }];
+var estructuraTablaAnexos = [{ data: 'cantidad', title: 'Cantidad', className: "text-center" }, { data: 'descripcion', title: 'Descripción', className: "text-center" }, { data: 'eliminar', title: 'Quitar', className: "text-center" }];
 var anexos = [];
 
 var estructuraTablaBeneficiarios = [{ data: 'numeroEjecucion', title: 'No. Ejecución', className: "text-center" }, { data: 'nombreJuzgado', title: 'Juzgado', className: "text-center" }, { data: 'nombreBeneficiario', title: 'Nombre (s)', className: "text-center" }, { data: 'apellidoPaterno', title: 'Apellido Paterno', className: "text-center" }, { data: 'apellidoMaterno', title: 'Apellido Materno', className: "text-center" }, { data: 'fechaEjecucion', title: 'Fecha de Ejecución', className: "text-center" }];
 var beneficarios = [];
 
-var estructuraTablaTocas = [{ data: 'sala', title: 'Sala', className: "text-center" }, { data: 'numeroToca', title: 'Numero De Toca', className: "text-center" }, { data: 'eliminar', title: 'Quitar', className: "text-center" }];
+var estructuraTablaTocas = [{ data: 'sala', title: 'Sala', className: "text-center" }, { data: 'numeroDeToca', title: 'Numero De Toca', className: "text-center" }, { data: 'eliminar', title: 'Quitar', className: "text-center" }];
 var tocas = [];
 
 var estructuraTablaAmparos = [{ data: 'amparo', title: 'Numero de Amparo', className: "text-center"}, { data: 'eliminar', title: 'Quitar', className: "text-center"}];
@@ -29,8 +32,9 @@ var encontroBeneficiarios = false;
 var mostrarSeccionesBeneficiario = false;
 var formEjecucionValidado = false;
 var esTradicional = false;
+// #endregion 
 
-//Funciones que se detonan al terminado del renderizado 
+// #region Funciones que se detonan al terminado del renderizado
 $(document).ready(function ()
 {
     //Pintar Tablas
@@ -41,94 +45,13 @@ $(document).ready(function ()
 
     //Obtener Circuito
     idCircuito = $("#IdCircuitoHDN").val();
+    idOtroSolicitante = $("#IdOtroSolicitanteHDN").val();
+    idOtroSolicitud = $("#IdOtroSolicitudHDN").val();
+    idOtroAnexos = $("#IdOtroAnexoHDN").val();
 
     //Elemntos al Cargado
     ElementosAlCargado();
 });
-
-// #region Formatear Inputs al Cargado
-function FormatearInputs() {
-    var Inputs = $(".formatInput");
-    Inputs.val('');
-}
-// #endregion
-
-
-// Formaear Select el Cargado
-function FormatearSelects() {
-    var slcData = $(".formatear");
-    slcData.prop('selectedIndex', 0);
-}
-
-
-// Formato Numero de Tocas
-var InpNumeroTocas = $("#inpToca");
-InpNumeroTocas.attr('placeholder', '0000/0000');
-InpNumeroTocas.inputmask("9999/9999");
-
-
-// #region Variables SELECT Juzgado Acusatorio
-var InputNumero = $("#Numero");
-var lblNumero = $("#NumeroLabel");
-var slctNumero = $("#slctNumero");
-// #endregion 
-
-// #region FORMAT LOAD Juzgado Acusatorio
-slctNumero.prop('selectedIndex', 0);
-InputNumero.val('');
-$('#Numero').attr('placeholder', '0000/0000');
-$("#spnNumero").text('CAUSA');
-InputNumero.inputmask("9999/9999");
-//var ValorSeleccionado = $(this).children("option:selected").val();
-// #endregion
-
-// #region CHANGE Juzgado Acusatorio
-slctNumero.change(function () {
-    if ($(this).val() == 1) {
-        // #region Acusatorio
-        $('#Numero').attr('placeholder', '0000/0000');
-        InputNumero.inputmask("9999/9999");
-        $("#spnNumero").text('CAUSA');
-        lblNumero.html("Numero de Causa");
-        // #endregion
-    } else if ($(this).val() == 2) {
-        $('#Numero').attr('placeholder', '00-0000-0000');
-        InputNumero.inputmask("99-9999-9999");
-        InputNumero.val(''); 
-        $("#spnNumero").text('NUC');
-        lblNumero.html("Numero Unico de Caso");
-    }
-});
-// #endregion
-
-// #region Varibles SELECT Juzgado Tradicional
-//var slctNumeroT = $("#slctNumeroT");
-var InpNumeroT = $("#inpCAUT");
-//var lblNumeroT = $("#NumeroLabelT");
-// #endregion
-
-// #region FORMAT LOAD Juzgado Tradicional
-//slctNumeroT.prop('selectedIndex', 0);
-//InpNumeroT.val('');
-//$("#spnNumeroT").text('CAUSA');
-InpNumeroT.inputmask("9999/9999");
-// #endregion
-
-// #region CHANGE Juzgado Tradicional
-//slctNumeroT.change(function () {
-//    if ($(this).val() == 1) {
-//        InpNumeroT.inputmask("9999/9999");
-//        InpNumeroT.val('');
-//        $("#spnNumeroT").text('CAUSA');
-//        lblNumeroT.html("Numero de Causa:");
-//    } else if ($(this).val() == 2) {
-//        InpNumeroT.inputmask("99-9999-9999");
-//        InpNumeroT.val('');
-//        $("#spnNumeroT").text('NUC');
-//        lblNumeroT.html("Numero Unico de Caso:");
-//    }
-//});
-// #endregion
 
 //Elementos al Cargado
 function ElementosAlCargado()
@@ -142,10 +65,8 @@ function ElementosAlCargado()
     $("#seccionTablaAnexos").hide();
     $("#seccionBotonGuardar").hide();
 
-    $(document).on("keydown", ":input:not(textarea)", function (event)
-    {
-        if (event.key == "Enter")
-        {
+    $(document).on("keydown", ":input:not(textarea)", function (event) {
+        if (event.key == "Enter") {
             event.preventDefault();
         }
     });
@@ -153,95 +74,79 @@ function ElementosAlCargado()
     //Funcionalidad para validar formularios
     var forms = document.getElementsByClassName('needs-validation');
 
-    Array.prototype.filter.call(forms, function (form)
-    {
-        form.addEventListener('submit', function (event)
-        {
+    Array.prototype.filter.call(forms, function (form) {
+        form.addEventListener('submit', function (event) {
             var id = form.id;
 
             event.preventDefault();
             event.stopPropagation();
 
-            if (form.checkValidity() === true && id == "formCausas")
-            {
-                ConsultarCausas(true);
-            } 
+            form.classList.add('was-validated');
 
-            if (form.checkValidity() === true && id == "formCausasTradicional")
-            {
+            if (form.checkValidity() === true && id == "formCausas") {
+                ConsultarCausas(true);
+            }
+
+            if (form.checkValidity() === true && id == "formCausasTradicional") {
                 ConsultarCausas(false);
             }
 
-            if (form.checkValidity() === true && id == "formTocas")
-            {
+            if (form.checkValidity() === true && id == "formTocas") {
                 AgregarTocas();
             }
 
-            if (form.checkValidity() === true && id == "formAmparos")
-            {
+            if (form.checkValidity() === true && id == "formAmparos") {
                 AgregaAmparos();
             }
 
-            if (form.checkValidity() === true && id == "formAnexos")
-            {
+            if (form.checkValidity() === true && id == "formAnexos") {
                 AgregarAnexosInicales();
             }
-            
-            if (form.checkValidity() === true && id == "formEjecucion")
-            {
+
+            if (form.checkValidity() === true && id == "formEjecucion") {
                 GenerarEjecucion();
             }
 
-            if (id == "formEjecucion")
-            {
+            if (id == "formEjecucion") {
                 formEjecucionValidado = true;
             }
-
-            form.classList.add('was-validated');
 
         }, false);
     });
 
-    $("#inpBusquedaSentenciado").val("Total : 0");   
+    $("#inpBusquedaSentenciado").val("Total : 0");
 
     $("#slctJuzgadoTradi").prop('disabled', true);
 
-    $('#slctDistrito').change(function ()
-    {
+    $('#slctDistrito').change(function () {
         idDistrito = $("#slctDistrito").find('option:selected').val();
 
         //Metodo que contiene el proceso para llenado de pick List Juzgados Tradicionales
-        if (idDistrito != "" && idDistrito != null)
-        {
+        if (idDistrito != "" && idDistrito != null) {
             $("#slctJuzgadoTradi").prop('disabled', false);
             DistritoJuzgadoTradicional();
         }
-        else
-        {
+        else {
             $("#slctJuzgadoTradi").prop('disabled', true);
             $("#slctJuzgadoTradi").html("");
             $("#slctJuzgadoTradi").append($("<option/>", { value: "", text: "SELECCIONAR OPCIÓN" }));
         }
     });
 
-    $("#botonMostrarBeneficiarios").click(function ()
-    {
+    $("#botonMostrarBeneficiarios").click(function () {
         var apellidoPBene = $('#inpApellidoPaterno').val();
         var NombreBene = $('#inpNombreSentenciado').val();
 
-        if (NombreBene != "" && apellidoPBene != "" && encontroBeneficiarios)
-        {
+        if (NombreBene != "" && apellidoPBene != "" && encontroBeneficiarios) {
             $('#ejecucionModal').modal('show');
         }
     });
 
-    $("#botonCheckBeneficiarios").click(function ()
-    {
+    $("#botonCheckBeneficiarios").click(function () {
         var apellidoPBene = $('#inpApellidoPaterno').val();
         var NombreBene = $('#inpNombreSentenciado').val();
 
-        if (NombreBene != "" && apellidoPBene != "" && !mostrarSeccionesBeneficiario)
-        {
+        if (NombreBene != "" && apellidoPBene != "" && !mostrarSeccionesBeneficiario) {
             mostrarSeccionesBeneficiario = true;
             $("#botonCerrarBeneficiarios").removeClass("btn-secondary");
             $("#botonCerrarBeneficiarios").addClass("btn-danger")
@@ -252,8 +157,7 @@ function ElementosAlCargado()
         }
     });
 
-    $("#botonCerrarBeneficiarios").click(function ()
-    {
+    $("#botonCerrarBeneficiarios").click(function () {
         mostrarSeccionesBeneficiario = false;
         $("#seccionBeneficiario").hide();
         $("#seccionBusquedaAnexos").hide();
@@ -263,16 +167,14 @@ function ElementosAlCargado()
         $("#botonCerrarBeneficiarios").removeClass("btn-danger");
         $("#botonCerrarBeneficiarios").addClass("btn-secondary");
 
-        if (formEjecucionValidado)
-        {
+        if (formEjecucionValidado) {
             var form = $('#formEjecucion')[0];
             $(form).removeClass('was-validated');
             formEjecucionValidado = false;
         }
     });
 
-    $("#btnCancelar").click(function ()
-    {
+    $("#btnCancelar").click(function () {
         $("#ejecucionModal").modal("hide");
 
         $("#botonCheckBeneficiarios").removeClass("btn-success");
@@ -288,8 +190,7 @@ function ElementosAlCargado()
 
         encontroBeneficiarios = false;
         $("#inpBusquedaSentenciado").val("Total : 0");
-        $("#inpBusquedaSentenciado").css('border', function ()
-        {
+        $("#inpBusquedaSentenciado").css('border', function () {
             return '1px solid #b0bec5';
         });
 
@@ -298,16 +199,14 @@ function ElementosAlCargado()
         $("#seccionTablaAnexos").hide();
         $("#seccionBotonGuardar").hide();
 
-        if (formEjecucionValidado)
-        {
+        if (formEjecucionValidado) {
             var form = $('#formEjecucion')[0];
             $(form).removeClass('was-validated');
             formEjecucionValidado = false;
         }
     });
 
-    $("#btnAceptar").click(function ()
-    {
+    $("#btnAceptar").click(function () {
         mostrarSeccionesBeneficiario = true;
         $("#ejecucionModal").modal("hide");
         $("#botonCerrarBeneficiarios").removeClass("btn-secondary");
@@ -318,40 +217,33 @@ function ElementosAlCargado()
         $("#seccionBotonGuardar").show();
     });
 
-    $('#inpApellidoPaterno').change(function ()
-    {
+    $('#inpApellidoPaterno').change(function () {
         ValidarBeneficiarios();
     });
 
-    $('#inpNombreSentenciado').change(function ()
-    {
+    $('#inpNombreSentenciado').change(function () {
         ValidarBeneficiarios();
     });
 
-    $('#inpApellidoMaterno').change(function ()
-    {
+    $('#inpApellidoMaterno').change(function () {
         ValidarBeneficiarios();
     });
 
-    $('#slctSolicitud').change(function ()
-    {
+    $('#slctSolicitud').change(function () {
         var value = $("#slctSolicitud").find('option:selected').val();
 
-        if (value == "O")
-        {
-            $("#inpOtraSolicitud").prop('disabled', false);    
+        if (value == idOtroSolicitud) {
+            $("#inpOtraSolicitud").prop('disabled', false);
             $("#inpOtraSolicitud").prop('required', true);
         }
-        else
-        {
+        else {
             $("#inpOtraSolicitud").prop('disabled', true);
             $("#inpOtraSolicitud").prop('required', false);
             $("#inpOtraSolicitud").val("");
         }
     });
 
-    $("#juzgadoT-tab").click(function ()
-    {
+    $("#juzgadoT-tab").click(function () {
         //Para que al cargado no se vea el elemento ocultandose
         esTradicional = true;
         $('#slctSalaTradicional').removeAttr('hidden');
@@ -363,8 +255,7 @@ function ElementosAlCargado()
         $("#slctSalaAcusatorio").prop('required', false);
     });
 
-    $("#juzgadoA-tab").click(function ()
-    {
+    $("#juzgadoA-tab").click(function () {
         esTradicional = false;
         $('#slctSalaAcusatorio').show();
         $("#slctSalaAcusatorio").prop('required', true);
@@ -373,24 +264,105 @@ function ElementosAlCargado()
         $("#slctSalaTradicional").prop('required', false);
     });
 
-    $('#slctAnexosInicales').change(function ()
-    {
+    $('#slctAnexosInicales').change(function () {
         var value = $("#slctAnexosInicales").find('option:selected').val();
 
-        if (value == "8")
-        {
+        if (value == idOtroAnexos) {
             $("#inpOtroAnexo").prop('disabled', false);
             $("#inpOtroAnexo").prop('required', true);
         }
-        else
-        {
+        else {
             $("#inpOtroAnexo").prop('disabled', true);
             $("#inpOtroAnexo").prop('required', false);
             $("#inpOtroAnexo").val("");
         }
     });
 }
+// #endregion 
 
+// #region Formateo de Nuc Causas y Tocas
+
+//Formatear Inputs al Cargado
+function FormatearInputs()
+{
+    var Inputs = $(".formatInput");
+    Inputs.val('');
+}
+
+// Formaear Select el Cargado
+function FormatearSelects() {
+    var slcData = $(".formatear");
+    slcData.prop('selectedIndex', 0);
+}
+
+// Formato Numero de Tocas
+var InpNumeroTocas = $("#inpToca");
+InpNumeroTocas.attr('placeholder', '0000/0000');
+InpNumeroTocas.inputmask("9999/9999");
+
+//Variables SELECT Juzgado Acusatorio
+var InputNumero = $("#Numero");
+var lblNumero = $("#NumeroLabel");
+var slctNumero = $("#slctNumero");
+
+//FORMAT LOAD Juzgado Acusatorio
+slctNumero.prop('selectedIndex', 0);
+InputNumero.val('');
+$('#Numero').attr('placeholder', '0000/0000');
+$("#spnNumero").text('CAUSA');
+InputNumero.inputmask("9999/9999");
+//var ValorSeleccionado = $(this).children("option:selected").val();
+
+//CHANGE Juzgado Acusatorio
+slctNumero.change(function ()
+{
+    if ($(this).val() == 1)
+    {
+        //Acusatorio
+        $('#Numero').attr('placeholder', '0000/0000');
+        InputNumero.inputmask("9999/9999");
+        $("#spnNumero").text('CAUSA');
+        lblNumero.html("Numero de Causa");
+        
+    } else if ($(this).val() == 2)
+    {
+        $('#Numero').attr('placeholder', '00-0000-0000');
+        InputNumero.inputmask("99-9999-9999");
+        InputNumero.val(''); 
+        $("#spnNumero").text('NUC');
+        lblNumero.html("Numero Unico de Caso");
+    }
+});
+
+//Varibles SELECT Juzgado Tradicional
+//var slctNumeroT = $("#slctNumeroT");
+var InpNumeroT = $("#inpCAUT");
+//var lblNumeroT = $("#NumeroLabelT");
+//
+
+// FORMAT LOAD Juzgado Tradicional
+//slctNumeroT.prop('selectedIndex', 0);
+//InpNumeroT.val('');
+//$("#spnNumeroT").text('CAUSA');
+InpNumeroT.inputmask("9999/9999");
+
+// CHANGE Juzgado Tradicional
+//slctNumeroT.change(function () {
+//    if ($(this).val() == 1) {
+//        InpNumeroT.inputmask("9999/9999");
+//        InpNumeroT.val('');
+//        $("#spnNumeroT").text('CAUSA');
+//        lblNumeroT.html("Numero de Causa:");
+//    } else if ($(this).val() == 2) {
+//        InpNumeroT.inputmask("99-9999-9999");
+//        InpNumeroT.val('');
+//        $("#spnNumeroT").text('NUC');
+//        lblNumeroT.html("Numero Unico de Caso:");
+//    }
+//});
+// #endregion 
+
+// #region Beneficiarios
 function ValidarBeneficiarios()
 {
     beneficarios = [];
@@ -486,7 +458,9 @@ function LlenaTablaConsultaBeneficiarios(data)
 
     }
 }
+// #endregion 
 
+// #region Distritos & Juzgados
 function DistritoJuzgadoTradicional()
 {
     if (idDistrito != null)
@@ -529,7 +503,9 @@ function ListarJuzgadoTradicional(data)
         customNotice(data.Mensaje, "Error:", "error", 3350);
     }
 }
+// #endregion 
 
+// #region Causas
 function ConsultarCausas(esAcusatorio)
 {
     if (esAcusatorio)
@@ -571,7 +547,20 @@ function ListarCausas(data)
             if (ValidarCuasaEnTabla(expediente.IdExpediente))
             {
                 var mensaje = causaNucLabel + "<b>" + causaNuc + "</b> que intenta agregar, ya se encuentra en la tabla." ;  
-                Alerta(mensaje);
+    
+                var funcion = function ()
+                {
+                    if (esTradicional)
+                    {
+                        LimpiaValidacion("formCausasTradicional", "inpCAUT");
+                    }
+                    else
+                    {
+                        LimpiaValidacion("formCausas", "Numero");
+                    }
+                }
+
+                AlertaCallback(mensaje, funcion)
             }
             else
             {     
@@ -586,6 +575,7 @@ function ListarCausas(data)
                     }
                     var causa = new Object();
                     causa.id = expediente.IdExpediente;
+                    causa.idCausa = expediente.IdExpediente;
                     causa.nJuzgado = expediente.NombreJuzgado;
                     causa.causaNuc = causaNuc;
                     causa.ofendido = expediente.Ofendidos;
@@ -595,11 +585,21 @@ function ListarCausas(data)
                     //Agrega Causa al Arreglo de Cuasas
                     causas.push(causa);
                     //Generar Tabla 
-                    dataTable = GeneraTablaDatos(dataTable, "dataTable", causas, estructuraTablaCausas, false, false, false);    
+                    dataTable = GeneraTablaDatos(dataTable, "dataTable", causas, estructuraTablaCausas, false, false, false);  
+
+                    //Limpiar Formulario CausasPorNumeroCausa
+                    if (esTradicional)
+                    {
+                        LimpiaValidacion("formCausasTradicional", "inpCAUT");
+                    }
+                    else
+                    {
+                        LimpiaValidacion("formCausas", "Numero");
+                    }
                 }
 
                 //Imprime Mensaje de Confirmacion
-                MensajeDeConfirmacion(mensaje, "large",funcion);
+                MensajeDeConfirmacion(mensaje, "large", funcion);
             }
         }
         else if (data.Estatus == EstatusRespuesta.ERROR)
@@ -652,7 +652,9 @@ function EliminarCausa(id)
     var mensaje = "¿Desea retirar la causa de la tabla?"; 
     MensajeDeConfirmacion(mensaje, "small", funcion);
 }
+// #endregion 
 
+// #region Tocas
 function AgregarTocas()
 {
     var numToca = $("#inpToca").val();
@@ -661,14 +663,27 @@ function AgregarTocas()
 
     if (anioToca > anioActual)
     {
-        Alerta("El numero de toca que intenta añadir, es mayor al año actual");
+        var funcion = function ()
+        {
+            LimpiaValidacion("formTocas", "inpToca");
+            
+        }
+
+        AlertaCallback("El numero de toca que intenta añadir, es mayor al año actual", funcion);
+
         return;
     }
 
     if (ValidarTocaEnTabla(numToca))
     {
         var mensaje = "El numero de Toca <b>" + numToca + "</b> que intenta agregar, ya se encuentra en la tabla.";
-        Alerta(mensaje);
+
+        var funcion = function ()
+        {
+            LimpiaValidacion("formTocas", "inpToca");
+        }
+
+        AlertaCallback(mensaje, funcion);
     }
     else
     {
@@ -684,12 +699,15 @@ function AgregarTocas()
         toca.id = numToca.substr(0, 4) + numRamdom;
         toca.idJuzgado = idJuzgado;
         toca.sala = nombreJuzgado;
-        toca.numeroToca = numToca;
+        toca.numeroDeToca = numToca;
         toca.eliminar = "<button type='button' class='btn btn-link btn-danger btn-sm' onclick='EliminarToca(" + toca.id + ")' data-toggle='tooltip' title='Quitar Toca'><i class='icon-bin2'></i></button>";
         tocas.push(toca);
 
         //Generar Tabla
         dataTableTocas = GeneraTablaDatos(dataTableTocas, "dataTableTocas", tocas, estructuraTablaTocas, false, false, false);
+
+        //Limpia form de tocas despues de agregar toca a la tabla
+        LimpiaValidacion("formTocas", "inpToca");
     }
 }
 
@@ -697,7 +715,7 @@ function ValidarTocaEnTabla(numeroToca)
 {
     for (var index = 0; index < tocas.length; index++)
     {
-        if (tocas[index].numeroToca == numeroToca)
+        if (tocas[index].numeroDeToca == numeroToca)
         {
             return true;
         }
@@ -726,7 +744,9 @@ function EliminarToca(id)
     var mensaje = "¿Desea retirar la toca de la tabla?";
     MensajeDeConfirmacion(mensaje, "small", funcion);
 }
+// #endregion 
 
+// #region Amparos
 function AgregaAmparos()
 {
     var numAmparo = $("#ipnAmparo").val();
@@ -734,7 +754,13 @@ function AgregaAmparos()
     if (ValidarAmparoEnTabla(numAmparo))
     {
         var mensaje = "El numero de Amparo <b>" + numAmparo + "</b> que intenta agregar, ya se encuentra en la tabla.";
-        Alerta(mensaje);
+
+        var funcion = function ()
+        {
+            LimpiaValidacion("formAmparos", "ipnAmparo");
+        }
+
+        AlertaCallback(mensaje, funcion);
     }
     else
     {
@@ -749,6 +775,8 @@ function AgregaAmparos()
 
         //Generar Tabla
         dataTableAmparos = GeneraTablaDatos(dataTableAmparos, "dataTableAmparos", amparos, estructuraTablaAmparos, false, false, false);
+
+        LimpiaValidacion("formAmparos", "ipnAmparo");
     }
 }
 
@@ -786,14 +814,27 @@ function EliminarAmparo(id)
     MensajeDeConfirmacion(mensaje, "small", funcion);
 }
 
+function GeneraArregloNumeroAmparos()
+{
+    var numeroAmparos = [];
+
+    for (var index = 0; index < amparos.length; index++) {
+        numeroAmparos.push(amparos[index].amparo);
+    }
+
+    return numeroAmparos;
+}
+// #endregion 
+
+// #region Anexos
 function AgregarAnexosInicales()
 {
-    var tipo = $("#slctAnexosInicales").find('option:selected').val();
+    var id = $("#slctAnexosInicales").find('option:selected').val();
     var descripcionAnexo = $("#slctAnexosInicales").find('option:selected').text();
     var cantidadAnexo = $("#inpAddAnexos").val(); 
-    var idAnexo = tipo;
+    var idAnexo = id;
 
-    if (tipo == "8")
+    if (id == idOtroAnexos)
     {
         descripcionAnexo = $("#inpOtroAnexo").val(); 
         idAnexo = Math.floor(Math.random() * 90000) + 10000;
@@ -803,15 +844,18 @@ function AgregarAnexosInicales()
     {
         var anexoIniciales = new Object();
         anexoIniciales.id = idAnexo;
+        anexoIniciales.idAnexo = id;
         anexoIniciales.descripcion = descripcionAnexo;
         anexoIniciales.cantidad = cantidadAnexo;
-        anexoIniciales.eliminar = "<button class='btn btn-danger btn-sm' onclick='EliminarAnexo(" + anexoIniciales.id + ")'><i class='fas fa-trash-alt'></i></button>";
-
+        anexoIniciales.eliminar = "<button type='button' class='btn btn-link btn-danger btn-sm' onclick='EliminarAnexo(" + anexoIniciales.id + ")' data-toggle='tooltip' data-placement='top' title='Quitar Sentencia de Amparo'><i class='icon-bin2'></i></button>";
+       
         anexos.push(anexoIniciales);
     }
 
     //Generar Tabla
     dataTableAnex = GeneraTablaDatos(dataTableAnex, "dataTableAnexos", anexos, estructuraTablaAnexos, false, false, false);
+
+    LimpiaValidacion("formAnexos", "inpAddAnexos");
 }
 
 function EliminarAnexo(id)
@@ -850,23 +894,27 @@ function ValidarAnexoEnTabla(id, cantidad)
     }
     return false;
 }
+// #endregion 
 
+// #region Ejecucion
 function GenerarEjecucion()
 {
     $("#loading").fadeIn();
 
     var parametros =
     {
-        JuzgadoEjecucion: "",
-        NumeroExpediente: "",
-        NombreBeneficiario: "",
-        ApellidoPaternoBeneficiario: "",
-        ApellidoMaternoBeneficiario: "",
-        SentenciadoInterno: true,
-        Causas: null,
-        Tocas: null,
-        Amparos: null,
-        Anexos: null
+        NombreBeneficiario: $("#inpNombreSentenciado").val(),
+        ApellidoPBeneficiario: $("#inpApellidoPaterno").val(),
+        ApellidoMBeneficiario: $("#inpApellidoMaterno").val(),
+        Interno: $('input[name="customRadioInline1"]:checked').val(),
+        Causas: causas,
+        Tocas: tocas,
+        Amparos: GeneraArregloNumeroAmparos(),
+        Anexos: anexos,
+        IdSolicitante: $("#slctSolicitante").find('option:selected').val(),
+        DetalleSolicitante: $("#ipnDetalleSolicitante").val(),
+        IdSolicitud: $("#slctSolicitud").find('option:selected').val(),
+        OtraSolicita: $("#inpOtraSolicitud").val()
     };
 
     SolicitudEstandarPostAjax('/Iniciales/CrearEjecucion', parametros, RederizarDetalle);
@@ -877,17 +925,19 @@ function RederizarDetalle(data)
     if (data.Estatus == EstatusRespuesta.OK)
     {
         var idEjecucion = data.Data.Folio;
-        var url = "/Iniciales/Detalle?folio=" + idEjecucion;
+        var url = "/Iniciales/Detalle?ejecucion=" + idEjecucion;
 
         //Redirecciona a la vista detalle
-        window.location.href = url; 
+        document.location.href = url; 
     }
     else if (data.Estatus == EstatusRespuesta.ERROR)
     {
         $("#loading").fadeOut();
     }
 }
+// #endregion 
 
+// #region Metodos Genericos
 function SolicitudEstandarAjax(url, parametros, funcion)
 {
     $.ajax({
@@ -912,6 +962,13 @@ function SolicitudEstandarAjax(url, parametros, funcion)
     });
 }
 
+function LimpiaValidacion(idFormulario, campoLimpiar)
+{
+    $("#" + campoLimpiar).val("");
+    var form = $('#' + idFormulario)[0];
+    $(form).removeClass('was-validated');
+}
+
 function SolicitudEstandarPostAjax(urlAction, parameters, functionCallbackSuccess)
 {
     $.ajax({
@@ -934,7 +991,6 @@ function SolicitudEstandarPostAjax(urlAction, parameters, functionCallbackSucces
         }
     });
 }
-
 
 function GeneraTablaDatos(tabla, idTablaHtml, datos, estructuraTabla, ordering, searching, lengthChange)
 {
@@ -1027,54 +1083,22 @@ function Alerta(mensaje)
     });
 }
 
-
-//// Dev TOCAS Y AMPAROS //
-
-//$("#FormTocas").hide();
-
-//function Parametros_Sala_Tradicional() {
-//    SolicitudEstandarAjax("/Iniciales/ObtenerSalaTradicional", "", Obtener_Sala_Tradicional);
-//}
-//function Obtener_Sala_Tradicional(data) {
-//    if (data.Estatus == EstatusRespuesta.OK) {
-//        const ArraySalaTradicional = [data.Data];
-//        var $SelectSalaAcusatorio = $("#comboSala");
-//        $.each(ArraySalaTradicional, function (id, sala) {
-//            for (var i = 0; i < sala.length; i++) {
-//                $SelectSalaAcusatorio.append('<option value=' + sala[i].Value + '>' + sala[i].Text + '</option>');
-//            }
-//        });
-//        Parametros_Sala_Acusatorio();
-//    } else if (data.Estatus == EstatusRespuesta.ERROR) {
-//        customNotice(data.Mensaje, "Error:", "error", 3350);
-//    }
-//}
-
-//function Parametros_Sala_Acusatorio() {
-//    SolicitudEstandarAjax("/Iniciales/ObtenerSalaAcusatorio", "", Obtener_Sala_Acusatorio);
-//}
-//function Obtener_Sala_Acusatorio(data) {
-//    if (data.Estatus = EstatusRespuesta.OK) {
-//        var Array_Sala_Acusatorio = [data.Data];
-//        var $ComboIndex = $("#comboSala_Acusatorio");
-//        $.each(Array_Sala_Acusatorio, function (id, sala) {
-//            for (var i = 0; i < sala.length; i++) {
-//                $ComboIndex.append('<option value=' + sala[i].Value + '>' + sala[i].Text +'</option>');
-//            }
-//        });
-//    } else if (data.Estatus == EstatusRespuesta.ERROR) {
-//        customNotice(data.Mensaje, "Error:", "error", 3350);
-//    }
-//}
-
-//function Obtener_Val_Sala_Acusatorio() {
-//    var Val_Combo = $("#comboSala_Acusatorio").find('option:selected').val();
-//    var Val_Input = $("#Sala_Acusatorio").val();
-//    alert(Val_Combo);
-//    alert(Val_Input); 
-//}
-
-
-//function Pintar_Tabla_Sala_Acusatorio() {
-    
-//}
+function AlertaCallback(mensaje, funcion)
+{
+    bootbox.alert({
+        title: "<h3>¡Atención!</h3>",
+        message: mensaje,
+        buttons:
+        {
+            ok: {
+                label: '<i class="fa fa-check"></i> Confirmar',
+                className: 'btn btn-outline-success'
+            }
+        },
+        callback: function ()
+        {
+            funcion();
+        }
+    });
+}
+// #endregion 

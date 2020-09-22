@@ -1,4 +1,4 @@
-﻿@model PoderJudicial.SIPOH.WebApp.Models.DetalleEjecucionModelView
+﻿@model PoderJudicial.SIPOH.WebApp.Models.EjecucionModelView
 
 @{
     ViewBag.Title = "Inicial Generada";
@@ -10,7 +10,7 @@
             <div class="card-body">
                 <div class="form-row">
                     <div class="col-12">
-                        <h3>Ejecución - @Html.DisplayFor(model => model.NumeroExpediente)</h3>
+                        <h3>Ejecución - @Html.DisplayFor(model => model.NumeroEjecucion)</h3>
                     </div>
                 </div>
 
@@ -28,14 +28,14 @@
                     <div class="col-12 col-md-8">
                         <label for="validationCustom04"><b>Juzgado de Ejecución</b></label>
                         <div class="input-group " id="divToca">
-                            @Html.DisplayFor(model => model.JuzgadoEjecucion)
+                            @Html.DisplayFor(model => model.IdJuzgado)
                         </div>
                     </div>
 
                     <div class="col-12 col-md-4">
                         <label for="validationCustom04"><b>Numero de Ejecución</b></label>
                         <div class="input-group " id="divToca">
-                            @Html.DisplayFor(model => model.NumeroExpediente)
+                            @Html.DisplayFor(model => model.NumeroEjecucion)
                         </div>
                     </div>
                 </div>
@@ -45,8 +45,8 @@
                         <label for="validationCustom04"><b>Sentenciado/Beneficiario</b></label>
                         <div class="input-group " id="divToca">
                             @Html.DisplayFor(model => model.NombreBeneficiario)
-                            @Html.DisplayFor(model => model.ApellidoPaternoBeneficiario)
-                            @Html.DisplayFor(model => model.ApellidoMaternoBeneficiario)
+                            @Html.DisplayFor(model => model.ApellidoPBeneficiario)
+                            @Html.DisplayFor(model => model.ApellidoMBeneficiario)
                         </div>
                     </div>
 
@@ -67,7 +67,7 @@
                     <div class="col-12 mt-1 mt-md-3">
                         <label for="validationCustom04"><b>Sentenciando Interno</b></label>
                         <div class="input-group " id="divToca">
-                            @(Html.Raw(Model.SentenciadoInterno ? "SI" : "NO"))
+                            @(Html.DisplayFor(model => model.Interno))
                         </div>
                     </div>
                 </div>
@@ -240,13 +240,13 @@
                             SENTENCIA EJECUTORIADA<br>
                             INICIAL<br>
                             ------------------<br>
-                            @Html.DisplayFor(model => model.JuzgadoEjecucion)<br>
+                            @Html.DisplayFor(model => model.IdJuzgado)<br>
                             ------------------<br>
                         </p>
                         <p>
-                            Exp. Ejec. : @Html.DisplayFor(model => model.NumeroExpediente)<br>
-                            Folio : @Html.DisplayFor(model => model.Folio)<br>
-                            Fecha: @Html.DisplayFor(model => model.Fecha)
+                            Exp. Ejec. : @Html.DisplayFor(model => model.NumeroEjecucion)<br>
+                            Folio : @Html.DisplayFor(model => model.IdEjecucion)<br>
+                            Fecha: @Html.DisplayFor(model => model.FechaEjecucion)
                         </p>
                     </div>
                 </div>

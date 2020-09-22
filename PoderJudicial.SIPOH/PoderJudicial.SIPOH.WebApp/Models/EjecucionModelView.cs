@@ -5,19 +5,22 @@ using System.Web;
 
 namespace PoderJudicial.SIPOH.WebApp.Models
 {
-    public class DetalleEjecucionModelView
+    public class EjecucionModelView
     {
-        public int Folio { set; get; }
-        public string JuzgadoEjecucion { set; get; }
-        public string NumeroExpediente { set; get; }
-        public string Fecha { set; get; }
+        public int IdEjecucion { set; get; }
+        public string IdJuzgado { set; get; }
+        public string NumeroEjecucion { set; get; }
+        public string FechaEjecucion { set; get; }
         public string NombreBeneficiario { set; get; }
-        public string ApellidoPaternoBeneficiario { set; get; }
-        public string ApellidoMaternoBeneficiario { set; get; }
+        public string ApellidoPBeneficiario { set; get; }
+        public string ApellidoMBeneficiario { set; get; }
+        public int IdSolicitante { set; get; }
         public string Solicitante { set; get; }
         public string DetalleSolicitante { set; get; }
+        public int IdSolicitud { set; get; }
         public string Solicitud { set; get; }
-        public bool SentenciadoInterno { set; get; }
+        public string OtraSolicita { set; get; }
+        public string Interno { set; get; }
         public List<CausasModelView> Causas { set; get; }
         public List<TocasModelView> Tocas { set; get; }
         public List<string> Amparos { set; get; }

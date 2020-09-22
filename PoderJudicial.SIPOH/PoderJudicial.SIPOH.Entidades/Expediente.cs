@@ -13,6 +13,7 @@ namespace PoderJudicial.SIPOH.Entidades
         public int IdJuzgado { set; get; }
         public string NombreJuzgado { set; get; }
         public string NumeroCausa { set; get; }
+        public string NumeroDeToca { set; get; }
         public string NUC { set; get; }
         public string Inculpados { set; get; }
         public string Ofendidos { set; get; }

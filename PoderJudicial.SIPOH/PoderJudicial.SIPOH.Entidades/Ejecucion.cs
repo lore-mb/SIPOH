@@ -10,7 +10,7 @@ namespace PoderJudicial.SIPOH.Entidades
         public int IdSolicitante { set; get; }
         public string DetalleSolicitante { set; get; }
         public int IdSolicitud { set; get; }
-        public string OtroSolicitante { set; get; }
+        public string OtraSolicita { set; get; }
         public string NombreBeneficiario { set; get; }
         public string ApellidoPBeneficiario { set; get; }
         public string ApellidoMBeneficiario { set; get; }

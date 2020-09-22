@@ -9,6 +9,9 @@
             <div class="card-body">
 
                 @Html.Hidden("IdCircuitoHDN", (object)Usuario.IdCircuito)
+                @Html.Hidden("IdOtroAnexoHDN", (int)ViewBag.IdOtroAnexos)
+                @Html.Hidden("IdOtroSolicitudHDN", (int)ViewBag.IdOtroSolicitud)
+                @Html.Hidden("IdOtroSolicitanteHDN", (int)ViewBag.IdOtroSolicitante)
 
                 <!-- Pestañas de Navegación -->
                 <!-- #region Pestañas -->
@@ -240,7 +243,7 @@
                                         </div>
                                         <input type="text" class="form-control" id="inpApellidoPaterno" aria-describedby="inpNumero" required>
                                         <div class="invalid-feedback">
-                                            Introducir nombre del Beneficiario
+                                            Introducir apellido paterno del Beneficiario
                                         </div>
                                     </div>
                                 </div>
@@ -250,9 +253,9 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="lbApellidoMaterno">Apellido Materno</span>
                                         </div>
-                                        <input type="text" class="form-control" id="inpApellidoMaterno" aria-describedby="inpNumero" optional>
+                                        <input type="text" class="form-control" id="inpApellidoMaterno" aria-describedby="inpNumero" required>
                                         <div class="invalid-feedback">
-                                            Introducir nombre del Beneficiario
+                                            Introducir apellido materno del Beneficiario
                                         </div>
                                     </div>
                                 </div>
@@ -286,14 +289,14 @@
 
                         <div id="seccionBeneficiario">
                             <div class="form-row">
-                                <div class="col-12 mt-1">
+                                <div class="col-12 mt-4">
                                     <label class="mr-4" for="validationCustom04">¿Sentenciado Interno? </label>
                                     <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input" required>
+                                        <input type="radio" id="customRadioInline1" name="customRadioInline1" value="S" class="custom-control-input" required>
                                         <label class="custom-control-label" for="customRadioInline1">SI</label>
                                     </div>
                                     <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input" required>
+                                        <input type="radio" id="customRadioInline2" name="customRadioInline1" value="N" class="custom-control-input" required>
                                         <label class="custom-control-label" for="customRadioInline2">NO</label>
                                     </div>
                                 </div>
@@ -310,15 +313,15 @@
                             <div class="form-row">
                                 <div class="col-12 col-md-5 mt-1">
                                     @*<select class="custom-select" id="slctSolicitante" required>
-                                        <option selected value="">SELECCIONAR OPCIÓN</option>
-                                        <option value="J">JUZGADO</option>
-                                        <option value="C">CERESO</option>
-                                        <option value="SS">SOLICITUD DEL SENTENCIADO</option>
-                                        <option value="V">VICTIMA</option>
-                                        <option value="O">OTRO</option>
-                                    </select>*@
+                                <option selected value="">SELECCIONAR OPCIÓN</option>
+                                <option value="J">JUZGADO</option>
+                                <option value="C">CERESO</option>
+                                <option value="SS">SOLICITUD DEL SENTENCIADO</option>
+                                <option value="V">VICTIMA</option>
+                                <option value="O">OTRO</option>
+                            </select>*@
 
-                                    @Html.DropDownList("Solicitante", new SelectList(ViewBag.Solicitantes, "Tipo", "Descripcion"), "SELECCIONAR OPCIÓN", new { @id = "slctSolicitante", @class = "custom-select formatear", @required = "required" })
+                                    @Html.DropDownList("Solicitante", new SelectList(ViewBag.Solicitantes, "IdSolicitante", "Descripcion"), "SELECCIONAR OPCIÓN", new { @id = "slctSolicitante", @class = "custom-select formatear", @required = "required" })
 
                                     <div class="invalid-feedback">
                                         Seleccionar un Solicitante.
@@ -347,20 +350,20 @@
                             <div class="form-row">
                                 <div class="col-12 col-md-5 mt-1">
                                     @*<select class="custom-select" id="slctSolicitud" required>
-                                        <option selected value="">SELECCIONAR OPCIÓN</option>
-                                        <option value="LC">LIBERTAD CONDICIONAL</option>
-                                        <option value="RP">REMISIÓN PARCIAL DE LA PENA</option>
-                                        <option value="CP">CONMUTACION DE LA PENA</option>
-                                        <option value="EP">EXTINCIÓN CON REMISIÓN PARCIAL DE LA PENA</option>
-                                        <option value="CUP">CUMPLIMIENTO DE LA PENA</option>
-                                        <option value="RD">REPARACIÓN DEL DAÑO</option>
-                                        <option value="T">TRASLADO</option>
-                                        <option value="DAP">DEMANDA CONTRA AUTORIDAD PENITENCIARIA</option>
-                                        <option value="ES">EJECUCIÓN DE SENTENCIA</option>
-                                        <option value="O">OTRO</option>
-                                    </select>*@
-                                    
-                                    @Html.DropDownList("Solicitud", new SelectList(ViewBag.Solicitudes, "Tipo", "Descripcion"), "SELECCIONAR OPCIÓN", new { @id = "slctSolicitud", @class = "custom-select formatear", @required = "required" })
+                                <option selected value="">SELECCIONAR OPCIÓN</option>
+                                <option value="LC">LIBERTAD CONDICIONAL</option>
+                                <option value="RP">REMISIÓN PARCIAL DE LA PENA</option>
+                                <option value="CP">CONMUTACION DE LA PENA</option>
+                                <option value="EP">EXTINCIÓN CON REMISIÓN PARCIAL DE LA PENA</option>
+                                <option value="CUP">CUMPLIMIENTO DE LA PENA</option>
+                                <option value="RD">REPARACIÓN DEL DAÑO</option>
+                                <option value="T">TRASLADO</option>
+                                <option value="DAP">DEMANDA CONTRA AUTORIDAD PENITENCIARIA</option>
+                                <option value="ES">EJECUCIÓN DE SENTENCIA</option>
+                                <option value="O">OTRO</option>
+                            </select>*@
+
+                                    @Html.DropDownList("Solicitud", new SelectList(ViewBag.Solicitudes, "IdSolicitud", "Descripcion"), "SELECCIONAR OPCIÓN", new { @id = "slctSolicitud", @class = "custom-select formatear", @required = "required" })
 
                                     <div class="invalid-feedback">
                                         Seleccione una solicitud
@@ -437,7 +440,7 @@
                             </div>
                             <div class="col-12 col-md-9">
                                 <div class="table-responsive text-small">
-                                    <table class="table table-bordered table-hover table-sm" id="dataTableAnexos" width="100%" cellspacing="0">
+                                    <table class="table table-hover table-striped table-bordered table-sm nowrap" id="dataTableAnexos" width="100%" cellspacing="0">
                                     </table>
                                 </div>
                             </div>

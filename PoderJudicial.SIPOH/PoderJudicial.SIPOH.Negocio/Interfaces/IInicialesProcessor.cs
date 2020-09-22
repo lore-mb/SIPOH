@@ -16,5 +16,6 @@ namespace PoderJudicial.SIPOH.Negocio.Interfaces
         List<Anexo> RecuperaAnexos(string tipo);
         List<Solicitante> RecuperaSolicitante();
         List<Solicitud> RecuperaSolicitud();
+        int? CrearEjecucion(Ejecucion ejecucion, List<Expediente> tocas, List<Anexo> anexos, List<string> amparos, List<int> causas, int circuito);
     }
 }

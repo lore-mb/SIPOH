@@ -8,6 +8,7 @@ namespace PoderJudicial.SIPOH.WebApp.Models
 {
     public class CausasModelView
     {
+        public int IdCausa { set; get; }
         public string NombreJuzgado { set; get; }
         public string CausaNuc { set; get; }
         public string Ofendidos { set; get; }

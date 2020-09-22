@@ -11,5 +11,6 @@ namespace PoderJudicial.SIPOH.Entidades
         public int IdAnexo { set; get; }
         public string Descripcion { set; get; }
         public string Tipo { set; get; }
+        public int Cantidad { set; get; }
     }
 }

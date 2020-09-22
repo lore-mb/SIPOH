@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PoderJudicial.SIPOH.AccesoDatos;
 using PoderJudicial.SIPOH.AccesoDatos.Conexion;
@@ -81,16 +82,27 @@ namespace PoderJudicial.SIPOH.UT.AlbertoUT
             EjecucionRepository repo = new EjecucionRepository(cnx);
             Ejecucion ejecucion = new Ejecucion();
             ejecucion.IdSolicitante = 3;
-            ejecucion.DetalleSolicitante = "ESTE REGISTRO SE CREA DESDE LA UT DE WEB APP";
+            ejecucion.DetalleSolicitante = "REGISTRO SIN ANEXOS, NI AMPAROS, NI TOCAS";
             ejecucion.IdSolicitud = 1;
-            ejecucion.OtroSolicitante = "ESTA ES OTRA SOLICITUD";
-            ejecucion.NombreBeneficiario = "ROMAN";
+            ejecucion.OtraSolicita = null;
+            ejecucion.NombreBeneficiario = "ALBERTO";
             ejecucion.ApellidoPBeneficiario = "ROMERO";
             ejecucion.ApellidoMBeneficiario = "PARDO";
             ejecucion.Interno = "S";
             ejecucion.IdUsuario = 22;
 
-            int? idEjecucion = repo.CrearEjecucion(ejecucion, true, null);           
+            List<int> causas = new List<int>() { 456, 457, 458, 459};
+            List<Expediente> tocas = new List<Expediente>();
+
+            List<string> amparos = new List<string>();
+
+            List<Anexo> anexos = new List<Anexo>()
+            {
+                new Anexo(){ IdAnexo = 3, Cantidad = 2, Descripcion = null},
+                new Anexo(){ IdAnexo = 8, Cantidad =3, Descripcion="ESTE ES OTRO ANEXO UT"}
+            };
+
+            int? idEjecucion = repo.CrearEjecucion(ejecucion, causas, tocas, amparos, anexos, null, true);           
         }
 
         [TestMethod]
@@ -100,6 +112,5 @@ namespace PoderJudicial.SIPOH.UT.AlbertoUT
             List<Solicitud> solicitud = repo.ObtenerSolicitudes();
             List<Solicitante> solicitantes = repo.ObtenerSolicitantes();
         }
-
     }
 }

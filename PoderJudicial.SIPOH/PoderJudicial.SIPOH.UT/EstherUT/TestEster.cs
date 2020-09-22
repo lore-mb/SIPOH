@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PoderJudicial.SIPOH.AccesoDatos;
 using PoderJudicial.SIPOH.AccesoDatos.Conexion;
@@ -30,14 +31,31 @@ namespace PoderJudicial.SIPOH.UT.EstherUT
             ejecucion.IdSolicitante = 1;
             ejecucion.DetalleSolicitante = "ESTE REGISTRO SE CREA DESDE LA UT DE WEB APP";
             ejecucion.IdSolicitud = 2;
-            ejecucion.OtroSolicitante = "ESTA ES OTRA SOLICITUD";
+            ejecucion.OtraSolicita = "ESTA ES OTRA SOLICITUD";
             ejecucion.NombreBeneficiario = "ESTHER";
             ejecucion.ApellidoPBeneficiario = "VAZQUEZ";
             ejecucion.ApellidoMBeneficiario = "VAZQUEZ";
             ejecucion.Interno = "S";
             ejecucion.IdUsuario = 22;
 
-            int? idEjecucion = repo.CrearEjecucion(ejecucion, true, null);
+            List<int> causas = new List<int>() { 404, 405, 406, 407 };
+            List<Expediente> tocas = new List<Expediente>()
+            {
+                new Expediente(){ IdJuzgado = 4, NumeroDeToca = "0001/2020" },
+                new Expediente(){ IdJuzgado = 5, NumeroDeToca = "0002/2020" },
+                new Expediente(){ IdJuzgado = 4, NumeroDeToca = "0003/2020" }
+            };
+
+            List<string> amparos = new List<string>() { "ASDF", "QWER", "ZXCV", "FGHJ" };
+
+            List<Anexo> anexos = new List<Anexo>()
+            {
+               new Anexo(){ IdAnexo = 1, Cantidad = 3},
+               new Anexo(){ IdAnexo = 3, Cantidad = 4},
+               new Anexo(){ IdAnexo = 4, Cantidad = 8}
+            };
+
+            int? idEjecucion = repo.CrearEjecucion(ejecucion, causas, tocas, amparos, anexos, null, true);
         }
 
     }

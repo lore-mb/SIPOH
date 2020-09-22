@@ -5,6 +5,7 @@ using PoderJudicial.SIPOH.Entidades.Enum;
 using PoderJudicial.SIPOH.Negocio.Interfaces;
 
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PoderJudicial.SIPOH.Negocio
 {
@@ -157,6 +158,34 @@ namespace PoderJudicial.SIPOH.Negocio
                 //Logica para ILogger
             }
             return solcitudes;
+        }
+
+        public int? CrearEjecucion(Ejecucion ejecucion, List<Expediente> tocas, List<Anexo> anexos, List<string> amparos, List<int> causas, int circuito)
+        {
+            int? idUnidad = null;
+            bool esCircuitoPachuca = true;
+
+            List<Juzgado> juzgadoEjecucion = catalogosRepositorio.ObtenerJuzgadoEjecucionPorCircuito(circuito);
+            
+            if (juzgadoEjecucion != null && circuito != 1) 
+            {
+                idUnidad = juzgadoEjecucion.Select(x => x.IdJuzgado).FirstOrDefault();
+                esCircuitoPachuca = false;
+            }
+
+            int? idEjecucion = ejecucionRepository.CrearEjecucion(ejecucion, causas, tocas, amparos, anexos, idUnidad, esCircuitoPachuca);
+
+            if (catalogosRepositorio.Estatus == Estatus.OK)
+            Mensaje = "La inserción de datos fue correcta, folio de ejecucion generado : " + idEjecucion;
+
+            else if (catalogosRepositorio.Estatus == Estatus.ERROR)
+            {
+                Mensaje = "Ocurrio un error interno no controlado, consulte a soporte";
+                string mensajeLogger = catalogosRepositorio.MensajeError;
+                //Logica para ILogger
+            }
+
+            return idEjecucion;
         }
     }
 }
