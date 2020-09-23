@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 
 namespace PoderJudicial.SIPOH.AccesoDatos
 {
@@ -195,6 +196,49 @@ namespace PoderJudicial.SIPOH.AccesoDatos
                     Cnx.Close();
             }       
         }
+
+        public Ejecucion ObtenerEjecucionPorFolio(int folio)
+        {
+            try
+            {
+                if (!IsValidConnection)
+                    throw new Exception("No se ha creado una conexion valida");
+
+                SqlCommand comando = new SqlCommand("sipoh_ConsultaEjecucionPorFolio", Cnx);
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.Add("@folio", SqlDbType.Int).Value = folio;
+                Cnx.Open();
+
+                SqlDataReader sqldataReader = comando.ExecuteReader();
+
+                DataTable tabladata = new DataTable();
+                tabladata.Load(sqldataReader);
+
+                Ejecucion ejecucion = DataHelper.DataTableToList<Ejecucion>(tabladata).FirstOrDefault();
+
+                if (ejecucion != null)
+                {
+                    Estatus = Estatus.OK;
+                    return ejecucion;
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                MensajeError = ex.Message;
+                Estatus = Estatus.ERROR;
+                return null;
+            }
+
+            finally
+            {
+                if (IsValidConnection && Cnx.State == ConnectionState.Open)
+                    Cnx.Close();
+            }
+
+        }
+
         #endregion
 
         #region Metodos Privados

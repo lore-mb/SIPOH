@@ -54,8 +54,6 @@ namespace PoderJudicial.SIPOH.AccesoDatos
                 DataTable tabla = new DataTable();
                 tabla.Load(sqlRespuesta);
 
-                var t = tabla;
-
                 List<Expediente> expedientes = DataHelper.DataTableToList<Expediente>(tabla);
 
                 if (expedientes.Count > 0)
@@ -81,8 +79,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
                     Cnx.Close();
             }
         }
-            
-
+      
         public Expediente ObtenerExpedienteEjecucionCausa (int idExpediente) 
         {
             try
@@ -108,7 +105,8 @@ namespace PoderJudicial.SIPOH.AccesoDatos
                     Estatus = Estatus.OK;
                     return exp;
                 }
-                else {
+                else
+                {
                     Estatus = Estatus.SIN_RESULTADO;
                 }
                 return new Expediente();
@@ -120,7 +118,48 @@ namespace PoderJudicial.SIPOH.AccesoDatos
                 return null;
             }
 
-            finally {
+            finally 
+            {
+                if (IsValidConnection && Cnx.State == ConnectionState.Open)
+                    Cnx.Close();
+            }
+        }
+
+        public List<Expediente> ObtenerExpedientesPorEjecucion(int idEjecucion)
+        {
+            try
+            {
+                if (!IsValidConnection)
+                    throw new Exception("No se ha creado una conexion valida");
+
+                SqlCommand comando = new SqlCommand("sipoh_ExpedientePorFolio", Cnx);
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.Add("@folio", SqlDbType.Int).Value = idEjecucion;
+                Cnx.Open();
+
+                SqlDataReader sqldataReader = comando.ExecuteReader();
+
+                DataTable tabladata = new DataTable();
+                tabladata.Load(sqldataReader);
+
+                List<Expediente> expedientes = DataHelper.DataTableToList<Expediente>(tabladata);
+
+                if (expedientes.Count > 0)
+                    Estatus = Estatus.OK;
+                else
+                    Estatus = Estatus.SIN_RESULTADO;
+
+                return expedientes;
+            }
+            catch (Exception ex)
+            {
+                MensajeError = ex.Message;
+                Estatus = Estatus.ERROR;
+                return null;
+            }
+
+            finally
+            {
                 if (IsValidConnection && Cnx.State == ConnectionState.Open)
                     Cnx.Close();
             }

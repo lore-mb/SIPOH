@@ -42,7 +42,8 @@ namespace PoderJudicial.SIPOH.Negocio
         {
             Expediente expedienteCRE = expedienteRepositorio.ObtenerExpedienteEjecucionCausa(idExpediente);
 
-            if (expedienteRepositorio.Estatus == Estatus.SIN_RESULTADO) {
+            if (expedienteRepositorio.Estatus == Estatus.SIN_RESULTADO) 
+            {
                 Mensaje = ("La consulta no genero ningun resultado");
             }
 

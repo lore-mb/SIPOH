@@ -112,5 +112,23 @@ namespace PoderJudicial.SIPOH.UT.AlbertoUT
             List<Solicitud> solicitud = repo.ObtenerSolicitudes();
             List<Solicitante> solicitantes = repo.ObtenerSolicitantes();
         }
+
+
+        [TestMethod]
+        public void EjecucionPorFolio()
+        {
+            EjecucionRepository repo = new EjecucionRepository(cnx);
+
+            Ejecucion test1 = repo.ObtenerEjecucionPorFolio(4);
+            Ejecucion test2 = repo.ObtenerEjecucionPorFolio(6);
+            Ejecucion test3 = repo.ObtenerEjecucionPorFolio(999);
+        }
+
+        [TestMethod]
+        public void ExpedientePorFolio()
+        {
+            ExpedienteRepository repo = new ExpedienteRepository(cnx);
+            List<Expediente> expedientes = repo.ObtenerExpedientesPorEjecucion(86);
+        }
     }
 }
