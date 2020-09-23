@@ -18,6 +18,5 @@ namespace PoderJudicial.SIPOH.Entidades
         public string Inculpados { set; get; }
         public string Ofendidos { set; get; }
         public string Delitos { set; get; }
-        public Estatus Estatus { get; set; }
     }
 }

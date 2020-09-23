@@ -11,7 +11,7 @@ namespace PoderJudicial.SIPOH.Negocio
         // [Public method]
         public string Mensaje { get; set; }
 
-        // [Private method]
+        // [Private method] 
         private readonly ICatalogosRepository catalogosRepositorio;
         private readonly IEjecucionRepository ejecucionRepositorio;
         private readonly IExpedienteRepository expedienteRepositorio;
@@ -42,11 +42,11 @@ namespace PoderJudicial.SIPOH.Negocio
         {
             Expediente expedienteCRE = expedienteRepositorio.ObtenerExpedienteEjecucionCausa(idExpediente);
 
-            if (expedienteCRE.Estatus == Estatus.SIN_RESULTADO) {
+            if (expedienteRepositorio.Estatus == Estatus.SIN_RESULTADO) {
                 Mensaje = ("La consulta no genero ningun resultado");
             }
 
-            if (expedienteCRE.Estatus == Estatus.ERROR) {
+            if (expedienteRepositorio.Estatus == Estatus.ERROR) {
                 Mensaje = ("Ocurrio un error interno, consulte con soporte");
             }
 

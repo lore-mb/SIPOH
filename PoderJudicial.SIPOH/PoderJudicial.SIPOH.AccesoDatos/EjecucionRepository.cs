@@ -161,7 +161,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
                 if (!IsValidConnection)
                     throw new Exception("Conexión no valida");
 
-                SqlCommand comando = new SqlCommand("sipoh_ConsultaEjecucionPorJuzgado",Cnx);
+                SqlCommand comando = new SqlCommand("sipoh_ConsultaEjecucionPorJuzgado", Cnx);
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("@Juzgado", SqlDbType.Int).Value = IdJuzgado;
                 comando.Parameters.Add("@NoEjecucion", SqlDbType.VarChar).Value = NumeroEjecucion;
