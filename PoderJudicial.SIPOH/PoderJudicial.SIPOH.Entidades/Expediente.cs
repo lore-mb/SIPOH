@@ -10,6 +10,7 @@ namespace PoderJudicial.SIPOH.Entidades
     public class Expediente
     {
         public int IdExpediente { set; get; }
+        public int IdExpedienteNuc { set; get; }
         public int IdJuzgado { set; get; }
         public string NombreJuzgado { set; get; }
         public string NumeroCausa { set; get; }
@@ -18,6 +19,5 @@ namespace PoderJudicial.SIPOH.Entidades
         public string Inculpados { set; get; }
         public string Ofendidos { set; get; }
         public string Delitos { set; get; }
-        public Estatus Estatus { get; set; }
     }
 }
