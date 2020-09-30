@@ -1,177 +1,180 @@
-﻿/*---------- TABLAS DINAMICAS ----------*/
-var EstatusRespuesta = { SIN_RESPUESTA: 0, OK: 1, ERROR: 2 }
+﻿/* ELEMENTOS AL CARGADO */
 
-var TablaCausasEjecucion = null;
-var TablaAnexos = null;
-
-var FormatoTablaCausasEjecucion = [{ data: '_NombreJuzgado', title: 'JUZGADO', className: "text-center" },
-                                   { data: '_NumeroCausa', title: 'CAUSA', className: "text-center" },
-                                   { data: '_NUC', title: 'NUC', className: "text-center" },
-                                   { data: '_Ofendidos', title: 'OFENDIDOS (S)', className: "text-center" },
-                                   { data: '_Inculpados', title: 'INCULPADO (S)', className: "text-center" },
-                                   { data: '_Delitos', title: 'DELITO (S)', className: "text-center" },
-                                   { data: '_Eliminar', title: 'ACCIONES', className: "text-center" }];
-var CausasEjecucion = [];
-
-var FormatoTablasAnexosEjecucion = [{ data: '_Descripcion', tittle: 'Descripción', className: "text-center"},
-                                    { data: '_Cantidad', tittle: 'Cantidad', className: "text-center" }];
-var AnexosEjecucion = [];
-
-/*-------- CARGADO DE LA PAGINA --------*/
+// #region DOCUMENT READY
 
 $(document).ready(function () {
-    OcultarElementos();
-    DesactivarElementos();
-    NuevaConsulta();
-    TablaCausasEjecucion = TablaDatos(TablaCausasEjecucion, "_TablaCausasEjecucion", CausasEjecucion, FormatoTablaCausasEjecucion, false, false, false);   
-    TablaAnexos = TablaDatos(TablaAnexos, "_TablaAnexosHTM", AnexosEjecucion, FormatoTablasAnexosEjecucion, false, false, false);
+    FormatoInputs();
+    OcultarFormulario();
+    TablaCausas = Consumir_DataTable(TablaCausas, "_TablaCausasEjecucion", Arreglo_TablaCausas, EstructuraTabla_Causas, false, false, false);
+    FuncionalidadesListas();
 });
 
-/*----------- FUNCIONES PRINCIPALES ----------*/
-function ConsultarPromocion() {
-    var IdSelect = $("#slctJuzgadoPorCircuito").children("option:selected").val();
-    var IdInput = $("#inpNumeroEjecucion").val();
-    var Par_DatosGenralesEjecucion = { Juzgado: IdSelect, NoEjecucion: IdInput }
-    SolicitudEstandarAjaxGET('/Promociones/ObtenerEjecucionPorJuzgado', Par_DatosGenralesEjecucion, ConsultarDatosGeneralesEjecucion);
+// #endregion 
+
+/* FUNCIONALIDADES */
+
+// #region FUNCIONALIDADES AL CARGADO
+function FuncionalidadesListas () {
+
+    // Button Disabled
+    $("#btnNuevaConsultaPromocion").prop("disabled", true);
+
+    // Click Button
+    $("#btnNuevaConsultaPromocion").click(function (e) {
+        e.preventDefault();
+        Resultados_NEW();
+        });
 }
+// #endregion
 
-function ConsultarDatosGeneralesEjecucion(data) {   
-    if (data.Estatus == EstatusRespuesta.OK) {
-
-        var ArrayData = data.Data.ListaInformacion;
-        var ArrayDataNE = ArrayData[0].NumeroEjecucion;
-        var ArrayDataNJ = ArrayData[0].NombreJuzgado;
-
-        if (ValidarCausaEjecucion(ArrayData.NumeroEjecucion)) {
-
-        } else {
-            var Mensaje = "La consulta encontró coincidencias con respecto al numero de ejecucion " + "<b>" + ArrayDataNE + "</b>" + " perteneciente al " + "<b>" + ArrayDataNJ + "</b>";
-
-            var FuncionMensaje = function () {
-                $(".disabled").prop("disabled", true);
-                $("#NumeroEjecucion").val(ArrayData[0].NumeroEjecucion);
-                $("#NombreJuzgado").val(ArrayData[0].NombreJuzgado);
-                $("#DecSolicitante").val(ArrayData[0].DescripcionSolicitante);
-                $("#NombreBeneficiario").val(ArrayData[0].NombreBeneficiario + ' ' + ArrayData[0].ApellidoPBeneficiario + ' ' + ArrayData[0].ApellidoMBeneficiario);
-                $("#DecSolicitud").val(ArrayData[0].DescripcionSolicitud);
-                $("#btnConsultarPromocion").prop("disabled", true);
-                $("#divResultadoPromocion").show();
-                $("#btnNuevaConsultaPromocion").prop("disabled", false);
-                $("#slctJuzgadoPorCircuito").prop("disabled", true);
-                $("#inpNumeroEjecucion").prop("disabled", true);
-            }
-            MensajeDeConfirmacion(Mensaje, "", FuncionMensaje);
-        }
-        //$("#slctJuzgadoPorCircuito").prop("disabled", true);
-        //$("#inpNumeroEjecucion").prop("disabled", true);
-        //$("#btnConsultarPromocion").prop("disabled", true);
-        //$("#btnNuevaConsultaPromocion").prop("disabled", false);
-        //var dataIdExpediente = ArrayData[0].IdExpediente;
-    } else if (data.Estatus == EstatusRespuesta.ERROR) {
-        MensajeNoresult(data.Mensaje);
-    } else if (data.Estatus == EstatusRespuesta.SIN_RESPUESTA) {
-        MensajeNoresult(data.Mensaje)
-    }   
-}   
-
-function EjecutarConsultaDTCausas(dataIdExpediente) {
-    //Par_DatosExpedienteEjecucion = { IdExpediente: dataIdExpediente }
-    //SolicitudEstandarAjaxGET("/Promociones/ObtenerExpedienteEjecucionCausa", Par_DatosExpedienteEjecucion, DTCausasRelacionadasEjecucion);
-}
-
-function DTCausasRelacionadasEjecucion(data) {
-    //if (data.Estatus == EstatusRespuesta.OK) {
-    //    var CausaEjecucion = data.Data
-    //    $("#_TablaCausasEjecucion").removeAttr('hidden');
-    //    $("#_TablaCausasEjecucion").show();
-    //    var causaEjecucion = new Object();
-    //    causaEjecucion._IdExpediente = CausaEjecucion.IdExpediente;
-    //    causaEjecucion._NombreJuzgado = CausaEjecucion.NombreJuzgado;
-    //    causaEjecucion._NumeroCausa = CausaEjecucion.NumeroCausa;
-    //    causaEjecucion._NUC = CausaEjecucion.NUC;
-    //    causaEjecucion._Ofendidos = CausaEjecucion.Ofendidos;
-    //    causaEjecucion._Inculpados = CausaEjecucion.Inculpados;
-    //    causaEjecucion._Eliminar = "<button type='button' class='btn btn-link btn-danger btn-sm' onclick='EliminarItemTabla(" + causaEjecucion.IdExpediente + ")' data-toggle='tooltip' title='Quitar Causa'><i class='icon-bin2'></i></button>";
-    //    causaEjecucion._Delitos = CausaEjecucion.Delitos;
-    //    CausasEjecucion.push(causaEjecucion);
-    //    TablaCausasEjecucion = TablaDatos(TablaCausasEjecucion, "_TablaCausasEjecucion", CausasEjecucion, FormatoTablaCausasEjecucion, false, false, false);
-    //} else if (data.Estatus == EstatusRespuesta.ERROR) {
-    //    MensajeDeConfirmacion(data.mensaje);
-    //} else if (data.Estatus == EstatusRespuesta.SIN_RESPUESTA) {
-    //    MensajeDeConfirmacion(data.Mensaje);
-    //}
-}
-
-function DTAnexosEjecucion() {
-    var DataAnexo = data.Data;
-    $("#_TablaAnexosHTM").removeAttr('hidden');
-    $("#_TablaAnexosHTM").show();
-    var AnexoEjecucion = new Object();
-    AnexoEjecucion._IdAnexo = DataAnexo.IdAnexo;
-    AnexoEjecucion._Descripcion = DataAnexo.Descripcion;
-    AnexoEjecucion._Cantidad = DataAnexo.Cantidad;
-    AnexoEjecucion._Eliminar = "<button type='button' class='btn btn-link btn-danger btn-sm' onclick='EliminarItemTabla(" + AnexoEjecucion.IdAnexo + ")' data-toggle='tooltip' title='Quitar Causa'><i class='icon-bin2'></i></button>";
-    AnexosEjecucion.push(AnexoEjecucion);
-    TablaAnexos = TablaDatos(TablaAnexos, "_TablaAnexosHTM", AnexosEjecucion, FormatoTablasAnexosEjecucion,false,false,false);
-}
-
-function OcultarElementos() {
+// #region FUNCIONALIDAD: Ocultar Formulario
+function OcultarFormulario() {
     $("#divResultadoPromocion").hide();
 }
+// #endregion
 
-function DesactivarElementos() {
-    $('.disoff').prop("disabled", true);
+// #region FUNCIONALIDAD: Mostrar Formulario
+function MostrarFormulario() {
+    $("#divResultadoPromocion").show();
+    $(".disabled").prop('disabled', true);
+}
+// #endregion
+
+// #region FUNCIONALIDAD: Encontró Resultados
+function Resultados_OK() {
+    $(".resultOK").prop('disabled', true);
+    $("#btnNuevaConsultaPromocion").prop("disabled", false);
+}
+// #endregion
+
+// #region FUNCIONALIDAD: Nueva Consulta
+function Resultados_NEW() {
+    OcultarFormulario();
+    $(".resultOK").prop('disabled', false);
+    $(".clean").val("");
+    var form = $('#' + "FrmCausaEjecucion")[0];
+    $('#slctJuzgadoPorCircuito').prop('selectedIndex', 0);
+    var form = $('#FrmCausaEjecucion')[0];
+    $(form).removeClass('was-validated');
+    $("#_TablaCausasEjecucion").dataTable().fnClearTable();
+    $("#btnNuevaConsultaPromocion").prop("disabled", true);
+}
+// #endregion
+
+// #region FUNCIONALIDAD: Cargar InputMask
+
+function FormatoInputs() {
+    FormatearInput("#inpNumeroEjecucion", "9999/9999", "0000/0000", "[0-9]");
 }
 
-function NuevaConsulta() {
-    $("#btnNuevaConsultaPromocion").click(function () {
-        $(".disabled").prop("disabled", false);
-        $("#divResultadoPromocion").hide();
-    });
+// #endregion
+
+// #region FUNCIONALIDAD: LISTAR DATOS GENERALES
+
+function ListarDatosGenerales() {
+    var slctJuzgado = $("#slctJuzgadoPorCircuito").val();
+    var inpNoEjecucion = $("#inpNumeroEjecucion").val();
+    var objParametros = { Juzgado: slctJuzgado, NoEjecucion: inpNoEjecucion };
+    SolicitudEstandarGetAjax("/Promociones/ObtenerEjecucionPorJuzgado", objParametros, ConsumirMetodo_CrearPromocion);
+    console.log(slctJuzgado + " " + inpNoEjecucion);
 }
 
-/*--------- FUNCIONES GENERALES --------*/
-
-/* Mensaje de Confirmacion */
-function MensajeNoresult(mensaje) {
-    bootbox.alert({
-        title: "<h3>¡Atención!</h3>",
-        message: mensaje,
-        buttons:
-        {
-            ok: {
-                label: '<i class="fa fa-check"></i> Aceptar',
-                className: 'btn btn-outline-danger'
+function ConsumirMetodo_CrearPromocion(data) {
+    if (data.Estatus == EstatusRespuesta.OK) {
+        var Array = data.Data.ListaInformacion;
+            var MensajeConfirmacion = "La consulta encontró coincidencias con respecto al numero de ejecucion " + "<b>" + Array[0].NumeroEjecucion + "</b>" + " perteneciente al " + "<b>" + Array[0].NombreJuzgado + "</b>";
+        var Funcion_MensajeOK = function () {
+                Resultados_OK();
+                MostrarFormulario();
+                $("#NumeroEjecucion").val(Array[0].NumeroEjecucion);
+                $("#NombreJuzgado").val(Array[0].NombreJuzgado);
+                $("#DecSolicitante").val(Array[0].DescripcionSolicitante);
+                $("#NombreBeneficiario").val(Array[0].NombreBeneficiario + " " + Array[0].ApellidoPBeneficiario + " " + Array[0].ApellidoMBeneficiario);
+                $("#DecSolicitud").val(Array[0].DescripcionSolicitud);
+                var idEjecucion = (Array[0].IdEjecucion);
+                ConsumirMetodo_ObtenerExpedientesPorEjecucion(idEjecucion);
             }
+            MensajeNotificacionOK(MensajeConfirmacion, "", Funcion_MensajeOK);   
+    } else if (data.Estatus == EstatusRespuesta.ERROR) {
+        alert(data.Mensaje);
+    } else if (data.Estatus == EstatusRespuesta.SIN_RESPUESTA) {
+        var MensajeNoResult = "SISTEMA: " + data.Mensaje + " para el numero de ejecución solicitado.";
+        var Funcion_MensajeNoResult = function () {
+            // Nothing
         }
-    });
+        MensajeNotificacionNoResult(MensajeNoResult, "", Funcion_MensajeNoResult);
+    }
 }
 
-function MensajeDeConfirmacion(mensaje, tamanio, funcion) {
-    bootbox.confirm({
-        title: "<h3>Confirmación</h3>",
-        message: mensaje,
-        buttons: { 
-            confirm: {
-                label: '<i class="fa fa-check"></i> Aceptar',
-                className: 'btn btn-outline-success'
-            },
-            cancel: {
-                label: '<i class="fa fa-times"></i> Cancelar',
-                className: 'btn btn-outline-secondary'
-            }
-        },
-        callback: function (result) {
-            if (result) {
-                funcion();
-            }
-        },
-        size: tamanio
-    });
+// #endregion
+
+// #region FUNCIONALIDAD: LISTAR CASUAS RELACIONADAS A DATOS GENERALES
+
+function ConsumirMetodo_ObtenerExpedientesPorEjecucion(idEjecucion) {
+    var ObjParametros = { idEjecucion: idEjecucion };
+    SolicitudEstandarGetAjax("/Promociones/ObtenerExpedientesPorEjecucion", ObjParametros, ListarCausas);
 }
 
-/* Consume Metodos de Controlador */
-function SolicitudEstandarAjaxGET(url, parametros, funcion) {
+function ListarCausas(data) {
+    if (data.Estatus = EstatusRespuesta.OK) {
+        var ArrayCausas = data.Data.ObtenerEPE;
+        var Objct_TablaCausas = new Object();
+        Objct_TablaCausas._NombreJuzgado = ArrayCausas[0].NombreJuzgado;
+        Objct_TablaCausas._NumeroCausa = ArrayCausas[0].NumeroCausa;
+        Objct_TablaCausas._Nuc = ArrayCausas[0].NUC;
+        Objct_TablaCausas._Ofendidos = ArrayCausas[0].Ofendidos;
+        Objct_TablaCausas._Inculpados = ArrayCausas[0].Inculpados;
+        Objct_TablaCausas._Delitos = ArrayCausas[0].Delitos;
+        Arreglo_TablaCausas.push(Objct_TablaCausas);
+        TablaCausas = Consumir_DataTable(TablaCausas, "_TablaCausasEjecucion", Arreglo_TablaCausas, EstructuraTabla_Causas, false, false, false);
+        console.log(JSON.stringify(data));  
+    } else if (data.Estatus == EstatusRespuesta.ERROR) {
+        alert("Hay un error de comunicación");
+    } else if (data.Estatus == EstatusRespuesta.SIN_RESPUESTA) {
+        alert("Sin respuesta");
+    }
+}
+// #endregion
+
+// #region FUNCIONALIDAD: AGREAGAR Y GUARDAR ANEXOS
+function AgregarAnexos() {
+    alert("Agregar Anexos");
+}
+//#endregion
+
+/*----- FUNCIONES GENERALES -----*/
+
+// #region ESTATUS: Validación de petición AJAX
+var EstatusRespuesta = { SIN_RESPUESTA: 0, OK: 1, ERROR: 2 };
+// #endregion
+
+// #region ESTRUCTURAS: DataTable
+
+var EstructuraTabla_Causas = [
+    { data: '_NombreJuzgado', title: 'JUZGADO', className: "text-center" },
+    { data: '_NumeroCausa', title: 'CAUSA', className: "text-center" },
+    { data: '_Nuc', title: 'NUC', className: "text-center" },
+    { data: '_Ofendidos', title: 'OFENDIDOS (S)', className: "text-center" },
+    { data: '_Inculpados', title: 'INCULPADO (S)', className: "text-center" },
+    { data: '_Delitos', title: 'DELITO (S)', className: "text-center" }];
+
+var Arreglo_TablaCausas = [];
+
+var EstructuraTabla_Anexos = [
+    { data: '_Descripcion', title: "DESCRIPCIÓN", className: "text-center" },
+    { data: '_Cantidad', title: "CANTIDAD", className: "text-center" },
+    { data: '_Acciones', title: "ACCIONES", className: "text-center" }
+];
+
+var Arreglo_TablaAnexos = [];
+
+var TablaCausas = null;
+var TablaAnexos = null;
+
+// #endregion
+
+// #region FUNCION: Solicitud Ajax Get
+function SolicitudEstandarGetAjax(url, parametros, funcion) {
     $.ajax({
         url: url,
         type: "GET",
@@ -180,18 +183,43 @@ function SolicitudEstandarAjaxGET(url, parametros, funcion) {
         contentType: "application/json; charset=utf-8",
         data: parametros,
         beforeSend: function () {
+            // $("#loading").fadeIn(); //Animacion Load
         },
         success: function (data) {
             funcion(data);
         },
         error: function (xhr) {
             alert('Error Ajax: ' + xhr.statusText);
+            //  $("#loading").fadeOut();
         }
     });
 }
+// #endregion
 
-/* Genera DataTable */
-function TablaDatos(tabla, idTablaHtml, datos, estructuraTabla, ordering, searching, lengthChange) {
+// #region FUNCION: Solicitud Ajax Post
+// #endregion
+
+// #region FUNCION: Validación de formularios
+var forms = document.getElementsByClassName('needs-validation');
+
+Array.prototype.filter.call(forms, function (form) {
+    form.addEventListener('submit', function (event) {
+        var id = form.id;
+        event.preventDefault();
+        event.stopPropagation();
+        form.classList.add('was-validated');
+        if (form.checkValidity() === true && id == "FrmCausaEjecucion") {
+            ListarDatosGenerales(true);
+        }
+        if (form.checkValidity() === true && id == "Frm_Anexos") {
+            AgregarAnexos();
+        }
+    }, false);
+});
+// #endregion
+
+// #region FUNCIÓN: DataTable
+function Consumir_DataTable(tabla, idTablaHtml, datos, estructuraTabla, ordering, searching, lengthChange) {
     if (tabla != null) {
         tabla.destroy();
         $("#" + idTablaHtml).empty();
@@ -229,6 +257,8 @@ function TablaDatos(tabla, idTablaHtml, datos, estructuraTabla, ordering, search
                 "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
                 "sSortDescending": ": Activar para ordenar la columna de manera descendente"
             },
+
+
         },
         drawCallback: function (settings) {
             $('[data-toggle="tooltip"]').tooltip();
@@ -236,57 +266,68 @@ function TablaDatos(tabla, idTablaHtml, datos, estructuraTabla, ordering, search
     });
 }
 
-/* Valida Formularios */
-var forms = $('.needs-validation');
-Array.prototype.filter.call(forms, function (form) {
-    form.addEventListener('submit', function (event) {
-        var id = form.id;
-        event.preventDefault();
-        event.stopPropagation();
-        if (form.checkValidity() === true && id == "FrmCausaEjecucion") {
-            ConsultarPromocion(true);
-        }
-        form.classList.add('was-validated');
-    }, false);
-});
+// #endregion
 
-// Eliminar Items de Tabla 
-function EliminarItemTabla(IdExpediente) {
-    var Funcion = function () {
-
-        var SeleccionCausaFuncion = CausasEjecucion;
-
-        for (var i = 0; i < SeleccionCausaFuncion.length; i++) {
-            if (IdExpediente == CausasEjecucion[i].IdExpediente) {
-                CausasEjecucion.splice(i, 1);
+// #region FUNCION: Formato Inputs & Mask
+function FormatearInput(IdInput, Formato, placeholder, regExValidator) {
+    Inputmask(Formato, {
+        _radixDance: false,
+        numericInput: false,
+        placeholder: placeholder,
+        //onKeyValidation: function (key, result) {
+        //    if (!result) {
+        //        alert('Your input is not valid')
+        //    }
+        //},
+        definitions: {
+            "0": {
+                validator: regExValidator
             }
         }
-        TablaCausasEjecucion = TablaDatos(TablaCausasEjecucion, "_TablaCausasEjecucion", CausasEjecucion, FormatoTablaCausasEjecucion, false, false, false); 
-    }
-    var Mensaje = "¿Desea retirar la casua relacionada?";
-    MensajeDeConfirmacion(Mensaje, "small", Funcion);
+    }).mask(IdInput);
 }
+// #endregion
 
-function ValidarCausaEjecucion(IdCausa) {
-    var ItemArrelgoCE = CausasEjecucion;
-    for (var i = 0; i < ItemArrelgoCE.length; i++) {
-        if (CausasEjecucion[i].IdExpediente == IdCausa) {
-            return true;
-        }
-    }
-}
-
-function NuevaConsulta() {
-    $("#btnNuevaConsultaPromocion").click(function (e) {
-        e.preventDefault();
-        $(".clean").val("");
-        $('#slctJuzgadoPorCircuito').prop('selectedIndex', 0);
-        $("#slctJuzgadoPorCircuito").prop("disabled", false);
-        $("#inpNumeroEjecucion").prop("disabled", false);
-        $("#FrmCausaEjecucion").removeClass('was-validated');
-        $("#btnConsultarPromocion").prop("disabled", false);
-        $("#btnNuevaConsultaPromocion").prop("disabled", true);
-        $('.tooltip').remove();
-        $("#divResultadoPromocion").hide();
+// #region FUNCIÓN: Notificacion OK
+function MensajeNotificacionOK(mensaje, tamanio, funcion) {
+    bootbox.confirm({
+        title: "<h3>Confirmación</h3>",
+        message: mensaje,
+        buttons: {
+            confirm: {
+                label: '<i class="fa fa-check"></i> Aceptar',
+                className: 'btn btn-outline-success'
+            },
+            cancel: {
+                label: '<i class="fa fa-times"></i> Cancelar',
+                className: 'btn btn-outline-secondary'
+            }
+        },
+        callback: function (result) {
+            if (result) {
+                funcion();
+            }
+        },
+        size: tamanio
     });
 }
+
+// #endregion 
+
+// #region FUNCIÓN: Notificacion NO Result
+
+function MensajeNotificacionNoResult(mensaje) {
+    bootbox.alert({
+        title: "<h3>¡Atención!</h3>",
+        message: mensaje,
+        buttons:
+        {
+            ok: {
+                label: '<i class="fa fa-check"></i> Aceptar',
+                className: 'btn btn-outline-danger'
+            }
+        }
+    });
+}
+
+// #endregion

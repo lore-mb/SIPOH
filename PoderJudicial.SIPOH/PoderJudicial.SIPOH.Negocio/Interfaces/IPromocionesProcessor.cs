@@ -10,6 +10,8 @@ namespace PoderJudicial.SIPOH.Negocio.Interfaces
 
         List<Juzgado> ObtenerJuzgadoEjecucionPorCircuito(int idcircuito);
         List<Ejecucion> ObtenerEjecucionPorJuzgado(int Juzgado, string NoEjecucion);
+        List<Expediente> ObtenerExpedientesPorEjecucion(int idEjecucion);
         Expediente ObtenerExpedienteEjecucionCausa(int idExpediente);
+        List<Anexo> ObtenerAnexosEjecucion(string tipo);
     }
 }
