@@ -5,6 +5,7 @@ using PoderJudicial.SIPOH.AccesoDatos;
 using PoderJudicial.SIPOH.AccesoDatos.Conexion;
 using PoderJudicial.SIPOH.Entidades;
 using PoderJudicial.SIPOH.Entidades.Enum;
+using PoderJudicial.SIPOH.WebApp.Helpers;
 
 namespace PoderJudicial.SIPOH.UT.AlbertoUT
 {
@@ -23,8 +24,8 @@ namespace PoderJudicial.SIPOH.UT.AlbertoUT
         {
             CatalogosRepository repo = new CatalogosRepository(cnx);
 
-            List<Anexo> anexos = repo.ObtenerAnexosEjecucion("A");
-            List<Anexo> anexo2 = repo.ObtenerAnexosEjecucion("T");
+            List<Anexo> anexos = repo.ObtenerAnexosIniciales("A");
+            List<Anexo> anexo2 = repo.ObtenerAnexosIniciales("T");
         }
 
         [TestMethod]
@@ -129,6 +130,27 @@ namespace PoderJudicial.SIPOH.UT.AlbertoUT
         {
             ExpedienteRepository repo = new ExpedienteRepository(cnx);
             List<Expediente> expedientes = repo.ObtenerExpedientesPorEjecucion(86);
+
+            CatalogosRepository repoCatalogos = new CatalogosRepository(cnx);
+            List<Expediente> tocas = repoCatalogos.ObtenerTocasPorEjecucion(81);
+            List<string> amparos = repoCatalogos.ObtenerAmparosPorEjecucion(78);
+            List<Anexo> anexos = repoCatalogos.ObtenerAnexosPorEjecucion(87);
+        }
+
+        [TestMethod]
+        public void PruebaParaEncriptadoDesencriptado()
+        {
+            List<string> lista = new List<string>();
+            List<string> descripta = new List<string>();
+
+            for (int c = 1; c <= 1000000; c++) 
+            {
+                string urlencriptada = ViewHelper.Encrypt("folio=" + c);
+                lista.Add(urlencriptada);
+
+                string descript = ViewHelper.Decrypt(urlencriptada);
+                descripta.Add(descript);
+            }
         }
     }
 }

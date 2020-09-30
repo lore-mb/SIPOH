@@ -8,9 +8,27 @@
     <div class="row">
         <div class="card shadow-sm col-sm-12">
             <div class="card-body">
+
+                @Html.Hidden("IdProceso", (bool)ViewBag.fueCorrectoElProceso)
+                @Html.Hidden("IdMensajeError", (string)ViewBag.Mensaje)
+
+                @Html.Hidden("IdTocas", (bool)ViewBag.Tocas)
+                @Html.Hidden("IdAmparos", (bool)ViewBag.Amparos)
+                @Html.Hidden("IdCausas", (bool)ViewBag.Causas)
+                @Html.Hidden("IdAnexos", (bool)ViewBag.Anexos)
+
+                @Html.Hidden("IdEjecucion", (bool)ViewBag.Ejecucion)
+
                 <div class="form-row">
                     <div class="col-12">
-                        <h3>Ejecución - @Html.DisplayFor(model => model.NumeroEjecucion)</h3>
+                        @if (Model.NumeroEjecucion != null)
+                        {
+                            <h3>Ejecución - @Html.DisplayFor(model => model.NumeroEjecucion)</h3>
+                        }
+                        else
+                        {
+                            <h3>Ejecución - Información no disponible</h3>
+                        }
                     </div>
                 </div>
 
@@ -28,7 +46,7 @@
                     <div class="col-12 col-md-8">
                         <label for="validationCustom04"><b>Juzgado de Ejecución</b></label>
                         <div class="input-group " id="divToca">
-                            @Html.DisplayFor(model => model.IdJuzgado)
+                            @Html.DisplayFor(model => model.NombreJuzgado)
                         </div>
                     </div>
 
@@ -53,21 +71,28 @@
                     <div class="col-12 col-md-4">
                         <label for="validationCustom04"><b>Solicitante</b></label>
                         <div class="input-group " id="divToca">
-                            @Html.DisplayFor(model => model.Solicitante) - @Html.DisplayFor(model => model.DetalleSolicitante)
+                            @Html.DisplayFor(model => model.DescripcionSolicitante) - @Html.DisplayFor(model => model.DetalleSolicitante)
                         </div>
                     </div>
 
                     <div class="col-12 col-md-4">
                         <label for="validationCustom04"><b>Solicitud</b></label>
                         <div class="input-group " id="divToca">
-                            @Html.DisplayFor(model => model.Solicitud)
+                            @Html.DisplayFor(model => model.DescripcionSolicitud)
                         </div>
                     </div>
 
                     <div class="col-12 mt-1 mt-md-3">
                         <label for="validationCustom04"><b>Sentenciando Interno</b></label>
                         <div class="input-group " id="divToca">
-                            @(Html.DisplayFor(model => model.Interno))
+                            @if (Model.Interno == "S")
+                            {
+                                @Html.Raw("SI");
+                            }
+                            else
+                            {
+                                @Html.Raw("NO");
+                            }
                         </div>
                     </div>
                 </div>
@@ -75,11 +100,11 @@
                 <div class="tab-content">
                     <div class="form-row mt-4">
                         <div class="col-12">
-                            <h6 class="m-0 font-weight-bold text-success"><i class="icon-table2"></i> Tabla de Causas</h6>
+                            <h6 class="m-0 font-weight-bold @(ViewBag.Causas ? "text-danger":"text-success")"><i class="@(ViewBag.Causas ? "icon-cross":"icon-checkmark") mr-2"></i><i class="icon-table2"></i> Tabla de Causas</h6>
                         </div>
                     </div>
                     <div class="table-responsive">
-                        <table id="dataTableCausas" class="display table table-hover table-striped table-bordered table-sm nowrap text-center" width="100%">
+                        <table id="dataTableExpedienteDetalle" class="display table table-hover table-striped table-bordered table-sm nowrap text-center" width="100%">
                             <thead>
                                 <tr>
                                     <th>N° Juzgado</th>
@@ -97,7 +122,14 @@
                                             @Html.DisplayFor(modelItem => item.NombreJuzgado)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.CausaNuc)
+                                            @if (item.NUC != null)
+                                            {
+                                                @Html.DisplayFor(modelItem => item.NUC)
+                                            }
+                                            else
+                                            {
+                                                @Html.DisplayFor(modelItem => item.NumeroCausa)
+                                            }
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.Ofendidos)
@@ -121,12 +153,12 @@
 
                             <div class="form-row">
                                 <div class="col-12 mt-3">
-                                    <h6 class="m-0 font-weight-bold text-success"><i class="icon-table2 mr-1"></i>Tabla de Salas</h6>
+                                    <h6 class="m-0 font-weight-bold @(ViewBag.Tocas ? "text-danger":"text-success")"><i class="@(ViewBag.Tocas ? "icon-cross":"icon-checkmark") mr-2"></i><i class="icon-table2"></i> Tabla de Salas</h6>
                                 </div>
                                 <div class="col-12">
                                     <div class="table-responsive">
 
-                                        <table id="dataTableTocas" class="display table table-hover table-striped table-bordered table-sm nowrap text-center" width="100%">
+                                        <table id="dataTableTocasDetalle" class="display table table-hover table-striped table-bordered table-sm nowrap text-center" width="100%">
                                             <thead>
                                                 <tr>
                                                     <th>Sala</th>
@@ -138,7 +170,7 @@
                                                 {
                                                     <tr>
                                                         <td>
-                                                            @Html.DisplayFor(modelItem => item.Sala)
+                                                            @Html.DisplayFor(modelItem => item.NombreJuzgado)
                                                         </td>
                                                         <td>
                                                             @Html.DisplayFor(modelItem => item.NumeroDeToca)
@@ -155,11 +187,11 @@
                         <div class="col-12 col-md-5 form-group">
                             <div class="form-row">
                                 <div class="col-12 mt-3">
-                                    <h6 class="m-0 font-weight-bold text-success"><i class="icon-table2 mr-1"></i>Tabla de Amparos</h6>
+                                    <h6 class="m-0 font-weight-bold @(ViewBag.Amparos ? "text-danger":"text-success")"><i class="@(ViewBag.Amparos ? "icon-cross":"icon-checkmark") mr-2"></i><i class="icon-table2"></i> Tabla de Amparos</h6>
                                 </div>
                                 <div class="col-12">
                                     <div class="table-responsive text-small">
-                                        <table id="dataTableAmparos" class="display table table-hover table-striped table-bordered table-sm nowrap text-center" width="100%">
+                                        <table id="dataTableAmparosDetalle" class="display table table-hover table-striped table-bordered table-sm nowrap text-center" width="100%">
                                             <thead>
                                                 <tr>
                                                     <th>Numero de Amparo</th>
@@ -183,11 +215,11 @@
                         <div class="col-12 form-group">
                             <div class="form-row">
                                 <div class="col-12 mt-3">
-                                    <h6 class="m-0 font-weight-bold text-success"><i class="icon-table2 mr-1"></i>Tabla de Anexos</h6>
+                                    <h6 class="m-0 font-weight-bold @(ViewBag.Anexos ? "text-danger":"text-success")"><i class="@(ViewBag.Anexos ? "icon-cross":"icon-checkmark") mr-2"></i><i class="icon-table2"></i> Tabla de Anexos</h6>
                                 </div>
                                 <div class="col-12">
                                     <div class="table-responsive">
-                                        <table id="dataTableAnexos" class="display table table-hover table-striped table-bordered table-sm nowrap text-center" width="100%">
+                                        <table id="dataTableAnexosDetalle" class="display table table-hover table-striped table-bordered table-sm nowrap text-center" width="100%">
                                             <thead>
                                                 <tr>
                                                     <th>Anexos</th>
@@ -216,21 +248,8 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
 
-<div id="ejecucionModal" class="modal fade" data-backdrop="static" data-keyboard="false" role="dialog">
-<div class="modal-dialog modal-xl">
-    <!-- Contenido del modal -->
-    <div class="modal-content">
-        <div class="modal-header">
-            
-        </div>
-        <div class="modal-body">
-            <div id="modalContainer">
-                <div id="sello">
+                <div id="sello" hidden>
                     <div class="ticket">
                         <p class="centrado">
                             TRIBUNAL SUPERIOR<br>
@@ -240,22 +259,36 @@
                             SENTENCIA EJECUTORIADA<br>
                             INICIAL<br>
                             ------------------<br>
-                            @Html.DisplayFor(model => model.IdJuzgado)<br>
+                            @Html.DisplayFor(model => model.NombreJuzgado)<br>
                             ------------------<br>
                         </p>
                         <p>
                             Exp. Ejec. : @Html.DisplayFor(model => model.NumeroEjecucion)<br>
                             Folio : @Html.DisplayFor(model => model.IdEjecucion)<br>
-                            Fecha: @Html.DisplayFor(model => model.FechaEjecucion)
+                            Fecha: @Html.DisplayFor(model => model.FechaEjecucion)<br>
                         </p>
+
+                        @{int contador = 0;}
+
+                        @foreach (var item in Model.Anexos)
+                        {
+                            <p class="puntos">
+                                <span class='descripcion'>@item.Descripcion</span>
+                                <span class='precio'>@item.Cantidad</span>
+                            </p>
+                            contador++;
+                        }
+
+                        <p class="puntos">
+                            <span class='descripcion'>Total</span>
+                            <span class='precio'>@contador</span>
+                        </p>
+
                     </div>
                 </div>
             </div>
         </div>
-        <div class="modal-footer">
-        </div>
     </div>
-</div>
 </div>
 
 @Scripts.Render("~/Scripts/Master/Jquery")

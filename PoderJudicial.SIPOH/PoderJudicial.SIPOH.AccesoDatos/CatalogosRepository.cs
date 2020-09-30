@@ -175,7 +175,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
             }
         }
 
-        public List<Anexo> ObtenerAnexosEjecucion(string tipo)
+        public List<Anexo> ObtenerAnexosIniciales(string tipo)
         {
             try
             {
@@ -243,13 +243,12 @@ namespace PoderJudicial.SIPOH.AccesoDatos
                 Estatus = Estatus.ERROR;
                 return null;
             }
-            finally {
+            finally 
+            {
                 if (IsValidConnection && Cnx.State == ConnectionState.Open)
                     Cnx.Close();
             }
         }
-
-
 
         public List<Solicitud> ObtenerSolicitudes()
         {
@@ -329,7 +328,137 @@ namespace PoderJudicial.SIPOH.AccesoDatos
             }
         }
 
+        public List<Expediente> ObtenerTocasPorEjecucion(int idEjecucion)
+        {
+            try
+            {
+                if (!IsValidConnection) 
+                    throw new Exception("No se ha creado una conexión valida.");
+
+                SqlCommand comando = new SqlCommand("sipoh_TocasPorFolio", Cnx);
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.Add("@folio", SqlDbType.Int).Value = idEjecucion;
+                Cnx.Open();
+
+                SqlDataReader sqlRespuesta = comando.ExecuteReader();
+
+                DataTable tabla = new DataTable();
+                tabla.Load(sqlRespuesta);
+
+                List<Expediente> tocas = DataHelper.DataTableToList<Expediente>(tabla);
+
+                if (tocas.Count > 0)
+                    Estatus = Estatus.OK;
+                else 
+                    Estatus = Estatus.SIN_RESULTADO;
+
+                return tocas;
+            }
+            catch (Exception ex)
+            {
+                MensajeError = ex.Message;
+                Estatus = Estatus.ERROR;
+                return null;
+            }
+            finally
+            {
+                if (IsValidConnection && Cnx.State == ConnectionState.Open)
+                    Cnx.Close();
+            }
+        }
+
+        public List<string> ObtenerAmparosPorEjecucion(int idEjecucion)
+        {
+            try
+            {
+                if (!IsValidConnection)
+                    throw new Exception("No se ha creado una conexion valida");
+
+                string query = "SELECT Amparo FROM P_EjecucionOriAmpa WHERE IdEjecucion = @folio";
+
+                SqlCommand comando = new SqlCommand(query, Cnx);
+                comando.Parameters.Add("@folio", SqlDbType.Int).Value = idEjecucion;
+                Cnx.Open();
+
+                SqlDataReader sqlRespuesta = comando.ExecuteReader();
+
+                DataTable tabla = new DataTable();
+                tabla.Load(sqlRespuesta);
+
+                List<string> amparos = ObtenerAmparos(tabla);
+
+                if (amparos.Count > 0)
+                    Estatus = Estatus.OK;
+                else
+                    Estatus = Estatus.SIN_RESULTADO;
+
+                return amparos;
+            }
+            catch (Exception ex)
+            {
+                MensajeError = ex.Message;
+                Estatus = Estatus.ERROR;
+                return null;
+            }
+            finally
+            {
+                if (IsValidConnection && Cnx.State == ConnectionState.Open)
+                    Cnx.Close();
+            }
+        }
+
+        public List<Anexo> ObtenerAnexosPorEjecucion(int idEjecucion)
+        {
+            try
+            {
+                if (!IsValidConnection) 
+                    throw new Exception("No se ha creado una conexión valida.");
+
+                SqlCommand comando = new SqlCommand("sipoh_AnexosPorFolio", Cnx);
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.Add("@folio", SqlDbType.Int).Value = idEjecucion;
+                Cnx.Open();
+
+                SqlDataReader sqlRespuesta = comando.ExecuteReader();
+
+                DataTable tabla = new DataTable();
+                tabla.Load(sqlRespuesta);
+
+                List<Anexo> anexos = DataHelper.DataTableToList<Anexo>(tabla);
+
+                if (anexos.Count > 0)
+                    Estatus = Estatus.OK;
+                else 
+                    Estatus = Estatus.SIN_RESULTADO;
+                
+                return anexos;
+            }
+            catch (Exception ex)
+            {
+                MensajeError = ex.Message;
+                Estatus = Estatus.ERROR;
+                return null;
+            }
+            finally
+            {
+                if (IsValidConnection && Cnx.State == ConnectionState.Open)
+                    Cnx.Close();
+            }
+        }
+
         #region Metodos Privados de la Clase
+        public List<string> ObtenerAmparos(DataTable dataTableAmparos)
+        {
+            List<string> amparos = new List<string>();
+
+            for (int i = 0; i < dataTableAmparos.Rows.Count; i++)
+            {
+                string amparo = dataTableAmparos.Rows[i]["Amparo"].ToString();
+                amparos.Add(amparo);
+            }
+
+            return amparos;
+        }
         #endregion
     }
 }

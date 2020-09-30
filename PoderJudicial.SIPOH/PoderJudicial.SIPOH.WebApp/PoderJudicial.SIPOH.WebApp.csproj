@@ -164,6 +164,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\EncriptarParametroFilter.cs" />
     <Compile Include="Helpers\ViewHelper.cs" />
     <Compile Include="Models\AnexosModelView.cs" />
     <Compile Include="Models\BeneficiarioDTO.cs" />

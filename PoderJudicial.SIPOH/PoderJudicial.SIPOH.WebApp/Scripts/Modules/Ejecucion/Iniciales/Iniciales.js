@@ -1,4 +1,4 @@
-﻿// #region Varaibles Globales
+﻿ // #region Varaibles Globales
 var EstatusRespuesta = { SIN_RESPUESTA: 0, OK: 1, ERROR: 2 }
 var idCircuito = null;
 var idDistrito = null;
@@ -22,7 +22,7 @@ var anexos = [];
 var estructuraTablaBeneficiarios = [{ data: 'numeroEjecucion', title: 'No. Ejecución', className: "text-center" }, { data: 'nombreJuzgado', title: 'Juzgado', className: "text-center" }, { data: 'nombreBeneficiario', title: 'Nombre (s)', className: "text-center" }, { data: 'apellidoPaterno', title: 'Apellido Paterno', className: "text-center" }, { data: 'apellidoMaterno', title: 'Apellido Materno', className: "text-center" }, { data: 'fechaEjecucion', title: 'Fecha de Ejecución', className: "text-center" }];
 var beneficarios = [];
 
-var estructuraTablaTocas = [{ data: 'sala', title: 'Sala', className: "text-center" }, { data: 'numeroDeToca', title: 'Numero De Toca', className: "text-center" }, { data: 'eliminar', title: 'Quitar', className: "text-center" }];
+var estructuraTablaTocas = [{ data: 'nombreJuzgado', title: 'Sala', className: "text-center" }, { data: 'numeroDeToca', title: 'Numero De Toca', className: "text-center" }, { data: 'eliminar', title: 'Quitar', className: "text-center" }];
 var tocas = [];
 
 var estructuraTablaAmparos = [{ data: 'amparo', title: 'Numero de Amparo', className: "text-center"}, { data: 'eliminar', title: 'Quitar', className: "text-center"}];
@@ -32,6 +32,11 @@ var encontroBeneficiarios = false;
 var mostrarSeccionesBeneficiario = false;
 var formEjecucionValidado = false;
 var esTradicional = false;
+var idEjecucion = null;
+
+//Variables globales para intentos
+var intentos = 0;
+
 // #endregion 
 
 // #region Funciones que se detonan al terminado del renderizado
@@ -575,7 +580,7 @@ function ListarCausas(data)
                     }
                     var causa = new Object();
                     causa.id = expediente.IdExpediente;
-                    causa.idCausa = expediente.IdExpediente;
+                    causa.idExpediente = expediente.IdExpediente;
                     causa.nJuzgado = expediente.NombreJuzgado;
                     causa.causaNuc = causaNuc;
                     causa.ofendido = expediente.Ofendidos;
@@ -696,9 +701,9 @@ function AgregarTocas()
         var numRamdom = Math.floor(Math.random() * 90000) + 10000;
 
         var toca = new Object();
-        toca.id = numToca.substr(0, 4) + numRamdom;
+        toca.id = numRamdom;
         toca.idJuzgado = idJuzgado;
-        toca.sala = nombreJuzgado;
+        toca.nombreJuzgado = nombreJuzgado;
         toca.numeroDeToca = numToca;
         toca.eliminar = "<button type='button' class='btn btn-link btn-danger btn-sm' onclick='EliminarToca(" + toca.id + ")' data-toggle='tooltip' title='Quitar Toca'><i class='icon-bin2'></i></button>";
         tocas.push(toca);
@@ -901,6 +906,8 @@ function GenerarEjecucion()
 {
     $("#loading").fadeIn();
 
+    intentos = intentos + 1;
+
     var parametros =
     {
         NombreBeneficiario: $("#inpNombreSentenciado").val(),
@@ -924,18 +931,180 @@ function RederizarDetalle(data)
 {
     if (data.Estatus == EstatusRespuesta.OK)
     {
-        var idEjecucion = data.Data.Folio;
-        var url = "/Iniciales/Detalle?ejecucion=" + idEjecucion;
+        var url = data.Data.Url;
 
-        //Redirecciona a la vista detalle
+        ////Redirecciona a la vista detalle
         document.location.href = url; 
     }
     else if (data.Estatus == EstatusRespuesta.ERROR)
     {
         $("#loading").fadeOut();
+
+        if (intentos > 2)
+        {
+            var mensaje = "Mensaje: " + data.Mensaje + ". <br><br>Intentos: " + intentos + "<br><br><b>Ha superado el numero maximo de intentos, vuelva intentarlo mas tarde o consulte a soporte</b";
+            intentos = 0;
+
+            Alerta(mensaje, "large");
+        }
+        else
+        {
+            var mensaje = "Mensaje: " + data.Mensaje + ", de click en Aceptar para intentar crear el registro nuevamente.<br><br>Intentos: " + intentos;
+
+            reintento = true;
+            MensajeDeConfirmacion(mensaje, "large", GenerarEjecucion, null, titulo = "Error no controlado por el sistema");
+        }
     }
 }
+
+function ConsultarInformacionDetalle(data)
+{
+    if (data.Estatus == EstatusRespuesta.OK)
+    {
+        idEjecucion = data.Data.Folio;
+        var parametros = { folio: idEjecucion };
+
+        intentos = 1;
+        SolicitudEstandarPostAjax('/Iniciales/GeneraDetalle', parametros, RederizarDetalleParcial);
+    }
+    else if (data.Estatus == EstatusRespuesta.ERROR)
+    {
+        $("#loading").fadeOut();
+
+        if (intentos > 2)
+        {
+            var mensaje = "Mensaje: " + data.Mensaje + ". <br><br>Intentos: " + intentos + "<br><br><b>Ha superado el numero maximo de intentos, vuelva intentarlo mas tarde o consulte a soporte</b";
+            intentos = 0;
+
+            Alerta(mensaje, "large");
+        }
+        else
+        {
+            var mensaje = "Mensaje: " + data.Mensaje + ", de click en Aceptar para intentar crear el registro nuevamente.<br><br>Intentos: " + intentos;
+
+            reintento = true;
+            MensajeDeConfirmacion(mensaje, "large", GenerarEjecucion, null, titulo = "Error no controlado por el sistema");
+        }
+    }
+}
+
+function RederizarDetalleParcial(data)
+{
+    if (data.Estatus == EstatusRespuesta.OK)
+    {
+        intentos = 0;
+        //Oculta modulo para generar ejecucion
+        $("#crearEjecucion").hide();
+
+        ////Muestra el detalle generado por medio de la vista parcial
+        $("#detalle").html(data.VistaRender);
+        $('#detalle').removeAttr('hidden');
+
+        //Aplica la funcionalidad a tablas y botones
+        FuncionalidadParaVistaDetalle();
+        $("#detalle").show();
+
+        $("#btnGeneraSello").click(function ()
+        {
+            ImprimirSello();
+        });
+
+        $("#loading").fadeOut();
+
+    }
+    else if (data.Estatus == EstatusRespuesta.ERROR)
+    {
+        $("#loading").fadeOut();   
+
+        if (intentos > 2)
+        {
+            var mensaje = "Mensaje: " + data.Mensaje + ". <br><br>Intentos: " + intentos + "<br><br><b>Ha superado el numero maximo de intentos, consulte a soporte o intente acceder a la siguiente ruta mas tarde para recuperar el sello.</b>";
+            intentos = 0;
+
+            Alerta(mensaje, "large");
+        }
+        else
+        {
+
+        }
+    }
+}
+
+function FuncionalidadParaVistaDetalle()
+{
+    //Funcionalidad para abrir Modal
+    $('#dataTableExpedienteDetalle').DataTable({
+        searching: false,
+        ordering: false,
+        lengthChange: false,
+        responsive: true,
+        "language":
+        {
+            "sProcessing": "Procesando...",
+            "sLengthMenu": "Mostrar _MENU_ registros",
+            "sZeroRecords": "No se encontraron resultados",
+            "sEmptyTable": "Ningún dato disponible en esta tabla",
+            "sInfo": "_START_ al _END_ de _TOTAL_",
+            "sInfoEmpty": "0 al 0 de 0",
+            "sInfoFiltered": "(Total _MAX_ registros)",
+            "sInfoPostFix": "",
+            "sSearch": "Buscar:",
+            "sUrl": "",
+            "sInfoThousands": ",",
+            "sLoadingRecords": "Cargando...",
+            "oPaginate": {
+                "sFirst": "Primero",
+                "sLast": "Último",
+                "sNext": "Siguiente",
+                "sPrevious": "Anterior"
+            },
+            "oAria": {
+                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            },
+        }
+    });
+
+    $('#dataTableTocasDetalle').DataTable({
+        searching: false,
+        ordering: false,
+        paging: false,
+        info: false,
+        responsive: true,
+    });
+
+    $('#dataTableAmparosDetalle').DataTable({
+        searching: false,
+        ordering: false,
+        paging: false,
+        info: false,
+        responsive: true,
+    });
+
+    $('#dataTableAnexosDetalle').DataTable({
+        searching: false,
+        ordering: false,
+        paging: false,
+        info: false,
+        responsive: true,
+    });
+}
+
+function ImprimirSello()
+{
+    var printContents = document.getElementById('sello').innerHTML;
+    var ventana = window.open();
+    ventana.document.write("<html><head><title></title>");
+    ventana.document.write("<link rel=\"stylesheet\" href=\"/Content/Master/Site/sello.css\" type=\"text/css\"/>");
+    ventana.document.write("<script src=\"/Scripts/Master/Jquery/jquery.min.js\"></script>");
+    ventana.document.write("<script src=\"/Scripts/Modules/Ejecucion/Iniciales/Sello.js\"></script>");
+    ventana.document.write("</head><body>");
+    ventana.document.write(printContents);
+    ventana.document.write("</body></html>");
+    ventana.document.close();
+}
 // #endregion 
+
 
 // #region Metodos Genericos
 function SolicitudEstandarAjax(url, parametros, funcion)
@@ -1042,14 +1211,16 @@ function GeneraTablaDatos(tabla, idTablaHtml, datos, estructuraTabla, ordering, 
     }); 
 }
 
-function MensajeDeConfirmacion(mensaje, tamanio, funcion)
+function MensajeDeConfirmacion(mensaje, tamanio, funcion, funcionCancelar = null, titulo = null)
 {
+    var tituloMensaje = titulo == null ? "Confirmación" : titulo; 
+
     bootbox.confirm({
-        title: "<h3>Confirmación</h3>",
+        title: "<h3>" + tituloMensaje + "</h3>",
         message: mensaje,
         buttons: {
             confirm: {
-                label: '<i class="fa fa-check"></i> Confirmar',
+                label: '<i class="fa fa-check"></i> Aceptar',
                 className: 'btn btn-outline-success'
             },
             cancel: {
@@ -1063,42 +1234,55 @@ function MensajeDeConfirmacion(mensaje, tamanio, funcion)
             {
                 funcion();
             }
+            else
+            {
+                if (funcionCancelar != null)
+                {
+                    funcionCancelar();
+                }
+            }
         },
         size: tamanio
     });
 }
 
-function Alerta(mensaje)
+function Alerta(mensaje, tamanio = null)
 {
+    tamanio = tamanio == null ? "small" : tamanio;
+
     bootbox.alert({
         title: "<h3>¡Atención!</h3>",
         message: mensaje,
         buttons:
         {
             ok: {
-                label: '<i class="fa fa-check"></i> Confirmar',
+                label: '<i class="fa fa-check"></i> Aceptar',
                 className: 'btn btn-outline-success'
             }
-        }
+        },
+        size: tamanio
     });
 }
 
-function AlertaCallback(mensaje, funcion)
+function AlertaCallback(mensaje, funcion, tamanio = null)
 {
+    tamanio = tamanio == null ? "small" : tamanio;
+
     bootbox.alert({
         title: "<h3>¡Atención!</h3>",
         message: mensaje,
         buttons:
         {
             ok: {
-                label: '<i class="fa fa-check"></i> Confirmar',
+                label: '<i class="fa fa-check"></i> Aceptar',
                 className: 'btn btn-outline-success'
             }
         },
         callback: function ()
         {
             funcion();
-        }
+        },
+        size: tamanio
     });
 }
 // #endregion 

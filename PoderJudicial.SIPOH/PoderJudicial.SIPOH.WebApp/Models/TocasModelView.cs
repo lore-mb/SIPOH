@@ -8,7 +8,7 @@ namespace PoderJudicial.SIPOH.WebApp.Models
     public class TocasModelView
     {
         public int IdJuzgado { set; get; }
-        public string Sala { set; get; }
+        public string NombreJuzgado { set; get; }
         public string NumeroDeToca { set; get; }
     }
 }

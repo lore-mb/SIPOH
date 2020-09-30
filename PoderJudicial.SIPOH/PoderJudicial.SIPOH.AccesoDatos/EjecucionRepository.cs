@@ -222,6 +222,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
                     return ejecucion;
                 }
 
+                Estatus = Estatus.SIN_RESULTADO;
                 return null;
             }
             catch (Exception ex)
