@@ -175,7 +175,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
             }
         }
 
-        public List<Anexo> ObtenerAnexosIniciales(string tipo)
+        public List<Anexo> ObtenerAnexosEjecucion(string tipo)
         {
             try
             {
