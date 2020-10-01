@@ -24,8 +24,8 @@ namespace PoderJudicial.SIPOH.UT.AlbertoUT
         {
             CatalogosRepository repo = new CatalogosRepository(cnx);
 
-            List<Anexo> anexos = repo.ObtenerAnexosIniciales("A");
-            List<Anexo> anexo2 = repo.ObtenerAnexosIniciales("T");
+            List<Anexo> anexos = repo.ObtenerAnexosEjecucion("A");
+            List<Anexo> anexo2 = repo.ObtenerAnexosEjecucion("T");
         }
 
         [TestMethod]
