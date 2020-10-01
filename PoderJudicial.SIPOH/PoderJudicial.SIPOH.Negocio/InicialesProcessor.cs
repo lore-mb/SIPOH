@@ -115,7 +115,7 @@ namespace PoderJudicial.SIPOH.Negocio
 
         public List<Anexo> RecuperaAnexos(string tipo) 
         {
-            List<Anexo> anexos = catalogosRepositorio.ObtenerAnexosIniciales(tipo);
+            List<Anexo> anexos = catalogosRepositorio.ObtenerAnexosEjecucion(tipo);
 
             if (catalogosRepositorio.Estatus == Estatus.SIN_RESULTADO)
                 Mensaje = "La consulta no genero ningun resultado";
