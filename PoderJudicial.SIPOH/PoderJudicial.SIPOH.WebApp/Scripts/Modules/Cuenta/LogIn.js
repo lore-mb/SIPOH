@@ -1,20 +1,17 @@
-﻿$(document).ready(function ()
-{
-    $("#frm").submit(function (e)
-    {
+﻿$(document).ready(function () {
+    $("#frm").submit(function (e) {
         //Logica para validar campos de LogIn
         var usuario = $("#inputEmail").val();
         var contrasenia = $("#txtPassword").val();
 
-        if ((usuario == null || usuario == "") && (contrasenia == null || contrasenia == ""))
-        {
+        if ((usuario == null || usuario == "") && (contrasenia == null || contrasenia == "")) {
             alert("Valor introducido no válido");
 
             //Impide enviar la solicitud al controlor
             e.preventDefault();
         }
     });
-
+});
     
 //    //CheckBox mostrar contraseña
 //    $('#ShowPassword').click(function ()
