@@ -173,13 +173,13 @@ function ImprimirSello()
     var printContents = document.getElementById('sello').innerHTML;
     var ventana = window.open();
     ventana.document.write("<html><head><title></title>");
-    ventana.document.write("<link rel=\"stylesheet\" href=\"/Content/Master/Site/sello.css\" type=\"text/css\"/>");
+    //ventana.document.write("<link rel=\"stylesheet\" href=\"/Content/Master/Site/sello.css\" type=\"text/css\"/>");
     ventana.document.write("<script src=\"/Scripts/Master/Jquery/jquery.min.js\"></script>");
     ventana.document.write("<script src=\"/Scripts/Modules/Ejecucion/Iniciales/Sello.js\"></script>");       
     ventana.document.write("</head><body>");
-    ventana.document.write(printContents);
+    ventana.document.write("NO SE QUE ESTE PASANDO :P NO SE QUE ESTE PASANDO :P NO SE QUE ESTE PASANDO :P NO SE QUE ESTE PASANDO :P NO SE QUE ESTE PASANDO :P NO SE QUE ESTE PASANDO :P NO SE QUE ESTE PASANDO :P NO SE QUE ESTE PASANDO :P NO SE QUE ESTE PASANDO :P NO SE QUE ESTE PASANDO :P NO SE QUE ESTE PASANDO :P NO SE QUE ESTE PASANDO :P NO SE QUE ESTE PASANDO :P NO SE QUE ESTE PASANDO :P NO SE QUE ESTE PASANDO :P NO SE QUE ESTE PASANDO :P NO SE QUE ESTE PASANDO :P NO SE QUE ESTE PASANDO :P NO SE QUE ESTE PASANDO :P NO SE QUE ESTE PASANDO :P NO SE QUE ESTE PASANDO :P NO SE QUE ESTE PASANDO :P");
     ventana.document.write("</body></html>");
-    ventana.document.close(); 
+    //ventana.document.close(); 
 }
 
 function Alerta(mensaje, tamanio = null)

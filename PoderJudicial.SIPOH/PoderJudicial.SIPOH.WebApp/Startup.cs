@@ -18,6 +18,7 @@ namespace PoderJudicial.SIPOH.WebApp
 
                 // Va Cambiar en cuanto se tenga Vista para el inicio de sesion        
                 LoginPath = new PathString("/Cuenta/LogIn"),
+                
 
                 // Tiempo en exipirar la cookie para la sesion
                 ExpireTimeSpan = TimeSpan.FromMinutes(30.0)

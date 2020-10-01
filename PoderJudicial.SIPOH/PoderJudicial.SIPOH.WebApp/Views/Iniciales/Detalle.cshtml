@@ -250,38 +250,37 @@
                 </div>
 
                 <div id="sello" hidden>
-                    <div class="ticket">
-                        <p class="centrado">
-                            TRIBUNAL SUPERIOR<br>
-                            DE JUSTICIA<br>
-                            DEL ESTADO DE HIDALGO<br>
-                            ATENCION CIUDADANA<br>
-                            SENTENCIA EJECUTORIADA<br>
-                            INICIAL<br>
-                            ------------------<br>
+                    <div>
+                            TRIBUNAL SUPERIOR
+                            DE JUSTICIA
+                            DEL ESTADO DE HIDALGO
+                            ATENCION CIUDADANA
+                            SENTENCIA EJECUTORIADA
+                            INICIAL
+                            ------------------
                             @Html.DisplayFor(model => model.NombreJuzgado)<br>
-                            ------------------<br>
-                        </p>
+                            ------------------
+                        
                         <p>
-                            Exp. Ejec. : @Html.DisplayFor(model => model.NumeroEjecucion)<br>
-                            Folio : @Html.DisplayFor(model => model.IdEjecucion)<br>
-                            Fecha: @Html.DisplayFor(model => model.FechaEjecucion)<br>
+                            Exp. Ejec. : @Html.DisplayFor(model => model.NumeroEjecucion)
+                            Folio : @Html.DisplayFor(model => model.IdEjecucion)
+                            Fecha: @Html.DisplayFor(model => model.FechaEjecucion)
                         </p>
 
                         @{int contador = 0;}
 
                         @foreach (var item in Model.Anexos)
                         {
-                            <p class="puntos">
-                                <span class='descripcion'>@item.Descripcion</span>
-                                <span class='precio'>@item.Cantidad</span>
+                            <p>
+                                <span>@item.Descripcion</span>
+                                <span>@item.Cantidad</span>
                             </p>
-                            contador++;
+                            contador = contador + @item.Cantidad;
                         }
 
-                        <p class="puntos">
-                            <span class='descripcion'>Total</span>
-                            <span class='precio'>@contador</span>
+                        <p >
+                            <span>Total</span>
+                            <span>@contador</span>
                         </p>
 
                     </div>

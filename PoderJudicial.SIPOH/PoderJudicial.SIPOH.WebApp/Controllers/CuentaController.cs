@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 
@@ -24,6 +25,13 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         [HttpGet]
         public ActionResult LogIn(string returnUrl)
         {
+            var identity = (ClaimsPrincipal)Thread.CurrentPrincipal;
+
+            if (identity.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("index", "home");     
+            }
+
             var loginModelView = new LogInModelView
             {
                 ReturnUrl = returnUrl
