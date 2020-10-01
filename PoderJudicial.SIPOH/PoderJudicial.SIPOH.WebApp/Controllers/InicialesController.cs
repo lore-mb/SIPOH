@@ -4,7 +4,10 @@ using PoderJudicial.SIPOH.Entidades.Enum;
 using PoderJudicial.SIPOH.Negocio.Interfaces;
 using PoderJudicial.SIPOH.WebApp.Helpers;
 using PoderJudicial.SIPOH.WebApp.Models;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 
 namespace PoderJudicial.SIPOH.WebApp.Controllers
@@ -13,14 +16,13 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
     {
         private readonly IInicialesProcessor inicialesProcessor;
         private readonly IMapper mapper;
-                                     //objeto             parametro 
+
         public InicialesController(IInicialesProcessor inicialesProcessor, IMapper mapper) 
         {
             this.inicialesProcessor = inicialesProcessor;
             this.mapper = mapper;
         }
-        // GET: Iniciales
-
+        
         #region Metodos Publicos del Controlador
         public ActionResult CrearInicial()
         { 
@@ -29,6 +31,13 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             List<Juzgado> salasAcusatorio = inicialesProcessor.RecuperaSala(TipoJuzgado.ACUSATORIO);
             List<Juzgado> salasTradicional = inicialesProcessor.RecuperaSala(TipoJuzgado.TRADICIONAL);
             List<Anexo> anexosEjecucion = inicialesProcessor.RecuperaAnexos("A");
+            List<Solicitud> solicitudes = inicialesProcessor.RecuperaSolicitud();
+            List<Solicitante> solicitantes = inicialesProcessor.RecuperaSolicitante();
+
+            //Obtiene los Ids del tipo "OTRO" para la validacion de Pick List
+            int idOtroAnexos = anexosEjecucion.Where(x => x.Tipo == "O").Select(x => x.IdAnexo).FirstOrDefault();
+            int idOtroSolicitud = solicitudes.Where(x => x.Tipo == "O").Select(x => x.IdSolicitud).FirstOrDefault();
+            int idOtroSolicitante = solicitantes.Where(x => x.Tipo == "O").Select(x => x.IdSolicitante).FirstOrDefault();
 
             //Parametros al View Bag
             ViewBag.IdCircuito = Usuario.IdCircuito;
@@ -37,6 +46,11 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             ViewBag.SalasAcusatorio = salasAcusatorio != null ? salasAcusatorio : new List<Juzgado>();
             ViewBag.SalasTradicional = salasTradicional != null ? salasTradicional : new List<Juzgado>();
             ViewBag.AnexosInicales = anexosEjecucion != null ? anexosEjecucion : new List<Anexo>();
+            ViewBag.Solicitudes = solicitudes != null ? solicitudes : new List<Solicitud>();
+            ViewBag.Solicitantes = solicitantes != null ? solicitantes : new List<Solicitante>();
+            ViewBag.IdOtroAnexos = idOtroAnexos;
+            ViewBag.IdOtroSolicitud = idOtroSolicitud;
+            ViewBag.IdOtroSolicitante = idOtroSolicitante;
 
             return View();
         }
@@ -134,57 +148,80 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult CrearEjecucion(DetalleEjecucionModelView modelo) 
+        public ActionResult CrearEjecucion(EjecucionModelView modelo) 
         {
-            Respuesta.Estatus = EstatusRespuestaJSON.OK;
-            Respuesta.Mensaje = "Se creo la ejecucion";
-            System.Threading.Thread.Sleep(2000);
+            //Se mapea la informacion a Ejecucion
+            Ejecucion ejecucion = mapper.Map<EjecucionModelView, Ejecucion>(modelo);
+            
+            //Id del usuario logeado
+            ejecucion.IdUsuario = Usuario.Id;
 
-            Respuesta.Data = new { Folio = 100 };
+            List<Expediente> tocas = mapper.Map<List<TocasModelView>, List<Expediente>>(modelo.Tocas);
+            List<Anexo> anexos = mapper.Map<List<AnexosModelView>, List<Anexo>>(modelo.Anexos);
+            List<int> causas = modelo.Causas.Select(x => x.IdExpediente).ToList();
+            List<string> amparos = modelo.Amparos != null ? modelo.Amparos : new List<string>();
+
+            int? folio = inicialesProcessor.CrearRegistroInicialDeEjecucion(ejecucion, tocas, anexos, amparos, causas, Usuario.IdCircuito);
+
+            if (folio == null) 
+            {
+                Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
+                Respuesta.Mensaje = inicialesProcessor.Mensaje;
+            }
+
+            if (folio != null)
+            { 
+                //Genera los parametro encriptados
+                string url = ViewHelper.EncodedActionLink("Detalle", "Iniciales", new { Folio = folio });
+
+                Respuesta.Estatus = EstatusRespuestaJSON.OK;
+                Respuesta.Mensaje = inicialesProcessor.Mensaje;
+                Respuesta.Data = new { Url = url };
+            }
+   
+            System.Threading.Thread.Sleep(2000);
             return Json(Respuesta, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
-        public ActionResult Detalle(int folio) 
+        [EncriptarParametroFilter]
+        public ActionResult Detalle(int folio)
         {
-            DetalleEjecucionModelView modelo = new DetalleEjecucionModelView();
-            modelo.JuzgadoEjecucion = "JUZGADO PRIMERO DE EJECUCION DEL SISTEMA PROCESAL PENAL ACUSATORIO ORAL";
-            modelo.NombreBeneficiario = "ESTHER";
-            modelo.ApellidoPaternoBeneficiario = "ROMERO";
-            modelo.ApellidoMaternoBeneficiario = "PARDO";
-            modelo.Folio = folio;
-            modelo.NumeroExpediente = "0310/2020";
-            modelo.Causas = new List<CausasModelView>();
-            modelo.Tocas = new List<TocasModelView>();
-            modelo.Amparos = new List<string>();
-            modelo.Anexos = new List<AnexosModelView>();
-            modelo.SentenciadoInterno = false;
+            //Creacion del modelo que se enviara a la vista
+            EjecucionModelView modelo = new EjecucionModelView();
 
-            ViewBag.miEjemplo = "HOLA MUNDO";
-            ViewBag.miEjemploII = "HOLA MUNDO II";
+            //Objetos para pasar como referencia
+            Ejecucion inicial = new Ejecucion();
+            List<Expediente> causas = new List<Expediente>();
+            List<Expediente> tocas = new List<Expediente>();
+            List<string> amparos = new List<string>();
+            List<Anexo> anexos = new List<Anexo>();
+            List<Relacionadas> entidad = new List<Relacionadas>();
 
-            return View(modelo);        
+            //Metodo que consulta a la bd la informacion relacionada a la ejecucion
+            bool fueCorrectoElProceso = inicialesProcessor.ObtenerInformacionGeneralInicialDeEjecucion(folio, ref inicial, ref causas, ref tocas, ref amparos, ref anexos, ref entidad);
+
+            if (inicial != null)
+            {
+                modelo = mapper.Map<Ejecucion, EjecucionModelView>(inicial);
+                modelo.Causas = mapper.Map<List<Expediente>, List<CausasModelView>>(causas);
+                modelo.Tocas = mapper.Map<List<Expediente>, List<TocasModelView>>(tocas);
+                modelo.Amparos = amparos == null ? new List<string>() : amparos;
+                modelo.Anexos = mapper.Map<List<Anexo>, List<AnexosModelView>>(anexos);
+            }
+
+            ViewBag.Ejecucion = entidad.Contains(Relacionadas.EJECUCION);
+            ViewBag.Tocas = entidad.Contains(Relacionadas.TOCAS);
+            ViewBag.Amparos = entidad.Contains(Relacionadas.AMPAROS);
+            ViewBag.Causas = entidad.Contains(Relacionadas.CAUSAS);
+            ViewBag.Anexos = entidad.Contains(Relacionadas.ANEXOS);
+            ViewBag.fueCorrectoElProceso = fueCorrectoElProceso;
+            ViewBag.Mensaje = inicialesProcessor.Mensaje;
+
+            return View(modelo);
         }
 
-        [HttpGet]
-        public ActionResult GenerarSello()
-        {
-            Respuesta.Estatus = EstatusRespuestaJSON.OK;
-            Respuesta.Mensaje = "Se creo la ejecucion";
-            System.Threading.Thread.Sleep(2000);
-
-            SelloModelView model = new SelloModelView();
-            model.JuzgadoEjecucion = "JUZGADO PRIMERO DE EJECUCION DEL SISTEMA PROCESAL PENAL ACUSATORIO ORAL";
-            model.NumeroExpediente = "0310/2020";
-            model.Folio = 4606;
-
-            Respuesta.VistaRender = RenderViewToString("_Sello", model);
-            Respuesta.Data = null;
-
-            return Json(Respuesta, JsonRequestBehavior.AllowGet);
-        }
         #endregion
-
 
         #region Metodos Privados del Controlador
         private void ValidaJuzgados(List<Juzgado> juzgados) 

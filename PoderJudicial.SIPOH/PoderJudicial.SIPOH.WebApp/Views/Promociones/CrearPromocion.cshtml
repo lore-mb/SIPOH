@@ -1,303 +1,188 @@
-﻿
-@{
-    ViewBag.Title = "Promociones";
+﻿@{
+    ViewBag.Title = "Promociones de ejecución";
 }
-
 <div class="container-fluid">
     <div class="row">
-        <div class="col-lg-12">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <ul class="nav nav-pills  nav-success nav" id="pills-tab" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" id="pills-promejecucion-tab" data-toggle="pill" href="#pills-promejecucion" role="tab" aria-controls="pills-pcausa" aria-selected="true"> Promociones de Ejecucion</a>
-                        </li>
-                    </ul>
-                    <!-- Todo el contenido aquí -->
-                    <div class="form-group row justify-content-center align-items-center mt-3" id="formselectJuzgado">
-                        <div class="col-sm-5">
-                            <label class="">Juzgados:</label>
-                            <div class="input-group">
-                                <label for="inlineFormCustomSelect" class="sr-only">Camp 1</label>
-                                <select class="custom-select" id="inlineFormCustomSelect">
-                                    <option selected>Selecciona Juzgado</option>
-                                    <option value="1">Juzgado Penal Acusatorio Pachuca</option>
-                                    <option value="2">Juzgado Penal Acusatorio Tizayuca</option>
-                                </select>
+        <div class="card shadow-sm col-sm-12">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <h6 class="page-pretitle">
+                            <i class="icon-filter"></i> Filtro de busqueda:
+                        </h6>
+                        <form class="needs-validation" id="FrmCausaEjecucion" novalidate>
+                            <div class="form-row">
+                                <div class="col-md-8 form-group">
+                                    <label for="validationCustom01">Nombre de Juzgado</label>
+                                    @Html.DropDownList("SelectJuzgadoPorCircuito", new SelectList(ViewBag.JuzgadoCircuit, "IdJuzgado", "Nombre"), "SELECCIONAR OPCIÓN", new { @id = "slctJuzgadoPorCircuito", @class = "custom-select form-control resultOK", @required = "required" })
+                                    <div class="valid-feedback">
+                                        <i class="icon-checkmark"></i> Juzgado Seleccionado
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        <i class="icon-cancel-circle"></i> Por favor, selecciona un juzgado.
+                                    </div>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <label for="validationCustomUsername">Numero de Ejecución</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="inputGroupPrepend"><i class="icon-key"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control mr-2 resultOK clean" id="inpNumeroEjecucion" aria-describedby="inputGroupPrepend" required>
+                                        <button class="btn btn-success mr-2 resultOK" type="submit" id="btnConsultarPromocion" data-toggle="tooltip" data-placement="top" title="Consultar"><i class="icon-search"></i></button>
+                                        <button class="btn btn-secondary disoff" id="btnNuevaConsultaPromocion" data-toggle="tooltip" data-placement="top" title="Nueva Consulta"><i class="icon-paint-format"></i></button>
+                                        <div class="valid-feedback">
+                                            <i class="icon-checkmark"></i> Numero de ejecución
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            <i class="icon-cancel-circle"></i> Por favor, introduce numero de ejecución.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div id="divResultadoPromocion">
+                    <div class="card-footer">
+                        <div class="form-row">
+                            <div class="col-md-3 mb-3">
+                                <label for="validationCustom01">Numero de Ejecución</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroupPrepend">#</span>
+                                    </div>
+                                    <input type="text" class="form-control disabled clean" id="NumeroEjecucion" aria-describedby="inputGroupPrepend">
+                                </div>
+                            </div>
+                            <div class="col-md-9 mb-3">
+                                <label for="validationCustom02">Juzgado de Ejecución</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="icon-office"><i class="icon-office"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control disabled clean" id="NombreJuzgado" aria-describedby="inputGroupPrepend">
+                                </div>
                             </div>
                         </div>
-                        <div class="col-sm-5">
-                            <label class="invisible">No Ejecucion</label>
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">N° Ejecucion</span>
-                                <input type="text" placeholder="0001/2200" class="form-control mr-3 col-sm-4">
-                                <button type="button" class="btn btn-success btn-sm"><i class="fas fa-search"></i></button>
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label for="validationCustomUsername">Solicitante</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroupPrepend"><i class="icon-clipboard"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control disabled clean" id="DecSolicitante" aria-describedby="inputGroupPrepend">
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="validationCustomUsername">Sentenciado | Beneficiario</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroupPrepend"><i class="icon-user"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control disabled clean" id="NombreBeneficiario" aria-describedby="inputGroupPrepend">
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="validationCustomUsername">Solicitud</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroupPrepend"><i class="icon-file-text2"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control disabled clean" id="DecSolicitud" aria-describedby="inputGroupPrepend">
+                                </div>
+                            </div>
+                        </div>
+                        @*<button class="btn btn-success" type="submit" disabled>Relacionar Causa</button>*@
+                    </div>
+                    <!-- Tabla  Detalles -->
+                    <div class="tab-content">
+                        <div class="form-row">
+                            <div class="col-12">
+                                <h6 class="m-0 font-weight-bold text-success"><i class="icon-table2"></i> Tabla de Causas </h6>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table id="_TablaCausasEjecucion" class="display table table-hover table-striped table-bordered table-sm nowrap" width="100%">
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+
+                </div>
+                <div class="separator-solid"></div>
+                <form class="needs-validation" id="Frm_Anexos" novalidate>
+                    <div class="form-row">
+                        <div class="col-md-3 form-group">
+                            <label for="validationCustom02">Promovente</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroupPrepend"><i class=" icon-user"></i></span>
+                                </div>
+                                <input type="text" class="form-control mr-2 clearanexo" id="inpNombrePromovente" placeholder="Nombre de promovente" required>
+                                <div class="invalid-feedback">
+                                    <i class="icon-cancel-circle"></i> Por favor, introdusca nombre de promovente.
+                                </div>
+                                <div class="valid-feedback">
+                                    <i class="icon-checkmark"></i> Nombre de promovente.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="validationCustom01">Anexos</label>
+                            @Html.DropDownList("SelectAnexo", new SelectList(ViewBag.AnexoEjec, "IdAnexo", "Descripcion"), "SELECCIONAR OPCION", new { @id = "slctAnexoEjecucion", @class = "custom-select form-control", @required = "required" })
+                            <div class="valid-feedback">
+                                <i class="icon-checkmark"></i> Anexo Seleccionado
+                            </div>
+                            <div class="invalid-feedback">
+                                <i class=" icon-cancel-circle"></i> Por favor, seleccione un anexo.
+                            </div>
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label for="inpCantidadAnexos">Cantidad</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control mr-2 clearanexo" placeholder="0" id="inpCantidadAnexos" name="quantity" min="0" max="3000" required>
+                                <button class="btn btn-success mr-2" type="submit" data-toggle="tooltip" data-placement="top" title="Agregar Anexo"><i class="fa fa-plus-circle"></i></button>
+                                <button class="btn btn-secondary mr-2 disoff" type="submit" id="btnGuardarAnexos" data-toggle="tooltip" data-placement="top" title="Guardar Anexos"><i class="fa fa-save"></i></button>
+                                <div class="invalid-feedback">
+                                    <i class="icon-cancel-circle"></i> Determine cantidad.
+                                </div>
+                                <div class="valid-feedback">
+                                    <i class="icon-checkmark"></i> Cantidad determinada.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label for="validationCustom02">Descripción Otro</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroupPrepend"><i class=" icon-user"></i></span>
+                                </div>
+                                <input type="text" class="form-control mr-2 clearanexo" id="inpOtroAnexo" placeholder="Descripción">
+                                <div class="invalid-feedback">
+                                    <i class="icon-cancel-circle"></i> Por favor, introdusca una descripción.
+                                </div>
+                                <div class="valid-feedback">
+                                    <i class="icon-checkmark"></i> Nombre de promovente.
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <!-- Contenedor -->
-                    <div class="form-group" style="margin-top:6%">
-                        <!-- #region Juzgados -->
-                        <div class="tab-content">
-                            <div class="form-row">
-                                <div class="col-12">
-                                    <h6 class="m-0 font-weight-bold text-success"><i class="icon-table2"></i> Datos Encontrados:</h6>
-                                </div>
-                            </div>
-                            <div class="table-responsive text-small">
-                                <table class="table table-bordered table-hover table-sm" id="dataTable" width="100%" cellspacing="0">
-                                </table>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">N° Ejecucion</span>
-                                    </div>
-                                    <input type="text" placeholder="1234/2025" disabled class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-sm-5">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">Juzgado:</span>
-                                    </div>
-                                    <input type="text" placeholder="PRIMERO PENAL ACUSATORIO" disabled class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">Solicitante</span>
-                                    </div>
-                                    <input type="text" placeholder="OTRO N/A" disabled class="form-control">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">Sentenciado/Beneficiario</span>
-                                    </div>
-                                    <input type="text" placeholder="BETO ROMERO PARDO" disabled class="form-control">
+                </form>
 
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">Solicitante:</span>
-                                    </div>
-                                    <input type="text" placeholder="ESTHER VAZQ VAZQ" disabled class="form-control">
-                                </div>
-                            </div>
+                <!-- Tabla  Detalles -->
+                <div class="tab-content">
+                    <div class="form-row">
+                        <div class="col-12">
+                            <h6 class="m-0 font-weight-bold text-success"><i class="icon-table2"></i> Tabla de Causas </h6>
                         </div>
-                        <div class="row align-items-center">
-                            <div class="text-center col-sm-12 mt-3 mb-4">
-                                <button type="button" class="btn btn-success"><i>Relacionar Causa</i></button>
-                            </div>
-                        </div>
-                        <!-- #endregion -->
-                        <!--PILL NAVS JUZGADO ACSATORIO JUZGADO TRADICIONAL-->
-                        <ul class="nav nav-pills nav-success" id="pills-tab" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active" id="juzgadoA-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true"><i class="icon-office"></i> Juzgado Acusatorio</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="juzgadoT-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false"><i class="icon-library"></i> Juzgado Tradicional</a>
-                            </li>
-                        </ul>
-                        <div class="tab-content mt-2 mb-3" id="pills-tabContent">
-                            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                                <form id="formJAcusatorio" class="needs-validation" novalidate>
-                                    <div class="form-row">
-                                        <div class="col-md-6 form-group">
-                                            <label for="validationCustom04">Juzgado de Procedencia</label>
-                                            <div class="invalid-feedback">
-                                                <i class="icon-notification"></i> Por favor, selecciona un juzgado.
-                                            </div>
-                                            <div class="valid-feedback">
-                                                <i class="icon-checkmark"></i> Juzgado seleccionado.
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 form-group">
-                                            <label for="slcNumero">Causa | Nuc</label>
-                                            <select class="custom-select" id="slctNumero">
-                                                <option value="1">NUMERO DE CAUSA</option>
-                                                <option value="2">NUMERO UNICO DE CASO</option>
-                                            </select>
-                                            <div class="valid-feedback">
-                                                <i class="icon-checkmark"></i> Opción seleccionada.
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 form-group">
-                                            <label class="" for="inpNumero" id="NumeroLabel">Numero de Causa</label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text" id="spnNumero">Causa</span>
-                                                </div>
-                                                <input type="text" id="Numero" name="Numero" class="form-control text-center mr-2" aria-label="Small" aria-describedby="inputGroup-sizing-sm" data-inputmask-clearmaskonlostfocus="true" required>
-                                                <button class="btn btn-success btn-sm" type="submit" id="btnNUC" data-toggle="tooltip" data-placement="top" title="Consultar Causas"><i class="fa fa-search"></i></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                                <form id="formCausasTradicional" class="needs-validation" novalidate>
-                                    <div class="form-row">
-                                        <div class="col-md-3 form-group">
-                                            <label for="slcNumero">Distrito de Procedencia</label>
-                                            <div class="invalid-feedback">
-                                                <i class="icon-notification"></i> Por favor, selecciona un distrito.
-                                            </div>
-                                            <div class="valid-feedback">
-                                                <i class="icon-checkmark"></i> Distrito seleccionado.
-                                            </div>
-                                        </div>
-                                        <div class="col-md-5 form-group">
-                                            <label for="validationCustom04">Juzgado de Procedencia</label>
-                                            <select class="custom-select" id="slctJuzgadoTradi" required>
-                                                <option selected value="">SELECCIONAR OPCIÓN</option>
-                                            </select>
-                                            <div class="valid-feedback">
-                                                <i class="icon-checkmark"></i> Juzgado de procedencia, seleccionado.
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4 form-group">
-                                            <label for="validationCustomUsername">Numero de Causa</label>
-                                            <div class="input-group" id="divCAU">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text" id="inputGroupPrepend">CAUSA</span>
-                                                </div>
-                                                <input type="text" class="form-control text-center mr-3" id="inpCAUT" aria-describedby="inpCAU" placeholder="0000/0000" required>
-                                                <button class="btn btn-success btn-sm" type="submit" id="btnCAU" data-toggle="tooltip" data-placement="top" title="Consultar Causas"><i class="fas fa-search"></i></button>
-                                                <div class="invalid-feedback">
-                                                    <i class="icon-checkmark"></i> Introduce numero de causa.
-                                                </div>
-                                                <div class="valid-feedback">
-                                                    <i class="icon-checkmark"></i> Numero de causa introducido.
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="col-12 mt-5 mb-3 text-center">
-                            <div class="table-responsive mr-2">
-                                <table class="table table-hover table-sm">
-                                    <thead>
-                                        <tr>
-                                            <th>No.Ejecucion</th>
-                                            <th>Juzgado Ejecucion</th>
-                                            <th>Nombre</th>
-                                            <th>Tipo</th>
-                                            <th>Detalle Solictante</th>
-                                            <th>Fecha</th>
-                                            <th>Solictud</th>
-                                            <th>Beneficiario</th>
-                                            <th>Tipo Expediente</th>
-                                            <th class="text-center">Detalles</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>Beto</td>
-                                            <td>Lore</td>
-                                            <td>Esther</td>
-                                            <td>N/A</td>
-                                            <td>25/01/2009</td>
-                                            <td>OTRO</td>
-                                            <td>Esther Maria</td>
-                                            <td>Incidental</td>
-                                            <td class="text-center"><button class="btn btn-success btn-sm"><i class="fa fa-search"></i></button></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>Igmar</td>
-                                            <td>Tyno</td>
-                                            <td>Laura</td>
-                                            <td>N/A</td>
-                                            <td>25/01/2009</td>
-                                            <td>OTRO</td>
-                                            <td>Esther Maria</td>
-                                            <td>Incidental</td>
-                                            <td class="text-center"><button class="btn btn-success btn-sm"><i class="fa fa-search"></i></button></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <!--APARTADO Promovente-->
-                        <div class="form-row mt-4" id="Promovente">
-                            <div class="col-12">
-                                <div class="col-4">
-                                    <label>Promovente:</label>
-                                    <input type="text" class="form-control">
-                                </div>
-                                <div class="col-12 text-center">
-                                    <label>ANEXOS</label>
-                                </div>
-                                <div class=" row col-12 mt-3">
-                                    <div class="col-6">
-                                        <label class="">Juzgados:</label>
-                                        <div class="input-group">
-                                            <label for="inlineFormCustomSelect" class="sr-only">Camp 1</label>
-                                            <select class="custom-select" id="inlineFormCustomSelect">
-                                                <option selected>Selecciona Juzgado</option>
-                                                <option value="1">Juzgado Penal Acusatorio Pachuca</option>
-                                                <option value="2">Juzgado Penal Acusatorio Tizayuca</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <label>Cantidad:</label>
-                                        <div class="input-group-prepend ">
-                                            <input type="text" class="form-control mr-3">
-                                            <button class="btn btn-success btn-sm" type="submit" id="btnAnex" data-toggle="tooltip" data-placement="top" title="Agregar Anexos"><i class="fas fa-plus-circle"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-row mt-5 mb-3">
-                                    <div class="col-12">
-                                        <h6 class="m-0 font-weight-bold text-success"><i class="icon-table2"></i> Detalles:</h6>
-                                    </div>
-                                </div>
-                                <div style="margin-top:3%" class="row">
-                                    <div class="col-sm-12">
-                                        <div class="table-responsive text-center">
-                                            <table class="table table-hover table-sm">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Descripcion</th>
-                                                        <th>Cantidad</th>
-                                                        <th class="text-center">Acciones</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <th scope="row">Libertad condicional</th>
-                                                        <td>2</td>
-                                                        <td class="text-center"><button class="btn btn-danger btn-sm"><i class="fa fa-remove"></i></button></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div style="margin-top:3%" class="row text-center">
-                                    <div class="col-sm-12">
-                                        <button type="button" class="btn btn-success rounded">
-                                            <i>Guardar</i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table id="_DataTableAnexos" class="display table table-hover table-striped table-bordered table-sm nowrap" width="100%">
+                        </table>
                     </div>
                 </div>
             </div>
@@ -305,3 +190,6 @@
     </div>
 </div>
 
+@Scripts.Render("~/Scripts/Master/Jquery")
+@Scripts.Render("~/Scripts/Master/InptuMask")
+@Scripts.Render("~/Scripts/Modules/Ejecucion/Promociones")

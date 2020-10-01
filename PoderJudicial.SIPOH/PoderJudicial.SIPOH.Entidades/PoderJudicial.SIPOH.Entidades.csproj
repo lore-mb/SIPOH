@@ -48,6 +48,8 @@
     <Compile Include="Expediente.cs" />
     <Compile Include="Juzgado.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Solicitante.cs" />
+    <Compile Include="Solicitud.cs" />
     <Compile Include="Usuario.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

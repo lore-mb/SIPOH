@@ -26,4 +26,13 @@ namespace PoderJudicial.SIPOH.Entidades.Enum
        CAUSA = 0,
        NUC = 1
     }
+
+    public enum Relacionadas 
+    {
+       CAUSAS = 0,
+       TOCAS = 1,
+       AMPAROS = 2,
+       ANEXOS = 3,
+       EJECUCION = 4
+    }
 }

@@ -7,6 +7,7 @@ namespace PoderJudicial.SIPOH.WebApp.Models
 {
     public class AnexosModelView
     {
+        public int IdAnexo { set; get; }
         public int Cantidad { set; get; }
         public string Descripcion { set; get; }
     }

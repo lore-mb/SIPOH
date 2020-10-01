@@ -45,6 +45,8 @@
     <Compile Include="InicialesProcessor.cs" />
     <Compile Include="Interfaces\ICuentaProcessor.cs" />
     <Compile Include="Interfaces\IInicialesProcessor.cs" />
+    <Compile Include="Interfaces\IPromocionesProcessor.cs" />
+    <Compile Include="PromocionesProcessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

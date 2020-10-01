@@ -1,0 +1,61 @@
+﻿*:after,
+*:before 
+{
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+*
+{
+    position: relative;
+}
+
+.puntos 
+{
+    background: #fff;
+    margin: 0 auto;
+}
+
+.puntos:before 
+{
+    content: '';
+    position: absolute;
+    bottom: .4rem;
+    width: 100%;
+    height: 0;
+    line-height: 0;
+    border-bottom: 2px dotted #000000;
+}
+
+.descripcion 
+{
+    background: inherit;
+    display: inline;
+    z-index: 1;
+    padding-right: .2rem;
+}
+
+.precio 
+{
+    background: inherit;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding-left: .2rem;
+    text-align: right;
+    z-index: 2;
+}
+
+.centrado
+{
+    text-align: center;
+    align-content: center;
+}
+
+.ticket
+{
+    font-size: 11px;
+    font-family: 'Courier New';
+    width: 155px;
+    max-width: 155px;
+}

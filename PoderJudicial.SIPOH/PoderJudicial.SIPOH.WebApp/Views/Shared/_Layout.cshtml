@@ -334,18 +334,12 @@
                                 </ul>
                             </div>
                         </li>
-                        <li class="nav-item @if (ViewContext.RouteData.Values["Action"].ToString() != "Index") {
-                                                  @(ViewContext.RouteData.Values["Action"].ToString() == "Iniciales" ? "active" : "")
-                                                      if (ViewContext.RouteData.Values["Action"].ToString() != "Index") {
-                                                         @(ViewContext.RouteData.Values["Action"].ToString() == "Promociones" ? "active" : "")
-                                                           if (ViewContext.RouteData.Values["Action"].ToString() != "Index") {
-                                                              @(ViewContext.RouteData.Values["Action"].ToString() == "Busquedas" ? "active" : "")
-                                                                if (ViewContext.RouteData.Values["Action"].ToString() != "Index") {
-                                                              @(ViewContext.RouteData.Values["Action"].ToString() == "Consignaciones Historicas" ? "active" : "")
-                                                           if (ViewContext.RouteData.Values["Action"].ToString() != "Index") {
-                                                         @(ViewContext.RouteData.Values["Action"].ToString() == "ConsignacionesHistoricas" ? "active" : "")
-                                                      if (ViewContext.RouteData.Values["Action"].ToString() != "Index") {
-                                                  @(ViewContext.RouteData.Values["Action"].ToString() == "Reportes" ? "active" : "")}}}}}}">
+                        <li class="nav-item 
+                              @(ViewContext.RouteData.Values["Controller"].ToString() == "Iniciales" ? "active" : "")
+                              @(ViewContext.RouteData.Values["Controller"].ToString() == "Promociones" ? "active" : "")  
+                              @(ViewContext.RouteData.Values["Controller"].ToString() == "Busquedas" ? "active" : "")  
+                              @(ViewContext.RouteData.Values["Controller"].ToString() == "ConsignacionesHistoricas" ? "active" : "")  
+                              @(ViewContext.RouteData.Values["Controller"].ToString() == "Reportes" ? "active" : "")">                         
                             <a data-toggle="collapse" href="#submenuEJ">
                                 <i class="icon-books"></i>
                                 <p>Ejecución</p>
@@ -353,12 +347,12 @@
                             </a>
                             <div class="collapse" id="submenuEJ">
                                 <ul class="nav nav-collapse">
-                                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Iniciales" ? "active" : "")">
+                                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "CrearInicial" ? "active" : "")">
                                         <a href="@Url.Action("CrearInicial","Iniciales")">
                                             <span class="sub-item">Iniciales</span>
                                         </a>
                                     </li>
-                                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Promociones" ? "active" : "")">
+                                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "CrearPromocion" ? "active" : "")">
                                         <a href="@Url.Action("CrearPromocion","Promociones")">
                                             <span class="sub-item">Promociones</span>
                                         </a>

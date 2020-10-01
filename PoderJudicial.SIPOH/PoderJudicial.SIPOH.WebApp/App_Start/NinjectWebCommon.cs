@@ -79,7 +79,8 @@ namespace PoderJudicial.SIPOH.WebApp.App_Start
             //Inyeccion de servicios para la logica de negocio
             kernel.Bind<ICuentaProcessor>().To<CuentaProcessor>();
             kernel.Bind<IInicialesProcessor>().To<InicialesProcessor>();
-
+            kernel.Bind<IPromocionesProcessor>().To<PromocionesProcessor>();
+    
             //Mapers *********************************************************
             var mapperConfiguration = CreateConfiguration();
             kernel.Bind<MapperConfiguration>().ToConstant(mapperConfiguration).InSingletonScope();
@@ -91,8 +92,11 @@ namespace PoderJudicial.SIPOH.WebApp.App_Start
         {
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap <Ejecucion, BeneficiarioDTO>();
-              
+                cfg.CreateMap<Ejecucion, BeneficiarioDTO>();
+                cfg.CreateMap<EjecucionModelView, Ejecucion>().ReverseMap();
+                cfg.CreateMap<TocasModelView, Expediente>().ReverseMap();
+                cfg.CreateMap<AnexosModelView, Anexo>().ReverseMap();
+                cfg.CreateMap<Expediente, CausasModelView>();
             });
             return config;
         }

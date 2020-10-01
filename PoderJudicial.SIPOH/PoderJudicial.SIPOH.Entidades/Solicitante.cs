@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace PoderJudicial.SIPOH.Entidades
 {
-    public class Anexo
+    public class Solicitante
     {
-        public int IdAnexo { set; get; }
-        public string Descripcion { set; get; }
+        public int IdSolicitante { set; get; }
         public string Tipo { set; get; }
-        public int Cantidad { set; get; }
+        public string Descripcion { set; get; }
     }
 }

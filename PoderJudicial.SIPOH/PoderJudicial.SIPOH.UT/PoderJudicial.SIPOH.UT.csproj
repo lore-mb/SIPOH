@@ -47,12 +47,14 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AlbertoUT\TestBeto.cs" />
     <Compile Include="AlbertoUT\UTCatalogos.cs" />
     <Compile Include="EstherUT\TestEster.cs" />
     <Compile Include="IgmaUT\TesteIgma.cs" />
+    <Compile Include="IgmaUT\UTPromociones.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -67,6 +69,10 @@
     <ProjectReference Include="..\PoderJudicial.SIPOH.Entidades\PoderJudicial.SIPOH.Entidades.csproj">
       <Project>{5B679286-5F8A-490B-AF41-06322870BFCA}</Project>
       <Name>PoderJudicial.SIPOH.Entidades</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PoderJudicial.SIPOH.WebApp\PoderJudicial.SIPOH.WebApp.csproj">
+      <Project>{F5E950CD-8610-439A-AE4C-D986C3866155}</Project>
+      <Name>PoderJudicial.SIPOH.WebApp</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
