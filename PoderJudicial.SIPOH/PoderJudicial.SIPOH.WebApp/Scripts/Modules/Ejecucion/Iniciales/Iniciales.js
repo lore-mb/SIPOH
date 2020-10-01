@@ -880,7 +880,6 @@ function EliminarAnexo(id)
         //Genera nuevamente la tabla
         dataTableAnex = GeneraTablaDatos(dataTableAnex, "dataTableAnexos", anexos, estructuraTablaAnexos, false, false, false);
     }
-
     var mensaje = "¿Desea retirar el anexo de la tabla?";
     MensajeDeConfirmacion(mensaje, "small", funcion);
 }

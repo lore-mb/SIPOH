@@ -22,6 +22,9 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         // GET: Promociones
         public ActionResult CrearPromocion()
         {
+            List<Anexo> ListarAnexosEjecucion = promocionesProcessor.ObtenerAnexosEjecucion("A");
+            ViewBag.AnexoEjec = ListarAnexosEjecucion != null ? ListarAnexosEjecucion : new List<Anexo>(); 
+
             List<Juzgado> ListaJuzgadosPick = promocionesProcessor.ObtenerJuzgadoEjecucionPorCircuito(Usuario.IdCircuito);
             ViewBag.JuzgadoCircuit = ListaJuzgadosPick != null ? ListaJuzgadosPick : new List<Juzgado>();
             return View();
@@ -31,7 +34,6 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         public ActionResult ObtenerJuzgadoEjecucionPorCircuito(int idcircuito)
         {
             List<Juzgado> ListaJuzgados = promocionesProcessor.ObtenerJuzgadoEjecucionPorCircuito(idcircuito);
-            // Validacion Formulario
             ValidarJuzgado(ListaJuzgados);
             Respuesta.Mensaje = promocionesProcessor.Mensaje;
             return Json(Respuesta, JsonRequestBehavior.AllowGet);
@@ -63,6 +65,27 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         }
 
         [HttpGet]
+
+        public ActionResult ObtenerExpedientesPorEjecucion(int idEjecucion) {
+            List<Expediente> ObtenerEPE = promocionesProcessor.ObtenerExpedientesPorEjecucion(idEjecucion);
+            if (ObtenerEPE == null)
+            {
+                Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
+                Respuesta.Data = null;
+            }
+            else {
+                if (ObtenerEPE.Count > 0) {
+                    Respuesta.Estatus = EstatusRespuestaJSON.OK;
+                    Respuesta.Data = new { ObtenerEPE };
+                } else {
+                    Respuesta.Estatus = EstatusRespuestaJSON.SIN_RESPUESTA;
+                    Respuesta.Data = null;
+                }
+
+            }
+            return Json(Respuesta, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult ObtenerExpedienteEjecucionCausa(int idExpediente)
         {
             Expediente ExpedienteCRE = promocionesProcessor.ObtenerExpedienteEjecucionCausa(idExpediente);
@@ -99,7 +122,6 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 Respuesta.Data = null;
             }
             else {
-
                 if (ListaJuzgados.Count > 0)
                 {
                     var ListadoJuzgados = ViewHelper.Options(ListaJuzgados, "IdJuzgado", "Nombre");
@@ -110,12 +132,8 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                     Respuesta.Data = new object();
                     Respuesta.Estatus = EstatusRespuestaJSON.SIN_RESPUESTA;
                 }
-            
-            }
-        
+            } 
         }
-
         #endregion
-
     }
 }
