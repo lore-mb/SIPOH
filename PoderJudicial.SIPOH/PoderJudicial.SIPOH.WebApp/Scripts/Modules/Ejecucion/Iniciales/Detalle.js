@@ -170,16 +170,83 @@ $(document).ready(function ()
 //Funcion para abrir ventana que imprimira sello
 function ImprimirSello()
 {
-    var printContents = document.getElementById('sello').innerHTML;
+    var sello = "";
+
+    var selloArregloSeccion1 = [JustificarEspacio("TRIBUNAL SUPERIOR", 35),
+        JustificarEspacio("DE JUSTICIA", 35),
+        JustificarEspacio("DEL ESTADO DE HIDALGO", 35),
+        JustificarEspacio("ATENCION CIUDADANA", 35),
+        JustificarEspacio("SENTENCIA EJECUTORIADA", 35),
+        JustificarEspacio("INICIAL", 35),
+        JustificarEspacio("------------------", 35)];
+
+    var juzgadoSello = RemoverAcentos($("#juzgadoSello").text());
+    var juzgadoArreglo = JustificarEspacioMaximo(juzgadoSello, 35);
+
+    selloArregloSeccion1.forEach(function (valor, indice, array)
+    {
+        sello = sello + valor;
+    });
+
+    juzgadoArreglo.forEach(function (valor, indice, array)
+    {
+        sello = sello + valor;
+    });
+
+    var numeroEjecucionSello = $("#numeroEjecucionSello").text() + "<br>";
+    var folioSello = $("#folioSello").text() + "<br>";
+    var fechaEjecucion = $("#fechaEjecucion").text() + "<br>";
+
+    var selloArregloSeccion2 = [JustificarEspacio("------------------", 35),
+        numeroEjecucionSello,
+        folioSello,
+        fechaEjecucion];
+
+    selloArregloSeccion2.forEach(function (valor, indice, array)
+    {
+        sello = sello + valor;
+    });
+
+    sello = sello + "  <br>";
+
+    var totalAnexos = $("#total").text();
+    totalAnexos = parseInt(totalAnexos);
+
+    var cantidadTotal = 0;
+    var datosAnexo = [];
+
+    for (var i = 0; i < totalAnexos; i++)
+    {
+        var descripcion = RemoverAcentos($("#descripcion" + i).text());
+        var cantidad = $("#cantidad" + i).text();
+
+        cantidadTotal = cantidadTotal + parseInt(cantidad);
+
+        var objeto = { descripcion: descripcion, cantidad: cantidad }
+        datosAnexo.push(objeto);
+    }
+
+    var objeto = { descripcion: "TOTAL", cantidad: cantidadTotal }
+    datosAnexo.push(objeto);
+
+    var selloArregloSeccion3 = GeneraAnexos(datosAnexo, 35);
+
+    selloArregloSeccion3.forEach(function (valor, indice, array)
+    {
+        sello = sello + valor;
+    });
+
+    //Necesario para Google Chrome
+    sello = "  <BR>"+ sello + "<BR>   <BR>"
+
     var ventana = window.open();
     ventana.document.write("<html><head><title></title>");
-    //ventana.document.write("<link rel=\"stylesheet\" href=\"/Content/Master/Site/sello.css\" type=\"text/css\"/>");
     ventana.document.write("<script src=\"/Scripts/Master/Jquery/jquery.min.js\"></script>");
     ventana.document.write("<script src=\"/Scripts/Modules/Ejecucion/Iniciales/Sello.js\"></script>");       
     ventana.document.write("</head><body>");
-    ventana.document.write("NO SE QUE ESTE PASANDO :P NO SE QUE ESTE PASANDO :P NO SE QUE ESTE PASANDO :P NO SE QUE ESTE PASANDO :P NO SE QUE ESTE PASANDO :P NO SE QUE ESTE PASANDO :P NO SE QUE ESTE PASANDO :P NO SE QUE ESTE PASANDO :P NO SE QUE ESTE PASANDO :P NO SE QUE ESTE PASANDO :P NO SE QUE ESTE PASANDO :P NO SE QUE ESTE PASANDO :P NO SE QUE ESTE PASANDO :P NO SE QUE ESTE PASANDO :P NO SE QUE ESTE PASANDO :P NO SE QUE ESTE PASANDO :P NO SE QUE ESTE PASANDO :P NO SE QUE ESTE PASANDO :P NO SE QUE ESTE PASANDO :P NO SE QUE ESTE PASANDO :P NO SE QUE ESTE PASANDO :P NO SE QUE ESTE PASANDO :P");
+    ventana.document.write("<PRE>" + sello + "</PRE>");
     ventana.document.write("</body></html>");
-    //ventana.document.close(); 
+    ventana.document.close(); 
 }
 
 function Alerta(mensaje, tamanio = null)
@@ -198,4 +265,123 @@ function Alerta(mensaje, tamanio = null)
         },
         size: tamanio
     });
+}
+
+function JustificarEspacio(cadena, cantidad)
+{
+    var totalCadena = cadena.length;
+    var resto = cantidad - totalCadena;
+    var divisor = resto % 2;
+
+    if (divisor == 0)
+    {
+        var rest = resto / 2;
+        return ' '.repeat(rest) + cadena + '<br>';
+    }
+    else
+    {
+        var izquierda = (resto - divisor) / 2;
+        var derecha = izquierda + divisor;
+        return ' '.repeat(izquierda) + cadena + '<br>';
+    }
+}
+
+function JustificarEspacioMaximo(cadena, maximo)
+{
+    var arreglo = cadena.split(' ');
+    var total = arreglo.length;
+    var cadenaNew = "";
+    var cadenaAnte = "";
+    var newArreglo = [];
+
+    for (var i = 0; i < total; i++)
+    {
+        cadenaNew = cadenaNew + (i == 0 ? arreglo[i] : " " + arreglo[i]);
+
+        if (cadenaNew.length < maximo) 
+        {
+            cadenaAnte = cadenaNew;
+
+            if ((i + 1) == total)
+            {
+                newArreglo.push(JustificarEspacio(cadenaAnte, maximo));
+            }
+        }
+
+        if (cadenaNew.length >= maximo)
+        {
+            newArreglo.push(JustificarEspacio(cadenaAnte, maximo));
+            cadenaAnte = arreglo[i];
+            cadenaNew = cadenaAnte;
+
+            if ((i + 1) == total)
+            {
+                newArreglo.push(JustificarEspacio(cadenaNew, maximo));
+            }
+        }
+    }
+
+    return newArreglo;
+}
+
+function GeneraAnexos(datos, cantidadMaxima)
+{
+    var anexos = [];
+    var total2 = datos.length;
+
+    for (var a = 0; a < total2; a++)
+    {
+        var arreglo = datos[a].descripcion.split(' ');
+        var total = arreglo.length;
+        var cadenaNew = "";
+        var cadenaAnte = "";
+
+
+        for (var i = 0; i < total; i++)
+        {
+            cadenaNew = cadenaNew + (i == 0 ? arreglo[i] : " " + arreglo[i]);
+
+            if (cadenaNew.length < cantidadMaxima)
+            {
+                cadenaAnte = cadenaNew;
+
+                if ((i + 1) == total)
+                {
+                    anexos.push(AgregarPuntos(cadenaAnte, cantidadMaxima, datos[a].cantidad));
+                }
+            }
+
+            if (cadenaNew.length >= cantidadMaxima)
+            {
+                anexos.push(cadenaAnte + '<br>');
+                cadenaAnte = arreglo[i];
+                cadenaNew = cadenaAnte;
+
+                if ((i + 1) == total)
+                {
+                    anexos.push(AgregarPuntos(cadenaNew, cantidadMaxima, datos[a].cantidad));
+                }
+            }
+        }
+    }  
+
+    return anexos;
+}
+
+function AgregarPuntos(cadena, cantidad, cantidadAnexo)
+{
+    var totalCadena = cadena.length;
+    var resto = cantidad - totalCadena;
+    var lengCantidadAnexo = cantidadAnexo.toString().length;
+    var puntosLengt = resto - lengCantidadAnexo;
+    puntosLengt = puntosLengt - 2;
+
+    var res = cadena + ' ' + '.'.repeat(puntosLengt) + ' ' + cantidadAnexo + '<br>';
+
+    return res;
+}
+
+function RemoverAcentos(str)
+{
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }

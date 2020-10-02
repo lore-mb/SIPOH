@@ -250,40 +250,25 @@
                 </div>
 
                 <div id="sello" hidden>
-                    <div>
-                            TRIBUNAL SUPERIOR
-                            DE JUSTICIA
-                            DEL ESTADO DE HIDALGO
-                            ATENCION CIUDADANA
-                            SENTENCIA EJECUTORIADA
-                            INICIAL
-                            ------------------
-                            @Html.DisplayFor(model => model.NombreJuzgado)<br>
-                            ------------------
-                        
-                        <p>
-                            Exp. Ejec. : @Html.DisplayFor(model => model.NumeroEjecucion)
-                            Folio : @Html.DisplayFor(model => model.IdEjecucion)
-                            Fecha: @Html.DisplayFor(model => model.FechaEjecucion)
-                        </p>
 
-                        @{int contador = 0;}
+                    <div id="juzgadoSello">@Html.DisplayFor(model => model.NombreJuzgado)</div>
+                    <div id="numeroEjecucionSello">Exp. Ejec.: @Html.DisplayFor(model => model.NumeroEjecucion)</div>
+                    <div id="folioSello">Folio: @Html.DisplayFor(model => model.IdEjecucion)</div>
+                    <div id="fechaEjecucion">Fecha: @Html.DisplayFor(model => model.FechaEjecucion)</div>
+                    <div id="total">@Model.Anexos.Count()</div>
 
-                        @foreach (var item in Model.Anexos)
-                        {
-                            <p>
-                                <span>@item.Descripcion</span>
-                                <span>@item.Cantidad</span>
-                            </p>
-                            contador = contador + @item.Cantidad;
-                        }
+                    @{int contador = 0;}
 
-                        <p >
-                            <span>Total</span>
-                            <span>@contador</span>
-                        </p>
+                    @foreach (var item in Model.Anexos)
+                    {
+                        string des = "descripcion" + contador;
+                        string can = "cantidad" + contador;
 
-                    </div>
+                        <div id='@des'>@item.Descripcion</div>
+                        <div id='@can'>@item.Cantidad</div>
+                        contador = contador + 1;
+                    }
+
                 </div>
             </div>
         </div>
