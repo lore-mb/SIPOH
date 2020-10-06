@@ -38,6 +38,42 @@ namespace PoderJudicial.SIPOH.WebApp.Helpers
             return opciones;
         }
 
+        public static SelectList CreateSelectList<T>(List<T> list, string value, string label)
+        {
+            List<SelectListItem> opciones = new List<SelectListItem>();
+
+            bool selectDefault = list.Count == 1 ? true : false;
+
+            foreach (T objeto in list)
+            {
+                SelectListItem opcion = new SelectListItem();
+
+                PropertyInfo[] properties = typeof(T).GetProperties();
+                foreach (PropertyInfo property in properties)
+                {
+                    if (property.Name == value)
+                    {
+                        opcion.Value = property.GetValue(objeto).ToString();
+                    }
+                    if (property.Name == label)
+                    {
+                        opcion.Text = (string)property.GetValue(objeto);
+                    }
+                }
+
+                if (selectDefault)
+                {
+                    opcion.Selected = true;
+                }
+
+                opciones.Add(opcion);
+            }
+
+            SelectList selectList = new SelectList(opciones, "Value", "Text");
+            return selectList;
+        }
+
+
         public static MvcHtmlString EncodedActionLink(this HtmlHelper htmlHelper, string linkText, string actionName, string controllerName, object routeValues, object htmlAttributes)
         {
             string queryString = string.Empty;
