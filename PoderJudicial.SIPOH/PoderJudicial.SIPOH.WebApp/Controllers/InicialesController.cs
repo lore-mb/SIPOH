@@ -25,200 +25,289 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         
         #region Metodos Publicos del Controlador
         public ActionResult CrearInicial()
-        { 
-            List<Juzgado> juzgadosAcusatorios = inicialesProcessor.RecuperaJuzgado(Usuario.IdCircuito, TipoJuzgado.ACUSATORIO);
-            List<Distrito> distritos = inicialesProcessor.RecuperaDistrito(Usuario.IdCircuito);
-            List<Juzgado> salasAcusatorio = inicialesProcessor.RecuperaSala(TipoJuzgado.ACUSATORIO);
-            List<Juzgado> salasTradicional = inicialesProcessor.RecuperaSala(TipoJuzgado.TRADICIONAL);
-            List<Anexo> anexosEjecucion = inicialesProcessor.RecuperaAnexos("A");
-            List<Solicitud> solicitudes = inicialesProcessor.RecuperaSolicitud();
-            List<Solicitante> solicitantes = inicialesProcessor.RecuperaSolicitante();
+        {
+            try 
+            {
+                //Obtencion de Datos para PinckList al cargado de la vista
+                List<Juzgado> juzgadosAcusatorios = inicialesProcessor.RecuperaJuzgado(Usuario.IdCircuito, TipoJuzgado.ACUSATORIO);
+                List<Distrito> distritos = inicialesProcessor.RecuperaDistrito(Usuario.IdCircuito);
+                List<Juzgado> salasAcusatorio = inicialesProcessor.RecuperaSala(TipoJuzgado.ACUSATORIO);
+                List<Juzgado> salasTradicional = inicialesProcessor.RecuperaSala(TipoJuzgado.TRADICIONAL);
+                List<Anexo> anexosEjecucion = inicialesProcessor.RecuperaAnexos("A");
+                List<Solicitud> solicitudes = inicialesProcessor.RecuperaSolicitud();
+                List<Solicitante> solicitantes = inicialesProcessor.RecuperaSolicitante();
 
-            //Obtiene los Ids del tipo "OTRO" para la validacion de Pick List
-            int idOtroAnexos = anexosEjecucion.Where(x => x.Tipo == "O").Select(x => x.IdAnexo).FirstOrDefault();
-            int idOtroSolicitud = solicitudes.Where(x => x.Tipo == "O").Select(x => x.IdSolicitud).FirstOrDefault();
-            int idOtroSolicitante = solicitantes.Where(x => x.Tipo == "O").Select(x => x.IdSolicitante).FirstOrDefault();
+                //Obtiene los Ids del tipo "OTRO" para la validacion de Pick List
+                int idOtroAnexos = anexosEjecucion.Where(x => x.Tipo == "O").Select(x => x.IdAnexo).FirstOrDefault();
+                int idOtroSolicitud = solicitudes.Where(x => x.Tipo == "O").Select(x => x.IdSolicitud).FirstOrDefault();
+                int idOtroSolicitante = solicitantes.Where(x => x.Tipo == "O").Select(x => x.IdSolicitante).FirstOrDefault();
 
-            //Parametros al View Bag
-            ViewBag.IdCircuito = Usuario.IdCircuito;
-            ViewBag.JuzgadosAcusatorios = juzgadosAcusatorios != null ? juzgadosAcusatorios : new List<Juzgado>();
-            ViewBag.DistritosPorCircuito = distritos != null ? distritos : new List<Distrito>();
-            ViewBag.SalasAcusatorio = salasAcusatorio != null ? salasAcusatorio : new List<Juzgado>();
-            ViewBag.SalasTradicional = salasTradicional != null ? salasTradicional : new List<Juzgado>();
-            ViewBag.AnexosInicales = anexosEjecucion != null ? anexosEjecucion : new List<Anexo>();
-            ViewBag.Solicitudes = solicitudes != null ? solicitudes : new List<Solicitud>();
-            ViewBag.Solicitantes = solicitantes != null ? solicitantes : new List<Solicitante>();
-            ViewBag.IdOtroAnexos = idOtroAnexos;
-            ViewBag.IdOtroSolicitud = idOtroSolicitud;
-            ViewBag.IdOtroSolicitante = idOtroSolicitante;
+                //Parametros al View Bag PickList
+                ViewBag.IdCircuito = Usuario.IdCircuito;
+                ViewBag.JuzgadosAcusatorios = ViewHelper.CreateSelectList(juzgadosAcusatorios, "IdJuzgado", "Nombre");
+                ViewBag.DistritosPorCircuito = ViewHelper.CreateSelectList(distritos, "IdDistrito", "Nombre");
+                ViewBag.SalasAcusatorio = ViewHelper.CreateSelectList(salasAcusatorio, "IdJuzgado", "Nombre");
+                ViewBag.SalasTradicional = ViewHelper.CreateSelectList(salasTradicional, "IdJuzgado", "Nombre");
+                ViewBag.AnexosInicales = ViewHelper.CreateSelectList(anexosEjecucion, "IdAnexo", "Descripcion");
+                ViewBag.Solicitudes = ViewHelper.CreateSelectList(solicitudes, "IdSolicitud", "Descripcion");
+                ViewBag.Solicitantes = ViewHelper.CreateSelectList(solicitantes, "IdSolicitante", "Descripcion");
 
-            return View();
+                //Campos Banderas para validacio de "OTROS" de PickList
+                ViewBag.IdOtroAnexos = idOtroAnexos;
+                ViewBag.IdOtroSolicitud = idOtroSolicitud;
+                ViewBag.IdOtroSolicitante = idOtroSolicitante;
+                ViewBag.SalasAcusatorioTotal = salasAcusatorio != null ? salasAcusatorio.Count() : 0;
+
+                return View();
+            }
+            catch (Exception ex)
+            {
+                return View();
+            }
         }
 
         [HttpGet]
         public ActionResult ObtenerJuzgadoTradicional(int idDistrito)
         {
-            List<Juzgado> juzgados = inicialesProcessor.RecuperaJuzgado(idDistrito, TipoJuzgado.TRADICIONAL);
+            try
+            {
+                List<Juzgado> juzgados = inicialesProcessor.RecuperaJuzgado(idDistrito, TipoJuzgado.TRADICIONAL);
 
-            ValidaJuzgados(juzgados);
-            Respuesta.Mensaje = inicialesProcessor.Mensaje;
-            return Json(Respuesta, JsonRequestBehavior.AllowGet);
+                ValidaJuzgados(juzgados);
+                Respuesta.Mensaje = inicialesProcessor.Mensaje;
+               
+                return Json(Respuesta, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
+                Respuesta.Mensaje = ex.Message;
+                Respuesta.Data = null;
+
+                return Json(Respuesta, JsonRequestBehavior.AllowGet);
+            }
         }
 
         [HttpGet]
         public ActionResult ObtenerDistritosPorCircuito(int idCircuito)
         {
-            List<Distrito> distritos = inicialesProcessor.RecuperaDistrito(idCircuito);
-
-            if (distritos == null)
+            try
             {
-                Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
-                Respuesta.Data = null;
-            }
-            else
-            {
-                if (distritos.Count > 0)
+                List<Distrito> distritos = inicialesProcessor.RecuperaDistrito(idCircuito);
+  
+                if (distritos == null)
                 {
-                    var lista = ViewHelper.Options(distritos, "IdDistrito", "Nombre");
-                    Respuesta.Estatus = EstatusRespuestaJSON.OK;
-                    Respuesta.Data = lista;
+                   Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
+                   Respuesta.Data = null;
                 }
                 else
                 {
-                    Respuesta.Data = new object();
-                    Respuesta.Estatus = EstatusRespuestaJSON.SIN_RESPUESTA;
+                   if (distritos.Count > 0)
+                   {
+                       var lista = ViewHelper.Options(distritos, "IdDistrito", "Nombre");
+                       Respuesta.Estatus = EstatusRespuestaJSON.OK;
+                       Respuesta.Data = lista;
+                   }
+                   else
+                   {
+                      Respuesta.Data = new object();
+                      Respuesta.Estatus = EstatusRespuestaJSON.SIN_RESPUESTA;
+                   }
                 }
-            }
 
-            Respuesta.Mensaje = inicialesProcessor.Mensaje;
-            return Json(Respuesta, JsonRequestBehavior.AllowGet);
+                Respuesta.Mensaje = inicialesProcessor.Mensaje;
+                return Json(Respuesta, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
+                Respuesta.Mensaje = ex.Message;
+                Respuesta.Data = null;
+
+                return Json(Respuesta, JsonRequestBehavior.AllowGet);
+            }
         }
 
         [HttpGet]
         public ActionResult ObtenerExpedientePorNUC(int idJuzgado, string nuc) 
         {
-            Expediente expedientes = inicialesProcessor.RecuperaExpedientes(idJuzgado, nuc, TipoExpediente.NUC);
+            try
+            {
+                Expediente expedientes = inicialesProcessor.RecuperaExpedientes(idJuzgado, nuc, TipoExpediente.NUC);
 
-            ValidaExpedientes(expedientes);
-            Respuesta.Mensaje = inicialesProcessor.Mensaje;
+                ValidaExpedientes(expedientes);
+                Respuesta.Mensaje = inicialesProcessor.Mensaje;
 
-            return Json(Respuesta, JsonRequestBehavior.AllowGet);
+                return Json(Respuesta, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
+                Respuesta.Mensaje = ex.Message;
+                Respuesta.Data = null;
+
+                return Json(Respuesta, JsonRequestBehavior.AllowGet);
+            }
         }
 
         [HttpGet]
         public ActionResult ObtenerExpedientePorCausa(int idJuzgado, string numeroCausa)
         {
-            Expediente expedientes = inicialesProcessor.RecuperaExpedientes(idJuzgado, numeroCausa, TipoExpediente.CAUSA);
+            try
+            {
+                Expediente expedientes = inicialesProcessor.RecuperaExpedientes(idJuzgado, numeroCausa, TipoExpediente.CAUSA);
             
-            ValidaExpedientes(expedientes);
-            Respuesta.Mensaje = inicialesProcessor.Mensaje;
+                ValidaExpedientes(expedientes);
+                Respuesta.Mensaje = inicialesProcessor.Mensaje;
 
-            return Json(Respuesta, JsonRequestBehavior.AllowGet);
+                return Json(Respuesta, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
+                Respuesta.Mensaje = ex.Message;
+                Respuesta.Data = null;
+
+                return Json(Respuesta, JsonRequestBehavior.AllowGet);
+            }
         }
    
         [HttpGet]
         public ActionResult ConsultarSentenciadoBeneficiario(string nombreBene, string apellidoPaternoBene, string apellidoMaternoBene) 
         {
-            List<Ejecucion> beneficiarios = inicialesProcessor.RecuperaSentenciadoBeneficiario(nombreBene, apellidoPaternoBene, apellidoMaternoBene);
+            try
+            {
+                List<Ejecucion> beneficiarios = inicialesProcessor.RecuperaSentenciadoBeneficiario(nombreBene, apellidoPaternoBene, apellidoMaternoBene);
             
-            //Se genera DTO con la informacion necesaria para la solicitud Ajax
-            List<BeneficiarioDTO> beneficiariosDTO = mapper.Map<List<Ejecucion>, List<BeneficiarioDTO>>(beneficiarios);
-
-            if (beneficiariosDTO == null)
-            {
-                Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
-                Respuesta.Data = null;
-            }
-            else
-            {
-                if (beneficiariosDTO.Count > 0)
+                if (beneficiarios == null)
                 {
-                    Respuesta.Estatus = EstatusRespuestaJSON.OK;
-                    Respuesta.Data = new { beneficiarios = beneficiariosDTO, total = beneficiariosDTO.Count };
+                    Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
+                    Respuesta.Data = null;
                 }
                 else
                 {
-                    Respuesta.Data = new object();
-                    Respuesta.Estatus = EstatusRespuestaJSON.SIN_RESPUESTA;
-                }
-            }
+                   //Se genera DTO con la informacion necesaria para la solicitud Ajax
+                   List<BeneficiarioDTO> beneficiariosDTO = mapper.Map<List<Ejecucion>, List<BeneficiarioDTO>>(beneficiarios);
 
-            Respuesta.Mensaje = inicialesProcessor.Mensaje;
-            return Json(Respuesta, JsonRequestBehavior.AllowGet);
+                   if (beneficiariosDTO.Count > 0)
+                   {
+                      Respuesta.Estatus = EstatusRespuestaJSON.OK;
+                      Respuesta.Data = new { beneficiarios = beneficiariosDTO, total = beneficiariosDTO.Count };
+                   }
+                   else
+                   {
+                      Respuesta.Data = new object();
+                      Respuesta.Estatus = EstatusRespuestaJSON.SIN_RESPUESTA;
+                   }
+                }
+
+                Respuesta.Mensaje = inicialesProcessor.Mensaje;
+                return Json(Respuesta, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
+                Respuesta.Mensaje = ex.Message;
+                Respuesta.Data = null;
+
+                return Json(Respuesta, JsonRequestBehavior.AllowGet);
+            }
         }
 
         [HttpPost]
         public ActionResult CrearEjecucion(EjecucionModelView modelo) 
         {
-            //Se mapea la informacion a Ejecucion
-            Ejecucion ejecucion = mapper.Map<EjecucionModelView, Ejecucion>(modelo);
+            try
+            {
+                //Se mapea la informacion a Ejecucion
+                Ejecucion ejecucion = mapper.Map<EjecucionModelView, Ejecucion>(modelo);
             
-            //Id del usuario logeado
-            ejecucion.IdUsuario = Usuario.Id;
+                //Id del usuario logeado
+                ejecucion.IdUsuario = Usuario.Id;
 
-            List<Expediente> tocas = mapper.Map<List<TocasModelView>, List<Expediente>>(modelo.Tocas);
-            List<Anexo> anexos = mapper.Map<List<AnexosModelView>, List<Anexo>>(modelo.Anexos);
-            List<int> causas = modelo.Causas.Select(x => x.IdExpediente).ToList();
-            List<string> amparos = modelo.Amparos != null ? modelo.Amparos : new List<string>();
+                List<Expediente> tocas = mapper.Map<List<TocasModelView>, List<Expediente>>(modelo.Tocas);
+                List<Anexo> anexos = mapper.Map<List<AnexosModelView>, List<Anexo>>(modelo.Anexos);
+                List<int> causas = modelo.Causas.Select(x => x.IdExpediente).ToList();
+                List<string> amparos = modelo.Amparos != null ? modelo.Amparos : new List<string>();
 
-            int? folio = inicialesProcessor.CrearRegistroInicialDeEjecucion(ejecucion, tocas, anexos, amparos, causas, Usuario.IdCircuito);
+                int? folio = inicialesProcessor.CrearRegistroInicialDeEjecucion(ejecucion, tocas, anexos, amparos, causas, Usuario.IdCircuito);
+ 
+                if (folio == null) 
+                {
+                   Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
+                   Respuesta.Mensaje = inicialesProcessor.Mensaje;
+                }
 
-            if (folio == null) 
+                if (folio != null)
+                { 
+                   //Genera los parametro encriptados
+                   string url = ViewHelper.EncodedActionLink("Detalle", "Iniciales", new { Folio = folio });
+
+                   Respuesta.Estatus = EstatusRespuestaJSON.OK;
+                   Respuesta.Mensaje = inicialesProcessor.Mensaje;
+                   Respuesta.Data = new { Url = url };
+                }
+   
+                System.Threading.Thread.Sleep(2000);
+                return Json(Respuesta, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
             {
                 Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
-                Respuesta.Mensaje = inicialesProcessor.Mensaje;
-            }
+                Respuesta.Mensaje = ex.Message;
+                Respuesta.Data = null;
 
-            if (folio != null)
-            { 
-                //Genera los parametro encriptados
-                string url = ViewHelper.EncodedActionLink("Detalle", "Iniciales", new { Folio = folio });
-
-                Respuesta.Estatus = EstatusRespuestaJSON.OK;
-                Respuesta.Mensaje = inicialesProcessor.Mensaje;
-                Respuesta.Data = new { Url = url };
+                return Json(Respuesta, JsonRequestBehavior.AllowGet);
             }
-   
-            System.Threading.Thread.Sleep(2000);
-            return Json(Respuesta, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
         [EncriptarParametroFilter]
         public ActionResult Detalle(int folio)
         {
-            //Creacion del modelo que se enviara a la vista
-            EjecucionModelView modelo = new EjecucionModelView();
-
-            //Objetos para pasar como referencia
-            Ejecucion inicial = new Ejecucion();
-            List<Expediente> causas = new List<Expediente>();
-            List<Expediente> tocas = new List<Expediente>();
-            List<string> amparos = new List<string>();
-            List<Anexo> anexos = new List<Anexo>();
-            List<Relacionadas> entidad = new List<Relacionadas>();
-
-            //Metodo que consulta a la bd la informacion relacionada a la ejecucion
-            bool fueCorrectoElProceso = inicialesProcessor.ObtenerInformacionGeneralInicialDeEjecucion(folio, ref inicial, ref causas, ref tocas, ref amparos, ref anexos, ref entidad);
-
-            if (inicial != null)
+            try
             {
-                modelo = mapper.Map<Ejecucion, EjecucionModelView>(inicial);
-                modelo.Causas = mapper.Map<List<Expediente>, List<CausasModelView>>(causas);
-                modelo.Tocas = mapper.Map<List<Expediente>, List<TocasModelView>>(tocas);
-                modelo.Amparos = amparos == null ? new List<string>() : amparos;
-                modelo.Anexos = mapper.Map<List<Anexo>, List<AnexosModelView>>(anexos);
+                //Creacion del modelo que se enviara a la vista
+                EjecucionModelView modelo = new EjecucionModelView();
+
+                //Objetos para pasar como referencia
+                Ejecucion inicial = new Ejecucion();
+                List<Expediente> causas = new List<Expediente>();
+                List<Expediente> tocas = new List<Expediente>();
+                List<string> amparos = new List<string>();
+                List<Anexo> anexos = new List<Anexo>();
+                List<Relacionadas> entidad = new List<Relacionadas>();
+
+                //Metodo que consulta a la bd la informacion relacionada a la ejecucion
+                bool fueCorrectoElProceso = inicialesProcessor.ObtenerInformacionGeneralInicialDeEjecucion(folio, ref inicial, ref causas, ref tocas, ref amparos, ref anexos, ref entidad);
+
+                if (inicial != null)
+                {
+                    modelo = mapper.Map<Ejecucion, EjecucionModelView>(inicial);
+                    modelo.Causas = mapper.Map<List<Expediente>, List<CausasModelView>>(causas);
+                    modelo.Tocas = mapper.Map<List<Expediente>, List<TocasModelView>>(tocas);
+                    modelo.Amparos = amparos == null ? new List<string>() : amparos;
+                    modelo.Anexos = mapper.Map<List<Anexo>, List<AnexosModelView>>(anexos);
+                }
+
+                ViewBag.Ejecucion = entidad.Contains(Relacionadas.EJECUCION);
+                ViewBag.Tocas = entidad.Contains(Relacionadas.TOCAS);
+                ViewBag.Amparos = entidad.Contains(Relacionadas.AMPAROS);
+                ViewBag.Causas = entidad.Contains(Relacionadas.CAUSAS);
+                ViewBag.Anexos = entidad.Contains(Relacionadas.ANEXOS);
+                ViewBag.fueCorrectoElProceso = fueCorrectoElProceso;
+                ViewBag.Mensaje = inicialesProcessor.Mensaje;
+
+                return View(modelo);
             }
+            catch (Exception ex)
+            {
+                Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
+                Respuesta.Mensaje = ex.Message;
+                Respuesta.Data = null;
 
-            ViewBag.Ejecucion = entidad.Contains(Relacionadas.EJECUCION);
-            ViewBag.Tocas = entidad.Contains(Relacionadas.TOCAS);
-            ViewBag.Amparos = entidad.Contains(Relacionadas.AMPAROS);
-            ViewBag.Causas = entidad.Contains(Relacionadas.CAUSAS);
-            ViewBag.Anexos = entidad.Contains(Relacionadas.ANEXOS);
-            ViewBag.fueCorrectoElProceso = fueCorrectoElProceso;
-            ViewBag.Mensaje = inicialesProcessor.Mensaje;
-
-            return View(modelo);
+                return Json(Respuesta, JsonRequestBehavior.AllowGet);
+            }
         }
 
         #endregion

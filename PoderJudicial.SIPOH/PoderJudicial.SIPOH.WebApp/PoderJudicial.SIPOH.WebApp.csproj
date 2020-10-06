@@ -193,8 +193,11 @@
     <Content Include="Content\Master\Fonts\webfonts\fa-regular-400.svg" />
     <Content Include="Content\Master\Fonts\webfonts\fa-solid-900.svg" />
     <Content Include="Content\Master\Img\Background_ProcuradoriaHidalgo.jpg" />
+    <Content Include="Content\Master\Img\loader_loop.gif" />
     <Content Include="Content\Master\Img\loader_puntos.gif" />
+    <Content Include="Content\Master\Img\loading.gif" />
     <Content Include="Content\Master\Img\PoderJudicialHgo.png" />
+    <Content Include="Content\Master\Img\Spin-1s-200px.gif" />
     <Content Include="Content\Master\Site\bootstrap.css" />
     <Content Include="Content\Master\Site\sello.css" />
     <Content Include="Content\Master\Vectors\Sipoh.svg" />

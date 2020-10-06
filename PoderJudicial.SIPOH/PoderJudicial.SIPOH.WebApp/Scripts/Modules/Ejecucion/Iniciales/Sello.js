@@ -1,7 +1,6 @@
 ﻿
-//$(document).ready(function ()
-//{
-//    alert("Hola");
-//    //window.print();
-//    //window.close();
-//});
+$(document).ready(function ()
+{
+    window.print();
+    window.close();
+});

@@ -65,12 +65,12 @@ namespace PoderJudicial.SIPOH.Negocio
         {
             Expediente expedientes = expedienteRepositorio.ObtenerExpedientes(idJuzgado, numeroExpediente, expediente);
 
-            if(expedienteRepositorio.Estatus == Estatus.SIN_RESULTADO)
+            if (expedienteRepositorio.Estatus == Estatus.SIN_RESULTADO)
                 Mensaje = "La consulta no genero ningun resultado";
 
             else if (expedienteRepositorio.Estatus == Estatus.ERROR)
             {
-                Mensaje = "Ocurrio un error interno no controlado, consulte a soporte";
+                Mensaje = "Ocurrio un error al consultar la informacion solicitada";
                 string mensajeLogger = catalogosRepositorio.MensajeError;
                 //Logica para ILogger
             }
@@ -106,7 +106,7 @@ namespace PoderJudicial.SIPOH.Negocio
 
             else if (catalogosRepositorio.Estatus == Estatus.ERROR)
             {
-                Mensaje = "Ocurrio un error interno no controlado, consulte a soporte";
+                Mensaje = "Ocurrio un error interno no controlado por el sistema, al intentar consultar los beneficiarios coincidentes";
                 string mensajeLogger = catalogosRepositorio.MensajeError;
                 //Logica para ILogger
             }

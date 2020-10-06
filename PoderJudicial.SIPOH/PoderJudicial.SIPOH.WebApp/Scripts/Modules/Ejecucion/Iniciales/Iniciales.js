@@ -61,6 +61,7 @@ $(document).ready(function ()
 //Elementos al Cargado
 function ElementosAlCargado()
 {
+    //$("#loading").fadeIn();
     FormatearSelects();
     FormatearInputs();
 
@@ -70,8 +71,10 @@ function ElementosAlCargado()
     $("#seccionTablaAnexos").hide();
     $("#seccionBotonGuardar").hide();
 
-    $(document).on("keydown", ":input:not(textarea)", function (event) {
-        if (event.key == "Enter") {
+    $(document).on("keydown", ":input:not(textarea)", function (event)
+    {
+        if (event.key == "Enter")
+        {
             event.preventDefault();
         }
     });
@@ -79,8 +82,10 @@ function ElementosAlCargado()
     //Funcionalidad para validar formularios
     var forms = document.getElementsByClassName('needs-validation');
 
-    Array.prototype.filter.call(forms, function (form) {
-        form.addEventListener('submit', function (event) {
+    Array.prototype.filter.call(forms, function (form)
+    {
+        form.addEventListener('submit', function (event)
+        {
             var id = form.id;
 
             event.preventDefault();
@@ -88,31 +93,38 @@ function ElementosAlCargado()
 
             form.classList.add('was-validated');
 
-            if (form.checkValidity() === true && id == "formCausas") {
+            if (form.checkValidity() === true && id == "formCausas")
+            {
                 ConsultarCausas(true);
             }
 
-            if (form.checkValidity() === true && id == "formCausasTradicional") {
+            if (form.checkValidity() === true && id == "formCausasTradicional")
+            {
                 ConsultarCausas(false);
             }
 
-            if (form.checkValidity() === true && id == "formTocas") {
+            if (form.checkValidity() === true && id == "formTocas")
+            {
                 AgregarTocas();
             }
 
-            if (form.checkValidity() === true && id == "formAmparos") {
+            if (form.checkValidity() === true && id == "formAmparos")
+            {
                 AgregaAmparos();
             }
 
-            if (form.checkValidity() === true && id == "formAnexos") {
+            if (form.checkValidity() === true && id == "formAnexos")
+            {
                 AgregarAnexosInicales();
             }
 
-            if (form.checkValidity() === true && id == "formEjecucion") {
+            if (form.checkValidity() === true && id == "formEjecucion")
+            {
                 GenerarEjecucion();
             }
 
-            if (id == "formEjecucion") {
+            if (id == "formEjecucion")
+            {
                 formEjecucionValidado = true;
             }
 
@@ -123,35 +135,42 @@ function ElementosAlCargado()
 
     $("#slctJuzgadoTradi").prop('disabled', true);
 
-    $('#slctDistrito').change(function () {
+    $('#slctDistrito').change(function ()
+    {
         idDistrito = $("#slctDistrito").find('option:selected').val();
 
         //Metodo que contiene el proceso para llenado de pick List Juzgados Tradicionales
-        if (idDistrito != "" && idDistrito != null) {
+        if (idDistrito != "" && idDistrito != null)
+        {
             $("#slctJuzgadoTradi").prop('disabled', false);
             DistritoJuzgadoTradicional();
         }
-        else {
+        else
+        {
             $("#slctJuzgadoTradi").prop('disabled', true);
             $("#slctJuzgadoTradi").html("");
             $("#slctJuzgadoTradi").append($("<option/>", { value: "", text: "SELECCIONAR OPCIÓN" }));
         }
     });
 
-    $("#botonMostrarBeneficiarios").click(function () {
+    $("#botonMostrarBeneficiarios").click(function ()
+    {
         var apellidoPBene = $('#inpApellidoPaterno').val();
         var NombreBene = $('#inpNombreSentenciado').val();
 
-        if (NombreBene != "" && apellidoPBene != "" && encontroBeneficiarios) {
+        if (NombreBene != "" && apellidoPBene != "" && encontroBeneficiarios)
+        {
             $('#ejecucionModal').modal('show');
         }
     });
 
-    $("#botonCheckBeneficiarios").click(function () {
+    $("#botonCheckBeneficiarios").click(function ()
+    {
         var apellidoPBene = $('#inpApellidoPaterno').val();
         var NombreBene = $('#inpNombreSentenciado').val();
 
-        if (NombreBene != "" && apellidoPBene != "" && !mostrarSeccionesBeneficiario) {
+        if (NombreBene != "" && apellidoPBene != "" && !mostrarSeccionesBeneficiario)
+        {
             mostrarSeccionesBeneficiario = true;
             $("#botonCerrarBeneficiarios").removeClass("btn-secondary");
             $("#botonCerrarBeneficiarios").addClass("btn-danger")
@@ -162,7 +181,8 @@ function ElementosAlCargado()
         }
     });
 
-    $("#botonCerrarBeneficiarios").click(function () {
+    $("#botonCerrarBeneficiarios").click(function ()
+    {
         mostrarSeccionesBeneficiario = false;
         $("#seccionBeneficiario").hide();
         $("#seccionBusquedaAnexos").hide();
@@ -172,14 +192,16 @@ function ElementosAlCargado()
         $("#botonCerrarBeneficiarios").removeClass("btn-danger");
         $("#botonCerrarBeneficiarios").addClass("btn-secondary");
 
-        if (formEjecucionValidado) {
+        if (formEjecucionValidado)
+        {
             var form = $('#formEjecucion')[0];
             $(form).removeClass('was-validated');
             formEjecucionValidado = false;
         }
     });
 
-    $("#btnCancelar").click(function () {
+    $("#btnCancelar").click(function ()
+    {
         $("#ejecucionModal").modal("hide");
 
         $("#botonCheckBeneficiarios").removeClass("btn-success");
@@ -204,14 +226,16 @@ function ElementosAlCargado()
         $("#seccionTablaAnexos").hide();
         $("#seccionBotonGuardar").hide();
 
-        if (formEjecucionValidado) {
+        if (formEjecucionValidado)
+        {
             var form = $('#formEjecucion')[0];
             $(form).removeClass('was-validated');
             formEjecucionValidado = false;
         }
     });
 
-    $("#btnAceptar").click(function () {
+    $("#btnAceptar").click(function ()
+    {
         mostrarSeccionesBeneficiario = true;
         $("#ejecucionModal").modal("hide");
         $("#botonCerrarBeneficiarios").removeClass("btn-secondary");
@@ -222,33 +246,40 @@ function ElementosAlCargado()
         $("#seccionBotonGuardar").show();
     });
 
-    $('#inpApellidoPaterno').change(function () {
+    $('#inpApellidoPaterno').change(function ()
+    {
         ValidarBeneficiarios();
     });
 
-    $('#inpNombreSentenciado').change(function () {
+    $('#inpNombreSentenciado').change(function ()
+    {
         ValidarBeneficiarios();
     });
 
-    $('#inpApellidoMaterno').change(function () {
+    $('#inpApellidoMaterno').change(function ()
+    {
         ValidarBeneficiarios();
     });
 
-    $('#slctSolicitud').change(function () {
+    $('#slctSolicitud').change(function ()
+    {
         var value = $("#slctSolicitud").find('option:selected').val();
 
-        if (value == idOtroSolicitud) {
+        if (value == idOtroSolicitud)
+        {
             $("#inpOtraSolicitud").prop('disabled', false);
             $("#inpOtraSolicitud").prop('required', true);
         }
-        else {
+        else
+        {
             $("#inpOtraSolicitud").prop('disabled', true);
             $("#inpOtraSolicitud").prop('required', false);
             $("#inpOtraSolicitud").val("");
         }
     });
 
-    $("#juzgadoT-tab").click(function () {
+    $("#juzgadoT-tab").click(function ()
+    {
         //Para que al cargado no se vea el elemento ocultandose
         esTradicional = true;
         $('#slctSalaTradicional').removeAttr('hidden');
@@ -260,7 +291,8 @@ function ElementosAlCargado()
         $("#slctSalaAcusatorio").prop('required', false);
     });
 
-    $("#juzgadoA-tab").click(function () {
+    $("#juzgadoA-tab").click(function ()
+    {
         esTradicional = false;
         $('#slctSalaAcusatorio').show();
         $("#slctSalaAcusatorio").prop('required', true);
@@ -269,14 +301,17 @@ function ElementosAlCargado()
         $("#slctSalaTradicional").prop('required', false);
     });
 
-    $('#slctAnexosInicales').change(function () {
+    $('#slctAnexosInicales').change(function ()
+    {
         var value = $("#slctAnexosInicales").find('option:selected').val();
 
-        if (value == idOtroAnexos) {
+        if (value == idOtroAnexos)
+        {
             $("#inpOtroAnexo").prop('disabled', false);
             $("#inpOtroAnexo").prop('required', true);
         }
-        else {
+        else
+        {
             $("#inpOtroAnexo").prop('disabled', true);
             $("#inpOtroAnexo").prop('required', false);
             $("#inpOtroAnexo").val("");
@@ -439,6 +474,7 @@ function LlenaTablaConsultaBeneficiarios(data)
     else if (data.Estatus == EstatusRespuesta.SIN_RESPUESTA)
     {
         encontroBeneficiarios = false;
+
         $("#inpBusquedaSentenciado").val("Total : 0");  
         $("#inpBusquedaSentenciado").css('border', function ()
         {
@@ -449,7 +485,7 @@ function LlenaTablaConsultaBeneficiarios(data)
         $("#botonMostrarBeneficiarios").addClass("btn-secondary");
 
         $("#botonCerrarBeneficiarios").removeClass("btn-secondary");
-        $("#botonCerrarBeneficiarios").addClass("btn-danger")
+        $("#botonCerrarBeneficiarios").addClass("btn-danger");
 
         $("#seccionBeneficiario").show();
         $("#seccionBusquedaAnexos").show();
@@ -458,9 +494,34 @@ function LlenaTablaConsultaBeneficiarios(data)
 
         mostrarSeccionesBeneficiario = true;
     }
-    else
+    else if (data.Estatus == EstatusRespuesta.ERROR)
     {
+        encontroBeneficiarios = false;
 
+        $("#inpBusquedaSentenciado").val("Total : 0");
+        $("#inpBusquedaSentenciado").css('border', function () {
+            return '1px solid #b0bec5';
+        });
+
+        $("#botonMostrarBeneficiarios").removeClass("btn-warning");
+        $("#botonMostrarBeneficiarios").removeClass("btn-secondary");
+        $("#botonMostrarBeneficiarios").addClass("btn-secondary");
+
+        $("#botonCerrarBeneficiarios").removeClass("btn-danger");
+        $("#botonCerrarBeneficiarios").removeClass("btn-secondary");
+        $("#botonCerrarBeneficiarios").addClass("btn-secondary");
+
+        $("#botonCheckBeneficiarios").removeClass("btn-success");
+        $("#botonCheckBeneficiarios").removeClass("btn-secondary");
+        $("#botonCheckBeneficiarios").addClass("btn-secondary");
+
+        var funcion = function ()
+        {
+            ValidarBeneficiarios();
+        }
+
+        var mensaje = "Mensaje: " + data.Mensaje + ". Precione Aceptar para intentarlo nuevamente, si el problema continua vuelva intentarlo mas tarde o consulte a soporte.";
+        MensajeDeConfirmacion(mensaje, "large", funcion, null, "Error no Controlado por el Sistema");
     }
 }
 // #endregion 
@@ -609,7 +670,8 @@ function ListarCausas(data)
         }
         else if (data.Estatus == EstatusRespuesta.ERROR)
         {
-            Alerta(data.Mensaje);
+            var mensaje = "Mensaje: " + data.Mensaje + ". Precione Aceptar para intentarlo nuevamente, si el problema continua vuelva intentarlo mas tarde o consulte a soporte.";      
+            Alerta(mensaje, "large", "Error no Controlado por el Sistema");
         }
         else if (data.Estatus == EstatusRespuesta.SIN_RESPUESTA)
         {
@@ -823,7 +885,8 @@ function GeneraArregloNumeroAmparos()
 {
     var numeroAmparos = [];
 
-    for (var index = 0; index < amparos.length; index++) {
+    for (var index = 0; index < amparos.length; index++)
+    {
         numeroAmparos.push(amparos[index].amparo);
     }
 
@@ -923,10 +986,10 @@ function GenerarEjecucion()
         OtraSolicita: $("#inpOtraSolicitud").val()
     };
 
-    SolicitudEstandarPostAjax('/Iniciales/CrearEjecucion', parametros, RederizarDetalle);
+    SolicitudEstandarPostAjax('/Iniciales/CrearEjecucion', parametros, RederizarDetalleSuccess, RederizarDetalleError);
 }
 
-function RederizarDetalle(data)
+function RederizarDetalleSuccess(data)
 {
     if (data.Estatus == EstatusRespuesta.OK)
     {
@@ -956,157 +1019,29 @@ function RederizarDetalle(data)
     }
 }
 
-function ConsultarInformacionDetalle(data)
+function RederizarDetalleError(data)
 {
-    if (data.Estatus == EstatusRespuesta.OK)
+    $("#loading").fadeOut();
+
+    if (intentos > 2)
     {
-        idEjecucion = data.Data.Folio;
-        var parametros = { folio: idEjecucion };
-
-        intentos = 1;
-        SolicitudEstandarPostAjax('/Iniciales/GeneraDetalle', parametros, RederizarDetalleParcial);
-    }
-    else if (data.Estatus == EstatusRespuesta.ERROR)
-    {
-        $("#loading").fadeOut();
-
-        if (intentos > 2)
-        {
-            var mensaje = "Mensaje: " + data.Mensaje + ". <br><br>Intentos: " + intentos + "<br><br><b>Ha superado el numero maximo de intentos, vuelva intentarlo mas tarde o consulte a soporte</b";
-            intentos = 0;
-
-            Alerta(mensaje, "large");
-        }
-        else
-        {
-            var mensaje = "Mensaje: " + data.Mensaje + ", de click en Aceptar para intentar crear el registro nuevamente.<br><br>Intentos: " + intentos;
-
-            reintento = true;
-            MensajeDeConfirmacion(mensaje, "large", GenerarEjecucion, null, titulo = "Error no controlado por el sistema");
-        }
-    }
-}
-
-function RederizarDetalleParcial(data)
-{
-    if (data.Estatus == EstatusRespuesta.OK)
-    {
+        var mensaje = "Mensaje: " + data + ". <br><br>Intentos: " + intentos + "<br><br><b>Ha superado el numero maximo de intentos, vuelva intentarlo mas tarde o consulte a soporte</b";
         intentos = 0;
-        //Oculta modulo para generar ejecucion
-        $("#crearEjecucion").hide();
 
-        ////Muestra el detalle generado por medio de la vista parcial
-        $("#detalle").html(data.VistaRender);
-        $('#detalle').removeAttr('hidden');
-
-        //Aplica la funcionalidad a tablas y botones
-        FuncionalidadParaVistaDetalle();
-        $("#detalle").show();
-
-        $("#btnGeneraSello").click(function ()
-        {
-            ImprimirSello();
-        });
-
-        $("#loading").fadeOut();
-
+        Alerta(mensaje, "large");
     }
-    else if (data.Estatus == EstatusRespuesta.ERROR)
+    else
     {
-        $("#loading").fadeOut();   
+        var mensaje = "Mensaje: " + data + ", de click en Aceptar para intentar crear el registro nuevamente.<br><br>Intentos: " + intentos;
 
-        if (intentos > 2)
-        {
-            var mensaje = "Mensaje: " + data.Mensaje + ". <br><br>Intentos: " + intentos + "<br><br><b>Ha superado el numero maximo de intentos, consulte a soporte o intente acceder a la siguiente ruta mas tarde para recuperar el sello.</b>";
-            intentos = 0;
-
-            Alerta(mensaje, "large");
-        }
-        else
-        {
-
-        }
+        reintento = true;
+        MensajeDeConfirmacion(mensaje, "large", GenerarEjecucion, null, titulo = "Error no controlado por el sistema");
     }
-}
-
-function FuncionalidadParaVistaDetalle()
-{
-    //Funcionalidad para abrir Modal
-    $('#dataTableExpedienteDetalle').DataTable({
-        searching: false,
-        ordering: false,
-        lengthChange: false,
-        responsive: true,
-        "language":
-        {
-            "sProcessing": "Procesando...",
-            "sLengthMenu": "Mostrar _MENU_ registros",
-            "sZeroRecords": "No se encontraron resultados",
-            "sEmptyTable": "Ningún dato disponible en esta tabla",
-            "sInfo": "_START_ al _END_ de _TOTAL_",
-            "sInfoEmpty": "0 al 0 de 0",
-            "sInfoFiltered": "(Total _MAX_ registros)",
-            "sInfoPostFix": "",
-            "sSearch": "Buscar:",
-            "sUrl": "",
-            "sInfoThousands": ",",
-            "sLoadingRecords": "Cargando...",
-            "oPaginate": {
-                "sFirst": "Primero",
-                "sLast": "Último",
-                "sNext": "Siguiente",
-                "sPrevious": "Anterior"
-            },
-            "oAria": {
-                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-            },
-        }
-    });
-
-    $('#dataTableTocasDetalle').DataTable({
-        searching: false,
-        ordering: false,
-        paging: false,
-        info: false,
-        responsive: true,
-    });
-
-    $('#dataTableAmparosDetalle').DataTable({
-        searching: false,
-        ordering: false,
-        paging: false,
-        info: false,
-        responsive: true,
-    });
-
-    $('#dataTableAnexosDetalle').DataTable({
-        searching: false,
-        ordering: false,
-        paging: false,
-        info: false,
-        responsive: true,
-    });
-}
-
-function ImprimirSello()
-{
-    var printContents = document.getElementById('sello').innerHTML;
-    var ventana = window.open();
-    ventana.document.write("<html><head><title></title>");
-    //ventana.document.write("<link rel=\"stylesheet\" href=\"/Content/Master/Site/sello.css\" type=\"text/css\"/>");
-    //ventana.document.write("<script src=\"/Scripts/Master/Jquery/jquery.min.js\"></script>");
-    //ventana.document.write("<script src=\"/Scripts/Modules/Ejecucion/Iniciales/Sello.js\"></script>");
-    ventana.document.write("</head><body>");
-    ventana.document.write(printContents);
-    ventana.document.write("</body></html>");
-    ventana.document.close();
 }
 // #endregion 
 
-
 // #region Metodos Genericos
-function SolicitudEstandarAjax(url, parametros, funcion)
+function SolicitudEstandarAjax(url, parametros, functionCallbackSuccess, functionCallbackError = null)
 {
     $.ajax({
         url: url,
@@ -1120,12 +1055,49 @@ function SolicitudEstandarAjax(url, parametros, funcion)
         },
         success: function (data)
         {
-            funcion(data);
+            functionCallbackSuccess(data);
         },
-        error: function (xhr)
+        error: function (jqXHR)
         {
-            alert('Error Ajax: ' + xhr.statusText);
-            //  $("#loading").fadeOut();
+            $("#loading").fadeOut();
+
+            var mensaje = '';
+
+            if (jqXHR.status === 0)
+            {
+                mensaje = 'No esta conectado, verifique su conexión.';
+            }
+            else if (jqXHR.status == 404)
+            {
+                mensaje = 'No se encontró la página solicitada, ERROR:404';
+            }
+            else if (jqXHR.status == 500)
+            {
+                mensaje = "Error interno del servidor, ERROR:500";
+            }
+            else if (exception === 'timeout')
+            {
+                mensaje = 'Error de Time Out.';
+            }
+            else if (exception === 'abort')
+            {
+                mensaje = 'Solicitud AJAX Abortada.';
+            }
+            else
+            {
+                mensaje = 'Error no detectado : ' + jqXHR.responseText;
+            }
+
+            if (functionCallbackError == null)
+            {
+                Alerta(mensaje, "large", "Error ");
+            }
+
+            if (functionCallbackError != null)
+            {
+                var data = mensaje;
+                functionCallbackError(data);
+            }
         }
     });
 }
@@ -1137,7 +1109,7 @@ function LimpiaValidacion(idFormulario, campoLimpiar)
     $(form).removeClass('was-validated');
 }
 
-function SolicitudEstandarPostAjax(urlAction, parameters, functionCallbackSuccess)
+function SolicitudEstandarPostAjax(urlAction, parameters, functionCallbackSuccess, functionCallbackError = null)
 {
     $.ajax({
         url: urlAction,
@@ -1147,15 +1119,55 @@ function SolicitudEstandarPostAjax(urlAction, parameters, functionCallbackSucces
         data: JSON.stringify(parameters), // Debe obtenerse como JSON.stringify
         dataType: "json",
         cache: true, // sólo para Internet Explorer 8
-        beforeSend: function () {
+        beforeSend: function ()
+        {
             //$("#loading").fadeIn();
         },
-        success: function (data) {
+        success: function (data)
+        {
             functionCallbackSuccess(data);
         },
-        error: function (xhr) {
+        error: function (jqXHR)
+        {
             $("#loading").fadeOut();
-            alert('Error Ajax: ' + xhr.statusText);
+
+            var mensaje = '';
+
+            if (jqXHR.status === 0)
+            {
+                mensaje = 'No esta conectado, verifique su conexión.';
+            }
+            else if (jqXHR.status == 404)
+            {
+                mensaje = 'No se encontró la página solicitada, ERROR:404';
+            }
+            else if (jqXHR.status == 500)
+            {
+                mensaje = "Error interno del servidor, ERROR:500";
+            }
+            else if (exception === 'timeout')
+            {
+                mensaje = 'Error de Time Out.';
+            }
+            else if (exception === 'abort')
+            {
+                mensaje = 'Solicitud AJAX Abortada.';
+            }
+            else
+            {
+                mensaje = 'Error no detectado : ' + jqXHR.responseText;
+            }
+
+            if (functionCallbackSuccess == null)
+            {
+                Alerta(mensaje, "large", "Error ");
+            }
+
+            if (functionCallbackError != null)
+            {
+                var data = mensaje;
+                functionCallbackError(data);
+            }
         }
     });
 }
@@ -1212,10 +1224,10 @@ function GeneraTablaDatos(tabla, idTablaHtml, datos, estructuraTabla, ordering, 
 
 function MensajeDeConfirmacion(mensaje, tamanio, funcion, funcionCancelar = null, titulo = null)
 {
-    var tituloMensaje = titulo == null ? "Confirmación" : titulo; 
+    titulo = titulo == null ? "Confirmación" : titulo; 
 
     bootbox.confirm({
-        title: "<h3>" + tituloMensaje + "</h3>",
+        title: "<h3>" + titulo + "</h3>",
         message: mensaje,
         buttons: {
             confirm: {
@@ -1245,12 +1257,13 @@ function MensajeDeConfirmacion(mensaje, tamanio, funcion, funcionCancelar = null
     });
 }
 
-function Alerta(mensaje, tamanio = null)
+function Alerta(mensaje, tamanio = null, titulo = null)
 {
+    titulo = titulo == null ? "¡Atención!" : titulo; 
     tamanio = tamanio == null ? "small" : tamanio;
 
     bootbox.alert({
-        title: "<h3>¡Atención!</h3>",
+        title: "<h3>" + titulo + "</h3>",
         message: mensaje,
         buttons:
         {
@@ -1263,12 +1276,13 @@ function Alerta(mensaje, tamanio = null)
     });
 }
 
-function AlertaCallback(mensaje, funcion, tamanio = null)
+function AlertaCallback(mensaje, funcion, tamanio = null, titulo = null)
 {
+    titulo = titulo == null ? "¡Atención!" : titulo; 
     tamanio = tamanio == null ? "small" : tamanio;
 
     bootbox.alert({
-        title: "<h3>¡Atención!</h3>",
+        title: "<h3>" + titulo + "</h3>",
         message: mensaje,
         buttons:
         {

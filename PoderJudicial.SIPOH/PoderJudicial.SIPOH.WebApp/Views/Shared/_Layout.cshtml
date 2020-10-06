@@ -442,10 +442,7 @@
                 <div class="page-inner">
                     <div class="page-header">
 
-
-
                         <h4 class="page-title">@ViewBag.title</h4>
-
 
                         <ul class="breadcrumbs">
 
@@ -505,9 +502,11 @@
     <!--SPINNER-->
     <div id="loading">
         <div id="loadingcontent">
-            <p id="loadingspinner">
-                <img src="~/Content/Master/Img/loader_puntos.gif" />
-            </p>
+            @*<p id="loadingspinner">*@
+                @*<img src="~/Content/Master/Img/loading.gif" />*@
+                <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+                <div class="letraSpinner">Procesando ...</div>
+            @*</p>*@
         </div>
     </div>
 
