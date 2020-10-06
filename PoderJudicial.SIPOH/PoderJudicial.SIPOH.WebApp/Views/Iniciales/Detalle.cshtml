@@ -1,12 +1,30 @@
 ﻿@model PoderJudicial.SIPOH.WebApp.Models.EjecucionModelView
 
 @{
-    ViewBag.Title = "Inicial Generada";
+    ViewBag.Title = "Iniciales";
 }
 
 <div class="container-fluid">
     <div class="row">
-        <div class="card shadow-sm col-sm-12">
+        <div class="card shadow-sm">
+
+            <div class="card-header">
+
+                @if (Model.NumeroEjecucion != null)
+                {
+                    <h4 class="card-title">
+                    No. Ejecución @Html.DisplayFor(model => model.NumeroEjecucion)
+                    </h4>
+                }
+                else
+                {
+                <h4 class="card-title">
+                   No. Ejecución - Información no disponible
+                </h4>
+                }
+
+            </div>
+
             <div class="card-body">
 
                 @Html.Hidden("IdProceso", (bool)ViewBag.fueCorrectoElProceso)
@@ -19,20 +37,6 @@
 
                 @Html.Hidden("IdEjecucion", (bool)ViewBag.Ejecucion)
 
-                <div class="form-row">
-                    <div class="col-12">
-                        @if (Model.NumeroEjecucion != null)
-                        {
-                            <h3>Ejecución - @Html.DisplayFor(model => model.NumeroEjecucion)</h3>
-                        }
-                        else
-                        {
-                            <h3>Ejecución - Información no disponible</h3>
-                        }
-                    </div>
-                </div>
-
-                <div class="separator-solid"></div>
 
                 <div class="form-row">
 
@@ -42,63 +46,65 @@
                     </div>
                 </div>
 
-                <div class="form-row mt-3">
-                    <div class="col-12 col-md-8">
-                        <label for="validationCustom04"><b>Juzgado de Ejecución</b></label>
-                        <div class="input-group " id="divToca">
-                            @Html.DisplayFor(model => model.NombreJuzgado)
+                <div class="bordeParaInfo rounded p-3 mt-3">
+                    <div class="form-row">
+                        <div class="col-12 col-md-8">
+                            <label for="validationCustom04"><b><li>Juzgado de Ejecución</li></b></label>
+                            <div class="input-group ml-3" id="divToca">
+                                @Html.DisplayFor(model => model.NombreJuzgado)
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-4">
+                            <label for="validationCustom04"><b><li>Numero de Ejecución</li></b></label>
+                            <div class="input-group ml-3" id="divToca">
+                                @Html.DisplayFor(model => model.NumeroEjecucion)
+                            </div>
                         </div>
                     </div>
 
-                    <div class="col-12 col-md-4">
-                        <label for="validationCustom04"><b>Numero de Ejecución</b></label>
-                        <div class="input-group " id="divToca">
-                            @Html.DisplayFor(model => model.NumeroEjecucion)
+                    <div class="form-row mt-1 mt-md-3">
+                        <div class="col-12 col-md-4">
+                            <label for="validationCustom04"><b><li>Sentenciado/Beneficiario</li></b></label>
+                            <div class="input-group ml-3" id="divToca">
+                                @Html.DisplayFor(model => model.NombreBeneficiario)
+                                @Html.DisplayFor(model => model.ApellidoPBeneficiario)
+                                @Html.DisplayFor(model => model.ApellidoMBeneficiario)
+                            </div>
                         </div>
-                    </div>
-                </div>
 
-                <div class="form-row mt-2 mt-md-3">
-                    <div class="col-12 col-md-4">
-                        <label for="validationCustom04"><b>Sentenciado/Beneficiario</b></label>
-                        <div class="input-group " id="divToca">
-                            @Html.DisplayFor(model => model.NombreBeneficiario)
-                            @Html.DisplayFor(model => model.ApellidoPBeneficiario)
-                            @Html.DisplayFor(model => model.ApellidoMBeneficiario)
+                        <div class="col-12 col-md-4">
+                            <label for="validationCustom04"><b><li>Solicitante</li></b></label>
+                            <div class="input-group ml-3" id="divToca">
+                                @Html.DisplayFor(model => model.DescripcionSolicitante) - @Html.DisplayFor(model => model.DetalleSolicitante)
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="col-12 col-md-4">
-                        <label for="validationCustom04"><b>Solicitante</b></label>
-                        <div class="input-group " id="divToca">
-                            @Html.DisplayFor(model => model.DescripcionSolicitante) - @Html.DisplayFor(model => model.DetalleSolicitante)
+                        <div class="col-12 col-md-4">
+                            <label for="validationCustom04"><b><li>Solicitud</li></b></label>
+                            <div class="input-group ml-3" id="divToca">
+                                @Html.DisplayFor(model => model.DescripcionSolicitud)
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="col-12 col-md-4">
-                        <label for="validationCustom04"><b>Solicitud</b></label>
-                        <div class="input-group " id="divToca">
-                            @Html.DisplayFor(model => model.DescripcionSolicitud)
-                        </div>
-                    </div>
-
-                    <div class="col-12 mt-1 mt-md-3">
-                        <label for="validationCustom04"><b>Sentenciando Interno</b></label>
-                        <div class="input-group " id="divToca">
-                            @if (Model.Interno == "S")
-                            {
-                                @Html.Raw("SI");
-                            }
-                            else
-                            {
-                                @Html.Raw("NO");
-                            }
+                        <div class="col-12 mt-1 mt-md-3">
+                            <label for="validationCustom04"><b><li>Sentenciando Interno</li></b></label>
+                            <div class="input-group ml-3" id="divToca">
+                                @if (Model.Interno == "S")
+                                {
+                                    @Html.Raw("SI");
+                                }
+                                else
+                                {
+                                    @Html.Raw("NO");
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="tab-content">
-                    <div class="form-row mt-4">
+                    <div class="form-row mt-3">
                         <div class="col-12">
                             <h6 class="m-0 font-weight-bold @(ViewBag.Causas ? "text-danger":"text-success")"><i class="@(ViewBag.Causas ? "icon-cross":"icon-checkmark") mr-2"></i><i class="icon-table2"></i> Tabla de Causas</h6>
                         </div>
@@ -148,11 +154,11 @@
                 </div>
 
                 <div class="tab-content">
-                    <div class="form-row">
+                    <div class="form-row mt-2">
                         <div class="col-12 col-md-7 form-group">
 
                             <div class="form-row">
-                                <div class="col-12 mt-3">
+                                <div class="col-12">
                                     <h6 class="m-0 font-weight-bold @(ViewBag.Tocas ? "text-danger":"text-success")"><i class="@(ViewBag.Tocas ? "icon-cross":"icon-checkmark") mr-2"></i><i class="icon-table2"></i> Tabla de Salas</h6>
                                 </div>
                                 <div class="col-12">
@@ -186,7 +192,7 @@
                         </div>
                         <div class="col-12 col-md-5 form-group">
                             <div class="form-row">
-                                <div class="col-12 mt-3">
+                                <div class="col-12">
                                     <h6 class="m-0 font-weight-bold @(ViewBag.Amparos ? "text-danger":"text-success")"><i class="@(ViewBag.Amparos ? "icon-cross":"icon-checkmark") mr-2"></i><i class="icon-table2"></i> Tabla de Amparos</h6>
                                 </div>
                                 <div class="col-12">
@@ -213,8 +219,8 @@
                             </div>
                         </div>
                         <div class="col-12 form-group">
-                            <div class="form-row">
-                                <div class="col-12 mt-3">
+                            <div class="form-row mt-1">
+                                <div class="col-12 ">
                                     <h6 class="m-0 font-weight-bold @(ViewBag.Anexos ? "text-danger":"text-success")"><i class="@(ViewBag.Anexos ? "icon-cross":"icon-checkmark") mr-2"></i><i class="icon-table2"></i> Tabla de Anexos</h6>
                                 </div>
                                 <div class="col-12">
