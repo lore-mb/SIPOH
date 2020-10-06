@@ -1,6 +1,5 @@
 ﻿$(document).ready(function () {
     $("#frm").submit(function (e) {
-        //Logica para validar campos de LogIn
         var usuario = $("#inputEmail").val();
         var contrasenia = $("#txtPassword").val();
 
@@ -13,26 +12,15 @@
     });
 });
     
-//    //CheckBox mostrar contraseña
-//    $('#ShowPassword').click(function ()
-//    {
-//        $('#Password').attr('type', $(this).is(':checked') ? 'text' : 'password');
-//    });
-//});
+// #region Metodos para ocultar y/o Mostrar contraseña
 
+$('#mostrarContrasena').click(function () {
+    var cajaTextoContrasena = $("#txtPassword").attr('type');
+    if (cajaTextoContrasena == 'password') {
+        $('#mostrarContrasena').removeClass('icon-eye').addClass('icon-eye-blocked');
+    } else {
+        $('#mostrarContrasena').removeClass('icon-eye-blocked').addClass('icon-eye');
+    }
+});
 
-//function mostrarPassword()
-//{
-//    var cambio = document.getElementById("txtPassword");
-//    if (cambio.type == "password")
-//    {
-//        cambio.type = "text";
-//        $('.icon').removeClass('fa fa-eye-slash').addClass('fa fa-eye');
-//    }
-//    else
-//    {
-//        cambio.type = "password";
-//        $('.icon').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
-//    }
-//}
-
+// #endregion

@@ -13,48 +13,40 @@
 </style>
 
 <div class="text-center">
-    <img src="~/Content/Master/Img/PoderJudicialHgo.png" height="130" class="mb-3">
-    <h3 class="text-center">Bienvenido a SIPOH</h3>
+    <img src="~/Content/Master/Img/PoderJudicialHgo.png" height="140" class="mb-3">
+    <h3 class="text-center"> Bienvenido a SIPOH </h3>
 </div>
 <div class="login-form">
     <form id="frm" action="" method="post">
         <div class="form-group">
-            <label for="username" class="placeholder"><b>Nombre de Usuario</b></label>
+            <label for="username" class="placeholder"><b> Nombre de Usuario </b></label>
             @Html.EditorFor(model => model.Usuario, new { htmlAttributes = new { @class = "form-control", @id = "inputEmail", @placeholder = "Nombre de Usuario", @required = "" } })
         </div>
         <div class="form-group">
-            <label for="password" class="placeholder"><b>Contraseña</b></label>
-            <a href="#" class="link float-right">Olvidaste tu contraseña ?</a>
+            <label for="password" class="placeholder"><b> Contraseña </b></label>
+            <a href="#" class="link float-right"> ¿Olvidaste tu contraseña?</a>
             <div class="position-relative">
-                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @id = "txtPassword", @placeholder = "Contraseña", @required = "" } })
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control contrasenaShow", @id = "txtPassword", @placeholder = "Contraseña", @required = "" } })
                 <div class="show-password">
-                    <i class="icon-eye"></i>
+                    <i id="mostrarContrasena" class="icon-eye"></i>
                 </div>
             </div>
         </div>
+
         @*En este elemento se visualiza la respuesta del servidor*@
         @Html.ValidationSummary(true, "", new { @class = "text-danger custom-validation-summary" })
-    <div class="form-group form-action-d-flex mb-3">
-        <div class="custom-control custom-checkbox">
-            <!--<input type="checkbox" class="custom-control-input" id="rememberme">
-        <label class="custom-control-label m-0" for="rememberme">Remember Me</label>-->
+        <div class="form-group form-action-d-flex mb-3">
+            <div class="custom-control custom-checkbox">
+            </div>
+            <button href="#" class="btn btn-success col-md-5 float-right mt-3 mt-sm-0 fw-bold" type="submit"> Iniciar </button>
         </div>
-        <button href="#" class="btn btn-success col-md-5 float-right mt-3 mt-sm-0 fw-bold" type="submit">Iniciar</button>
-    </div>
-        <!-- 				<div class="form-action">
-        <a href="#" class="btn btn-primary btn-rounded btn-login">Sign In</a>
-    </div> -->
+
         <div class="login-account">
             <span class="msg">©</span>
-            <a href="#" @*id="show-signup"*@ class="link">Poder Judicial del Estado de Hidalgo</a>
+            <a href="http://www.pjhidalgo.gob.mx/" class="link" target="_blank"> Poder Judicial del Estado de Hidalgo </a>
         </div>
     </form>
 </div>
-
-
-
-
-
 
 @Scripts.Render("~/Scripts/Master/Jquery")
 @Scripts.Render("~/Scripts/Modules/Cuenta")

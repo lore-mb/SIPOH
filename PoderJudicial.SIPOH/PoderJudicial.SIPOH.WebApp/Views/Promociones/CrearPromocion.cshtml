@@ -5,6 +5,7 @@
     <div class="row">
         <div class="card shadow-sm col-sm-12">
             <div class="card-body">
+                <!-- #region Filtrado para busqueda -->
                 <div class="row align-items-center">
                     <div class="col">
                         <h6 class="page-pretitle">
@@ -43,7 +44,9 @@
                         </form>
                     </div>
                 </div>
+                <!-- #endregion -->
                 <div id="divResultadoPromocion">
+                    <!-- #region Formulario Datos Generales -->
                     <div class="card-footer">
                         <div class="form-row">
                             <div class="col-md-3 mb-3">
@@ -94,9 +97,9 @@
                                 </div>
                             </div>
                         </div>
-                        @*<button class="btn btn-success" type="submit" disabled>Relacionar Causa</button>*@
                     </div>
-                    <!-- Tabla  Detalles -->
+                    <!-- #endregion-->
+                    <!-- #region Tabla Causas -->
                     <div class="tab-content">
                         <div class="form-row">
                             <div class="col-12">
@@ -108,12 +111,10 @@
                             </table>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-
-
+                    <!-- #endregion -->
                 </div>
                 <div class="separator-solid"></div>
+                <!--#region Formulario Agregar Anexos-->
                 <form class="needs-validation" id="Frm_Anexos" novalidate>
                     <div class="form-row">
                         <div class="col-md-3 form-group">
@@ -172,8 +173,8 @@
                         </div>
                     </div>
                 </form>
-
-                <!-- Tabla  Detalles -->
+                <!--#endregion-->
+                <!-- #region Tabla Anexos-->
                 <div class="tab-content">
                     <div class="form-row">
                         <div class="col-12">
@@ -185,6 +186,7 @@
                         </table>
                     </div>
                 </div>
+                <!-- #endregion -->
             </div>
         </div>
     </div>

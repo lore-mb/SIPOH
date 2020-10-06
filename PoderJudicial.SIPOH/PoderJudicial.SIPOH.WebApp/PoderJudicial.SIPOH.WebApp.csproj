@@ -183,6 +183,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Master\Site\coresite.css" />
     <Content Include="Content\Master\DataTables\datatables.min.css" />
     <Content Include="Content\Master\DatePicker\bootstrap-datetimepicker.min.css" />
     <Content Include="Content\Master\Fonts\FontAwesome\all.min.css" />
@@ -195,7 +196,6 @@
     <Content Include="Content\Master\Img\loader_puntos.gif" />
     <Content Include="Content\Master\Img\PoderJudicialHgo.png" />
     <Content Include="Content\Master\Site\bootstrap.css" />
-    <Content Include="Content\Master\Site\coresite.css" />
     <Content Include="Content\Master\Site\sello.css" />
     <Content Include="Content\Master\Vectors\Sipoh.svg" />
     <Content Include="Content\Master\Img\user_default_2d.png" />
