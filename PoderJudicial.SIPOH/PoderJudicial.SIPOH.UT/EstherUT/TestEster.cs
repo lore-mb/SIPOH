@@ -58,5 +58,19 @@ namespace PoderJudicial.SIPOH.UT.EstherUT
             int? idEjecucion = repo.CrearEjecucion(ejecucion, causas, tocas, amparos, anexos, null, true);
         }
 
+        [TestMethod]
+        public void ObtenerPartesEjecucion()
+        {
+            EjecucionRepository PruebaEjecucionBusqueda = new EjecucionRepository(cnx);
+
+            string nombre = "IGNACIO";
+            string apellidoP = "";
+            string apellidoM = "";
+
+
+            List<Ejecucion> ListaPartesEjecucion = PruebaEjecucionBusqueda.ObtenerEjecucionPorPartesCausa(nombre, apellidoP, apellidoM);
+
+        }
+
     }
 }

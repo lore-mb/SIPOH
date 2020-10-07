@@ -2,7 +2,7 @@
 
 namespace PoderJudicial.SIPOH.Entidades
 {
-    public class Ejecucion
+    public class Ejecucion:PartesExpediente
     {
         public int IdEjecucion { set; get; }
         public string NumeroEjecucion { set; get; }

@@ -138,7 +138,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
 
                 Cnx.Open();
                 comando.ExecuteNonQuery();
-                
+
                 Estatus = Estatus.OK;
                 return Convert.ToInt32(idEjecucion.Value);
             }
@@ -155,7 +155,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
             }
         }
 
-        public List<Ejecucion> ObtenerEjecucionPorJuzgado(int IdJuzgado, string NumeroEjecucion) 
+        public List<Ejecucion> ObtenerEjecucionPorJuzgado(int IdJuzgado, string NumeroEjecucion)
         {
             try
             {
@@ -177,11 +177,11 @@ namespace PoderJudicial.SIPOH.AccesoDatos
 
                 if (EjecucionJuzgado.Count > 0)
                     Estatus = Estatus.OK;
-                else 
+                else
                     Estatus = Estatus.SIN_RESULTADO;
 
                 return EjecucionJuzgado;
-                
+
             }
             catch (Exception ex)
             {
@@ -190,11 +190,11 @@ namespace PoderJudicial.SIPOH.AccesoDatos
                 return null;
             }
 
-            finally 
+            finally
             {
                 if (IsValidConnection && Cnx.State == ConnectionState.Open)
                     Cnx.Close();
-            }       
+            }
         }
 
         public Ejecucion ObtenerEjecucionPorFolio(int folio)
@@ -239,11 +239,53 @@ namespace PoderJudicial.SIPOH.AccesoDatos
             }
 
         }
+        public List<Ejecucion> ObtenerEjecucionPorPartesCausa(string nombre, string apellidoPaterno, string apellidoMaterno)
+        {
+            try
+            {
+                if (!IsValidConnection)
+                    throw new Exception("No se ha creado una conexion valida");
+
+                SqlCommand comando = new SqlCommand("sipoh_BusquedaEjecucionPartesPrevia", Cnx);
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.Add("@nombre", SqlDbType.VarChar).Value = nombre;
+                comando.Parameters.Add("@apellidoPaterno", SqlDbType.VarChar).Value = apellidoPaterno;
+                comando.Parameters.Add("@apellidoMaterno", SqlDbType.VarChar).Value = apellidoMaterno;
+
+                Cnx.Open();
+
+                SqlDataReader sqlRespuesta = comando.ExecuteReader();
+
+                DataTable tabla = new DataTable();
+                tabla.Load(sqlRespuesta);
+               
+                List<Ejecucion> partesEjecucion = DataHelper.DataTableToList<Ejecucion>(tabla);
+
+                if (partesEjecucion.Count > 0)
+                    Estatus = Estatus.OK;
+                else
+                    Estatus = Estatus.SIN_RESULTADO;
+
+                return partesEjecucion;
+            }
+            catch (Exception ex)
+            {
+                MensajeError = ex.Message;
+                Estatus = Estatus.ERROR;
+                return null;
+            }
+            finally
+            {
+                if (IsValidConnection && Cnx.State == ConnectionState.Open)
+                    Cnx.Close();
+            }
+        }
+
 
         #endregion
 
         #region Metodos Privados
-        private DataTable CreaCausasType(List<int> causas) 
+        private DataTable CreaCausasType(List<int> causas)
         {
             DataTable expedientesType = new DataTable();
             expedientesType.Clear();
@@ -281,7 +323,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
             DataTable tocasType = new DataTable();
             tocasType.Clear();
             tocasType.Columns.Add("Amparo");
-   
+
             foreach (string amparo in amparos)
             {
                 DataRow fila = tocasType.NewRow();
@@ -304,7 +346,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
             {
                 DataRow fila = tocasType.NewRow();
                 fila["IdCatAnexEjec"] = anexo.IdAnexo;
-                fila["OtroAnexoEjecucion"] =  anexo.IdAnexo == 8 ? anexo.Descripcion : null;
+                fila["OtroAnexoEjecucion"] = anexo.IdAnexo == 8 ? anexo.Descripcion : null;
                 fila["Cantidad"] = anexo.Cantidad;
                 tocasType.Rows.Add(fila);
             }
@@ -314,3 +356,4 @@ namespace PoderJudicial.SIPOH.AccesoDatos
         #endregion
     }
 }
+
