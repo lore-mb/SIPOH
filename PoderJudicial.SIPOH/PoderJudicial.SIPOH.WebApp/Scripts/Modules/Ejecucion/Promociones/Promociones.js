@@ -62,13 +62,15 @@ function Resultados_NEW() {
     $(form).removeClass('was-validated');
     $("#_TablaCausasEjecucion").dataTable().fnClearTable();
     $("#btnNuevaConsultaPromocion").prop("disabled", true);
+    Arreglo_TablaCausas = [];
+    $('#btnNuevaConsultaPromocion').tooltip('hide');
 }
 // #endregion
 
 // #region FUNCIONALIDAD: Cargar InputMask
-
 function FormatoInputs() {
-    FormatearInput("#inpNumeroEjecucion", "9999/9999", "0000/0000", "[0-9]");
+
+    FormatearInput("#inpNumeroEjecucion", "9999/9999", "0000/0000", "[0-9\uFF11-\uFF19]");
 }
 
 // #endregion
@@ -97,13 +99,12 @@ function ListarDatosGenerales() {
     var inpNoEjecucion = $("#inpNumeroEjecucion").val();
     var objParametros = { Juzgado: slctJuzgado, NoEjecucion: inpNoEjecucion };
     SolicitudEstandarGetAjax("/Promociones/ObtenerEjecucionPorJuzgado", objParametros, ConsumirMetodo_CrearPromocion);
-    console.log(slctJuzgado + " " + inpNoEjecucion);
 }
 
 function ConsumirMetodo_CrearPromocion(data) {
     if (data.Estatus == EstatusRespuesta.OK) {
         var Array = data.Data.ListaInformacion;
-        var MensajeConfirmacion = "La consulta encontró coincidencias con respecto al numero de ejecucion " + "<b>" + Array[0].NumeroEjecucion + "</b>" + " perteneciente al " + "<b>" + Array[0].NombreJuzgado + "</b>";
+        var MensajeConfirmacion = "Se encontrarón coincidencias para el número de ejecución " + "<b>" + Array[0].NumeroEjecucion + "</b>" + " perteneciente al " + "<b>" + Array[0].NombreJuzgado + "</b>";
         var Funcion_MensajeOK = function () {
             Resultados_OK();
             MostrarFormulario();
@@ -148,7 +149,6 @@ function ListarCausas(data) {
         Objct_TablaCausas._Delitos = ArrayCausas[0].Delitos;
         Arreglo_TablaCausas.push(Objct_TablaCausas);
         TablaCausas = Consumir_DataTable(TablaCausas, "_TablaCausasEjecucion", Arreglo_TablaCausas, EstructuraTabla_Causas, false, false, false);
-        console.log(JSON.stringify(data));
     } else if (data.Estatus == EstatusRespuesta.ERROR) {
         alert("Hay un error de comunicación");
     } else if (data.Estatus == EstatusRespuesta.SIN_RESPUESTA) {
@@ -157,7 +157,7 @@ function ListarCausas(data) {
 }
 // #endregion
 
-// #region FUNCIONALIDAD: AGREAGAR Y GUARDAR ANEXOS
+// #region FUNCIONALIDAD: AGREGAR ANEXOS
 function AgregarAnexos() {
 
     var TxtAnexo = $("#slctAnexoEjecucion").children("option:selected").text();
@@ -165,12 +165,28 @@ function AgregarAnexos() {
     var NoCantidad = $("#inpCantidadAnexos").val();
     var TxtOtro = $("#inpOtroAnexo").val();
     $("#btnGuardarAnexos").prop('disabled', false);
+
     if (Validar_AnexosTabla(NumeroAnexo)) {
-        var Mensaje_Existe = "Anexo no valido, " + "<b>" + TxtAnexo + "</b>" + " ya se encuentra agregado.";
-        var Funcion_Existe = function () {
-            //nothing
+        var ArregloTablaAnexos = Arreglo_TablaAnexos;
+        var AnexoValor = NumeroAnexo
+        for (var index = 0; index < ArregloTablaAnexos.length; index++) {
+            if (AnexoValor == ArregloTablaAnexos[index]._Id) {
+                if (ArregloTablaAnexos[index]._Cantidad != NoCantidad) {
+                    //var Mensaje_Existe = "Se han detectado cambios en la cantidad de documentos pertenecientes al anexo " + "<b>" + ArregloTablaAnexos[index]._Descripcion + "</b>" + "<b> [" +"Cantidad Actual = "+ ArregloTablaAnexos[index]._Cantidad + "]</b> " + "<b> ["+"Nueva Cantidad = " + NoCantidad + "]</b>"+" ¿Desea aplicar los cambios?";
+                    //var Funcion_Existe = function () {
+                    //    //nothing
+                    //}
+                    //MensajeNotificacionOK(Mensaje_Existe, "large", Funcion_Existe);
+                    ArregloTablaAnexos[index]._Cantidad = NoCantidad;
+                } else {
+                    //var Mensaje_Existe = "Anexo " + "<b>" + ArregloTablaAnexos[index]._Descripcion + "</b>" + " actualmente asignado, no se admiten duplicados.";
+                    //var Funcion_Existe = function () {
+                    //    //nothing
+                    //}
+                    //MensajeNotificacionNoResult(Mensaje_Existe, "", Funcion_Existe);
+                }
+            }
         }
-        MensajeNotificacionNoResult(Mensaje_Existe, "", Funcion_Existe);
     } else {
         var Objct_TablaAnexos = new Object();
         if (NumeroAnexo == 8) {
@@ -189,15 +205,19 @@ function AgregarAnexos() {
 
 //#endregion
 
+// #region GUARDAR ANEXOS
 $("#btnGuardarAnexos").click(function (e) {
     e.preventDefault();
     $("#loading").fadeIn();
 
-    var Obj_Parametro = {
-        Parametro 
-    }
+    ////var ObjetoParametro = {
+    ////    NombrePromovente = $("#inpNombrePromovente").val;
+    ////    DescripcionAnexo = $("").val;
+    ////    CantidadCopias = $("").val;
+    ////}
 
 });
+// #endregion
 
 /*----- FUNCIONES GENERALES -----*/
 
@@ -346,22 +366,19 @@ function Consumir_DataTable(tabla, idTablaHtml, datos, estructuraTabla, ordering
 // #endregion
 
 // #region FUNCION: Formato Inputs & Mask
-function FormatearInput(IdInput, Formato, placeholder, regExValidator) {
-    Inputmask(Formato, {
-        _radixDance: false,
-        numericInput: false,
+function FormatearInput(selector, mask, placeholder, validatorRegEx) {
+    Inputmask(mask, {
+        positionCaretOnClick: "select",
+        radixPoint: "/",
+        _radixDance: true,
+        numericInput: true,
         placeholder: placeholder,
-        //onKeyValidation: function (key, result) {
-        //    if (!result) {
-        //        alert('Your input is not valid')
-        //    }
-        //},
         definitions: {
             "0": {
-                validator: regExValidator
+                validator: validatorRegEx
             }
         }
-    }).mask(IdInput);
+    }).mask(selector);
 }
 // #endregion
 
@@ -426,16 +443,19 @@ function Quitar_Anexos(Id_ItemTabla) {
     // Obtiene el Nombre de Estructura
     var ArregloTabla = Arreglo_TablaAnexos;
     var FuncionQuitar = function () {
-        var Tabla = Arreglo_TablaAnexos;
-        for (var i = 0; i < Tabla.length; i++) {
+        for (var i = 0; i < ArregloTabla.length; i++) {
             if (Id_ItemTabla == Arreglo_TablaAnexos[i]._Id) {
                 Arreglo_TablaAnexos.splice(i, 1);
             }
             TablaAnexos = Consumir_DataTable(TablaAnexos, "_DataTableAnexos", Arreglo_TablaAnexos, EstructuraTabla_Anexos, false, false, false);
         }
-
     }
-    var MensajeQuitar = "Esta a punto de remover el anexo: (" + "<b>" + ArregloTabla[0]._Descripcion + "</b>" + ") con: (" + "<b>" + ArregloTabla[0]._Cantidad + "</b>" + ") copia (s) asignada (s). ¿Desea continuar? ";
+
+    for (var index = 0; index < Arreglo_TablaAnexos.length; index++) {
+        if (Id_ItemTabla == Arreglo_TablaAnexos[index]._Id) {
+            var MensajeQuitar = "Esta a punto de remover el anexo " + "<b>" + ArregloTabla[index]._Descripcion + "</b>" + " con: " + "<b>" + ArregloTabla[index]._Cantidad + "</b>" + " documento (s) asignado (s). ¿Desea continuar? ";
+        }
+    }     
     MensajeNotificacionOK(MensajeQuitar, "default", FuncionQuitar);
 }
 // #endregion

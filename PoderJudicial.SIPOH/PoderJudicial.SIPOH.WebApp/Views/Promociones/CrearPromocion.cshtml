@@ -5,6 +5,7 @@
     <div class="row">
         <div class="card shadow-sm col-sm-12">
             <div class="card-body">
+                <!-- #region Filtrado para busqueda -->
                 <div class="row align-items-center">
                     <div class="col">
                         <h6 class="page-pretitle">
@@ -30,7 +31,7 @@
                                         </div>
                                         <input type="text" class="form-control mr-2 resultOK clean" id="inpNumeroEjecucion" aria-describedby="inputGroupPrepend" required>
                                         <button class="btn btn-success mr-2 resultOK" type="submit" id="btnConsultarPromocion" data-toggle="tooltip" data-placement="top" title="Consultar"><i class="icon-search"></i></button>
-                                        <button class="btn btn-secondary disoff" id="btnNuevaConsultaPromocion" data-toggle="tooltip" data-placement="top" title="Nueva Consulta"><i class="icon-paint-format"></i></button>
+                                        <button class="btn btn-secondary disoff" id="btnNuevaConsultaPromocion" data-toggle="tooltip" data-placement="top" title="Nueva Consulta"><i class="icon-undo2"></i></button>
                                         <div class="valid-feedback">
                                             <i class="icon-checkmark"></i> Numero de ejecución
                                         </div>
@@ -43,7 +44,9 @@
                         </form>
                     </div>
                 </div>
+                <!-- #endregion -->
                 <div id="divResultadoPromocion">
+                    <!-- #region Formulario Datos Generales -->
                     <div class="card-footer">
                         <div class="form-row">
                             <div class="col-md-3 mb-3">
@@ -94,9 +97,9 @@
                                 </div>
                             </div>
                         </div>
-                        @*<button class="btn btn-success" type="submit" disabled>Relacionar Causa</button>*@
                     </div>
-                    <!-- Tabla  Detalles -->
+                    <!-- #endregion-->
+                    <!-- #region Tabla Causas -->
                     <div class="tab-content">
                         <div class="form-row">
                             <div class="col-12">
@@ -108,12 +111,10 @@
                             </table>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-
-
+                    <!-- #endregion -->
                 </div>
                 <div class="separator-solid"></div>
+                <!--#region Formulario Agregar Anexos-->
                 <form class="needs-validation" id="Frm_Anexos" novalidate>
                     <div class="form-row">
                         <div class="col-md-3 form-group">
@@ -145,7 +146,7 @@
                             <label for="inpCantidadAnexos">Cantidad</label>
                             <div class="input-group">
                                 <input type="number" class="form-control mr-2 clearanexo" placeholder="0" id="inpCantidadAnexos" name="quantity" min="0" max="3000" required>
-                                <button class="btn btn-success mr-2" type="submit" data-toggle="tooltip" data-placement="top" title="Agregar Anexo"><i class="fa fa-search"></i></button>
+                                <button class="btn btn-success mr-2" type="submit" data-toggle="tooltip" data-placement="top" title="Agregar Anexo"><i class="fas fa-plus-circle"></i></button>
                                 <button class="btn btn-secondary mr-2 disoff" type="submit" id="btnGuardarAnexos" data-toggle="tooltip" data-placement="top" title="Guardar Anexos"><i class="fa fa-save"></i></button>
                                 <div class="invalid-feedback">
                                     <i class="icon-cancel-circle"></i> Determine cantidad.
@@ -159,7 +160,7 @@
                             <label for="validationCustom02">Descripción Otro</label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text" id="inputGroupPrepend"><i class=" icon-user"></i></span>
+                                    <span class="input-group-text" id="inputGroupPrepend"><i class="icon-file-text2"></i></span>
                                 </div>
                                 <input type="text" class="form-control mr-2 clearanexo" id="inpOtroAnexo" placeholder="Descripción">
                                 <div class="invalid-feedback">
@@ -172,8 +173,8 @@
                         </div>
                     </div>
                 </form>
-
-                <!-- Tabla  Detalles -->
+                <!--#endregion-->
+                <!-- #region Tabla Anexos-->
                 <div class="tab-content">
                     <div class="form-row">
                         <div class="col-12">
@@ -185,6 +186,7 @@
                         </table>
                     </div>
                 </div>
+                <!-- #endregion -->
             </div>
         </div>
     </div>

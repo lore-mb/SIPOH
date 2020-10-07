@@ -35,5 +35,21 @@ namespace PoderJudicial.SIPOH.UT.IgmaUT
             Expediente expe = new Expediente();
             expe.IdExpediente = 3911;
         }
+        [TestMethod]
+        public void agregarPostEjecucion() {
+
+            EjecucionRepository contenidoRepositorio;
+            contenidoRepositorio = new EjecucionRepository(Cnx);
+            
+            PostEjecucion contenidoPostEjecucion;
+            contenidoPostEjecucion = new PostEjecucion();
+            contenidoPostEjecucion.IdEjecucion = 78;
+            contenidoPostEjecucion.Promovente = "MARCO ALBERTO";
+            contenidoPostEjecucion.FechaIngreso = "20-12-20202";
+            contenidoPostEjecucion.IdUser = 1;
+
+            int? idEjecucion = contenidoRepositorio.GuardarPostEjecucion(contenidoPostEjecucion);
+        }
+
     }
 }

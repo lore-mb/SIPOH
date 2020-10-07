@@ -17,5 +17,6 @@ namespace PoderJudicial.SIPOH.AccesoDatos.Interfaces
         List<Ejecucion> ObtenerEjecucionPorJuzgado(int Juzgado, string NoEjecucion);
         Ejecucion ObtenerEjecucionPorFolio(int folio);
         List<Ejecucion> ObtenerEjecucionPorPartesCausa(string nombre, string apellidoPaterno, string apellidoMaterno);
+        int? GuardarPostEjecucion(PostEjecucion postEjecucion);
     }
 }

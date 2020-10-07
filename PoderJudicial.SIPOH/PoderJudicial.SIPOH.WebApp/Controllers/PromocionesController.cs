@@ -19,7 +19,6 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
 
         #region Public Methods
 
-        // GET: Promociones
         public ActionResult CrearPromocion()
         {
             List<Anexo> ListarAnexosEjecucion = promocionesProcessor.ObtenerAnexosEjecucion("A");
@@ -30,6 +29,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             return View();
         }
 
+        #region Obtener Juzgados de ejecucion por circutios
         [HttpGet]
         public ActionResult ObtenerJuzgadoEjecucionPorCircuito(int idcircuito)
         {
@@ -38,7 +38,9 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             Respuesta.Mensaje = promocionesProcessor.Mensaje;
             return Json(Respuesta, JsonRequestBehavior.AllowGet);
         }
+        #endregion
 
+        #region Obtener Datos Generales por Juzgado
         [HttpGet]
         public ActionResult ObtenerEjecucionPorJuzgado(int Juzgado, string NoEjecucion)
         {
@@ -64,8 +66,11 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             return Json(Respuesta, JsonRequestBehavior.AllowGet);
         }
 
-        [HttpGet]
+        #endregion
 
+        #region Obtener expedientes por numero de ejecución
+
+        [HttpGet]
         public ActionResult ObtenerExpedientesPorEjecucion(int idEjecucion) {
             List<Expediente> ObtenerEPE = promocionesProcessor.ObtenerExpedientesPorEjecucion(idEjecucion);
             if (ObtenerEPE == null)
@@ -81,11 +86,13 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                     Respuesta.Estatus = EstatusRespuestaJSON.SIN_RESPUESTA;
                     Respuesta.Data = null;
                 }
-
             }
             return Json(Respuesta, JsonRequestBehavior.AllowGet);
         }
 
+        #endregion
+
+        #region Obtener expedientes de ejecucion por causa
         public ActionResult ObtenerExpedienteEjecucionCausa(int idExpediente)
         {
             Expediente ExpedienteCRE = promocionesProcessor.ObtenerExpedienteEjecucionCausa(idExpediente);
@@ -111,6 +118,13 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             Respuesta.Mensaje = promocionesProcessor.Mensaje;
             return Json(Respuesta, JsonRequestBehavior.AllowGet);
         }
+        #endregion
+
+        #region Guardar datos Post-Ejecución
+
+
+        #endregion
+
         #endregion
 
         #region Private method

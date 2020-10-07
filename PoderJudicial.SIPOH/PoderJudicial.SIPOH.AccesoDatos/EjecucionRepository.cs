@@ -282,6 +282,49 @@ namespace PoderJudicial.SIPOH.AccesoDatos
         }
 
 
+        public int? GuardarPostEjecucion (PostEjecucion postEjecucion)
+        {
+            try
+            {
+                if (!IsValidConnection)
+                    throw new Exception("No se ha creado una conexion valida");
+
+                SqlCommand comandoSQL;
+                comandoSQL = new SqlCommand("sipoh_GenerarPostEjecucion", Cnx);
+                comandoSQL.CommandType = CommandType.StoredProcedure;
+                comandoSQL.Parameters.Add("@IdEjecucion", SqlDbType.Int).Value = postEjecucion.IdEjecucion;
+                comandoSQL.Parameters.Add("@Promovente", SqlDbType.VarChar).Value = postEjecucion.Promovente;
+                comandoSQL.Parameters.Add("@FechaIngreso", SqlDbType.Date).Value = postEjecucion.FechaIngreso;
+                comandoSQL.Parameters.Add("@IdUser", SqlDbType.Int).Value = postEjecucion.IdUser;
+
+                Cnx.Open();
+                comandoSQL.ExecuteNonQuery();
+
+                Estatus = Estatus.OK;
+
+                SqlParameter idEjecucion;
+                idEjecucion = new SqlParameter();
+
+                idEjecucion.ParameterName = "@IdEjecucion";
+                idEjecucion.SqlDbType = SqlDbType.Int;
+                idEjecucion.Direction = ParameterDirection.Output;
+                comandoSQL.Parameters.Add(idEjecucion);
+
+                return Convert.ToInt32(idEjecucion.Value);
+            }
+            catch (Exception ex)
+            {
+                MensajeError = ex.Message;
+                Estatus = Estatus.ERROR;
+                return null;
+            }
+            finally
+            {
+                if (IsValidConnection && Cnx.State == ConnectionState.Open)
+                    Cnx.Close();
+            }
+        }
+
         #endregion
 
         #region Metodos Privados
