@@ -13,28 +13,28 @@ $(document).ready(function () {
 var estructuraTablaPartesCausa = [{ data: 'NoEjecucion', title: 'N° Ejecucion', className: "text-center" }, { data: 'JuzgEjec', title: 'Juzgado Ejecucion', className: "text-center" }, { data: 'Nombre', title: 'Nombre (s)', className: "text-center" }, { data: 'Type', title: 'Tipo', className: "text-center" }, { data: 'DSolictante', title: 'Detalle Solicitante', className: "text-center" }, { data: 'Fecha', title: 'Fecha', className: "text-center" }, { data: 'Solictud', title: 'Solictud', className: "text-center" }, { data: 'Beneficiario', title: 'Beneficiario', className: "text-center" }, { data: 'TypeExpediente', title: 'Tipo Expediente', className: "text-center" }];
 var partescausas = [];
 
-//var estructuraTablaSentenBene = [{ data: 'NoEjecucion', title: 'N°Ejecucion', className: "text-center" }, { data: 'DetalleSolic', title: 'Detalle del Solicitante', className: "text-center" }, { data: 'fecha', title: 'Fecha', className: "text-center" }, { data: 'Solicitud', title: 'Solicitud', className: "text-center" }, { data: 'Beneficiario', title: 'Beneficiario', className: "text-center" }, { data: 'TypeExpe', title: 'Tipo Expediente', className: "text-center" }, { data: 'Detalle', title: '', className: "text-center" }];
-//var beneficarios = [];
+var estructuraTablaSentenBene = [{ data: 'NoEjecucion', title: 'N°Ejecucion', className: "text-center" }, { data: 'DetalleSolic', title: 'Detalle del Solicitante', className: "text-center" }, { data: 'fecha', title: 'Fecha', className: "text-center" }, { data: 'Solicitud', title: 'Solicitud', className: "text-center" }, { data: 'Beneficiario', title: 'Beneficiario', className: "text-center" }, { data: 'TypeExpe', title: 'Tipo Expediente', className: "text-center" }, { data: 'Detalle', title: '', className: "text-center" }];
+var beneficarios = [];
 
-//var estructuraTablaNumCausa = [{ data: 'NoEjecucion', title: 'No. Ejecución', className: "text-center" }, { data: 'JuzgEjec', title: 'Juzgado', className: "text-center" }, { data: 'nombreBeneficiario', title: 'Nombre (s)', className: "text-center" }, { data: 'DetalleSolic', title: 'Detalle del Solicitante', className: "text-center" }, { data: 'fecha', title: 'Fecha', className: "text-center" }, { data: 'Solicitud', title: 'Solicitud', className: "text-center" }, { data: 'Beneficiario', title: 'Beneficiario', className: "text-center" }, { data: 'TypeExpe', title: 'Tipo Expediente', className: "text-center" }, { data: 'Detalle', title: '', className: "text-center" }];
-//var Numcausa = [];
+var estructuraTablaNumCausa = [{ data: 'NoEjecucion', title: 'No. Ejecución', className: "text-center" }, { data: 'JuzgEjec', title: 'Juzgado', className: "text-center" }, { data: 'nombreBeneficiario', title: 'Nombre (s)', className: "text-center" }, { data: 'DetalleSolic', title: 'Detalle del Solicitante', className: "text-center" }, { data: 'fecha', title: 'Fecha', className: "text-center" }, { data: 'Solicitud', title: 'Solicitud', className: "text-center" }, { data: 'Beneficiario', title: 'Beneficiario', className: "text-center" }, { data: 'TypeExpe', title: 'Tipo Expediente', className: "text-center" }, { data: 'Detalle', title: '', className: "text-center" }];
+var Numcausa = [];
 
-//var estructuraTablaNUC = [{ data: 'NoEjecucion', title: 'No. Ejecución', className: "text-center" }, { data: 'JuzgEjec', title: 'Juzgado', className: "text-center" }, { data: 'nombreBeneficiario', title: 'Nombre (s)', className: "text-center" }, { data: 'DetalleSolic', title: 'Detalle del Solicitante', className: "text-center" }, { data: 'fecha', title: 'Fecha', className: "text-center" }, { data: 'Solicitud', title: 'Solicitud', className: "text-center" }, { data: 'Beneficiario', title: 'Beneficiario', className: "text-center" }, { data: 'TypeExpe', title: 'Tipo Expediente', className: "text-center" }, { data: 'Detalle', title: '', className: "text-center" }];
-//var Nuc = [];
+var estructuraTablaNUC = [{ data: 'NoEjecucion', title: 'No. Ejecución', className: "text-center" }, { data: 'JuzgEjec', title: 'Juzgado', className: "text-center" }, { data: 'nombreBeneficiario', title: 'Nombre (s)', className: "text-center" }, { data: 'DetalleSolic', title: 'Detalle del Solicitante', className: "text-center" }, { data: 'fecha', title: 'Fecha', className: "text-center" }, { data: 'Solicitud', title: 'Solicitud', className: "text-center" }, { data: 'Beneficiario', title: 'Beneficiario', className: "text-center" }, { data: 'TypeExpe', title: 'Tipo Expediente', className: "text-center" }, { data: 'Detalle', title: '', className: "text-center" }];
+var Nuc = [];
 
-//var estructuraTablaSolicitante = [{ data: 'NoEjecucion', title: 'No. Ejecución', className: "text-center" }, { data: 'JuzgEjec', title: 'Juzgado', className: "text-center" }, { data: 'nombreBeneficiario', title: 'Nombre (s)', className: "text-center" }, { data: 'DetalleSolic', title: 'Detalle del Solicitante', className: "text-center" }, { data: 'fecha', title: 'Fecha', className: "text-center" }, { data: 'Solicitud', title: 'Solicitud', className: "text-center" }, { data: 'Beneficiario', title: 'Beneficiario', className: "text-center" }, { data: 'TypeExpe', title: 'Tipo Expediente', className: "text-center" }, { data: 'Detalle', title: '', className: "text-center" }];
-//var Solicitante = [];
+var estructuraTablaSolicitante = [{ data: 'NoEjecucion', title: 'No. Ejecución', className: "text-center" }, { data: 'JuzgEjec', title: 'Juzgado', className: "text-center" }, { data: 'nombreBeneficiario', title: 'Nombre (s)', className: "text-center" }, { data: 'DetalleSolic', title: 'Detalle del Solicitante', className: "text-center" }, { data: 'fecha', title: 'Fecha', className: "text-center" }, { data: 'Solicitud', title: 'Solicitud', className: "text-center" }, { data: 'Beneficiario', title: 'Beneficiario', className: "text-center" }, { data: 'TypeExpe', title: 'Tipo Expediente', className: "text-center" }, { data: 'Detalle', title: '', className: "text-center" }];
+var Solicitante = [];
 
-//var estructuraTablaDetalleSolicitante = [{ data: 'NoEjecucion', title: 'No. Ejecución', className: "text-center" }, { data: 'JuzgEjec', title: 'Juzgado', className: "text-center" }, { data: 'nombreBeneficiario', title: 'Nombre (s)', className: "text-center" }, { data: 'DetalleSolic', title: 'Detalle del Solicitante', className: "text-center" }, { data: 'fecha', title: 'Fecha', className: "text-center" }, { data: 'Solicitud', title: 'Solicitud', className: "text-center" }, { data: 'Beneficiario', title: 'Beneficiario', className: "text-center" }, { data: 'TypeExpe', title: 'Tipo Expediente', className: "text-center" }, { data: 'Detalle', title: '', className: "text-center" }];
-//var DSolicitante = [];
+var estructuraTablaDetalleSolicitante = [{ data: 'NoEjecucion', title: 'No. Ejecución', className: "text-center" }, { data: 'JuzgEjec', title: 'Juzgado', className: "text-center" }, { data: 'nombreBeneficiario', title: 'Nombre (s)', className: "text-center" }, { data: 'DetalleSolic', title: 'Detalle del Solicitante', className: "text-center" }, { data: 'fecha', title: 'Fecha', className: "text-center" }, { data: 'Solicitud', title: 'Solicitud', className: "text-center" }, { data: 'Beneficiario', title: 'Beneficiario', className: "text-center" }, { data: 'TypeExpe', title: 'Tipo Expediente', className: "text-center" }, { data: 'Detalle', title: '', className: "text-center" }];
+var DSolicitante = [];
 
 
 var TablaPartesCausa = null;
-//var TablaSentenciadoBeneficiario = null;
-//var TablaNumeroCausa = null;
-//var TablaNUC = null;
-//var TablaSolicitante = null;
-//var TablaDetalleSolicitante = null;
+var TablaSentenciadoBeneficiario = null;
+var TablaNumeroCausa = null;
+var TablaNUC = null;
+var TablaSolicitante = null;
+var TablaDetalleSolicitante = null;
 
 
 // #region FUNCIÓN GENERAL: DataTable
