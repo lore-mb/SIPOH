@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PoderJudicial.SIPOH.AccesoDatos;
 using PoderJudicial.SIPOH.AccesoDatos.Conexion;
 using PoderJudicial.SIPOH.Entidades;
+using PoderJudicial.SIPOH.Entidades.Enum;
 
 namespace PoderJudicial.SIPOH.UT.EstherUT
 {
@@ -61,15 +62,48 @@ namespace PoderJudicial.SIPOH.UT.EstherUT
         [TestMethod]
         public void ObtenerPartesEjecucion()
         {
+
+            //Creo mi objeto
             EjecucionRepository PruebaEjecucionBusqueda = new EjecucionRepository(cnx);
 
             string nombre = "IGNACIO";
             string apellidoP = "";
             string apellidoM = "";
-
-
             List<Ejecucion> ListaPartesEjecucion = PruebaEjecucionBusqueda.ObtenerEjecucionPorPartesCausa(nombre, apellidoP, apellidoM);
 
+
+            string numeroCausa = "0001/2015";
+            int idjuzgado = 204;
+            List<Ejecucion> ListaNumeroCausa = PruebaEjecucionBusqueda.ObtenerEjecucionPorNumeroCausa(numeroCausa, idjuzgado);
+
+
+            string detalleSolicitante = "ESTE ES UN DETALLE";
+            List<Ejecucion> ListaDetalleSolicitante = PruebaEjecucionBusqueda.ObtenerEjecucionPorDetalleSolicitante(detalleSolicitante);
+
+            string nuc="13-2017-001300";
+            int idJuzgado = 0;
+            List<Ejecucion> ListaNUC = PruebaEjecucionBusqueda.ObtenerEjecucionPorNUC(nuc,idJuzgado);
+
+            string mensaje = "null";
+            int solicitante = 0;
+            List<Ejecucion> ListaSolicitante = PruebaEjecucionBusqueda.ObtenerEjecucionPorSolicitante(solicitante);
+            
+
+            //validacion del status
+            //creo mi objeto de tipo enum y asigno el valor de estatus a atributo estado de peticion, notese que Estatus(contiene los distintos status de prueba)
+            Estatus estadodepeticion = PruebaEjecucionBusqueda.Estatus;
+
+            //valida si el estado de mi peticion es igual a error envia mensaje accediendo a la propiedad MensajeError mediante el objeto
+            if (estadodepeticion == Estatus.ERROR)
+                mensaje = PruebaEjecucionBusqueda.MensajeError;
+
+            //si es diferente de error enviara estatus en ok
+            else if
+                (estadodepeticion == Estatus.OK)
+                mensaje = "bien";
+            else if
+                (estadodepeticion == Estatus.SIN_RESULTADO)
+                mensaje = "ningun resultado";
         }
 
     }

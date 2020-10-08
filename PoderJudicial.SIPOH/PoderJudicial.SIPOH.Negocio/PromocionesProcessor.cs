@@ -13,7 +13,7 @@ namespace PoderJudicial.SIPOH.Negocio
 
         // [Private method] 
         private readonly ICatalogosRepository catalogosRepositorio;
-        private readonly IEjecucionRepository ejecucionRepositorio;
+        private readonly IEjecucionRepository ejecucionRepositorio; 
         private readonly IExpedienteRepository expedienteRepositorio;
 
         // [Interface injection method]
