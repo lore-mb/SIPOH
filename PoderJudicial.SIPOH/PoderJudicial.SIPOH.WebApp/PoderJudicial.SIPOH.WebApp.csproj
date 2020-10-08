@@ -268,7 +268,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Iniciales\CrearInicial.cshtml" />
     <Content Include="Views\Promociones\CrearPromocion.cshtml" />
-    <Content Include="Views\Busquedas\Busquedas.cshtml" />
+    <Content Include="Views\Busquedas\BusquedaNumeroEjecucion.cshtml" />
     <Content Include="Views\ConsignacionesHistoricas\ConsignacionesHistoricas.cshtml" />
     <Content Include="Views\Reportes\Reportes.cshtml" />
     <Content Include="Views\Shared\_LayoutLogin.cshtml" />

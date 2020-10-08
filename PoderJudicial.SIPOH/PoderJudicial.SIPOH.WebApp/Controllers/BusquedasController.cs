@@ -1,4 +1,6 @@
-﻿using System;
+﻿using PoderJudicial.SIPOH.Entidades;
+using PoderJudicial.SIPOH.WebApp.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,8 +11,9 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
     public class BusquedasController : BaseController
     {
         // GET: Busquedas metodo para mandar a llamar con ajax
-        public ActionResult Busquedas()
+        public ActionResult BusquedaNumeroEjecucion()
         {
+           
             return View();
         }
     }

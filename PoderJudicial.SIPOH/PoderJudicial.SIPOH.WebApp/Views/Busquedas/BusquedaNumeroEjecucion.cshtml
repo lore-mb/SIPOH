@@ -1,0 +1,121 @@
+﻿@{
+    ViewBag.Title = "Busquedas";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="card shadow-sm col-sm-12">
+
+            <div class="card-header">
+                <h4 class="card-title">
+                    Busqueda de Numero De Ejecución
+                </h4>
+            </div>
+
+            <div class="card-body">
+
+                <ul class="nav nav-pills  nav-fill nav-success" id="pills-tab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="pills-pcausa-tab" data-toggle="pill" href="#pills-pcausa" role="tab" aria-controls="pills-pcausa" aria-selected="true"><i class="icon-users"></i>  Partes causa</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-sentebene-tab" data-toggle="pill" href="#pills-sentebene" role="tab" aria-controls="pills-sentebene" aria-selected="false"><i class="icon-user"></i> Sentenciado|Beneficiario</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-numcausa-tab" data-toggle="pill" href="#pills-numcausa" role="tab" aria-controls="pills-numcausa" aria-selected="false"><i class="icon-address-book"></i> N° de causa</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-NUC-tab" data-toggle="pill" href="#pills-NUC" role="tab" aria-controls="pills-NUC" aria-selected="false"><i class="icon-folder-open"></i> N° de NUC</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-solicitante-tab" data-toggle="pill" href="#pills-solicitante" role="tab" aria-controls="pills-solicitante" aria-selected="false"><i class="icon-user-tie"></i> Solicitante</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-Dsolicitante-tab" data-toggle="pill" href="#pills-Dsolicitante" role="tab" aria-controls="pills-Dsolicitante" aria-selected="false"><i class="icon-paste"></i> Detalle del solicitante</a>
+                    </li>
+                </ul>
+
+                <div class="tab-content" id="pills-tabContent">
+                    <div class="tab-pane fade show active" id="pills-pcausa" role="tabpanel" aria-labelledby="pills-pcausa-tab">
+
+                        <form id="formPartesCausa" class="needs-validation" novalidate>
+
+                            <div class="form-row">
+                                <div class="col-12 col-md-6 mt-1">
+                                    <div class="input-group" id="divApellidoPSentenciado">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="lbApellidoPaterno">Apellido Paterno</span>
+                                        </div>
+                                        <input type="text" class="form-control" id="inpApellidoPaterno" aria-describedby="inpNumero" required>
+                                        <div class="invalid-feedback">
+                                            Introducir apellido paterno del Beneficiario
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6 mt-1">
+                                    <div class="input-group" id="divApellidoMSentenciado">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="lbApellidoMaterno">Apellido Materno</span>
+                                        </div>
+                                        <input type="text" class="form-control" id="inpApellidoMaterno" aria-describedby="inpNumero" required>
+                                        <div class="invalid-feedback">
+                                            Introducir apellido materno del Beneficiario
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="col-12 col-md-6 mt-1">
+                                    <div class="input-group" id="divNombreSentenciado ">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="lbNombreSentenciado">Nombre(s)</span>
+                                        </div>
+                                        <input type="text" class="form-control" id="inpNombreSentenciado" aria-describedby="inpNumero" required>
+                                        <div class="invalid-feedback">
+                                            Introducir nombre del Beneficiario
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+
+                    <div class="tab-pane fade" id="pills-sentebene" role="tabpanel" aria-labelledby="pills-sentebene-tab">
+
+                    </div>
+                    <div class="tab-pane fade" id="pills-numcausa" role="tabpanel" aria-labelledby="pills-numcausa-tab">
+
+                    </div>
+                    <div class="tab-pane fade" id="pills-NUC" role="tabpanel" aria-labelledby="pills-NUC-tab">
+
+                    </div>
+                    <div class="tab-pane fade" id="pills-solicitante" role="tabpanel" aria-labelledby="pills-solicitante-tab">
+
+                    </div>
+                    <div class="tab-pane fade" id="pills-Dsolicitante" role="tabpanel" aria-labelledby="pills-Dsolicitante-tab">
+
+                    </div>
+                </div>
+
+                <div class="tab-content">
+                    <div class="form-row">
+                        <div class="col-12">
+                            <h6 class="m-0 font-weight-bold text-success"><i class="icon-table2"></i> Tabla de Causas</h6>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        @*<div class="pruebaLoca">sss</div>*@
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@Scripts.Render("~/Scripts/Master/Jquery")
+@Scripts.Render("~/Scripts/Master/InptuMask")
+@Scripts.Render("~/Scripts/Modules/Ejecucion/Busquedas")
