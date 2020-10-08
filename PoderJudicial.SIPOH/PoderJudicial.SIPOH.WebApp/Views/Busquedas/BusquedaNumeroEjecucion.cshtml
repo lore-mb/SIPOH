@@ -116,33 +116,6 @@
     </div>
 </div>
 
-<!-- MODAL BENEFICIARIOS-->
-<div id="ejecucionModal" class="modal fade" data-backdrop="static" data-keyboard="false" role="dialog">
-    <div class="modal-dialog modal-xl">
-        <!-- Contenido del modal -->
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title" id="exampleModalLongTitle"><i class="icon-table2"></i> Coincidencias del Beneficiario en registros de Ejecución</h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div id="modalContainer">
-                    <div class="table-responsive text-small">
-                        <table class="table table-bordered table-hover table-sm" id="dataTableBeneficiarios" width="100%" cellspacing="0">
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-outline-secondary" value="Cancelar" id="btnCancelar"><i class="icon-cross"></i> Cancelar</button>
-                <button type="submit" class="btn btn-outline-success" value="Aceptar" id="btnAceptar"><i class="icon-checkmark"></i> Continuar Registro</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 @Scripts.Render("~/Scripts/Master/Jquery")
 @Scripts.Render("~/Scripts/Master/InptuMask")
-@Scripts.Render("~/Scripts/Modules/Ejecucion/Iniciales")
+@Scripts.Render("~/Scripts/Modules/Ejecucion/Busquedas")
