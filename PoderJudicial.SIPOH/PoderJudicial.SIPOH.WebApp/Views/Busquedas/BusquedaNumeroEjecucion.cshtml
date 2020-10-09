@@ -137,6 +137,7 @@
                             <div class="form-row mt-3">
                                 <div class="col-md-3 form-group">
                                     <label for="slcNumero">Distrito de Procedencia</label>
+                                    @Html.DropDownList("DistritoPorCircuito",(SelectList)ViewBag.DistritoPorCircuito,"SELECCIONA OPCION", new { @id="slctDistrito",@class="custom-select formatear",@requiered="requiered"})
 
                                     <div class="invalid-feedback">
                                         <i class="icon-notification"></i> Por favor, selecciona un distrito.
@@ -182,6 +183,7 @@
                                 <div class="col-md-12 col-lg-7 form-group">
 
                                     <label for="validationCustom04">Juzgado de Procedencia</label>
+                                    @Html.DropDownList("JuzgadosAcusatorios",(SelectList)ViewBag.JuzgadosAcusatorios,"SELECCIONA OPCION",new { @id = "slctJuzgadoA", @class = "custom-select formatear", @requiered = "requiered" })
 
                                     <div class="invalid-feedback">
                                         <i class="icon-notification"></i> Por favor, selecciona un juzgado.
@@ -212,7 +214,7 @@
                             <div class="col-md-12 col-lg-6 form-group">
 
                                 <label for="validationCustom04">Solicitante</label>
-
+                                @Html.DropDownList("Solicitante",(SelectList)ViewBag.Solicitante,"SELECCIONA OPCION",new { @id="slctSolicitante", @class="custom-select formatear", @requiered="requiered" })
 
                             </div>
                          </div>

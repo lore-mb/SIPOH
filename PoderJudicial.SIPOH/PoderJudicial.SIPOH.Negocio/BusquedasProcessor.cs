@@ -22,14 +22,14 @@ namespace PoderJudicial.SIPOH.Negocio
         /// <param name="ExpedienteRepositorio"></param>
         public BusquedasProcessor(ICatalogosRepository CatalogRepositorio, IEjecucionRepository EjecucionRepositorio, IExpedienteRepository ExpedienteRepositorio)
         {
-            this.catalogRepositorio = CatalogRepositorio;
+            this.catalogoRepositorio = CatalogRepositorio;
             this.ejecucionRepositorio = EjecucionRepositorio;
             this.expedienteRepositorio = ExpedienteRepositorio;
         }
 
         //[Private Method]
         //Se instancian mis objetos:
-        private readonly ICatalogosRepository catalogRepositorio;
+        private readonly ICatalogosRepository catalogoRepositorio;
         private readonly IEjecucionRepository ejecucionRepositorio;
         private readonly IExpedienteRepository expedienteRepositorio;
 
@@ -165,6 +165,66 @@ namespace PoderJudicial.SIPOH.Negocio
             }
             return numCausa;
         }
-#endregion
+
+        /// <summary>
+        /// Valida la consulta por Distrito
+        /// </summary>
+        /// <param name="idDistrito"></param>
+        /// <returns></returns>
+        public List<Distrito> ObtenerDistritoPorCircuito(int idDistrito)
+        {
+            List<Distrito> distritoCircuito = catalogoRepositorio.ObtenerDistritos(idDistrito);
+           
+            if (catalogoRepositorio.Estatus == Estatus.ERROR)
+            {
+                Mensaje = "La consulta no genero ningun resultado";
+                string messajelogger = ejecucionRepositorio.MensajeError;
+            }
+            if (catalogoRepositorio.Estatus == Estatus.SIN_RESULTADO)
+            {
+                Mensaje = "Ocurrio un error interno no controlado, consulte a soporte";
+            }
+            return distritoCircuito;
+        }
+        
+        /// <summary>
+        /// Valida peticion de obtencion de juzgados por distrito
+        /// </summary>
+        /// <param name="idCircuito"></param>
+        /// <param name="tipoJuzgado"></param>
+        /// <returns></returns>
+        public List<Juzgado> ObtenerJuzgadosAcusatorios(int idCircuito)
+        {
+            List<Juzgado> juzgadosCiruito = catalogoRepositorio.ObtenerJuzgados(idCircuito, TipoJuzgado.ACUSATORIO);
+           
+            if (catalogoRepositorio.Estatus == Estatus.ERROR)
+            {
+                Mensaje = "La consulta no genero ningun resultado";
+                string messajelogger = catalogoRepositorio.MensajeError;
+            }
+            if (catalogoRepositorio.Estatus == Estatus.SIN_RESULTADO)
+            {
+                Mensaje = "Ocurrio un error interno no controlado, consulte a soporte";
+            }
+            return juzgadosCiruito;
+
+        }
+
+        public List<Solicitante> ObtenerSolicitanteEjecucion()
+        {
+            List<Solicitante> solicitanteEjecucion = catalogoRepositorio.ObtenerSolicitantes();
+            
+            if(catalogoRepositorio.Estatus == Estatus.ERROR)
+            {
+                Mensaje = "La consulta no genero ningun resultado";
+                string messajelogger = catalogoRepositorio.MensajeError;
+            }
+            if(catalogoRepositorio.Estatus==Estatus.SIN_RESULTADO)
+            {
+                Mensaje = "Ocurrio un error interno no controlado, consulte a soporte";
+            }
+            return solicitanteEjecucion;
+        }
+        #endregion
     }
 }

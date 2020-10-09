@@ -31,7 +31,15 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         // GET: Busquedas metodo para mandar a llamar con ajax
         public ActionResult BusquedaNumeroEjecucion()
         {
+            //metodo que retorna la lista de distritos
+            List<Distrito> listaDistrito = busquedaProcessor.ObtenerDistritoPorCircuito(Usuario.IdCircuito);
+            List<Juzgado> listaJuzgados = busquedaProcessor.ObtenerJuzgadosAcusatorios(Usuario.IdCircuito);
+            List<Solicitante> listaSolicitante = busquedaProcessor.ObtenerSolicitanteEjecucion();
 
+            //Metodo que retorna el select list a partir de una lista
+            ViewBag.DistritoPorCircuito = ViewHelper.CreateSelectList(listaDistrito, "IdDistrito", "Nombre");
+            ViewBag.JuzgadosAcusatorios = ViewHelper.CreateSelectList(listaJuzgados, "IdJuzgado", "Nombre");
+            ViewBag.Solicitante = ViewHelper.CreateSelectList(listaSolicitante, "IdSolicitante", "Descripcion");
             return View();
         }
 
