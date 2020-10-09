@@ -210,11 +210,11 @@ $("#btnGuardarAnexos").click(function (e) {
     e.preventDefault();
     $("#loading").fadeIn();
 
-    ////var ObjetoParametro = {
-    ////    NombrePromovente = $("#inpNombrePromovente").val;
-    ////    DescripcionAnexo = $("").val;
-    ////    CantidadCopias = $("").val;
-    ////}
+    //var objetoparametro = {
+    //    nombrepromovente = $("#inpnombrepromovente").val;
+    //    descripcionanexo = $("").val;
+    //    cantidadcopias = $("").val;
+    //}
 
 });
 // #endregion

@@ -12,5 +12,9 @@ namespace PoderJudicial.SIPOH.Entidades
         public string Promovente { get; set; }
         public string FechaIngreso { get; set; }
         public int IdUser { get; set; }
+        public int IdEjecucionPosterior { get; set; }
+        public int IdCatAnexEjecucion { get; set; }
+        public string OtroAnexoEjecucion { get; set; }
+        public int Cantidad { get; set; }
     }
 }

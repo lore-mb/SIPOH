@@ -89,18 +89,21 @@ namespace PoderJudicial.SIPOH.Negocio
             throw new System.NotImplementedException();
         }
 
-        public int? GuardarPostEjecucion(PostEjecucion postEjecucion) {
+        public int? GuardarPostEjecucion(PostEjecucion postEjecucion, List<PostEjecucion> posts)
+        {
 
-            int? idEjecucion = ejecucionRepositorio.GuardarPostEjecucion(postEjecucion);
+            int? registroPost = ejecucionRepositorio.GuardarPostEjecucion(postEjecucion, posts);    
 
-            if (catalogosRepositorio.Estatus == Estatus.OK) {
-                Mensaje = "Se generó con exito el registro.";    
+            if (ejecucionRepositorio.Estatus == Estatus.OK)
+            {
+                Mensaje = "Se generó con exito el registro.";
             }
-            else if (catalogosRepositorio.Estatus == Estatus.ERROR) {
+            else if (ejecucionRepositorio.Estatus == Estatus.ERROR)
+            {
                 Mensaje = " Ocurrio un error al intentar generera el registro.";
-                string MensajeLogger = catalogosRepositorio.MensajeError;
+                string MensajeLogger = ejecucionRepositorio.MensajeError;
             }
-            return idEjecucion;
+            return registroPost;
         }
     }
 }

@@ -1,24 +1,29 @@
 ﻿using PoderJudicial.SIPOH.Entidades;
 using PoderJudicial.SIPOH.Negocio.Interfaces;
 using PoderJudicial.SIPOH.WebApp.Helpers;
+using PoderJudicial.SIPOH.WebApp.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+using AutoMapper;
+
 
 namespace PoderJudicial.SIPOH.WebApp.Controllers
 {
     public class PromocionesController : BaseController
     {
         private readonly IPromocionesProcessor promocionesProcessor;
-        public PromocionesController(IPromocionesProcessor promocionesProcessor)
+        private readonly IMapper mapper;
+
+        public PromocionesController(IPromocionesProcessor promocionesProcessor, IMapper mapper)
         {
             this.promocionesProcessor = promocionesProcessor;
+            this.mapper = mapper;
         }
 
         #region Public Methods
 
+        #region [MAIN] Return View & 
         public ActionResult CrearPromocion()
         {
             List<Anexo> ListarAnexosEjecucion = promocionesProcessor.ObtenerAnexosEjecucion("A");
@@ -26,10 +31,12 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
 
             List<Juzgado> ListaJuzgadosPick = promocionesProcessor.ObtenerJuzgadoEjecucionPorCircuito(Usuario.IdCircuito);
             ViewBag.JuzgadoCircuit = ListaJuzgadosPick != null ? ListaJuzgadosPick : new List<Juzgado>();
+
             return View();
         }
+        #endregion
 
-        #region Obtener Juzgados de ejecucion por circutios
+        #region [OBTENER] Juzgados de ejecucion por circutios
         [HttpGet]
         public ActionResult ObtenerJuzgadoEjecucionPorCircuito(int idcircuito)
         {
@@ -40,7 +47,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         }
         #endregion
 
-        #region Obtener Datos Generales por Juzgado
+        #region [OBTENER] Datos Generales por Juzgado
         [HttpGet]
         public ActionResult ObtenerEjecucionPorJuzgado(int Juzgado, string NoEjecucion)
         {
@@ -68,7 +75,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
 
         #endregion
 
-        #region Obtener expedientes por numero de ejecución
+        #region [OBTENER] Expedientes por numero de ejecución
 
         [HttpGet]
         public ActionResult ObtenerExpedientesPorEjecucion(int idEjecucion) {
@@ -92,7 +99,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
 
         #endregion
 
-        #region Obtener expedientes de ejecucion por causa
+        #region [OBTENER] Expedientes de ejecucion por causa
         public ActionResult ObtenerExpedienteEjecucionCausa(int idExpediente)
         {
             Expediente ExpedienteCRE = promocionesProcessor.ObtenerExpedienteEjecucionCausa(idExpediente);
@@ -120,9 +127,52 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         }
         #endregion
 
-        #region Guardar datos Post-Ejecución
+        #region [GUARDAR] Anexos-Ejecución
+        [HttpPost]
+        public ActionResult GuardarAnexosPostEjecucion(PostEjecucionModelView modeloPost)
+        {
+            try
+            {
 
+                #region Mapeado
+                PostEjecucion mapperPost = mapper.Map<PostEjecucionModelView, PostEjecucion>(modeloPost);
+                #endregion
 
+                #region Obtener Id de Usuario
+                mapperPost.IdUser = Usuario.Id;
+                #endregion
+
+                List<PostEjecucion> anexos = mapper.Map<List<PostEjecucionModelView>, List<PostEjecucion>>(modeloPost.PostEjecucion);
+
+                int? parametros = promocionesProcessor.GuardarPostEjecucion(mapperPost, anexos );
+
+                if (parametros == null) {
+
+                    Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
+                    Respuesta.Mensaje = promocionesProcessor.Mensaje;
+
+                } else if (parametros != null) {
+                    
+                    // Cifrado de URL
+                    string urlFunction = ViewHelper.EncodedActionLink("Detalle", "Promociones", new { URLParametros = parametros });
+                    
+                    Respuesta.Estatus = EstatusRespuestaJSON.OK;
+                    Respuesta.Mensaje = promocionesProcessor.Mensaje;
+                    Respuesta.Data = new { Url = urlFunction };
+                }
+
+                System.Threading.Thread.Sleep(2000);
+                return Json(Respuesta, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception ex)
+            {
+                Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
+                Respuesta.Mensaje = ex.Message;
+                Respuesta.Data = null;
+                return Json(Respuesta, JsonRequestBehavior.AllowGet);
+            }
+        }
         #endregion
 
         #endregion

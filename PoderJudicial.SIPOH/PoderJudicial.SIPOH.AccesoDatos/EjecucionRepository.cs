@@ -491,35 +491,35 @@ namespace PoderJudicial.SIPOH.AccesoDatos
         }
 
 
-        public int? GuardarPostEjecucion(PostEjecucion postEjecucion)
+        public int? GuardarPostEjecucion(PostEjecucion postEjecucion, List<PostEjecucion> posts)
         {
             try
             {
                 if (!IsValidConnection)
+                {
                     throw new Exception("No se ha creado una conexion valida");
+                }
 
                 SqlCommand comandoSQL;
-                comandoSQL = new SqlCommand("sipoh_GenerarPostEjecucion", Cnx);
+                comandoSQL = new SqlCommand("sipoh_GenerarAnexosAfterPost", Cnx);
                 comandoSQL.CommandType = CommandType.StoredProcedure;
                 comandoSQL.Parameters.Add("@IdEjecucion", SqlDbType.Int).Value = postEjecucion.IdEjecucion;
                 comandoSQL.Parameters.Add("@Promovente", SqlDbType.VarChar).Value = postEjecucion.Promovente;
-                comandoSQL.Parameters.Add("@FechaIngreso", SqlDbType.Date).Value = postEjecucion.FechaIngreso;
                 comandoSQL.Parameters.Add("@IdUser", SqlDbType.Int).Value = postEjecucion.IdUser;
+
+                SqlParameter parametroAnexos;
+                parametroAnexos = new SqlParameter();
+                parametroAnexos.ParameterName = ("@AnexosPost");
+                parametroAnexos.SqlDbType = SqlDbType.Structured;
+                parametroAnexos.Value = CrearPostEjecucion(posts);
+                comandoSQL.Parameters.Add(parametroAnexos);
 
                 Cnx.Open();
                 comandoSQL.ExecuteNonQuery();
 
                 Estatus = Estatus.OK;
 
-                SqlParameter idEjecucion;
-                idEjecucion = new SqlParameter();
-
-                idEjecucion.ParameterName = "@IdEjecucion";
-                idEjecucion.SqlDbType = SqlDbType.Int;
-                idEjecucion.Direction = ParameterDirection.Output;
-                comandoSQL.Parameters.Add(idEjecucion);
-
-                return Convert.ToInt32(idEjecucion.Value);
+                return Convert.ToInt32(parametroAnexos.Value);
             }
             catch (Exception ex)
             {
@@ -606,6 +606,27 @@ namespace PoderJudicial.SIPOH.AccesoDatos
             return tocasType;
         }
 
+        private DataTable CrearPostEjecucion(List<PostEjecucion> posts)
+        {
+
+            DataTable AnexosPost = new DataTable();
+            AnexosPost.Clear();
+            AnexosPost.Columns.Add("IdEjecucionPosterior");
+            AnexosPost.Columns.Add("IdCatAnexoEjecucion");
+            AnexosPost.Columns.Add("OtroAnexoEjecucion");
+            AnexosPost.Columns.Add("Cantidad");
+
+            foreach (PostEjecucion asignarPost in posts)
+            {
+                DataRow Field = AnexosPost.NewRow();
+                Field["IdEjecucionPosterior"] = asignarPost.IdEjecucionPosterior;
+                Field["IdCatAnexoEjecucion"] = asignarPost.IdCatAnexEjecucion;
+                Field["OtroAnexoEjecucion"] = asignarPost.IdCatAnexEjecucion == 8 ? asignarPost.OtroAnexoEjecucion : null;
+                Field["Cantidad"] = asignarPost.Cantidad;
+                AnexosPost.Rows.Add(Field);
+            }
+            return AnexosPost;
+        }
 
     }
 }

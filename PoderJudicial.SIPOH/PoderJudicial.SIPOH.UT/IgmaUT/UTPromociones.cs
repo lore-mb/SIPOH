@@ -35,20 +35,26 @@ namespace PoderJudicial.SIPOH.UT.IgmaUT
             Expediente expe = new Expediente();
             expe.IdExpediente = 3911;
         }
+
         [TestMethod]
-        public void agregarPostEjecucion() {
+        public void GuardarPostEjecucion()
+        {
 
-            EjecucionRepository contenidoRepositorio;
-            contenidoRepositorio = new EjecucionRepository(Cnx);
-            
-            PostEjecucion contenidoPostEjecucion;
-            contenidoPostEjecucion = new PostEjecucion();
-            contenidoPostEjecucion.IdEjecucion = 78;
-            contenidoPostEjecucion.Promovente = "MARCO ALBERTO";
-            contenidoPostEjecucion.FechaIngreso = "20-12-20202";
-            contenidoPostEjecucion.IdUser = 1;
+            EjecucionRepository RepositorioEjecucion;
+            RepositorioEjecucion = new EjecucionRepository(Cnx);
 
-            int? idEjecucion = contenidoRepositorio.GuardarPostEjecucion(contenidoPostEjecucion);
+            PostEjecucion RepositorioPostEjecucion;
+            RepositorioPostEjecucion = new PostEjecucion();
+            RepositorioPostEjecucion.IdEjecucion = 78;
+            RepositorioPostEjecucion.Promovente = "Lic. Promovente 12";
+            RepositorioPostEjecucion.IdUser = 1;
+
+            List<PostEjecucion> anexos = new List<PostEjecucion>() {
+                new PostEjecucion (){  IdEjecucionPosterior = 7, IdCatAnexEjecucion = 5, OtroAnexoEjecucion = null, Cantidad = 5 },
+                new PostEjecucion (){  IdEjecucionPosterior = 7, IdCatAnexEjecucion = 8, OtroAnexoEjecucion = "Este es otro anexo 3", Cantidad = 8 }
+            };
+
+            RepositorioEjecucion.GuardarPostEjecucion(RepositorioPostEjecucion, anexos);
         }
 
     }
