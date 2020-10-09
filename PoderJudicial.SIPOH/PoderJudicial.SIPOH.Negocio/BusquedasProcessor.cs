@@ -34,11 +34,11 @@ namespace PoderJudicial.SIPOH.Negocio
             List<Ejecucion> DetalleSolicitante = ejecucionRepositorio.ObtenerEjecucionPorDetalleSolicitante(detalleSolicitante);
             if (ejecucionRepositorio.Estatus == Estatus.SIN_RESULTADO)
             {
-                Mensaje = "La Consullta No Genero Ninguna Coincidencia";
+                Mensaje = "La consulta no genero ningun resultado";
             }
             if(ejecucionRepositorio.Estatus== Estatus.ERROR)
             {
-                Mensaje = "Hubo un error inesperado ...";
+                Mensaje = "Ocurrio un error interno no controlado, consulte a soporte";
                 string messajelogger = ejecucionRepositorio.MensajeError;
             }
             return DetalleSolicitante;
@@ -49,12 +49,12 @@ namespace PoderJudicial.SIPOH.Negocio
             List<Ejecucion> NUC = ejecucionRepositorio.ObtenerEjecucionPorNUC(nuc, idJuzgado);
             if (ejecucionRepositorio.Estatus == Estatus.ERROR)
             {
-                Mensaje = "Hubo un error inesperado ...";
+                Mensaje = "La consulta no genero ningun resultado";
                 string messajelogger = ejecucionRepositorio.MensajeError;
             }
             if (ejecucionRepositorio.Estatus == Estatus.SIN_RESULTADO)
             {
-                Mensaje = "La Consullta No Genero Ninguna Coincidencia";
+                Mensaje = "Ocurrio un error interno no controlado, consulte a soporte";
             }
             return NUC;
         }
@@ -64,11 +64,11 @@ namespace PoderJudicial.SIPOH.Negocio
             List<Ejecucion> PartesCausa = ejecucionRepositorio.ObtenerEjecucionPorPartesCausa(nombre, apellidoPaterno, apellidoMaterno);
             if (ejecucionRepositorio.Estatus == Estatus.SIN_RESULTADO)
             {
-                Mensaje = "La Consullta No Genero Ninguna Coincidencia";
+                Mensaje = "La consulta no genero ningun resultado";
             }
             if (ejecucionRepositorio.Estatus == Estatus.ERROR)
             {
-                Mensaje = "Oops ! Ocurrio un error inesperado";
+                Mensaje = "Ocurrio un error interno no controlado, consulte a soporte";
                 string messajelogger = ejecucionRepositorio.MensajeError;
             }
             return PartesCausa;
@@ -79,11 +79,11 @@ namespace PoderJudicial.SIPOH.Negocio
             List<Ejecucion> Solicitante = ejecucionRepositorio.ObtenerEjecucionPorSolicitante(idSolicitante);
             if(ejecucionRepositorio.Estatus== Estatus.SIN_RESULTADO)
             {
-                Mensaje = "No se encontro ninguna coincidencia";
+                Mensaje = "La consulta no genero ningun resultado";
             }
             if (ejecucionRepositorio.Estatus == Estatus.ERROR)
             {
-                Mensaje = "Oops!! Ha ocurrido un error...";
+                Mensaje = "Ocurrio un error interno no controlado, consulte a soporte";
                 string messajelogger = ejecucionRepositorio.MensajeError;
             }
             return Solicitante;
@@ -94,11 +94,11 @@ namespace PoderJudicial.SIPOH.Negocio
             List<Ejecucion> Beneficiario = ejecucionRepositorio.ObtenerSentenciadoBeneficiario(nombre, apellidoPaterno,apellidoMaterno);
             if (ejecucionRepositorio.Estatus == Estatus.SIN_RESULTADO)
             {
-                Mensaje = "La Consulta no genero ninguna coincidencia";
+                Mensaje = "La consulta no genero ningun resultado";
             }
             if (ejecucionRepositorio.Estatus == Estatus.ERROR)
             {
-                Mensaje = "Oops ! ha ocurrido un error";
+                Mensaje = "Ocurrio un error interno no controlado, consulte a soporte";
                 string messajelogger = ejecucionRepositorio.MensajeError;
             }
             return Beneficiario;
@@ -109,12 +109,12 @@ namespace PoderJudicial.SIPOH.Negocio
             List<Ejecucion> numCausa = ejecucionRepositorio.ObtenerEjecucionPorNumeroCausa(numeroCausa ,idJuzgado);
             if (ejecucionRepositorio.Estatus == Estatus.ERROR)
             {
-                Mensaje = "Ocurrio error inesperado, consulte a soporte";
+                Mensaje = "La consulta no genero ningun resultado";
                 string messajelogger = ejecucionRepositorio.MensajeError;
             }
             if (ejecucionRepositorio.Estatus == Estatus.SIN_RESULTADO)
             {
-                Mensaje = "La consulta no gennero ninguna coincidencia";
+                Mensaje = "Ocurrio un error interno no controlado, consulte a soporte";
             }
             return numCausa;
         }
