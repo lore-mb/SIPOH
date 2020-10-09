@@ -152,5 +152,28 @@ namespace PoderJudicial.SIPOH.UT.AlbertoUT
                 descripta.Add(descript);
             }
         }
+
+
+        [TestMethod]
+        public void PreubaRef()
+        {
+            int miValor = 5;
+            int resultado = pasoParametroSinReferencia(miValor);
+
+            //int resultado2 = pasoParametroConReferencia(ref miValor);
+
+        }
+
+        public int pasoParametroSinReferencia(int valor) 
+        {
+             valor = valor + 3;
+             return valor;
+        }
+
+        public int pasoParametroConReferencia(ref int valor)
+        {
+            valor = valor + 3;
+            return valor;
+        }
     }
 }
