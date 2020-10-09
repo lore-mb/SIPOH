@@ -184,6 +184,8 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Master\Img\details_close.png" />
+    <Content Include="Content\Master\Img\details_open.png" />
     <Content Include="Content\Master\Site\coresite.css" />
     <Content Include="Content\Master\DataTables\datatables.min.css" />
     <Content Include="Content\Master\DatePicker\bootstrap-datetimepicker.min.css" />
