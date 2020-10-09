@@ -41,8 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusquedasProcessor.cs" />
     <Compile Include="CuentaProcessor.cs" />
     <Compile Include="InicialesProcessor.cs" />
+    <Compile Include="Interfaces\IBusquedasProcessor.cs" />
     <Compile Include="Interfaces\ICuentaProcessor.cs" />
     <Compile Include="Interfaces\IInicialesProcessor.cs" />
     <Compile Include="Interfaces\IPromocionesProcessor.cs" />

@@ -75,11 +75,12 @@ namespace PoderJudicial.SIPOH.WebApp.App_Start
             kernel.Bind<ICatalogosRepository>().To<CatalogosRepository>().WithConstructorArgument("connection", connection);
             kernel.Bind<IExpedienteRepository>().To<ExpedienteRepository>().WithConstructorArgument("connection", connection);
             kernel.Bind<IEjecucionRepository>().To<EjecucionRepository>().WithConstructorArgument("connection", connection);
-
+            
             //Inyeccion de servicios para la logica de negocio
             kernel.Bind<ICuentaProcessor>().To<CuentaProcessor>();
             kernel.Bind<IInicialesProcessor>().To<InicialesProcessor>();
             kernel.Bind<IPromocionesProcessor>().To<PromocionesProcessor>();
+            kernel.Bind<IBusquedasProcessor>().To<BusquedasProcessor>();
     
             //Mapers *********************************************************
             var mapperConfiguration = CreateConfiguration();
