@@ -40,13 +40,13 @@
 
                         <form id="formPartesCausa" class="needs-validation" novalidate>
 
-                            <div class="form-row">
+                            <div class="form-row mt-3">
                                 <div class="col-12 col-md-6 mt-1">
-                                    <div class="input-group" id="divApellidoPSentenciado">
+                                    <div class="input-group" id="divApellidoPParte">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="lbApellidoPaterno">Apellido Paterno</span>
                                         </div>
-                                        <input type="text" class="form-control" id="inpApellidoPaterno" aria-describedby="inpNumero" required>
+                                        <input type="text" class="form-control" id="inpApellidoPaternoParte" aria-describedby="inpNumero" required>
                                         <div class="invalid-feedback">
                                             Introducir apellido paterno del Beneficiario
                                         </div>
@@ -56,9 +56,9 @@
                                 <div class="col-12 col-md-6 mt-1">
                                     <div class="input-group" id="divApellidoMSentenciado">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text" id="lbApellidoMaterno">Apellido Materno</span>
+                                            <span class="input-group-text" id="lbApellidoPMaterno">Apellido Materno</span>
                                         </div>
-                                        <input type="text" class="form-control" id="inpApellidoMaterno" aria-describedby="inpNumero" required>
+                                        <input type="text" class="form-control" id="inpApellidoMaternoPartes" aria-describedby="inpNumero" required>
                                         <div class="invalid-feedback">
                                             Introducir apellido materno del Beneficiario
                                         </div>
@@ -67,17 +67,18 @@
                             </div>
 
                             <div class="form-row">
-                                <div class="col-12 col-md-6 mt-1">
-                                    <div class="input-group" id="divNombreSentenciado ">
+                               
+                                <div class="col-12 col-md-12 mt-1">
+                                    <div class="input-group" id="divBusquedaSentenciado">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text" id="lbNombreSentenciado">Nombre(s)</span>
+                                            <span class="input-group-text" id="lbNombreParte">Nombre(s)</span>
                                         </div>
-                                        <input type="text" class="form-control" id="inpNombreSentenciado" aria-describedby="inpNumero" required>
-                                        <div class="invalid-feedback">
-                                            Introducir nombre del Beneficiario
-                                        </div>
+                                        <input type="text" class="form-control mr-2" id="inpNombreParte" aria-describedby="inpNumero">
+                                        <button id="botonBuscarNumerosDeEjecucion" type="submit" class="btn btn-success btn-sm mr-2" data-toggle="tooltip" data-placement="top" title="Buscar Ejecuciones"><i class="fa fa-search icon"></i></button>
+                                        <button id="botonBorrarDatos" type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Continuar Registro"><i class="fa fa-eraser icon"></i></button>
                                     </div>
                                 </div>
+
                             </div>
 
                         </form>
@@ -85,32 +86,176 @@
 
                     <div class="tab-pane fade" id="pills-sentebene" role="tabpanel" aria-labelledby="pills-sentebene-tab">
 
+                        <form id="formBeneficiario" class="needs-validation" novalidate>
+
+                            <div class="form-row mt-3">
+                                <div class="col-12 col-md-6 mt-1">
+                                    <div class="input-group" id="divApellidoBParte">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="lbApellidoBeneficiario">Apellido Paterno</span>
+                                        </div>
+                                        <input type="text" class="form-control" id="inpApellidoPaternoBeneficiario" aria-describedby="inpNumero" required>
+                                        <div class="invalid-feedback">
+                                            Introducir apellido paterno del Beneficiario
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6 mt-1">
+                                    <div class="input-group" id="divApellidoMBeneficiario">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="lbApellidoBMaterno">Apellido Materno</span>
+                                        </div>
+                                        <input type="text" class="form-control" id="inpApellidoMaternoBeneficiario" aria-describedby="inpNumero" required>
+                                        <div class="invalid-feedback">
+                                            Introducir apellido materno del Beneficiario
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+
+                                <div class="col-12 col-md-12 mt-1">
+                                    <div class="input-group" id="divBusquedaSentenciado">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="lbNombreBeneficiario">Nombre(s)</span>
+                                        </div>
+                                        <input type="text" class="form-control mr-2" id="inpNombreBeneficiario" aria-describedby="inpNumero">
+                                        <button id="botonBuscarNumerosDeEjecucion" type="submit" class="btn btn-success btn-sm mr-2" data-toggle="tooltip" data-placement="top" title="Buscar Ejecuciones"><i class="fa fa-search icon"></i></button>
+                                        <button id="botonBorrarDatos" type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Continuar Registro"><i class="fa fa-eraser icon"></i></button>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </form>
+
                     </div>
                     <div class="tab-pane fade" id="pills-numcausa" role="tabpanel" aria-labelledby="pills-numcausa-tab">
+                        <form id="formCausasTradicional" class="needs-validation" novalidate>
+                            <div class="form-row mt-3">
+                                <div class="col-md-3 form-group">
+                                    <label for="slcNumero">Distrito de Procedencia</label>
 
+                                    <div class="invalid-feedback">
+                                        <i class="icon-notification"></i> Por favor, selecciona un distrito.
+                                    </div>
+                                    <div class="valid-feedback">
+                                        <i class="icon-checkmark"></i> Distrito seleccionado.
+                                    </div>
+                                </div>
+
+                                <div class="col-md-5 form-group">
+                                    <label for="validationCustom04">Juzgado de Procedencia</label>
+                                    <select class="custom-select" id="slctJuzgadoTradi" required>
+                                        <option selected value="">SELECCIONAR OPCIÓN</option>
+                                    </select>
+                                    <div class="valid-feedback">
+                                        <i class="icon-checkmark"></i> Juzgado de procedencia, seleccionado.
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 form-group">
+                                    <label for="validationCustomUsername">Numero de Causa</label>
+                                    <div class="input-group" id="divCAU">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="inputGroupPrepend">CAUSA</span>
+                                        </div>
+                                        <input type="text" class="form-control mr-2" id="inpCAUT" aria-describedby="inpCAU" placeholder="0000/0000" required>
+                                        <button class="btn btn-success btn-sm mr-2" type="submit" id="btnCAU" data-toggle="tooltip" data-placement="top" title="Buscar Ejecuciones"><i class="fas fa-search"></i></button>
+                                        <button id="botonBorrarDatos" type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Continuar Registro"><i class="fa fa-eraser icon"></i></button>
+                                        <div class="invalid-feedback">
+                                            <i class="icon-checkmark"></i> Introduce numero de causa.
+                                        </div>
+                                        <div class="valid-feedback">
+                                            <i class="icon-checkmark"></i> Numero de causa introducido.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                     <div class="tab-pane fade" id="pills-NUC" role="tabpanel" aria-labelledby="pills-NUC-tab">
+                        <form id="formCausas" class="needs-validation" novalidate>
+                            <div class="form-row mt-3">
+                                <div class="col-md-12 col-lg-7 form-group">
 
+                                    <label for="validationCustom04">Juzgado de Procedencia</label>
+
+                                    <div class="invalid-feedback">
+                                        <i class="icon-notification"></i> Por favor, selecciona un juzgado.
+                                    </div>
+
+                                    <div class="valid-feedback">
+                                        <i class="icon-checkmark"></i> Juzgado seleccionado.
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 col-lg-5 form-group">
+                                    <label class="" for="inpNumero" id="NumeroLabel">Numero Unico de Caso</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="spnNumero">NUC</span>
+                                        </div>
+                                        <input type="text" id="Numero" name="Numero" class="form-control mr-2" aria-label="Small" aria-describedby="inputGroup-sizing-sm" data-inputmask-clearmaskonlostfocus="true" required placeholder="00-0000-0000">
+                                        <button class="btn btn-success btn-sm mr-2" type="submit" id="btnNUC" data-toggle="tooltip" data-placement="top" title="Consultar Causas"><i class="fa fa-search"></i></button>
+                                        <button id="botonBorrarDatos" type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Continuar Registro"><i class="fa fa-eraser icon"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                     <div class="tab-pane fade" id="pills-solicitante" role="tabpanel" aria-labelledby="pills-solicitante-tab">
 
+                        <div class="form-row mt-3">
+                            <div class="col-md-12 col-lg-6 form-group">
+
+                                <label for="validationCustom04">Solicitante</label>
+
+
+                            </div>
+                         </div>
                     </div>
                     <div class="tab-pane fade" id="pills-Dsolicitante" role="tabpanel" aria-labelledby="pills-Dsolicitante-tab">
+                            <form id="formPartesCausa" class="needs-validation" novalidate>
 
-                    </div>
+                                <div class="form-row mt-3">
+
+                                    <div class="col-12 col-md-8 mt-1">
+                                        <div class="input-group" id="divBusquedaSentenciado">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="lbNombreParte">Detalle del Solicitante</span>
+                                            </div>
+                                            <input type="text" class="form-control mr-2" id="inpNombreParte" aria-describedby="inpNumero">
+                                            <button id="botonBuscarNumerosDeEjecucion" type="submit" class="btn btn-success btn-sm mr-2" data-toggle="tooltip" data-placement="top" title="Buscar Ejecuciones"><i class="fa fa-search icon"></i></button>
+                                            <button id="botonBorrarDatos" type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Continuar Registro"><i class="fa fa-eraser icon"></i></button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
                 </div>
 
                 <div class="tab-content">
-                    <div class="form-row">
+                    <div class="form-row mt-4">
                         <div class="col-12">
-                            <h6 class="m-0 font-weight-bold text-success"><i class="icon-table2"></i> Tabla de Causas</h6>
+                            <h6 class="m-0 font-weight-bold text-success"><i class="icon-table2"></i> Tabla de Numeros de Ejecución</h6>
                         </div>
                     </div>
                     <div class="table-responsive">
-                        @*<div class="pruebaLoca">sss</div>*@
+                        <table class="table table-hover table-striped table-bordered table-sm nowrap" id="dataTableNumeroEjecucion" width="100%" cellspacing="0">
+                        </table>
                     </div>
-                </div>
 
+                    <div>
+                        <table class="table table-hover table-striped table-bordered table-sm nowrap" id="tablaDocsGarantias" width="100%" cellspacing="0">
+                        </table>
+                    </div>
+                   
+                    @*<div class="crus"></div>*@
+                </div>
             </div>
         </div>
     </div>
