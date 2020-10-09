@@ -12,119 +12,212 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
 {
     public class BusquedasController : BaseController
     {
+        /// <summary>
+        /// [PROPIEDA 1:Se realiza inyeccion de dependencias y creo mi objeto]
+        /// </summary>
+        private readonly IBusquedasProcessor busquedaProcessor;
+
+        /// <summary>
+        /// [Metodo CONSTRUCTOR 2:de inyeccion en mi Interfaz y asigno mi objeto a mi clase]
+        /// </summary>
+        /// <param name="busquedaProcessor"></param>
+        public BusquedasController(IBusquedasProcessor busquedaProcessor)
+        {
+            this.busquedaProcessor = busquedaProcessor;
+        }
+
+
+ #region Metodos Publicos 
         // GET: Busquedas metodo para mandar a llamar con ajax
         public ActionResult BusquedaNumeroEjecucion()
         {
 
             return View();
         }
-        //[Se realiza inyeccion de dependencias y creo mi objeto]
-        private readonly IBusquedasProcessor busquedaProcessor;
 
-        //[Metodo de inyeccion en mi Interfaz y asigno mi objeto a mi clase]
-        public BusquedasController(IBusquedasProcessor busquedaProcessor)
-        {
-
-        }
-
-        //[Metodos Publicos]
+        /// <summary>
+        /// Validacion de respuesta a la consulta por partes de la causa
+        /// </summary>
+        /// <param name="nombre"></param>
+        /// <param name="apellidoPaterno"></param>
+        /// <param name="apellidoMaterno"></param>
+        /// <returns></returns>
+        [HttpGet]
         public ActionResult BusquedaPartesCausa(string nombre, string apellidoPaterno, string apellidoMaterno)
         {
-            //Defino mi lista y creo mi objeto---- - accedo a mi objeto general(inyeccion)
-            List<Ejecucion> busquedaPartesCausa = busquedaProcessor.ObtenerEjecucionPorPartesCausa(nombre, apellidoPaterno, apellidoMaterno);
+            try
+            {
+                //Defino mi lista y creo mi objeto---- - accedo a mi objeto general(inyeccion)
+                List<Ejecucion> busquedaPartesCausa = busquedaProcessor.ObtenerEjecucionPorPartesCausa(nombre, apellidoPaterno, apellidoMaterno);
 
-            if (busquedaPartesCausa == null)
-            {
-                Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
-                Respuesta.Data = null;
-            }
-            else
-            {
-                if (busquedaPartesCausa.Count > 0)
+
+                if (busquedaPartesCausa == null)
                 {
-                    Respuesta.Estatus = EstatusRespuestaJSON.OK;
-                    Respuesta.Data = new { busquedaPartesCausa };
+                    Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
+                    Respuesta.Data = null;
+                    Respuesta.Data = busquedaProcessor.Mensaje;
                 }
                 else
                 {
-                    Respuesta.Estatus = EstatusRespuestaJSON.SIN_RESPUESTA;
-                    Respuesta.Data = new object();
+                    if (busquedaPartesCausa.Count > 0)
+                    {
+                        Respuesta.Estatus = EstatusRespuestaJSON.OK;
+                        Respuesta.Data = new { busquedaPartesCausa };
+                    }
+                    else
+                    {
+                        Respuesta.Estatus = EstatusRespuestaJSON.SIN_RESPUESTA;
+                        Respuesta.Data = new object();
+                    }
                 }
+
+                return Json(Respuesta, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
+                Respuesta.Mensaje = ex.Message;
+                Respuesta.Data = null;
+
+                return Json(Respuesta, JsonRequestBehavior.AllowGet);
             }
 
-            return Json(Respuesta, JsonRequestBehavior.AllowGet);
-
         }
+
+        /// <summary>
+        /// Validacion de respuesta  a la consulta por Sentenciado|Beneficiario
+        /// </summary>
+        /// <param name="nombre"></param>
+        /// <param name="apellidoPaterno"></param>
+        /// <param name="apellidoMaterno"></param>
+        /// <returns></returns>
+        [HttpGet]
         public ActionResult BusquedaPorBeneficiario(string nombre, string apellidoPaterno, string apellidoMaterno)
         {
-            List<Ejecucion> busquedaBeneficiario = busquedaProcessor.ObtenerEjecucionSentenciadoBeneficiario(nombre, apellidoPaterno, apellidoMaterno);
-            if (busquedaBeneficiario == null)
+            try
             {
-                Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
-            }
-            else
-            {
-                if (busquedaBeneficiario.Count > 0)
+                List<Ejecucion> busquedaBeneficiario = busquedaProcessor.ObtenerEjecucionSentenciadoBeneficiario(nombre, apellidoPaterno, apellidoMaterno);
+                if (busquedaBeneficiario == null)
                 {
-                    Respuesta.Estatus = EstatusRespuestaJSON.OK;
-                    Respuesta.Data = new { busquedaBeneficiario };
+                    Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
                 }
                 else
                 {
-                    Respuesta.Estatus = EstatusRespuestaJSON.SIN_RESPUESTA;
-                    Respuesta.Data = new object();
+                    if (busquedaBeneficiario.Count > 0)
+                    {
+                        Respuesta.Estatus = EstatusRespuestaJSON.OK;
+                        Respuesta.Data = new { busquedaBeneficiario };
+                    }
+                    else
+                    {
+                        Respuesta.Estatus = EstatusRespuestaJSON.SIN_RESPUESTA;
+                        Respuesta.Data = new object();
+                    }
                 }
-            }
 
-            return Json(Respuesta, JsonRequestBehavior.AllowGet);
+                return Json(Respuesta, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
+                Respuesta.Mensaje = ex.Message;
+                Respuesta.Data = null;
+
+                return Json(Respuesta, JsonRequestBehavior.AllowGet);
+            }
         }
+
+        /// <summary>
+        /// Validacion de respuesta a consulta por numero de causa
+        /// </summary>
+        /// <param name="numCausa"></param>
+        /// <param name="idJuzgado"></param>
+        /// <returns></returns>
+        [HttpGet]
         public ActionResult BusquedaPorNumeroCausa(string numCausa, int idJuzgado)
         {
-            List<Ejecucion> busquedaNumCausa = busquedaProcessor.ObtenerEjeucionPorNumeroCausa(numCausa, idJuzgado);
-            if (busquedaNumCausa == null)
+            try
             {
-                Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
-            }
-            else
-            {
-                if (busquedaNumCausa.Count > 0)
+                List<Ejecucion> busquedaNumCausa = busquedaProcessor.ObtenerEjeucionPorNumeroCausa(numCausa, idJuzgado);
+                if (busquedaNumCausa == null)
                 {
-                    Respuesta.Estatus = EstatusRespuestaJSON.OK;
-                    Respuesta.Data = new { busquedaNumCausa };
+                    Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
                 }
                 else
                 {
-                    Respuesta.Estatus = EstatusRespuestaJSON.SIN_RESPUESTA;
-                    Respuesta.Data = new object();
+                    if (busquedaNumCausa.Count > 0)
+                    {
+                        Respuesta.Estatus = EstatusRespuestaJSON.OK;
+                        Respuesta.Data = new { busquedaNumCausa };
+                    }
+                    else
+                    {
+                        Respuesta.Estatus = EstatusRespuestaJSON.SIN_RESPUESTA;
+                        Respuesta.Data = new object();
+                    }
                 }
+                return Json(Respuesta, JsonRequestBehavior.AllowGet);
             }
-            return Json(Respuesta, JsonRequestBehavior.AllowGet);
+            catch (Exception ex)
+            {
+                Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
+                Respuesta.Mensaje = ex.Message;
+                Respuesta.Data = null;
+
+                return Json(Respuesta, JsonRequestBehavior.AllowGet);
+            }
         }
+
+        /// <summary>
+        /// Validacion de respuesta a consulta por NUC
+        /// </summary>
+        /// <param name="NUC"></param>
+        /// <param name="idJuzgado"></param>
+        /// <returns></returns>
+        [HttpGet]
         public ActionResult BusquedaNUC(String NUC, int idJuzgado)
         {
-            List<Ejecucion> busquedaNUC = busquedaProcessor.ObtenerEjecucionPorNUC(NUC, idJuzgado);
-            if (busquedaNUC == null)
+            try
             {
-                Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
-            }
-            else
-            {
-                if (busquedaNUC.Count > 0)
+                List<Ejecucion> busquedaNUC = busquedaProcessor.ObtenerEjecucionPorNUC(NUC, idJuzgado);
+                if (busquedaNUC == null)
                 {
-                    Respuesta.Estatus = EstatusRespuestaJSON.OK;
-                    Respuesta.Data = new { busquedaNUC };
+                    Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
                 }
                 else
                 {
-                    Respuesta.Estatus = EstatusRespuestaJSON.SIN_RESPUESTA;
-                    Respuesta.Data = new object();
+                    if (busquedaNUC.Count > 0)
+                    {
+                        Respuesta.Estatus = EstatusRespuestaJSON.OK;
+                        Respuesta.Data = new { busquedaNUC };
+                    }
+                    else
+                    {
+                        Respuesta.Estatus = EstatusRespuestaJSON.SIN_RESPUESTA;
+                        Respuesta.Data = new object();
+                    }
                 }
+                return Json(Respuesta, JsonRequestBehavior.AllowGet);
             }
-            return Json(Respuesta, JsonRequestBehavior.AllowGet);
+            catch (Exception ex)
+            {
+                Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
+                Respuesta.Mensaje = ex.Message;
+                Respuesta.Data = null;
+
+                return Json(Respuesta, JsonRequestBehavior.AllowGet);
+            }
         }
+
+        /// <summary>
+        /// Validacion de respuesta a consulta por Solictante
+        /// </summary>
+        /// <param name="idSolicitante"></param>
+        /// <returns></returns>
+        [HttpGet]
         public ActionResult BusquedaPorSolicitante(int idSolicitante)
         {
-            List<Ejecucion> busquedaSolicitante = busquedaProcessor.ObtenerEjecucionPorSolicitante(int idSolicitante);
+            List<Ejecucion> busquedaSolicitante = busquedaProcessor.ObtenerEjecucionPorSolicitante(idSolicitante);
             if (busquedaSolicitante == null)
                 Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
             else
@@ -142,24 +235,44 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             }
             return Json(Respuesta, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult BusquedaPorDetalleSolicitante(string detalleSolicitante) {
-            List<Ejecucion> busquedaDetalleSolicitante = busquedaProcessor.ObtenerEjecucionPorDetalleSolicitante(detalleSolicitante);
-            if (busquedaDetalleSolicitante == null)
-                Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
-            else
+
+        /// <summary>
+        /// Validacion de respuesta a consulta  por DEtalle del solicitante
+        /// </summary>
+        /// <param name="detalleSolicitante"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult BusquedaPorDetalleSolicitante(string detalleSolicitante) 
+        {
+            try
             {
-                if (busquedaDetalleSolicitante.Count > 0)
-                {
-                    Respuesta.Estatus = EstatusRespuestaJSON.OK;
-                    Respuesta.Data = new { busquedaDetalleSolicitante };
-                }
+                List<Ejecucion> busquedaDetalleSolicitante = busquedaProcessor.ObtenerEjecucionPorDetalleSolicitante(detalleSolicitante);
+                if (busquedaDetalleSolicitante == null)
+                    Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
                 else
                 {
-                    Respuesta.Estatus = EstatusRespuestaJSON.SIN_RESPUESTA;
-                    Respuesta.Data = new object();
+                    if (busquedaDetalleSolicitante.Count > 0)
+                    {
+                        Respuesta.Estatus = EstatusRespuestaJSON.OK;
+                        Respuesta.Data = new { busquedaDetalleSolicitante };
+                    }
+                    else
+                    {
+                        Respuesta.Estatus = EstatusRespuestaJSON.SIN_RESPUESTA;
+                        Respuesta.Data = new object();
+                    }
                 }
+                return Json(Respuesta, JsonRequestBehavior.AllowGet);
             }
-            return Json(Respuesta, JsonRequestBehavior.AllowGet);
+            catch (Exception ex)
+            {
+                Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
+                Respuesta.Mensaje = ex.Message;
+                Respuesta.Data = null;
+
+                return Json(Respuesta, JsonRequestBehavior.AllowGet);
+            }
         }
     }
+#endregion
 }
