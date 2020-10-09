@@ -63,11 +63,13 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                     {
                         Respuesta.Estatus = EstatusRespuestaJSON.OK;
                         Respuesta.Data = new { busquedaPartesCausa };
+                        Respuesta.Data = busquedaProcessor.Mensaje;
                     }
                     else
                     {
                         Respuesta.Estatus = EstatusRespuestaJSON.SIN_RESPUESTA;
                         Respuesta.Data = new object();
+                        Respuesta.Data = busquedaProcessor.Mensaje;
                     }
                 }
 
@@ -97,9 +99,12 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             try
             {
                 List<Ejecucion> busquedaBeneficiario = busquedaProcessor.ObtenerEjecucionSentenciadoBeneficiario(nombre, apellidoPaterno, apellidoMaterno);
+               
                 if (busquedaBeneficiario == null)
                 {
                     Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
+                    Respuesta.Data = null;
+                    Respuesta.Data = busquedaProcessor.Mensaje;
                 }
                 else
                 {
@@ -107,11 +112,13 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                     {
                         Respuesta.Estatus = EstatusRespuestaJSON.OK;
                         Respuesta.Data = new { busquedaBeneficiario };
+                        Respuesta.Data = busquedaProcessor.Mensaje;
                     }
                     else
                     {
                         Respuesta.Estatus = EstatusRespuestaJSON.SIN_RESPUESTA;
                         Respuesta.Data = new object();
+                        Respuesta.Data = busquedaProcessor.Mensaje;
                     }
                 }
 
@@ -142,6 +149,8 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 if (busquedaNumCausa == null)
                 {
                     Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
+                    Respuesta.Data = null;
+                    Respuesta.Data = busquedaProcessor.Mensaje;
                 }
                 else
                 {
@@ -149,11 +158,13 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                     {
                         Respuesta.Estatus = EstatusRespuestaJSON.OK;
                         Respuesta.Data = new { busquedaNumCausa };
+                        Respuesta.Data = busquedaProcessor.Mensaje;
                     }
                     else
                     {
                         Respuesta.Estatus = EstatusRespuestaJSON.SIN_RESPUESTA;
                         Respuesta.Data = new object();
+                        Respuesta.Data = busquedaProcessor.Mensaje;
                     }
                 }
                 return Json(Respuesta, JsonRequestBehavior.AllowGet);
@@ -163,7 +174,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
                 Respuesta.Mensaje = ex.Message;
                 Respuesta.Data = null;
-
+                Respuesta.Data = busquedaProcessor.Mensaje;
                 return Json(Respuesta, JsonRequestBehavior.AllowGet);
             }
         }
@@ -183,6 +194,8 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 if (busquedaNUC == null)
                 {
                     Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
+                    Respuesta.Data = null;
+                    Respuesta.Data = busquedaProcessor.Mensaje;
                 }
                 else
                 {
@@ -190,11 +203,13 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                     {
                         Respuesta.Estatus = EstatusRespuestaJSON.OK;
                         Respuesta.Data = new { busquedaNUC };
+                        Respuesta.Data = busquedaProcessor.Mensaje;
                     }
                     else
                     {
                         Respuesta.Estatus = EstatusRespuestaJSON.SIN_RESPUESTA;
                         Respuesta.Data = new object();
+                        Respuesta.Data = busquedaProcessor.Mensaje;
                     }
                 }
                 return Json(Respuesta, JsonRequestBehavior.AllowGet);
@@ -204,6 +219,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
                 Respuesta.Mensaje = ex.Message;
                 Respuesta.Data = null;
+                Respuesta.Data = busquedaProcessor.Mensaje;
 
                 return Json(Respuesta, JsonRequestBehavior.AllowGet);
             }
@@ -218,19 +234,26 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         public ActionResult BusquedaPorSolicitante(int idSolicitante)
         {
             List<Ejecucion> busquedaSolicitante = busquedaProcessor.ObtenerEjecucionPorSolicitante(idSolicitante);
+
             if (busquedaSolicitante == null)
+            {
                 Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
+                Respuesta.Data = null;
+                Respuesta.Data = busquedaProcessor.Mensaje;
+            }
             else
             {
                 if (busquedaSolicitante.Count > 0)
                 {
                     Respuesta.Estatus = EstatusRespuestaJSON.OK;
                     Respuesta.Data = new { busquedaSolicitante };
+                    Respuesta.Data = busquedaProcessor.Mensaje;
                 }
                 else
                 {
                     Respuesta.Estatus = EstatusRespuestaJSON.SIN_RESPUESTA;
                     Respuesta.Data = new object();
+                    Respuesta.Data = busquedaProcessor.Mensaje;
                 }
             }
             return Json(Respuesta, JsonRequestBehavior.AllowGet);
@@ -248,18 +271,24 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             {
                 List<Ejecucion> busquedaDetalleSolicitante = busquedaProcessor.ObtenerEjecucionPorDetalleSolicitante(detalleSolicitante);
                 if (busquedaDetalleSolicitante == null)
+                {
                     Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
+                    Respuesta.Data = null;
+                    Respuesta.Data = busquedaProcessor.Mensaje;
+                }
                 else
                 {
                     if (busquedaDetalleSolicitante.Count > 0)
                     {
                         Respuesta.Estatus = EstatusRespuestaJSON.OK;
                         Respuesta.Data = new { busquedaDetalleSolicitante };
+                        Respuesta.Data = busquedaProcessor.Mensaje;
                     }
                     else
                     {
                         Respuesta.Estatus = EstatusRespuestaJSON.SIN_RESPUESTA;
                         Respuesta.Data = new object();
+                        Respuesta.Data = busquedaProcessor.Mensaje;
                     }
                 }
                 return Json(Respuesta, JsonRequestBehavior.AllowGet);
@@ -269,6 +298,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
                 Respuesta.Mensaje = ex.Message;
                 Respuesta.Data = null;
+                Respuesta.Data = busquedaProcessor.Mensaje;
 
                 return Json(Respuesta, JsonRequestBehavior.AllowGet);
             }
