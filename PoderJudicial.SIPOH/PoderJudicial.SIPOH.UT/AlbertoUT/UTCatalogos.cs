@@ -65,16 +65,16 @@ namespace PoderJudicial.SIPOH.UT.AlbertoUT
             //Recuperar Juzgados por Ditrito Traducional
             foreach (Distrito distrito in distritos1)
             {
-                List<Juzgado> juzgados1 = repo.ObtenerJuzgados(distrito.IdDistrito, TipoJuzgado.TRADICIONAL);
+                List<Juzgado> juzgados1 = repo.ObtenerJuzgadosAcusatorioTradicional(distrito.IdDistrito, TipoJuzgado.TRADICIONAL);
             }
 
             //ACUSATORIO
             //Juzgados por Circuito acusatorio
-            List<Juzgado> juzgadosC1 = repo.ObtenerJuzgados(1, TipoJuzgado.ACUSATORIO);
-            List<Juzgado> juzgadosC2 = repo.ObtenerJuzgados(2, TipoJuzgado.ACUSATORIO);
-            List<Juzgado> juzgadosC3 = repo.ObtenerJuzgados(3, TipoJuzgado.ACUSATORIO);
-            List<Juzgado> juzgadosC4 = repo.ObtenerJuzgados(4, TipoJuzgado.ACUSATORIO);
-            List<Juzgado> juzgadosC5 = repo.ObtenerJuzgados(5, TipoJuzgado.ACUSATORIO);
+            List<Juzgado> juzgadosC1 = repo.ObtenerJuzgadosAcusatorioTradicional(1, TipoJuzgado.ACUSATORIO);
+            List<Juzgado> juzgadosC2 = repo.ObtenerJuzgadosAcusatorioTradicional(2, TipoJuzgado.ACUSATORIO);
+            List<Juzgado> juzgadosC3 = repo.ObtenerJuzgadosAcusatorioTradicional(3, TipoJuzgado.ACUSATORIO);
+            List<Juzgado> juzgadosC4 = repo.ObtenerJuzgadosAcusatorioTradicional(4, TipoJuzgado.ACUSATORIO);
+            List<Juzgado> juzgadosC5 = repo.ObtenerJuzgadosAcusatorioTradicional(5, TipoJuzgado.ACUSATORIO);
         }
 
         [TestMethod]

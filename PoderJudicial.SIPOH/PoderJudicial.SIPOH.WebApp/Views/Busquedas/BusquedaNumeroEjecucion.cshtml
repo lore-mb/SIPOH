@@ -16,7 +16,7 @@
 
                 <ul class="nav nav-pills  nav-fill nav-success" id="pills-tab" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" id="pills-pcausa-tab" data-toggle="pill" href="#pills-pcausa" role="tab" aria-controls="pills-pcausa" aria-selected="true"><i class="icon-users"></i>  Partes causa</a>
+                        <a class="nav-link active" id="pills-pcausa-tab" data-toggle="pill" href="#pills-pcausa" role="tab" aria-controls="pills-pcausa" aria-selected="true"><i class="icon-users"></i>Partes de la Causa</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="pills-sentebene-tab" data-toggle="pill" href="#pills-sentebene" role="tab" aria-controls="pills-sentebene" aria-selected="false"><i class="icon-user"></i> Sentenciado|Beneficiario</a>
@@ -42,13 +42,13 @@
 
                             <div class="form-row mt-3">
                                 <div class="col-12 col-md-6 mt-1">
-                                    <div class="input-group" id="divApellidoPParte">
+                                    <div class="input-group validate-me" id="divApellidoPParte">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="lbApellidoPaterno">Apellido Paterno</span>
                                         </div>
                                         <input type="text" class="form-control" id="inpApellidoPaternoParte" aria-describedby="inpNumero" required>
                                         <div class="invalid-feedback">
-                                            Introducir apellido paterno del Beneficiario
+                                            <i class="icon-notification"></i> Intruduzca un Apellido Paterno
                                         </div>
                                     </div>
                                 </div>
@@ -58,10 +58,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="lbApellidoPMaterno">Apellido Materno</span>
                                         </div>
-                                        <input type="text" class="form-control" id="inpApellidoMaternoPartes" aria-describedby="inpNumero" required>
-                                        <div class="invalid-feedback">
-                                            Introducir apellido materno del Beneficiario
-                                        </div>
+                                        <input type="text" class="form-control" id="inpApellidoMaternoPartes" aria-describedby="inpNumero" novalidate="true">
                                     </div>
                                 </div>
                             </div>
@@ -69,18 +66,20 @@
                             <div class="form-row">
                                
                                 <div class="col-12 col-md-12 mt-1">
-                                    <div class="input-group" id="divBusquedaSentenciado">
+                                    <div class="input-group validate-me" id="divBusquedaSentenciado">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="lbNombreParte">Nombre(s)</span>
                                         </div>
-                                        <input type="text" class="form-control mr-2" id="inpNombreParte" aria-describedby="inpNumero">
-                                        <button id="botonBuscarNumerosDeEjecucion" type="submit" class="btn btn-success btn-sm mr-2" data-toggle="tooltip" data-placement="top" title="Buscar Ejecuciones"><i class="fa fa-search icon"></i></button>
-                                        <button id="botonBorrarDatos" type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Continuar Registro"><i class="fa fa-eraser icon"></i></button>
+                                        <input type="text" class="form-control mr-2" id="inpNombreParte" aria-describedby="inpNumero" required>
+                                        <button id="botonBuscarNumerosDeEjecucionPartes" type="submit" class="btn btn-success btn-sm mr-2" data-toggle="tooltip" data-placement="top" title="Buscar Ejecuciones"><i class="fa fa-search icon"></i></button>
+                                        <button id="botonBorrarDatos" type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Limpiar Busqueda"><i class="fa fa-eraser icon"></i></button>
+
+                                        <div class="invalid-feedback">
+                                            <i class="icon-notification"></i> Intruduzca un Nombre(s)
+                                        </div>
                                     </div>
                                 </div>
-
                             </div>
-
                         </form>
                     </div>
 
@@ -90,13 +89,13 @@
 
                             <div class="form-row mt-3">
                                 <div class="col-12 col-md-6 mt-1">
-                                    <div class="input-group" id="divApellidoBParte">
+                                    <div class="input-group validate-me" id="divApellidoBParte">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="lbApellidoBeneficiario">Apellido Paterno</span>
                                         </div>
                                         <input type="text" class="form-control" id="inpApellidoPaternoBeneficiario" aria-describedby="inpNumero" required>
                                         <div class="invalid-feedback">
-                                            Introducir apellido paterno del Beneficiario
+                                            <i class="icon-notification"></i> Intruduzca un Apellido Paterno
                                         </div>
                                     </div>
                                 </div>
@@ -107,9 +106,6 @@
                                             <span class="input-group-text" id="lbApellidoBMaterno">Apellido Materno</span>
                                         </div>
                                         <input type="text" class="form-control" id="inpApellidoMaternoBeneficiario" aria-describedby="inpNumero" required>
-                                        <div class="invalid-feedback">
-                                            Introducir apellido materno del Beneficiario
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -117,13 +113,16 @@
                             <div class="form-row">
 
                                 <div class="col-12 col-md-12 mt-1">
-                                    <div class="input-group" id="divBusquedaSentenciado">
+                                    <div class="input-group validate-me" id="divBusquedaSentenciado">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="lbNombreBeneficiario">Nombre(s)</span>
                                         </div>
-                                        <input type="text" class="form-control mr-2" id="inpNombreBeneficiario" aria-describedby="inpNumero">
-                                        <button id="botonBuscarNumerosDeEjecucion" type="submit" class="btn btn-success btn-sm mr-2" data-toggle="tooltip" data-placement="top" title="Buscar Ejecuciones"><i class="fa fa-search icon"></i></button>
-                                        <button id="botonBorrarDatos" type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Continuar Registro"><i class="fa fa-eraser icon"></i></button>
+                                        <input type="text" class="form-control mr-2" id="inpNombreBeneficiario" aria-describedby="inpNumero" required>
+                                        <button id="botonBuscarNumerosDeEjecucionBeneficiario" type="submit" class="btn btn-success btn-sm mr-2" data-toggle="tooltip" data-placement="top" title="Buscar Ejecuciones"><i class="fa fa-search icon"></i></button>
+                                        <button id="botonBorrarDatos" type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Limpiar Busqueda"><i class="fa fa-eraser icon"></i></button>
+                                        <div class="invalid-feedback">
+                                            <i class="icon-notification"></i> Intruduzca un Nombre(s)
+                                        </div>
                                     </div>
                                 </div>
 
@@ -133,27 +132,24 @@
 
                     </div>
                     <div class="tab-pane fade" id="pills-numcausa" role="tabpanel" aria-labelledby="pills-numcausa-tab">
-                        <form id="formCausasTradicional" class="needs-validation" novalidate>
+                        <form id="formCausasEjecucion" class="needs-validation" novalidate>
                             <div class="form-row mt-3">
                                 <div class="col-md-3 form-group">
                                     <label for="slcNumero">Distrito de Procedencia</label>
-                                    @Html.DropDownList("DistritoPorCircuito",(SelectList)ViewBag.DistritoPorCircuito,"SELECCIONA OPCION", new { @id="slctDistrito",@class="custom-select formatear",@requiered="requiered"})
+                                    @Html.DropDownList("DistritoPorCircuito",(SelectList)ViewBag.DistritoPorCircuito,"SELECCIONA OPCION", new { @id="slctDistrito",@class="custom-select formatear", @required = "required" })
 
                                     <div class="invalid-feedback">
-                                        <i class="icon-notification"></i> Por favor, selecciona un distrito.
-                                    </div>
-                                    <div class="valid-feedback">
-                                        <i class="icon-checkmark"></i> Distrito seleccionado.
+                                        <i class="icon-notification"></i> Seleccione un Distrito.
                                     </div>
                                 </div>
 
                                 <div class="col-md-5 form-group">
                                     <label for="validationCustom04">Juzgado de Procedencia</label>
-                                    <select class="custom-select" id="slctJuzgadoTradi" required>
+                                    <select class="custom-select" id="slctJuzgadoPorDistritos" required>
                                         <option selected value="">SELECCIONAR OPCIÓN</option>
                                     </select>
-                                    <div class="valid-feedback">
-                                        <i class="icon-checkmark"></i> Juzgado de procedencia, seleccionado.
+                                    <div class="invalid-feedback">
+                                        <i class="icon-notification"></i> Seleccione un Juzgado de procedencia.
                                     </div>
                                 </div>
 
@@ -163,14 +159,11 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="inputGroupPrepend">CAUSA</span>
                                         </div>
-                                        <input type="text" class="form-control mr-2" id="inpCAUT" aria-describedby="inpCAU" placeholder="0000/0000" required>
-                                        <button class="btn btn-success btn-sm mr-2" type="submit" id="btnCAU" data-toggle="tooltip" data-placement="top" title="Buscar Ejecuciones"><i class="fas fa-search"></i></button>
-                                        <button id="botonBorrarDatos" type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Continuar Registro"><i class="fa fa-eraser icon"></i></button>
+                                        <input type="text" class="form-control mr-2" id="inpCausa" aria-describedby="inpCAU" placeholder="0000/0000" required>
+                                        <button class="btn btn-success btn-sm mr-2" type="submit" id="botonBuscarNumerosDeEjecucionCausas" data-toggle="tooltip" data-placement="top" title="Buscar Ejecuciones"><i class="fas fa-search"></i></button>
+                                        <button id="botonBorrarDatos" type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Limpiar Busqueda"><i class="fa fa-eraser icon"></i></button>
                                         <div class="invalid-feedback">
-                                            <i class="icon-checkmark"></i> Introduce numero de causa.
-                                        </div>
-                                        <div class="valid-feedback">
-                                            <i class="icon-checkmark"></i> Numero de causa introducido.
+                                            <i class="icon-notification"></i> Introduce un Numero de Causa.
                                         </div>
                                     </div>
                                 </div>
@@ -178,19 +171,15 @@
                         </form>
                     </div>
                     <div class="tab-pane fade" id="pills-NUC" role="tabpanel" aria-labelledby="pills-NUC-tab">
-                        <form id="formCausas" class="needs-validation" novalidate>
+                        <form id="formNucEjecucion" class="needs-validation" novalidate>
                             <div class="form-row mt-3">
                                 <div class="col-md-12 col-lg-7 form-group">
 
                                     <label for="validationCustom04">Juzgado de Procedencia</label>
-                                    @Html.DropDownList("JuzgadosAcusatorios",(SelectList)ViewBag.JuzgadosAcusatorios,"SELECCIONA OPCION",new { @id = "slctJuzgadoA", @class = "custom-select formatear", @requiered = "requiered" })
+                                    @Html.DropDownList("JuzgadosAcusatorios",(SelectList)ViewBag.JuzgadosAcusatorios,"SELECCIONA OPCION",new { @id = "slctJuzgadoAcusatorio", @class = "custom-select formatear", @required = "required" })
 
                                     <div class="invalid-feedback">
-                                        <i class="icon-notification"></i> Por favor, selecciona un juzgado.
-                                    </div>
-
-                                    <div class="valid-feedback">
-                                        <i class="icon-checkmark"></i> Juzgado seleccionado.
+                                        <i class="icon-notification"></i> Selecciona un juzgado.
                                     </div>
                                 </div>
 
@@ -200,44 +189,57 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="spnNumero">NUC</span>
                                         </div>
-                                        <input type="text" id="Numero" name="Numero" class="form-control mr-2" aria-label="Small" aria-describedby="inputGroup-sizing-sm" data-inputmask-clearmaskonlostfocus="true" required placeholder="00-0000-0000">
-                                        <button class="btn btn-success btn-sm mr-2" type="submit" id="btnNUC" data-toggle="tooltip" data-placement="top" title="Consultar Causas"><i class="fa fa-search"></i></button>
-                                        <button id="botonBorrarDatos" type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Continuar Registro"><i class="fa fa-eraser icon"></i></button>
+                                        <input type="text" id="inpNuc" name="inpNucName" class="form-control mr-2" aria-label="Small" aria-describedby="inputGroup-sizing-sm" data-inputmask-clearmaskonlostfocus="true" required placeholder="00-0000-0000">
+                                        <button class="btn btn-success btn-sm mr-2" type="submit" id="botonBuscarNumerosDeEjecucionNuc" data-toggle="tooltip" data-placement="top" title="Buscar Ejecuciones"><i class="fa fa-search"></i></button>
+                                        <button id="botonBorrarDatos" type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Limpiar Busqueda"><i class="fa fa-eraser icon"></i></button>
+                                        <div class="invalid-feedback">
+                                            <i class="icon-notification"></i> Intruduzca un Numero Unico de Caso.
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </form>
                     </div>
                     <div class="tab-pane fade" id="pills-solicitante" role="tabpanel" aria-labelledby="pills-solicitante-tab">
+                        <form id="formSolicitanteEjecucion" class="needs-validation" novalidate>
+                            <div class="form-row mt-3">
 
-                        <div class="form-row mt-3">
-                            <div class="col-md-12 col-lg-6 form-group">
+                                <div class="col-md-12 col-lg-5 form-group">
+                                    <label class="" for="inpNumero" id="NumeroLabel">Solicitante</label>
+                                    <div class="input-group">
+                                        @Html.DropDownList("Solicitante", (SelectList)ViewBag.Solicitante, "SELECCIONA OPCION", new { @id = "slctSolicitante", @class = "custom-select formatear mr-2", @required = "required" })
 
-                                <label for="validationCustom04">Solicitante</label>
-                                @Html.DropDownList("Solicitante",(SelectList)ViewBag.Solicitante,"SELECCIONA OPCION",new { @id="slctSolicitante", @class="custom-select formatear", @requiered="requiered" })
-
+                                        <button class="btn btn-success btn-sm mr-2" type="submit" id="botonBuscarNumerosDeEjecucionSolicitante" data-toggle="tooltip" data-placement="top" title="Buscar Ejecuciones"><i class="fa fa-search"></i></button>
+                                        <button id="botonBorrarDatos" type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Limpiar Busqueda"><i class="fa fa-eraser icon"></i></button>
+                                        <div class="invalid-feedback">
+                                            <i class="icon-notification"></i> Intruduzca un Numero Unico de Caso.
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                         </div>
+                        </form>
                     </div>
+
                     <div class="tab-pane fade" id="pills-Dsolicitante" role="tabpanel" aria-labelledby="pills-Dsolicitante-tab">
-                            <form id="formPartesCausa" class="needs-validation" novalidate>
-
+                            <form id="formDetalleSolicitanteEjecucion" class="needs-validation" novalidate>
                                 <div class="form-row mt-3">
-
                                     <div class="col-12 col-md-8 mt-1">
-                                        <div class="input-group" id="divBusquedaSentenciado">
+                                        <div class="input-group" id="divDetalleSolicitante">
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text" id="lbNombreParte">Detalle del Solicitante</span>
+                                                <span class="input-group-text" id="lbDetalleSolicitante">Detalle del Solicitante</span>
                                             </div>
-                                            <input type="text" class="form-control mr-2" id="inpNombreParte" aria-describedby="inpNumero">
-                                            <button id="botonBuscarNumerosDeEjecucion" type="submit" class="btn btn-success btn-sm mr-2" data-toggle="tooltip" data-placement="top" title="Buscar Ejecuciones"><i class="fa fa-search icon"></i></button>
-                                            <button id="botonBorrarDatos" type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Continuar Registro"><i class="fa fa-eraser icon"></i></button>
+                                            <input type="text" class="form-control mr-2" id="inpDetalleSolicitante" aria-describedby="inpDetalleSolicitante" required>
+                                            <button id="botonBuscarNumerosDeEjecucionDetalleSolicitante" type="submit" class="btn btn-success btn-sm mr-2" data-toggle="tooltip" data-placement="top" title="Buscar Ejecuciones"><i class="fa fa-search icon"></i></button>
+                                            <button id="botonBorrarDatos" type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Limpiar Busqueda"><i class="fa fa-eraser icon"></i></button>
+                                            <div class="invalid-feedback">
+                                                <i class="icon-notification"></i> Intruduzca un Detalle del Solicitante.
+                                            </div>
                                         </div>
                                     </div>
 
                                 </div>
                             </form>
-                        </div>
+                    </div>
                 </div>
 
                 <div class="tab-content">

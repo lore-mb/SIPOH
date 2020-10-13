@@ -1,7 +1,9 @@
-﻿using PoderJudicial.SIPOH.Entidades;
+﻿using AutoMapper;
+using PoderJudicial.SIPOH.Entidades;
 using PoderJudicial.SIPOH.Entidades.Enum;
 using PoderJudicial.SIPOH.Negocio.Interfaces;
 using PoderJudicial.SIPOH.WebApp.Helpers;
+using PoderJudicial.SIPOH.WebApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,24 +18,25 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         /// [PROPIEDA 1:Se realiza inyeccion de dependencias y creo mi objeto]
         /// </summary>
         private readonly IBusquedasProcessor busquedaProcessor;
+        private readonly IMapper mapper;
 
         /// <summary>
         /// [Metodo CONSTRUCTOR 2:de inyeccion en mi Interfaz y asigno mi objeto a mi clase]
         /// </summary>
         /// <param name="busquedaProcessor"></param>
-        public BusquedasController(IBusquedasProcessor busquedaProcessor)
+        public BusquedasController(IBusquedasProcessor busquedaProcessor, IMapper mapper)
         {
             this.busquedaProcessor = busquedaProcessor;
+            this.mapper = mapper;
         }
 
-
- #region Metodos Publicos 
+        #region Metodos Publicos 
         // GET: Busquedas metodo para mandar a llamar con ajax
         public ActionResult BusquedaNumeroEjecucion()
         {
             //metodo que retorna la lista de distritos
             List<Distrito> listaDistrito = busquedaProcessor.ObtenerDistritoPorCircuito(Usuario.IdCircuito);
-            List<Juzgado> listaJuzgados = busquedaProcessor.ObtenerJuzgadosAcusatorios(Usuario.IdCircuito);
+            List<Juzgado> listaJuzgados = busquedaProcessor.ObtenerJuzgadosAcusatoriosPorCircuito(Usuario.IdCircuito);
             List<Solicitante> listaSolicitante = busquedaProcessor.ObtenerSolicitanteEjecucion();
 
             //Metodo que retorna el select list a partir de una lista
@@ -58,29 +61,29 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 //Defino mi lista y creo mi objeto---- - accedo a mi objeto general(inyeccion)
                 List<Ejecucion> busquedaPartesCausa = busquedaProcessor.ObtenerEjecucionPorPartesCausa(nombre, apellidoPaterno, apellidoMaterno);
 
-
                 if (busquedaPartesCausa == null)
                 {
                     Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
-                    Respuesta.Data = null;
-                    Respuesta.Data = busquedaProcessor.Mensaje;
+                    Respuesta.Data = null;      
                 }
                 else
                 {
-                    if (busquedaPartesCausa.Count > 0)
+                    //Se genera DTO con la informacion necesaria para la solicitud Ajax
+                    List<EjecucionDTO> busquedaPartesCausaDTO = mapper.Map<List<Ejecucion>, List<EjecucionDTO>>(busquedaPartesCausa);
+
+                    if (busquedaPartesCausaDTO.Count > 0)
                     {
                         Respuesta.Estatus = EstatusRespuestaJSON.OK;
-                        Respuesta.Data = new { busquedaPartesCausa };
-                        Respuesta.Data = busquedaProcessor.Mensaje;
+                        Respuesta.Data = new { busquedaPartes = busquedaPartesCausaDTO };
                     }
                     else
                     {
                         Respuesta.Estatus = EstatusRespuestaJSON.SIN_RESPUESTA;
                         Respuesta.Data = new object();
-                        Respuesta.Data = busquedaProcessor.Mensaje;
                     }
                 }
 
+                Respuesta.Data = busquedaProcessor.Mensaje;
                 return Json(Respuesta, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -311,6 +314,36 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 return Json(Respuesta, JsonRequestBehavior.AllowGet);
             }
         }
+
+        [HttpGet]
+        public ActionResult ObtenerJuzgadosPorDistrito(int idDistrito) 
+        {
+            List<Juzgado> juzgados = busquedaProcessor.ObtenerJuzgadosPorDistritos(idDistrito);
+
+            if (juzgados == null)
+            {
+                Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
+                Respuesta.Data = null;
+                Respuesta.Data = busquedaProcessor.Mensaje;
+            }
+            else
+            {
+                if (juzgados.Count > 0)
+                {
+                    var lista = ViewHelper.Options(juzgados, "IdJuzgado", "Nombre");
+                    Respuesta.Estatus = EstatusRespuestaJSON.OK;
+                    Respuesta.Data = lista;
+                }
+                else
+                {
+                    Respuesta.Estatus = EstatusRespuestaJSON.SIN_RESPUESTA;
+                    Respuesta.Data = new object();
+                    Respuesta.Data = busquedaProcessor.Mensaje;
+                }
+            }
+
+            return Json(Respuesta, JsonRequestBehavior.AllowGet);
+        }
     }
-#endregion
+    #endregion
 }
