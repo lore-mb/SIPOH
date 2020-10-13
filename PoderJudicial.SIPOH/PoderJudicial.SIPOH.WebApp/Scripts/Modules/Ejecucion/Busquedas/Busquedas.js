@@ -7,12 +7,14 @@ var estructuraTablaNumeroEejecucionPartes =
         { data: 'beneficiario', title: 'Beneficiario', className: "text-center" },   
         { data: 'tipoExpediente', title: 'Tipo Expediente', className: "text-center" },
         { data: 'parteRelacionada', title: 'Parte Causas', className: "text-center" },
-        { data: 'parteRelacionada', title: 'Tipo Parte', className: "text-center" },
+        { data: 'tipoParte', title: 'Tipo Parte', className: "text-center" },
         { data: 'causas', title: 'Detalle', className: "text-center" }];
+
 
 var estructuraTablaNumeroEjecucion = [{ data: 'noEjecucion', title: 'N° Ejecución', className: "text-center" }, { data: 'juzgadoEjecucion', title: 'Juzgado de Ejecución', className: "text-center" }, { data: 'fecha', title: 'Fecha Ejecución', className: "text-center" }, { data: 'beneficiario', title: 'Beneficiario', className: "text-center" }, { data: 'tipoExpediente', title: 'Tipo Expediente', className: "text-center" }, { data: 'causas', title: 'Detalle', className: "text-center" }];
 var numeroEjecucionDatos = [];
 var tablaNumeroEjecucion = null;
+var formPartes = false;
 
 $(document).ready(function ()
 {
@@ -112,16 +114,20 @@ function ElementosAlCargado()
                form.classList.add('was-validated');
             }
 
+            //reset de tabla if reducido
+            formPartes = formPartes ? false : false;
+
             if (form.checkValidity() === true && id == "formPartesCausa")
             {
-                alert("entro desde " + id);
-                //BuscarEjecucionPorPartesBeneficiarios(true);
+                //campo bandera que valida
+                formPartes = true;
+                BuscarEjecucionPorPartesBeneficiarios(true);
             }
 
             if (form.checkValidity() === true && id == "formBeneficiario")
             {
-                alert("entro desde " + id);
-                //BuscarEjecucionPorPartesBeneficiarios(false);
+               
+                BuscarEjecucionPorPartesBeneficiarios(false);
             }
 
             if (form.checkValidity() === true && id == "formCausasEjecucion")
@@ -213,18 +219,76 @@ function BuscarEjecucionPorPartesBeneficiarios(partes)
     } 
 }
 
-function ListarNumerosDeEjecucion(data)
+function ListarNumerosDeEjecucion(respuesta)
 {
-    if (data.Estatus == EstatusRespuesta.OK)
+    if (respuesta.Estatus == EstatusRespuesta.OK)
     {
-        var partesDeCausaEjecucion = data.Data.busquedaPartes;
+        if (formPartes)
+        {
+            var partesDeCausaEjecucion = respuesta.Data.busquedaNumerosEjecucionPartes;
+            numeroEjecucionDatos = [];
+            for (var index = 0; index < partesDeCausaEjecucion.length; index++) {
+                //data que contendra la tabla a renderizar
+                var parte = new Object;
+                parte.noEjecucion = partesDeCausaEjecucion[index].NumeroEjecucion;
+                parte.juzgadoEjecucion = partesDeCausaEjecucion[index].NombreJuzgado;
+                parte.fecha = partesDeCausaEjecucion[index].FechaEjecucion;
+                parte.beneficiario = partesDeCausaEjecucion[index].NombreBeneficiario + " " + partesDeCausaEjecucion[index].ApellidoPBeneficiario + " " + partesDeCausaEjecucion[index].ApellidoMBeneficiario;
+                parte.tipoExpediente = partesDeCausaEjecucion[index].Tipo;
+                parte.parteRelacionada = partesDeCausaEjecucion[index].NombreParte + " " + partesDeCausaEjecucion[index].ApellidoPParte + " " + partesDeCausaEjecucion[index].ApellidoMParte;
+                parte.tipoParte = partesDeCausaEjecucion[index].TipoParte;
+                parte.idEjecucion = partesDeCausaEjecucion[index].IdEjecucion;
+                parte.causas = "";
+                numeroEjecucionDatos.push(parte);
+            }
+
+            //renderiza tabla 
+            tablaNumeroEjecucion = GeneraTablaDatos(tablaNumeroEjecucion, "dataTableNumeroEjecucion", numeroEjecucionDatos, estructuraTablaNumeroEejecucionPartes, true, true, false);
+        }
+        else {
+            var partesDeCausaEjecucion = respuesta.Data.busquedaNumerosEjecucion;
+            numeroEjecucionDatos = [];
+
+            for (var index = 0; index < partesDeCausaEjecucion.length; index++) {
+                //data que contendra la tabla a renderizar
+                var parte = new Object;
+                parte.noEjecucion = partesDeCausaEjecucion[index].NumeroEjecucion;
+                parte.juzgadoEjecucion = partesDeCausaEjecucion[index].NombreJuzgado;
+                parte.fecha = partesDeCausaEjecucion[index].FechaEjecucion;
+                parte.beneficiario = partesDeCausaEjecucion[index].NombreBeneficiario + " " + partesDeCausaEjecucion[index].ApellidoPBeneficiario + " " + partesDeCausaEjecucion[index].ApellidoMBeneficiario;
+                parte.tipoExpediente = partesDeCausaEjecucion[index].Tipo;
+                parte.idEjecucion = partesDeCausaEjecucion[index].IdEjecucion;
+                parte.causas = "";
+                numeroEjecucionDatos.push(parte);
+            }
+
+            //renderiza tabla 
+            tablaNumeroEjecucion = GeneraTablaDatos(tablaNumeroEjecucion, "dataTableNumeroEjecucion", numeroEjecucionDatos, estructuraTablaNumeroEjecucion, true, true, false);
+        }
 
     }
-    else if (data.Estatus == EstatusRespuesta.ERROR)
+    else if (respuesta.Estatus == EstatusRespuesta.ERROR)
     {
 
+    }
+    else if (respuesta.Estatus == EstatusRespuesta.SIN_RESPUESTA)
+    {
+        Alerta(respuesta.Mensaje);
+
+        numeroEjecucionDatos = [];
+
+        if (formPartes)
+        {
+            tablaNumeroEjecucion = GeneraTablaDatos(tablaNumeroEjecucion, "dataTableNumeroEjecucion", numeroEjecucionDatos, estructuraTablaNumeroEejecucionPartes, true, true, false);
+        }
+        else
+        {
+            tablaNumeroEjecucion = GeneraTablaDatos(tablaNumeroEjecucion, "dataTableNumeroEjecucion", numeroEjecucionDatos, estructuraTablaNumeroEjecucion, true, true, false);
+        }
     }
 }
+
+functionBuscarEjecucionPorNumerodeCausa
 
 function GeneraTablaDatos(tabla, idTablaHtml, datos, estructuraTabla, ordering, searching, lengthChange)
 {
@@ -337,4 +401,23 @@ function SolicitudEstandarAjax(url, parametros, functionCallbackSuccess, functio
     });
 }
 
+function Alerta(mensaje, tamanio = null, titulo = null)
+{
+    titulo = titulo == null ? "¡Atención!" : titulo;
+    tamanio = tamanio == null ? "small" : tamanio;
+
+    bootbox.alert({
+        title: "<h3>" + titulo + "</h3>",
+        message: mensaje,
+        buttons:
+        {
+            ok:
+            {
+                label: '<i class="fa fa-check"></i> Aceptar',
+                className: 'btn btn-outline-success'
+            }
+        },
+        size: tamanio
+    });
+}
 

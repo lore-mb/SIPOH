@@ -74,7 +74,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                     if (busquedaPartesCausaDTO.Count > 0)
                     {
                         Respuesta.Estatus = EstatusRespuestaJSON.OK;
-                        Respuesta.Data = new { busquedaPartes = busquedaPartesCausaDTO };
+                        Respuesta.Data = new { busquedaNumerosEjecucionPartes = busquedaPartesCausaDTO };
                     }
                     else
                     {
@@ -122,7 +122,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                     if (busquedaBeneficiario.Count > 0)
                     {
                         Respuesta.Estatus = EstatusRespuestaJSON.OK;
-                        Respuesta.Data = new { busquedaBeneficiario };
+                        Respuesta.Data = new { busquedaNumerosEjecucion=busquedaBeneficiario };
                   
                     }
                     else
@@ -168,7 +168,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                     if (busquedaNumCausa.Count > 0)
                     {
                         Respuesta.Estatus = EstatusRespuestaJSON.OK;
-                        Respuesta.Data = new { busquedaNumCausa };
+                        Respuesta.Data = new { busquedaNumerosEjecucion=busquedaNumCausa };
                     }
                     else
                     {
@@ -211,7 +211,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                     if (busquedaNUC.Count > 0)
                     {
                         Respuesta.Estatus = EstatusRespuestaJSON.OK;
-                        Respuesta.Data = new { busquedaNUC };
+                        Respuesta.Data = new { busquedaNumerosEjecucion=busquedaNUC };
 
                     }
                     else
@@ -253,7 +253,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 if (busquedaSolicitante.Count > 0)
                 {
                     Respuesta.Estatus = EstatusRespuestaJSON.OK;
-                    Respuesta.Data = new { busquedaSolicitante };
+                    Respuesta.Data = new { busquedaNumerosEjecucion=busquedaSolicitante };
                 }
                 else
                 {
@@ -287,7 +287,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                     if (busquedaDetalleSolicitante.Count > 0)
                     {
                         Respuesta.Estatus = EstatusRespuestaJSON.OK;
-                        Respuesta.Data = new { busquedaDetalleSolicitante };
+                        Respuesta.Data = new { busquedaNumerosEjecucion=busquedaDetalleSolicitante };
                     }
                     else
                     {
