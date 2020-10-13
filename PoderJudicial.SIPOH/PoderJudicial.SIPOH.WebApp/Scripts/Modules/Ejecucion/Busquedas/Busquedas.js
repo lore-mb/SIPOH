@@ -1,14 +1,15 @@
 ﻿var EstatusRespuesta = { SIN_RESPUESTA: 0, OK: 1, ERROR: 2 }
 
 var estructuraTablaNumeroEejecucionPartes =
-    [{ data: 'noEjecucion', title: 'N° Ejecución', className: "text-center" },
-     { data: 'juzgadoEjecucion', title: 'Juzgado de Ejecución', className: "text-center" },
-     { data: 'fecha', title: 'Fecha Ejecución', className: "text-center" },
-     { data: 'beneficiario', title: 'Beneficiario', className: "text-center" },   
-     { data: 'tipoExpediente', title: 'Tipo Expediente', className: "text-center" },
-     { data: 'parteRelacionada', title: 'Parte Causas', className: "text-center" },
-     { data: 'parteRelacionada', title: 'Tipo Parte', className: "text-center" },
-     { data: 'causas', title: 'Detalle', className: "text-center" }];
+       [{ data: 'noEjecucion', title: 'N° Ejecución', className: "text-center" },
+        { data: 'juzgadoEjecucion', title: 'Juzgado de Ejecución', className: "text-center" },
+        { data: 'fecha', title: 'Fecha Ejecución', className: "text-center" },
+        { data: 'beneficiario', title: 'Beneficiario', className: "text-center" },   
+        { data: 'tipoExpediente', title: 'Tipo Expediente', className: "text-center" },
+        { data: 'parteRelacionada', title: 'Parte Causas', className: "text-center" },
+        { data: 'parteRelacionada', title: 'Tipo Parte', className: "text-center" },
+        { data: 'causas', title: 'Detalle', className: "text-center" }];
+
 var estructuraTablaNumeroEjecucion = [{ data: 'noEjecucion', title: 'N° Ejecución', className: "text-center" }, { data: 'juzgadoEjecucion', title: 'Juzgado de Ejecución', className: "text-center" }, { data: 'fecha', title: 'Fecha Ejecución', className: "text-center" }, { data: 'beneficiario', title: 'Beneficiario', className: "text-center" }, { data: 'tipoExpediente', title: 'Tipo Expediente', className: "text-center" }, { data: 'causas', title: 'Detalle', className: "text-center" }];
 var numeroEjecucionDatos = [];
 var tablaNumeroEjecucion = null;
@@ -113,32 +114,34 @@ function ElementosAlCargado()
 
             if (form.checkValidity() === true && id == "formPartesCausa")
             {
-                BuscarEjecucionPorPartesBeneficiarios(true);
+                alert("entro desde " + id);
+                //BuscarEjecucionPorPartesBeneficiarios(true);
             }
 
             if (form.checkValidity() === true && id == "formBeneficiario")
             {
-                BuscarEjecucionPorPartesBeneficiarios(false);
+                alert("entro desde " + id);
+                //BuscarEjecucionPorPartesBeneficiarios(false);
             }
 
             if (form.checkValidity() === true && id == "formCausasEjecucion")
             {
-                alert("entro");
+                alert("entro desde " + id);
             }
 
             if (form.checkValidity() === true && id == "formNucEjecucion")
             {
-                alert("entro");
+                alert("entro desde " + id);
             }
 
             if (form.checkValidity() === true && id == "formSolicitanteEjecucion")
             {
-                alert("entro");
+                alert("entro desde " + id);
             } 
 
             if (form.checkValidity() === true && id == "formDetalleSolicitanteEjecucion")
             {
-                alert("entro");
+                alert("entro desde " + id);
             } 
 
         }, false);

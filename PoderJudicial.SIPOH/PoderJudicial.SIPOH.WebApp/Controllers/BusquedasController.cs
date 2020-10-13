@@ -83,7 +83,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                     }
                 }
 
-                Respuesta.Data = busquedaProcessor.Mensaje;
+                Respuesta.Mensaje = busquedaProcessor.Mensaje;
                 return Json(Respuesta, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -115,7 +115,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 {
                     Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
                     Respuesta.Data = null;
-                    Respuesta.Data = busquedaProcessor.Mensaje;
+               
                 }
                 else
                 {
@@ -123,16 +123,16 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                     {
                         Respuesta.Estatus = EstatusRespuestaJSON.OK;
                         Respuesta.Data = new { busquedaBeneficiario };
-                        Respuesta.Data = busquedaProcessor.Mensaje;
+                  
                     }
                     else
                     {
                         Respuesta.Estatus = EstatusRespuestaJSON.SIN_RESPUESTA;
-                        Respuesta.Data = new object();
-                        Respuesta.Data = busquedaProcessor.Mensaje;
+                        Respuesta.Data = new object();      
                     }
                 }
 
+                Respuesta.Mensaje = busquedaProcessor.Mensaje;
                 return Json(Respuesta, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -161,7 +161,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 {
                     Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
                     Respuesta.Data = null;
-                    Respuesta.Data = busquedaProcessor.Mensaje;
+                
                 }
                 else
                 {
@@ -169,15 +169,15 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                     {
                         Respuesta.Estatus = EstatusRespuestaJSON.OK;
                         Respuesta.Data = new { busquedaNumCausa };
-                        Respuesta.Data = busquedaProcessor.Mensaje;
                     }
                     else
                     {
                         Respuesta.Estatus = EstatusRespuestaJSON.SIN_RESPUESTA;
                         Respuesta.Data = new object();
-                        Respuesta.Data = busquedaProcessor.Mensaje;
                     }
                 }
+
+                Respuesta.Mensaje = busquedaProcessor.Mensaje;
                 return Json(Respuesta, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -185,7 +185,6 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
                 Respuesta.Mensaje = ex.Message;
                 Respuesta.Data = null;
-                Respuesta.Data = busquedaProcessor.Mensaje;
                 return Json(Respuesta, JsonRequestBehavior.AllowGet);
             }
         }
@@ -206,7 +205,6 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 {
                     Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
                     Respuesta.Data = null;
-                    Respuesta.Data = busquedaProcessor.Mensaje;
                 }
                 else
                 {
@@ -214,15 +212,16 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                     {
                         Respuesta.Estatus = EstatusRespuestaJSON.OK;
                         Respuesta.Data = new { busquedaNUC };
-                        Respuesta.Data = busquedaProcessor.Mensaje;
+
                     }
                     else
                     {
                         Respuesta.Estatus = EstatusRespuestaJSON.SIN_RESPUESTA;
                         Respuesta.Data = new object();
-                        Respuesta.Data = busquedaProcessor.Mensaje;
                     }
                 }
+
+                Respuesta.Mensaje = busquedaProcessor.Mensaje;
                 return Json(Respuesta, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -230,8 +229,6 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
                 Respuesta.Mensaje = ex.Message;
                 Respuesta.Data = null;
-                Respuesta.Data = busquedaProcessor.Mensaje;
-
                 return Json(Respuesta, JsonRequestBehavior.AllowGet);
             }
         }
@@ -250,7 +247,6 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             {
                 Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
                 Respuesta.Data = null;
-                Respuesta.Data = busquedaProcessor.Mensaje;
             }
             else
             {
@@ -258,15 +254,15 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 {
                     Respuesta.Estatus = EstatusRespuestaJSON.OK;
                     Respuesta.Data = new { busquedaSolicitante };
-                    Respuesta.Data = busquedaProcessor.Mensaje;
                 }
                 else
                 {
                     Respuesta.Estatus = EstatusRespuestaJSON.SIN_RESPUESTA;
                     Respuesta.Data = new object();
-                    Respuesta.Data = busquedaProcessor.Mensaje;
                 }
             }
+
+            Respuesta.Mensaje = busquedaProcessor.Mensaje;
             return Json(Respuesta, JsonRequestBehavior.AllowGet);
         }
 
@@ -285,7 +281,6 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 {
                     Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
                     Respuesta.Data = null;
-                    Respuesta.Data = busquedaProcessor.Mensaje;
                 }
                 else
                 {
@@ -293,15 +288,15 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                     {
                         Respuesta.Estatus = EstatusRespuestaJSON.OK;
                         Respuesta.Data = new { busquedaDetalleSolicitante };
-                        Respuesta.Data = busquedaProcessor.Mensaje;
                     }
                     else
                     {
                         Respuesta.Estatus = EstatusRespuestaJSON.SIN_RESPUESTA;
                         Respuesta.Data = new object();
-                        Respuesta.Data = busquedaProcessor.Mensaje;
                     }
                 }
+
+                Respuesta.Mensaje = busquedaProcessor.Mensaje;
                 return Json(Respuesta, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -309,8 +304,6 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
                 Respuesta.Mensaje = ex.Message;
                 Respuesta.Data = null;
-                Respuesta.Data = busquedaProcessor.Mensaje;
-
                 return Json(Respuesta, JsonRequestBehavior.AllowGet);
             }
         }
@@ -324,7 +317,6 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             {
                 Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
                 Respuesta.Data = null;
-                Respuesta.Data = busquedaProcessor.Mensaje;
             }
             else
             {
@@ -338,10 +330,10 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 {
                     Respuesta.Estatus = EstatusRespuestaJSON.SIN_RESPUESTA;
                     Respuesta.Data = new object();
-                    Respuesta.Data = busquedaProcessor.Mensaje;
                 }
             }
 
+            Respuesta.Mensaje = busquedaProcessor.Mensaje;
             return Json(Respuesta, JsonRequestBehavior.AllowGet);
         }
     }
