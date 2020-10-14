@@ -78,10 +78,10 @@ namespace PoderJudicial.SIPOH.AccesoDatos
         /// <summary>
         /// Retorna lista de Juzgados filtrados por tipo y distrito o circuito
         /// </summary>
-        /// <param name="id">Representa el Id del Circuito o Distrito al que pertenece el Juzgado</param>
+        /// <param name="idCircuitoDistrito">Representa el Id del Circuito o Distrito al que pertenece el Juzgado</param>
         /// <param name="tipoJuzgado">Representa el tipo de Juzgado de retorno</param>
         /// <returns></returns>
-        public List<Juzgado> ObtenerJuzgados(int id, TipoJuzgado tipoJuzgado)
+        public List<Juzgado> ObtenerJuzgadosAcusatorioTradicional(int idCircuitoDistrito, TipoJuzgado tipoJuzgado)
         {
             try
             {
@@ -94,10 +94,10 @@ namespace PoderJudicial.SIPOH.AccesoDatos
                 comando.CommandType = CommandType.StoredProcedure;
 
                 if(tipoJuzgado == TipoJuzgado.ACUSATORIO)
-                comando.Parameters.Add("@idCircuito", SqlDbType.Int).Value = id;
+                comando.Parameters.Add("@idCircuito", SqlDbType.Int).Value = idCircuitoDistrito;
 
                 if (tipoJuzgado == TipoJuzgado.TRADICIONAL)
-                comando.Parameters.Add("@idDistrito", SqlDbType.Int).Value = id;
+                comando.Parameters.Add("@idDistrito", SqlDbType.Int).Value = idCircuitoDistrito;
 
                 Cnx.Open();
 
@@ -432,6 +432,45 @@ namespace PoderJudicial.SIPOH.AccesoDatos
                     Estatus = Estatus.SIN_RESULTADO;
                 
                 return anexos;
+            }
+            catch (Exception ex)
+            {
+                MensajeError = ex.Message;
+                Estatus = Estatus.ERROR;
+                return null;
+            }
+            finally
+            {
+                if (IsValidConnection && Cnx.State == ConnectionState.Open)
+                    Cnx.Close();
+            }
+        }
+
+        public List<Juzgado> ObtenerJuzgadosPorDistrito(int idDistrito)
+        {
+            try
+            {
+                if (!IsValidConnection)
+                    throw new Exception("No se ha creado una conexion valida");
+
+                SqlCommand comando = new SqlCommand("sipoh_JuzgadosPorDistritos", Cnx);
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.Add("@idDistrito", SqlDbType.Int).Value = idDistrito;
+                Cnx.Open();
+
+                SqlDataReader sqlRespuesta = comando.ExecuteReader();
+
+                DataTable tabla = new DataTable();
+                tabla.Load(sqlRespuesta);
+
+                List<Juzgado> jusgados = DataHelper.DataTableToList<Juzgado>(tabla);
+
+                if (jusgados.Count > 0)
+                    Estatus = Estatus.OK;
+                else
+                    Estatus = Estatus.SIN_RESULTADO;
+
+                return jusgados;
             }
             catch (Exception ex)
             {

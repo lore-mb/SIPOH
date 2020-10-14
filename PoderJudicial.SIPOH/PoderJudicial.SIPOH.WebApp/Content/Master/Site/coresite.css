@@ -2358,7 +2358,7 @@ label.error {
   letter-spacing: -1px; }
 
 .navbar-header {
-  padding: 0px 15px; }
+  padding: 0px 0px; }
   .navbar-header .dropdown-toggle::after {
     margin-left: 0; }
 
@@ -7781,4 +7781,11 @@ td.details-control
 tr.shown td.details-control 
 {
     background: url('../Img/details_close.png') no-repeat center center;
+}
+
+.form-control.no-validate:valid
+{
+    border-color: #ced4da;
+    padding-right: .75rem;
+    background: none;
 }

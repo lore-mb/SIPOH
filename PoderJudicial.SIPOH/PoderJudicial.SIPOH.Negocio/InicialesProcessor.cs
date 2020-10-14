@@ -47,7 +47,7 @@ namespace PoderJudicial.SIPOH.Negocio
 
         public List<Juzgado> RecuperaJuzgado(int id, TipoJuzgado tipoJuzgado)
         {
-            List<Juzgado> juzgados = catalogosRepositorio.ObtenerJuzgados(id, tipoJuzgado);
+            List<Juzgado> juzgados = catalogosRepositorio.ObtenerJuzgadosAcusatorioTradicional(id, tipoJuzgado);
 
             if (catalogosRepositorio.Estatus == Estatus.SIN_RESULTADO)
                 Mensaje = "La consulta no genero ningun resultado";

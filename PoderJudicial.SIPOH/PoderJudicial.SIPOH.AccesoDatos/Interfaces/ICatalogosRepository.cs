@@ -14,7 +14,8 @@ namespace PoderJudicial.SIPOH.AccesoDatos.Interfaces
         string MensajeError { get; set; }
         Estatus Estatus { get; set; }
         List<Distrito> ObtenerDistritos(int idCircuito);
-        List<Juzgado> ObtenerJuzgados(int idCircuito, TipoJuzgado tipoJuzgado);
+        List<Juzgado> ObtenerJuzgadosAcusatorioTradicional(int idCircuitoDistrito, TipoJuzgado tipoJuzgado);
+        List<Juzgado> ObtenerJuzgadosPorDistrito(int idDistrito);
         List<Juzgado> ObtenerSalas(TipoJuzgado tipoJuzgado);
         List<Anexo> ObtenerAnexosEjecucion(string tipo);
         List<Juzgado> ObtenerJuzgadoEjecucionPorCircuito(int idcircuito);

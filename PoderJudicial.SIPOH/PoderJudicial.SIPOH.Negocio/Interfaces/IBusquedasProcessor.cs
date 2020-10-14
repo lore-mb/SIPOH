@@ -1,5 +1,6 @@
 ﻿using PoderJudicial.SIPOH.AccesoDatos;
 using PoderJudicial.SIPOH.Entidades;
+using PoderJudicial.SIPOH.Entidades.Enum;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,10 @@ namespace PoderJudicial.SIPOH.Negocio.Interfaces
         List<Ejecucion> ObtenerEjecucionPorNUC(string nuc, int idJuzgado);
         List<Ejecucion> ObtenerEjecucionPorDetalleSolicitante(string detalleSolicitante);
         List<Ejecucion> ObtenerEjecucionPorSolicitante(int  idSolicitante);
+        List<Distrito> ObtenerDistritoPorCircuito(int idCircuito);
+        List<Juzgado> ObtenerJuzgadosAcusatoriosPorCircuito(int idCircuito);
+        List<Juzgado> ObtenerJuzgadosPorDistritos(int idDistrito);
+        List<Solicitante> ObtenerSolicitanteEjecucion();
 
     }
     
