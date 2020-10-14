@@ -172,7 +172,8 @@
     <Compile Include="Models\EjecucionModelView.cs" />
     <Compile Include="Models\LogedUserModelView.cs" />
     <Compile Include="Models\LogInModelView.cs" />
-    <Compile Include="Models\PostEjecucionModelView.cs" />
+    <Compile Include="Models\PosAnexoModelView.cs" />
+    <Compile Include="Models\PromocionModelView.cs" />
     <Compile Include="Models\SelloModelView.cs" />
     <Compile Include="Models\TocasModelView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

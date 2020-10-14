@@ -491,27 +491,26 @@ namespace PoderJudicial.SIPOH.AccesoDatos
         }
 
 
-        public int? GuardarPostEjecucion(PostEjecucion postEjecucion, List<PostEjecucion> posts)
+        public int? GuardarPostEjecucion(PostEjecucion postEjecucion, List<Anexo> anexos)
         {
             try
             {
                 if (!IsValidConnection)
-                {
                     throw new Exception("No se ha creado una conexion valida");
-                }
 
-                SqlCommand comandoSQL;
-                comandoSQL = new SqlCommand("sipoh_GenerarAnexosAfterPost", Cnx);
+                
+                SqlCommand comandoSQL = new SqlCommand("sipoh_GenerarAnexosPromociones", Cnx);
                 comandoSQL.CommandType = CommandType.StoredProcedure;
                 comandoSQL.Parameters.Add("@IdEjecucion", SqlDbType.Int).Value = postEjecucion.IdEjecucion;
                 comandoSQL.Parameters.Add("@Promovente", SqlDbType.VarChar).Value = postEjecucion.Promovente;
-                comandoSQL.Parameters.Add("@IdUser", SqlDbType.Int).Value = postEjecucion.IdUser;
+                comandoSQL.Parameters.Add("@IdUsuario", SqlDbType.Int).Value = postEjecucion.IdUser;
+                comandoSQL.Parameters.Add("@IdEjecucionPosterior", SqlDbType.Int).Value = postEjecucion.IdEjecucionPosterior;
 
-                SqlParameter parametroAnexos;
-                parametroAnexos = new SqlParameter();
-                parametroAnexos.ParameterName = ("@AnexosPost");
+
+                SqlParameter parametroAnexos = new SqlParameter();
+                parametroAnexos.ParameterName = "@AnexosPromociones";
                 parametroAnexos.SqlDbType = SqlDbType.Structured;
-                parametroAnexos.Value = CrearPostEjecucion(posts);
+                parametroAnexos.Value = CreaAnexoType(anexos);
                 comandoSQL.Parameters.Add(parametroAnexos);
 
                 Cnx.Open();
@@ -519,7 +518,8 @@ namespace PoderJudicial.SIPOH.AccesoDatos
 
                 Estatus = Estatus.OK;
 
-                return Convert.ToInt32(parametroAnexos.Value);
+                return Convert.ToInt32(comandoSQL.Parameters["@IdEjecucion"].Value);
+
             }
             catch (Exception ex)
             {
@@ -530,7 +530,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
             finally
             {
                 if (IsValidConnection && Cnx.State == ConnectionState.Open)
-                    Cnx.Close();
+                   Cnx.Close();
             }
         }
 
@@ -604,28 +604,6 @@ namespace PoderJudicial.SIPOH.AccesoDatos
             }
 
             return tocasType;
-        }
-
-        private DataTable CrearPostEjecucion(List<PostEjecucion> posts)
-        {
-
-            DataTable AnexosPost = new DataTable();
-            AnexosPost.Clear();
-            AnexosPost.Columns.Add("IdEjecucionPosterior");
-            AnexosPost.Columns.Add("IdCatAnexoEjecucion");
-            AnexosPost.Columns.Add("OtroAnexoEjecucion");
-            AnexosPost.Columns.Add("Cantidad");
-
-            foreach (PostEjecucion asignarPost in posts)
-            {
-                DataRow Field = AnexosPost.NewRow();
-                Field["IdEjecucionPosterior"] = asignarPost.IdEjecucionPosterior;
-                Field["IdCatAnexoEjecucion"] = asignarPost.IdCatAnexEjecucion;
-                Field["OtroAnexoEjecucion"] = asignarPost.IdCatAnexEjecucion == 8 ? asignarPost.OtroAnexoEjecucion : null;
-                Field["Cantidad"] = asignarPost.Cantidad;
-                AnexosPost.Rows.Add(Field);
-            }
-            return AnexosPost;
         }
 
     }

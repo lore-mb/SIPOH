@@ -98,7 +98,8 @@ namespace PoderJudicial.SIPOH.WebApp.App_Start
                 cfg.CreateMap<TocasModelView, Expediente>().ReverseMap();
                 cfg.CreateMap<AnexosModelView, Anexo>().ReverseMap();
                 cfg.CreateMap<Expediente, CausasModelView>();
-                cfg.CreateMap<PostEjecucionModelView, PostEjecucion>().ReverseMap();
+                cfg.CreateMap<PromocionModelView, PostEjecucion>().ReverseMap();
+                cfg.CreateMap<AnexosModelView, Anexo>().ReverseMap();
             });
             return config;
         }

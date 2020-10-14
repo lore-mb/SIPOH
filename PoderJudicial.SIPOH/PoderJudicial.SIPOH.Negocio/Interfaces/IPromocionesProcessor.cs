@@ -12,6 +12,6 @@ namespace PoderJudicial.SIPOH.Negocio.Interfaces
         List<Expediente> ObtenerExpedientesPorEjecucion(int idEjecucion);
         Expediente ObtenerExpedienteEjecucionCausa(int idExpediente);
         List<Anexo> ObtenerAnexosEjecucion(string tipo);
-        int? GuardarPostEjecucion(PostEjecucion postEjecucion, List<PostEjecucion> posts);
+        int? GuardarPostEjecucion(PostEjecucion postEjecucion, List<Anexo> anexos);
     }
 }
