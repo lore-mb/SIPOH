@@ -1,16 +1,19 @@
-﻿@model PoderJudicial.SIPOH.WebApp.Models.EjecucionModelView
+﻿
+@model PoderJudicial.SIPOH.WebApp.Models.EjecucionModelView
 
 @{
-    ViewBag.Title = "Detalle Promociones";
+    ViewBag.Title = "Detalle de Promoción";
 }
+
+
 
 <div class="container-fluid">
     <div class="row">
-        <div class="card shadow-sm">
+        <div class="card shadow-sm col-sm-12">
 
             <div class="card-header">
 
-                @if (Model.NumeroEjecucion != null)
+                @*@if (Model.NumeroEjecucion != null)
                 {
                     <h4 class="card-title">
                         No. Ejecución @Html.DisplayFor(model => model.NumeroEjecucion)
@@ -21,261 +24,22 @@
                     <h4 class="card-title">
                         No. Ejecución - Información no disponible
                     </h4>
-                }
+                }*@
 
             </div>
 
             <div class="card-body">
+                <div class="bnt btn-group">
+                    <button class="btn btn-dark mr-3">
+                    Boton 1
+                    </button>
 
-                @Html.Hidden("IdProceso", (bool)ViewBag.fueCorrectoElProceso)
-                @Html.Hidden("IdMensajeError", (string)ViewBag.Mensaje)
-
-                @Html.Hidden("IdTocas", (bool)ViewBag.Tocas)
-                @Html.Hidden("IdAmparos", (bool)ViewBag.Amparos)
-                @Html.Hidden("IdCausas", (bool)ViewBag.Causas)
-                @Html.Hidden("IdAnexos", (bool)ViewBag.Anexos)
-
-                @Html.Hidden("IdEjecucion", (bool)ViewBag.Ejecucion)
-
-
-                <div class="form-row">
-
-                    <div class="col-12">
-                        <button class="btn btn-success" id="btnGeneraSello" data-toggle="tooltip" data-placement="top" title="Genera un sello"><i class="fas fa-stamp mr-2"></i>Generar Sello</button>
-                        <button class="btn btn-success" id="btnNuevaInicial" data-toggle="tooltip" data-placement="top" title="Crea un nuevo registro de iniciales"><i class="fa fa-plus mr-2"></i>Nueva Inicial</button>
-                    </div>
-                </div>
-
-                <div class="bordeParaInfo rounded p-3 mt-3">
-                    <div class="form-row">
-                        <div class="col-12 col-md-8">
-                            <label for="validationCustom04"><b><li>Juzgado de Ejecución</li></b></label>
-                            <div class="input-group ml-3" id="divToca">
-                                @Html.DisplayFor(model => model.NombreJuzgado)
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-md-4">
-                            <label for="validationCustom04"><b><li>Numero de Ejecución</li></b></label>
-                            <div class="input-group ml-3" id="divToca">
-                                @Html.DisplayFor(model => model.NumeroEjecucion)
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-row mt-1 mt-md-3">
-                        <div class="col-12 col-md-4">
-                            <label for="validationCustom04"><b><li>Sentenciado/Beneficiario</li></b></label>
-                            <div class="input-group ml-3" id="divToca">
-                                @Html.DisplayFor(model => model.NombreBeneficiario)
-                                @Html.DisplayFor(model => model.ApellidoPBeneficiario)
-                                @Html.DisplayFor(model => model.ApellidoMBeneficiario)
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-md-4">
-                            <label for="validationCustom04"><b><li>Solicitante</li></b></label>
-                            <div class="input-group ml-3" id="divToca">
-                                @Html.DisplayFor(model => model.DescripcionSolicitante) - @Html.DisplayFor(model => model.DetalleSolicitante)
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-md-4">
-                            <label for="validationCustom04"><b><li>Solicitud</li></b></label>
-                            <div class="input-group ml-3" id="divToca">
-                                @Html.DisplayFor(model => model.DescripcionSolicitud)
-                            </div>
-                        </div>
-
-                        <div class="col-12 mt-1 mt-md-3">
-                            <label for="validationCustom04"><b><li>Sentenciando Interno</li></b></label>
-                            <div class="input-group ml-3" id="divToca">
-                                @if (Model.Interno == "S")
-                                {
-                                    @Html.Raw("SI");
-                                }
-                                else
-                                {
-                                    @Html.Raw("NO");
-                                }
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="tab-content">
-                    <div class="form-row mt-3">
-                        <div class="col-12">
-                            <h6 class="m-0 font-weight-bold @(ViewBag.Causas ? "text-danger":"text-success")"><i class="@(ViewBag.Causas ? "icon-cross":"icon-checkmark") mr-2"></i><i class="icon-table2"></i> Tabla de Causas</h6>
-                        </div>
-                    </div>
-                    <div class="table-responsive">
-                        <table id="dataTableExpedienteDetalle" class="display table table-hover table-striped table-bordered table-sm nowrap text-center" width="100%">
-                            <thead>
-                                <tr>
-                                    <th>N° Juzgado</th>
-                                    <th>Causa|Nuc</th>
-                                    <th>Ofendido (s)</th>
-                                    <th>Inculpado (s)</th>
-                                    <th>Delitos (s)</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in Model.Causas)
-                                {
-                                    <tr>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.NombreJuzgado)
-                                        </td>
-                                        <td>
-                                            @if (item.NUC != null)
-                                            {
-                                                @Html.DisplayFor(modelItem => item.NUC)
-                                            }
-                                            else
-                                            {
-                                                @Html.DisplayFor(modelItem => item.NumeroCausa)
-                                            }
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Ofendidos)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Inculpados)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Delitos)
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <div class="tab-content">
-                    <div class="form-row mt-2">
-                        <div class="col-12 col-md-7 form-group">
-
-                            <div class="form-row">
-                                <div class="col-12">
-                                    <h6 class="m-0 font-weight-bold @(ViewBag.Tocas ? "text-danger":"text-success")"><i class="@(ViewBag.Tocas ? "icon-cross":"icon-checkmark") mr-2"></i><i class="icon-table2"></i> Tabla de Salas</h6>
-                                </div>
-                                <div class="col-12">
-                                    <div class="table-responsive">
-
-                                        <table id="dataTableTocasDetalle" class="display table table-hover table-striped table-bordered table-sm nowrap text-center" width="100%">
-                                            <thead>
-                                                <tr>
-                                                    <th>Sala</th>
-                                                    <th>Numero De Toca</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach (var item in Model.Tocas)
-                                                {
-                                                    <tr>
-                                                        <td>
-                                                            @Html.DisplayFor(modelItem => item.NombreJuzgado)
-                                                        </td>
-                                                        <td>
-                                                            @Html.DisplayFor(modelItem => item.NumeroDeToca)
-                                                        </td>
-                                                    </tr>
-                                                }
-                                            </tbody>
-                                        </table>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-5 form-group">
-                            <div class="form-row">
-                                <div class="col-12">
-                                    <h6 class="m-0 font-weight-bold @(ViewBag.Amparos ? "text-danger":"text-success")"><i class="@(ViewBag.Amparos ? "icon-cross":"icon-checkmark") mr-2"></i><i class="icon-table2"></i> Tabla de Amparos</h6>
-                                </div>
-                                <div class="col-12">
-                                    <div class="table-responsive text-small">
-                                        <table id="dataTableAmparosDetalle" class="display table table-hover table-striped table-bordered table-sm nowrap text-center" width="100%">
-                                            <thead>
-                                                <tr>
-                                                    <th>Numero de Amparo</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach (var item in Model.Amparos)
-                                                {
-                                                    <tr>
-                                                        <td>
-                                                            @item
-                                                        </td>
-                                                    </tr>
-                                                }
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 form-group">
-                            <div class="form-row mt-1">
-                                <div class="col-12 ">
-                                    <h6 class="m-0 font-weight-bold @(ViewBag.Anexos ? "text-danger":"text-success")"><i class="@(ViewBag.Anexos ? "icon-cross":"icon-checkmark") mr-2"></i><i class="icon-table2"></i> Tabla de Anexos</h6>
-                                </div>
-                                <div class="col-12">
-                                    <div class="table-responsive">
-                                        <table id="dataTableAnexosDetalle" class="display table table-hover table-striped table-bordered table-sm nowrap text-center" width="100%">
-                                            <thead>
-                                                <tr>
-                                                    <th>Anexos</th>
-                                                    <th>Cantidad</th>
-
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach (var item in Model.Anexos)
-                                                {
-                                                    <tr>
-                                                        <td>
-                                                            @Html.DisplayFor(modelItem => item.Descripcion)
-                                                        </td>
-                                                        <td>
-                                                            @Html.DisplayFor(modelItem => item.Cantidad)
-                                                        </td>
-
-                                                    </tr>
-                                                }
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="sello" hidden>
-
-                    <div id="juzgadoSello">@Html.DisplayFor(model => model.NombreJuzgado)</div>
-                    <div id="numeroEjecucionSello">Exp. Ejec.: @Html.DisplayFor(model => model.NumeroEjecucion)</div>
-                    <div id="folioSello">Folio: @Html.DisplayFor(model => model.IdEjecucion)</div>
-                    <div id="fechaEjecucion">Fecha: @Html.DisplayFor(model => model.FechaEjecucion)</div>
-                    <div id="total">@Model.Anexos.Count()</div>
-
-                    @{int contador = 0;}
-
-                    @foreach (var item in Model.Anexos)
-                    {
-                        string des = "descripcion" + contador;
-                        string can = "cantidad" + contador;
-
-                        <div id='@des'>@item.Descripcion</div>
-                        <div id='@can'>@item.Cantidad</div>
-                        contador = contador + 1;
-                    }
+                    <button class="btn btn-dark">
+                    Boton 2
+                    </button>
 
                 </div>
+                
             </div>
         </div>
     </div>
@@ -284,4 +48,5 @@
 @Scripts.Render("~/Scripts/Master/Jquery")
 @Scripts.Render("~/Scripts/Master/InptuMask")
 @Scripts.Render("~/Scripts/Modules/Ejecucion/Detalle")
+
 

@@ -1,19 +1,22 @@
 ﻿var EstatusRespuesta = { SIN_RESPUESTA: 0, OK: 1, ERROR: 2 }
 
 var estructuraTablaNumeroEejecucionPartes =
-       [{ data: 'noEjecucion', title: 'N° Ejecución', className: "text-center" },
-        { data: 'juzgadoEjecucion', title: 'Juzgado de Ejecución', className: "text-center" },
-        { data: 'fecha', title: 'Fecha Ejecución', className: "text-center" },
-        { data: 'beneficiario', title: 'Beneficiario', className: "text-center" },   
-        { data: 'tipoExpediente', title: 'Tipo Expediente', className: "text-center" },
-        { data: 'parteRelacionada', title: 'Parte Causas', className: "text-center" },
-        { data: 'tipoParte', title: 'Tipo Parte', className: "text-center" },
-        { data: 'causas', title: 'Detalle', className: "text-center" }];
+       [{ data: 'noEjecucion', title: 'N° Ejecución'},
+        { data: 'juzgadoEjecucion', title: 'Juzgado de Ejecución'},
+        { data: 'fecha', title: 'Fecha Ejecución'},    
+        { data: 'parteRelacionada', title: 'Parte Causas'},
+        { data: 'tipoParte', title: 'Tipo Parte' },
+        { data: 'beneficiario', title: 'Beneficiario' },
+        { data: 'tipoExpediente', title: 'Tipo Expediente' },
+        { data: 'causas', title: 'Detalle'}];
 
 
 var estructuraTablaNumeroEjecucion = [{ data: 'noEjecucion', title: 'N° Ejecución', className: "text-center" }, { data: 'juzgadoEjecucion', title: 'Juzgado de Ejecución', className: "text-center" }, { data: 'fecha', title: 'Fecha Ejecución', className: "text-center" }, { data: 'beneficiario', title: 'Beneficiario', className: "text-center" }, { data: 'tipoExpediente', title: 'Tipo Expediente', className: "text-center" }, { data: 'causas', title: 'Detalle', className: "text-center" }];
+
 var numeroEjecucionDatos = [];
 var tablaNumeroEjecucion = null;
+var tablaNumeroEjecucionChild = null;
+
 var formPartes = false;
 
 $(document).ready(function ()
@@ -351,7 +354,7 @@ function GeneraTablaDatos(tabla, idTablaHtml, datos, estructuraTabla, ordering, 
         "ordering": ordering,
         "searching": searching,
         "lengthChange": lengthChange,
-        "pageLength": 5,
+        "pageLength": 10,
         "lengthMenu": [5, 10, 25, 50],
         "language": {
             "sProcessing": "Procesando...",
@@ -362,7 +365,7 @@ function GeneraTablaDatos(tabla, idTablaHtml, datos, estructuraTabla, ordering, 
             "sInfoEmpty": "0 al 0 de 0",
             "sInfoFiltered": "(Total _MAX_ registros)",
             "sInfoPostFix": "",
-            "sSearch": "Buscar:",
+            "sSearch": "Buscar en tabla : ",
             "sUrl": "",
             "sInfoThousands": ",",
             "sLoadingRecords": "Cargando...",
@@ -465,4 +468,3 @@ function Alerta(mensaje, tamanio = null, titulo = null)
         size: tamanio
     });
 }
-

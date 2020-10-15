@@ -86,10 +86,14 @@ namespace PoderJudicial.SIPOH.WebApp.Auth
             }
         }
 
+
+
         public AppUsuario(ClaimsPrincipal principal) : base(principal)
         {
 
 
         }
+
+
     }
 }

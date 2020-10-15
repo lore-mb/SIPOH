@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PoderJudicial.SIPOH.AccesoDatos;
 using PoderJudicial.SIPOH.AccesoDatos.Conexion;
 using PoderJudicial.SIPOH.Entidades;
+using System.Collections.Generic;
 
 namespace PoderJudicial.SIPOH.UT.IgmaUT
 {
@@ -46,15 +46,16 @@ namespace PoderJudicial.SIPOH.UT.IgmaUT
             PostEjecucion RepositorioPostEjecucion;
             RepositorioPostEjecucion = new PostEjecucion();
             RepositorioPostEjecucion.IdEjecucion = 78;
-            RepositorioPostEjecucion.Promovente = "Lic. Promovente 12";
+            RepositorioPostEjecucion.Promovente = "Lic. PROMO 21";
             RepositorioPostEjecucion.IdUser = 1;
+            RepositorioPostEjecucion.IdEjecucionPosterior = 0;
 
-            List<PostEjecucion> anexos = new List<PostEjecucion>() {
-                new PostEjecucion (){  IdEjecucionPosterior = 7, IdCatAnexEjecucion = 5, OtroAnexoEjecucion = null, Cantidad = 5 },
-                new PostEjecucion (){  IdEjecucionPosterior = 7, IdCatAnexEjecucion = 8, OtroAnexoEjecucion = "Este es otro anexo 3", Cantidad = 8 }
+            List<Anexo> anexos = new List<Anexo>() {
+                new Anexo (){ IdAnexo = 8, Descripcion = "Este es otro anexo 15", Cantidad = 8 }
             };
 
-            RepositorioEjecucion.GuardarPostEjecucion(RepositorioPostEjecucion, anexos);
+            int? GuardarPostEjecucion = RepositorioEjecucion.GuardarPostEjecucion(RepositorioPostEjecucion, anexos);
+
         }
 
     }

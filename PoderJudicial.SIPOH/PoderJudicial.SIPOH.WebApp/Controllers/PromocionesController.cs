@@ -129,44 +129,40 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
 
         #region [GUARDAR] Anexos-Ejecución
         [HttpPost]
-        public ActionResult GuardarAnexosPostEjecucion(PostEjecucionModelView modeloPost)
+        public ActionResult GuardarAnexosPostEjecucion(PromocionModelView Promociones)
         {
             try
             {
+                // Parametros PostEjecucion & Mappeado
+                PostEjecucion parametrosPost = mapper.Map<PromocionModelView, PostEjecucion>(Promociones);
 
-                #region Mapeado
-                PostEjecucion mapperPost = mapper.Map<PostEjecucionModelView, PostEjecucion>(modeloPost);
-                #endregion
+                parametrosPost.IdUser = Usuario.Id;
+                parametrosPost.IdEjecucionPosterior = 0;
 
-                #region Obtener Id de Usuario
-                mapperPost.IdUser = Usuario.Id;
-                #endregion
+                // Parametros Anexos & Mapeado
+                List<Anexo> parametrosAnexos = mapper.Map<List<AnexosModelView>,List<Anexo>>(Promociones.Anexos);
 
-                List<PostEjecucion> anexos = mapper.Map<List<PostEjecucionModelView>, List<PostEjecucion>>(modeloPost.PostEjecucion);
+                // Asignamos Parametros a nuestro metodo
+                int? IdEjecucion = promocionesProcessor.GuardarPostEjecucion(parametrosPost, parametrosAnexos);
 
-                int? parametros = promocionesProcessor.GuardarPostEjecucion(mapperPost, anexos );
-
-                if (parametros == null) {
+                if (IdEjecucion == null) {
 
                     Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
                     Respuesta.Mensaje = promocionesProcessor.Mensaje;
+                    Respuesta.Data = null;
 
-                } else if (parametros != null) {
-                    
-                    // Cifrado de URL
-                    string urlFunction = ViewHelper.EncodedActionLink("Detalle", "Promociones", new { URLParametros = parametros });
-                    
+                } else if (IdEjecucion != null) {
+
+                    // Generacion de parametros cifrados
+                    string Link = ViewHelper.EncodedActionLink("Detalle", "Promociones", new { Folio = IdEjecucion });
                     Respuesta.Estatus = EstatusRespuestaJSON.OK;
                     Respuesta.Mensaje = promocionesProcessor.Mensaje;
-                    Respuesta.Data = new { Url = urlFunction };
+                    Respuesta.Data = new { Url = Link };
                 }
-
                 System.Threading.Thread.Sleep(2000);
                 return Json(Respuesta, JsonRequestBehavior.AllowGet);
-
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
                 Respuesta.Mensaje = ex.Message;
                 Respuesta.Data = null;
@@ -174,6 +170,19 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             }
         }
         #endregion
+
+        public ActionResult Detalle(int Folio) {
+            try {
+
+
+
+            } catch (Exception ex) {
+                Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
+                Respuesta.Mensaje = ex.Message;
+                Respuesta.Data = null;
+            }
+            return View();
+        }
 
         #endregion
 

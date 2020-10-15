@@ -6,7 +6,7 @@
         <div class="card shadow-sm col-sm-12">
             <div class="card-body">
                 <!-- #region Filtrado para busqueda -->
-                <div class="row align-items-center">
+                <div class="align-items-center">
                     <div class="col">
                         <h6 class="page-pretitle">
                             <i class="icon-filter"></i> Filtro de busqueda:
@@ -107,7 +107,7 @@
                             </div>
                         </div>
                         <div class="table-responsive">
-                            <table id="_TablaCausasEjecucion" class="display table table-hover table-striped table-bordered table-sm nowrap" width="100%">
+                            <table id="_TablaCausasEjecucion" class="display table table-hover table-striped table-bordered" width="100%">
                             </table>
                         </div>
                     </div>
@@ -146,8 +146,8 @@
                             <label for="inpCantidadAnexos">Cantidad</label>
                             <div class="input-group">
                                 <input type="number" class="form-control mr-2 clearanexo" placeholder="0" id="inpCantidadAnexos" name="quantity" min="0" max="3000" required>
-                                <button class="btn btn-success mr-2" type="submit" data-toggle="tooltip" data-placement="top" title="Agregar Anexo"><i class="fas fa-plus-circle"></i></button>
-                                <button class="btn btn-secondary mr-2 disoff" type="submit" id="btnGuardarAnexos" data-toggle="tooltip" data-placement="top" title="Guardar Anexos"><i class="fa fa-save"></i></button>
+                                <button class="btn btn-success mr-2" id="btnAgregarAnexo" type="submit" data-toggle="tooltip" data-placement="top" title="Agregar Anexo"><i class="fas fa-plus-circle"></i></button>
+                                <button class="btn btn-secondary mr-2 disoff" id="btnGuardarAnexos" data-toggle="tooltip" data-placement="top" title="Guardar Anexos"><i class="fa fa-save"></i></button>
                                 <div class="invalid-feedback">
                                     <i class="icon-cancel-circle"></i> Determine cantidad.
                                 </div>
