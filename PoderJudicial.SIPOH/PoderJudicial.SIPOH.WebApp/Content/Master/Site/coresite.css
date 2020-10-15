@@ -7772,6 +7772,7 @@ div.table-responsive > div.dataTables_wrapper > div.row {
         position: relative;
     }
 
+/*Estilos para botones de mostrar u ocultar tabla hija*/
 td.details-control 
 {
     background: url('../Img/details_open.png') no-repeat center center;
@@ -7783,9 +7784,31 @@ tr.shown td.details-control
     background: url('../Img/details_close.png') no-repeat center center;
 }
 
+/*Estilo para no pintar imputs no requeridos*/
 .form-control.no-validate:valid
 {
     border-color: #ced4da;
     padding-right: .75rem;
     background: none;
 }
+
+/*Color de fondo para cabezeras de tablas*/
+table.dataTable thead 
+{
+    background-color: #00BB7F;
+}
+
+/*Color de letra para cabezeras de tablas*/
+.table thead th 
+{
+    color: #ffff;
+    font-weight: 600;
+}
+
+/*Pading en tablas*/
+.table th, .table td 
+{
+    padding: 0.4rem;
+}
+
+

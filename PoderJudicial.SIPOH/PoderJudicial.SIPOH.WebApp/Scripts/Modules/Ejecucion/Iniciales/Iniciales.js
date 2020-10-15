@@ -13,13 +13,13 @@ var dataTableTocas = null;
 var dataTableAmparos = null;
 
 //Estructura para data tables
-var estructuraTablaCausas = [{ data: 'nJuzgado', title: 'N° Juzgado', className: "text-center" }, { data: 'causaNuc', title: 'Causa|Nuc', className: "text-center" }, { data: 'ofendido', title: 'Ofendido (s)', className: "text-center" }, { data: 'inculpado', title: 'Inculpado (s)', className: "text-center" }, { data: 'delito', title: 'Delitos (s)', className: "text-center" }, { data: 'eliminar', title: 'Quitar', className: "text-center" }];
+var estructuraTablaCausas = [{ data: 'causaNuc', title: 'Causa|Nuc' }, { data: 'nJuzgado', title: 'N° Juzgado'}, { data: 'ofendido', title: 'Ofendido(s)'}, { data: 'inculpado', title: 'Inculpado(s)'}, { data: 'delito', title: 'Delito(s)'}, { data: 'eliminar', title: 'Quitar'}];
 var causas = [];
 
 var estructuraTablaAnexos = [{ data: 'cantidad', title: 'Cantidad', className: "text-center" }, { data: 'descripcion', title: 'Descripción', className: "text-center" }, { data: 'eliminar', title: 'Quitar', className: "text-center" }];
 var anexos = [];
 
-var estructuraTablaBeneficiarios = [{ data: 'numeroEjecucion', title: 'No. Ejecución', className: "text-center" }, { data: 'nombreJuzgado', title: 'Juzgado', className: "text-center" }, { data: 'nombreBeneficiario', title: 'Nombre (s)', className: "text-center" }, { data: 'apellidoPaterno', title: 'Apellido Paterno', className: "text-center" }, { data: 'apellidoMaterno', title: 'Apellido Materno', className: "text-center" }, { data: 'fechaEjecucion', title: 'Fecha de Ejecución', className: "text-center" }];
+var estructuraTablaBeneficiarios = [{ data: 'numeroEjecucion', title: 'No. Ejecución', className: "text-center" }, { data: 'nombreJuzgado', title: 'Juzgado', className: "text-center" }, { data: 'nombreBeneficiario', title: 'Nombre(s)', className: "text-center" }, { data: 'apellidoPaterno', title: 'Apellido Paterno', className: "text-center" }, { data: 'apellidoMaterno', title: 'Apellido Materno', className: "text-center" }, { data: 'fechaEjecucion', title: 'Fecha de Ejecución', className: "text-center" }];
 var beneficarios = [];
 
 var estructuraTablaTocas = [{ data: 'nombreJuzgado', title: 'Sala', className: "text-center" }, { data: 'numeroDeToca', title: 'Numero De Toca', className: "text-center" }, { data: 'eliminar', title: 'Quitar', className: "text-center" }];

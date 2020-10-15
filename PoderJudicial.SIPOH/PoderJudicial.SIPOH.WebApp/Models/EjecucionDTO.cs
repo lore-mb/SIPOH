@@ -12,7 +12,6 @@ namespace PoderJudicial.SIPOH.WebApp.Models
         public string NombreJuzgado { set; get; }
         public string DetalleSolicitante { set; get; }
         public string FechaEjecucion { set; get; }
-        public int IdSolicitud { set; get; }
         public string DescripcionSolicitud { set; get; }
         public string NombreBeneficiario { set; get; }
         public string ApellidoPBeneficiario { set; get; }
