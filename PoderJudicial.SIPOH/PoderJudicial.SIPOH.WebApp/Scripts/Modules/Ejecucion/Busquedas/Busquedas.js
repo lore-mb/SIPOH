@@ -11,7 +11,7 @@ var estructuraTablaNumeroEejecucionPartes =
         { data: 'causas', title: 'Detalle'}];
 
 
-var estructuraTablaNumeroEjecucion = [{ data: 'noEjecucion', title: 'N° Ejecución', className: "text-center" }, { data: 'juzgadoEjecucion', title: 'Juzgado de Ejecución', className: "text-center" }, { data: 'fecha', title: 'Fecha Ejecución', className: "text-center" }, { data: 'beneficiario', title: 'Beneficiario', className: "text-center" }, { data: 'tipoExpediente', title: 'Tipo Expediente', className: "text-center" }, { data: 'causas', title: 'Detalle', className: "text-center" }];
+var estructuraTablaNumeroEjecucion = [{ data: 'noEjecucion', title: 'N° Ejecución' }, { data: 'juzgadoEjecucion', title: 'Juzgado de Ejecución'}, { data: 'fecha', title: 'Fecha Ejecución'}, { data: 'beneficiario', title: 'Beneficiario'}, { data: 'tipoExpediente', title: 'Tipo Expediente'}, { data: 'causas', title: 'Detalle' }];
 
 var numeroEjecucionDatos = [];
 var tablaNumeroEjecucion = null;
