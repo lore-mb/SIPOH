@@ -29,6 +29,7 @@ function ElementosAlCargado()
 {
     //Deshabilita option para juzgado acusatorio
     $("#slctJuzgadoPorDistritos").prop('disabled', true);
+
     $("#inpCausa").prop('disabled', true);
 
     $('#slctDistrito').change(function ()
@@ -114,7 +115,7 @@ function ElementosAlCargado()
                form.classList.add('was-validated');
             }
 
-            //reset de tabla if reducido
+            //reset de tabla "if reducido"
             formPartes = formPartes ? false : false;
 
             if (form.checkValidity() === true && id == "formPartesCausa")
@@ -132,22 +133,22 @@ function ElementosAlCargado()
 
             if (form.checkValidity() === true && id == "formCausasEjecucion")
             {
-                alert("entro desde " + id);
+                BuscarEjecucionPorNumerodeCausa();
             }
 
             if (form.checkValidity() === true && id == "formNucEjecucion")
             {
-                alert("entro desde " + id);
+                BuscarEjecucionPorNUC();
             }
 
             if (form.checkValidity() === true && id == "formSolicitanteEjecucion")
             {
-                alert("entro desde " + id);
+                BuscarPorSolicitante();
             } 
 
             if (form.checkValidity() === true && id == "formDetalleSolicitanteEjecucion")
             {
-                alert("entro desde " + id);
+                BuscarPorDetalleSolicitante();
             } 
 
         }, false);
@@ -219,6 +220,50 @@ function BuscarEjecucionPorPartesBeneficiarios(partes)
     } 
 }
 
+function BuscarEjecucionPorNumerodeCausa()
+{
+    //asigno el valor al nombre exacto en mi html de mi elemento 'select' 'input'
+    var juzgado = $('#slctJuzgadoPorDistritos').val();
+    var numCausa = $('#inpCausa').val();
+
+    //los parametros deben llamarse igual que en mi metodo de controlador
+    var parametros = { idJuzgado: juzgado, numCausa: numCausa };
+
+    SolicitudEstandarAjax("/Busquedas/BusquedaPorNumeroCausa", parametros, ListarNumerosDeEjecucion);
+
+}
+
+function BuscarEjecucionPorNUC()
+{
+    var juzgado = $('#slctJuzgadoAcusatorio').val();
+    var nuc = $('#inpNuc').val();
+    
+    var parametros = { NUC: nuc, idJuzgado: juzgado };
+
+    SolicitudEstandarAjax("/Busquedas/BusquedaNUC", parametros, ListarNumerosDeEjecucion);
+
+}
+
+function BuscarPorSolicitante()
+{
+    var solicitante = $('#slctSolicitante').val();
+
+    var parametros = { idSolicitante: solicitante };
+
+    SolicitudEstandarAjax("/Busquedas/BusquedaPorSolicitante", parametros, ListarNumerosDeEjecucion);
+}
+
+function BuscarPorDetalleSolicitante()
+{
+    var detalleSolicitante = $('#inpDetalleSolicitante').val();
+
+    var parametros = { detalleSolicitante: detalleSolicitante };
+
+    //Se ejecuta solictud por url (nombre modulo, nombre de metodo en controlador), parametros y funcion callbacksuccess
+    SolicitudEstandarAjax("/Busquedas/BusquedaPorDetalleSolicitante", parametros, ListarNumerosDeEjecucion);
+}
+
+//Fucion general para busquedas  nota: de PartesCausa y Beneficiario
 function ListarNumerosDeEjecucion(respuesta)
 {
     if (respuesta.Estatus == EstatusRespuesta.OK)
@@ -227,7 +272,8 @@ function ListarNumerosDeEjecucion(respuesta)
         {
             var partesDeCausaEjecucion = respuesta.Data.busquedaNumerosEjecucionPartes;
             numeroEjecucionDatos = [];
-            for (var index = 0; index < partesDeCausaEjecucion.length; index++) {
+            for (var index = 0; index < partesDeCausaEjecucion.length; index++)
+            {
                 //data que contendra la tabla a renderizar
                 var parte = new Object;
                 parte.noEjecucion = partesDeCausaEjecucion[index].NumeroEjecucion;
@@ -259,6 +305,7 @@ function ListarNumerosDeEjecucion(respuesta)
                 parte.tipoExpediente = partesDeCausaEjecucion[index].Tipo;
                 parte.idEjecucion = partesDeCausaEjecucion[index].IdEjecucion;
                 parte.causas = "";
+
                 numeroEjecucionDatos.push(parte);
             }
 
@@ -287,8 +334,6 @@ function ListarNumerosDeEjecucion(respuesta)
         }
     }
 }
-
-functionBuscarEjecucionPorNumerodeCausa
 
 function GeneraTablaDatos(tabla, idTablaHtml, datos, estructuraTabla, ordering, searching, lengthChange)
 {
