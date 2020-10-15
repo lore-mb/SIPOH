@@ -171,16 +171,16 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         }
         #endregion
 
-        public ActionResult Detalle(int Folio) {
-            try {
+        public ActionResult Detalle(/*int Folio*/) {
+            //try {
 
 
 
-            } catch (Exception ex) {
-                Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
-                Respuesta.Mensaje = ex.Message;
-                Respuesta.Data = null;
-            }
+            //} catch (Exception ex) {
+            //    Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
+            //    Respuesta.Mensaje = ex.Message;
+            //    Respuesta.Data = null;
+            //}
             return View();
         }
 

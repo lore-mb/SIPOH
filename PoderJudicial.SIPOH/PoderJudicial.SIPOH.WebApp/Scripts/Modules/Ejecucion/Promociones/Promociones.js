@@ -33,7 +33,7 @@ function FuncionalidadesListas() {
 
 // #region FUNCIONALIDAD: Ocultar Formulario
 function OcultarFormulario() {
-    $("#divResultadoPromocion").hide();
+    //$("#divResultadoPromocion").hide();
 }
 // #endregion
 
@@ -108,16 +108,15 @@ function ConsumirMetodo_CrearPromocion(data) {
         var Funcion_MensajeOK = function () {
             Resultados_OK();
             MostrarFormulario();
-            $("#NumeroEjecucion").val(Array[0].NumeroEjecucion);
-            $("#NombreJuzgado").val(Array[0].NombreJuzgado);
-            $("#DecSolicitante").val(Array[0].DescripcionSolicitante);
-            $("#NombreBeneficiario").val(Array[0].NombreBeneficiario + " " + Array[0].ApellidoPBeneficiario + " " + Array[0].ApellidoMBeneficiario);
-            $("#DecSolicitud").val(Array[0].DescripcionSolicitud);
+            $("#NumeroEjecucion").html(Array[0].NumeroEjecucion);
+            $("#NombreJuzgado").html(Array[0].NombreJuzgado);
+            $("#DecSolicitante").html(Array[0].DescripcionSolicitante);
+            $("#NombreBeneficiario").html(Array[0].NombreBeneficiario + " " + Array[0].ApellidoPBeneficiario + " " + Array[0].ApellidoMBeneficiario);
+            $("#DecSolicitud").html(Array[0].DescripcionSolicitud);
             var idEjecucion = (Array[0].IdEjecucion);
             ConsumirMetodo_ObtenerExpedientesPorEjecucion(idEjecucion);
             var IdEjecucionAnexo = Array[0].IdEjecucion;
-            /*Guarda datos en el LocalStorage*/
-            return sessionStorage.setItem("IdEjecucionAnexo", IdEjecucionAnexo);
+            AlmacenarIdEjecucion(IdEjecucionAnexo);
         }
         MensajeNotificacionOK(MensajeConfirmacion, "", Funcion_MensajeOK);
     } else if (data.Estatus == EstatusRespuesta.ERROR) {
@@ -141,16 +140,21 @@ function ConsumirMetodo_ObtenerExpedientesPorEjecucion(idEjecucion) {
 }
 
 function ListarCausas(data) {
+    alert(JSON.stringify(data));
     if (data.Estatus = EstatusRespuesta.OK) {
         var ArrayCausas = data.Data.ObtenerEPE;
-        var Objct_TablaCausas = new Object();
-        Objct_TablaCausas._NombreJuzgado = ArrayCausas[0].NombreJuzgado;
-        Objct_TablaCausas._NumeroCausa = ArrayCausas[0].NumeroCausa;
-        Objct_TablaCausas._Nuc = ArrayCausas[0].NUC;
-        Objct_TablaCausas._Ofendidos = ArrayCausas[0].Ofendidos;
-        Objct_TablaCausas._Inculpados = ArrayCausas[0].Inculpados;
-        Objct_TablaCausas._Delitos = ArrayCausas[0].Delitos;
-        Arreglo_TablaCausas.push(Objct_TablaCausas);
+        for (var index = 0; index < ArrayCausas.length; index++) {
+            var Objct_TablaCausas = new Object();
+            Objct_TablaCausas._NombreJuzgado = ArrayCausas[index].NombreJuzgado;
+            Objct_TablaCausas._NumeroCausa = ArrayCausas[index].NumeroCausa;
+            Objct_TablaCausas._Nuc = ArrayCausas[index].NUC;
+            Objct_TablaCausas._Ofendidos = ArrayCausas[index].Ofendidos;
+            Objct_TablaCausas._Inculpados = ArrayCausas[index].Inculpados;
+            Objct_TablaCausas._Delitos = ArrayCausas[index].Delitos;
+        }
+        for (var Indice = 0; Indice < ArrayCausas.length; Indice++) {
+            Arreglo_TablaCausas.push(Objct_TablaCausas);
+        }
         TablaCausas = Consumir_DataTable(TablaCausas, "_TablaCausasEjecucion", Arreglo_TablaCausas, EstructuraTabla_Causas, false, false, false);
     } else if (data.Estatus == EstatusRespuesta.ERROR) {
         alert("Hay un error de comunicación");
@@ -216,7 +220,8 @@ function GuardarAnexos() {
 
     intentos = intentos + 1;
 
-    //alert("Id de ejecucion "+ IdAnexoEjecucion);
+    /* Recupera datos del LocalStore */
+    var IdAnexoEjecucion = sessionStorage.getItem("IdEjecucionAnexo");
 
     var objetoparametro = {
         IdEjecucion: IdAnexoEjecucion,
@@ -247,13 +252,12 @@ var EstatusRespuesta = { SIN_RESPUESTA: 0, OK: 1, ERROR: 2 };
 
 // #region VARIABLES GLOBALES
 var intentos = 0;
-
-/*Obtener dato almacenados de IdEjecucion*/
-var IdEjecucionAnexo = null;
-var IdAnexoEjecucion = sessionStorage.getItem("IdEjecucionAnexo");
-
-
 // #endregion
+
+/*Guarda datos en el LocalStorage*/
+function AlmacenarIdEjecucion(IdEjecucionAnexo) {
+    sessionStorage.setItem("IdEjecucionAnexo", IdEjecucionAnexo);
+}
 
 // #region ESTRUCTURAS: DataTable
 
@@ -538,6 +542,7 @@ function LimpiarElementosFirefox() {
 
 // #endregion
 
+// #region FUNCIÓN: Renderizar detalle Error
 function RederizarDetalleError(data) {
 
     var MensajeData = data.Mensaje;
@@ -555,7 +560,9 @@ function RederizarDetalleError(data) {
         MensajeDeConfirmacion(mensaje, "", GuardarAnexos, null, titulo = "<i class='icon-warning text-warning'></i> Error no controlado por el sistema");
     }
 }
+// #endregion
 
+// #region FUNCIÓN: Renderizar Detalle Success
 function RederizarDetalleSuccess(data) {
 
     var MensajeData = data.Mensaje;
@@ -586,7 +593,9 @@ function RederizarDetalleSuccess(data) {
         }
     }
 }
+//#endregion 
 
+// #region FUNCIÓN: Mensaje de Confirmación
 function MensajeDeConfirmacion(mensaje, tamanio, funcion, funcionCancelar = null, titulo = null) {
 
     titulo = titulo == null ? "Confirmación" : titulo;
@@ -617,6 +626,9 @@ function MensajeDeConfirmacion(mensaje, tamanio, funcion, funcionCancelar = null
         size: tamanio
     });
 }
+//#endregion 
+
+// #region FUNCIÓN: Mensaje Alerta
 
 function Alerta(mensaje, tamanio = null, titulo = null) {
 
@@ -636,3 +648,6 @@ function Alerta(mensaje, tamanio = null, titulo = null) {
         size: tamanio
     });
 }
+
+//#endregion 
+
