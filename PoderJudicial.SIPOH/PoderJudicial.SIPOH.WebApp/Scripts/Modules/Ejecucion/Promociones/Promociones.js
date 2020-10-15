@@ -33,7 +33,7 @@ function FuncionalidadesListas() {
 
 // #region FUNCIONALIDAD: Ocultar Formulario
 function OcultarFormulario() {
-    //$("#divResultadoPromocion").hide();
+    $("#divResultadoPromocion").hide();
 }
 // #endregion
 
@@ -140,9 +140,10 @@ function ConsumirMetodo_ObtenerExpedientesPorEjecucion(idEjecucion) {
 }
 
 function ListarCausas(data) {
-    alert(JSON.stringify(data));
     if (data.Estatus = EstatusRespuesta.OK) {
         var ArrayCausas = data.Data.ObtenerEPE;
+
+        Arreglo_TablaCausas = []
         for (var index = 0; index < ArrayCausas.length; index++) {
             var Objct_TablaCausas = new Object();
             Objct_TablaCausas._NombreJuzgado = ArrayCausas[index].NombreJuzgado;
@@ -151,10 +152,9 @@ function ListarCausas(data) {
             Objct_TablaCausas._Ofendidos = ArrayCausas[index].Ofendidos;
             Objct_TablaCausas._Inculpados = ArrayCausas[index].Inculpados;
             Objct_TablaCausas._Delitos = ArrayCausas[index].Delitos;
-        }
-        for (var Indice = 0; Indice < ArrayCausas.length; Indice++) {
             Arreglo_TablaCausas.push(Objct_TablaCausas);
         }
+
         TablaCausas = Consumir_DataTable(TablaCausas, "_TablaCausasEjecucion", Arreglo_TablaCausas, EstructuraTabla_Causas, false, false, false);
     } else if (data.Estatus == EstatusRespuesta.ERROR) {
         alert("Hay un error de comunicación");
@@ -262,12 +262,12 @@ function AlmacenarIdEjecucion(IdEjecucionAnexo) {
 // #region ESTRUCTURAS: DataTable
 
 var EstructuraTabla_Causas = [
-    { data: '_NombreJuzgado', title: '<span class="danger">JUZGADO</span>', className: "text-justify" },
-    { data: '_NumeroCausa', title: 'CAUSA', className: "text-justify" },
-    { data: '_Nuc', title: 'NUC', className: "text-justify" },
+    { data: '_NombreJuzgado', title: 'JUZGADO', className: "text-justity" },
+    { data: '_NumeroCausa', title: 'CAUSA', className: "text-justity" },
+    { data: '_Nuc', title: 'NUC', className: "text-justity" },
     { data: '_Ofendidos', title: 'OFENDIDOS (S)', className: "text-justity" },
-    { data: '_Inculpados', title: 'INCULPADO (S)', className: "text-justify" },
-    { data: '_Delitos', title: 'DELITO (S)', className: "text-justify" }];
+    { data: '_Inculpados', title: 'INCULPADO (S)', className: "text-justity" },
+    { data: '_Delitos', title: 'DELITO (S)', className: "text-justity" }];
 
 var Arreglo_TablaCausas = [];
 
