@@ -1,19 +1,22 @@
 ﻿var EstatusRespuesta = { SIN_RESPUESTA: 0, OK: 1, ERROR: 2 }
 
 var estructuraTablaNumeroEejecucionPartes =
-       [{ data: 'noEjecucion', title: 'N° Ejecución', className: "text-center" },
-        { data: 'juzgadoEjecucion', title: 'Juzgado de Ejecución', className: "text-center" },
-        { data: 'fecha', title: 'Fecha Ejecución', className: "text-center" },
-        { data: 'beneficiario', title: 'Beneficiario', className: "text-center" },   
-        { data: 'tipoExpediente', title: 'Tipo Expediente', className: "text-center" },
-        { data: 'parteRelacionada', title: 'Parte Causas', className: "text-center" },
-        { data: 'tipoParte', title: 'Tipo Parte', className: "text-center" },
-        { data: 'causas', title: 'Detalle', className: "text-center" }];
+       [{ data: 'noEjecucion', title: 'N° Ejecución'},
+        { data: 'juzgadoEjecucion', title: 'Juzgado de Ejecución'},
+        { data: 'fecha', title: 'Fecha Ejecución'},    
+        { data: 'parteRelacionada', title: 'Parte Causas'},
+        { data: 'tipoParte', title: 'Tipo Parte' },
+        { data: 'beneficiario', title: 'Beneficiario' },
+        { data: 'tipoExpediente', title: 'Tipo Expediente' },
+        { data: 'causas', title: 'Detalle'}];
 
 
-var estructuraTablaNumeroEjecucion = [{ data: 'noEjecucion', title: 'N° Ejecución', className: "text-center" }, { data: 'juzgadoEjecucion', title: 'Juzgado de Ejecución', className: "text-center" }, { data: 'fecha', title: 'Fecha Ejecución', className: "text-center" }, { data: 'beneficiario', title: 'Beneficiario', className: "text-center" }, { data: 'tipoExpediente', title: 'Tipo Expediente', className: "text-center" }, { data: 'causas', title: 'Detalle', className: "text-center" }];
+var estructuraTablaNumeroEjecucion = [{ data: 'noEjecucion', title: 'N° Ejecución' }, { data: 'juzgadoEjecucion', title: 'Juzgado de Ejecución'}, { data: 'fecha', title: 'Fecha Ejecución'}, { data: 'beneficiario', title: 'Beneficiario'}, { data: 'tipoExpediente', title: 'Tipo Expediente'}, { data: 'causas', title: 'Detalle' }];
+
 var numeroEjecucionDatos = [];
 var tablaNumeroEjecucion = null;
+var tablaNumeroEjecucionChild = null;
+
 var formPartes = false;
 
 $(document).ready(function ()
@@ -29,6 +32,7 @@ function ElementosAlCargado()
 {
     //Deshabilita option para juzgado acusatorio
     $("#slctJuzgadoPorDistritos").prop('disabled', true);
+
     $("#inpCausa").prop('disabled', true);
 
     $('#slctDistrito').change(function ()
@@ -114,7 +118,7 @@ function ElementosAlCargado()
                form.classList.add('was-validated');
             }
 
-            //reset de tabla if reducido
+            //reset de tabla "if reducido"
             formPartes = formPartes ? false : false;
 
             if (form.checkValidity() === true && id == "formPartesCausa")
@@ -132,22 +136,22 @@ function ElementosAlCargado()
 
             if (form.checkValidity() === true && id == "formCausasEjecucion")
             {
-                alert("entro desde " + id);
+                BuscarEjecucionPorNumerodeCausa();
             }
 
             if (form.checkValidity() === true && id == "formNucEjecucion")
             {
-                alert("entro desde " + id);
+                BuscarEjecucionPorNUC();
             }
 
             if (form.checkValidity() === true && id == "formSolicitanteEjecucion")
             {
-                alert("entro desde " + id);
+                BuscarPorSolicitante();
             } 
 
             if (form.checkValidity() === true && id == "formDetalleSolicitanteEjecucion")
             {
-                alert("entro desde " + id);
+                BuscarPorDetalleSolicitante();
             } 
 
         }, false);
@@ -219,6 +223,50 @@ function BuscarEjecucionPorPartesBeneficiarios(partes)
     } 
 }
 
+function BuscarEjecucionPorNumerodeCausa()
+{
+    //asigno el valor al nombre exacto en mi html de mi elemento 'select' 'input'
+    var juzgado = $('#slctJuzgadoPorDistritos').val();
+    var numCausa = $('#inpCausa').val();
+
+    //los parametros deben llamarse igual que en mi metodo de controlador
+    var parametros = { idJuzgado: juzgado, numCausa: numCausa };
+
+    SolicitudEstandarAjax("/Busquedas/BusquedaPorNumeroCausa", parametros, ListarNumerosDeEjecucion);
+
+}
+
+function BuscarEjecucionPorNUC()
+{
+    var juzgado = $('#slctJuzgadoAcusatorio').val();
+    var nuc = $('#inpNuc').val();
+    
+    var parametros = { NUC: nuc, idJuzgado: juzgado };
+
+    SolicitudEstandarAjax("/Busquedas/BusquedaNUC", parametros, ListarNumerosDeEjecucion);
+
+}
+
+function BuscarPorSolicitante()
+{
+    var solicitante = $('#slctSolicitante').val();
+
+    var parametros = { idSolicitante: solicitante };
+
+    SolicitudEstandarAjax("/Busquedas/BusquedaPorSolicitante", parametros, ListarNumerosDeEjecucion);
+}
+
+function BuscarPorDetalleSolicitante()
+{
+    var detalleSolicitante = $('#inpDetalleSolicitante').val();
+
+    var parametros = { detalleSolicitante: detalleSolicitante };
+
+    //Se ejecuta solictud por url (nombre modulo, nombre de metodo en controlador), parametros y funcion callbacksuccess
+    SolicitudEstandarAjax("/Busquedas/BusquedaPorDetalleSolicitante", parametros, ListarNumerosDeEjecucion);
+}
+
+//Fucion general para busquedas  nota: de PartesCausa y Beneficiario
 function ListarNumerosDeEjecucion(respuesta)
 {
     if (respuesta.Estatus == EstatusRespuesta.OK)
@@ -227,7 +275,8 @@ function ListarNumerosDeEjecucion(respuesta)
         {
             var partesDeCausaEjecucion = respuesta.Data.busquedaNumerosEjecucionPartes;
             numeroEjecucionDatos = [];
-            for (var index = 0; index < partesDeCausaEjecucion.length; index++) {
+            for (var index = 0; index < partesDeCausaEjecucion.length; index++)
+            {
                 //data que contendra la tabla a renderizar
                 var parte = new Object;
                 parte.noEjecucion = partesDeCausaEjecucion[index].NumeroEjecucion;
@@ -259,6 +308,7 @@ function ListarNumerosDeEjecucion(respuesta)
                 parte.tipoExpediente = partesDeCausaEjecucion[index].Tipo;
                 parte.idEjecucion = partesDeCausaEjecucion[index].IdEjecucion;
                 parte.causas = "";
+
                 numeroEjecucionDatos.push(parte);
             }
 
@@ -288,8 +338,6 @@ function ListarNumerosDeEjecucion(respuesta)
     }
 }
 
-functionBuscarEjecucionPorNumerodeCausa
-
 function GeneraTablaDatos(tabla, idTablaHtml, datos, estructuraTabla, ordering, searching, lengthChange)
 {
     if (tabla != null)
@@ -306,7 +354,7 @@ function GeneraTablaDatos(tabla, idTablaHtml, datos, estructuraTabla, ordering, 
         "ordering": ordering,
         "searching": searching,
         "lengthChange": lengthChange,
-        "pageLength": 5,
+        "pageLength": 10,
         "lengthMenu": [5, 10, 25, 50],
         "language": {
             "sProcessing": "Procesando...",
@@ -317,7 +365,7 @@ function GeneraTablaDatos(tabla, idTablaHtml, datos, estructuraTabla, ordering, 
             "sInfoEmpty": "0 al 0 de 0",
             "sInfoFiltered": "(Total _MAX_ registros)",
             "sInfoPostFix": "",
-            "sSearch": "Buscar:",
+            "sSearch": "Buscar en tabla : ",
             "sUrl": "",
             "sInfoThousands": ",",
             "sLoadingRecords": "Cargando...",
@@ -420,4 +468,3 @@ function Alerta(mensaje, tamanio = null, titulo = null)
         size: tamanio
     });
 }
-
