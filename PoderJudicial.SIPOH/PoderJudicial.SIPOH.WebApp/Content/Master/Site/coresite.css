@@ -7811,4 +7811,11 @@ table.dataTable thead
     padding: 0.4rem;
 }
 
+.bordeParaInfo 
+{
+    border-bottom: 0.5px solid #ccc;
+    border-top: 0.5px solid #ccc;
+    border-right: 0.5px solid #ccc;
+    border-left: 5px solid #00BB7F;
+} 
 
