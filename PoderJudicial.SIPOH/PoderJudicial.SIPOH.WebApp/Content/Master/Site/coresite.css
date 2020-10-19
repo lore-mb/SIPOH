@@ -3088,6 +3088,8 @@ label.error {
   border: 0px !important;
   border-radius: 50px !important;
   background: rgba(222, 222, 222, 0.4);
+  margin-left: 15px;
+  margin-right: 15px;
   margin-top: 5px;
   margin-bottom: 5px; }
   .nav-pills.flex-column.nav-pills-no-bd .nav-link.active {

@@ -102,5 +102,46 @@ namespace PoderJudicial.SIPOH.Negocio
             return IdEjecucion;
         }
 
+        public bool InformacionRegistroPromocion(int FolioEjecucion, ref Ejecucion ejecucion, ref List<Anexo> anexo, ref List<Relacionadas> relacionadas) {
+
+            // Consulta informacion relacionada a PostEjecucion
+
+            ejecucion = ejecucionRepositorio.ObtenerEjecucionPromocionPorFolio(FolioEjecucion);
+
+            if (ejecucionRepositorio.Estatus == Estatus.SIN_RESULTADO)
+            {
+                relacionadas.Add(Relacionadas.EJECUCION);
+                Mensaje = "No hay respuesta para la consulta del folio " + "<b>" + FolioEjecucion + "</b>" + " registrado previamente, consulte con soporte.";
+                return false;
+            }
+            
+            if (ejecucionRepositorio.Estatus == Estatus.ERROR)
+            {
+                Mensaje = "ERROR al obtener los detalles del numero del folio " + "<b>" + FolioEjecucion +"</b>" + " .";
+                string MensajeLogger = ejecucionRepositorio.MensajeError;
+                return false;
+            }
+            
+            else if (ejecucionRepositorio.Estatus == Estatus.OK) 
+            {
+                anexo = catalogosRepositorio.ObtenerAnexosPorEjecucion(FolioEjecucion);
+                if (catalogosRepositorio.Estatus == Estatus.ERROR) {
+                    Mensaje = "Hubo un error al consultar la informacion";
+                    relacionadas.Add(Relacionadas.ANEXOS);
+                    string MensajeLogger = catalogosRepositorio.MensajeError;
+                }
+            
+            }
+
+            if (relacionadas.Count > 0)
+            {
+                Mensaje = "Problema";
+                return false;
+            }
+            else
+                return true;
+        
+        }
+
     }
 }

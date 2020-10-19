@@ -130,7 +130,7 @@ namespace PoderJudicial.SIPOH.WebApp
                 "~/Scripts/Modules/Cuenta/LoggedIn.js"));
 
             //-------------------------------------//
-            // ---- SCRIPTS MODULO EJECUCIÓN ----- //
+            //-- SCRIPTS SUB MODULO EJECUCIÓN ---- //
             //-------------------------------------//
 
             // Script Ejecución - Iniciales
@@ -148,12 +148,14 @@ namespace PoderJudicial.SIPOH.WebApp
                 "~/Scripts/Modules/Ejecucion/Reportes/Reportes.js"));
 
             //-------------------------------------//
-            // --- SCRIPTS MODULO PROMOCIONES ---- //
+            //-- SCRIPTS SUB MODULO PROMOCIONES -- //
             //-------------------------------------//
-
+            
             bundles.Add(new ScriptBundle("~/Scripts/Modules/Ejecucion/Promociones").Include(
                 "~/Scripts/Modules/Ejecucion/Promociones/Promociones.js"));
 
+            bundles.Add(new ScriptBundle("~/Scripts/Modules/Ejecucion/Promociones/Detalle").Include(
+                "~/Scripts/Modules/Ejecucion/Promociones/Detalle.js"));
         }
     }
 }

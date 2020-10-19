@@ -16,6 +16,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos.Interfaces
         int? CrearEjecucion(Ejecucion ejecucion, List<int> causas, List<Expediente> tocas, List<string> amparos, List<Anexo> anexos, int? idJuzgado, bool circuitoPachuca);
         List<Ejecucion> ObtenerEjecucionPorJuzgado(int Juzgado, string NoEjecucion);
         Ejecucion ObtenerEjecucionPorFolio(int folio);
+        Ejecucion ObtenerEjecucionPromocionPorFolio(int folio);
         List<Ejecucion> ObtenerEjecucionPorPartesCausa(string nombre, string apellidoPaterno, string apellidoMaterno);
         List<Ejecucion> ObtenerEjecucionPorNumeroCausa(string numeroCausa, int idJuzgado);
         List<Ejecucion> ObtenerEjecucionPorDetalleSolicitante(string detalleSolicitante);

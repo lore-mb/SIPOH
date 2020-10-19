@@ -1,61 +1,8 @@
-﻿
-@model PoderJudicial.SIPOH.WebApp.Models.EjecucionModelView
+﻿@model PoderJudicial.SIPOH.WebApp.Models.EjecucionModelView
 
 @{
-    ViewBag.Title = "Detalle de Promoción";
+    ViewBag.Title = "Detalle de la promoción";
 }
-
-    <div class="col-md-12">
-        <div class="card card-profile card-secondary">
-            <div class="card-header" style="background-image: url('/Content/Master/Img/Background_ProcuradoriaHidalgo.jpg')">
-                <div class="profile-picture">
-                    <div class="avatar avatar-xl">
-                        <img src="~/Content/Master/Img/Background_ProcuradoriaHidalgo.jpg" alt="..." class="avatar-img rounded-circle">
-                    </div>
-                </div>
-            </div>
-            <div class="card-body">
-                <div class="user-profile text-center">
-                    <div class="name">Hizrian, 19</div>
-                    <div class="job">Frontend Developer</div>
-                    <div class="desc">A man who hates loneliness</div>
-                    <div class="social-media">
-                        <a class="btn btn-info btn-twitter btn-sm btn-link" href="#">
-                            <span class="btn-label just-icon"><i class="flaticon-twitter"></i> </span>
-                        </a>
-                        <a class="btn btn-danger btn-sm btn-link" rel="publisher" href="#">
-                            <span class="btn-label just-icon"><i class="flaticon-google-plus"></i> </span>
-                        </a>
-                        <a class="btn btn-primary btn-sm btn-link" rel="publisher" href="#">
-                            <span class="btn-label just-icon"><i class="flaticon-facebook"></i> </span>
-                        </a>
-                        <a class="btn btn-danger btn-sm btn-link" rel="publisher" href="#">
-                            <span class="btn-label just-icon"><i class="flaticon-dribbble"></i> </span>
-                        </a>
-                    </div>
-                    <div class="view-profile">
-                        <a href="#" class="btn btn-secondary btn-block">View Full Profile</a>
-                    </div>
-                </div>
-            </div>
-            <div class="card-footer">
-                <div class="row user-stats text-center">
-                    <div class="col">
-                        <div class="number">125</div>
-                        <div class="title">Post</div>
-                    </div>
-                    <div class="col">
-                        <div class="number">25K</div>
-                        <div class="title">Followers</div>
-                    </div>
-                    <div class="col">
-                        <div class="number">134</div>
-                        <div class="title">Following</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
 <div class="container-fluid">
     <div class="row">
@@ -63,41 +10,162 @@
 
             <div class="card-header">
 
-                REGISTRO EXITOSO
-                @*@if (Model.NumeroEjecucion != null)
-                {
-                    <h4 class="card-title">
-                        No. Ejecución @Html.DisplayFor(model => model.NumeroEjecucion)
-                    </h4>
+                @if (Model.NumeroEjecucion != null)
+                    {
+                <h4 class="card-title">
+                    Promocion de No. Ejecución <b class="text-success">@Html.DisplayFor(model => model.NumeroEjecucion)</b> 
+                </h4>
                 }
                 else
                 {
-                    <h4 class="card-title">
-                        No. Ejecución - Información no disponible
-                    </h4>
-                }*@
+            <h4 class="card-title"> Promocion de No. Ejecución <b class="text-success"> Información no disponible. </b>  </h4>
+                }
 
             </div>
 
             <div class="card-body">
-                <div class="bnt btn-group">
-                    <button class="btn btn-dark mr-3">
-                    Boton 1
-                    </button>
 
-                    <button class="btn btn-dark">
-                    Boton 2
-                    </button>
+                @Html.Hidden("IdProceso", (bool)ViewBag.RespuestaMetodo)
+                @Html.Hidden("IdMensajeError", (string)ViewBag.Mensaje)
+                @Html.Hidden("IdAnexos", (bool)ViewBag.Anexos)
+                @Html.Hidden("IdEjecucion", (bool)ViewBag.Ejecucion)
+
+
+                <div class="form-row justify-content-end">
+                    <button class="btn btn-success mr-2" id="btnGeneraSello" data-toggle="tooltip" data-placement="top" title="Generar sello de impresión"><i class="fas fa-stamp mr-2"></i>Generar Sello</button>
+
+                    <a class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Registrar nueva promoción" href="@Url.Action("CrearPromocion", "Promociones")"><i class="fa fa-plus mr-2"></i> Nueva Promoción </a>
 
                 </div>
-                
+                <div class="col-12 text-center">
+                    <h3 class="m-0 font-weight mr-2">Datos Generales de Ejecución</h3>
+                </div>
+                <div class="bordeParaInfo rounded p-3 mt-3 mb-3">
+                    <div class="form-row">
+                        <div class="col-12 col-md-8">
+                            <label for="validationCustom04"><b><li>Juzgado de Ejecución</li></b></label>
+                            <div class="input-group ml-3" id="divToca">
+                                @Html.DisplayFor(model => model.NombreJuzgado)
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-4">
+                            <label for="validationCustom04"><b><li>Numero de Ejecución</li></b></label>
+                            <div class="input-group ml-3" id="divToca">
+                                @Html.DisplayFor(model => model.NumeroEjecucion)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row mt-1 mt-md-3">
+                        <div class="col-12 col-md-4">
+                            <label for="validationCustom04"><b><li>Sentenciado/Beneficiario</li></b></label>
+                            <div class="input-group ml-3" id="divToca">
+                                @Html.DisplayFor(model => model.NombreBeneficiario)
+                                @Html.DisplayFor(model => model.ApellidoPBeneficiario)
+                                @Html.DisplayFor(model => model.ApellidoMBeneficiario)
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-4">
+                            <label for="validationCustom04"><b><li>Solicitante</li></b></label>
+                            <div class="input-group ml-3" id="divToca">
+                                @Html.DisplayFor(model => model.DescripcionSolicitante) - @Html.DisplayFor(model => model.DetalleSolicitante)
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-4">
+                            <label for="validationCustom04"><b><li>Solicitud</li></b></label>
+                            <div class="input-group ml-3" id="divToca">
+                                @Html.DisplayFor(model => model.DescripcionSolicitud)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 text-center">
+                    <h3 class="m-0 font-weight mr-2">Resumen de Promoción</h3>
+                </div>
+
+                <div class="bordeParaInfo rounded p-3 mt-3">
+                    <div class="form-row">
+                        <div class="col-12 col-md-8">
+                            <label for="validationCustom04"><b><li>Nombre del Promovente</li></b></label>
+                            <div class="input-group ml-3" id="lblPromovente">
+                                @Html.DisplayFor(model => model.Promovente)
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-4">
+                            <label for="validationCustom04"><b><li>Fecha de Ingreso</li></b></label>
+                            <div class="input-group ml-3" id="lblFechaIngreso">
+                                @Html.DisplayFor(model => model.FechaIngreso)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content">
+                    <div class="form-row mt-2">
+                        <div class="col-12 form-group">
+                            <div class="form-row mt-1">
+                                <div class="col-12 ">
+                                    <h6 class="m-0 font-weight-bold @(ViewBag.Anexos ? "text-danger":"text-success")"><i class="@(ViewBag.Anexos ? "icon-cross":"icon-checkmark") mr-2"></i><i class="icon-table2"></i> Tabla de Anexos Solicitados</h6>
+                                </div>
+                                <div class="col-12">
+                                    <div class="table-responsive">
+                                        <table id="dataTableAnexosDetalle" class="table table-hover table-bordered text-center" width="100%">
+                                            <thead>
+                                                <tr>
+                                                    <th>Anexos</th>
+                                                    <th>Cantidad</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var item in Model.Anexos)
+                                                {
+                                                    <tr>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.Descripcion)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.Cantidad)
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="sello" hidden>
+                    <div id="juzgadoSello">@Html.DisplayFor(model => model.NombreJuzgado)</div>
+                    <div id="numeroEjecucionSello">Exp. Ejec.: @Html.DisplayFor(model => model.NumeroEjecucion)</div>
+                    <div id="folioSello">Folio: @Html.DisplayFor(model => model.IdEjecucion)</div>
+                    <div id="fechaIngreso">Fecha: @Html.DisplayFor(model => model.FechaIngreso)</div>
+                    <div id="total">@Model.Anexos.Count()</div>
+
+                    @{int contador = 0;}
+
+                    @foreach (var item in Model.Anexos)
+                    {
+                        string des = "descripcion" + contador;
+                        string can = "cantidad" + contador;
+
+                        <div id='@des'>@item.Descripcion</div>
+                        <div id='@can'>@item.Cantidad</div>
+                        contador = contador + 1;
+                    }
+                </div>
             </div>
         </div>
     </div>
 </div>
 
 @Scripts.Render("~/Scripts/Master/Jquery")
-@Scripts.Render("~/Scripts/Master/InptuMask")
-@Scripts.Render("~/Scripts/Modules/Ejecucion/Detalle")
-
+@Scripts.Render("~/Scripts/Modules/Ejecucion/Promociones/Detalle")
 
