@@ -72,13 +72,13 @@ namespace PoderJudicial.SIPOH.Negocio
            
             if (ejecucionRepositorio.Estatus == Estatus.ERROR)
             {
-                Mensaje = "La consulta no genero ningun resultado";
+                Mensaje = "Ocurrio un error interno no controlado, consulte a soporte";
                 string messajelogger = ejecucionRepositorio.MensajeError;
             }
             
             if (ejecucionRepositorio.Estatus == Estatus.SIN_RESULTADO)
             {
-                Mensaje = "Ocurrio un error interno no controlado, consulte a soporte";
+                Mensaje = "La consulta no genero ningun resultado";
             }
             
             return NUC;

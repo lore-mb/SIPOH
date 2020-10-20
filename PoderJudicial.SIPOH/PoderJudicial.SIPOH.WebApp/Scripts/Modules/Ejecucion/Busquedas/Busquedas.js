@@ -211,7 +211,7 @@ function BuscarEjecucionPorPartesBeneficiarios()
     if (formPartes)
     {
         $("#loading").fadeIn();
-        SolicitudEstandarAjax("/Busquedas/BusquedaPartesCausa", parametros, ListarNumerosDeEjecucion);
+        SolicitudEstandarAjax("/Busquedas/BusquedaPorPartesCausa", parametros, ListarNumerosDeEjecucion);
     }
     else
     {
@@ -241,7 +241,7 @@ function BuscarEjecucionPorNUC()
     var parametros = { NUC: nuc, idJuzgado: juzgado };
 
     $("#loading").fadeIn();
-    SolicitudEstandarAjax("/Busquedas/BusquedaNUC", parametros, ListarNumerosDeEjecucion);
+    SolicitudEstandarAjax("/Busquedas/BusquedaPorNUC", parametros, ListarNumerosDeEjecucion);
 }
 
 function BuscarPorSolicitante()

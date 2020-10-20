@@ -1,30 +1,25 @@
 ﻿using AutoMapper;
 using PoderJudicial.SIPOH.Entidades;
-using PoderJudicial.SIPOH.Entidades.Enum;
 using PoderJudicial.SIPOH.Negocio.Interfaces;
 using PoderJudicial.SIPOH.WebApp.Helpers;
 using PoderJudicial.SIPOH.WebApp.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
-using System.Web;
 using System.Web.Mvc;
 
 namespace PoderJudicial.SIPOH.WebApp.Controllers
 {
     public class BusquedasController : BaseController
     {
-        /// <summary>
-        /// [PROPIEDA 1:Se realiza inyeccion de dependencias y creo mi objeto]
-        /// </summary>
         private readonly IBusquedasProcessor busquedaProcessor;
         private readonly IMapper mapper;
 
         /// <summary>
-        /// [Metodo CONSTRUCTOR 2:de inyeccion en mi Interfaz y asigno mi objeto a mi clase]
+        /// Metodo Constructor del Controlador Busquedas
         /// </summary>
-        /// <param name="busquedaProcessor"></param>
+        /// <param name="busquedaProcessor">Objeto que contiene funcionalidad para el proceso de Busqueda</param>
+        /// <param name="mapper">Mapeador de objetos</param>
         public BusquedasController(IBusquedasProcessor busquedaProcessor, IMapper mapper)
         {
             this.busquedaProcessor = busquedaProcessor;
@@ -32,7 +27,6 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         }
 
         #region Metodos Publicos 
-        // GET: Busquedas metodo para mandar a llamar con ajax
         public ActionResult BusquedaNumeroEjecucion()
         {
             //metodo que retorna la lista de distritos
@@ -48,21 +42,20 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         }
 
         /// <summary>
-        /// Validacion de respuesta a la consulta por partes de la causa
+        /// Metodo del controlador para obtener los registros de ejecucion por media de una parte de la causa relacionada
         /// </summary>
-        /// <param name="nombre"></param>
-        /// <param name="apellidoPaterno"></param>
-        /// <param name="apellidoMaterno"></param>
+        /// <param name="nombre">Nombre de la parte</param>
+        /// <param name="apellidoPaterno">Apellido paterno de la parte</param>
+        /// <param name="apellidoMaterno">Apellido materno de la parte</param>
         /// <returns></returns>
         [HttpGet]
-        public ActionResult BusquedaPartesCausa(string nombre, string apellidoPaterno, string apellidoMaterno)
+        public ActionResult BusquedaPorPartesCausa(string nombre, string apellidoPaterno, string apellidoMaterno)
         {
             try
             {
-                //Defino mi lista y creo mi objeto---- - accedo a mi objeto general(inyeccion)
-                List<Ejecucion> busquedaPartesCausa = busquedaProcessor.ObtenerEjecucionPorPartesCausa(nombre, apellidoPaterno, apellidoMaterno, Usuario.IdCircuito);
+                List<Ejecucion> numerosDeEjecucion = busquedaProcessor.ObtenerEjecucionPorPartesCausa(nombre, apellidoPaterno, apellidoMaterno, Usuario.IdCircuito);
 
-                if (busquedaPartesCausa == null)
+                if (numerosDeEjecucion == null)
                 {
                     Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
                     Respuesta.Data = null;      
@@ -70,12 +63,12 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 else
                 {
                     //Se genera DTO con la informacion necesaria para la solicitud Ajax
-                    List<EjecucionDTO> busquedaPartesCausaDTO = mapper.Map<List<Ejecucion>, List<EjecucionDTO>>(busquedaPartesCausa);
+                    List<EjecucionDTO> numerosDeEjecucionDTO = mapper.Map<List<Ejecucion>, List<EjecucionDTO>>(numerosDeEjecucion);
 
-                    if (busquedaPartesCausaDTO.Count > 0)
+                    if (numerosDeEjecucionDTO.Count > 0)
                     {
                         Respuesta.Estatus = EstatusRespuestaJSON.OK;
-                        Respuesta.Data = new { busquedaNumerosEjecucionPartes = busquedaPartesCausaDTO };
+                        Respuesta.Data = new { busquedaNumerosEjecucionPartes = numerosDeEjecucionDTO };
                     }
                     else
                     {
@@ -97,24 +90,23 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
 
                 return Json(Respuesta, JsonRequestBehavior.AllowGet);
             }
-
         }
 
         /// <summary>
-        /// Validacion de respuesta  a la consulta por Sentenciado|Beneficiario
+        ///  Metodo del controlador para obtener los registros de ejecucion por medio de un beneficiario
         /// </summary>
-        /// <param name="nombre"></param>
-        /// <param name="apellidoPaterno"></param>
-        /// <param name="apellidoMaterno"></param>
+        /// <param name="nombre">Nombre del beneficiario</param>
+        /// <param name="apellidoPaterno">Apellido paterno del beneficiario</param>
+        /// <param name="apellidoMaterno">Apellido materno del beneficiario</param>
         /// <returns></returns>
         [HttpGet]
         public ActionResult BusquedaPorBeneficiario(string nombre, string apellidoPaterno, string apellidoMaterno)
         {
             try
             {
-                List<Ejecucion> busquedaBeneficiario = busquedaProcessor.ObtenerEjecucionSentenciadoBeneficiario(nombre, apellidoPaterno, apellidoMaterno, Usuario.IdCircuito);
+                List<Ejecucion> numerosDeEjecucion = busquedaProcessor.ObtenerEjecucionSentenciadoBeneficiario(nombre, apellidoPaterno, apellidoMaterno, Usuario.IdCircuito);
                
-                if (busquedaBeneficiario == null)
+                if (numerosDeEjecucion == null)
                 {
                     Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
                     Respuesta.Data = null;
@@ -123,12 +115,12 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 else
                 {
                     //Se genera DTO con la informacion necesaria para la solicitud Ajax
-                    List<EjecucionDTO> busquedaBeneficiariDTO = mapper.Map<List<Ejecucion>, List<EjecucionDTO>>(busquedaBeneficiario);
+                    List<EjecucionDTO> numerosDeEjecucionDTO = mapper.Map<List<Ejecucion>, List<EjecucionDTO>>(numerosDeEjecucion);
 
-                    if (busquedaBeneficiariDTO.Count > 0)
+                    if (numerosDeEjecucionDTO.Count > 0)
                     {
                         Respuesta.Estatus = EstatusRespuestaJSON.OK;
-                        Respuesta.Data = new { busquedaNumerosEjecucion = busquedaBeneficiariDTO };
+                        Respuesta.Data = new { busquedaNumerosEjecucion = numerosDeEjecucionDTO };
                   
                     }
                     else
@@ -154,19 +146,19 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         }
 
         /// <summary>
-        /// Validacion de respuesta a consulta por numero de causa
+        /// Metodo del controlador para obtener los registros de ejecucion por medio de una causa relacionada a la ejecucion
         /// </summary>
-        /// <param name="numCausa"></param>
-        /// <param name="idJuzgado"></param>
+        /// <param name="numCausa">Numero de Causa relacionada a la ejecucion</param>
+        /// <param name="idJuzgado">Id del juzgado de la Causa relacionada a la ejecucion</param>
         /// <returns></returns>
         [HttpGet]
         public ActionResult BusquedaPorNumeroCausa(string numCausa, int idJuzgado)
         {
             try
             {
-                List<Ejecucion> busquedaNumCausa = busquedaProcessor.ObtenerEjecucionPorNumeroCausa(numCausa, idJuzgado, Usuario.IdCircuito);
+                List<Ejecucion> numerosDeEjecucion = busquedaProcessor.ObtenerEjecucionPorNumeroCausa(numCausa, idJuzgado, Usuario.IdCircuito);
 
-                if (busquedaNumCausa == null)
+                if (numerosDeEjecucion == null)
                 {
                     Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
                     Respuesta.Data = null;
@@ -174,12 +166,12 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 }
                 else
                 {
-                    List<EjecucionDTO> busquedaNumCausaDTO = mapper.Map<List<Ejecucion>, List<EjecucionDTO>>(busquedaNumCausa);
+                    List<EjecucionDTO> numerosDeEjecucionDTO = mapper.Map<List<Ejecucion>, List<EjecucionDTO>>(numerosDeEjecucion);
 
-                    if (busquedaNumCausaDTO.Count > 0)
+                    if (numerosDeEjecucionDTO.Count > 0)
                     {
                         Respuesta.Estatus = EstatusRespuestaJSON.OK;
-                        Respuesta.Data = new { busquedaNumerosEjecucion = busquedaNumCausaDTO };
+                        Respuesta.Data = new { busquedaNumerosEjecucion = numerosDeEjecucionDTO };
                     }
                     else
                     {
@@ -203,28 +195,31 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         }
 
         /// <summary>
-        /// Validacion de respuesta a consulta por NUC
+        /// Metodo del controlador para obtener los registros de ejecucion por medio del Nuc de la causa relacionada a la ejecucion
         /// </summary>
-        /// <param name="NUC"></param>
+        /// <param name="NUC">NUC de la causa relacionada a la ejecucion</param>
         /// <param name="idJuzgado"></param>
         /// <returns></returns>
         [HttpGet]
-        public ActionResult BusquedaNUC(String NUC, int idJuzgado)
+        public ActionResult BusquedaPorNUC(string nuc, int idJuzgado)
         {
             try
             {
-                List<Ejecucion> busquedaNUC = busquedaProcessor.ObtenerEjecucionPorNUC(NUC, idJuzgado);
-                if (busquedaNUC == null)
+                List<Ejecucion> numerosDeEjecucion = busquedaProcessor.ObtenerEjecucionPorNUC(nuc, idJuzgado);
+
+                if (numerosDeEjecucion == null)
                 {
                     Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
                     Respuesta.Data = null;
                 }
                 else
                 {
-                    if (busquedaNUC.Count > 0)
+                    List<EjecucionDTO> numerosDeEjecucionDTO = mapper.Map<List<Ejecucion>, List<EjecucionDTO>>(numerosDeEjecucion);
+
+                    if (numerosDeEjecucionDTO.Count > 0)
                     {
                         Respuesta.Estatus = EstatusRespuestaJSON.OK;
-                        Respuesta.Data = new { busquedaNumerosEjecucion=busquedaNUC };
+                        Respuesta.Data = new { busquedaNumerosEjecucion = numerosDeEjecucionDTO };
 
                     }
                     else
