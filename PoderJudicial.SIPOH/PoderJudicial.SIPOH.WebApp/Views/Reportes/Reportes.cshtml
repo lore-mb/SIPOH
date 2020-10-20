@@ -36,17 +36,14 @@
                             <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                                 <div class="card-body">
                                     <!-- Contenido -->
-
                                     <div class="col">
                                         <form class="needs-validation" id="FrmCausaEjecucion" novalidate="">
                                             <div class="form-row">
-                                                <div class="col-md-6 form-group">
+                                                
+                                                <div class="col-md-2"></div>
+                                                <div class="col-md-8 form-group">
                                                     <label for="validationCustom01">Nombre de Juzgado</label>
-                                                    <select class="custom-select form-control resultOK" id="slctJuzgadoPorCircuito" name="SelectJuzgadoPorCircuito" required="required">
-                                                        <option value="">SELECCIONAR OPCIÓN</option>
-                                                        <option value="223">JUZGADO PRIMERO DE EJECUCIÓN DEL SISTEMA PROCESAL PENAL ACUSATORIO ORAL</option>
-                                                        <option value="224">JUZGADO SEGUNDO DE EJECUCIÓN DEL SISTEMA PROCESAL PENAL ACUSATORIO ORAL</option>
-                                                    </select>
+                                                    @Html.DropDownList("SelectJuzgadoPorCircuito", new SelectList(ViewBag.ListaCircuitoJuzgadoIniciales, "IdJuzgado", "Nombre"), "SELECCIONAR OPCIÓN", new { @id = "slctJuzgadoPorCircuito", @class = "custom-select form-control resultOK", @required = "required" })
                                                     <div class="valid-feedback" wfd-invisible="true">
                                                         <i class="icon-checkmark"></i> Juzgado Seleccionado
                                                     </div>
@@ -54,7 +51,11 @@
                                                         <i class="icon-cancel-circle"></i> Por favor, selecciona un juzgado.
                                                     </div>
                                                 </div>
-                                                <div class="col-md-3 form-group">
+                                                <div class="col-md-2"></div>
+
+
+                                                <div class="col-md-2"></div>
+                                                <div class="col-md-4 form-group">
                                                     <label for="validationCustomUsername">Numero de Ejecución</label>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
@@ -69,14 +70,14 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-3 form-group">
+                                                <div class="col-md-4 form-group">
                                                     <label for="validationCustomUsername">Numero de Ejecución</label>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text"><i class="icon-calendar"></i> </span>
                                                         </div>
                                                         <input type="text" class="form-control text-center" id="datetimepicker7" name="datetime" placeholder="dd/mm/aaaa h:mm hh">
-                                                        <button class="btn btn-success ml-2"><i class="icon-search"></i></button>
+                                                        <button class="btn btn-success ml-2" type="submit" id="btnConsultarPromocion" data-toggle="tooltip" data-placement="top" title="" data-original-title="Generar Reporte PDF"><i class="fas fa-file-pdf"></i></button>
                                                         <div class="valid-feedback" wfd-invisible="true">
                                                             <i class="icon-checkmark"></i> Numero de ejecución
                                                         </div>
@@ -85,6 +86,8 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="col-md-2"></div>
+
                                             </div>
                                         </form>
                                     </div>
@@ -108,14 +111,11 @@
                                     <div class="col">
                                         <form class="needs-validation" id="FrmCausaEjecucion" novalidate="">
                                             <div class="form-row">
-                                                <div class="col-md-7 form-group">
+                                                <div class="col-md-2"></div>
+                                                <div class="col-md-8 form-group">
                                                     <label for="validationCustom01">Nombre de Juzgado</label>
                                                     <div class="input-group">
-                                                        <select class="custom-select form-control resultOK" id="slctJuzgadoPorCircuito" name="SelectJuzgadoPorCircuito" required="required">
-                                                            <option value="">SELECCIONAR OPCIÓN</option>
-                                                            <option value="223">JUZGADO PRIMERO DE EJECUCIÓN DEL SISTEMA PROCESAL PENAL ACUSATORIO ORAL</option>
-                                                            <option value="224">JUZGADO SEGUNDO DE EJECUCIÓN DEL SISTEMA PROCESAL PENAL ACUSATORIO ORAL</option>
-                                                        </select>
+                                                        @Html.DropDownList("SelectJuzgadoPorCircuito", new SelectList(ViewBag.ListaCircuitoJuzgadoPromociones, "IdJuzgado", "Nombre"), "SELECCIONAR OPCIÓN", new { @id = "slctJuzgadoPorCircuito", @class = "custom-select form-control resultOK", @required = "required" })
                                                         <button class="btn btn-success ml-2"><i class="icon-search"></i></button>
                                                         <div class="valid-feedback" wfd-invisible="true">
                                                             <i class="icon-checkmark"></i> Juzgado Seleccionado
@@ -125,6 +125,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="col-md-2"></div>
                                             </div>
                                         </form>
                                     </div>

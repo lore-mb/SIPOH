@@ -31,7 +31,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             ViewBag.AnexoEjec = ListarAnexosEjecucion != null ? ListarAnexosEjecucion : new List<Anexo>(); 
 
             List<Juzgado> ListaJuzgadosPick = promocionesProcessor.ObtenerJuzgadoEjecucionPorCircuito(Usuario.IdCircuito);
-            ViewBag.JuzgadoCircuit = ListaJuzgadosPick != null ? ListaJuzgadosPick : new List<Juzgado>();
+            ViewBag.JuzgadoCircuito = ListaJuzgadosPick != null ? ListaJuzgadosPick : new List<Juzgado>();
 
             return View();
         }
@@ -172,6 +172,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         }
         #endregion
 
+        #region [CONSULTAR] Detalles de registro a promociones
         [HttpGet]
         [EncriptarParametroFilter]
         public ActionResult Detalle(int IdEjecucion) {
@@ -211,6 +212,8 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             }
 
         }
+
+        #endregion
 
         #endregion
 

@@ -48,8 +48,10 @@
     <Compile Include="Interfaces\ICuentaProcessor.cs" />
     <Compile Include="Interfaces\IInicialesProcessor.cs" />
     <Compile Include="Interfaces\IPromocionesProcessor.cs" />
+    <Compile Include="Interfaces\IReportesProcessor.cs" />
     <Compile Include="PromocionesProcessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReportesProcessor.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PoderJudicial.SIPOH.AccesoDatos\PoderJudicial.SIPOH.AccesoDatos.csproj">
