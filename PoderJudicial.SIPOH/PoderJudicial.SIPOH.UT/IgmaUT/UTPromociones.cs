@@ -64,7 +64,7 @@ namespace PoderJudicial.SIPOH.UT.IgmaUT
         public void ConsultarEjecucion ()
         {
             EjecucionRepository new1 = new EjecucionRepository(Cnx);
-            Ejecucion ejecucion = new1.ObtenerEjecucionPorFolio(89);
+            Ejecucion ejecucion = new1.ObtenerEjecucionPorFolio(306);
         }
 
         [TestMethod]

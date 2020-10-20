@@ -22,5 +22,6 @@ namespace PoderJudicial.SIPOH.AccesoDatos.Interfaces
         List<Ejecucion> ObtenerEjecucionPorNUC(string nuc, int idJuzgado);
         List<Ejecucion> ObtenerEjecucionPorSolicitante(int idSolicitante);
         int? GuardarPostEjecucion(PostEjecucion postEjecucion, List<Anexo> anexos);
+        Ejecucion ObtenerEjecucionPromocionPorFolio(int folioEjecucion);
     }
 }
