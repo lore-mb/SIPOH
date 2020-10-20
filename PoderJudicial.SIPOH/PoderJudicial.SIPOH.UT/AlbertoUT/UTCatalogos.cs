@@ -36,7 +36,7 @@ namespace PoderJudicial.SIPOH.UT.AlbertoUT
             string apellidop = "Trejo";
             string apellidom = string.Empty;
 
-            List<Ejecucion> ejecucion = repo.ObtenerSentenciadoBeneficiario(nombre, apellidop, apellidom);
+            List<Ejecucion> ejecucion = repo.ObtenerSentenciadoBeneficiario(nombre, apellidop, apellidom, 1);
         }
 
         [TestMethod]

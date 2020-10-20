@@ -93,13 +93,13 @@ namespace PoderJudicial.SIPOH.Negocio
             return juzgados;
         }
 
-        public List<Ejecucion> RecuperaSentenciadoBeneficiario(string nombre, string apellidoPaterno, string apellidoMaterno)
+        public List<Ejecucion> RecuperaSentenciadoBeneficiario(string nombre, string apellidoPaterno, string apellidoMaterno, int idCircuito)
         {
             nombre = nombre == null ? string.Empty : nombre;
             apellidoPaterno = apellidoPaterno == null ? string.Empty : apellidoPaterno;
             apellidoMaterno = apellidoMaterno == null ? string.Empty : apellidoMaterno;
 
-            List<Ejecucion> beneficiarios = ejecucionRepository.ObtenerSentenciadoBeneficiario(nombre, apellidoPaterno, apellidoMaterno);
+            List<Ejecucion> beneficiarios = ejecucionRepository.ObtenerSentenciadoBeneficiario(nombre, apellidoPaterno, apellidoMaterno, idCircuito);
 
             if (catalogosRepositorio.Estatus == Estatus.SIN_RESULTADO)
                 Mensaje = "La consulta no genero ningun resultado";

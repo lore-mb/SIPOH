@@ -37,7 +37,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
         /// <param name="apellidoPaterno">Apellido Paterno de la persona beneficiaria</param>
         /// <param name="apellidoMaterno">Apeliido Materno de la personas beneficiaria</param>
         /// <returns></returns>
-        public List<Ejecucion> ObtenerSentenciadoBeneficiario(string nombre, string apellidoPaterno, string apellidoMaterno)
+        public List<Ejecucion> ObtenerSentenciadoBeneficiario(string nombre, string apellidoPaterno, string apellidoMaterno, int idCircuito)
         {
             try
             {
@@ -49,6 +49,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
                 comando.Parameters.Add("@nombre", SqlDbType.VarChar).Value = nombre;
                 comando.Parameters.Add("@apellidoPaterno", SqlDbType.VarChar).Value = apellidoPaterno;
                 comando.Parameters.Add("@apellidoMaterno", SqlDbType.VarChar).Value = apellidoMaterno;
+                comando.Parameters.Add("@idCircuito", SqlDbType.Int).Value = idCircuito;
 
                 Cnx.Open();
 
@@ -248,7 +249,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
         /// <param name="apellidoPaterno"></param>
         /// <param name="apellidoMaterno"></param>
         /// <returns></returns>
-        public List<Ejecucion> ObtenerEjecucionPorPartesCausa(string nombre, string apellidoPaterno, string apellidoMaterno)
+        public List<Ejecucion> ObtenerEjecucionPorPartesCausa(string nombre, string apellidoPaterno, string apellidoMaterno, int idCircuito)
         {
             try
             {
@@ -260,6 +261,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
                 comando.Parameters.Add("@nombre", SqlDbType.VarChar).Value = nombre;
                 comando.Parameters.Add("@apellidoPaterno", SqlDbType.VarChar).Value = apellidoPaterno;
                 comando.Parameters.Add("@apellidoMaterno", SqlDbType.VarChar).Value = apellidoMaterno;
+                comando.Parameters.Add("@idCircuito", SqlDbType.Int).Value = idCircuito;
 
                 Cnx.Open();
 
@@ -297,16 +299,18 @@ namespace PoderJudicial.SIPOH.AccesoDatos
         /// <param name="numeroCausa"></param>
         /// <param name="idJuzgado"></param>
         /// <returns></returns>
-        public List<Ejecucion> ObtenerEjecucionPorNumeroCausa(string numeroCausa, int idJuzgado)
+        public List<Ejecucion> ObtenerEjecucionPorNumeroCausa(string numeroCausa, int idJuzgado, int idCircuito)
         {
             try
             {
                 if (!IsValidConnection)
                     throw new Exception("No se ha creado una conexion válida");
+
                 SqlCommand comando = new SqlCommand("sipoh_BusquedaEjecucionCausa", Cnx);
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("@numeroCausa", SqlDbType.VarChar).Value = numeroCausa;
                 comando.Parameters.Add("@idJuzgado", SqlDbType.Int).Value = idJuzgado;
+                comando.Parameters.Add("@idCircuito", SqlDbType.Int).Value = idCircuito;
 
                 Cnx.Open();
 

@@ -69,12 +69,12 @@ namespace PoderJudicial.SIPOH.UT.EstherUT
             string nombre = "IGNACIO";
             string apellidoP = "";
             string apellidoM = "";
-            List<Ejecucion> ListaPartesEjecucion = PruebaEjecucionBusqueda.ObtenerEjecucionPorPartesCausa(nombre, apellidoP, apellidoM);
+            List<Ejecucion> ListaPartesEjecucion = PruebaEjecucionBusqueda.ObtenerEjecucionPorPartesCausa(nombre, apellidoP, apellidoM, 1);
 
 
             string numeroCausa = "0001/2015";
             int idjuzgado = 204;
-            List<Ejecucion> ListaNumeroCausa = PruebaEjecucionBusqueda.ObtenerEjecucionPorNumeroCausa(numeroCausa, idjuzgado);
+            List<Ejecucion> ListaNumeroCausa = PruebaEjecucionBusqueda.ObtenerEjecucionPorNumeroCausa(numeroCausa, idjuzgado, 1);
 
 
             string detalleSolicitante = "ESTE ES UN DETALLE";

@@ -7,6 +7,7 @@ using PoderJudicial.SIPOH.WebApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 
@@ -59,7 +60,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             try
             {
                 //Defino mi lista y creo mi objeto---- - accedo a mi objeto general(inyeccion)
-                List<Ejecucion> busquedaPartesCausa = busquedaProcessor.ObtenerEjecucionPorPartesCausa(nombre, apellidoPaterno, apellidoMaterno);
+                List<Ejecucion> busquedaPartesCausa = busquedaProcessor.ObtenerEjecucionPorPartesCausa(nombre, apellidoPaterno, apellidoMaterno, Usuario.IdCircuito);
 
                 if (busquedaPartesCausa == null)
                 {
@@ -84,6 +85,8 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 }
 
                 Respuesta.Mensaje = busquedaProcessor.Mensaje;
+
+                Thread.Sleep(500);
                 return Json(Respuesta, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -109,7 +112,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         {
             try
             {
-                List<Ejecucion> busquedaBeneficiario = busquedaProcessor.ObtenerEjecucionSentenciadoBeneficiario(nombre, apellidoPaterno, apellidoMaterno);
+                List<Ejecucion> busquedaBeneficiario = busquedaProcessor.ObtenerEjecucionSentenciadoBeneficiario(nombre, apellidoPaterno, apellidoMaterno, Usuario.IdCircuito);
                
                 if (busquedaBeneficiario == null)
                 {
@@ -119,10 +122,13 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 }
                 else
                 {
-                    if (busquedaBeneficiario.Count > 0)
+                    //Se genera DTO con la informacion necesaria para la solicitud Ajax
+                    List<EjecucionDTO> busquedaBeneficiariDTO = mapper.Map<List<Ejecucion>, List<EjecucionDTO>>(busquedaBeneficiario);
+
+                    if (busquedaBeneficiariDTO.Count > 0)
                     {
                         Respuesta.Estatus = EstatusRespuestaJSON.OK;
-                        Respuesta.Data = new { busquedaNumerosEjecucion=busquedaBeneficiario };
+                        Respuesta.Data = new { busquedaNumerosEjecucion = busquedaBeneficiariDTO };
                   
                     }
                     else
@@ -133,6 +139,8 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 }
 
                 Respuesta.Mensaje = busquedaProcessor.Mensaje;
+
+                Thread.Sleep(500);
                 return Json(Respuesta, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -156,7 +164,8 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         {
             try
             {
-                List<Ejecucion> busquedaNumCausa = busquedaProcessor.ObtenerEjeucionPorNumeroCausa(numCausa, idJuzgado);
+                List<Ejecucion> busquedaNumCausa = busquedaProcessor.ObtenerEjecucionPorNumeroCausa(numCausa, idJuzgado, Usuario.IdCircuito);
+
                 if (busquedaNumCausa == null)
                 {
                     Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
@@ -165,10 +174,12 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 }
                 else
                 {
-                    if (busquedaNumCausa.Count > 0)
+                    List<EjecucionDTO> busquedaNumCausaDTO = mapper.Map<List<Ejecucion>, List<EjecucionDTO>>(busquedaNumCausa);
+
+                    if (busquedaNumCausaDTO.Count > 0)
                     {
                         Respuesta.Estatus = EstatusRespuestaJSON.OK;
-                        Respuesta.Data = new { busquedaNumerosEjecucion=busquedaNumCausa };
+                        Respuesta.Data = new { busquedaNumerosEjecucion = busquedaNumCausaDTO };
                     }
                     else
                     {
@@ -178,6 +189,8 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 }
 
                 Respuesta.Mensaje = busquedaProcessor.Mensaje;
+
+                Thread.Sleep(500);
                 return Json(Respuesta, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -222,6 +235,8 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 }
 
                 Respuesta.Mensaje = busquedaProcessor.Mensaje;
+
+                Thread.Sleep(500);
                 return Json(Respuesta, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -263,6 +278,8 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             }
 
             Respuesta.Mensaje = busquedaProcessor.Mensaje;
+
+            Thread.Sleep(500);
             return Json(Respuesta, JsonRequestBehavior.AllowGet);
         }
 
@@ -297,6 +314,8 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 }
 
                 Respuesta.Mensaje = busquedaProcessor.Mensaje;
+
+                Thread.Sleep(500);
                 return Json(Respuesta, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -335,6 +354,51 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
 
             Respuesta.Mensaje = busquedaProcessor.Mensaje;
             return Json(Respuesta, JsonRequestBehavior.AllowGet);
+        }
+       
+        [HttpGet]
+        public ActionResult ObtenerCausasRelacionadasEjecucion(int idEjecucion) 
+        {
+            try
+            {
+                //Defino mi lista y creo mi objeto---- - accedo a mi objeto general(inyeccion)
+                List<Expediente> expedientesEjecucion = busquedaProcessor.ObtenerExpedientesPorEjecucion(idEjecucion);
+
+                if (expedientesEjecucion == null)
+                {
+                    Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
+                    Respuesta.Data = null;
+                }
+                else
+                {
+                    //Se genera DTO con la informacion necesaria para la solicitud Ajax
+                    List<ExpedienteDTO> causasEjecucion = mapper.Map<List<Expediente>, List<ExpedienteDTO>>(expedientesEjecucion);
+
+                    if (causasEjecucion.Count > 0)
+                    {
+                        Respuesta.Estatus = EstatusRespuestaJSON.OK;
+                        Respuesta.Data = new { CausasEjecucion = causasEjecucion };
+                    }
+                    else
+                    {
+                        Respuesta.Estatus = EstatusRespuestaJSON.SIN_RESPUESTA;
+                        Respuesta.Data = new object();
+                    }
+                }
+
+                Respuesta.Mensaje = busquedaProcessor.Mensaje;
+
+                Thread.Sleep(500);
+                return Json(Respuesta, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
+                Respuesta.Mensaje = ex.Message;
+                Respuesta.Data = null;
+
+                return Json(Respuesta, JsonRequestBehavior.AllowGet);
+            }
         }
     }
     #endregion

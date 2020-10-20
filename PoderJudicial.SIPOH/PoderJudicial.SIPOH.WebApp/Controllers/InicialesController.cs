@@ -177,7 +177,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         {
             try
             {
-                List<Ejecucion> beneficiarios = inicialesProcessor.RecuperaSentenciadoBeneficiario(nombreBene, apellidoPaternoBene, apellidoMaternoBene);
+                List<Ejecucion> beneficiarios = inicialesProcessor.RecuperaSentenciadoBeneficiario(nombreBene, apellidoPaternoBene, apellidoMaternoBene, Usuario.IdCircuito);
             
                 if (beneficiarios == null)
                 {

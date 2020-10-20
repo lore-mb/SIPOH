@@ -1,28 +1,24 @@
 ﻿var EstatusRespuesta = { SIN_RESPUESTA: 0, OK: 1, ERROR: 2 }
 
-var estructuraTablaNumeroEejecucionPartes =
-       [{ data: 'noEjecucion', title: 'N° Ejecución'},
-        { data: 'juzgadoEjecucion', title: 'Juzgado de Ejecución'},
-        { data: 'fecha', title: 'Fecha Ejecución'},    
-        { data: 'parteRelacionada', title: 'Parte Causas'},
-        { data: 'tipoParte', title: 'Tipo Parte' },
-        { data: 'beneficiario', title: 'Beneficiario' },
-        { data: 'tipoExpediente', title: 'Tipo Expediente' },
-        { data: 'causas', title: 'Detalle'}];
-
-
-var estructuraTablaNumeroEjecucion = [{ data: 'noEjecucion', title: 'N° Ejecución' }, { data: 'juzgadoEjecucion', title: 'Juzgado de Ejecución'}, { data: 'fecha', title: 'Fecha Ejecución'}, { data: 'beneficiario', title: 'Beneficiario'}, { data: 'tipoExpediente', title: 'Tipo Expediente'}, { data: 'causas', title: 'Detalle' }];
+var estructuraTablaNumeroEejecucionPartes = [{ data: 'NumeroEjecucion', title: 'N° Ejecución' }, { data: 'NombreJuzgado', title: 'Juzgado de Ejecución' }, { data: 'FechaEjecucion', title: 'Fecha Ejecución' }, { data: 'ParteRelacioanada', title: 'Parte Causas' }, { data: 'TipoParte', title: 'Tipo Parte' }, { data: 'DescripcionSolicitud', title: 'Solicitud' }, { data: 'DetalleSolicitante', title: 'Detalle del Solicitante' }, { data: 'Beneficiario', title: 'Beneficiario' }, { data: 'Tipo', title: 'Tipo Expediente' },{ data: 'Causas', title: 'Detalle', className: "text-center"}];
+var estructuraTablaNumeroEjecucion = [{ data: 'NumeroEjecucion', title: 'N° Ejecución' }, { data: 'NombreJuzgado', title: 'Juzgado de Ejecución' }, { data: 'FechaEjecucion', title: 'Fecha Ejecución' }, { data: 'DescripcionSolicitud', title: 'Solicitud' }, { data: 'DetalleSolicitante', title: 'Detalle del Solicitante' }, { data: 'Beneficiario', title: 'Beneficiario' }, { data: 'Tipo', title: 'Tipo Expediente' }, { data: 'Causas', title: 'Detalle', className: "text-center" }];
 
 var numeroEjecucionDatos = [];
-var tablaNumeroEjecucion = null;
-var tablaNumeroEjecucionChild = null;
+var dataTableNumeroEjecucion = null;
+
+var estructuraTablaCausas = [{ data: 'CausaNuc', title: 'Causa|Nuc' }, { data: 'NombreJuzgado', title: 'N° Juzgado' }, { data: 'Ofendidos', title: 'Ofendido(s)' }, { data: 'Inculpados', title: 'Inculpado(s)' }, { data: 'Delitos', title: 'Delito(s)' }];
+var causas = [];
+var dataTableCausas = null;
 
 var formPartes = false;
 
 $(document).ready(function ()
 {
+    //Agregar funcionalidad para Next Input
+    SiguienteInput();
+
     //Pinta la tabla en el ejecucion
-    tablaNumeroEjecucion = GeneraTablaDatos(tablaNumeroEjecucion, "dataTableNumeroEjecucion", numeroEjecucionDatos, estructuraTablaNumeroEjecucion, false, false, false);
+    dataTableNumeroEjecucion = GeneraTablaDatos(dataTableNumeroEjecucion, "dataTableNumeroEjecucion", numeroEjecucionDatos, estructuraTablaNumeroEjecucion, false, false, false);
 
     //Funcionalidad de Elementos al Cargado
     ElementosAlCargado();
@@ -89,7 +85,6 @@ function ElementosAlCargado()
         }
     });
 
-
     //Funcionalidad para validar formularios
     var forms = document.getElementsByClassName('needs-validation');
 
@@ -125,13 +120,13 @@ function ElementosAlCargado()
             {
                 //campo bandera que valida
                 formPartes = true;
-                BuscarEjecucionPorPartesBeneficiarios(true);
+                BuscarEjecucionPorPartesBeneficiarios();
             }
 
             if (form.checkValidity() === true && id == "formBeneficiario")
             {
-               
-                BuscarEjecucionPorPartesBeneficiarios(false);
+                formPartes = false;
+                BuscarEjecucionPorPartesBeneficiarios();
             }
 
             if (form.checkValidity() === true && id == "formCausasEjecucion")
@@ -201,11 +196,11 @@ function GenerarOptionSelectJuzgadoPorDistrito(data)
     }
 }
 
-function BuscarEjecucionPorPartesBeneficiarios(partes)
+function BuscarEjecucionPorPartesBeneficiarios()
 {
-    var idNombre = partes ? "inpNombreParte" : "inpNombreBeneficiario";
-    var idApellidoPaterno = partes ? "inpApellidoPaternoParte" : "inpApellidoPaternoBeneficiario";
-    var idApellidoMaterno = partes ? "inpApellidoMaternoPartes" : "inpApellidoMaternoBeneficiario";
+    var idNombre = formPartes ? "inpNombreParte" : "inpNombreBeneficiario";
+    var idApellidoPaterno = formPartes ? "inpApellidoPaternoParte" : "inpApellidoPaternoBeneficiario";
+    var idApellidoMaterno = formPartes ? "inpApellidoMaternoPartes" : "inpApellidoMaternoBeneficiario";
 
     var nombre = $('#' + idNombre).val();
     var apellidoPaterno = $('#' + idApellidoPaterno).val();
@@ -213,12 +208,14 @@ function BuscarEjecucionPorPartesBeneficiarios(partes)
 
     var parametros = { nombre: nombre, apellidoPaterno: apellidoPaterno, apellidoMaterno: apellidoMaterno };
 
-    if (partes)
+    if (formPartes)
     {
+        $("#loading").fadeIn();
         SolicitudEstandarAjax("/Busquedas/BusquedaPartesCausa", parametros, ListarNumerosDeEjecucion);
     }
     else
     {
+        $("#loading").fadeIn();
         SolicitudEstandarAjax("/Busquedas/BusquedaPorBeneficiario", parametros, ListarNumerosDeEjecucion);
     } 
 }
@@ -232,8 +229,8 @@ function BuscarEjecucionPorNumerodeCausa()
     //los parametros deben llamarse igual que en mi metodo de controlador
     var parametros = { idJuzgado: juzgado, numCausa: numCausa };
 
+    $("#loading").fadeIn();
     SolicitudEstandarAjax("/Busquedas/BusquedaPorNumeroCausa", parametros, ListarNumerosDeEjecucion);
-
 }
 
 function BuscarEjecucionPorNUC()
@@ -243,24 +240,25 @@ function BuscarEjecucionPorNUC()
     
     var parametros = { NUC: nuc, idJuzgado: juzgado };
 
+    $("#loading").fadeIn();
     SolicitudEstandarAjax("/Busquedas/BusquedaNUC", parametros, ListarNumerosDeEjecucion);
-
 }
 
 function BuscarPorSolicitante()
 {
     var solicitante = $('#slctSolicitante').val();
-
     var parametros = { idSolicitante: solicitante };
 
+    $("#loading").fadeIn();
     SolicitudEstandarAjax("/Busquedas/BusquedaPorSolicitante", parametros, ListarNumerosDeEjecucion);
 }
 
 function BuscarPorDetalleSolicitante()
 {
     var detalleSolicitante = $('#inpDetalleSolicitante').val();
-
     var parametros = { detalleSolicitante: detalleSolicitante };
+
+    $("#loading").fadeIn();
 
     //Se ejecuta solictud por url (nombre modulo, nombre de metodo en controlador), parametros y funcion callbacksuccess
     SolicitudEstandarAjax("/Busquedas/BusquedaPorDetalleSolicitante", parametros, ListarNumerosDeEjecucion);
@@ -271,74 +269,121 @@ function ListarNumerosDeEjecucion(respuesta)
 {
     if (respuesta.Estatus == EstatusRespuesta.OK)
     {
+        $("#loading").fadeOut();
+
+        //Limpia elementos de la lista
+        numeroEjecucionDatos = [];
+
+        numeroEjecucionDatos = formPartes ? respuesta.Data.busquedaNumerosEjecucionPartes : respuesta.Data.busquedaNumerosEjecucion;
+
+        for (var index = 0; index < numeroEjecucionDatos.length; index++)
+        {
+            numeroEjecucionDatos[index].Causas = "<button type='button' onclick='BuscarCausas(" + index + ")' class='btn btn-link btn-primary' data-toggle='tooltip' title = 'Buscar Causa'><i class='fa fa-search-plus icon'></i></button>";
+        }
+
+        var busquedaOrdenar = numeroEjecucionDatos.length > 10 ? true : false;
+        var estructura = formPartes ? estructuraTablaNumeroEejecucionPartes : estructuraTablaNumeroEjecucion;
+
+        //renderiza tabla 
+        dataTableNumeroEjecucion = GeneraTablaDatos(dataTableNumeroEjecucion, "dataTableNumeroEjecucion", numeroEjecucionDatos, estructura, busquedaOrdenar, busquedaOrdenar, false);
+    }
+    else if (respuesta.Estatus == EstatusRespuesta.ERROR)
+    {
+        $("#loading").fadeOut();
+    }
+    else if (respuesta.Estatus == EstatusRespuesta.SIN_RESPUESTA)
+    {
+        $("#loading").fadeOut();
+
+        //Limpia elementos de la lista
+        numeroEjecucionDatos = [];
+
+        //Muestra al usuario un mensaje si la consulta no genero resultado
+        Alerta(respuesta.Mensaje);
+
         if (formPartes)
         {
-            var partesDeCausaEjecucion = respuesta.Data.busquedaNumerosEjecucionPartes;
-            numeroEjecucionDatos = [];
-            for (var index = 0; index < partesDeCausaEjecucion.length; index++)
-            {
-                //data que contendra la tabla a renderizar
-                var parte = new Object;
-                parte.noEjecucion = partesDeCausaEjecucion[index].NumeroEjecucion;
-                parte.juzgadoEjecucion = partesDeCausaEjecucion[index].NombreJuzgado;
-                parte.fecha = partesDeCausaEjecucion[index].FechaEjecucion;
-                parte.beneficiario = partesDeCausaEjecucion[index].NombreBeneficiario + " " + partesDeCausaEjecucion[index].ApellidoPBeneficiario + " " + partesDeCausaEjecucion[index].ApellidoMBeneficiario;
-                parte.tipoExpediente = partesDeCausaEjecucion[index].Tipo;
-                parte.parteRelacionada = partesDeCausaEjecucion[index].NombreParte + " " + partesDeCausaEjecucion[index].ApellidoPParte + " " + partesDeCausaEjecucion[index].ApellidoMParte;
-                parte.tipoParte = partesDeCausaEjecucion[index].TipoParte;
-                parte.idEjecucion = partesDeCausaEjecucion[index].IdEjecucion;
-                parte.causas = "";
-                numeroEjecucionDatos.push(parte);
-            }
-
-            //renderiza tabla 
-            tablaNumeroEjecucion = GeneraTablaDatos(tablaNumeroEjecucion, "dataTableNumeroEjecucion", numeroEjecucionDatos, estructuraTablaNumeroEejecucionPartes, true, true, false);
+            dataTableNumeroEjecucion = GeneraTablaDatos(dataTableNumeroEjecucion, "dataTableNumeroEjecucion", numeroEjecucionDatos, estructuraTablaNumeroEejecucionPartes, false, false, false);
         }
-        else {
-            var partesDeCausaEjecucion = respuesta.Data.busquedaNumerosEjecucion;
-            numeroEjecucionDatos = [];
-
-            for (var index = 0; index < partesDeCausaEjecucion.length; index++) {
-                //data que contendra la tabla a renderizar
-                var parte = new Object;
-                parte.noEjecucion = partesDeCausaEjecucion[index].NumeroEjecucion;
-                parte.juzgadoEjecucion = partesDeCausaEjecucion[index].NombreJuzgado;
-                parte.fecha = partesDeCausaEjecucion[index].FechaEjecucion;
-                parte.beneficiario = partesDeCausaEjecucion[index].NombreBeneficiario + " " + partesDeCausaEjecucion[index].ApellidoPBeneficiario + " " + partesDeCausaEjecucion[index].ApellidoMBeneficiario;
-                parte.tipoExpediente = partesDeCausaEjecucion[index].Tipo;
-                parte.idEjecucion = partesDeCausaEjecucion[index].IdEjecucion;
-                parte.causas = "";
-
-                numeroEjecucionDatos.push(parte);
-            }
-
-            //renderiza tabla 
-            tablaNumeroEjecucion = GeneraTablaDatos(tablaNumeroEjecucion, "dataTableNumeroEjecucion", numeroEjecucionDatos, estructuraTablaNumeroEjecucion, true, true, false);
+        else
+        {
+            dataTableNumeroEjecucion = GeneraTablaDatos(dataTableNumeroEjecucion, "dataTableNumeroEjecucion", numeroEjecucionDatos, estructuraTablaNumeroEjecucion, false, false, false);
         }
+    }
+}
+
+function BuscarCausas(index)
+{
+    var idEjecucion = numeroEjecucionDatos[index].IdEjecucion;
+    var numeroEjecucion = numeroEjecucionDatos[index].NumeroEjecucion;
+    var juzgadoEjecucion = numeroEjecucionDatos[index].NombreJuzgado;
+
+    var parametros = { idEjecucion: idEjecucion };
+    $("#detalleModal").html('Causas relacionadas a la Ejecución con Número <b>' + numeroEjecucion + ' - ' + juzgadoEjecucion +'</b>');
+
+    $("#loading").fadeIn();
+    SolicitudEstandarAjax("/Busquedas/ObtenerCausasRelacionadasEjecucion", parametros, ListarCausasPorEjecucion);
+}
+
+function ListarCausasPorEjecucion(respuesta)
+{
+    if (respuesta.Estatus == EstatusRespuesta.OK)
+    {
+        $("#loading").fadeOut();
+
+        //Limpiar lista 
+        causas = [];
+        causas = respuesta.Data.CausasEjecucion;
+
+        var busquedaOrdenar = causas.length > 10 ? true : false;
+
+        //Pinta la tabla en el ejecucion
+        dataTableCausas = GeneraTablaDatos(dataTableCausas, "dataTableCausas", causas, estructuraTablaCausas, busquedaOrdenar, busquedaOrdenar, false, 5);
+          
+        $("#busquedaCausasModal").modal("show");
+    }
+    else if (respuesta.Estatus == EstatusRespuesta.SIN_RESPUESTA)
+    {
 
     }
     else if (respuesta.Estatus == EstatusRespuesta.ERROR)
     {
 
     }
-    else if (respuesta.Estatus == EstatusRespuesta.SIN_RESPUESTA)
-    {
-        Alerta(respuesta.Mensaje);
-
-        numeroEjecucionDatos = [];
-
-        if (formPartes)
-        {
-            tablaNumeroEjecucion = GeneraTablaDatos(tablaNumeroEjecucion, "dataTableNumeroEjecucion", numeroEjecucionDatos, estructuraTablaNumeroEejecucionPartes, true, true, false);
-        }
-        else
-        {
-            tablaNumeroEjecucion = GeneraTablaDatos(tablaNumeroEjecucion, "dataTableNumeroEjecucion", numeroEjecucionDatos, estructuraTablaNumeroEjecucion, true, true, false);
-        }
-    }
 }
 
-function GeneraTablaDatos(tabla, idTablaHtml, datos, estructuraTabla, ordering, searching, lengthChange)
+function SiguienteInput()
+{
+    document.addEventListener('keypress', function (evt) {
+
+        // Si el evento NO es una tecla Enter
+        if (evt.key !== 'Enter')
+        {
+            return;
+        }
+
+        let element = evt.target;
+
+        // Si el evento NO fue lanzado por un elemento con class "focusNext"
+        if (!element.classList.contains('focusNext'))
+        {
+            return;
+        }
+
+        // AQUI logica para encontrar el siguiente
+        let tabIndex = element.tabIndex + 1;
+        var next = document.querySelector('[tabindex="' + tabIndex + '"]');
+
+        // Si encontramos un elemento
+        if (next && !element.classList.contains('focusNextEnd'))
+        {
+            next.focus();
+            event.preventDefault();
+        }
+    });
+}
+
+function GeneraTablaDatos(tabla, idTablaHtml, datos, estructuraTabla, ordering, searching, lengthChange, pageLength = 10)
 {
     if (tabla != null)
     {
@@ -354,7 +399,7 @@ function GeneraTablaDatos(tabla, idTablaHtml, datos, estructuraTabla, ordering, 
         "ordering": ordering,
         "searching": searching,
         "lengthChange": lengthChange,
-        "pageLength": 10,
+        "pageLength": pageLength,
         "lengthMenu": [5, 10, 25, 50],
         "language": {
             "sProcessing": "Procesando...",

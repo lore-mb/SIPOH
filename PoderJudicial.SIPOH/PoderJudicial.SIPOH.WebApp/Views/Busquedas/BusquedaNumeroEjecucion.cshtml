@@ -16,22 +16,22 @@
 
                 <ul class="nav nav-pills  nav-fill nav-success" id="pills-tab" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" id="pills-pcausa-tab" data-toggle="pill" href="#pills-pcausa" role="tab" aria-controls="pills-pcausa" aria-selected="true"><i class="icon-users"></i>Partes de la Causa</a>
+                        <a class="nav-link active" id="pills-pcausa-tab" data-toggle="pill" href="#pills-pcausa" role="tab" aria-controls="pills-pcausa" aria-selected="true"><i class="icon-users mr-2"></i>Partes de la Causa</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="pills-sentebene-tab" data-toggle="pill" href="#pills-sentebene" role="tab" aria-controls="pills-sentebene" aria-selected="false"><i class="icon-user"></i> Sentenciado|Beneficiario</a>
+                        <a class="nav-link" id="pills-sentebene-tab" data-toggle="pill" href="#pills-sentebene" role="tab" aria-controls="pills-sentebene" aria-selected="false"><i class="icon-user mr-2"></i>Sentenciado|Beneficiario</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="pills-numcausa-tab" data-toggle="pill" href="#pills-numcausa" role="tab" aria-controls="pills-numcausa" aria-selected="false"><i class="icon-address-book"></i> N° de causa</a>
+                        <a class="nav-link" id="pills-numcausa-tab" data-toggle="pill" href="#pills-numcausa" role="tab" aria-controls="pills-numcausa" aria-selected="false"><i class="icon-folder-open mr-2"></i>N° de Causa</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="pills-NUC-tab" data-toggle="pill" href="#pills-NUC" role="tab" aria-controls="pills-NUC" aria-selected="false"><i class="icon-folder-open"></i> N° de NUC</a>
+                        <a class="nav-link" id="pills-NUC-tab" data-toggle="pill" href="#pills-NUC" role="tab" aria-controls="pills-NUC" aria-selected="false"><i class="icon-folder-open mr-2"></i>N° de NUC</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="pills-solicitante-tab" data-toggle="pill" href="#pills-solicitante" role="tab" aria-controls="pills-solicitante" aria-selected="false"><i class="icon-user-tie"></i> Solicitante</a>
+                        <a class="nav-link" id="pills-solicitante-tab" data-toggle="pill" href="#pills-solicitante" role="tab" aria-controls="pills-solicitante" aria-selected="false"><i class="icon-user-tie mr-2"></i>Solicitante</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="pills-Dsolicitante-tab" data-toggle="pill" href="#pills-Dsolicitante" role="tab" aria-controls="pills-Dsolicitante" aria-selected="false"><i class="icon-paste"></i> Detalle del solicitante</a>
+                        <a class="nav-link" id="pills-Dsolicitante-tab" data-toggle="pill" href="#pills-Dsolicitante" role="tab" aria-controls="pills-Dsolicitante" aria-selected="false"><i class="icon-profile mr-2"></i>Detalle del Solicitante</a>
                     </li>
                 </ul>
 
@@ -46,7 +46,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="lbApellidoPaterno">Apellido Paterno</span>
                                         </div>
-                                        <input type="text" class="form-control" id="inpApellidoPaternoParte" aria-describedby="inpNumero" required>
+                                        <input type="text" class="form-control focusNext" id="inpApellidoPaternoParte" tabindex="1" aria-describedby="inpNumero" required>
                                         <div class="invalid-feedback">
                                             <i class="icon-notification"></i> Intruduzca un Apellido Paterno
                                         </div>
@@ -58,19 +58,19 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="lbApellidoPMaterno">Apellido Materno</span>
                                         </div>
-                                        <input type="text" class="form-control" id="inpApellidoMaternoPartes" aria-describedby="inpNumero" novalidate="true">
+                                        <input type="text" class="form-control focusNext" id="inpApellidoMaternoPartes" tabindex="2" aria-describedby="inpNumero" novalidate="true">
                                     </div>
                                 </div>
                             </div>
 
                             <div class="form-row">
-                               
-                                <div class="col-12 col-md-12 mt-1">
+
+                                <div class="col-12 col-md-6 mt-1">
                                     <div class="input-group validate-me" id="divBusquedaSentenciado">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="lbNombreParte">Nombre(s)</span>
                                         </div>
-                                        <input type="text" class="form-control mr-2" id="inpNombreParte" aria-describedby="inpNumero" required>
+                                        <input type="text" class="form-control focusNext focusNextEnd mr-2" id="inpNombreParte" tabindex="3" aria-describedby="inpNumero" required>
                                         <button id="botonBuscarNumerosDeEjecucionPartes" type="submit" class="btn btn-success btn-sm mr-2" data-toggle="tooltip" data-placement="top" title="Buscar Ejecuciones"><i class="fa fa-search icon"></i></button>
                                         <button id="botonBorrarDatos" type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Limpiar Busqueda"><i class="fa fa-eraser icon"></i></button>
 
@@ -93,7 +93,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="lbApellidoBeneficiario">Apellido Paterno</span>
                                         </div>
-                                        <input type="text" class="form-control" id="inpApellidoPaternoBeneficiario" aria-describedby="inpNumero" required>
+                                        <input type="text" class="form-control focusNext" id="inpApellidoPaternoBeneficiario" tabindex="4" aria-describedby="inpNumero" required>
                                         <div class="invalid-feedback">
                                             <i class="icon-notification"></i> Intruduzca un Apellido Paterno
                                         </div>
@@ -105,19 +105,19 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="lbApellidoBMaterno">Apellido Materno</span>
                                         </div>
-                                        <input type="text" class="form-control" id="inpApellidoMaternoBeneficiario" aria-describedby="inpNumero">
+                                        <input type="text" class="form-control focusNext" id="inpApellidoMaternoBeneficiario" tabindex="5" aria-describedby="inpNumero">
                                     </div>
                                 </div>
                             </div>
 
                             <div class="form-row">
 
-                                <div class="col-12 col-md-12 mt-1">
+                                <div class="col-12 col-md-6 mt-1">
                                     <div class="input-group validate-me" id="divBusquedaSentenciado">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="lbNombreBeneficiario">Nombre(s)</span>
                                         </div>
-                                        <input type="text" class="form-control mr-2" id="inpNombreBeneficiario" aria-describedby="inpNumero" required>
+                                        <input type="text" class="form-control focusNext focusNextEnd mr-2" id="inpNombreBeneficiario" tabindex="6" aria-describedby="inpNumero" required>
                                         <button id="botonBuscarNumerosDeEjecucionBeneficiario" type="submit" class="btn btn-success btn-sm mr-2" data-toggle="tooltip" data-placement="top" title="Buscar Ejecuciones"><i class="fa fa-search icon"></i></button>
                                         <button id="botonBorrarDatos" type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Limpiar Busqueda"><i class="fa fa-eraser icon"></i></button>
                                         <div class="invalid-feedback">
@@ -136,7 +136,7 @@
                             <div class="form-row mt-3">
                                 <div class="col-md-3 form-group">
                                     <label for="slcNumero">Distrito de Procedencia</label>
-                                    @Html.DropDownList("DistritoPorCircuito",(SelectList)ViewBag.DistritoPorCircuito,"SELECCIONA OPCION", new { @id="slctDistrito",@class="custom-select formatear", @required = "required" })
+                                    @Html.DropDownList("DistritoPorCircuito", (SelectList)ViewBag.DistritoPorCircuito, "SELECCIONA OPCION", new { @id = "slctDistrito", @class = "custom-select formatear", @required = "required" })
 
                                     <div class="invalid-feedback">
                                         <i class="icon-notification"></i> Seleccione un Distrito.
@@ -176,7 +176,7 @@
                                 <div class="col-md-12 col-lg-7 form-group">
 
                                     <label for="validationCustom04">Juzgado de Procedencia</label>
-                                    @Html.DropDownList("JuzgadosAcusatorios",(SelectList)ViewBag.JuzgadosAcusatorios,"SELECCIONA OPCION",new { @id = "slctJuzgadoAcusatorio", @class = "custom-select formatear", @required = "required" })
+                                    @Html.DropDownList("JuzgadosAcusatorios", (SelectList)ViewBag.JuzgadosAcusatorios, "SELECCIONA OPCION", new { @id = "slctJuzgadoAcusatorio", @class = "custom-select formatear", @required = "required" })
 
                                     <div class="invalid-feedback">
                                         <i class="icon-notification"></i> Selecciona un juzgado.
@@ -221,24 +221,24 @@
                     </div>
 
                     <div class="tab-pane fade" id="pills-Dsolicitante" role="tabpanel" aria-labelledby="pills-Dsolicitante-tab">
-                            <form id="formDetalleSolicitanteEjecucion" class="needs-validation" novalidate>
-                                <div class="form-row mt-3">
-                                    <div class="col-12 col-md-8 mt-1">
-                                        <div class="input-group" id="divDetalleSolicitante">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text" id="lbDetalleSolicitante">Detalle del Solicitante</span>
-                                            </div>
-                                            <input type="text" class="form-control mr-2" id="inpDetalleSolicitante" aria-describedby="inpDetalleSolicitante" required>
-                                            <button id="botonBuscarNumerosDeEjecucionDetalleSolicitante" type="submit" class="btn btn-success btn-sm mr-2" data-toggle="tooltip" data-placement="top" title="Buscar Ejecuciones"><i class="fa fa-search icon"></i></button>
-                                            <button id="botonBorrarDatos" type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Limpiar Busqueda"><i class="fa fa-eraser icon"></i></button>
-                                            <div class="invalid-feedback">
-                                                <i class="icon-notification"></i> Intruduzca un Detalle del Solicitante.
-                                            </div>
+                        <form id="formDetalleSolicitanteEjecucion" class="needs-validation" novalidate>
+                            <div class="form-row mt-3">
+                                <div class="col-12 col-md-8 mt-1">
+                                    <div class="input-group" id="divDetalleSolicitante">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="lbDetalleSolicitante">Detalle del Solicitante</span>
+                                        </div>
+                                        <input type="text" class="form-control mr-2" id="inpDetalleSolicitante" aria-describedby="inpDetalleSolicitante" required>
+                                        <button id="botonBuscarNumerosDeEjecucionDetalleSolicitante" type="submit" class="btn btn-success btn-sm mr-2" data-toggle="tooltip" data-placement="top" title="Buscar Ejecuciones"><i class="fa fa-search icon"></i></button>
+                                        <button id="botonBorrarDatos" type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Limpiar Busqueda"><i class="fa fa-eraser icon"></i></button>
+                                        <div class="invalid-feedback">
+                                            <i class="icon-notification"></i> Intruduzca un Detalle del Solicitante.
                                         </div>
                                     </div>
-
                                 </div>
-                            </form>
+
+                            </div>
+                        </form>
                     </div>
                 </div>
 
@@ -253,8 +253,32 @@
                         <table class="table table-hover table-bordered" id="dataTableNumeroEjecucion" width="100%" cellspacing="0">
                         </table>
                     </div>
-                   
+
                     @*<div class="crus"></div>*@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL CAUSAS-->
+<div id="busquedaCausasModal" class="modal fade" data-backdrop="static" data-keyboard="false" role="dialog">
+    <div class="modal-dialog modal-xl">
+        <!-- Contenido del modal -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modalTitulo"><i class="icon-table2 m-2"></i>Detalle de la Causa </h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="modalContainer">
+                    <label id="detalleModal"></label>
+                    <div class="table-responsive text-small">
+                        <table class="table table-bordered table-hover table-sm" id="dataTableCausas" width="100%" cellspacing="0">
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

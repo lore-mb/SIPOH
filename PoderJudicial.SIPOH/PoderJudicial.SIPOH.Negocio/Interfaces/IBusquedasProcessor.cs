@@ -9,11 +9,12 @@ using System.Threading.Tasks;
 
 namespace PoderJudicial.SIPOH.Negocio.Interfaces
 {
-    public interface IBusquedasProcessor {
+    public interface IBusquedasProcessor 
+    {
         string Mensaje { get; set; }
-        List<Ejecucion>ObtenerEjecucionPorPartesCausa(string nombre, string apellidoPaterno, string apellidoMaterno);
-        List<Ejecucion> ObtenerEjecucionSentenciadoBeneficiario(string nombre,string apellidoPaterno, string apellidoMaterno);
-        List<Ejecucion> ObtenerEjeucionPorNumeroCausa(string numeroCausa, int idJuzgado);
+        List<Ejecucion>ObtenerEjecucionPorPartesCausa(string nombre, string apellidoPaterno, string apellidoMaterno, int idCircuito);
+        List<Ejecucion> ObtenerEjecucionSentenciadoBeneficiario(string nombre,string apellidoPaterno, string apellidoMaterno, int idCircuito);
+        List<Ejecucion> ObtenerEjecucionPorNumeroCausa(string numeroCausa, int idJuzgado, int idCircuito);
         List<Ejecucion> ObtenerEjecucionPorNUC(string nuc, int idJuzgado);
         List<Ejecucion> ObtenerEjecucionPorDetalleSolicitante(string detalleSolicitante);
         List<Ejecucion> ObtenerEjecucionPorSolicitante(int  idSolicitante);
@@ -21,9 +22,6 @@ namespace PoderJudicial.SIPOH.Negocio.Interfaces
         List<Juzgado> ObtenerJuzgadosAcusatoriosPorCircuito(int idCircuito);
         List<Juzgado> ObtenerJuzgadosPorDistritos(int idDistrito);
         List<Solicitante> ObtenerSolicitanteEjecucion();
-
+        List<Expediente> ObtenerExpedientesPorEjecucion(int idEjecucion);
     }
-    
-        
-    
 }
