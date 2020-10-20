@@ -35,7 +35,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
                 if (!IsValidConnection)
                     throw new Exception("No se ha creado una conexion valida");
 
-                string storeProcedure = expediente == TipoExpediente.CAUSA ? "sipoh_ExpedientePorJuzgadoCausa" : "sipoh_ExpedientePorJuzgadoNuc";
+                string storeProcedure = expediente == TipoExpediente.CAUSA ? "sipoh_ConsultarExpedientePorJuzgadoCausa" : "sipoh_ConsultarExpedientePorJuzgadoNuc";
 
                 SqlCommand comando = new SqlCommand(storeProcedure, Cnx);
                 comando.CommandType = CommandType.StoredProcedure;
@@ -132,7 +132,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
                 if (!IsValidConnection)
                     throw new Exception("No se ha creado una conexion valida");
 
-                SqlCommand comando = new SqlCommand("sipoh_ExpedientePorFolio", Cnx);
+                SqlCommand comando = new SqlCommand("sipoh_ConsultarExpedientePorFolio", Cnx);
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("@folio", SqlDbType.Int).Value = idEjecucion;
                 Cnx.Open();

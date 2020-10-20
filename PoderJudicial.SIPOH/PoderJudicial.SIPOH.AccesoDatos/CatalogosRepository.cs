@@ -43,7 +43,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
                 if (!IsValidConnection)
                 throw new Exception("No se ha creado una conexion valida");
 
-                SqlCommand comando = new SqlCommand("sipoh_DistritosPorCircuito", Cnx);
+                SqlCommand comando = new SqlCommand("sipoh_ConsultarDistritosPorCircuito", Cnx);
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("@idCircuito", SqlDbType.Int).Value = idCircuito;
                 Cnx.Open();
@@ -88,7 +88,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
                 if (!IsValidConnection)
                 throw new Exception("No se ha creado una conexion valida");
 
-                string storeProcedure = tipoJuzgado == TipoJuzgado.ACUSATORIO ? "sipoh_JuzgadosPorCircuitoAcusatorio" : "sipoh_JuzgadosPorDistritoTradicional";
+                string storeProcedure = tipoJuzgado == TipoJuzgado.ACUSATORIO ? "sipoh_JuzgadosPorCircuitoAcusatorio" : "sipoh_ConsultarJuzgadosPorDistritoTradicional";
 
                 SqlCommand comando = new SqlCommand(storeProcedure, Cnx);
                 comando.CommandType = CommandType.StoredProcedure;
@@ -142,7 +142,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
 
                 string tipoSistema = tipoJuzgado == TipoJuzgado.ACUSATORIO ? "SA" : "ST";
 
-                SqlCommand comando = new SqlCommand("sipoh_SalasPorTipoSistema", Cnx);
+                SqlCommand comando = new SqlCommand("sipoh_ConsultarSalasPorTipoSistema", Cnx);
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("@tipoSistema", SqlDbType.VarChar).Value = tipoSistema;
 
@@ -182,7 +182,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
                 if (!IsValidConnection)
                     throw new Exception("No se ha creado una conexion valida");
 
-                SqlCommand comando = new SqlCommand("sipoh_ConsultarAnexosEjecucion", Cnx);
+                SqlCommand comando = new SqlCommand("sipoh_ConsultarAnexosPorEjecucion", Cnx);
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("@tipo", SqlDbType.VarChar).Value = tipo;
                 Cnx.Open();
@@ -220,7 +220,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
             {
                 if (!IsValidConnection) throw new Exception("No se ha creado una conexión valida.");
 
-                SqlCommand comando = new SqlCommand("sipoh_JuzgadosEjecucionPorCircuito", Cnx);
+                SqlCommand comando = new SqlCommand("sipoh_ConsultarJuzgadosEjecucionPorCircuito", Cnx);
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("@idcircuito", SqlDbType.Int).Value = idcircuito;
                 Cnx.Open();
@@ -335,7 +335,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
                 if (!IsValidConnection) 
                     throw new Exception("No se ha creado una conexión valida.");
 
-                SqlCommand comando = new SqlCommand("sipoh_TocasPorFolio", Cnx);
+                SqlCommand comando = new SqlCommand("sipoh_ConsultarEjecucionOriTocaPorPorFolio", Cnx);
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("@folio", SqlDbType.Int).Value = idEjecucion;
                 Cnx.Open();
@@ -414,7 +414,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
                 if (!IsValidConnection) 
                     throw new Exception("No se ha creado una conexión valida.");
 
-                SqlCommand comando = new SqlCommand("sipoh_AnexosPorFolio", Cnx);
+                SqlCommand comando = new SqlCommand("sipoh_ConsultarAnexosPorFolio", Cnx);
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("@folio", SqlDbType.Int).Value = idEjecucion;
                 Cnx.Open();
@@ -453,7 +453,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
                 if (!IsValidConnection)
                     throw new Exception("No se ha creado una conexion valida");
 
-                SqlCommand comando = new SqlCommand("sipoh_JuzgadosPorDistritos", Cnx);
+                SqlCommand comando = new SqlCommand("sipoh_ConsultarJuzgadosPorDistritos", Cnx);
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("@idDistrito", SqlDbType.Int).Value = idDistrito;
                 Cnx.Open();

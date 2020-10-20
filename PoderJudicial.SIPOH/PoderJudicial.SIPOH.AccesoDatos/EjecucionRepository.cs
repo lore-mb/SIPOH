@@ -44,7 +44,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
                 if (!IsValidConnection)
                     throw new Exception("No se ha creado una conexion valida");
 
-                SqlCommand comando = new SqlCommand("sipoh_ConsultarSentenciadoBeneficiario", Cnx);
+                SqlCommand comando = new SqlCommand("sipoh_ConsultarEjecucionPorSentenciadoBeneficiario", Cnx);
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("@nombre", SqlDbType.VarChar).Value = nombre;
                 comando.Parameters.Add("@apellidoPaterno", SqlDbType.VarChar).Value = apellidoPaterno;
@@ -164,7 +164,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
                 if (!IsValidConnection)
                     throw new Exception("Conexión no valida");
 
-                SqlCommand comando = new SqlCommand("sipoh_ConsultaEjecucionPorJuzgado", Cnx);
+                SqlCommand comando = new SqlCommand("sipoh_ConsultarEjecucionPorJuzgado", Cnx);
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("@Juzgado", SqlDbType.Int).Value = IdJuzgado;
                 comando.Parameters.Add("@NoEjecucion", SqlDbType.VarChar).Value = NumeroEjecucion;
@@ -206,7 +206,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
                 if (!IsValidConnection)
                     throw new Exception("No se ha creado una conexion valida");
 
-                SqlCommand comando = new SqlCommand("sipoh_ConsultaEjecucionPorFolio", Cnx);
+                SqlCommand comando = new SqlCommand("sipoh_ConsultarEjecucionPorFolio", Cnx);
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("@folio", SqlDbType.Int).Value = folio;
                 Cnx.Open();
@@ -249,7 +249,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
                 if (!IsValidConnection)
                     throw new Exception("No se ha creado una conexion valida");
 
-                SqlCommand comando = new SqlCommand("sipoh_ConsultaEjecucionPromocionFolio", Cnx);
+                SqlCommand comando = new SqlCommand("sipoh_ConsultarEjecucionPorEjecucionPosterior", Cnx);
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("@folio", SqlDbType.Int).Value = folio;
                 Cnx.Open();
@@ -299,7 +299,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
                 if (!IsValidConnection)
                     throw new Exception("No se ha creado una conexion valida");
 
-                SqlCommand comando = new SqlCommand("sipoh_BusquedaEjecucionPartesPrevia", Cnx);
+                SqlCommand comando = new SqlCommand("sipoh_ConsultarEjecucionPorPartesPrevia", Cnx);
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("@nombre", SqlDbType.VarChar).Value = nombre;
                 comando.Parameters.Add("@apellidoPaterno", SqlDbType.VarChar).Value = apellidoPaterno;
@@ -348,7 +348,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
                 if (!IsValidConnection)
                     throw new Exception("No se ha creado una conexion válida");
 
-                SqlCommand comando = new SqlCommand("sipoh_BusquedaEjecucionCausa", Cnx);
+                SqlCommand comando = new SqlCommand("sipoh_ConsultarEjecucionPorCausa", Cnx);
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("@numeroCausa", SqlDbType.VarChar).Value = numeroCausa;
                 comando.Parameters.Add("@idJuzgado", SqlDbType.Int).Value = idJuzgado;
@@ -400,7 +400,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
             {
                 if (!IsValidConnection)
                     throw new Exception("No se ha creado una conexion válida");
-                SqlCommand comando = new SqlCommand("sipoh_BusquedaEjecucionDetalleSolicitante", Cnx);
+                SqlCommand comando = new SqlCommand("sipoh_ConsultarEjecucionPorDetalleSolicitante", Cnx);
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("@detalleSolicitante", SqlDbType.VarChar).Value = detalleSolicitante;
 
@@ -448,7 +448,8 @@ namespace PoderJudicial.SIPOH.AccesoDatos
             {
                 if (!IsValidConnection)
                     throw new Exception("No se ha creado una conexion válida");
-                SqlCommand comando = new SqlCommand("sipoh_BusquedaEjecucionNUC", Cnx);
+
+                SqlCommand comando = new SqlCommand("sipoh_ConsultarEjecucionPorNUC", Cnx);
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("@nuc", SqlDbType.VarChar).Value = nuc;
                 comando.Parameters.Add("@idJuzgado", SqlDbType.Int).Value = idJuzgado;
@@ -497,7 +498,8 @@ namespace PoderJudicial.SIPOH.AccesoDatos
             {
                 if (!IsValidConnection)
                     throw new Exception("No se ha creado conexion valida");
-                SqlCommand comando = new SqlCommand("sipoh_BusquedaEjecucionSolicitante", Cnx);
+
+                SqlCommand comando = new SqlCommand("sipoh_ConsultarEjecucionPorSolicitante", Cnx);
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("idSolicitante", SqlDbType.Int).Value = idSolicitante;
 
