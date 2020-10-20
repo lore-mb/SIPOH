@@ -88,7 +88,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
                 if (!IsValidConnection)
                 throw new Exception("No se ha creado una conexion valida");
 
-                string storeProcedure = tipoJuzgado == TipoJuzgado.ACUSATORIO ? "sipoh_JuzgadosPorCircuitoAcusatorio" : "sipoh_ConsultarJuzgadosPorDistritoTradicional";
+                string storeProcedure = tipoJuzgado == TipoJuzgado.ACUSATORIO ? "sipoh_ConsultarJuzgadosPorCircuitoAcusatorio" : "sipoh_ConsultarJuzgadosPorDistritoTradicional";
 
                 SqlCommand comando = new SqlCommand(storeProcedure, Cnx);
                 comando.CommandType = CommandType.StoredProcedure;
