@@ -4,13 +4,16 @@
 <div class="container-fluid">
     <div class="row">
         <div class="card shadow-sm col-sm-12">
+            <div class="card-header">
+                <h6 class="card-title">Consulta y registro de promociones</h6>
+            </div>
             <div class="card-body">
                 <!-- #region Filtrado para busqueda -->
                 <div class="align-items-center">
                     <div class="col">
-                        <h6 class="page-pretitle">
-                            <i class="icon-filter"></i> Filtro de busqueda:
-                        </h6>
+                        @*<h6 class="page-pretitle">
+                                <i class="icon-filter"></i> Filtro de busqueda:
+                            </h6>*@
                         <form class="needs-validation" id="FrmCausaEjecucion" novalidate>
                             <div class="form-row">
                                 <div class="col-md-8 form-group">
@@ -27,11 +30,11 @@
                                     <label for="validationCustomUsername">Numero de Ejecución</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text" id="inputGroupPrepend"><i class="icon-key"></i></span>
+                                            <span class="input-group-text" id="inputGroupPrepend">Ejecución</span>
                                         </div>
                                         <input type="text" class="form-control mr-2 resultOK clean" id="inpNumeroEjecucion" aria-describedby="inputGroupPrepend" required>
                                         <button class="btn btn-success mr-2 resultOK" type="submit" id="btnConsultarPromocion" data-toggle="tooltip" data-placement="top" title="Consultar"><i class="icon-search"></i></button>
-                                        <button class="btn btn-secondary disoff" id="btnNuevaConsultaPromocion" data-toggle="tooltip" data-placement="top" title="Nueva Consulta"><i class="icon-undo2"></i></button>
+                                        <button class="btn btn-danger disoff" id="btnNuevaConsultaPromocion" data-toggle="tooltip" data-placement="top" title="Nueva Consulta"><i class="fas fa-eraser"></i></button>
                                         <div class="valid-feedback">
                                             <i class="icon-checkmark"></i> Numero de ejecución
                                         </div>
@@ -45,56 +48,38 @@
                     </div>
                 </div>
                 <!-- #endregion -->
+
+                <div class="separator-solid"></div>
+
                 <div id="divResultadoPromocion">
                     <!-- #region Formulario Datos Generales -->
-                    <div class="card-footer">
+                    <div class="bordeParaInfo rounded p-3 mt-3 mb-3">
                         <div class="form-row">
-                            <div class="col-md-3 mb-3">
-                                <label for="validationCustom01">Numero de Ejecución</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="inputGroupPrepend">#</span>
-                                    </div>
-                                    <input type="text" class="form-control disabled clean" id="NumeroEjecucion" aria-describedby="inputGroupPrepend">
-                                </div>
+                            <div class="col-12 col-md-8">
+                                <label for="validationCustom04"><b><li>Juzgado de Ejecución</li></b></label>
+                                <div class="input-group ml-3" id="NombreJuzgado"></div>
                             </div>
-                            <div class="col-md-9 mb-3">
-                                <label for="validationCustom02">Juzgado de Ejecución</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="icon-office"><i class="icon-office"></i></span>
-                                    </div>
-                                    <input type="text" class="form-control disabled clean" id="NombreJuzgado" aria-describedby="inputGroupPrepend">
-                                </div>
+
+                            <div class="col-12 col-md-4">
+                                <label for="validationCustom04"><b><li>Numero de Ejecución</li></b></label>
+                                <div class="input-group ml-3" id="NumeroEjecucion"></div>
                             </div>
                         </div>
-                        <div class="form-row">
-                            <div class="col-md-4 mb-3">
-                                <label for="validationCustomUsername">Solicitante</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="inputGroupPrepend"><i class="icon-clipboard"></i></span>
-                                    </div>
-                                    <input type="text" class="form-control disabled clean" id="DecSolicitante" aria-describedby="inputGroupPrepend">
-                                </div>
+
+                        <div class="form-row mt-1 mt-md-3">
+                            <div class="col-12 col-md-4">
+                                <label for="validationCustom04"><b><li>Sentenciado | Beneficiario</li></b></label>
+                                <div class="input-group ml-3" id="NombreBeneficiario"></div>
                             </div>
-                            <div class="col-md-4 mb-3">
-                                <label for="validationCustomUsername">Sentenciado | Beneficiario</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="inputGroupPrepend"><i class="icon-user"></i></span>
-                                    </div>
-                                    <input type="text" class="form-control disabled clean" id="NombreBeneficiario" aria-describedby="inputGroupPrepend">
-                                </div>
+
+                            <div class="col-12 col-md-4">
+                                <label for="validationCustom04"><b><li>Solicitante</li></b></label>
+                                <div class="input-group ml-3" id="DecSolicitante"></div>
                             </div>
-                            <div class="col-md-4 mb-3">
-                                <label for="validationCustomUsername">Solicitud</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="inputGroupPrepend"><i class="icon-file-text2"></i></span>
-                                    </div>
-                                    <input type="text" class="form-control disabled clean" id="DecSolicitud" aria-describedby="inputGroupPrepend">
-                                </div>
+
+                            <div class="col-12 col-md-4">
+                                <label for="validationCustom04"><b><li>Solicitud</li></b></label>
+                                <div class="input-group ml-3" id="DecSolicitud"></div>
                             </div>
                         </div>
                     </div>
@@ -114,25 +99,26 @@
                     <!-- #endregion -->
                 </div>
                 <div class="separator-solid"></div>
-                <!--#region Formulario Agregar Anexos-->
                 <form class="needs-validation" id="Frm_Anexos" novalidate>
-                    <div class="form-row">
-                        <div class="col-md-3 form-group">
-                            <label for="validationCustom02">Promovente</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="inputGroupPrepend"><i class=" icon-user"></i></span>
-                                </div>
-                                <input type="text" class="form-control mr-2 clearanexo" id="inpNombrePromovente" placeholder="Nombre de promovente" required>
-                                <div class="invalid-feedback">
-                                    <i class="icon-cancel-circle"></i> Por favor, introdusca nombre de promovente.
-                                </div>
-                                <div class="valid-feedback">
-                                    <i class="icon-checkmark"></i> Nombre de promovente.
-                                </div>
+                    <div class="col-md-5 form-group">
+                        <label for="validationCustom02">Promovente</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroupPrepend">Nombre</span>
+                            </div>
+                            <input type="text" class="form-control mr-2 clearanexo" id="inpNombrePromovente" placeholder="" required>
+                            <div class="invalid-feedback">
+                                <i class="icon-cancel-circle"></i> Por favor, introdusca nombre de promovente.
+                            </div>
+                            <div class="valid-feedback">
+                                <i class="icon-checkmark"></i> Nombre de promovente.
                             </div>
                         </div>
-                        <div class="col-md-6 form-group">
+                    </div>
+                    <div class="separator-solid"></div>
+                    <!--#region Formulario Agregar Anexos-->
+                    <div class="form-row">
+                        <div class="col-md-5 form-group">
                             <label for="validationCustom01">Anexos</label>
                             @Html.DropDownList("SelectAnexo", new SelectList(ViewBag.AnexoEjec, "IdAnexo", "Descripcion"), "SELECCIONAR OPCION", new { @id = "slctAnexoEjecucion", @class = "custom-select form-control", @required = "required" })
                             <div class="valid-feedback">
@@ -142,27 +128,13 @@
                                 <i class=" icon-cancel-circle"></i> Por favor, seleccione un anexo.
                             </div>
                         </div>
-                        <div class="col-md-3 form-group">
-                            <label for="inpCantidadAnexos">Cantidad</label>
-                            <div class="input-group">
-                                <input type="number" class="form-control mr-2 clearanexo" placeholder="0" id="inpCantidadAnexos" name="quantity" min="0" max="3000" required>
-                                <button class="btn btn-success mr-2" id="btnAgregarAnexo" type="submit" data-toggle="tooltip" data-placement="top" title="Agregar Anexo"><i class="fas fa-plus-circle"></i></button>
-                                <button class="btn btn-secondary mr-2 disoff" id="btnGuardarAnexos" data-toggle="tooltip" data-placement="top" title="Guardar Anexos"><i class="fa fa-save"></i></button>
-                                <div class="invalid-feedback">
-                                    <i class="icon-cancel-circle"></i> Determine cantidad.
-                                </div>
-                                <div class="valid-feedback">
-                                    <i class="icon-checkmark"></i> Cantidad determinada.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 form-group">
-                            <label for="validationCustom02">Descripción Otro</label>
+                        <div class="col-md-5 form-group">
+                            <label for="validationCustom02">Otros Anexos</label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text" id="inputGroupPrepend"><i class="icon-file-text2"></i></span>
+                                    <span class="input-group-text" id="inputGroupPrepend">Descripción</i></span>
                                 </div>
-                                <input type="text" class="form-control mr-2 clearanexo" id="inpOtroAnexo" placeholder="Descripción">
+                                <input type="text" class="form-control mr-2 clearanexo" id="inpOtroAnexo" placeholder="">
                                 <div class="invalid-feedback">
                                     <i class="icon-cancel-circle"></i> Por favor, introdusca una descripción.
                                 </div>
@@ -171,6 +143,20 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-2 form-group">
+                            <label for="inpCantidadAnexos">Cantidad</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control mr-2 clearanexo" placeholder="0" id="inpCantidadAnexos" name="quantity" min="0" max="3000" required>
+                                <button class="btn btn-success mr-2" id="btnAgregarAnexo" type="submit" data-toggle="tooltip" data-placement="top" title="Agregar Anexo"><i class="fas fa-plus-circle"></i></button>
+                                <div class="invalid-feedback">
+                                    <i class="icon-cancel-circle"></i> Determine cantidad.
+                                </div>
+                                <div class="valid-feedback">
+                                    <i class="icon-checkmark"></i> Cantidad determinada.
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </form>
                 <!--#endregion-->
@@ -178,7 +164,7 @@
                 <div class="tab-content">
                     <div class="form-row">
                         <div class="col-12">
-                            <h6 class="m-0 font-weight-bold text-success"><i class="icon-table2"></i> Tabla de Causas </h6>
+                            <h6 class="m-0 font-weight-bold text-success"><i class="icon-table2"></i> Tabla de Anexos </h6>
                         </div>
                     </div>
                     <div class="table-responsive">
@@ -187,6 +173,14 @@
                     </div>
                 </div>
                 <!-- #endregion -->
+                <div class="separator-solid"></div>
+                <div class="tab-content justify-content-center">
+                    <div class="form-row text-center">
+                        <div class="col-4"></div>
+                        <div class="col-4"> <button class="btn btn-success disoff" id="btnGuardarAnexos" data-toggle="tooltip" data-placement="top" title="Guardar Anexos"><i class="fa fa-save"></i> Guardar</button></div>
+                        <div class="col-4"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

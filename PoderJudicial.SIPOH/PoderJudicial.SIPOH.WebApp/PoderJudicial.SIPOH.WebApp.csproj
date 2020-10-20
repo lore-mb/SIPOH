@@ -236,6 +236,7 @@
     <Content Include="Scripts\Modules\Ejecucion\Iniciales\Detalle.js" />
     <Content Include="Scripts\Modules\Ejecucion\Iniciales\Iniciales.js" />
     <Content Include="Scripts\Modules\Ejecucion\Iniciales\Sello.js" />
+    <Content Include="Scripts\Modules\Ejecucion\Promociones\Detalle.js" />
     <Content Include="Scripts\Modules\Ejecucion\Promociones\Promociones.js" />
     <Content Include="Scripts\Modules\Ejecucion\Reportes\Reportes.js" />
     <Content Include="Scripts\Modules\Juicios\Juicios.js" />

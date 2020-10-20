@@ -22,6 +22,8 @@ namespace PoderJudicial.SIPOH.WebApp.Models
         public string DescripcionSolicitud { set; get; }
         public string OtraSolicita { set; get; }
         public string Interno { set; get; }
+        public string Promovente { get; set; }
+        public string FechaIngreso { get; set; }
         public List<CausasModelView> Causas { set; get; }
         public List<TocasModelView> Tocas { set; get; }
         public List<string> Amparos { set; get; }

@@ -3,94 +3,151 @@
     ViewBag.Title = "Reportes";
 }
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="card shadow-sm col-sm-12">
-            <div class="card-header">
-                <h4 class="card-title"><i class="icon-filter"></i> Filtro</h4>
-            </div>
-            <div class="card-body">
-                <ul class="nav nav-pills nav-success  nav-pills-no-bd nav-pills-icons justify-content-center" id="pills-tab-with-icon" role="tablist">
-                    <li class="nav-item" data-toggle="tooltip" data-placement="top" title="Generar reporte por día">
-                        <a class="nav-link active" id="pills-home-tab-icon" data-toggle="pill" href="#pills-home-icon" role="tab" aria-controls="pills-home-icon" aria-selected="true">
-                            <i class="icon-file-text2"></i>
-                            REPORTE POR DÍA
-                        </a>
-                    </li>
-                    <li class="nav-item" data-toggle="tooltip" data-placement="top" title="Generar reporte por rango de fechas">
-                        <a class="nav-link" id="pills-profile-tab-icon" data-toggle="pill" href="#pills-profile-icon" role="tab" aria-controls="pills-profile-icon" aria-selected="false">
-                            <i class="icon-file-text2"></i>
-                            REPORTE POR FECHA
-                        </a>
-                    </li>
-                </ul>
-                <div class="tab-content mt-2 mb-3" id="pills-with-icon-tabContent">
-                    <div class="tab-pane fade show active" id="pills-home-icon" role="tabpanel" aria-labelledby="pills-home-tab-icon">
-                       
-                    </div>
-                    <div class="tab-pane fade" id="pills-profile-icon" role="tabpanel" aria-labelledby="pills-profile-tab-icon">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="inlineFormCustomSelectPref">Preference</label>
-                                    <select class="custom-select" id="inlineFormCustomSelectPref">
-                                        <option selected>Choose...</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label>Fecha Inicial:</label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control text-center" id="datetimepicker6" name="datetime" placeholder="dd/mm/aaaa h:mm hh">
-                                        <div class="input-group-append">
-                                            <span class="input-group-text">
-                                                <i class="icon-calendar"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label>Fecha Final:</label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control text-center" id="datetimepicker7" name="datetime" placeholder="dd/mm/aaaa h:mm hh">
-                                        <div class="input-group-append">
-                                            <span class="input-group-text">
-                                                <i class="icon-calendar"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Generar Reportes</h4>
+        </div>
+        <div class="card-body">
+            <ul class="nav nav-pills nav-success" id="pills-tab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Iniciales</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Promociones</a>
+                </li>
+            </ul>
+            <div class="tab-content mt-2 mb-3" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+
+                    <!-- Formulario para reportes -->
+                   <br />
+
+                    <div id="accordion">
+                        <div class="card">
+                            <div class="card-header" id="headingOne">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link text-success" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                       <i  class="icon-calendar"></i> Reporte por Fecha
+                                    </button>
+                                </h5>
                             </div>
 
-                            <div class="col-md-1">
-                                <div class="form-group">
-                                    <label class="invisible">Generar Reporte:</label>
-                                    <div class="input-group">
-                                        <button class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Generar reporte"><i class="icon-binoculars"></i></button>
+                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                                <div class="card-body">
+                                    <!-- Contenido -->
+
+                                    <div class="col">
+                                        <form class="needs-validation" id="FrmCausaEjecucion" novalidate="">
+                                            <div class="form-row">
+                                                <div class="col-md-6 form-group">
+                                                    <label for="validationCustom01">Nombre de Juzgado</label>
+                                                    <select class="custom-select form-control resultOK" id="slctJuzgadoPorCircuito" name="SelectJuzgadoPorCircuito" required="required">
+                                                        <option value="">SELECCIONAR OPCIÓN</option>
+                                                        <option value="223">JUZGADO PRIMERO DE EJECUCIÓN DEL SISTEMA PROCESAL PENAL ACUSATORIO ORAL</option>
+                                                        <option value="224">JUZGADO SEGUNDO DE EJECUCIÓN DEL SISTEMA PROCESAL PENAL ACUSATORIO ORAL</option>
+                                                    </select>
+                                                    <div class="valid-feedback" wfd-invisible="true">
+                                                        <i class="icon-checkmark"></i> Juzgado Seleccionado
+                                                    </div>
+                                                    <div class="invalid-feedback" wfd-invisible="true">
+                                                        <i class="icon-cancel-circle"></i> Por favor, selecciona un juzgado.
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3 form-group">
+                                                    <label for="validationCustomUsername">Numero de Ejecución</label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i class="icon-calendar"></i> </span>
+                                                        </div>
+                                                        <input type="text" class="form-control text-center" id="datetimepicker6" name="datetime" placeholder="dd/mm/aaaa h:mm hh">
+                                                        <div class="valid-feedback" wfd-invisible="true">
+                                                            <i class="icon-checkmark"></i> Numero de ejecución
+                                                        </div>
+                                                        <div class="invalid-feedback" wfd-invisible="true">
+                                                            <i class="icon-cancel-circle"></i> Por favor, introduce numero de ejecución.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3 form-group">
+                                                    <label for="validationCustomUsername">Numero de Ejecución</label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i class="icon-calendar"></i> </span>
+                                                        </div>
+                                                        <input type="text" class="form-control text-center" id="datetimepicker7" name="datetime" placeholder="dd/mm/aaaa h:mm hh">
+                                                        <button class="btn btn-success ml-2"><i class="icon-search"></i></button>
+                                                        <div class="valid-feedback" wfd-invisible="true">
+                                                            <i class="icon-checkmark"></i> Numero de ejecución
+                                                        </div>
+                                                        <div class="invalid-feedback" wfd-invisible="true">
+                                                            <i class="icon-cancel-circle"></i> Por favor, introduce numero de ejecución.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
                                     </div>
+
+
                                 </div>
                             </div>
-                            <div class="col-md-1">
-                                <div class="form-group">
-                                    <label class="invisible">Generar Reporte:</label>
-                                    <div class="input-group">
-                                        <button class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Limpiar campos tipo fecha"><i class="icon-bin2"></i></button>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" id="headingTwo">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link collapsed text-success" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                       <i class="icon-sun"></i> Reporte por Día
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                                <div class="card-body">
+                                    <!-- Contenido -->
+
+                                    <div class="col">
+                                        <form class="needs-validation" id="FrmCausaEjecucion" novalidate="">
+                                            <div class="form-row">
+                                                <div class="col-md-7 form-group">
+                                                    <label for="validationCustom01">Nombre de Juzgado</label>
+                                                    <div class="input-group">
+                                                        <select class="custom-select form-control resultOK" id="slctJuzgadoPorCircuito" name="SelectJuzgadoPorCircuito" required="required">
+                                                            <option value="">SELECCIONAR OPCIÓN</option>
+                                                            <option value="223">JUZGADO PRIMERO DE EJECUCIÓN DEL SISTEMA PROCESAL PENAL ACUSATORIO ORAL</option>
+                                                            <option value="224">JUZGADO SEGUNDO DE EJECUCIÓN DEL SISTEMA PROCESAL PENAL ACUSATORIO ORAL</option>
+                                                        </select>
+                                                        <button class="btn btn-success ml-2"><i class="icon-search"></i></button>
+                                                        <div class="valid-feedback" wfd-invisible="true">
+                                                            <i class="icon-checkmark"></i> Juzgado Seleccionado
+                                                        </div>
+                                                        <div class="invalid-feedback" wfd-invisible="true">
+                                                            <i class="icon-cancel-circle"></i> Por favor, selecciona un juzgado.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
                                     </div>
+
+
                                 </div>
                             </div>
                         </div>
                     </div>
+
+
+                </div>
+                <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                    Promociones
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+
+
+
 
 @Scripts.Render("~/Scripts/Master/Jquery")
 @Scripts.Render("~/Scripts/Modules/Ejecucion/Reportes")

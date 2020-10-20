@@ -58,5 +58,22 @@ namespace PoderJudicial.SIPOH.UT.IgmaUT
 
         }
 
+        // ** Consulta Registro ** //
+
+        [TestMethod]
+        public void ConsultarEjecucion ()
+        {
+            EjecucionRepository new1 = new EjecucionRepository(Cnx);
+            Ejecucion ejecucion = new1.ObtenerEjecucionPorFolio(89);
+        }
+
+        [TestMethod]
+        public void ConsultarAnexos() {
+            CatalogosRepository catalogos = new CatalogosRepository(Cnx);
+
+            List<Anexo> anexo = catalogos.ObtenerAnexosPorEjecucion(89); 
+
+        }
+
     }
 }

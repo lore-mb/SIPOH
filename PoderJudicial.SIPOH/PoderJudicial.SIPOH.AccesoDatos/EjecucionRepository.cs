@@ -242,6 +242,49 @@ namespace PoderJudicial.SIPOH.AccesoDatos
 
         }
 
+        public Ejecucion ObtenerEjecucionPromocionPorFolio(int folio)
+        {
+            try
+            {
+                if (!IsValidConnection)
+                    throw new Exception("No se ha creado una conexion valida");
+
+                SqlCommand comando = new SqlCommand("sipoh_ConsultaEjecucionPromocionFolio", Cnx);
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.Add("@folio", SqlDbType.Int).Value = folio;
+                Cnx.Open();
+
+                SqlDataReader sqldataReader = comando.ExecuteReader();
+
+                DataTable tabladata = new DataTable();
+                tabladata.Load(sqldataReader);
+
+                Ejecucion ejecucion = DataHelper.DataTableToList<Ejecucion>(tabladata).FirstOrDefault();
+
+                if (ejecucion != null)
+                {
+                    Estatus = Estatus.OK;
+                    return ejecucion;
+                }
+
+                Estatus = Estatus.SIN_RESULTADO;
+                return null;
+            }
+            catch (Exception ex)
+            {
+                MensajeError = ex.Message;
+                Estatus = Estatus.ERROR;
+                return null;
+            }
+
+            finally
+            {
+                if (IsValidConnection && Cnx.State == ConnectionState.Open)
+                    Cnx.Close();
+            }
+
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -291,7 +334,6 @@ namespace PoderJudicial.SIPOH.AccesoDatos
                     Cnx.Close();
             }
         }
-
 
         /// <summary>
         /// 
@@ -347,7 +389,6 @@ namespace PoderJudicial.SIPOH.AccesoDatos
             }
         }
 
-
         /// <summary>
         /// 
         /// </summary>
@@ -394,7 +435,6 @@ namespace PoderJudicial.SIPOH.AccesoDatos
             }
 
         }
-
 
         /// <summary>
         /// 
@@ -446,7 +486,6 @@ namespace PoderJudicial.SIPOH.AccesoDatos
 
         }
 
-
         /// <summary>
         /// 
         /// </summary>
@@ -493,7 +532,6 @@ namespace PoderJudicial.SIPOH.AccesoDatos
             }
 
         }
-
 
         public int? GuardarPostEjecucion(PostEjecucion postEjecucion, List<Anexo> anexos)
         {

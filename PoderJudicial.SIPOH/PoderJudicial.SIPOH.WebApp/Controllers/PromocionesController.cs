@@ -2,6 +2,7 @@
 using PoderJudicial.SIPOH.Negocio.Interfaces;
 using PoderJudicial.SIPOH.WebApp.Helpers;
 using PoderJudicial.SIPOH.WebApp.Models;
+using PoderJudicial.SIPOH.Entidades.Enum;
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
@@ -154,7 +155,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 } else if (IdEjecucion != null) {
 
                     // Generacion de parametros cifrados
-                    string Link = ViewHelper.EncodedActionLink("Detalle", "Promociones", new { Folio = IdEjecucion });
+                    string Link = ViewHelper.EncodedActionLink("Detalle", "Promociones", new { IdEjecucion = IdEjecucion });
                     Respuesta.Estatus = EstatusRespuestaJSON.OK;
                     Respuesta.Mensaje = promocionesProcessor.Mensaje;
                     Respuesta.Data = new { Url = Link };
@@ -171,17 +172,44 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         }
         #endregion
 
-        public ActionResult Detalle(int Folio) {
-            try {
+        [HttpGet]
+        [EncriptarParametroFilter]
+        public ActionResult Detalle(int IdEjecucion) {
+            try
+            {
+                // Este modelo se manda a la vista
+                EjecucionModelView ModeloEjecucion = new EjecucionModelView();
 
+                // Objetos como referencia al proccesor
+                Ejecucion ejecucion = new Ejecucion();
+                List<Anexo> anexos = new List<Anexo>();
+                List<Relacionadas> ListRelacionadas = new List<Relacionadas>();
 
+                // Acceder al metodo en proccesor y pasar Obtetos como referencia
+                bool RespuestaMetodo = promocionesProcessor.InformacionRegistroPromocion(IdEjecucion, ref ejecucion, ref anexos, ref ListRelacionadas);
 
-            } catch (Exception ex) {
+                if (ejecucion != null) {
+                    ModeloEjecucion = mapper.Map<Ejecucion, EjecucionModelView>(ejecucion);
+                    ModeloEjecucion.Anexos = mapper.Map<List<Anexo>, List<AnexosModelView>>(anexos);
+                }
+
+                
+                ViewBag.Ejecucion = ListRelacionadas.Contains(Relacionadas.EJECUCION);
+                ViewBag.Anexos = ListRelacionadas.Contains(Relacionadas.ANEXOS);
+                ViewBag.RespuestaMetodo = RespuestaMetodo;
+                ViewBag.Mensaje = promocionesProcessor.Mensaje;
+
+                return View(ModeloEjecucion);
+            }
+            catch (Exception ex)
+            {
                 Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
                 Respuesta.Mensaje = ex.Message;
                 Respuesta.Data = null;
+
+                return Json(Respuesta, JsonRequestBehavior.AllowGet);
             }
-            return View();
+
         }
 
         #endregion

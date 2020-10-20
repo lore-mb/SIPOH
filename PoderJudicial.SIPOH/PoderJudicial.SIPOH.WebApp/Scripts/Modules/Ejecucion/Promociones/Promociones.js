@@ -3,12 +3,14 @@
 // #region DOCUMENT READY
 
 $(document).ready(function () {
+
     FormatoInputs();
     OcultarFormulario();
     OtrosAnexosSelect();
     TablaCausas = Consumir_DataTable(TablaCausas, "_TablaCausasEjecucion", Arreglo_TablaCausas, EstructuraTabla_Causas, false, false, false);
     TablaAnexos = Consumir_DataTable(TablaAnexos, "_DataTableAnexos", Arreglo_TablaAnexos, EstructuraTabla_Anexos, false, false, false);
     FuncionalidadesListas();
+
 });
 
 // #endregion 
@@ -28,31 +30,39 @@ function FuncionalidadesListas() {
         e.preventDefault();
         Resultados_NEW();
     });
+
 }
 // #endregion
 
 // #region FUNCIONALIDAD: Ocultar Formulario
 function OcultarFormulario() {
+
     $("#divResultadoPromocion").hide();
+
 }
 // #endregion
 
 // #region FUNCIONALIDAD: Mostrar Formulario
 function MostrarFormulario() {
+
     $("#divResultadoPromocion").show();
     $(".disabled").prop('disabled', true);
+
 }
 // #endregion
 
 // #region FUNCIONALIDAD: Encontró Resultados
 function Resultados_OK() {
+
     $(".resultOK").prop('disabled', true);
     $("#btnNuevaConsultaPromocion").prop("disabled", false);
+
 }
 // #endregion
 
 // #region FUNCIONALIDAD: Nueva Consulta
 function Resultados_NEW() {
+
     OcultarFormulario();
     $(".resultOK").prop('disabled', false);
     $(".clean").val("");
@@ -64,6 +74,7 @@ function Resultados_NEW() {
     $("#btnNuevaConsultaPromocion").prop("disabled", true);
     Arreglo_TablaCausas = [];
     $('#btnNuevaConsultaPromocion').tooltip('hide');
+
 }
 // #endregion
 
@@ -77,6 +88,7 @@ function FormatoInputs() {
 
 // #region FUNCIONALIDAD: A-D Input Otro Anexo
 function OtrosAnexosSelect() {
+
     $("#slctAnexoEjecucion").on('change', function () {
         var IdSelect = this.value;
         if (IdSelect == 8) {
@@ -87,6 +99,7 @@ function OtrosAnexosSelect() {
             $("#inpOtroAnexo").prop('required', false);
         }
     });
+
 }
 // #endregion
 
@@ -95,34 +108,40 @@ function OtrosAnexosSelect() {
 // #region FUNCIONALIDAD: LISTAR DATOS GENERALES
 
 function ListarDatosGenerales() {
+
     var slctJuzgado = $("#slctJuzgadoPorCircuito").val();
     var inpNoEjecucion = $("#inpNumeroEjecucion").val();
     var objParametros = { Juzgado: slctJuzgado, NoEjecucion: inpNoEjecucion };
     SolicitudEstandarGetAjax("/Promociones/ObtenerEjecucionPorJuzgado", objParametros, ConsumirMetodo_CrearPromocion);
+
 }
 
 function ConsumirMetodo_CrearPromocion(data) {
+
     if (data.Estatus == EstatusRespuesta.OK) {
         var Array = data.Data.ListaInformacion;
         var MensajeConfirmacion = "Se encontrarón coincidencias para el número de ejecución " + "<b>" + Array[0].NumeroEjecucion + "</b>" + " perteneciente al " + "<b>" + Array[0].NombreJuzgado + "</b>";
         var Funcion_MensajeOK = function () {
             Resultados_OK();
             MostrarFormulario();
-            $("#NumeroEjecucion").val(Array[0].NumeroEjecucion);
-            $("#NombreJuzgado").val(Array[0].NombreJuzgado);
-            $("#DecSolicitante").val(Array[0].DescripcionSolicitante);
-            $("#NombreBeneficiario").val(Array[0].NombreBeneficiario + " " + Array[0].ApellidoPBeneficiario + " " + Array[0].ApellidoMBeneficiario);
-            $("#DecSolicitud").val(Array[0].DescripcionSolicitud);
+            $("#NumeroEjecucion").html(Array[0].NumeroEjecucion);
+            $("#NombreJuzgado").html(Array[0].NombreJuzgado);
+            $("#DecSolicitante").html(Array[0].DescripcionSolicitante);
+            $("#NombreBeneficiario").html(Array[0].NombreBeneficiario + " " + Array[0].ApellidoPBeneficiario + " " + Array[0].ApellidoMBeneficiario);
+            $("#DecSolicitud").html(Array[0].DescripcionSolicitud);
             var idEjecucion = (Array[0].IdEjecucion);
             ConsumirMetodo_ObtenerExpedientesPorEjecucion(idEjecucion);
             var IdEjecucionAnexo = Array[0].IdEjecucion;
-            /*Guarda datos en el LocalStorage*/
-            return sessionStorage.setItem("IdEjecucionAnexo", IdEjecucionAnexo);
+            AlmacenarIdEjecucion(IdEjecucionAnexo);
+
         }
         MensajeNotificacionOK(MensajeConfirmacion, "", Funcion_MensajeOK);
     } else if (data.Estatus == EstatusRespuesta.ERROR) {
+
         alert(data.Mensaje);
+
     } else if (data.Estatus == EstatusRespuesta.SIN_RESPUESTA) {
+
         var MensajeNoResult = "" + data.Mensaje + " para el numero de ejecución solicitado.";
         var Funcion_MensajeNoResult = function () {
             // Nothing
@@ -136,27 +155,34 @@ function ConsumirMetodo_CrearPromocion(data) {
 // #region FUNCIONALIDAD: LISTAR CASUAS RELACIONADAS A DATOS GENERALES
 
 function ConsumirMetodo_ObtenerExpedientesPorEjecucion(idEjecucion) {
+
     var ObjParametros = { idEjecucion: idEjecucion };
     SolicitudEstandarGetAjax("/Promociones/ObtenerExpedientesPorEjecucion", ObjParametros, ListarCausas);
+
 }
 
 function ListarCausas(data) {
     if (data.Estatus = EstatusRespuesta.OK) {
+
         var ArrayCausas = data.Data.ObtenerEPE;
-        var Objct_TablaCausas = new Object();
-        Objct_TablaCausas._NombreJuzgado = ArrayCausas[0].NombreJuzgado;
-        Objct_TablaCausas._NumeroCausa = ArrayCausas[0].NumeroCausa;
-        Objct_TablaCausas._Nuc = ArrayCausas[0].NUC;
-        Objct_TablaCausas._Ofendidos = ArrayCausas[0].Ofendidos;
-        Objct_TablaCausas._Inculpados = ArrayCausas[0].Inculpados;
-        Objct_TablaCausas._Delitos = ArrayCausas[0].Delitos;
-        Arreglo_TablaCausas.push(Objct_TablaCausas);
+        Arreglo_TablaCausas = []
+        for (var index = 0; index < ArrayCausas.length; index++) {
+            var Objct_TablaCausas = new Object();
+            Objct_TablaCausas._NombreJuzgado = ArrayCausas[index].NombreJuzgado;
+            Objct_TablaCausas._NumeroCausa = ArrayCausas[index].NumeroCausa;
+            Objct_TablaCausas._Nuc = ArrayCausas[index].NUC;
+            Objct_TablaCausas._Ofendidos = ArrayCausas[index].Ofendidos;
+            Objct_TablaCausas._Inculpados = ArrayCausas[index].Inculpados;
+            Objct_TablaCausas._Delitos = ArrayCausas[index].Delitos;
+            Arreglo_TablaCausas.push(Objct_TablaCausas);
+        }
         TablaCausas = Consumir_DataTable(TablaCausas, "_TablaCausasEjecucion", Arreglo_TablaCausas, EstructuraTabla_Causas, false, false, false);
     } else if (data.Estatus == EstatusRespuesta.ERROR) {
         alert("Hay un error de comunicación");
     } else if (data.Estatus == EstatusRespuesta.SIN_RESPUESTA) {
         alert("Sin respuesta");
     }
+
 }
 // #endregion
 
@@ -216,7 +242,8 @@ function GuardarAnexos() {
 
     intentos = intentos + 1;
 
-    //alert("Id de ejecucion "+ IdAnexoEjecucion);
+    /* Recupera datos del LocalStore */
+    var IdAnexoEjecucion = sessionStorage.getItem("IdEjecucionAnexo");
 
     var objetoparametro = {
         IdEjecucion: IdAnexoEjecucion,
@@ -225,17 +252,15 @@ function GuardarAnexos() {
         Cantidad: $("#inpCantidadAnexos").val(),
         Anexos: Arreglo_TablaAnexos
     }
-
-    SolicitudEstandarPostAjax("/Promociones/GuardarAnexosPostEjecucion", objetoparametro, RederizarDetalleSuccess,  RederizarDetalleError);
+    SolicitudEstandarPostAjax("/Promociones/GuardarAnexosPostEjecucion", objetoparametro, RederizarDetalleSuccess, RederizarDetalleError);
 }
 
-    $("#btnGuardarAnexos").click(function (e) {
+$("#btnGuardarAnexos").click(function (e) {
 
-        e.preventDefault();
+    e.preventDefault();
+    GuardarAnexos();
 
-        GuardarAnexos();
-
-    });   
+});
 
 // #endregion
 
@@ -247,23 +272,22 @@ var EstatusRespuesta = { SIN_RESPUESTA: 0, OK: 1, ERROR: 2 };
 
 // #region VARIABLES GLOBALES
 var intentos = 0;
-
-/*Obtener dato almacenados de IdEjecucion*/
-var IdEjecucionAnexo = null;
-var IdAnexoEjecucion = sessionStorage.getItem("IdEjecucionAnexo");
-
-
 // #endregion
+
+/*Guarda datos en el LocalStorage*/
+function AlmacenarIdEjecucion(IdEjecucionAnexo) {
+    sessionStorage.setItem("IdEjecucionAnexo", IdEjecucionAnexo);
+}
 
 // #region ESTRUCTURAS: DataTable
 
 var EstructuraTabla_Causas = [
-    { data: '_NombreJuzgado', title: '<span class="danger">JUZGADO</span>', className: "text-justify" },
-    { data: '_NumeroCausa', title: 'CAUSA', className: "text-justify" },
-    { data: '_Nuc', title: 'NUC', className: "text-justify" },
+    { data: '_NombreJuzgado', title: 'JUZGADO', className: "text-justity" },
+    { data: '_NumeroCausa', title: 'CAUSA', className: "text-justity" },
+    { data: '_Nuc', title: 'NUC', className: "text-justity" },
     { data: '_Ofendidos', title: 'OFENDIDOS (S)', className: "text-justity" },
-    { data: '_Inculpados', title: 'INCULPADO (S)', className: "text-justify" },
-    { data: '_Delitos', title: 'DELITO (S)', className: "text-justify" }];
+    { data: '_Inculpados', title: 'INCULPADO (S)', className: "text-justity" },
+    { data: '_Delitos', title: 'DELITO (S)', className: "text-justity" }];
 
 var Arreglo_TablaCausas = [];
 
@@ -514,16 +538,8 @@ function Quitar_Anexos(Id_ItemTabla) {
         if (Id_ItemTabla == Arreglo_TablaAnexos[index].IdAnexo) {
             var MensajeQuitar = "Se removera el anexo " + "<b>" + ArregloTabla[index].Descripcion + "</b>" + " con: " + "<b>" + ArregloTabla[index].Cantidad + "</b>" + " copia (s) asignada (s). ¿Desea continuar? ";
         }
-    }     
+    }
     MensajeNotificacionOK(MensajeQuitar, "default", FuncionQuitar);
-}
-
-
-function EvaluarArregloTablaAnexos() {
-    var ArregloTablaEvaluar = Arreglo_TablaAnexos;
-
-
-
 }
 
 // #endregion
@@ -532,12 +548,11 @@ function EvaluarArregloTablaAnexos() {
 
 function LimpiarElementosFirefox() {
 
-
-
 }
 
 // #endregion
 
+// #region FUNCIÓN: Renderizar detalle Error
 function RederizarDetalleError(data) {
 
     var MensajeData = data.Mensaje;
@@ -545,24 +560,24 @@ function RederizarDetalleError(data) {
     $("#loading").fadeOut();
 
     if (intentos > 2) {
-        var mensaje = "<b>"+"SISTEMA: "+"</b>" + MensajeData + ". <br><br>Numero de Intentos Ejecutados: " + "<b class='text-danger'>"+intentos + "</b>" + "<br><br><b class='text-danger'>Ha superado el numero maximo de intentos, vuelva intentarlo mas tarde o consulte a soporte</b";
+        var mensaje = "<b>" + "SISTEMA: " + "</b>" + MensajeData + ". <br><br>Numero de Intentos Ejecutados: " + "<b class='text-danger'>" + intentos + "</b>" + "<br><br><b class='text-danger'>Ha superado el numero maximo de intentos, vuelva intentarlo mas tarde o consulte a soporte</b";
         intentos = 0;
         Alerta(mensaje, "");
     }
     else {
-        var mensaje = "<b>"+"SISTEMA: "+"</b>" + MensajeData + ", de click en " + "<b class='text-success'>" + "Reintentar " + "</b>" +" para ejecutar nuevamente.<br><br>Numero de Intentos Actuales: " + "<b>" + intentos + "</b>";
+        var mensaje = "<b>" + "SISTEMA: " + "</b>" + MensajeData + ", de click en " + "<b class='text-success'>" + "Reintentar " + "</b>" + " para ejecutar nuevamente.<br><br>Numero de Intentos Actuales: " + "<b>" + intentos + "</b>";
         reintento = true;
         MensajeDeConfirmacion(mensaje, "", GuardarAnexos, null, titulo = "<i class='icon-warning text-warning'></i> Error no controlado por el sistema");
     }
 }
+// #endregion
 
+// #region FUNCIÓN: Renderizar Detalle Success
 function RederizarDetalleSuccess(data) {
-
     var MensajeData = data.Mensaje;
 
     if (data.Estatus == EstatusRespuesta.OK) {
         var url = data.Data.Url;
-
         /* Redirecciona a la vista detalle */
         document.location.href = url;
     }
@@ -586,7 +601,9 @@ function RederizarDetalleSuccess(data) {
         }
     }
 }
+//#endregion 
 
+// #region FUNCIÓN: Mensaje de Confirmación
 function MensajeDeConfirmacion(mensaje, tamanio, funcion, funcionCancelar = null, titulo = null) {
 
     titulo = titulo == null ? "Confirmación" : titulo;
@@ -617,6 +634,9 @@ function MensajeDeConfirmacion(mensaje, tamanio, funcion, funcionCancelar = null
         size: tamanio
     });
 }
+//#endregion 
+
+// #region FUNCIÓN: Mensaje Alerta
 
 function Alerta(mensaje, tamanio = null, titulo = null) {
 
@@ -636,3 +656,6 @@ function Alerta(mensaje, tamanio = null, titulo = null) {
         size: tamanio
     });
 }
+
+//#endregion 
+
