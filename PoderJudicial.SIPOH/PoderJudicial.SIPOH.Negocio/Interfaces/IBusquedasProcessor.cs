@@ -14,10 +14,10 @@ namespace PoderJudicial.SIPOH.Negocio.Interfaces
         string Mensaje { get; set; }
         List<Ejecucion>ObtenerEjecucionPorPartesCausa(string nombre, string apellidoPaterno, string apellidoMaterno, int idCircuito);
         List<Ejecucion> ObtenerEjecucionSentenciadoBeneficiario(string nombre,string apellidoPaterno, string apellidoMaterno, int idCircuito);
-        List<Ejecucion> ObtenerEjecucionPorNumeroCausa(string numeroCausa, int idJuzgado, int idCircuito);
+        List<Ejecucion> ObtenerEjecucionPorNumeroCausa(string numeroCausa, int idJuzgado);
         List<Ejecucion> ObtenerEjecucionPorNUC(string nuc, int idJuzgado);
-        List<Ejecucion> ObtenerEjecucionPorDetalleSolicitante(string detalleSolicitante);
-        List<Ejecucion> ObtenerEjecucionPorSolicitante(int  idSolicitante);
+        List<Ejecucion> ObtenerEjecucionPorDetalleSolicitante(string detalleSolicitante, int idCircuito);
+        List<Ejecucion> ObtenerEjecucionPorSolicitante(int  idSolicitante, int idCircuito);
         List<Distrito> ObtenerDistritoPorCircuito(int idCircuito);
         List<Juzgado> ObtenerJuzgadosAcusatoriosPorCircuito(int idCircuito);
         List<Juzgado> ObtenerJuzgadosPorDistritos(int idDistrito);

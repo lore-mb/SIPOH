@@ -42,9 +42,9 @@ namespace PoderJudicial.SIPOH.Negocio
         /// </summary>
         /// <param name="detalleSolicitante"></param>
         /// <returns></returns>
-        public List<Ejecucion>ObtenerEjecucionPorDetalleSolicitante(string detalleSolicitante)
+        public List<Ejecucion>ObtenerEjecucionPorDetalleSolicitante(string detalleSolicitante, int idCircuito)
         {
-            List<Ejecucion> DetalleSolicitante = ejecucionRepositorio.ObtenerEjecucionPorDetalleSolicitante(detalleSolicitante);
+            List<Ejecucion> DetalleSolicitante = ejecucionRepositorio.ObtenerEjecucionPorDetalleSolicitante(detalleSolicitante, idCircuito);
            
             if (ejecucionRepositorio.Estatus == Estatus.SIN_RESULTADO)
             {
@@ -114,9 +114,9 @@ namespace PoderJudicial.SIPOH.Negocio
         /// </summary>
         /// <param name="idSolicitante"></param>
         /// <returns></returns>
-        public List<Ejecucion> ObtenerEjecucionPorSolicitante(int idSolicitante)
+        public List<Ejecucion> ObtenerEjecucionPorSolicitante(int idSolicitante, int idCircuito)
         {
-            List<Ejecucion> Solicitante = ejecucionRepositorio.ObtenerEjecucionPorSolicitante(idSolicitante);
+            List<Ejecucion> Solicitante = ejecucionRepositorio.ObtenerEjecucionPorSolicitante(idSolicitante, idCircuito);
             
             if(ejecucionRepositorio.Estatus== Estatus.SIN_RESULTADO)
             {
@@ -167,9 +167,9 @@ namespace PoderJudicial.SIPOH.Negocio
         /// <param name="numeroCausa"></param>
         /// <param name="idJuzgado"></param>
         /// <returns></returns>
-        public List<Ejecucion> ObtenerEjecucionPorNumeroCausa(string numeroCausa, int idJuzgado, int idCircuito)
+        public List<Ejecucion> ObtenerEjecucionPorNumeroCausa(string numeroCausa, int idJuzgado)
         {
-            List<Ejecucion> numCausa = ejecucionRepositorio.ObtenerEjecucionPorNumeroCausa(numeroCausa ,idJuzgado, idCircuito);
+            List<Ejecucion> numCausa = ejecucionRepositorio.ObtenerEjecucionPorNumeroCausa(numeroCausa ,idJuzgado);
           
             if (ejecucionRepositorio.Estatus == Estatus.ERROR)
             {

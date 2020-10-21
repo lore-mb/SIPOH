@@ -215,12 +215,12 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult CrearEjecucion(EjecucionModelView modelo) 
+        public ActionResult CrearEjecucion(DetalleEjecucionModelView modelo) 
         {
             try
             {
                 //Se mapea la informacion a Ejecucion
-                Ejecucion ejecucion = mapper.Map<EjecucionModelView, Ejecucion>(modelo);
+                Ejecucion ejecucion = mapper.Map<DetalleEjecucionModelView, Ejecucion>(modelo);
             
                 //Id del usuario logeado
                 ejecucion.IdUsuario = Usuario.Id;
@@ -268,7 +268,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             try
             {
                 //Creacion del modelo que se enviara a la vista
-                EjecucionModelView modelo = new EjecucionModelView();
+                DetalleEjecucionModelView modelo = new DetalleEjecucionModelView();
 
                 //Objetos para pasar como referencia
                 Ejecucion inicial = new Ejecucion();
@@ -283,7 +283,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
 
                 if (inicial != null)
                 {
-                    modelo = mapper.Map<Ejecucion, EjecucionModelView>(inicial);
+                    modelo = mapper.Map<Ejecucion, DetalleEjecucionModelView>(inicial);
                     modelo.Causas = mapper.Map<List<Expediente>, List<CausasModelView>>(causas);
                     modelo.Tocas = mapper.Map<List<Expediente>, List<TocasModelView>>(tocas);
                     modelo.Amparos = amparos == null ? new List<string>() : amparos;

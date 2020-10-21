@@ -5,7 +5,7 @@ using System.Web;
 
 namespace PoderJudicial.SIPOH.WebApp.Models
 {
-    public class EjecucionModelView
+    public class DetalleEjecucionModelView
     {
         public int IdEjecucion { set; get; }
         public int IdJuzgado { set; get; }
@@ -28,8 +28,7 @@ namespace PoderJudicial.SIPOH.WebApp.Models
         public List<TocasModelView> Tocas { set; get; }
         public List<string> Amparos { set; get; }
         public List<AnexosModelView> Anexos {set; get;}
-
-        public EjecucionModelView() 
+        public DetalleEjecucionModelView() 
         {
             Causas = new List<CausasModelView>();
             Tocas = new List<TocasModelView>();
