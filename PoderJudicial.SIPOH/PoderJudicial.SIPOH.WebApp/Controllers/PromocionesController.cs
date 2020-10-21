@@ -193,8 +193,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                     ModeloEjecucion = mapper.Map<Ejecucion, DetalleEjecucionModelView>(ejecucion);
                     ModeloEjecucion.Anexos = mapper.Map<List<Anexo>, List<AnexosModelView>>(anexos);
                 }
-
-                
+              
                 ViewBag.Ejecucion = ListRelacionadas.Contains(Relacionadas.EJECUCION);
                 ViewBag.Anexos = ListRelacionadas.Contains(Relacionadas.ANEXOS);
                 ViewBag.RespuestaMetodo = RespuestaMetodo;
