@@ -170,7 +170,7 @@
     <Compile Include="Models\BeneficiarioDTO.cs" />
     <Compile Include="Models\CausasModelView.cs" />
     <Compile Include="Models\EjecucionDTO.cs" />
-    <Compile Include="Models\EjecucionModelView.cs" />
+    <Compile Include="Models\DetalleEjecucionModelView.cs" />
     <Compile Include="Models\ExpedienteDTO.cs" />
     <Compile Include="Models\LogedUserModelView.cs" />
     <Compile Include="Models\LogInModelView.cs" />

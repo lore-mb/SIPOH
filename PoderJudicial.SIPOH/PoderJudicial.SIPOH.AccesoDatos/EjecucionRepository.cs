@@ -31,12 +31,12 @@ namespace PoderJudicial.SIPOH.AccesoDatos
 
         #region Metodos Publicos
         /// <summary>
-        /// Metodo que retorna una lista de sentenciados beneficiarios por medio del nombre
+        /// Metodo que genera una lista de tipo Ejecucion por medio del nombre del sentenciado beneficiario y es retornado al proceso
         /// </summary>
         /// <param name="nombre">Nombre de la Persona Beneficiario</param>
         /// <param name="apellidoPaterno">Apellido Paterno de la persona beneficiaria</param>
         /// <param name="apellidoMaterno">Apeliido Materno de la personas beneficiaria</param>
-        /// <returns></returns>
+        /// <returns>Lista tipo ejecucion</returns>
         public List<Ejecucion> ObtenerSentenciadoBeneficiario(string nombre, string apellidoPaterno, string apellidoMaterno, int idCircuito)
         {
             try
@@ -84,7 +84,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
         /// Crea un registro de ejecucion
         /// </summary>
         /// <param name="ejecucion">Parametro de tipo Ejecucion</param>
-        /// <param name="circuitoPachuca">Parametro booleano para determinar si se uusara la validacion de asignacion de juzgados de ejecucion CTO PACHUCA</param>
+        /// <param name="circuitoPachuca">Parametro booleano para determinar si se usara la validacion de asignacion de juzgados de ejecucion CTO PACHUCA</param>
         /// <param name="idJuzgado">Id del juzgado a asignar</param>
         /// <returns></returns>
         public int? CrearEjecucion(Ejecucion ejecucion, List<int> causas, List<Expediente> tocas, List<string> amparos, List<Anexo> anexos, int? idJuzgado, bool circuitoPachuca)
@@ -157,7 +157,13 @@ namespace PoderJudicial.SIPOH.AccesoDatos
             }
         }
 
-        public List<Ejecucion> ObtenerEjecucionPorJuzgado(int IdJuzgado, string NumeroEjecucion)
+        /// <summary>
+        /// Genera y retorna una lista de tipo Ejecucion consultados por medio del idJuzgado y numero de ejecucion que recibe en los paremetros
+        /// </summary>
+        /// <param name="idJuzgado">Id del Juzgado asigando a la ejecucion</param>
+        /// <param name="numeroEjecucion">Numero de ejecucion</param>
+        /// <returns></returns>
+        public List<Ejecucion> ObtenerEjecucionPorJuzgado(int idJuzgado, string numeroEjecucion)
         {
             try
             {
@@ -166,8 +172,8 @@ namespace PoderJudicial.SIPOH.AccesoDatos
 
                 SqlCommand comando = new SqlCommand("sipoh_ConsultarEjecucionPorJuzgado", Cnx);
                 comando.CommandType = CommandType.StoredProcedure;
-                comando.Parameters.Add("@Juzgado", SqlDbType.Int).Value = IdJuzgado;
-                comando.Parameters.Add("@NoEjecucion", SqlDbType.VarChar).Value = NumeroEjecucion;
+                comando.Parameters.Add("@Juzgado", SqlDbType.Int).Value = idJuzgado;
+                comando.Parameters.Add("@NoEjecucion", SqlDbType.VarChar).Value = numeroEjecucion;
                 Cnx.Open();
 
                 SqlDataReader sqldataReader = comando.ExecuteReader();
@@ -199,6 +205,11 @@ namespace PoderJudicial.SIPOH.AccesoDatos
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="folio"></param>
+        /// <returns></returns>
         public Ejecucion ObtenerEjecucionPorFolio(int folio)
         {
             try
@@ -242,6 +253,11 @@ namespace PoderJudicial.SIPOH.AccesoDatos
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="folio"></param>
+        /// <returns></returns>
         public Ejecucion ObtenerEjecucionPromocionPorFolio(int folio)
         {
             try
@@ -341,7 +357,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
         /// <param name="numeroCausa"></param>
         /// <param name="idJuzgado"></param>
         /// <returns></returns>
-        public List<Ejecucion> ObtenerEjecucionPorNumeroCausa(string numeroCausa, int idJuzgado, int idCircuito)
+        public List<Ejecucion> ObtenerEjecucionPorNumeroCausa(string numeroCausa, int idJuzgado)
         {
             try
             {
@@ -352,7 +368,6 @@ namespace PoderJudicial.SIPOH.AccesoDatos
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("@numeroCausa", SqlDbType.VarChar).Value = numeroCausa;
                 comando.Parameters.Add("@idJuzgado", SqlDbType.Int).Value = idJuzgado;
-                comando.Parameters.Add("@idCircuito", SqlDbType.Int).Value = idCircuito;
 
                 Cnx.Open();
 
@@ -394,15 +409,17 @@ namespace PoderJudicial.SIPOH.AccesoDatos
         /// </summary>
         /// <param name="detalleSolicitante"></param>
         /// <returns></returns>
-        public List<Ejecucion> ObtenerEjecucionPorDetalleSolicitante(string detalleSolicitante)
+        public List<Ejecucion> ObtenerEjecucionPorDetalleSolicitante(string detalleSolicitante, int idCircuito)
         {
             try
             {
                 if (!IsValidConnection)
                     throw new Exception("No se ha creado una conexion válida");
+
                 SqlCommand comando = new SqlCommand("sipoh_ConsultarEjecucionPorDetalleSolicitante", Cnx);
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("@detalleSolicitante", SqlDbType.VarChar).Value = detalleSolicitante;
+                comando.Parameters.Add("@idCircuito", SqlDbType.Int).Value = idCircuito;
 
                 Cnx.Open();
 
@@ -492,7 +509,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
         /// </summary>
         /// <param name="idSolicitante"></param>
         /// <returns></returns>
-        public List<Ejecucion> ObtenerEjecucionPorSolicitante(int idSolicitante)
+        public List<Ejecucion> ObtenerEjecucionPorSolicitante(int idSolicitante, int idCircuito)
         {
             try
             {
@@ -501,7 +518,8 @@ namespace PoderJudicial.SIPOH.AccesoDatos
 
                 SqlCommand comando = new SqlCommand("sipoh_ConsultarEjecucionPorSolicitante", Cnx);
                 comando.CommandType = CommandType.StoredProcedure;
-                comando.Parameters.Add("idSolicitante", SqlDbType.Int).Value = idSolicitante;
+                comando.Parameters.Add("@idSolicitante", SqlDbType.Int).Value = idSolicitante;
+                comando.Parameters.Add("@idCircuito", SqlDbType.Int).Value = idCircuito;
 
                 Cnx.Open();
 
@@ -535,21 +553,26 @@ namespace PoderJudicial.SIPOH.AccesoDatos
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="postEjecucion"></param>
+        /// <param name="anexos"></param>
+        /// <returns></returns>
+
         public int? GuardarPostEjecucion(PostEjecucion postEjecucion, List<Anexo> anexos)
         {
             try
             {
                 if (!IsValidConnection)
                     throw new Exception("No se ha creado una conexion valida");
-
-                
+              
                 SqlCommand comandoSQL = new SqlCommand("sipoh_GenerarAnexosPromociones", Cnx);
                 comandoSQL.CommandType = CommandType.StoredProcedure;
                 comandoSQL.Parameters.Add("@IdEjecucion", SqlDbType.Int).Value = postEjecucion.IdEjecucion;
                 comandoSQL.Parameters.Add("@Promovente", SqlDbType.VarChar).Value = postEjecucion.Promovente;
                 comandoSQL.Parameters.Add("@IdUsuario", SqlDbType.Int).Value = postEjecucion.IdUser;
                 comandoSQL.Parameters.Add("@IdEjecucionPosterior", SqlDbType.Int).Value = postEjecucion.IdEjecucionPosterior;
-
 
                 SqlParameter parametroAnexos = new SqlParameter();
                 parametroAnexos.ParameterName = "@AnexosPromociones";
@@ -652,7 +675,6 @@ namespace PoderJudicial.SIPOH.AccesoDatos
 
     }
 }
-
     #endregion
 
 

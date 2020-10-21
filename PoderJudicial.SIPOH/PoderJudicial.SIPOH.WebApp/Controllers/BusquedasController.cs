@@ -27,6 +27,10 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         }
 
         #region Metodos Publicos 
+        /// <summary>
+        /// Metodo del controlador que retorna la vista a rederizar para el modulo de Busquedas
+        /// </summary>
+        /// <returns>Vista BusquedaNumeroEjecucion</returns>
         public ActionResult BusquedaNumeroEjecucion()
         {
             //metodo que retorna la lista de distritos
@@ -42,12 +46,12 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         }
 
         /// <summary>
-        /// Metodo del controlador para obtener los registros de ejecucion por media de una parte de la causa relacionada
+        /// Metodo del controlador para obtener los registros de ejecucion por medio de una parte de la causa relacionada
         /// </summary>
         /// <param name="nombre">Nombre de la parte</param>
         /// <param name="apellidoPaterno">Apellido paterno de la parte</param>
         /// <param name="apellidoMaterno">Apellido materno de la parte</param>
-        /// <returns></returns>
+        /// <returns>JSON</returns>
         [HttpGet]
         public ActionResult BusquedaPorPartesCausa(string nombre, string apellidoPaterno, string apellidoMaterno)
         {
@@ -98,7 +102,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         /// <param name="nombre">Nombre del beneficiario</param>
         /// <param name="apellidoPaterno">Apellido paterno del beneficiario</param>
         /// <param name="apellidoMaterno">Apellido materno del beneficiario</param>
-        /// <returns></returns>
+        /// <returns>JSON</returns>
         [HttpGet]
         public ActionResult BusquedaPorBeneficiario(string nombre, string apellidoPaterno, string apellidoMaterno)
         {
@@ -150,13 +154,13 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         /// </summary>
         /// <param name="numCausa">Numero de Causa relacionada a la ejecucion</param>
         /// <param name="idJuzgado">Id del juzgado de la Causa relacionada a la ejecucion</param>
-        /// <returns></returns>
+        /// <returns>JSON</returns>
         [HttpGet]
         public ActionResult BusquedaPorNumeroCausa(string numCausa, int idJuzgado)
         {
             try
             {
-                List<Ejecucion> numerosDeEjecucion = busquedaProcessor.ObtenerEjecucionPorNumeroCausa(numCausa, idJuzgado, Usuario.IdCircuito);
+                List<Ejecucion> numerosDeEjecucion = busquedaProcessor.ObtenerEjecucionPorNumeroCausa(numCausa, idJuzgado);
 
                 if (numerosDeEjecucion == null)
                 {
@@ -199,7 +203,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         /// </summary>
         /// <param name="NUC">NUC de la causa relacionada a la ejecucion</param>
         /// <param name="idJuzgado"></param>
-        /// <returns></returns>
+        /// <returns>JSON</returns>
         [HttpGet]
         public ActionResult BusquedaPorNUC(string nuc, int idJuzgado)
         {
@@ -244,62 +248,77 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         }
 
         /// <summary>
-        /// Validacion de respuesta a consulta por Solictante
+        /// Metodo del controlador para obtener los registros de ejecucion por medio del solicitante de ejecucion
         /// </summary>
-        /// <param name="idSolicitante"></param>
+        /// <param name="idSolicitante">Id del solicitante de la ejecución</param>
         /// <returns></returns>
         [HttpGet]
         public ActionResult BusquedaPorSolicitante(int idSolicitante)
         {
-            List<Ejecucion> busquedaSolicitante = busquedaProcessor.ObtenerEjecucionPorSolicitante(idSolicitante);
-
-            if (busquedaSolicitante == null)
+            try
             {
-                Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
-                Respuesta.Data = null;
-            }
-            else
-            {
-                if (busquedaSolicitante.Count > 0)
+                List<Ejecucion> numerosDeEjecucion = busquedaProcessor.ObtenerEjecucionPorSolicitante(idSolicitante, Usuario.IdCircuito);
+ 
+                if (numerosDeEjecucion == null)
                 {
-                    Respuesta.Estatus = EstatusRespuestaJSON.OK;
-                    Respuesta.Data = new { busquedaNumerosEjecucion=busquedaSolicitante };
+                   Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
+                   Respuesta.Data = null;
                 }
                 else
                 {
-                    Respuesta.Estatus = EstatusRespuestaJSON.SIN_RESPUESTA;
-                    Respuesta.Data = new object();
+                   List<EjecucionDTO> numerosDeEjecucionDTO = mapper.Map<List<Ejecucion>, List<EjecucionDTO>>(numerosDeEjecucion);
+
+                   if (numerosDeEjecucionDTO.Count > 0)
+                   {
+                      Respuesta.Estatus = EstatusRespuestaJSON.OK;
+                      Respuesta.Data = new { busquedaNumerosEjecucion = numerosDeEjecucionDTO };
+                   }
+                   else
+                   {
+                      Respuesta.Estatus = EstatusRespuestaJSON.SIN_RESPUESTA;
+                      Respuesta.Data = new object();
+                   }
                 }
+
+                Respuesta.Mensaje = busquedaProcessor.Mensaje;
+
+                Thread.Sleep(500);
+                return Json(Respuesta, JsonRequestBehavior.AllowGet);
             }
-
-            Respuesta.Mensaje = busquedaProcessor.Mensaje;
-
-            Thread.Sleep(500);
-            return Json(Respuesta, JsonRequestBehavior.AllowGet);
+            catch (Exception ex)
+            {
+                Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
+                Respuesta.Mensaje = ex.Message;
+                Respuesta.Data = null;
+                return Json(Respuesta, JsonRequestBehavior.AllowGet);
+            }
         }
 
         /// <summary>
-        /// Validacion de respuesta a consulta  por DEtalle del solicitante
+        /// Metodo del controlador para obtener los registros de ejecucion por medio del detalle del solicitante
         /// </summary>
-        /// <param name="detalleSolicitante"></param>
+        /// <param name="detalleSolicitante">Detalle del solicitante</param>
         /// <returns></returns>
         [HttpGet]
         public ActionResult BusquedaPorDetalleSolicitante(string detalleSolicitante) 
         {
             try
             {
-                List<Ejecucion> busquedaDetalleSolicitante = busquedaProcessor.ObtenerEjecucionPorDetalleSolicitante(detalleSolicitante);
-                if (busquedaDetalleSolicitante == null)
+                List<Ejecucion> numerosDeEjecucion = busquedaProcessor.ObtenerEjecucionPorDetalleSolicitante(detalleSolicitante, Usuario.IdCircuito);
+                
+                if (numerosDeEjecucion == null)
                 {
                     Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
                     Respuesta.Data = null;
                 }
                 else
                 {
-                    if (busquedaDetalleSolicitante.Count > 0)
+                    List<EjecucionDTO> numerosDeEjecucionDTO = mapper.Map<List<Ejecucion>, List<EjecucionDTO>>(numerosDeEjecucion);
+
+                    if (numerosDeEjecucionDTO.Count > 0)
                     {
                         Respuesta.Estatus = EstatusRespuestaJSON.OK;
-                        Respuesta.Data = new { busquedaNumerosEjecucion=busquedaDetalleSolicitante };
+                        Respuesta.Data = new { busquedaNumerosEjecucion = numerosDeEjecucionDTO };
                     }
                     else
                     {
@@ -322,6 +341,11 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             }
         }
 
+        /// <summary>
+        /// Metodo del controlador que obtiene los juzgados por medio del distrito seleccionado y genera una lista de tipo Opcion
+        /// </summary>
+        /// <param name="idDistrito">Id del distrito seleccionado</param>
+        /// <returns>JSON</returns>
         [HttpGet]
         public ActionResult ObtenerJuzgadosPorDistrito(int idDistrito) 
         {
@@ -351,6 +375,11 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             return Json(Respuesta, JsonRequestBehavior.AllowGet);
         }
        
+        /// <summary>
+        /// Metodo que retorna una lista de causas relacionadas a la ejecucion por medio del id de ejecucion ingresado
+        /// </summary>
+        /// <param name="idEjecucion">Id de la ejecucion</param>
+        /// <returns>JSON</returns>
         [HttpGet]
         public ActionResult ObtenerCausasRelacionadasEjecucion(int idEjecucion) 
         {

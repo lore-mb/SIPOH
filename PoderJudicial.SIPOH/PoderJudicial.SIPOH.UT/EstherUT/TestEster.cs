@@ -82,7 +82,7 @@ namespace PoderJudicial.SIPOH.UT.EstherUT
 
             string nuc="13-2017-001300";
             int idJuzgado = 204;
-            List<Ejecucion> ListaNUC = PruebaEjecucionBusqueda.ObtenerEjecucionPorNUC(nuc,idJuzgado);
+            List<Ejecucion> ListaNUC = PruebaEjecucionBusqueda.ObtenerEjecucionPorNUC(nuc,idJuzgado, 2);
 
             string mensaje = "null";
             int solicitante = 34;
