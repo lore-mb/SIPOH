@@ -45,7 +45,7 @@ namespace PoderJudicial.SIPOH.UT.IgmaUT
 
             PostEjecucion RepositorioPostEjecucion;
             RepositorioPostEjecucion = new PostEjecucion();
-            RepositorioPostEjecucion.IdEjecucion = 78;
+            RepositorioPostEjecucion.IdEjecucion = 196;
             RepositorioPostEjecucion.Promovente = "Lic. PROMO 21";
             RepositorioPostEjecucion.IdUser = 1;
             RepositorioPostEjecucion.IdEjecucionPosterior = 0;
@@ -61,18 +61,24 @@ namespace PoderJudicial.SIPOH.UT.IgmaUT
         // ** Consulta Registro ** //
 
         [TestMethod]
-        public void ConsultarEjecucion ()
+        public void ConsultarEjecucion()
         {
             EjecucionRepository new1 = new EjecucionRepository(Cnx);
             Ejecucion ejecucion = new1.ObtenerEjecucionPorFolio(306);
         }
 
         [TestMethod]
-        public void ConsultarAnexos() {
+
+        public void ConsultarAnexosPorEjecucion() {
+            CatalogosRepository catalogosRepository = new CatalogosRepository(Cnx);
+            //List<Anexo> anexos = catalogosRepository.ObtenerAnexosEjecucion(54);
+        }
+
+        [TestMethod]
+        public void AnexosPorPost() {
+
             CatalogosRepository catalogos = new CatalogosRepository(Cnx);
-
-            List<Anexo> anexo = catalogos.ObtenerAnexosPorEjecucion(89); 
-
+            List<Anexo> anexos = catalogos.ConsultarAnexosPorEjecucionPosterior(285);
         }
 
     }

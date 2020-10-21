@@ -12,8 +12,8 @@
                 <div class="align-items-center">
                     <div class="col">
                         @*<h6 class="page-pretitle">
-                                <i class="icon-filter"></i> Filtro de busqueda:
-                            </h6>*@
+                    <i class="icon-filter"></i> Filtro de busqueda:
+                </h6>*@
                         <form class="needs-validation" id="FrmCausaEjecucion" novalidate>
                             <div class="form-row">
                                 <div class="col-md-8 form-group">
@@ -99,22 +99,57 @@
                     <!-- #endregion -->
                 </div>
                 <div class="separator-solid"></div>
+                @*<h2 class="text-divider"><span>Promovente</span></h2>*@
                 <form class="needs-validation" id="Frm_Anexos" novalidate>
-                    <div class="col-md-5 form-group">
-                        <label for="validationCustom02">Promovente</label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroupPrepend">Nombre</span>
+                    <div class="form-row">
+                        <div class="col-md-4 form-group">
+                            <label for="validationCustom02">Promovente Nombre (s)</label>
+                            <div class="input-group">
+                                @*<div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroupPrepend">Nombre (S)</span>
+                        </div>*@
+                                <input type="text" class="form-control mr-2 clearanexo" id="inpNombrePromovente" placeholder="" required>
+                                <div class="invalid-feedback">
+                                    <i class="icon-cancel-circle"></i> Por favor, introdusca nombre de promovente.
+                                </div>
+                                <div class="valid-feedback">
+                                    <i class="icon-checkmark"></i> Nombre de promovente.
+                                </div>
                             </div>
-                            <input type="text" class="form-control mr-2 clearanexo" id="inpNombrePromovente" placeholder="" required>
-                            <div class="invalid-feedback">
-                                <i class="icon-cancel-circle"></i> Por favor, introdusca nombre de promovente.
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label for="validationCustom02">Apellido Paterno</label>
+                            <div class="input-group">
+                                @*<div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroupPrepend">Apellido Paterno</span>
+                        </div>*@
+                                <input type="text" class="form-control mr-2 clearanexo" id="inpPromoventeAP" placeholder="" required>
+                                <div class="invalid-feedback">
+                                    <i class="icon-cancel-circle"></i> Por favor, introdusca apellido paterno.
+                                </div>
+                                <div class="valid-feedback">
+                                    <i class="icon-checkmark"></i> Apellido Paterno.
+                                </div>
                             </div>
-                            <div class="valid-feedback">
-                                <i class="icon-checkmark"></i> Nombre de promovente.
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label for="validationCustom02">Apellido Materno</label>
+                            <div class="input-group">
+                                @*<div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroupPrepend">Nombre</span>
+                        </div>*@
+                                <input type="text" class="form-control mr-2 clearanexo" id="inpPromoventeMA" placeholder="" required>
+                                <div class="invalid-feedback">
+                                    <i class="icon-cancel-circle"></i> Por favor, introdusca apellido materno.
+                                </div>
+                                <div class="valid-feedback">
+                                    <i class="icon-checkmark"></i> Apellido Materno.
+                                </div>
                             </div>
                         </div>
                     </div>
+
+
                     <div class="separator-solid"></div>
                     <!--#region Formulario Agregar Anexos-->
                     <div class="form-row">

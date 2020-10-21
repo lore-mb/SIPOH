@@ -251,7 +251,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
 
                 SqlCommand comando = new SqlCommand("sipoh_ConsultarEjecucionPorEjecucionPosterior", Cnx);
                 comando.CommandType = CommandType.StoredProcedure;
-                comando.Parameters.Add("@folio", SqlDbType.Int).Value = folio;
+                comando.Parameters.Add("@IdEjecucionPosterior", SqlDbType.Int).Value = folio;
                 Cnx.Open();
 
                 SqlDataReader sqldataReader = comando.ExecuteReader();
@@ -541,15 +541,15 @@ namespace PoderJudicial.SIPOH.AccesoDatos
             {
                 if (!IsValidConnection)
                     throw new Exception("No se ha creado una conexion valida");
-
                 
-                SqlCommand comandoSQL = new SqlCommand("sipoh_GenerarAnexosPromociones", Cnx);
+                SqlCommand comandoSQL = new SqlCommand("sipoh_CrearEjecucionPosterior", Cnx);
                 comandoSQL.CommandType = CommandType.StoredProcedure;
                 comandoSQL.Parameters.Add("@IdEjecucion", SqlDbType.Int).Value = postEjecucion.IdEjecucion;
                 comandoSQL.Parameters.Add("@Promovente", SqlDbType.VarChar).Value = postEjecucion.Promovente;
                 comandoSQL.Parameters.Add("@IdUsuario", SqlDbType.Int).Value = postEjecucion.IdUser;
-                comandoSQL.Parameters.Add("@IdEjecucionPosterior", SqlDbType.Int).Value = postEjecucion.IdEjecucionPosterior;
+                comandoSQL.Parameters.Add("@IdEjecucionPosterior", SqlDbType.Int);
 
+                comandoSQL.Parameters["@IdEjecucionPosterior"].Direction = ParameterDirection.Output;
 
                 SqlParameter parametroAnexos = new SqlParameter();
                 parametroAnexos.ParameterName = "@AnexosPromociones";
@@ -557,12 +557,13 @@ namespace PoderJudicial.SIPOH.AccesoDatos
                 parametroAnexos.Value = CreaAnexoType(anexos);
                 comandoSQL.Parameters.Add(parametroAnexos);
 
+
                 Cnx.Open();
                 comandoSQL.ExecuteNonQuery();
 
                 Estatus = Estatus.OK;
 
-                return Convert.ToInt32(comandoSQL.Parameters["@IdEjecucion"].Value);
+                return (int)comandoSQL.Parameters["@IdEjecucionPosterior"].Value;
 
             }
             catch (Exception ex)

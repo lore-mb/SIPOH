@@ -124,7 +124,7 @@ namespace PoderJudicial.SIPOH.Negocio
             
             else if (ejecucionRepositorio.Estatus == Estatus.OK) 
             {
-                anexo = catalogosRepositorio.ObtenerAnexosPorEjecucion(FolioEjecucion);
+                anexo = catalogosRepositorio.ConsultarAnexosPorEjecucionPosterior(FolioEjecucion);
                 if (catalogosRepositorio.Estatus == Estatus.ERROR) {
                     Mensaje = "Hubo un error al consultar la informacion";
                     relacionadas.Add(Relacionadas.ANEXOS);

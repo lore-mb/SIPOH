@@ -247,7 +247,7 @@ function GuardarAnexos() {
 
     var objetoparametro = {
         IdEjecucion: IdAnexoEjecucion,
-        Promovente: $("#inpNombrePromovente").val(),
+        Promovente: $("#inpNombrePromovente").val() + " " + $("#inpPromoventeAP").val() + " " + $("#inpPromoventeMA").val(),
         IdCatAnexoEjecucion: $("#slctAnexoEjecucion").find('option:selected').val(),
         Cantidad: $("#inpCantidadAnexos").val(),
         Anexos: Arreglo_TablaAnexos
