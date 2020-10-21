@@ -577,6 +577,7 @@ function RederizarDetalleSuccess(data) {
     var MensajeData = data.Mensaje;
 
     if (data.Estatus == EstatusRespuesta.OK) {
+        AlmacenarIdEjecucion(null);
         var url = data.Data.Url;
         /* Redirecciona a la vista detalle */
         document.location.href = url;
