@@ -22,7 +22,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos.Interfaces
         //int ? CreaEjecucionPosterior(EjecucionPosterior ejecucionPosterior, List<Anexos> anexos)
         int ? GuardarPostEjecucion(PostEjecucion postEjecucion, List<Anexo> anexos);
 
-        //ConsultaEjecucionPosterior(int idEjecucionPosterior)
+        //EjecucionPosterior ConsultaEjecucionPosterior(int idEjecucionPosterior)
         Ejecucion ObtenerEjecucionPromocionPorFolio(int folioEjecucion);
     }
 }

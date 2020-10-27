@@ -227,7 +227,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
 
                 SqlCommand comando = new SqlCommand("sipoh_ConsultarEjecucionPorFolio", Cnx);
                 comando.CommandType = CommandType.StoredProcedure;
-                comando.Parameters.Add("@IdEjecucionPosterior", SqlDbType.Int).Value = idEjecucion;
+                comando.Parameters.Add("@folio", SqlDbType.Int).Value = idEjecucion;
                 Cnx.Open();
 
                 SqlDataReader sqldataReader = comando.ExecuteReader();
