@@ -247,7 +247,7 @@ function GuardarAnexos() {
 
     var objetoparametro = {
         IdEjecucion: IdAnexoEjecucion,
-        Promovente: $("#inpNombrePromovente").val(),
+        Promovente: $("#inpNombrePromovente").val() + " " + $("#inpPromoventeAP").val() + " " + $("#inpPromoventeMA").val(),
         IdCatAnexoEjecucion: $("#slctAnexoEjecucion").find('option:selected').val(),
         Cantidad: $("#inpCantidadAnexos").val(),
         Anexos: Arreglo_TablaAnexos
@@ -577,6 +577,7 @@ function RederizarDetalleSuccess(data) {
     var MensajeData = data.Mensaje;
 
     if (data.Estatus == EstatusRespuesta.OK) {
+        AlmacenarIdEjecucion(null);
         var url = data.Data.Url;
         /* Redirecciona a la vista detalle */
         document.location.href = url;

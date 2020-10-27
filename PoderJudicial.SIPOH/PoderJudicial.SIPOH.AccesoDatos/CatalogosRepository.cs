@@ -407,6 +407,50 @@ namespace PoderJudicial.SIPOH.AccesoDatos
             }
         }
 
+        public List<Anexo> ConsultarAnexosPorEjecucionPosterior(int IdEjecucionPosterior) {
+
+            try
+            {
+                if (!IsValidConnection)
+                    throw new Exception("La conexion no es valida");
+
+                SqlCommand EjecucionStore;
+                EjecucionStore = new SqlCommand("sipoh_ConsultarAnexosPorEjecucionPosterior", Cnx);
+                EjecucionStore.CommandType = CommandType.StoredProcedure;
+                EjecucionStore.Parameters.Add("@EjecucionPosterior", SqlDbType.Int).Value = IdEjecucionPosterior;
+                Cnx.Open();
+
+                SqlDataReader dataReader = EjecucionStore.ExecuteReader();
+
+                DataTable Tabla = new DataTable();
+                Tabla.Load(dataReader);
+
+                List<Anexo> ListadoAnexos = DataHelper.DataTableToList<Anexo>(Tabla);
+
+                if (ListadoAnexos.Count > 0)
+                {
+                    Estatus = Estatus.OK;
+                }
+                else
+                {
+                    Estatus = Estatus.ERROR;
+                }
+
+                return ListadoAnexos;
+
+            }
+            catch (Exception ex)
+            {
+                MensajeError = ex.Message;
+                Estatus = Estatus.ERROR;
+                return null;
+            }
+            finally {
+                if (IsValidConnection && Cnx.State == ConnectionState.Open)
+                    Cnx.Close();
+            }
+        }   
+
         public List<Anexo> ObtenerAnexosPorEjecucion(int idEjecucion)
         {
             try

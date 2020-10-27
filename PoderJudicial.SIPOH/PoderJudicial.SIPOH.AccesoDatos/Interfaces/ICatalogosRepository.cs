@@ -24,5 +24,6 @@ namespace PoderJudicial.SIPOH.AccesoDatos.Interfaces
         List<Toca> ObtenerTocasPorEjecucion(int idEjecucion);
         List<string> ObtenerAmparosPorEjecucion(int idEjecucion);
         List<Anexo> ObtenerAnexosPorEjecucion(int idEjecucion);
+        List<Anexo> ConsultarAnexosPorEjecucionPosterior(int IdEjecucionPosterior);
     }
 }
