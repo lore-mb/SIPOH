@@ -28,23 +28,23 @@ namespace PoderJudicial.SIPOH.AccesoDatos
             IsValidConnection = connection.IsValidConnection;
         }
 
-        public Expediente ObtenerExpedientes(int idJuzgado, string numeroExpediente, TipoExpediente expediente)
+        public Expediente ObtenerExpedientes(int idJuzgado, string numeroExpediente, TipoNumeroExpediente expediente)
         {
             try
             {
                 if (!IsValidConnection)
                     throw new Exception("No se ha creado una conexion valida");
 
-                string storeProcedure = expediente == TipoExpediente.CAUSA ? "sipoh_ConsultarExpedientePorJuzgadoCausa" : "sipoh_ConsultarExpedientePorJuzgadoNuc";
+                string storeProcedure = expediente == TipoNumeroExpediente.CAUSA ? "sipoh_ConsultarExpedientePorJuzgadoCausa" : "sipoh_ConsultarExpedientePorJuzgadoNuc";
 
                 SqlCommand comando = new SqlCommand(storeProcedure, Cnx);
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("@idJuzgado", SqlDbType.Int).Value = idJuzgado;
 
-                if (expediente == TipoExpediente.CAUSA)
+                if (expediente == TipoNumeroExpediente.CAUSA)
                     comando.Parameters.Add("@numeroCausa", SqlDbType.VarChar).Value = numeroExpediente;
 
-                if (expediente == TipoExpediente.NUC)
+                if (expediente == TipoNumeroExpediente.NUC)
                     comando.Parameters.Add("@nuc", SqlDbType.VarChar).Value = numeroExpediente;
 
                 Cnx.Open();

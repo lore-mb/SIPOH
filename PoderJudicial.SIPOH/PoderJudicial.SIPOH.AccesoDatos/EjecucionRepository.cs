@@ -3,12 +3,12 @@ using PoderJudicial.SIPOH.AccesoDatos.Helpers;
 using PoderJudicial.SIPOH.AccesoDatos.Interfaces;
 using PoderJudicial.SIPOH.Entidades;
 using PoderJudicial.SIPOH.Entidades.Enum;
+
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Linq.Expressions;
 
 namespace PoderJudicial.SIPOH.AccesoDatos
 {
@@ -29,22 +29,27 @@ namespace PoderJudicial.SIPOH.AccesoDatos
             IsValidConnection = connection.IsValidConnection;
         }
 
-        #region Metodos Publicos
+        #region Metodos Publicos del Repositorio Ejecucion
+
         /// <summary>
-        /// Metodo que genera una lista de tipo Ejecucion por medio del nombre del sentenciado beneficiario y es retornado al proceso
+        /// Consume SPSQL y retorna una lista de tipo Ejecución por medio del nombre del Sentenciado Beneficiario o una Parte de causa
         /// </summary>
-        /// <param name="nombre">Nombre de la Persona Beneficiario</param>
-        /// <param name="apellidoPaterno">Apellido Paterno de la persona beneficiaria</param>
-        /// <param name="apellidoMaterno">Apeliido Materno de la personas beneficiaria</param>
-        /// <returns>Lista tipo ejecucion</returns>
-        public List<Ejecucion> ObtenerSentenciadoBeneficiario(string nombre, string apellidoPaterno, string apellidoMaterno, int idCircuito)
+        /// <param name="nombre">Nombre de la Persona Beneficiario o Parte de la Causa</param>
+        /// <param name="apellidoPaterno">Apellido Paterno de la persona beneficiaria o Parte de la Causa</param>
+        /// <param name="apellidoMaterno">Apeliido Materno de la personas beneficiaria o Parte de la Causa</param>
+        /// <returns>Lista tipo Ejecucion</returns>
+        public List<Ejecucion> ConsultaEjecuciones(ParteCausaBeneficiario parteBeneficiario, string nombre, string apellidoPaterno, string apellidoMaterno, int idCircuito)
         {
             try
             {
                 if (!IsValidConnection)
+                {
                     throw new Exception("No se ha creado una conexion valida");
+                }
 
-                SqlCommand comando = new SqlCommand("sipoh_ConsultarEjecucionPorSentenciadoBeneficiario", Cnx);
+                string storeProcedure = parteBeneficiario == ParteCausaBeneficiario.BENEFICIARIO ? "sipoh_ConsultarEjecucionPorSentenciadoBeneficiario" : "sipoh_ConsultarEjecucionPorPartesPrevia";
+
+                SqlCommand comando = new SqlCommand(storeProcedure, Cnx);
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("@nombre", SqlDbType.VarChar).Value = nombre;
                 comando.Parameters.Add("@apellidoPaterno", SqlDbType.VarChar).Value = apellidoPaterno;
@@ -81,13 +86,81 @@ namespace PoderJudicial.SIPOH.AccesoDatos
         }
 
         /// <summary>
-        /// Crea un registro de ejecucion
+        /// Consume SPSQL y retorna una lista de tipo Ejecución por medio del numero de expediente y el juzgado asignado al expediente
         /// </summary>
-        /// <param name="ejecucion">Parametro de tipo Ejecucion</param>
-        /// <param name="circuitoPachuca">Parametro booleano para determinar si se usara la validacion de asignacion de juzgados de ejecucion CTO PACHUCA</param>
-        /// <param name="idJuzgado">Id del juzgado a asignar</param>
-        /// <returns></returns>
-        public int? CrearEjecucion(Ejecucion ejecucion, List<int> causas, List<Expediente> tocas, List<string> amparos, List<Anexo> anexos, int? idJuzgado, bool circuitoPachuca)
+        /// <param name="tipoNumeroExpediente">Especifica el tipo de numero de Expediente</param>
+        /// <param name="numeroExpediente">Numero del expediente, puede ser un numero de causa, nuc o numero de ejecucion</param>
+        /// <param name="idJuzgado">Id del juzgado asignado al expediente</param>
+        /// <returns>Lista tipo Ejecucion</returns>
+        public List<Ejecucion> ConsultaEjecuciones(TipoNumeroExpediente tipoNumeroExpediente, string numeroExpediente, int idJuzgado)
+        {
+            try
+            {
+                if (!IsValidConnection)
+                   throw new Exception("No se ha creado una conexion válida");
+                
+
+                var storeProcedure = tipoNumeroExpediente == TipoNumeroExpediente.CAUSA ? "sipoh_ConsultarEjecucionPorCausa" : tipoNumeroExpediente == TipoNumeroExpediente.NUC ? "sipoh_ConsultarEjecucionPorNUC" : "sipoh_ConsultarEjecucionPorJuzgado";
+
+                SqlCommand comando = new SqlCommand(storeProcedure, Cnx);
+                comando.CommandType = CommandType.StoredProcedure;
+
+                if (tipoNumeroExpediente == TipoNumeroExpediente.CAUSA)
+                comando.Parameters.Add("@numeroCausa", SqlDbType.VarChar).Value = numeroExpediente;
+
+                if (tipoNumeroExpediente == TipoNumeroExpediente.NUC)
+                comando.Parameters.Add("@nuc", SqlDbType.VarChar).Value = numeroExpediente;
+
+                if (tipoNumeroExpediente == TipoNumeroExpediente.EJECUCION)
+                comando.Parameters.Add("@numeroEjecucion", SqlDbType.VarChar).Value = numeroExpediente;
+
+                comando.Parameters.Add("@idJuzgado", SqlDbType.Int).Value = idJuzgado;
+
+                Cnx.Open();
+
+                //se crea objeto de tipo sql ,se ejecuta y almacena valor 
+                SqlDataReader sqlRespuesta = comando.ExecuteReader();
+
+                //se crea un objeto de tipo tabla que contendra la informacion que almacenó de la ejecucion comando
+                DataTable tabla = new DataTable();
+                tabla.Load(sqlRespuesta);
+
+                //convierte la informacion de la tabla en una lista de tipo ejecucion
+                List<Ejecucion> numeroCausaEjecucion = DataHelper.DataTableToList<Ejecucion>(tabla);
+
+                //condicional en caso de encontrar y no encontrar  registros 
+                if (numeroCausaEjecucion.Count > 0)
+                    Estatus = Estatus.OK;
+                else
+                    Estatus = Estatus.SIN_RESULTADO;
+
+                return numeroCausaEjecucion;
+            }
+            catch (Exception ex)
+            {
+                MensajeError = ex.Message;
+                Estatus = Estatus.ERROR;
+                return null;
+            }
+            finally
+            {
+                if (IsValidConnection && Cnx.State == ConnectionState.Open)
+                    Cnx.Close();
+            }
+        }
+
+        /// <summary>
+        /// Consume SPSQL y retorna el Id de la Ejecucion creada.
+        /// </summary>
+        /// <param name="ejecucion">Objeto de tipo ejecucion</param>
+        /// <param name="causas">Es una lista de tipo entero que contiene los id de las causas relacionadas a la ejecucion </param>
+        /// <param name="tocas">Es una lista de tipo toca que contiene la realcion de salas y numeros de tocas relacionadas a la ejecucion</param>
+        /// <param name="amparos">Es una lista de tipo string que contiene la relacion de numeros de amparos relacionados a la ejecucion</param>
+        /// <param name="anexos">Es una lista de tipo anexo que contiene la relacion de anexos relacionados a la ejecucion</param>
+        /// <param name="idJuzgado">Contiene el id del juzgado de ejecución asignado al registro de ejecucion creado es de tipo null</param>
+        /// <param name="circuitoPachuca">Contiene el id del circuito al que se ara la asignacion</param>
+        /// <returns>Id de la Ejecucion</returns>
+        public int ? CreaEjecucion(Ejecucion ejecucion, List<int> causas, List<Toca> tocas, List<string> amparos, List<Anexo> anexos, int ? idJuzgado, bool circuitoPachuca)
         {
             try
             {
@@ -107,36 +180,19 @@ namespace PoderJudicial.SIPOH.AccesoDatos
                 comando.Parameters.Add("@idUser", SqlDbType.Int).Value = ejecucion.IdUsuario;
                 comando.Parameters.Add("@idUnidad", SqlDbType.Int).Value = idJuzgado;
                 comando.Parameters.Add("@esCircuito", SqlDbType.Bit).Value = circuitoPachuca;
+                
+                //Tipos Data Table
+                comando.Parameters.Add("@expedientes", SqlDbType.Structured).Value = CreaCausasType(causas);
+                comando.Parameters.Add("@tocas", SqlDbType.Structured).Value = CreaTocasType(tocas);
+                comando.Parameters.Add("@amparos", SqlDbType.Structured).Value = CreaAmparosType(amparos);
+                comando.Parameters.Add("@anexos", SqlDbType.Structured).Value = CreaAnexoType(anexos);
 
+                //Parametro de Salida
                 SqlParameter idEjecucion = new SqlParameter();
                 idEjecucion.ParameterName = "@idEjecucion";
                 idEjecucion.SqlDbType = SqlDbType.Int;
                 idEjecucion.Direction = ParameterDirection.Output;
                 comando.Parameters.Add(idEjecucion);
-
-                SqlParameter causasType = new SqlParameter();
-                causasType.ParameterName = "@expedientes";
-                causasType.SqlDbType = SqlDbType.Structured;
-                causasType.Value = CreaCausasType(causas);
-                comando.Parameters.Add(causasType);
-
-                SqlParameter tocasType = new SqlParameter();
-                tocasType.ParameterName = "@tocas";
-                tocasType.SqlDbType = SqlDbType.Structured;
-                tocasType.Value = CreaTocasType(tocas);
-                comando.Parameters.Add(tocasType);
-
-                SqlParameter amparosType = new SqlParameter();
-                amparosType.ParameterName = "@amparos";
-                amparosType.SqlDbType = SqlDbType.Structured;
-                amparosType.Value = CreaAmparosType(amparos);
-                comando.Parameters.Add(amparosType);
-
-                SqlParameter anexosType = new SqlParameter();
-                anexosType.ParameterName = "@anexos";
-                anexosType.SqlDbType = SqlDbType.Structured;
-                anexosType.Value = CreaAnexoType(anexos);
-                comando.Parameters.Add(anexosType);
 
                 Cnx.Open();
                 comando.ExecuteNonQuery();
@@ -158,59 +214,11 @@ namespace PoderJudicial.SIPOH.AccesoDatos
         }
 
         /// <summary>
-        /// Genera y retorna una lista de tipo Ejecucion consultados por medio del idJuzgado y numero de ejecucion que recibe en los paremetros
+        /// Consume SPSQL y retorna un objeto de tipo ejecucion por medio del idEjecucion
         /// </summary>
-        /// <param name="idJuzgado">Id del Juzgado asigando a la ejecucion</param>
-        /// <param name="numeroEjecucion">Numero de ejecucion</param>
+        /// <param name="idEjecucion"></param>
         /// <returns></returns>
-        public List<Ejecucion> ObtenerEjecucionPorJuzgado(int idJuzgado, string numeroEjecucion)
-        {
-            try
-            {
-                if (!IsValidConnection)
-                    throw new Exception("Conexión no valida");
-
-                SqlCommand comando = new SqlCommand("sipoh_ConsultarEjecucionPorJuzgado", Cnx);
-                comando.CommandType = CommandType.StoredProcedure;
-                comando.Parameters.Add("@Juzgado", SqlDbType.Int).Value = idJuzgado;
-                comando.Parameters.Add("@NoEjecucion", SqlDbType.VarChar).Value = numeroEjecucion;
-                Cnx.Open();
-
-                SqlDataReader sqldataReader = comando.ExecuteReader();
-
-                DataTable tabladata = new DataTable();
-                tabladata.Load(sqldataReader);
-
-                List<Ejecucion> EjecucionJuzgado = DataHelper.DataTableToList<Ejecucion>(tabladata);
-
-                if (EjecucionJuzgado.Count > 0)
-                    Estatus = Estatus.OK;
-                else
-                    Estatus = Estatus.SIN_RESULTADO;
-
-                return EjecucionJuzgado;
-
-            }
-            catch (Exception ex)
-            {
-                MensajeError = ex.Message;
-                Estatus = Estatus.ERROR;
-                return null;
-            }
-
-            finally
-            {
-                if (IsValidConnection && Cnx.State == ConnectionState.Open)
-                    Cnx.Close();
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="folio"></param>
-        /// <returns></returns>
-        public Ejecucion ObtenerEjecucionPorFolio(int folio)
+        public Ejecucion ConsultaEjecucion(int idEjecucion)
         {
             try
             {
@@ -219,7 +227,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
 
                 SqlCommand comando = new SqlCommand("sipoh_ConsultarEjecucionPorFolio", Cnx);
                 comando.CommandType = CommandType.StoredProcedure;
-                comando.Parameters.Add("@folio", SqlDbType.Int).Value = folio;
+                comando.Parameters.Add("@folio", SqlDbType.Int).Value = idEjecucion;
                 Cnx.Open();
 
                 SqlDataReader sqldataReader = comando.ExecuteReader();
@@ -237,6 +245,102 @@ namespace PoderJudicial.SIPOH.AccesoDatos
 
                 Estatus = Estatus.SIN_RESULTADO;
                 return null;
+            }
+            catch (Exception ex)
+            {
+                MensajeError = ex.Message;
+                Estatus = Estatus.ERROR;
+                return null;
+            }
+
+            finally
+            {
+                if (IsValidConnection && Cnx.State == ConnectionState.Open)
+                    Cnx.Close();
+            }
+
+        }
+
+        /// <summary>
+        /// Consume SPSQL y retorna una lista de tipo Ejecución por medio del detalle Solicitante
+        /// </summary>
+        /// <param name="detalleSolicitante">Contiene el detalle del solicitante de una ejecucion</param>
+        /// <returns>Lista tipo Ejecucion</returns>
+        public List<Ejecucion> ConsultaEjecuciones(string detalleSolicitante, int idCircuito)
+        {
+            try
+            {
+                if (!IsValidConnection)
+                    throw new Exception("No se ha creado una conexion válida");
+
+                SqlCommand comando = new SqlCommand("sipoh_ConsultarEjecucionPorDetalleSolicitante", Cnx);
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.Add("@detalleSolicitante", SqlDbType.VarChar).Value = detalleSolicitante;
+                comando.Parameters.Add("@idCircuito", SqlDbType.Int).Value = idCircuito;
+                Cnx.Open();
+
+                SqlDataReader sqlRespuesta = comando.ExecuteReader();
+
+                DataTable tabla = new DataTable();
+                tabla.Load(sqlRespuesta);
+
+                List<Ejecucion> detalleSolicitanteEjecucion = DataHelper.DataTableToList<Ejecucion>(tabla);
+
+                if (detalleSolicitanteEjecucion.Count > 0)
+                    Estatus = Estatus.OK;
+                else
+                    Estatus = Estatus.SIN_RESULTADO;
+
+                return detalleSolicitanteEjecucion;
+            }
+
+            catch (Exception ex)
+            {
+                MensajeError = ex.Message;
+                Estatus = Estatus.ERROR;
+                return null;
+            }
+
+            finally
+            {
+                if (IsValidConnection && Cnx.State == ConnectionState.Open)
+                    Cnx.Close();
+            }
+
+        }
+
+        /// <summary>
+        /// Consume SPSQL y retorna una lista de tipo Ejecución por medio del idSolicitante
+        /// </summary>
+        /// <param name="idSolicitante">Id del solicitante relacioando a la ejecucion</param>
+        /// <returns>Lista tipo ejecucion</returns>
+        public List<Ejecucion> ConsultaEjecuciones(int idSolicitante, int idCircuito)
+        {
+            try
+            {
+                if (!IsValidConnection)
+                    throw new Exception("No se ha creado conexion valida");
+
+                SqlCommand comando = new SqlCommand("sipoh_ConsultarEjecucionPorSolicitante", Cnx);
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.Add("@idSolicitante", SqlDbType.Int).Value = idSolicitante;
+                comando.Parameters.Add("@idCircuito", SqlDbType.Int).Value = idCircuito;
+                Cnx.Open();
+
+                SqlDataReader slqRespuesta = comando.ExecuteReader();
+
+                DataTable tabla = new DataTable();
+                tabla.Load(slqRespuesta);
+
+                List<Ejecucion> solicitanteEjecucion = DataHelper.DataTableToList<Ejecucion>(tabla);
+
+                if (solicitanteEjecucion.Count > 0)
+                    Estatus = Estatus.OK;
+                else
+                    Estatus = Estatus.SIN_RESULTADO;
+
+                return solicitanteEjecucion;
+
             }
             catch (Exception ex)
             {
@@ -304,262 +408,9 @@ namespace PoderJudicial.SIPOH.AccesoDatos
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="nombre"></param>
-        /// <param name="apellidoPaterno"></param>
-        /// <param name="apellidoMaterno"></param>
-        /// <returns></returns>
-        public List<Ejecucion> ObtenerEjecucionPorPartesCausa(string nombre, string apellidoPaterno, string apellidoMaterno, int idCircuito)
-        {
-            try
-            {
-                if (!IsValidConnection)
-                    throw new Exception("No se ha creado una conexion valida");
-
-                SqlCommand comando = new SqlCommand("sipoh_ConsultarEjecucionPorPartesPrevia", Cnx);
-                comando.CommandType = CommandType.StoredProcedure;
-                comando.Parameters.Add("@nombre", SqlDbType.VarChar).Value = nombre;
-                comando.Parameters.Add("@apellidoPaterno", SqlDbType.VarChar).Value = apellidoPaterno;
-                comando.Parameters.Add("@apellidoMaterno", SqlDbType.VarChar).Value = apellidoMaterno;
-                comando.Parameters.Add("@idCircuito", SqlDbType.Int).Value = idCircuito;
-
-                Cnx.Open();
-
-                SqlDataReader sqlRespuesta = comando.ExecuteReader();
-
-                DataTable tabla = new DataTable();
-                tabla.Load(sqlRespuesta);
-
-                List<Ejecucion> partesEjecucion = DataHelper.DataTableToList<Ejecucion>(tabla);
-
-                if (partesEjecucion.Count > 0)
-                    Estatus = Estatus.OK;
-                else
-                    Estatus = Estatus.SIN_RESULTADO;
-
-                return partesEjecucion;
-            }
-            catch (Exception ex)
-            {
-                MensajeError = ex.Message;
-                Estatus = Estatus.ERROR;
-                return null;
-            }
-            finally
-            {
-                if (IsValidConnection && Cnx.State == ConnectionState.Open)
-                    Cnx.Close();
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="numeroCausa"></param>
-        /// <param name="idJuzgado"></param>
-        /// <returns></returns>
-        public List<Ejecucion> ObtenerEjecucionPorNumeroCausa(string numeroCausa, int idJuzgado)
-        {
-            try
-            {
-                if (!IsValidConnection)
-                    throw new Exception("No se ha creado una conexion válida");
-
-                SqlCommand comando = new SqlCommand("sipoh_ConsultarEjecucionPorCausa", Cnx);
-                comando.CommandType = CommandType.StoredProcedure;
-                comando.Parameters.Add("@numeroCausa", SqlDbType.VarChar).Value = numeroCausa;
-                comando.Parameters.Add("@idJuzgado", SqlDbType.Int).Value = idJuzgado;
-
-                Cnx.Open();
-
-                //se crea objeto de tipo sql ,se ejecuta y almacena valor 
-                SqlDataReader sqlRespuesta = comando.ExecuteReader();
-
-                //se crea un objeto de tipo tabla que contendra la informacion que almacenó de la ejecucion comando
-                DataTable tabla = new DataTable();
-                tabla.Load(sqlRespuesta);
-
-                //convierte la informacion de la tabla en una lista de tipo ejecucion
-                List<Ejecucion> numeroCausaEjecucion = DataHelper.DataTableToList<Ejecucion>(tabla);
-
-                //condicional en caso de encontrar y no encontrar  registros 
-                if (numeroCausaEjecucion.Count > 0)
-                    Estatus = Estatus.OK;
-                else
-                    Estatus = Estatus.SIN_RESULTADO;
-
-                return numeroCausaEjecucion;
-            }
-
-            catch (Exception ex)
-            {
-                MensajeError = ex.Message;
-                Estatus = Estatus.ERROR;
-                return null;
-            }
-
-            finally
-            {
-                if (IsValidConnection && Cnx.State == ConnectionState.Open)
-                    Cnx.Close();
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="detalleSolicitante"></param>
-        /// <returns></returns>
-        public List<Ejecucion> ObtenerEjecucionPorDetalleSolicitante(string detalleSolicitante, int idCircuito)
-        {
-            try
-            {
-                if (!IsValidConnection)
-                    throw new Exception("No se ha creado una conexion válida");
-
-                SqlCommand comando = new SqlCommand("sipoh_ConsultarEjecucionPorDetalleSolicitante", Cnx);
-                comando.CommandType = CommandType.StoredProcedure;
-                comando.Parameters.Add("@detalleSolicitante", SqlDbType.VarChar).Value = detalleSolicitante;
-                comando.Parameters.Add("@idCircuito", SqlDbType.Int).Value = idCircuito;
-
-                Cnx.Open();
-
-                SqlDataReader sqlRespuesta = comando.ExecuteReader();
-
-                DataTable tabla = new DataTable();
-                tabla.Load(sqlRespuesta);
-
-                List<Ejecucion> detalleSolicitanteEjecucion = DataHelper.DataTableToList<Ejecucion>(tabla);
-
-                if (detalleSolicitanteEjecucion.Count > 0)
-                    Estatus = Estatus.OK;
-                else
-                    Estatus = Estatus.SIN_RESULTADO;
-
-                return detalleSolicitanteEjecucion;
-            }
-
-            catch (Exception ex)
-            {
-                MensajeError = ex.Message;
-                Estatus = Estatus.ERROR;
-                return null;
-            }
-
-            finally
-            {
-                if (IsValidConnection && Cnx.State == ConnectionState.Open)
-                    Cnx.Close();
-            }
-
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="nuc"></param>
-        /// <param name="idJuzgado"></param>
-        /// <returns></returns>
-        public List<Ejecucion> ObtenerEjecucionPorNUC(string nuc, int idJuzgado)
-        {
-            try
-            {
-                if (!IsValidConnection)
-                    throw new Exception("No se ha creado una conexion válida");
-
-                SqlCommand comando = new SqlCommand("sipoh_ConsultarEjecucionPorNUC", Cnx);
-                comando.CommandType = CommandType.StoredProcedure;
-                comando.Parameters.Add("@nuc", SqlDbType.VarChar).Value = nuc;
-                comando.Parameters.Add("@idJuzgado", SqlDbType.Int).Value = idJuzgado;
-
-                Cnx.Open();
-
-                SqlDataReader sqlRespuesta = comando.ExecuteReader();
-
-                DataTable tabla = new DataTable();
-                tabla.Load(sqlRespuesta);
-
-                List<Ejecucion> nucEjecucion = DataHelper.DataTableToList<Ejecucion>(tabla);
-
-                if (nucEjecucion.Count > 0)
-                    Estatus = Estatus.OK;
-                else
-                    Estatus = Estatus.SIN_RESULTADO;
-
-                return nucEjecucion;
-            }
-            //crea un objeto ex
-            catch (Exception ex)
-            {
-                //accedo a la propiedad de mi objeto mensage
-                MensajeError = ex.Message;
-                Estatus = Estatus.ERROR;
-                return null;
-            }
-
-            finally
-            {
-                if (IsValidConnection && Cnx.State == ConnectionState.Open)
-                    Cnx.Close();
-            }
-
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="idSolicitante"></param>
-        /// <returns></returns>
-        public List<Ejecucion> ObtenerEjecucionPorSolicitante(int idSolicitante, int idCircuito)
-        {
-            try
-            {
-                if (!IsValidConnection)
-                    throw new Exception("No se ha creado conexion valida");
-
-                SqlCommand comando = new SqlCommand("sipoh_ConsultarEjecucionPorSolicitante", Cnx);
-                comando.CommandType = CommandType.StoredProcedure;
-                comando.Parameters.Add("@idSolicitante", SqlDbType.Int).Value = idSolicitante;
-                comando.Parameters.Add("@idCircuito", SqlDbType.Int).Value = idCircuito;
-
-                Cnx.Open();
-
-                SqlDataReader slqRespuesta = comando.ExecuteReader();
-
-                DataTable tabla = new DataTable();
-                tabla.Load(slqRespuesta);
-
-                List<Ejecucion> solicitanteEjecucion = DataHelper.DataTableToList<Ejecucion>(tabla);
-
-                if (solicitanteEjecucion.Count > 0)
-                    Estatus = Estatus.OK;
-                else
-                    Estatus = Estatus.SIN_RESULTADO;
-
-                return solicitanteEjecucion;
-
-            }
-            catch (Exception ex)
-            {
-                MensajeError = ex.Message;
-                Estatus = Estatus.ERROR;
-                return null;
-            }
-
-            finally
-            {
-                if (IsValidConnection && Cnx.State == ConnectionState.Open)
-                    Cnx.Close();
-            }
-
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="postEjecucion"></param>
         /// <param name="anexos"></param>
         /// <returns></returns>
-
         public int? GuardarPostEjecucion(PostEjecucion postEjecucion, List<Anexo> anexos)
         {
             try
@@ -619,14 +470,14 @@ namespace PoderJudicial.SIPOH.AccesoDatos
             return expedientesType;
         }
 
-        private DataTable CreaTocasType(List<Expediente> tocas)
+        private DataTable CreaTocasType(List<Toca> tocas)
         {
             DataTable tocasType = new DataTable();
             tocasType.Clear();
             tocasType.Columns.Add("NumeroDeToca");
             tocasType.Columns.Add("IdUnidad");
 
-            foreach (Expediente toca in tocas)
+            foreach (Toca toca in tocas)
             {
                 DataRow fila = tocasType.NewRow();
                 fila["NumeroDeToca"] = toca.NumeroDeToca;

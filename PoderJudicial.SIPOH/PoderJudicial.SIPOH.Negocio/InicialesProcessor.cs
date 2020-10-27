@@ -61,7 +61,7 @@ namespace PoderJudicial.SIPOH.Negocio
             return juzgados;
         }
 
-        public Expediente RecuperaExpedientes(int idJuzgado, string numeroExpediente, TipoExpediente expediente)
+        public Expediente RecuperaExpedientes(int idJuzgado, string numeroExpediente, TipoNumeroExpediente expediente)
         {
             Expediente expedientes = expedienteRepositorio.ObtenerExpedientes(idJuzgado, numeroExpediente, expediente);
 
@@ -95,11 +95,7 @@ namespace PoderJudicial.SIPOH.Negocio
 
         public List<Ejecucion> RecuperaSentenciadoBeneficiario(string nombre, string apellidoPaterno, string apellidoMaterno, int idCircuito)
         {
-            nombre = nombre == null ? string.Empty : nombre;
-            apellidoPaterno = apellidoPaterno == null ? string.Empty : apellidoPaterno;
-            apellidoMaterno = apellidoMaterno == null ? string.Empty : apellidoMaterno;
-
-            List<Ejecucion> beneficiarios = ejecucionRepository.ObtenerSentenciadoBeneficiario(nombre, apellidoPaterno, apellidoMaterno, idCircuito);
+            List<Ejecucion> beneficiarios = ejecucionRepository.ConsultaEjecuciones(ParteCausaBeneficiario.BENEFICIARIO, nombre, apellidoPaterno, apellidoMaterno, idCircuito);
 
             if (catalogosRepositorio.Estatus == Estatus.SIN_RESULTADO)
                 Mensaje = "La consulta no genero ningun resultado";
@@ -161,7 +157,7 @@ namespace PoderJudicial.SIPOH.Negocio
             return solcitudes;
         }
 
-        public int? CrearRegistroInicialDeEjecucion(Ejecucion ejecucion, List<Expediente> tocas, List<Anexo> anexos, List<string> amparos, List<int> causas, int circuito)
+        public int? CrearRegistroInicialDeEjecucion(Ejecucion ejecucion, List<Toca> tocas, List<Anexo> anexos, List<string> amparos, List<int> causas, int circuito)
         {
             int? idUnidad = null;
             bool esCircuitoPachuca = true;
@@ -174,7 +170,7 @@ namespace PoderJudicial.SIPOH.Negocio
                 esCircuitoPachuca = false;
             }
 
-            int? idEjecucion = ejecucionRepository.CrearEjecucion(ejecucion, causas, tocas, amparos, anexos, idUnidad, esCircuitoPachuca);
+            int? idEjecucion = ejecucionRepository.CreaEjecucion(ejecucion, causas, tocas, amparos, anexos, idUnidad, esCircuitoPachuca);
 
             if (catalogosRepositorio.Estatus == Estatus.OK)
             Mensaje = "La inserción de datos fue correcta, folio de ejecucion generado : " + idEjecucion;
@@ -190,10 +186,10 @@ namespace PoderJudicial.SIPOH.Negocio
             return idEjecucion;
         }
 
-        public bool ObtenerInformacionGeneralInicialDeEjecucion(int folio, ref Ejecucion ejecucion, ref List<Expediente> causas, ref List<Expediente> tocas, ref List<string> amparos, ref List<Anexo> anexos, ref List<Relacionadas> relaciones)
+        public bool ObtenerInformacionGeneralInicialDeEjecucion(int folio, ref Ejecucion ejecucion, ref List<Expediente> causas, ref List<Toca> tocas, ref List<string> amparos, ref List<Anexo> anexos, ref List<Relacionadas> relaciones)
         {
             //Recupera la informacion de la ejecucion
-            ejecucion = ejecucionRepository.ObtenerEjecucionPorFolio(folio);
+            ejecucion = ejecucionRepository.ConsultaEjecucion(folio);
 
             if (ejecucionRepository.Estatus == Estatus.SIN_RESULTADO)
             {

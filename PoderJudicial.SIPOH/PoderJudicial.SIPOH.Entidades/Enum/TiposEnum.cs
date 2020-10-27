@@ -21,10 +21,11 @@ namespace PoderJudicial.SIPOH.Entidades.Enum
         TRADICIONAL = 0,
         ACUSATORIO = 1
     }
-    public enum TipoExpediente 
+    public enum TipoNumeroExpediente 
     {
        CAUSA = 0,
-       NUC = 1
+       NUC = 1,
+       EJECUCION = 2
     }
 
     public enum Relacionadas 
@@ -34,5 +35,11 @@ namespace PoderJudicial.SIPOH.Entidades.Enum
        AMPAROS = 2,
        ANEXOS = 3,
        EJECUCION = 4
+    }
+
+    public enum ParteCausaBeneficiario 
+    {
+        BENEFICIARIO = 0,
+        PARTE = 1
     }
 }

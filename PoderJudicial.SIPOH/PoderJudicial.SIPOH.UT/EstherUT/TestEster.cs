@@ -56,7 +56,7 @@ namespace PoderJudicial.SIPOH.UT.EstherUT
                new Anexo(){ IdAnexo = 4, Cantidad = 8}
             };
 
-            int? idEjecucion = repo.CrearEjecucion(ejecucion, causas, tocas, amparos, anexos, null, true);
+            int? idEjecucion = repo.CreaEjecucion(ejecucion, causas, tocas, amparos, anexos, null, true);
         }
 
         [TestMethod]
@@ -69,24 +69,24 @@ namespace PoderJudicial.SIPOH.UT.EstherUT
             string nombre = "IGNACIO";
             string apellidoP = "";
             string apellidoM = "";
-            List<Ejecucion> ListaPartesEjecucion = PruebaEjecucionBusqueda.ObtenerEjecucionPorPartesCausa(nombre, apellidoP, apellidoM, 1);
+            List<Ejecucion> ListaPartesEjecucion = PruebaEjecucionBusqueda.ConsultaEjecuciones(ParteCausaBeneficiario.BENEFICIARIO, nombre, apellidoP, apellidoM, 1);
 
 
             string numeroCausa = "0001/2015";
             int idjuzgado = 204;
-            List<Ejecucion> ListaNumeroCausa = PruebaEjecucionBusqueda.ObtenerEjecucionPorNumeroCausa(numeroCausa, idjuzgado, 1);
+            List<Ejecucion> ListaNumeroCausa = PruebaEjecucionBusqueda.ConsultaEjecuciones(TipoNumeroExpediente.CAUSA, numeroCausa, idjuzgado);
 
 
             string detalleSolicitante = "ESTE ES UN DETALLE";
-            List<Ejecucion> ListaDetalleSolicitante = PruebaEjecucionBusqueda.ObtenerEjecucionPorDetalleSolicitante(detalleSolicitante);
+            List<Ejecucion> ListaDetalleSolicitante = PruebaEjecucionBusqueda.ConsultaEjecuciones(detalleSolicitante, 1);
 
             string nuc="13-2017-001300";
             int idJuzgado = 204;
-            List<Ejecucion> ListaNUC = PruebaEjecucionBusqueda.ObtenerEjecucionPorNUC(nuc,idJuzgado, 2);
+            List<Ejecucion> ListaNUC = PruebaEjecucionBusqueda.ConsultaEjecuciones(TipoNumeroExpediente.CAUSA, nuc, idJuzgado);
 
             string mensaje = "null";
             int solicitante = 34;
-            List<Ejecucion> ListaSolicitante = PruebaEjecucionBusqueda.ObtenerEjecucionPorSolicitante(solicitante);
+            List<Ejecucion> ListaSolicitante = PruebaEjecucionBusqueda.ConsultaEjecuciones(solicitante, 1);
             
 
             //validacion del status

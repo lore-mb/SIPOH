@@ -51,7 +51,7 @@ namespace PoderJudicial.SIPOH.UT.IgmaUT
                new Anexo(){ IdAnexo = 4, Cantidad = 8}
             };
 
-            int? idEjecucion = repo.CrearEjecucion(ejecucion, causas, tocas, amparos, anexos, null, true);
+            int? idEjecucion = repo.CreaEjecucion(ejecucion, causas, tocas, amparos, anexos, null, true);
         }
 
     }

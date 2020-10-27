@@ -42,6 +42,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             ViewBag.DistritoPorCircuito = ViewHelper.CreateSelectList(listaDistrito, "IdDistrito", "Nombre");
             ViewBag.JuzgadosAcusatorios = ViewHelper.CreateSelectList(listaJuzgados, "IdJuzgado", "Nombre");
             ViewBag.Solicitante = ViewHelper.CreateSelectList(listaSolicitante, "IdSolicitante", "Descripcion");
+
             return View();
         }
 

@@ -133,7 +133,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         {
             try
             {
-                Expediente expedientes = inicialesProcessor.RecuperaExpedientes(idJuzgado, nuc, TipoExpediente.NUC);
+                Expediente expedientes = inicialesProcessor.RecuperaExpedientes(idJuzgado, nuc, TipoNumeroExpediente.NUC);
 
                 ValidaExpedientes(expedientes);
                 Respuesta.Mensaje = inicialesProcessor.Mensaje;
@@ -155,7 +155,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         {
             try
             {
-                Expediente expedientes = inicialesProcessor.RecuperaExpedientes(idJuzgado, numeroCausa, TipoExpediente.CAUSA);
+                Expediente expedientes = inicialesProcessor.RecuperaExpedientes(idJuzgado, numeroCausa, TipoNumeroExpediente.CAUSA);
             
                 ValidaExpedientes(expedientes);
                 Respuesta.Mensaje = inicialesProcessor.Mensaje;
@@ -225,7 +225,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 //Id del usuario logeado
                 ejecucion.IdUsuario = Usuario.Id;
 
-                List<Expediente> tocas = mapper.Map<List<TocasModelView>, List<Expediente>>(modelo.Tocas);
+                List<Toca> tocas = modelo.Tocas != null ? modelo.Tocas : new List<Toca>();
                 List<Anexo> anexos = mapper.Map<List<AnexosModelView>, List<Anexo>>(modelo.Anexos);
                 List<int> causas = modelo.Causas.Select(x => x.IdExpediente).ToList();
                 List<string> amparos = modelo.Amparos != null ? modelo.Amparos : new List<string>();
@@ -273,7 +273,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 //Objetos para pasar como referencia
                 Ejecucion inicial = new Ejecucion();
                 List<Expediente> causas = new List<Expediente>();
-                List<Expediente> tocas = new List<Expediente>();
+                List<Toca> tocas = new List<Toca>();
                 List<string> amparos = new List<string>();
                 List<Anexo> anexos = new List<Anexo>();
                 List<Relacionadas> entidad = new List<Relacionadas>();
@@ -285,7 +285,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 {
                     modelo = mapper.Map<Ejecucion, DetalleEjecucionModelView>(inicial);
                     modelo.Causas = mapper.Map<List<Expediente>, List<CausasModelView>>(causas);
-                    modelo.Tocas = mapper.Map<List<Expediente>, List<TocasModelView>>(tocas);
+                    modelo.Tocas = tocas == null ? new List<Toca>() : tocas;
                     modelo.Amparos = amparos == null ? new List<string>() : amparos;
                     modelo.Anexos = mapper.Map<List<Anexo>, List<AnexosModelView>>(anexos);
                 }

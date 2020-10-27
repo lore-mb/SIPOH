@@ -12,16 +12,13 @@ namespace PoderJudicial.SIPOH.AccesoDatos.Interfaces
     {
         string MensajeError { get; set; }
         Estatus Estatus { get; set; }
-        List<Ejecucion> ObtenerSentenciadoBeneficiario(string nombre, string apellidoPaterno, string apellidoMaterno, int idCircuito);
-        List<Ejecucion> ObtenerEjecucionPorPartesCausa(string nombre, string apellidoPaterno, string apellidoMaterno, int idCircuito);
-        int ? CrearEjecucion(Ejecucion ejecucion, List<int> causas, List<Expediente> tocas, List<string> amparos, List<Anexo> anexos, int? idJuzgado, bool circuitoPachuca);
-        List<Ejecucion> ObtenerEjecucionPorJuzgado(int Juzgado, string NoEjecucion);
-        List<Ejecucion> ObtenerEjecucionPorNumeroCausa(string numeroCausa, int idJuzgado);
-        List<Ejecucion> ObtenerEjecucionPorNUC(string nuc, int idJuzgado);
-        List<Ejecucion> ObtenerEjecucionPorDetalleSolicitante(string detalleSolicitante, int idCircuito);
-        List<Ejecucion> ObtenerEjecucionPorSolicitante(int idSolicitante, int idCircuito);
-        Ejecucion ObtenerEjecucionPorFolio(int folio);    
-        int? GuardarPostEjecucion(PostEjecucion postEjecucion, List<Anexo> anexos);
+        List<Ejecucion> ConsultaEjecuciones(ParteCausaBeneficiario parteCausaBeneficiario, string nombre, string apellidoPaterno, string apellidoMaterno, int idCircuito);
+        List<Ejecucion> ConsultaEjecuciones(TipoNumeroExpediente tipoNumeroExpediente, string numeroExpediente, int idJuzgado);
+        List<Ejecucion> ConsultaEjecuciones(string detalleSolicitante, int idCircuito);
+        List<Ejecucion> ConsultaEjecuciones(int idSolicitante, int idCircuito);
+        Ejecucion ConsultaEjecucion(int idEjecucion);
+        int ? CreaEjecucion(Ejecucion ejecucion, List<int> causas, List<Toca> tocas, List<string> amparos, List<Anexo> anexos, int? idJuzgado, bool circuitoPachuca); 
+        int ? GuardarPostEjecucion(PostEjecucion postEjecucion, List<Anexo> anexos);
         Ejecucion ObtenerEjecucionPromocionPorFolio(int folioEjecucion);
     }
 }

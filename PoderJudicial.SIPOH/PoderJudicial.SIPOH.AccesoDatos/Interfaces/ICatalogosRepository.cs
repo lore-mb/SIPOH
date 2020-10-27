@@ -21,7 +21,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos.Interfaces
         List<Juzgado> ObtenerJuzgadoEjecucionPorCircuito(int idcircuito);
         List<Solicitud> ObtenerSolicitudes();
         List<Solicitante> ObtenerSolicitantes();
-        List<Expediente> ObtenerTocasPorEjecucion(int idEjecucion);
+        List<Toca> ObtenerTocasPorEjecucion(int idEjecucion);
         List<string> ObtenerAmparosPorEjecucion(int idEjecucion);
         List<Anexo> ObtenerAnexosPorEjecucion(int idEjecucion);
     }

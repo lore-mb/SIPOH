@@ -36,7 +36,7 @@ namespace PoderJudicial.SIPOH.UT.AlbertoUT
             string apellidop = "Trejo";
             string apellidom = string.Empty;
 
-            List<Ejecucion> ejecucion = repo.ObtenerSentenciadoBeneficiario(nombre, apellidop, apellidom, 1);
+            List<Ejecucion> ejecucion = repo.ConsultaEjecuciones(ParteCausaBeneficiario.BENEFICIARIO, nombre, apellidop, apellidom, 1);
         }
 
         [TestMethod]
@@ -93,7 +93,7 @@ namespace PoderJudicial.SIPOH.UT.AlbertoUT
             ejecucion.IdUsuario = 22;
 
             List<int> causas = new List<int>() { 456, 457, 458, 459};
-            List<Expediente> tocas = new List<Expediente>();
+            List<Toca> tocas = new List<Toca>();
 
             List<string> amparos = new List<string>();
 
@@ -103,7 +103,7 @@ namespace PoderJudicial.SIPOH.UT.AlbertoUT
                 new Anexo(){ IdAnexo = 8, Cantidad =3, Descripcion="ESTE ES OTRO ANEXO UT"}
             };
 
-            int? idEjecucion = repo.CrearEjecucion(ejecucion, causas, tocas, amparos, anexos, null, true);           
+            int? idEjecucion = repo.CreaEjecucion(ejecucion, causas, tocas, amparos, anexos, null, true);           
         }
 
         [TestMethod]
@@ -120,9 +120,9 @@ namespace PoderJudicial.SIPOH.UT.AlbertoUT
         {
             EjecucionRepository repo = new EjecucionRepository(cnx);
 
-            Ejecucion test1 = repo.ObtenerEjecucionPorFolio(4);
-            Ejecucion test2 = repo.ObtenerEjecucionPorFolio(6);
-            Ejecucion test3 = repo.ObtenerEjecucionPorFolio(999);
+            Ejecucion test1 = repo.ConsultaEjecucion(4);
+            Ejecucion test2 = repo.ConsultaEjecucion(6);
+            Ejecucion test3 = repo.ConsultaEjecucion(999);
         }
 
         [TestMethod]
@@ -132,7 +132,7 @@ namespace PoderJudicial.SIPOH.UT.AlbertoUT
             List<Expediente> expedientes = repo.ObtenerExpedientesPorEjecucion(86);
 
             CatalogosRepository repoCatalogos = new CatalogosRepository(cnx);
-            List<Expediente> tocas = repoCatalogos.ObtenerTocasPorEjecucion(81);
+            List<Toca> tocas = repoCatalogos.ObtenerTocasPorEjecucion(81);
             List<string> amparos = repoCatalogos.ObtenerAmparosPorEjecucion(78);
             List<Anexo> anexos = repoCatalogos.ObtenerAnexosPorEjecucion(87);
         }

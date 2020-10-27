@@ -328,7 +328,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
             }
         }
 
-        public List<Expediente> ObtenerTocasPorEjecucion(int idEjecucion)
+        public List<Toca> ObtenerTocasPorEjecucion(int idEjecucion)
         {
             try
             {
@@ -345,7 +345,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
                 DataTable tabla = new DataTable();
                 tabla.Load(sqlRespuesta);
 
-                List<Expediente> tocas = DataHelper.DataTableToList<Expediente>(tabla);
+                List<Toca> tocas = DataHelper.DataTableToList<Toca>(tabla);
 
                 if (tocas.Count > 0)
                     Estatus = Estatus.OK;

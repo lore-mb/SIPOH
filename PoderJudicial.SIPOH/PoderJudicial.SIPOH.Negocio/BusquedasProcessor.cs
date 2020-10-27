@@ -44,7 +44,7 @@ namespace PoderJudicial.SIPOH.Negocio
         /// <returns></returns>
         public List<Ejecucion>ObtenerEjecucionPorDetalleSolicitante(string detalleSolicitante, int idCircuito)
         {
-            List<Ejecucion> DetalleSolicitante = ejecucionRepositorio.ObtenerEjecucionPorDetalleSolicitante(detalleSolicitante, idCircuito);
+            List<Ejecucion> DetalleSolicitante = ejecucionRepositorio.ConsultaEjecuciones(detalleSolicitante, idCircuito);
            
             if (ejecucionRepositorio.Estatus == Estatus.SIN_RESULTADO)
             {
@@ -68,7 +68,7 @@ namespace PoderJudicial.SIPOH.Negocio
         /// <returns></returns>
         public List<Ejecucion> ObtenerEjecucionPorNUC(string nuc, int idJuzgado)
         {
-            List<Ejecucion> NUC = ejecucionRepositorio.ObtenerEjecucionPorNUC(nuc, idJuzgado);
+            List<Ejecucion> NUC = ejecucionRepositorio.ConsultaEjecuciones(TipoNumeroExpediente.NUC, nuc, idJuzgado);
            
             if (ejecucionRepositorio.Estatus == Estatus.ERROR)
             {
@@ -93,7 +93,7 @@ namespace PoderJudicial.SIPOH.Negocio
         /// <returns></returns>
         public List<Ejecucion> ObtenerEjecucionPorPartesCausa(string nombre, string apellidoPaterno, string apellidoMaterno, int idCircuito)
         {
-            List<Ejecucion> PartesCausa = ejecucionRepositorio.ObtenerEjecucionPorPartesCausa(nombre, apellidoPaterno, apellidoMaterno, idCircuito);
+            List<Ejecucion> PartesCausa = ejecucionRepositorio.ConsultaEjecuciones(ParteCausaBeneficiario.PARTE, nombre, apellidoPaterno, apellidoMaterno, idCircuito);
           
             if (ejecucionRepositorio.Estatus == Estatus.SIN_RESULTADO)
             {
@@ -116,7 +116,7 @@ namespace PoderJudicial.SIPOH.Negocio
         /// <returns></returns>
         public List<Ejecucion> ObtenerEjecucionPorSolicitante(int idSolicitante, int idCircuito)
         {
-            List<Ejecucion> Solicitante = ejecucionRepositorio.ObtenerEjecucionPorSolicitante(idSolicitante, idCircuito);
+            List<Ejecucion> Solicitante = ejecucionRepositorio.ConsultaEjecuciones(idSolicitante, idCircuito);
             
             if(ejecucionRepositorio.Estatus== Estatus.SIN_RESULTADO)
             {
@@ -141,11 +141,7 @@ namespace PoderJudicial.SIPOH.Negocio
         /// <returns></returns>
         public List<Ejecucion> ObtenerEjecucionSentenciadoBeneficiario(string nombre, string apellidoPaterno, string apellidoMaterno, int idCircuito)
         {
-            nombre = nombre == null ? string.Empty : nombre;
-            apellidoPaterno = apellidoPaterno == null ? string.Empty : apellidoPaterno;
-            apellidoMaterno = apellidoMaterno == null ? string.Empty : apellidoMaterno;
-
-            List<Ejecucion> Beneficiario = ejecucionRepositorio.ObtenerSentenciadoBeneficiario(nombre, apellidoPaterno, apellidoMaterno, idCircuito);
+            List<Ejecucion> Beneficiario = ejecucionRepositorio.ConsultaEjecuciones(ParteCausaBeneficiario.BENEFICIARIO, nombre, apellidoPaterno, apellidoMaterno, idCircuito);
             
             if (ejecucionRepositorio.Estatus == Estatus.SIN_RESULTADO)
             {
@@ -169,7 +165,7 @@ namespace PoderJudicial.SIPOH.Negocio
         /// <returns></returns>
         public List<Ejecucion> ObtenerEjecucionPorNumeroCausa(string numeroCausa, int idJuzgado)
         {
-            List<Ejecucion> numCausa = ejecucionRepositorio.ObtenerEjecucionPorNumeroCausa(numeroCausa ,idJuzgado);
+            List<Ejecucion> numCausa = ejecucionRepositorio.ConsultaEjecuciones(TipoNumeroExpediente.CAUSA, numeroCausa, idJuzgado);
           
             if (ejecucionRepositorio.Estatus == Estatus.ERROR)
             {

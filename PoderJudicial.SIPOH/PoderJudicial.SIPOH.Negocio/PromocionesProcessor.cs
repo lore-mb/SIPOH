@@ -42,7 +42,7 @@ namespace PoderJudicial.SIPOH.Negocio
 
         public List<Ejecucion> ObtenerEjecucionPorJuzgado(int Juzgado, string NoEjecucion)
         {
-            List<Ejecucion> EjecucionPorCircuito = ejecucionRepositorio.ObtenerEjecucionPorJuzgado(Juzgado, NoEjecucion);
+            List<Ejecucion> EjecucionPorCircuito = ejecucionRepositorio.ConsultaEjecuciones(TipoNumeroExpediente.EJECUCION, NoEjecucion, Juzgado);
             if (ejecucionRepositorio.Estatus == Estatus.SIN_RESULTADO) {
                 Mensaje = ("La consulta no generó ningun resultado");
             }
