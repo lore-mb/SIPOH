@@ -31,7 +31,7 @@ namespace PoderJudicial.SIPOH.Negocio
 
         public List<Juzgado> ObtenerJuzgadoPorCircuito(int IdCircuito)
         {
-            List<Juzgado> Lista = catalogosRepository.ObtenerJuzgadoEjecucionPorCircuito(IdCircuito);
+            List<Juzgado> Lista = catalogosRepository.ConsultaJuzgados(IdCircuito, TipoJuzgado.EJECUCION);
 
             if (catalogosRepository.Estatus == Estatus.SIN_RESULTADO)
             {

@@ -2,6 +2,7 @@
 using PoderJudicial.SIPOH.AccesoDatos;
 using PoderJudicial.SIPOH.AccesoDatos.Conexion;
 using PoderJudicial.SIPOH.Entidades;
+using PoderJudicial.SIPOH.Entidades.Enum;
 using System.Collections.Generic;
 
 namespace PoderJudicial.SIPOH.UT.IgmaUT
@@ -19,7 +20,7 @@ namespace PoderJudicial.SIPOH.UT.IgmaUT
         [TestMethod]
         public void ObtenerJuzadosPorCircuito() {
             CatalogosRepository catalogo = new CatalogosRepository(Connection);
-            List<Juzgado> ListaJuzgados = catalogo.ObtenerJuzgadoEjecucionPorCircuito(1);
+            List<Juzgado> ListaJuzgados = catalogo.ConsultaJuzgados(1, TipoJuzgado.EJECUCION);
         }
 
     }

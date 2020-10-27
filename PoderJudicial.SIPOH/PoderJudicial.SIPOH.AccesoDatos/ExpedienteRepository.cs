@@ -28,7 +28,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
             IsValidConnection = connection.IsValidConnection;
         }
 
-        public Expediente ObtenerExpedientes(int idJuzgado, string numeroExpediente, TipoNumeroExpediente expediente)
+        public Expediente ConsultaExpediente(int idJuzgado, string numeroExpediente, TipoNumeroExpediente expediente)
         {
             try
             {
@@ -125,7 +125,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
             }
         }
 
-        public List<Expediente> ObtenerExpedientesPorEjecucion(int idEjecucion)
+        public List<Expediente> ConsultaExpedientes(int idEjecucion)
         {
             try
             {

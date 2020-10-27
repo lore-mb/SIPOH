@@ -101,6 +101,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         #endregion
 
         #region [OBTENER] Expedientes de ejecucion por causa
+        //revisar
         public ActionResult ObtenerExpedienteEjecucionCausa(int idExpediente)
         {
             Expediente ExpedienteCRE = promocionesProcessor.ObtenerExpedienteEjecucionCausa(idExpediente);

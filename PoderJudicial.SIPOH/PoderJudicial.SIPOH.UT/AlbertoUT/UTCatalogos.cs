@@ -24,8 +24,8 @@ namespace PoderJudicial.SIPOH.UT.AlbertoUT
         {
             CatalogosRepository repo = new CatalogosRepository(cnx);
 
-            List<Anexo> anexos = repo.ObtenerAnexosEjecucion("A");
-            List<Anexo> anexo2 = repo.ObtenerAnexosEjecucion("T");
+            List<Anexo> anexos = repo.ConsultaAnexos("A");
+            List<Anexo> anexo2 = repo.ConsultaAnexos("T");
         }
 
         [TestMethod]
@@ -45,8 +45,8 @@ namespace PoderJudicial.SIPOH.UT.AlbertoUT
 
             CatalogosRepository repo = new CatalogosRepository(cnx);
 
-            List<Juzgado> juzgadosC1 = repo.ObtenerSalas(TipoJuzgado.ACUSATORIO);
-            List<Juzgado> juzgadosC2 = repo.ObtenerSalas(TipoJuzgado.TRADICIONAL);
+            List<Juzgado> juzgadosC1 = repo.ConsultaJuzgados(TipoSistema.ACUSATORIO);
+            List<Juzgado> juzgadosC2 = repo.ConsultaJuzgados(TipoSistema.TRADICIONAL);
         }
 
         [TestMethod]
@@ -56,25 +56,25 @@ namespace PoderJudicial.SIPOH.UT.AlbertoUT
 
             //TRADICIONAL
             //Recuperar Distritos por circuto
-            List<Distrito> distritos1 = repo.ObtenerDistritos(1);
-            List<Distrito> distritos2 = repo.ObtenerDistritos(2);
-            List<Distrito> distritos3 = repo.ObtenerDistritos(3);
-            List<Distrito> distritos4 = repo.ObtenerDistritos(4);
-            List<Distrito> distritos5 = repo.ObtenerDistritos(5);
+            List<Distrito> distritos1 = repo.ConsultaDistritos(1);
+            List<Distrito> distritos2 = repo.ConsultaDistritos(2);
+            List<Distrito> distritos3 = repo.ConsultaDistritos(3);
+            List<Distrito> distritos4 = repo.ConsultaDistritos(4);
+            List<Distrito> distritos5 = repo.ConsultaDistritos(5);
 
             //Recuperar Juzgados por Ditrito Traducional
             foreach (Distrito distrito in distritos1)
             {
-                List<Juzgado> juzgados1 = repo.ObtenerJuzgadosAcusatorioTradicional(distrito.IdDistrito, TipoJuzgado.TRADICIONAL);
+                List<Juzgado> juzgados1 = repo.ConsultaJuzgados(TipoSistema.TRADICIONAL, distrito.IdDistrito);
             }
 
             //ACUSATORIO
             //Juzgados por Circuito acusatorio
-            List<Juzgado> juzgadosC1 = repo.ObtenerJuzgadosAcusatorioTradicional(1, TipoJuzgado.ACUSATORIO);
-            List<Juzgado> juzgadosC2 = repo.ObtenerJuzgadosAcusatorioTradicional(2, TipoJuzgado.ACUSATORIO);
-            List<Juzgado> juzgadosC3 = repo.ObtenerJuzgadosAcusatorioTradicional(3, TipoJuzgado.ACUSATORIO);
-            List<Juzgado> juzgadosC4 = repo.ObtenerJuzgadosAcusatorioTradicional(4, TipoJuzgado.ACUSATORIO);
-            List<Juzgado> juzgadosC5 = repo.ObtenerJuzgadosAcusatorioTradicional(5, TipoJuzgado.ACUSATORIO);
+            List<Juzgado> juzgadosC1 = repo.ConsultaJuzgados(TipoSistema.ACUSATORIO, 1);
+            List<Juzgado> juzgadosC2 = repo.ConsultaJuzgados(TipoSistema.ACUSATORIO, 2);
+            List<Juzgado> juzgadosC3 = repo.ConsultaJuzgados(TipoSistema.ACUSATORIO, 3);
+            List<Juzgado> juzgadosC4 = repo.ConsultaJuzgados(TipoSistema.ACUSATORIO, 4);
+            List<Juzgado> juzgadosC5 = repo.ConsultaJuzgados(TipoSistema.ACUSATORIO, 5);
         }
 
         [TestMethod]
@@ -110,8 +110,8 @@ namespace PoderJudicial.SIPOH.UT.AlbertoUT
         public void SolicitantesSolicitud()
         {
             CatalogosRepository repo = new CatalogosRepository(cnx);
-            List<Solicitud> solicitud = repo.ObtenerSolicitudes();
-            List<Solicitante> solicitantes = repo.ObtenerSolicitantes();
+            List<Solicitud> solicitud = repo.ConsultaSolicitudes();
+            List<Solicitante> solicitantes = repo.ConsultaSolicitantes();
         }
 
 
@@ -129,12 +129,12 @@ namespace PoderJudicial.SIPOH.UT.AlbertoUT
         public void ExpedientePorFolio()
         {
             ExpedienteRepository repo = new ExpedienteRepository(cnx);
-            List<Expediente> expedientes = repo.ObtenerExpedientesPorEjecucion(86);
+            List<Expediente> expedientes = repo.ConsultaExpedientes(86);
 
             CatalogosRepository repoCatalogos = new CatalogosRepository(cnx);
-            List<Toca> tocas = repoCatalogos.ObtenerTocasPorEjecucion(81);
-            List<string> amparos = repoCatalogos.ObtenerAmparosPorEjecucion(78);
-            List<Anexo> anexos = repoCatalogos.ObtenerAnexosPorEjecucion(87);
+            List<Toca> tocas = repoCatalogos.ConsultaTocas(81);
+            List<string> amparos = repoCatalogos.ConsultaAmparos(78);
+            List<Anexo> anexos = repoCatalogos.ConsultaAnexos(87);
         }
 
         [TestMethod]

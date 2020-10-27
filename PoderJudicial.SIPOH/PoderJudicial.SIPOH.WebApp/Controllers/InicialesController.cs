@@ -29,10 +29,10 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             try 
             {
                 //Obtencion de Datos para PinckList al cargado de la vista
-                List<Juzgado> juzgadosAcusatorios = inicialesProcessor.RecuperaJuzgado(Usuario.IdCircuito, TipoJuzgado.ACUSATORIO);
+                List<Juzgado> juzgadosAcusatorios = inicialesProcessor.RecuperaJuzgado(Usuario.IdCircuito, TipoSistema.ACUSATORIO);
                 List<Distrito> distritos = inicialesProcessor.RecuperaDistrito(Usuario.IdCircuito);
-                List<Juzgado> salasAcusatorio = inicialesProcessor.RecuperaSala(TipoJuzgado.ACUSATORIO);
-                List<Juzgado> salasTradicional = inicialesProcessor.RecuperaSala(TipoJuzgado.TRADICIONAL);
+                List<Juzgado> salasAcusatorio = inicialesProcessor.RecuperaSala(TipoSistema.ACUSATORIO);
+                List<Juzgado> salasTradicional = inicialesProcessor.RecuperaSala(TipoSistema.TRADICIONAL);
                 List<Anexo> anexosEjecucion = inicialesProcessor.RecuperaAnexos("A");
                 List<Solicitud> solicitudes = inicialesProcessor.RecuperaSolicitud();
                 List<Solicitante> solicitantes = inicialesProcessor.RecuperaSolicitante();
@@ -71,7 +71,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         {
             try
             {
-                List<Juzgado> juzgados = inicialesProcessor.RecuperaJuzgado(idDistrito, TipoJuzgado.TRADICIONAL);
+                List<Juzgado> juzgados = inicialesProcessor.RecuperaJuzgado(idDistrito, TipoSistema.TRADICIONAL);
 
                 ValidaJuzgados(juzgados);
                 Respuesta.Mensaje = inicialesProcessor.Mensaje;

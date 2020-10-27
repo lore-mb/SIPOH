@@ -35,11 +35,11 @@ namespace PoderJudicial.SIPOH.UT.IgmaUT
             ejecucion.IdUsuario = 22;
 
             List<int> causas = new List<int>() { 404, 405, 406, 407 };
-            List<Expediente> tocas = new List<Expediente>()
+            List<Toca> tocas = new List<Toca>()
             {
-                new Expediente(){ IdJuzgado = 4, NumeroDeToca = "0001/2020" },
-                new Expediente(){ IdJuzgado = 5, NumeroDeToca = "0002/2020" },
-                new Expediente(){ IdJuzgado = 4, NumeroDeToca = "0003/2020" }
+                new Toca(){ IdJuzgado = 4, NumeroDeToca = "0001/2020" },
+                new Toca(){ IdJuzgado = 5, NumeroDeToca = "0002/2020" },
+                new Toca(){ IdJuzgado = 4, NumeroDeToca = "0003/2020" }
             };
 
             List<string> amparos = new List<string>() { "ASDF", "QWER", "ZXCV", "FGHJ" };

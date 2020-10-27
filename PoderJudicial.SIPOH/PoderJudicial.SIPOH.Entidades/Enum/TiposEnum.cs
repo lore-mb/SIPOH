@@ -16,7 +16,7 @@ namespace PoderJudicial.SIPOH.Entidades.Enum
         ACTIVO = 5,
         INACTIVO = 6
     }
-    public enum TipoJuzgado
+    public enum TipoSistema
     {
         TRADICIONAL = 0,
         ACUSATORIO = 1
@@ -41,5 +41,18 @@ namespace PoderJudicial.SIPOH.Entidades.Enum
     {
         BENEFICIARIO = 0,
         PARTE = 1
+    }
+
+    public enum Distribucion 
+    {
+       CIRCUITO = 0,
+       DISTRITI = 1
+    }
+
+    public enum TipoJuzgado 
+    {
+       CABEZERA = 0,
+       CONTROL = 1,
+       EJECUCION = 2
     }
 }

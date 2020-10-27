@@ -25,7 +25,7 @@ namespace PoderJudicial.SIPOH.Negocio
 
         public List<Juzgado> ObtenerJuzgadoEjecucionPorCircuito(int idcircuito)
         {
-            List<Juzgado> JuzgadoEjecucion = catalogosRepositorio.ObtenerJuzgadoEjecucionPorCircuito(idcircuito);
+            List<Juzgado> JuzgadoEjecucion = catalogosRepositorio.ConsultaJuzgados(idcircuito, TipoJuzgado.EJECUCION);
             if (catalogosRepositorio.Estatus == Estatus.SIN_RESULTADO)
             {
                 Mensaje = "La consulta no genero ningun resultado.";
@@ -57,7 +57,7 @@ namespace PoderJudicial.SIPOH.Negocio
 
         public List<Expediente> ObtenerExpedientesPorEjecucion(int idEjecucion)
         {
-            List<Expediente> ExpedienteListado = expedienteRepositorio.ObtenerExpedientesPorEjecucion(idEjecucion);
+            List<Expediente> ExpedienteListado = expedienteRepositorio.ConsultaExpedientes(idEjecucion);
             if (expedienteRepositorio.Estatus == Estatus.SIN_RESULTADO)
             {
                 Mensaje = ("La consulta no ha generado ningun resultado");
@@ -72,7 +72,7 @@ namespace PoderJudicial.SIPOH.Negocio
         }
 
         public List<Anexo> ObtenerAnexosEjecucion(string tipo) {
-            List<Anexo> ListarExpedientes = catalogosRepositorio.ObtenerAnexosEjecucion(tipo);
+            List<Anexo> ListarExpedientes = catalogosRepositorio.ConsultaAnexos(tipo);
             if (catalogosRepositorio.Estatus == Estatus.SIN_RESULTADO) {
                 Mensaje = ("La consulta no ha generado ningun resultado");
             }

@@ -18,7 +18,7 @@ namespace PoderJudicial.SIPOH.UT.IgmaUT
         [TestMethod]
         public void JuzgadosEjecucionPorCircuito() {
             CatalogosRepository test1 = new CatalogosRepository(Cnx);
-            List<Juzgado> distrito1 = test1.ObtenerJuzgadoEjecucionPorCircuito(1);
+            List<Juzgado> distrito1 = test1.ConsultaJuzgados(1, Entidades.Enum.TipoJuzgado.EJECUCION);
         }
 
         [TestMethod]

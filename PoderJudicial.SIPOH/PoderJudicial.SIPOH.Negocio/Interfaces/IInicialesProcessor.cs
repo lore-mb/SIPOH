@@ -8,8 +8,8 @@ namespace PoderJudicial.SIPOH.Negocio.Interfaces
     public interface IInicialesProcessor
     {
         string Mensaje { get; set; }
-        List<Juzgado> RecuperaJuzgado(int idFiltro, TipoJuzgado tipoJuzgado);
-        List<Juzgado> RecuperaSala(TipoJuzgado tipoJuzgado);
+        List<Juzgado> RecuperaJuzgado(int idFiltro, TipoSistema tipoJuzgado);
+        List<Juzgado> RecuperaSala(TipoSistema tipoJuzgado);
         List<Distrito> RecuperaDistrito(int idCircuito);
         Expediente RecuperaExpedientes(int idJuzgado, string numeroExpediente, TipoNumeroExpediente expediente);
         List<Ejecucion> RecuperaSentenciadoBeneficiario(string nombre, string apellidoPaterno, string apellidoMaterno, int idCircuito);

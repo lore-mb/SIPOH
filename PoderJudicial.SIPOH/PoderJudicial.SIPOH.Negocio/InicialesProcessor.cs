@@ -30,7 +30,7 @@ namespace PoderJudicial.SIPOH.Negocio
 
         public List<Distrito> RecuperaDistrito(int idCircuito)
         {
-            List<Distrito> distritos = catalogosRepositorio.ObtenerDistritos(idCircuito);
+            List<Distrito> distritos = catalogosRepositorio.ConsultaDistritos(idCircuito);
    
             if (catalogosRepositorio.Estatus == Estatus.SIN_RESULTADO)
                 Mensaje = "La consulta no genero ningun resultado";
@@ -45,9 +45,9 @@ namespace PoderJudicial.SIPOH.Negocio
             return distritos;
         }
 
-        public List<Juzgado> RecuperaJuzgado(int id, TipoJuzgado tipoJuzgado)
+        public List<Juzgado> RecuperaJuzgado(int id, TipoSistema tipoJuzgado)
         {
-            List<Juzgado> juzgados = catalogosRepositorio.ObtenerJuzgadosAcusatorioTradicional(id, tipoJuzgado);
+            List<Juzgado> juzgados = catalogosRepositorio.ConsultaJuzgados(tipoJuzgado, id);
 
             if (catalogosRepositorio.Estatus == Estatus.SIN_RESULTADO)
                 Mensaje = "La consulta no genero ningun resultado";
@@ -63,7 +63,7 @@ namespace PoderJudicial.SIPOH.Negocio
 
         public Expediente RecuperaExpedientes(int idJuzgado, string numeroExpediente, TipoNumeroExpediente expediente)
         {
-            Expediente expedientes = expedienteRepositorio.ObtenerExpedientes(idJuzgado, numeroExpediente, expediente);
+            Expediente expedientes = expedienteRepositorio.ConsultaExpediente(idJuzgado, numeroExpediente, expediente);
 
             if (expedienteRepositorio.Estatus == Estatus.SIN_RESULTADO)
                 Mensaje = "La consulta no genero ningun resultado";
@@ -77,9 +77,9 @@ namespace PoderJudicial.SIPOH.Negocio
             return expedientes;
         }
 
-        public List<Juzgado> RecuperaSala(TipoJuzgado tipoJuzgado)
+        public List<Juzgado> RecuperaSala(TipoSistema tipoJuzgado)
         {
-            List<Juzgado> juzgados = catalogosRepositorio.ObtenerSalas(tipoJuzgado);
+            List<Juzgado> juzgados = catalogosRepositorio.ConsultaJuzgados(tipoJuzgado);
 
             if (catalogosRepositorio.Estatus == Estatus.SIN_RESULTADO)
                 Mensaje = "La consulta no genero ningun resultado";
@@ -111,7 +111,7 @@ namespace PoderJudicial.SIPOH.Negocio
 
         public List<Anexo> RecuperaAnexos(string tipo) 
         {
-            List<Anexo> anexos = catalogosRepositorio.ObtenerAnexosEjecucion(tipo);
+            List<Anexo> anexos = catalogosRepositorio.ConsultaAnexos(tipo);
 
             if (catalogosRepositorio.Estatus == Estatus.SIN_RESULTADO)
                 Mensaje = "La consulta no genero ningun resultado";
@@ -127,7 +127,7 @@ namespace PoderJudicial.SIPOH.Negocio
 
         public List<Solicitante> RecuperaSolicitante()
         {
-            List<Solicitante> solicitantes = catalogosRepositorio.ObtenerSolicitantes();
+            List<Solicitante> solicitantes = catalogosRepositorio.ConsultaSolicitantes();
 
             if (catalogosRepositorio.Estatus == Estatus.SIN_RESULTADO)
                 Mensaje = "La consulta no genero ningun resultado";
@@ -143,7 +143,7 @@ namespace PoderJudicial.SIPOH.Negocio
 
         public List<Solicitud> RecuperaSolicitud()
         {
-            List<Solicitud> solcitudes = catalogosRepositorio.ObtenerSolicitudes();
+            List<Solicitud> solcitudes = catalogosRepositorio.ConsultaSolicitudes();
 
             if (catalogosRepositorio.Estatus == Estatus.SIN_RESULTADO)
                 Mensaje = "La consulta no genero ningun resultado";
@@ -162,7 +162,7 @@ namespace PoderJudicial.SIPOH.Negocio
             int? idUnidad = null;
             bool esCircuitoPachuca = true;
 
-            List<Juzgado> juzgadoEjecucion = catalogosRepositorio.ObtenerJuzgadoEjecucionPorCircuito(circuito);
+            List<Juzgado> juzgadoEjecucion = catalogosRepositorio.ConsultaJuzgados(circuito, TipoJuzgado.EJECUCION);
             
             if (juzgadoEjecucion != null && circuito != 1) 
             {
@@ -206,28 +206,28 @@ namespace PoderJudicial.SIPOH.Negocio
             }
             else if (ejecucionRepository.Estatus == Estatus.OK) 
             {
-                causas = expedienteRepositorio.ObtenerExpedientesPorEjecucion(folio);
+                causas = expedienteRepositorio.ConsultaExpedientes(folio);
                 if (expedienteRepositorio.Estatus == Estatus.ERROR)
                 {
                    relaciones.Add(Relacionadas.CAUSAS);
                    string mensajeLogger = expedienteRepositorio.MensajeError;             
                 }
 
-                tocas = catalogosRepositorio.ObtenerTocasPorEjecucion(folio);
+                tocas = catalogosRepositorio.ConsultaTocas(folio);
                 if (catalogosRepositorio.Estatus == Estatus.ERROR)
                 {
                    relaciones.Add(Relacionadas.TOCAS);
                    string mensajeLogger = catalogosRepositorio.MensajeError;            
                 }
 
-                amparos = catalogosRepositorio.ObtenerAmparosPorEjecucion(folio);
+                amparos = catalogosRepositorio.ConsultaAmparos(folio);
                 if (catalogosRepositorio.Estatus == Estatus.ERROR)
                 {
                    relaciones.Add(Relacionadas.AMPAROS);
                    string mensajeLogger = catalogosRepositorio.MensajeError;                
                 }
 
-                anexos = catalogosRepositorio.ObtenerAnexosPorEjecucion(folio);   
+                anexos = catalogosRepositorio.ConsultaAnexos(folio);   
                 if (catalogosRepositorio.Estatus == Estatus.ERROR)
                 {
                    relaciones.Add(Relacionadas.ANEXOS);

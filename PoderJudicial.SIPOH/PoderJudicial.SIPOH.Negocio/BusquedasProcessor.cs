@@ -188,7 +188,7 @@ namespace PoderJudicial.SIPOH.Negocio
         /// <returns></returns>
         public List<Distrito> ObtenerDistritoPorCircuito(int idCircuito)
         {
-            List<Distrito> distritoCircuito = catalogoRepositorio.ObtenerDistritos(idCircuito);
+            List<Distrito> distritoCircuito = catalogoRepositorio.ConsultaDistritos(idCircuito);
            
             if (catalogoRepositorio.Estatus == Estatus.ERROR)
             {
@@ -212,7 +212,7 @@ namespace PoderJudicial.SIPOH.Negocio
         /// <returns></returns>
         public List<Juzgado> ObtenerJuzgadosAcusatoriosPorCircuito(int idCircuito)
         {
-            List<Juzgado> juzgadosCiruito = catalogoRepositorio.ObtenerJuzgadosAcusatorioTradicional(idCircuito, TipoJuzgado.ACUSATORIO);
+            List<Juzgado> juzgadosCiruito = catalogoRepositorio.ConsultaJuzgados(TipoSistema.ACUSATORIO, idCircuito);
            
             if (catalogoRepositorio.Estatus == Estatus.ERROR)
             {
@@ -230,7 +230,7 @@ namespace PoderJudicial.SIPOH.Negocio
 
         public List<Solicitante> ObtenerSolicitanteEjecucion()
         {
-            List<Solicitante> solicitanteEjecucion = catalogoRepositorio.ObtenerSolicitantes();
+            List<Solicitante> solicitanteEjecucion = catalogoRepositorio.ConsultaSolicitantes();
             
             if(catalogoRepositorio.Estatus == Estatus.ERROR)
             {
@@ -247,7 +247,7 @@ namespace PoderJudicial.SIPOH.Negocio
 
         public List<Juzgado> ObtenerJuzgadosPorDistritos(int idDistrito)
         {
-            List<Juzgado> juzgados = catalogoRepositorio.ObtenerJuzgadosPorDistrito(idDistrito);
+            List<Juzgado> juzgados = catalogoRepositorio.ConsultaJuzgados(idDistrito);
 
             if (catalogoRepositorio.Estatus == Estatus.ERROR)
             {
@@ -265,7 +265,7 @@ namespace PoderJudicial.SIPOH.Negocio
 
         public List<Expediente> ObtenerExpedientesPorEjecucion(int idEjecucion)
         {
-            List<Expediente> ExpedienteListado = expedienteRepositorio.ObtenerExpedientesPorEjecucion(idEjecucion);
+            List<Expediente> ExpedienteListado = expedienteRepositorio.ConsultaExpedientes(idEjecucion);
 
             if (expedienteRepositorio.Estatus == Estatus.SIN_RESULTADO)
             {

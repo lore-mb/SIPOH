@@ -18,7 +18,11 @@ namespace PoderJudicial.SIPOH.AccesoDatos.Interfaces
         List<Ejecucion> ConsultaEjecuciones(int idSolicitante, int idCircuito);
         Ejecucion ConsultaEjecucion(int idEjecucion);
         int ? CreaEjecucion(Ejecucion ejecucion, List<int> causas, List<Toca> tocas, List<string> amparos, List<Anexo> anexos, int? idJuzgado, bool circuitoPachuca); 
+        
+        //int ? CreaEjecucionPosterior(EjecucionPosterior ejecucionPosterior, List<Anexos> anexos)
         int ? GuardarPostEjecucion(PostEjecucion postEjecucion, List<Anexo> anexos);
+
+        //ConsultaEjecucionPosterior(int idEjecucionPosterior)
         Ejecucion ObtenerEjecucionPromocionPorFolio(int folioEjecucion);
     }
 }

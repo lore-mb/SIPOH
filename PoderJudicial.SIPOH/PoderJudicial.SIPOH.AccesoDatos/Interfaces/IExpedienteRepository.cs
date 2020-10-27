@@ -12,10 +12,10 @@ namespace PoderJudicial.SIPOH.AccesoDatos.Interfaces
     {
         string MensajeError { get; set; }
         Estatus Estatus { get; set; }
-        Expediente ObtenerExpedientes(int idJuzgado, string causaNuc, TipoNumeroExpediente expediente);
-
+        Expediente ConsultaExpediente(int idJuzgado, string causaNuc, TipoNumeroExpediente expediente);
+        List<Expediente> ConsultaExpedientes(int idEjecucion);
+        
         //REVISAR
         Expediente ObtenerExpedienteEjecucionCausa(int idExpediente);
-        List<Expediente> ObtenerExpedientesPorEjecucion(int idEjecucion);
     }
 }

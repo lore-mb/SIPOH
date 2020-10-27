@@ -13,17 +13,18 @@ namespace PoderJudicial.SIPOH.AccesoDatos.Interfaces
     {
         string MensajeError { get; set; }
         Estatus Estatus { get; set; }
-        List<Distrito> ObtenerDistritos(int idCircuito);
-        List<Juzgado> ObtenerJuzgadosAcusatorioTradicional(int idCircuitoDistrito, TipoJuzgado tipoJuzgado);
-        List<Juzgado> ObtenerJuzgadosPorDistrito(int idDistrito);
-        List<Juzgado> ObtenerSalas(TipoJuzgado tipoJuzgado);
-        List<Anexo> ObtenerAnexosEjecucion(string tipo);
-        List<Juzgado> ObtenerJuzgadoEjecucionPorCircuito(int idcircuito);
-        List<Solicitud> ObtenerSolicitudes();
-        List<Solicitante> ObtenerSolicitantes();
-        List<Toca> ObtenerTocasPorEjecucion(int idEjecucion);
-        List<string> ObtenerAmparosPorEjecucion(int idEjecucion);
-        List<Anexo> ObtenerAnexosPorEjecucion(int idEjecucion);
+        List<Distrito> ConsultaDistritos(int idCircuito);
+        List<Juzgado> ConsultaJuzgados(TipoSistema sistema, int idCircuitoDistrito);
+        List<Juzgado> ConsultaJuzgados(TipoSistema sistema);
+        List<Juzgado> ConsultaJuzgados(int idCircuitoDistrito, TipoJuzgado ? tipoJuzgado = null);
+        List<Solicitud> ConsultaSolicitudes();
+        List<Solicitante> ConsultaSolicitantes();
+        List<Toca> ConsultaTocas(int idEjecucion);
+        List<string> ConsultaAmparos(int idEjecucion);
+        List<Anexo> ConsultaAnexos(string tipo);
+
+        //Fucionar metodo, crear un Enum para diferenciar entre Inicial y Promocion
+        List<Anexo> ConsultaAnexos(int idEjecucion);
         List<Anexo> ConsultarAnexosPorEjecucionPosterior(int IdEjecucionPosterior);
     }
 }
