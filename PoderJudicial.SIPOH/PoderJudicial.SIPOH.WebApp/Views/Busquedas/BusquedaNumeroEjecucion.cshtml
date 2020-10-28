@@ -41,35 +41,38 @@
                         <form id="formPartesCausa" class="needs-validation" novalidate>
 
                             <div class="form-row mt-3">
-                                <div class="col-12 col-md-6 mt-1">
+                                <div class="col-12 col-md-4 mt-1">
+
+                                    <label for="validationCustom04"><strong>Apellido Paterno</strong></label>
+
                                     <div class="input-group validate-me" id="divApellidoPParte">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="lbApellidoPaterno">Apellido Paterno</span>
-                                        </div>
-                                        <input type="text" class="form-control focusNext" id="inpApellidoPaternoParte" tabindex="1" aria-describedby="inpNumero" required>
+                                        @*<div class="input-group-prepend">
+                <span class="input-group-text" id="lbApellidoPaterno">Apellido Paterno</span>
+            </div>*@
+                                        <input type="text" class="form-control focusNext mt-2" id="inpApellidoPaternoParte" tabindex="1" aria-describedby="inpNumero" required>
                                         <div class="invalid-feedback">
                                             <i class="icon-notification"></i> Intruduzca un Apellido Paterno
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="col-12 col-md-6 mt-1">
+                                <div class="col-12 col-md-4 mt-1">
+
+                                    <label for="validationCustom04"><strong>Apellido Materno</strong></label>
                                     <div class="input-group" id="divApellidoMSentenciado">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="lbApellidoPMaterno">Apellido Materno</span>
-                                        </div>
-                                        <input type="text" class="form-control focusNext" id="inpApellidoMaternoPartes" tabindex="2" aria-describedby="inpNumero" novalidate="true">
+                                        @*<div class="input-group-prepend">
+                <span class="input-group-text" id="lbApellidoPMaterno">Apellido Materno</span>
+            </div>*@
+                                        <input type="text" class="form-control focusNext mt-2" id="inpApellidoMaternoPartes" tabindex="2" aria-describedby="inpNumero" novalidate="true">
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="form-row">
-
-                                <div class="col-12 col-md-6 mt-1">
+                                <div class="col-12 col-md-4 mt-1">
+                                    <label class="mb-2" for="validationCustom04"><strong>Nombre(s) Parte</strong></label>
                                     <div class="input-group validate-me" id="divBusquedaSentenciado">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="lbNombreParte">Nombre(s)</span>
-                                        </div>
+                                        @*<div class="input-group-prepend">
+                <span class="input-group-text" id="lbNombreParte">Nombre(s)</span>
+            </div>*@
                                         <input type="text" class="form-control focusNext focusNextEnd mr-2" id="inpNombreParte" tabindex="3" aria-describedby="inpNumero" required>
                                         <button id="botonBuscarNumerosDeEjecucionPartes" type="submit" class="btn btn-success btn-sm mr-2" data-toggle="tooltip" data-placement="top" title="Buscar Ejecuciones"><i class="fa fa-search icon"></i></button>
                                         <button id="botonBorrarDatos" type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Limpiar Busqueda"><i class="fa fa-eraser icon"></i></button>
@@ -80,6 +83,11 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="form-row">
+
+                                
+                            </div>
                         </form>
                     </div>
 
@@ -88,11 +96,12 @@
                         <form id="formBeneficiario" class="needs-validation" novalidate>
 
                             <div class="form-row mt-3">
-                                <div class="col-12 col-md-6 mt-1">
+                                <div class="col-12 col-md-4 mt-1">
+                                    <label class="mb-2" for="validationCustom04"><strong>Apellido Paterno</strong></label>
                                     <div class="input-group validate-me" id="divApellidoBParte">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="lbApellidoBeneficiario">Apellido Paterno</span>
-                                        </div>
+                                        @*<div class="input-group-prepend">
+                    <span class="input-group-text" id="lbApellidoBeneficiario">Apellido Paterno</span>
+                </div>*@
                                         <input type="text" class="form-control focusNext" id="inpApellidoPaternoBeneficiario" tabindex="4" aria-describedby="inpNumero" required>
                                         <div class="invalid-feedback">
                                             <i class="icon-notification"></i> Intruduzca un Apellido Paterno
@@ -100,23 +109,22 @@
                                     </div>
                                 </div>
 
-                                <div class="col-12 col-md-6 mt-1">
+                                <div class="col-12 col-md-4 mt-1">
+                                    <label class="mb-2" for="validationCustom04"><strong>Apellido Materno</strong></label>
                                     <div class="input-group" id="divApellidoMBeneficiario">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="lbApellidoBMaterno">Apellido Materno</span>
-                                        </div>
+                                        @*<div class="input-group-prepend">
+                <span class="input-group-text" id="lbApellidoBMaterno">Apellido Materno</span>
+            </div>*@
                                         <input type="text" class="form-control focusNext" id="inpApellidoMaternoBeneficiario" tabindex="5" aria-describedby="inpNumero">
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="form-row">
-
-                                <div class="col-12 col-md-6 mt-1">
+                                <div class="col-12 col-md-4 mt-1">
+                                    <label class="mb-2" for="validationCustom04"><strong>Nombre(s) Beneficiario</strong></label>
                                     <div class="input-group validate-me" id="divBusquedaSentenciado">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="lbNombreBeneficiario">Nombre(s)</span>
-                                        </div>
+                                        @*<div class="input-group-prepend">
+                <span class="input-group-text" id="lbNombreBeneficiario">Nombre(s)</span>
+            </div>*@
                                         <input type="text" class="form-control focusNext focusNextEnd mr-2" id="inpNombreBeneficiario" tabindex="6" aria-describedby="inpNumero" required>
                                         <button id="botonBuscarNumerosDeEjecucionBeneficiario" type="submit" class="btn btn-success btn-sm mr-2" data-toggle="tooltip" data-placement="top" title="Buscar Ejecuciones"><i class="fa fa-search icon"></i></button>
                                         <button id="botonBorrarDatos" type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Limpiar Busqueda"><i class="fa fa-eraser icon"></i></button>
@@ -127,15 +135,14 @@
                                 </div>
 
                             </div>
-
                         </form>
 
                     </div>
                     <div class="tab-pane fade" id="pills-numcausa" role="tabpanel" aria-labelledby="pills-numcausa-tab">
                         <form id="formCausasEjecucion" class="needs-validation" novalidate>
-                            <div class="form-row mt-3">
+                            <div class="form-row mt-2">
                                 <div class="col-md-3 form-group">
-                                    <label for="slcNumero">Distrito de Procedencia</label>
+                                    <label for="slcNumero"><strong>Distrito de Procedencia</strong></label>
                                     @Html.DropDownList("DistritoPorCircuito", (SelectList)ViewBag.DistritoPorCircuito, "SELECCIONA OPCION", new { @id = "slctDistrito", @class = "custom-select formatear", @required = "required" })
 
                                     <div class="invalid-feedback">
@@ -143,8 +150,8 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-5 form-group">
-                                    <label for="validationCustom04">Juzgado de Procedencia</label>
+                                <div class="col-md-6 form-group">
+                                    <label for="validationCustom04"><strong>Juzgado de Procedencia</strong></label>
                                     <select class="custom-select" id="slctJuzgadoPorDistritos" required>
                                         <option selected value="">SELECCIONAR OPCIÓN</option>
                                     </select>
@@ -153,12 +160,12 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-4 form-group">
-                                    <label for="validationCustomUsername">Numero de Causa</label>
+                                <div class="col-md-3 form-group">
+                                    <label for="validationCustomUsername"><strong>Numero de Causa</strong></label>
                                     <div class="input-group" id="divCAU">
-                                        <div class="input-group-prepend">
+                                        @*<div class="input-group-prepend">
                                             <span class="input-group-text" id="inputGroupPrepend">CAUSA</span>
-                                        </div>
+                                        </div>*@
                                         <input type="text" class="form-control mr-2" id="inpCausa" aria-describedby="inpCAU" placeholder="0000/0000" required>
                                         <button class="btn btn-success btn-sm mr-2" type="submit" id="botonBuscarNumerosDeEjecucionCausas" data-toggle="tooltip" data-placement="top" title="Buscar Ejecuciones"><i class="fas fa-search"></i></button>
                                         <button id="botonBorrarDatos" type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Limpiar Busqueda"><i class="fa fa-eraser icon"></i></button>
@@ -172,10 +179,10 @@
                     </div>
                     <div class="tab-pane fade" id="pills-NUC" role="tabpanel" aria-labelledby="pills-NUC-tab">
                         <form id="formNucEjecucion" class="needs-validation" novalidate>
-                            <div class="form-row mt-3">
+                            <div class="form-row mt-2">
                                 <div class="col-md-12 col-lg-7 form-group">
 
-                                    <label for="validationCustom04">Juzgado de Procedencia</label>
+                                    <label for="validationCustom04"><strong>Juzgado de Procedencia</strong></label>
                                     @Html.DropDownList("JuzgadosAcusatorios", (SelectList)ViewBag.JuzgadosAcusatorios, "SELECCIONA OPCION", new { @id = "slctJuzgadoAcusatorio", @class = "custom-select formatear", @required = "required" })
 
                                     <div class="invalid-feedback">
@@ -184,11 +191,11 @@
                                 </div>
 
                                 <div class="col-md-12 col-lg-5 form-group">
-                                    <label class="" for="inpNumero" id="NumeroLabel">Numero Unico de Caso</label>
+                                    <label class="" for="inpNumero" id="NumeroLabel"><strong>Numero Unico de Caso</strong></label>
                                     <div class="input-group">
-                                        <div class="input-group-prepend">
+                                        @*<div class="input-group-prepend">
                                             <span class="input-group-text" id="spnNumero">NUC</span>
-                                        </div>
+                                        </div>*@
                                         <input type="text" id="inpNuc" name="inpNucName" class="form-control mr-2" aria-label="Small" aria-describedby="inputGroup-sizing-sm" data-inputmask-clearmaskonlostfocus="true" required placeholder="00-0000-0000">
                                         <button class="btn btn-success btn-sm mr-2" type="submit" id="botonBuscarNumerosDeEjecucionNuc" data-toggle="tooltip" data-placement="top" title="Buscar Ejecuciones"><i class="fa fa-search"></i></button>
                                         <button id="botonBorrarDatos" type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Limpiar Busqueda"><i class="fa fa-eraser icon"></i></button>
@@ -202,10 +209,10 @@
                     </div>
                     <div class="tab-pane fade" id="pills-solicitante" role="tabpanel" aria-labelledby="pills-solicitante-tab">
                         <form id="formSolicitanteEjecucion" class="needs-validation" novalidate>
-                            <div class="form-row mt-3">
+                            <div class="form-row mt-2">
 
                                 <div class="col-md-12 col-lg-5 form-group">
-                                    <label class="" for="inpNumero" id="NumeroLabel">Solicitante</label>
+                                    <label class="" for="inpNumero" id="NumeroLabel"><strong>Solicitante</strong></label>
                                     <div class="input-group">
                                         @Html.DropDownList("Solicitante", (SelectList)ViewBag.Solicitante, "SELECCIONA OPCION", new { @id = "slctSolicitante", @class = "custom-select formatear mr-2", @required = "required" })
 
@@ -223,11 +230,12 @@
                     <div class="tab-pane fade" id="pills-Dsolicitante" role="tabpanel" aria-labelledby="pills-Dsolicitante-tab">
                         <form id="formDetalleSolicitanteEjecucion" class="needs-validation" novalidate>
                             <div class="form-row mt-3">
-                                <div class="col-12 col-md-8 mt-1">
+                                <div class="col-12 col-md-6 mt-1">
+                                    <label class="mb-2" for="inpNumero" id="NumeroLabel"><strong>Detalle del Solicitante</strong></label>
                                     <div class="input-group" id="divDetalleSolicitante">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="lbDetalleSolicitante">Detalle del Solicitante</span>
-                                        </div>
+                                        @*<div class="input-group-prepend">
+                <span class="input-group-text" id="lbDetalleSolicitante">Detalle del Solicitante</span>
+            </div>*@
                                         <input type="text" class="form-control mr-2" id="inpDetalleSolicitante" aria-describedby="inpDetalleSolicitante" required>
                                         <button id="botonBuscarNumerosDeEjecucionDetalleSolicitante" type="submit" class="btn btn-success btn-sm mr-2" data-toggle="tooltip" data-placement="top" title="Buscar Ejecuciones"><i class="fa fa-search icon"></i></button>
                                         <button id="botonBorrarDatos" type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Limpiar Busqueda"><i class="fa fa-eraser icon"></i></button>

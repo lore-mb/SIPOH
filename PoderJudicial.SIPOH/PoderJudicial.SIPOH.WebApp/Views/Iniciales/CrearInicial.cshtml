@@ -38,7 +38,7 @@
                             <div class="form-row">
                                 <div class="col-md-12 col-lg-6 form-group">
 
-                                    <label for="validationCustom04">Juzgado de Procedencia</label>
+                                    <label for="validationCustom04"><strong>Juzgado de Procedencia</strong></label>
 
                                     @Html.DropDownList("SelectJuzgadoAcusatorio", (SelectList)ViewBag.JuzgadosAcusatorios, "SELECCIONAR OPCIÓN", new { @id = "slctJuzgado", @class = "custom-select formatear", @required = "required" })
 
@@ -52,7 +52,7 @@
                                 </div>
 
                                 <div class="col-md-6 col-lg-3 form-group">
-                                    <label for="slcNumero">Causa | Nuc</label>
+                                    <label for="slcNumero"><strong> Causa | Nuc</strong></label>
                                     <select class="custom-select" id="slctNumero">
                                         <option value="1">NUMERO DE CAUSA</option>
                                         <option value="2">NUMERO UNICO DE CASO</option>
@@ -62,11 +62,11 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-lg-3 form-group">
-                                    <label class="" for="inpNumero" id="NumeroLabel">Numero de Causa</label>
+                                    <label class="" for="inpNumero" id="NumeroLabel"><b>Numero de Causa</b></label>
                                     <div class="input-group">
-                                        <div class="input-group-prepend">
+                                        @*<div class="input-group-prepend">
                                             <span class="input-group-text" id="spnNumero">Causa</span>
-                                        </div>
+                                        </div>*@
                                         <input type="text" id="Numero" name="Numero" class="form-control mr-2" aria-label="Small" aria-describedby="inputGroup-sizing-sm" data-inputmask-clearmaskonlostfocus="true" required>
                                         <button class="btn btn-success btn-sm" type="submit" id="btnNUC" data-toggle="tooltip" data-placement="top" title="Consultar Causas"><i class="fa fa-search"></i></button>
                                     </div>
@@ -79,7 +79,7 @@
                         <form id="formCausasTradicional" class="needs-validation" novalidate>
                             <div class="form-row">
                                 <div class="col-md-3 form-group">
-                                    <label for="slcNumero">Distrito de Procedencia</label>
+                                    <label for="slcNumero"><strong>Distrito de Procedencia</strong></label>
 
                                     @Html.DropDownList("DistritoPorCircuito", (SelectList)ViewBag.DistritosPorCircuito, "SELECCIONAR OPCIÓN", new { @id = "slctDistrito", @class = "custom-select formatear", @required = "required" })
 
@@ -92,7 +92,7 @@
                                 </div>
 
                                 <div class="col-md-5 form-group">
-                                    <label for="validationCustom04">Juzgado de Procedencia</label>
+                                    <label for="validationCustom04"><strong>Distrito de Procedencia</strong></label>
                                     <select class="custom-select" id="slctJuzgadoTradi" required>
                                         <option selected value="">SELECCIONAR OPCIÓN</option>
                                     </select>
@@ -102,11 +102,11 @@
                                 </div>
 
                                 <div class="col-md-4 form-group">
-                                    <label for="validationCustomUsername">Numero de Causa</label>
+                                    <label for="validationCustomUsername"><strong>Numero de Causa</strong></label>
                                     <div class="input-group" id="divCAU">
-                                        <div class="input-group-prepend">
+                                        @*<div class="input-group-prepend">
                                             <span class="input-group-text" id="inputGroupPrepend">CAUSA</span>
-                                        </div>
+                                        </div>*@
                                         <input type="text" class="form-control mr-3" id="inpCAUT" aria-describedby="inpCAU" placeholder="0000/0000" required>
                                         <button class="btn btn-success btn-sm" type="submit" id="btnCAU" data-toggle="tooltip" data-placement="top" title="Consultar Causas"><i class="fas fa-search"></i></button>
                                         <div class="invalid-feedback">
@@ -147,8 +147,8 @@
                         <div class="col-12 col-md-7 form-group">
                             <form id="formTocas" class="needs-validation" novalidate>
                                 <div class="form-row">
-                                    <div class="col-12 col-md-7">
-                                        <label for="validationCustom04">Salas Disponibles</label>
+                                    <div class="col-12 col-md-6">
+                                        <label for="validationCustom04"><strong>Salas Disponibles</strong></label>
 
                                         @if (ViewBag.SalasAcusatorioTotal == 1)
                                         {
@@ -165,12 +165,12 @@
                                             <i class="icon-notification"></i> Por favor, selecciona una sala.
                                         </div>
                                     </div>
-                                    <div class="col-12 col-md-5">
-                                        <label for="validationCustom04">Numero de Toca</label>
+                                    <div class="col-12 col-md-6">
+                                        <label for="validationCustom04"><strong>Numero de Toca</strong></label>
                                         <div class="input-group " id="divToca">
-                                            <div class="input-group-prepend">
+                                            @*<div class="input-group-prepend">
                                                 <span class="input-group-text" id="lbToca">Toca</span>
-                                            </div>
+                                            </div>*@
                                             <input type="text" class="form-control mr-2" id="inpToca" aria-describedby="inpToca" data-inputmask-clearmaskonlostfocus="true" required>
                                             <button class="btn btn-success btn-sm" type="submit" id="btnToca" data-toggle="tooltip" data-placement="top" title="Agregar Toca"><i class="fas fa-plus-circle"></i></button>
                                             <div class="invalid-feedback">
@@ -199,11 +199,11 @@
                             <form id="formAmparos" class="needs-validation" novalidate>
                                 <div class="form-row">
                                     <div class="col-12 col-md-12">
-                                        <label for="validationCustom04">Sentencia de Amparo Vinculada</label>
+                                        <label for="validationCustom04"><strong>Sentencia de Amparo Vinculada</strong></label>
                                         <div class="input-group" id="divAmparo">
-                                            <div class="input-group-prepend">
+                                            @*<div class="input-group-prepend">
                                                 <span class="input-group-text" id="lbAmparo">Amparo</span>
-                                            </div>
+                                            </div>*@
                                             <input type="text" class="form-control mr-2" id="ipnAmparo" aria-describedby="inpAmparo" required>
                                             <button class="btn btn-success btn-sm" type="submit" id="btnAmparo" data-toggle="tooltip" data-placement="top" title="Agregar Sentencia de Amparo"><i class="fas fa-plus-circle"></i></button>
                                             <div class="invalid-feedback">
@@ -241,55 +241,15 @@
                         <div id="seccionBusquedaBeneficiario">
 
                             <!-- FILA UNO -->
-                            <div class="form-row mt-4">
-                                <div class="col-12">
-                                    <label for="validationCustomUsername">Sentenciado | Beneficiario</label>
-                                </div>
-                            </div>
+                            <div class="form-row mt-2">
+                                <div class="col-12 col-md-8">
+                                    @*<label for="validationCustomUsername"><strong>Sentenciado | Beneficiario</strong></label>*@
 
-                            <!-- FILA DOS -->
-                            <div class="form-row">
-                                <div class="col-12 col-md-6 mt-1">
-                                    <div class="input-group" id="divApellidoPSentenciado">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="lbApellidoPaterno">Apellido Paterno</span>
-                                        </div>
-                                        <input type="text" class="form-control" id="inpApellidoPaterno" aria-describedby="inpNumero" required>
-                                        <div class="invalid-feedback">
-                                            Introducir apellido paterno del Beneficiario
-                                        </div>
-                                    </div>
                                 </div>
-
-                                <div class="col-12 col-md-6 mt-1">
-                                    <div class="input-group" id="divApellidoMSentenciado">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="lbApellidoMaterno">Apellido Materno</span>
-                                        </div>
-                                        <input type="text" class="form-control" id="inpApellidoMaterno" aria-describedby="inpNumero" required>
-                                        <div class="invalid-feedback">
-                                            Introducir apellido materno del Beneficiario
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- FILA TRES -->
-                            <div class="form-row">
-                                <div class="col-12 col-md-6 mt-1">
-                                    <div class="input-group" id="divNombreSentenciado ">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="lbNombreSentenciado">Nombre(s)</span>
-                                        </div>
-                                        <input type="text" class="form-control" id="inpNombreSentenciado" aria-describedby="inpNumero" required>
-                                        <div class="invalid-feedback">
-                                            Introducir nombre del Beneficiario
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-md-6 mt-1">
+                                <div class="col-12 col-md-4 mt-1">
                                     <div class="input-group" id="divBusquedaSentenciado">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text" id="lbBusquedaSentenciado">Coincidencias</span>
+                                            <span class="input-group-text" id="lbBusquedaSentenciado">Total</span>
                                         </div>
                                         <input type="text" class="form-control mr-3" id="inpBusquedaSentenciado" aria-describedby="inpNumero" disabled>
                                         <button id="botonMostrarBeneficiarios" type="button" class="btn btn-secondary btn-sm mr-3" data-toggle="tooltip" data-placement="top" title="Ver Coincidencias"><i class="fa fa-eye icon"></i></button>
@@ -298,12 +258,69 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- FILA DOS -->
+                            <div class="form-row  mt-1">
+                                <div class="col-12 col-md-4 mt-2">
+                                    <label><strong>Nombre(s) Sentenciado-Beneficiario</strong></label>
+                                    <div class="input-group" id="divNombreSentenciado ">
+                                        @*<div class="input-group-prepend">
+                            <span class="input-group-text" id="lbNombreSentenciado">Nombre(s)</span>
+                            </div>*@
+                                        <input type="text" class="form-control mt-2" id="inpNombreSentenciado" aria-describedby="inpNumero" required>
+                                        <div class="invalid-feedback">
+                                            Introducir nombre del Beneficiario
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-4 mt-2">
+                                    <label><strong>Apellido Paterno</strong></label>
+                                    <div class="input-group" id="divApellidoPSentenciado">
+                                        @*<div class="input-group-prepend">
+                            <span class="input-group-text" id="lbApellidoPaterno">Apellido Paterno</span>
+                            </div>*@
+                                        <input type="text" class="form-control mt-2" id="inpApellidoPaterno" aria-describedby="inpNumero" required>
+                                        <div class="invalid-feedback">
+                                            Introducir apellido paterno del Beneficiario
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-4 mt-2">
+                                    <label><strong>Apellido Materno</strong></label>
+                                    <div class="input-group" id="divApellidoMSentenciado">
+                                        @*<div class="input-group-prepend">
+                            <span class="input-group-text" id="lbApellidoMaterno">Apellido Materno</span>
+                            </div>*@
+                                        <input type="text" class="form-control mt-2" id="inpApellidoMaterno" aria-describedby="inpNumero" required>
+                                        <div class="invalid-feedback">
+                                            Introducir apellido materno del Beneficiario
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- FILA TRES -->
+                            <div class="form-row">
+                                @*<div class="col-12 col-md-6 mt-1">
+                        <div class="input-group" id="divNombreSentenciado ">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="lbNombreSentenciado">Nombre(s)</span>
+                            </div>
+                            <input type="text" class="form-control" id="inpNombreSentenciado" aria-describedby="inpNumero" required>
+                            <div class="invalid-feedback">
+                                Introducir nombre del Beneficiario
+                            </div>
+                        </div>
+                    </div>*@
+
+                            </div>
                         </div>
 
                         <div id="seccionBeneficiario">
                             <div class="form-row">
                                 <div class="col-12 mt-4">
-                                    <label class="mr-4" for="validationCustom04">¿Sentenciado Interno? </label>
+                                    <label class="mr-4" for="validationCustom04"><strong>¿Sentenciado Interno?</strong></label>
                                     <div class="custom-control custom-radio custom-control-inline">
                                         <input type="radio" id="customRadioInline1" name="customRadioInline1" value="S" class="custom-control-input" required>
                                         <label class="custom-control-label" for="customRadioInline1">SI</label>
@@ -315,16 +332,11 @@
                                 </div>
                             </div>
 
-
-                            <div class="form-row mt-3">
-                                <div class="col-12">
-                                    <label for="validationCustom04">Solicitante</label>
-                                </div>
-                            </div>
-
                             <!-- FILA CINCO -->
-                            <div class="form-row">
+                            <div class="form-row mt-2">
                                 <div class="col-12 col-md-5 mt-1">
+
+                                    <label for="validationCustom04"><strong>Solicitante</strong></label>
 
                                     @Html.DropDownList("Solicitante", (SelectList)ViewBag.Solicitantes, "SELECCIONAR OPCIÓN", new { @id = "slctSolicitante", @class = "custom-select formatear", @required = "required" })
 
@@ -333,10 +345,11 @@
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-7 mt-1">
+                                    <label><strong>Detalle del Solicitante</strong></label>
                                     <div class="input-group" id="divDetalleSolicitante">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="lbDetalleSolicitante">Detalle del Solicitante</span>
-                                        </div>
+                                        @*<div class="input-group-prepend">
+                                <span class="input-group-text" id="lbDetalleSolicitante">Detalle del Solicitante</span>
+                            </div>*@
                                         <input type="text" class="form-control" id="ipnDetalleSolicitante" aria-describedby="ipnDetalleSolicitante" required>
                                         <div class="invalid-feedback">
                                             Introduzca un detalle para el solicitante.
@@ -345,15 +358,11 @@
                                 </div>
                             </div>
 
-                            <div class="form-row mt-3">
-                                <div class="col-12">
-                                    <label for="validationCustom04">Solicitud</label>
-                                </div>
-                            </div>
-
                             <!-- FILA SIETE -->
-                            <div class="form-row">
+                            <div class="form-row mb-4">
                                 <div class="col-12 col-md-5 mt-1">
+
+                                    <label for="validationCustom04"><strong>Solicitud</strong></label>
 
                                     @Html.DropDownList("Solicitud", (SelectList)ViewBag.Solicitudes, "SELECCIONAR OPCIÓN", new { @id = "slctSolicitud", @class = "custom-select formatear", @required = "required" })
 
@@ -363,10 +372,11 @@
                                 </div>
                                 <div class="col-12 col-md-7 mt-1">
 
+                                    <label><strong>Otra Solicitud</strong></label>
                                     <div class="input-group" id="divOtraSolicitud">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="lbOtraSolicitud">Otro</span>
-                                        </div>
+                                        @*<div class="input-group-prepend">
+                                <span class="input-group-text" id="lbOtraSolicitud">Otro</span>
+                            </div>*@
                                         <input type="text" class="form-control" id="inpOtraSolicitud" aria-describedby="inpOtraSolicitud" disabled>
                                         <div class="invalid-feedback">
                                             Introduzca otra Solicitud.
@@ -378,16 +388,16 @@
                         </div>
                     </form>
 
+
                     <!-- FILA NUEVE -->
                     <form id="formAnexos" class="needs-validation" novalidate>
                         <div id="seccionBusquedaAnexos">
-                            <div class="form-row mt-3">
-                                <div class="col-12">
-                                    <label for="validationCustom04">Anexos</label>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="col-12 col-md-9 mt-1">
+
+                            <div class="separator-solid"></div>
+
+                            <div class="form-row mt-2">
+                                <div class="col-12 col-md-4 mt-1">
+                                    <label for="validationCustom04"><strong>Anexos</strong></label>
 
                                     @Html.DropDownList("AnexosInicales", (SelectList)ViewBag.AnexosInicales, "SELECCIONAR OPCIÓN", new { @id = "slctAnexosInicales", @class = "custom-select", @required = "required" })
 
@@ -395,28 +405,29 @@
                                         Seleccione una Descripción
                                     </div>
                                 </div>
-                                <div class="col-12 col-md-3 mt-1">
-                                    <div class="input-group" id="divAddAnexos">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="lbelAddAnexos">Cantidad</span>
+                                <div class="col-12 col-md-5 mt-1">
+
+                                    <label for="validationCustom04"><strong>Otro Anexo</strong></label>
+                                    <div class="input-group" id="divOtroAnexo">
+                                        @*<div class="input-group-prepend">
+                        <span class="input-group-text" id="lbOtroAnexo">Otro</span>
+                    </div>*@
+                                        <input type="text" class="form-control" id="inpOtroAnexo" aria-describedby="inpOtroAnexo" disabled>
+                                        <div class="invalid-feedback">
+                                            Introduzca otro Anexo.
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-3 mt-1">
+                                    <label for="validationCustom04"><strong>Cantidad</strong></label>
+                                    <div class="input-group" id="divAddAnexos">
+                                        @*<div class="input-group-prepend">
+                        <span class="input-group-text" id="lbelAddAnexos">Cantidad</span>
+                    </div>*@
                                         <input type="number" min="1" max="99" class="form-control mr-3" id="inpAddAnexos" aria-describedby="inpAddAnexos" required>
                                         <button class="btn btn-success btn-sm" type="submit" id="btnAddAnexos"><i class="fas fa-plus-circle"></i></button>
                                         <div class="invalid-feedback">
                                             Introduzca una cantidad
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="col-12 col-md-9 mt-1">
-                                    <div class="input-group" id="divOtroAnexo">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="lbOtroAnexo">Otro</span>
-                                        </div>
-                                        <input type="text" class="form-control" id="inpOtroAnexo" aria-describedby="inpOtroAnexo" disabled>
-                                        <div class="invalid-feedback">
-                                            Introduzca otro Anexo.
                                         </div>
                                     </div>
                                 </div>
@@ -430,7 +441,7 @@
                             <div class="col-12 mt-3">
                                 <h6 class="m-0 font-weight-bold text-success"><i class="icon-table2 mr-1"></i>Tabla de Anexos</h6>
                             </div>
-                            <div class="col-12 col-md-9">
+                            <div class="col-12">
                                 <div class="table-responsive text-small">
                                     <table class="table table-hover table-bordered" id="dataTableAnexos" width="100%" cellspacing="0">
                                     </table>

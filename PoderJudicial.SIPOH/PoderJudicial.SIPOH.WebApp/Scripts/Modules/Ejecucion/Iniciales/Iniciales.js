@@ -131,7 +131,7 @@ function ElementosAlCargado()
         }, false);
     });
 
-    $("#inpBusquedaSentenciado").val("Total : 0");
+    $("#inpBusquedaSentenciado").val("0");
 
     $("#slctJuzgadoTradi").prop('disabled', true);
 
@@ -216,7 +216,7 @@ function ElementosAlCargado()
         $('#inpNombreSentenciado').val("");
 
         encontroBeneficiarios = false;
-        $("#inpBusquedaSentenciado").val("Total : 0");
+        $("#inpBusquedaSentenciado").val("0");
         $("#inpBusquedaSentenciado").css('border', function () {
             return '1px solid #b0bec5';
         });
@@ -434,7 +434,7 @@ function ValidarBeneficiarios()
             $("#botonMostrarBeneficiarios").removeClass("btn-warning");
             $("#botonMostrarBeneficiarios").addClass("btn-secondary");
 
-            $("#inpBusquedaSentenciado").val("Total : 0");
+            $("#inpBusquedaSentenciado").val("0");
             $("#inpBusquedaSentenciado").css('border', function ()
             {
                 return '1px solid #b0bec5';
@@ -463,7 +463,7 @@ function LlenaTablaConsultaBeneficiarios(data)
             beneficarios.push(beneficiario);
         }
 
-        $("#inpBusquedaSentenciado").val("Total : " + data.Data.total);
+        $("#inpBusquedaSentenciado").val(data.Data.total);
         
         //Pintar en mostrar Bene
         $("#botonMostrarBeneficiarios").removeClass("btn-secondary");
@@ -475,7 +475,7 @@ function LlenaTablaConsultaBeneficiarios(data)
     {
         encontroBeneficiarios = false;
 
-        $("#inpBusquedaSentenciado").val("Total : 0");  
+        $("#inpBusquedaSentenciado").val("0");  
         $("#inpBusquedaSentenciado").css('border', function ()
         {
             return '1px solid #b0bec5';
@@ -498,7 +498,7 @@ function LlenaTablaConsultaBeneficiarios(data)
     {
         encontroBeneficiarios = false;
 
-        $("#inpBusquedaSentenciado").val("Total : 0");
+        $("#inpBusquedaSentenciado").val("0");
         $("#inpBusquedaSentenciado").css('border', function () {
             return '1px solid #b0bec5';
         });
