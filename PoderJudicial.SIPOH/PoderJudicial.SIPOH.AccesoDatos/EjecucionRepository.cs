@@ -362,7 +362,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
         /// </summary>
         /// <param name="folio"></param>
         /// <returns></returns>
-        public Ejecucion ObtenerEjecucionPromocionPorFolio(int folio)
+        public EjecucionPosterior ConsultarRegistroEjecucionPosterior(int IdEjecucionPosterior)
         {
             try
             {
@@ -371,7 +371,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
 
                 SqlCommand comando = new SqlCommand("sipoh_ConsultarEjecucionPorEjecucionPosterior", Cnx);
                 comando.CommandType = CommandType.StoredProcedure;
-                comando.Parameters.Add("@folio", SqlDbType.Int).Value = folio;
+                comando.Parameters.Add("@IdEjecucionPosterior", SqlDbType.Int).Value = IdEjecucionPosterior;
                 Cnx.Open();
 
                 SqlDataReader sqldataReader = comando.ExecuteReader();
@@ -379,7 +379,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
                 DataTable tabladata = new DataTable();
                 tabladata.Load(sqldataReader);
 
-                Ejecucion ejecucion = DataHelper.DataTableToList<Ejecucion>(tabladata).FirstOrDefault();
+                EjecucionPosterior ejecucion = DataHelper.DataTableToList<EjecucionPosterior>(tabladata).FirstOrDefault();
 
                 if (ejecucion != null)
                 {
@@ -411,7 +411,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
         /// <param name="postEjecucion"></param>
         /// <param name="anexos"></param>
         /// <returns></returns>
-        public int? GuardarPostEjecucion(PostEjecucion postEjecucion, List<Anexo> anexos)
+        public int? GuardarPostEjecucion(EjecucionPosterior ejecucionPosterior, List<Anexo> anexos)
         {
             try
             {
@@ -420,9 +420,9 @@ namespace PoderJudicial.SIPOH.AccesoDatos
                 
                 SqlCommand comandoSQL = new SqlCommand("sipoh_CrearEjecucionPosterior", Cnx);
                 comandoSQL.CommandType = CommandType.StoredProcedure;
-                comandoSQL.Parameters.Add("@IdEjecucion", SqlDbType.Int).Value = postEjecucion.IdEjecucion;
-                comandoSQL.Parameters.Add("@Promovente", SqlDbType.VarChar).Value = postEjecucion.Promovente;
-                comandoSQL.Parameters.Add("@IdUsuario", SqlDbType.Int).Value = postEjecucion.IdUser;
+                comandoSQL.Parameters.Add("@IdEjecucion", SqlDbType.Int).Value = ejecucionPosterior.IdEjecucion;
+                comandoSQL.Parameters.Add("@Promovente", SqlDbType.VarChar).Value = ejecucionPosterior.Promovente;
+                comandoSQL.Parameters.Add("@IdUsuario", SqlDbType.Int).Value = ejecucionPosterior.IdUser;
                 comandoSQL.Parameters.Add("@IdEjecucionPosterior", SqlDbType.Int);
 
                 comandoSQL.Parameters["@IdEjecucionPosterior"].Direction = ParameterDirection.Output;

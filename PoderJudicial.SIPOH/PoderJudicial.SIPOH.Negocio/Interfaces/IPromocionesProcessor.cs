@@ -7,12 +7,11 @@ namespace PoderJudicial.SIPOH.Negocio.Interfaces
 {
     public interface IPromocionesProcessor {
         string Mensaje { get; set; }
-        List<Juzgado> ObtenerJuzgadoEjecucionPorCircuito(int idcircuito);
+        List<Juzgado> ObtenerJuzgadoEjecucionPorCircuito(int IdCircuito);
         List<Ejecucion> ObtenerEjecucionPorJuzgado(int Juzgado, string NoEjecucion);
-        List<Expediente> ObtenerExpedientesPorEjecucion(int idEjecucion);
-        Expediente ObtenerExpedienteEjecucionCausa(int idExpediente);
-        List<Anexo> ObtenerAnexosEjecucion(string tipo);
-        int? GuardarPostEjecucion(PostEjecucion postEjecucion, List<Anexo> anexos);
-        bool InformacionRegistroPromocion(int FolioEjecucion, ref Ejecucion ejecucion, ref List<Anexo> anexo, ref List<Relacionadas> relacionadas);
+        List<Expediente> ObtenerExpedientesRelacionadoEjecucion(int IdExpediente);
+        List<Anexo> ObtenerAnexosEjecucion(string Tipo);
+        int? GuardarPostEjecucion(EjecucionPosterior PostEjecucion, List<Anexo> Anexos);
+        bool InformacionRegistroPromocion(int FolioEjecucion, ref EjecucionPosterior Ejecucion, ref List<Anexo> Anexo, ref List<Relacionadas> Relacionada);
     }
 }

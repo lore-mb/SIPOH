@@ -3,7 +3,7 @@
 // #region DOCUMENT READY
 
 $(document).ready(function () {
-
+    HabilitarFormulariAnexos();
     FormatoInputs();
     OcultarFormulario();
     OtrosAnexosSelect();
@@ -36,18 +36,39 @@ function FuncionalidadesListas() {
 
 // #region FUNCIONALIDAD: Ocultar Formulario
 function OcultarFormulario() {
-
     $("#divResultadoPromocion").hide();
+}
+// #endregion
 
+// #region FUNCIONALIDAD: Habilitar/Dsh Anexos
+function HabilitarFormulariAnexos() {
+
+    $("#formulario input").keyup(function () {
+
+        $NombrePromovente = $("#inpNombrePromovente").val();
+        $ApellidoPaterno = $("#inpPromoventeAP").val();
+        $ApellidoMaterno = $("#inpPromoventeMA").val();
+
+        if ($NombrePromovente.length <= 0 || $ApellidoPaterno.length <= 0 || $ApellidoMaterno.length <= 0) {
+            $("#slctAnexoEjecucion").prop('disabled', true);
+            $("#inpCantidadAnexos").prop('disabled', true);
+            $("#btnAgregarAnexo").prop('disabled', true);
+            $("#btnGuardarAnexos").prop('disabled', true);
+        }
+        else {
+            $("#slctAnexoEjecucion").prop('disabled', false);
+            $("#inpCantidadAnexos").prop('disabled', false);
+            $("#btnAgregarAnexo").prop('disabled', false);
+            $("#btnGuardarAnexos").prop('disabled', false);
+        }
+    });
 }
 // #endregion
 
 // #region FUNCIONALIDAD: Mostrar Formulario
 function MostrarFormulario() {
-
     $("#divResultadoPromocion").show();
     $(".disabled").prop('disabled', true);
-
 }
 // #endregion
 
@@ -100,6 +121,12 @@ function OtrosAnexosSelect() {
         }
     });
 
+}
+// #endregion
+
+// #region FUNCIONALIDAD: Guardar datos en el LocalStorage
+function AlmacenarIdEjecucion(IdEjecucionAnexo) {
+    sessionStorage.setItem("IdEjecucionAnexo", IdEjecucionAnexo);
 }
 // #endregion
 
@@ -273,11 +300,6 @@ var EstatusRespuesta = { SIN_RESPUESTA: 0, OK: 1, ERROR: 2 };
 // #region VARIABLES GLOBALES
 var intentos = 0;
 // #endregion
-
-/*Guarda datos en el LocalStorage*/
-function AlmacenarIdEjecucion(IdEjecucionAnexo) {
-    sessionStorage.setItem("IdEjecucionAnexo", IdEjecucionAnexo);
-}
 
 // #region ESTRUCTURAS: DataTable
 

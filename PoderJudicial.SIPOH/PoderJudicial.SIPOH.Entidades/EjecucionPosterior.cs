@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace PoderJudicial.SIPOH.Entidades
 {
-    public class PostEjecucion
+    public class EjecucionPosterior : Ejecucion
     {
-        public int IdEjecucion { get; set; }
-        public string Promovente { get; set; }
         public int IdUser { get; set; }
         public int IdEjecucionPosterior { get; set; }
+        public string Promovente { get; set; }
+        public string FechaIngreso { get; set; }
     }
 }
