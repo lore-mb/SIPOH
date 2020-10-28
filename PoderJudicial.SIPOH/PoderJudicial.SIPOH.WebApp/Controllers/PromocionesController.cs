@@ -131,12 +131,12 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult GuardarAnexosPostEjecucion(PromocionModelView Promociones)
+        public ActionResult GuardarAnexosPostEjecucion(EjecucionPosteriorModelView Promociones)
         {
             try
             {
                 // Parametros PostEjecucion & Mappeado
-                EjecucionPosterior parametrosPost = mapper.Map<PromocionModelView, EjecucionPosterior>(Promociones);
+                EjecucionPosterior parametrosPost = mapper.Map<EjecucionPosteriorModelView, EjecucionPosterior>(Promociones);
 
                 parametrosPost.IdUser = Usuario.Id;
                 parametrosPost.IdEjecucionPosterior = 0;
@@ -182,7 +182,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             {
                 //// Este modelo se manda a la vista
                 //DetalleEjecucionModelView ModeloEjecucion = new DetalleEjecucionModelView();
-                PromocionModelView ModeloEjecucionPosterior = new PromocionModelView();
+                EjecucionPosteriorModelView ModeloEjecucionPosterior = new EjecucionPosteriorModelView();
 
                 // Objetos como referencia al proccesor
                 EjecucionPosterior ejecucion = new EjecucionPosterior();
@@ -194,7 +194,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
 
                 if (ejecucion != null) {
                     //ModeloEjecucionPosterior = mapper.Map<EjecucionPosterior, DetalleEjecucionModelView>(ejecucion);
-                    ModeloEjecucionPosterior = mapper.Map<EjecucionPosterior, PromocionModelView>(ejecucion);
+                    ModeloEjecucionPosterior = mapper.Map<EjecucionPosterior, EjecucionPosteriorModelView>(ejecucion);
                     ModeloEjecucionPosterior.Anexos = mapper.Map<List<Anexo>, List<AnexosModelView>>(anexos);
                 }
               

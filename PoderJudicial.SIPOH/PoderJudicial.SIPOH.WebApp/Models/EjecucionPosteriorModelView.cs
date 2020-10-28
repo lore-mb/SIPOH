@@ -5,14 +5,14 @@ using System.Web;
 
 namespace PoderJudicial.SIPOH.WebApp.Models
 {
-    public class PromocionModelView : DetalleEjecucionModelView
+    public class EjecucionPosteriorModelView : DetalleEjecucionModelView
     {
         public string Promovente { get; set; }
         public string FechaIngreso { get; set; }
         public int IdUsuario { get; set; }
         public int IdEjecucionPosterior { get; set; }
 
-        public PromocionModelView() {
+        public EjecucionPosteriorModelView() {
           Anexos = new List<AnexosModelView>();
         }
     }
