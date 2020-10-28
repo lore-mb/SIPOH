@@ -43,8 +43,8 @@ namespace PoderJudicial.SIPOH.UT.IgmaUT
             EjecucionRepository RepositorioEjecucion;
             RepositorioEjecucion = new EjecucionRepository(Cnx);
 
-            PostEjecucion RepositorioPostEjecucion;
-            RepositorioPostEjecucion = new PostEjecucion();
+            EjecucionPosterior RepositorioPostEjecucion;
+            RepositorioPostEjecucion = new EjecucionPosterior();
             RepositorioPostEjecucion.IdEjecucion = 196;
             RepositorioPostEjecucion.Promovente = "Lic. PROMO 21";
             RepositorioPostEjecucion.IdUser = 1;

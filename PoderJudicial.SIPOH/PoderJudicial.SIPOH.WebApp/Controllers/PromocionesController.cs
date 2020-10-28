@@ -24,7 +24,6 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
 
         #region Public Methods
 
-        #region [MAIN] Return View & 
         public ActionResult CrearPromocion()
         {
             List<Anexo> ListarAnexosEjecucion = promocionesProcessor.ObtenerAnexosEjecucion("A");
@@ -35,108 +34,109 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
 
             return View();
         }
-        #endregion
 
-        #region [OBTENER] Juzgados de ejecucion por circutios
         [HttpGet]
         public ActionResult ObtenerJuzgadoEjecucionPorCircuito(int idcircuito)
         {
-            List<Juzgado> ListaJuzgados = promocionesProcessor.ObtenerJuzgadoEjecucionPorCircuito(idcircuito);
-            ValidarJuzgado(ListaJuzgados);
-            Respuesta.Mensaje = promocionesProcessor.Mensaje;
-            return Json(Respuesta, JsonRequestBehavior.AllowGet);
-        }
-        #endregion
+            try
+            {
+                List<Juzgado> ListaJuzgados = promocionesProcessor.ObtenerJuzgadoEjecucionPorCircuito(idcircuito);
 
-        #region [OBTENER] Datos Generales por Juzgado
+                ValidarJuzgado(ListaJuzgados);
+
+                Respuesta.Mensaje = promocionesProcessor.Mensaje;
+
+                return Json(Respuesta, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
+                Respuesta.Mensaje = ex.Message;
+                Respuesta.Data = null;
+                return Json(Respuesta, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         [HttpGet]
         public ActionResult ObtenerEjecucionPorJuzgado(int Juzgado, string NoEjecucion)
         {
-            List<Ejecucion> ListaInformacion = promocionesProcessor.ObtenerEjecucionPorJuzgado(Juzgado, NoEjecucion);
-
-            if (ListaInformacion == null)
+            try
             {
-                Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
-                Respuesta.Data = null;
-            }
-            else {
-                if (ListaInformacion.Count > 0)
+                List<Ejecucion> ListaInformacion = promocionesProcessor.ObtenerEjecucionPorJuzgado(Juzgado, NoEjecucion);
+
+                if (ListaInformacion == null)
                 {
-                    Respuesta.Estatus = EstatusRespuestaJSON.OK;
-                    Respuesta.Data = new { ListaInformacion };
-                }
-                else {
-                    Respuesta.Estatus = EstatusRespuestaJSON.SIN_RESPUESTA;
-                    Respuesta.Data = new object();
-                }
-            } 
-            Respuesta.Mensaje = promocionesProcessor.Mensaje;
-            return Json(Respuesta, JsonRequestBehavior.AllowGet);
-        }
-
-        #endregion
-
-        #region [OBTENER] Expedientes por numero de ejecución
-
-        [HttpGet]
-        public ActionResult ObtenerExpedientesPorEjecucion(int idEjecucion) {
-            List<Expediente> ObtenerEPE = promocionesProcessor.ObtenerExpedientesPorEjecucion(idEjecucion);
-            if (ObtenerEPE == null)
-            {
-                Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
-                Respuesta.Data = null;
-            }
-            else {
-                if (ObtenerEPE.Count > 0) {
-                    Respuesta.Estatus = EstatusRespuestaJSON.OK;
-                    Respuesta.Data = new { ObtenerEPE };
-                } else {
-                    Respuesta.Estatus = EstatusRespuestaJSON.SIN_RESPUESTA;
-                    Respuesta.Data = null;
-                }
-            }
-            return Json(Respuesta, JsonRequestBehavior.AllowGet);
-        }
-
-        #endregion
-
-        #region [OBTENER] Expedientes de ejecucion por causa
-        //revisar
-        public ActionResult ObtenerExpedienteEjecucionCausa(int idExpediente)
-        {
-            Expediente ExpedienteCRE = promocionesProcessor.ObtenerExpedienteEjecucionCausa(idExpediente);
-
-            if (ExpedienteCRE == null)
-            {
-                Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
-                Respuesta.Data = null;
-            }
-            else
-            {
-                if (ExpedienteCRE.IdExpediente == default)
-                {
-                    Respuesta.Estatus = EstatusRespuestaJSON.SIN_RESPUESTA;
+                    Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
                     Respuesta.Data = null;
                 }
                 else
                 {
-                    Respuesta.Estatus = EstatusRespuestaJSON.OK;
-                    Respuesta.Data = ExpedienteCRE;
+                    if (ListaInformacion.Count > 0)
+                    {
+                        Respuesta.Estatus = EstatusRespuestaJSON.OK;
+                        Respuesta.Data = new { ListaInformacion };
+                    }
+                    else
+                    {
+                        Respuesta.Estatus = EstatusRespuestaJSON.SIN_RESPUESTA;
+                        Respuesta.Data = new object();
+                    }
                 }
+                Respuesta.Mensaje = promocionesProcessor.Mensaje;
+                return Json(Respuesta, JsonRequestBehavior.AllowGet);
             }
-            Respuesta.Mensaje = promocionesProcessor.Mensaje;
-            return Json(Respuesta, JsonRequestBehavior.AllowGet);
+            catch (Exception ex) 
+            {
+                Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
+                Respuesta.Mensaje = ex.Message;
+                Respuesta.Data = null;
+                return Json(Respuesta, JsonRequestBehavior.AllowGet);
+            }
         }
-        #endregion
 
-        #region [GUARDAR] Anexos-Ejecución
+        [HttpGet]
+        public ActionResult ObtenerExpedientesPorEjecucion(int idEjecucion) 
+        {
+            try
+            {
+                List<Expediente> ObtenerEPE = promocionesProcessor.ObtenerExpedientesRelacionadoEjecucion(idEjecucion);
+
+                if (ObtenerEPE == null)
+                {
+                    Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
+                    Respuesta.Data = null;
+                }
+                else
+                {
+                    if (ObtenerEPE.Count > 0)
+                    {
+                        Respuesta.Estatus = EstatusRespuestaJSON.OK;
+                        Respuesta.Data = new { ObtenerEPE };
+                    }
+                    else
+                    {
+                        Respuesta.Estatus = EstatusRespuestaJSON.SIN_RESPUESTA;
+                        Respuesta.Data = null;
+                    }
+                }
+                return Json(Respuesta, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
+                Respuesta.Mensaje = ex.Message;
+                Respuesta.Data = null;
+                return Json(Respuesta, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         [HttpPost]
         public ActionResult GuardarAnexosPostEjecucion(PromocionModelView Promociones)
         {
             try
             {
                 // Parametros PostEjecucion & Mappeado
-                PostEjecucion parametrosPost = mapper.Map<PromocionModelView, PostEjecucion>(Promociones);
+                EjecucionPosterior parametrosPost = mapper.Map<PromocionModelView, EjecucionPosterior>(Promociones);
 
                 parametrosPost.IdUser = Usuario.Id;
                 parametrosPost.IdEjecucionPosterior = 0;
@@ -147,14 +147,16 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 // Asignamos Parametros a nuestro metodo
                 int? IdEjecucion = promocionesProcessor.GuardarPostEjecucion(parametrosPost, parametrosAnexos);
 
-                if (IdEjecucion == null) {
+                if (IdEjecucion == null) 
+                {
 
                     Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
                     Respuesta.Mensaje = promocionesProcessor.Mensaje;
                     Respuesta.Data = null;
 
-                } else if (IdEjecucion != null) {
-
+                } 
+                else if (IdEjecucion != null) 
+                {
                     // Generacion de parametros cifrados
                     string Link = ViewHelper.EncodedActionLink("Detalle", "Promociones", new { IdEjecucion = IdEjecucion });
                     Respuesta.Estatus = EstatusRespuestaJSON.OK;
@@ -164,26 +166,26 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 System.Threading.Thread.Sleep(2000);
                 return Json(Respuesta, JsonRequestBehavior.AllowGet);
             }
-            catch (Exception ex) {
+            catch (Exception ex) 
+            {
                 Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
                 Respuesta.Mensaje = ex.Message;
                 Respuesta.Data = null;
                 return Json(Respuesta, JsonRequestBehavior.AllowGet);
             }
         }
-        #endregion
 
-        #region [CONSULTAR] Detalles de registro a promociones
         [HttpGet]
         [EncriptarParametroFilter]
         public ActionResult Detalle(int IdEjecucion) {
             try
             {
-                // Este modelo se manda a la vista
-                DetalleEjecucionModelView ModeloEjecucion = new DetalleEjecucionModelView();
+                //// Este modelo se manda a la vista
+                //DetalleEjecucionModelView ModeloEjecucion = new DetalleEjecucionModelView();
+                PromocionModelView ModeloEjecucionPosterior = new PromocionModelView();
 
                 // Objetos como referencia al proccesor
-                Ejecucion ejecucion = new Ejecucion();
+                EjecucionPosterior ejecucion = new EjecucionPosterior();
                 List<Anexo> anexos = new List<Anexo>();
                 List<Relacionadas> ListRelacionadas = new List<Relacionadas>();
 
@@ -191,8 +193,9 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 bool RespuestaMetodo = promocionesProcessor.InformacionRegistroPromocion(IdEjecucion, ref ejecucion, ref anexos, ref ListRelacionadas);
 
                 if (ejecucion != null) {
-                    ModeloEjecucion = mapper.Map<Ejecucion, DetalleEjecucionModelView>(ejecucion);
-                    ModeloEjecucion.Anexos = mapper.Map<List<Anexo>, List<AnexosModelView>>(anexos);
+                    //ModeloEjecucionPosterior = mapper.Map<EjecucionPosterior, DetalleEjecucionModelView>(ejecucion);
+                    ModeloEjecucionPosterior = mapper.Map<EjecucionPosterior, PromocionModelView>(ejecucion);
+                    ModeloEjecucionPosterior.Anexos = mapper.Map<List<Anexo>, List<AnexosModelView>>(anexos);
                 }
               
                 ViewBag.Ejecucion = ListRelacionadas.Contains(Relacionadas.EJECUCION);
@@ -200,14 +203,13 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 ViewBag.RespuestaMetodo = RespuestaMetodo;
                 ViewBag.Mensaje = promocionesProcessor.Mensaje;
 
-                return View(ModeloEjecucion);
+                return View(ModeloEjecucionPosterior);
             }
             catch (Exception ex)
             {
                 Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
                 Respuesta.Mensaje = ex.Message;
                 Respuesta.Data = null;
-
                 return Json(Respuesta, JsonRequestBehavior.AllowGet);
             }
 
@@ -215,10 +217,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
 
         #endregion
 
-        #endregion
-
         #region Private method
-
         private void ValidarJuzgado(List<Juzgado> ListaJuzgados) {
             if (ListaJuzgados == null)
             {

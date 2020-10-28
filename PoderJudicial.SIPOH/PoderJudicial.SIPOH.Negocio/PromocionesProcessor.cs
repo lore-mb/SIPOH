@@ -8,33 +8,34 @@ namespace PoderJudicial.SIPOH.Negocio
 {
     public class PromocionesProcessor : IPromocionesProcessor
     {
-        // [Public method]
+        // [Public Method]
         public string Mensaje { get; set; }
 
-        // [Private method] 
+        // [Private Method] 
         private readonly ICatalogosRepository catalogosRepositorio;
         private readonly IEjecucionRepository ejecucionRepositorio; 
         private readonly IExpedienteRepository expedienteRepositorio;
 
-        // [Interface injection method]
+        // [Interface Injection Method]
         public PromocionesProcessor(ICatalogosRepository catalogosRepositorio, IEjecucionRepository ejecucionRepositorio, IExpedienteRepository expedienteRepositorio) {
             this.catalogosRepositorio = catalogosRepositorio;
             this.ejecucionRepositorio = ejecucionRepositorio;
             this.expedienteRepositorio = expedienteRepositorio;
         }
 
-        public List<Juzgado> ObtenerJuzgadoEjecucionPorCircuito(int idcircuito)
+        public List<Juzgado> ObtenerJuzgadoEjecucionPorCircuito(int IdCircuito)
         {
-            List<Juzgado> JuzgadoEjecucion = catalogosRepositorio.ConsultaJuzgados(idcircuito, TipoJuzgado.EJECUCION);
+            List<Juzgado> JuzgadoEjecucion = catalogosRepositorio.ConsultaJuzgados(IdCircuito, TipoJuzgado.EJECUCION);
+
             if (catalogosRepositorio.Estatus == Estatus.SIN_RESULTADO)
             {
-                Mensaje = "La consulta no genero ningun resultado.";
+                Mensaje = "La búsqueda no obtuvo ningún resultado.";
             }
 
             if (catalogosRepositorio.Estatus == Estatus.ERROR)
             {
-                Mensaje = ("Ocurrio un error interno ono controlado, consulte a soporte");
-                string mesajeLogger = catalogosRepositorio.MensajeError;
+                Mensaje = "Ocurrió un error no controlado por el sistema, por favor contacte a soporte técnico.";
+                string InfoMensajeLogger = catalogosRepositorio.MensajeError;
             }
 
             return JuzgadoEjecucion;
@@ -43,104 +44,110 @@ namespace PoderJudicial.SIPOH.Negocio
         public List<Ejecucion> ObtenerEjecucionPorJuzgado(int Juzgado, string NoEjecucion)
         {
             List<Ejecucion> EjecucionPorCircuito = ejecucionRepositorio.ConsultaEjecuciones(TipoNumeroExpediente.EJECUCION, NoEjecucion, Juzgado);
+
             if (ejecucionRepositorio.Estatus == Estatus.SIN_RESULTADO) {
-                Mensaje = ("La consulta no generó ningun resultado");
+                Mensaje = "La búsqueda no obtuvo ningún resultado.";
             }
 
             if (ejecucionRepositorio.Estatus == Estatus.ERROR) {
-                Mensaje = ("Ocurrio un error interno, contacte con soporte");
-                string messajeLogger = ejecucionRepositorio.MensajeError;
+                Mensaje = "Ocurrió un error no controlado por el sistema, por favor contacte a soporte técnico.";
+                string InfoMensajeLogger = ejecucionRepositorio.MensajeError;
             }
 
             return EjecucionPorCircuito;
         }
 
-        public List<Expediente> ObtenerExpedientesPorEjecucion(int idEjecucion)
+        public List<Expediente> ObtenerExpedientesRelacionadoEjecucion(int IdExpediente)
         {
-            List<Expediente> ExpedienteListado = expedienteRepositorio.ConsultaExpedientes(idEjecucion);
+            List<Expediente> ExpedienteListado = expedienteRepositorio.ConsultaExpedientes(IdExpediente);
+
             if (expedienteRepositorio.Estatus == Estatus.SIN_RESULTADO)
             {
-                Mensaje = ("La consulta no ha generado ningun resultado");
+                Mensaje = ("La búsqueda no obtuvo ningún resultado.");
             }
 
             if (expedienteRepositorio.Estatus == Estatus.ERROR)
             {
-                Mensaje = ("Ocurrio un error interno, consultar con soporte");
-                string messageLogger = expedienteRepositorio.MensajeError;
+                Mensaje = "Ocurrió un error no controlado por el sistema, por favor contacte a soporte técnico.";
+                string InfoMensajeLogger = expedienteRepositorio.MensajeError;
             }
             return ExpedienteListado;
         }
 
-        public List<Anexo> ObtenerAnexosEjecucion(string tipo) {
-            List<Anexo> ListarExpedientes = catalogosRepositorio.ConsultaAnexos(tipo);
+        public List<Anexo> ObtenerAnexosEjecucion(string Tipo) 
+        {
+            List<Anexo> ListarExpedientes = catalogosRepositorio.ConsultaAnexos(Tipo);
+
             if (catalogosRepositorio.Estatus == Estatus.SIN_RESULTADO) {
-                Mensaje = ("La consulta no ha generado ningun resultado");
+                Mensaje = ("La búsqueda no obtuvo ningún resultado.");
             }
             
             if (catalogosRepositorio.Estatus == Estatus.ERROR) {
-                Mensaje = ("Ocurrio un error interno, contacte a soporte");
-                string messageLoger = expedienteRepositorio.MensajeError;
+                Mensaje = "Ocurrió un error no controlado por el sistema, por favor contacte a soporte técnico.";
+                string InfoMensajeLogger = expedienteRepositorio.MensajeError;
             }
+
             return ListarExpedientes;
         }
 
-        public Expediente ObtenerExpedienteEjecucionCausa(int idExpediente)
+        public int? GuardarPostEjecucion(EjecucionPosterior PostEjecucion, List<Anexo> Anexos) 
         {
-            throw new System.NotImplementedException();
-        }
+            int? IdEjecucion = ejecucionRepositorio.GuardarPostEjecucion(PostEjecucion, Anexos);
 
-        public int? GuardarPostEjecucion(PostEjecucion postEjecucion, List<Anexo> anexos) {
-
-            int? IdEjecucion = ejecucionRepositorio.GuardarPostEjecucion(postEjecucion, anexos);
-
-            if (ejecucionRepositorio.Estatus == Estatus.OK) {
+            if (ejecucionRepositorio.Estatus == Estatus.OK) 
+            {
                 Mensaje = "El registro con numero de ejecucion " + "<b>" + IdEjecucion + "</b>" + " se ha ejecutado correctamente";
-            } else if (ejecucionRepositorio.Estatus == Estatus.ERROR) {
+            } 
+            else if (ejecucionRepositorio.Estatus == Estatus.ERROR) 
+            {
                 Mensaje = "Ocurrio un problema al ejecutar el registro";
-                string mensajeLogger = catalogosRepositorio.MensajeError;
+                string InfoMensajeLogger = catalogosRepositorio.MensajeError;
             }
+
             return IdEjecucion;
         }
 
-        public bool InformacionRegistroPromocion(int FolioEjecucion, ref Ejecucion ejecucion, ref List<Anexo> anexo, ref List<Relacionadas> relacionadas) {
+        public bool InformacionRegistroPromocion(int FolioEjecucion, ref EjecucionPosterior Ejecucion, ref List<Anexo> Anexo, ref List<Relacionadas> Relacionada) {
 
             // Consulta informacion relacionada a PostEjecucion
 
-            ejecucion = ejecucionRepositorio.ObtenerEjecucionPromocionPorFolio(FolioEjecucion);
+            Ejecucion = ejecucionRepositorio.ConsultarRegistroEjecucionPosterior(FolioEjecucion);
 
             if (ejecucionRepositorio.Estatus == Estatus.SIN_RESULTADO)
             {
-                relacionadas.Add(Relacionadas.EJECUCION);
-                Mensaje = "No hay respuesta para la consulta del folio " + "<b>" + FolioEjecucion + "</b>" + " registrado previamente, consulte con soporte.";
+                Relacionada.Add(Relacionadas.EJECUCION);
+                Mensaje = "La búsqueda no obtuvo ningún resultado.";
                 return false;
             }
             
             if (ejecucionRepositorio.Estatus == Estatus.ERROR)
             {
-                Mensaje = "ERROR al obtener los detalles del numero del folio " + "<b>" + FolioEjecucion +"</b>" + " .";
-                string MensajeLogger = ejecucionRepositorio.MensajeError;
+                Mensaje = "Ocurrió un error no controlado por el sistema, por favor contacte a soporte técnico.";
+                string InfoMensajeLogger = ejecucionRepositorio.MensajeError;
                 return false;
             }
             
             else if (ejecucionRepositorio.Estatus == Estatus.OK) 
             {
-                anexo = catalogosRepositorio.ConsultarAnexosPorEjecucionPosterior(FolioEjecucion);
+                Anexo = catalogosRepositorio.ConsultarAnexosPorEjecucionPosterior(FolioEjecucion);
+
                 if (catalogosRepositorio.Estatus == Estatus.ERROR) {
-                    Mensaje = "Hubo un error al consultar la informacion";
-                    relacionadas.Add(Relacionadas.ANEXOS);
-                    string MensajeLogger = catalogosRepositorio.MensajeError;
+                    Mensaje = "Ocurrió un error no controlado por el sistema, por favor contacte a soporte técnico.";
+                    Relacionada.Add(Relacionadas.ANEXOS);
+                    string InfoMensajeLogger = catalogosRepositorio.MensajeError;
                 }
-            
             }
 
-            if (relacionadas.Count > 0)
+            if (Relacionada.Count > 0)
             {
                 Mensaje = "Problema";
                 return false;
             }
             else
+            {
                 return true;
-        
+            }
+
         }
 
     }

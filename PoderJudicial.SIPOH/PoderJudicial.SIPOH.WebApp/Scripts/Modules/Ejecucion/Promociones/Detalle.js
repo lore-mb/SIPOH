@@ -71,7 +71,7 @@ function ImprimirSello() {
     JustificarEspacio("DEL ESTADO DE HIDALGO", 35),
     JustificarEspacio("ATENCION CIUDADANA", 35),
     JustificarEspacio("SENTENCIA EJECUTORIADA", 35),
-    JustificarEspacio("INICIAL", 35),
+    JustificarEspacio("PROMOCIÓN", 35),
     JustificarEspacio("------------------", 35)];
 
     var juzgadoSello = RemoverAcentos($("#juzgadoSello").text());
