@@ -181,7 +181,6 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             try
             {
                 //// Este modelo se manda a la vista
-                //DetalleEjecucionModelView ModeloEjecucion = new DetalleEjecucionModelView();
                 EjecucionPosteriorModelView ModeloEjecucionPosterior = new EjecucionPosteriorModelView();
 
                 // Objetos como referencia al proccesor
@@ -193,7 +192,6 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 bool RespuestaMetodo = promocionesProcessor.InformacionRegistroPromocion(IdEjecucion, ref ejecucion, ref anexos, ref ListRelacionadas);
 
                 if (ejecucion != null) {
-                    //ModeloEjecucionPosterior = mapper.Map<EjecucionPosterior, DetalleEjecucionModelView>(ejecucion);
                     ModeloEjecucionPosterior = mapper.Map<EjecucionPosterior, EjecucionPosteriorModelView>(ejecucion);
                     ModeloEjecucionPosterior.Anexos = mapper.Map<List<Anexo>, List<AnexosModelView>>(anexos);
                 }
