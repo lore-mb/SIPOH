@@ -64,7 +64,7 @@ namespace PoderJudicial.SIPOH.Negocio
         /// <param name="nuc"></param>
         /// <param name="idJuzgado"></param>
         /// <returns></returns>
-        public List<Ejecucion> ObtieneEjecucionesPorNUC(string nuc, int idJuzgado)
+        public List<Ejecucion> ObtieneEjecucionesPorNUCMasIdJuzgado(string nuc, int idJuzgado)
         {
             List<Ejecucion> NUC = ejecucionRepositorio.ConsultaEjecuciones(TipoNumeroExpediente.NUC, nuc, idJuzgado);
            
@@ -112,7 +112,7 @@ namespace PoderJudicial.SIPOH.Negocio
         /// </summary>
         /// <param name="idSolicitante"></param>
         /// <returns></returns>
-        public List<Ejecucion> ObtieneEjecucionesPorSolicitante(int idSolicitante, int idCircuito)
+        public List<Ejecucion> ObtieneEjecucionesPorIdSolicitante(int idSolicitante, int idCircuito)
         {
             List<Ejecucion> Solicitante = ejecucionRepositorio.ConsultaEjecuciones(idSolicitante, idCircuito);
             
@@ -161,7 +161,7 @@ namespace PoderJudicial.SIPOH.Negocio
         /// <param name="numeroCausa"></param>
         /// <param name="idJuzgado"></param>
         /// <returns></returns>
-        public List<Ejecucion> ObtieneEjecucionesPorNumeroCausa(string numeroCausa, int idJuzgado)
+        public List<Ejecucion> ObtieneEjecucionesPorNumeroCausaMasIdJuzgado(string numeroCausa, int idJuzgado)
         {
             List<Ejecucion> numCausa = ejecucionRepositorio.ConsultaEjecuciones(TipoNumeroExpediente.CAUSA, numeroCausa, idJuzgado);
           

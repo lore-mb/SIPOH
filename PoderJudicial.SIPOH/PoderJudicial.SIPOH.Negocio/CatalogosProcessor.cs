@@ -23,7 +23,7 @@ namespace PoderJudicial.SIPOH.Negocio.Interfaces
         }
 
         //Solo validacion
-        public List<Distrito> ObtieneDistritosPorMedioDelCircuito(int idCircuito)
+        public List<Distrito> ObtieneDistritosPorCircuito(int idCircuito)
         {
             List<Distrito> distritos = catalogosRepositorio.ConsultaDistritos(idCircuito);
 
@@ -40,7 +40,7 @@ namespace PoderJudicial.SIPOH.Negocio.Interfaces
         }
 
         //Solo validacion
-        public List<Juzgado> ObtieneJuzgadosPorMedioDelTipoSistema(int idCircuitoDistrito, TipoSistema tipoJuzgado)
+        public List<Juzgado> ObtieneJuzgadosPorTipoSistema(int idCircuitoDistrito, TipoSistema tipoJuzgado)
         {
             List<Juzgado> juzgados = catalogosRepositorio.ConsultaJuzgados(tipoJuzgado, idCircuitoDistrito);
 
@@ -57,7 +57,7 @@ namespace PoderJudicial.SIPOH.Negocio.Interfaces
         }
 
         //Solo validacion
-        public List<Juzgado> ObtieneSalasPorMedioDelTipoSistema(TipoSistema tipoJuzgado)
+        public List<Juzgado> ObtieneSalasPorTipoSistema(TipoSistema tipoJuzgado)
         {
             List<Juzgado> juzgados = catalogosRepositorio.ConsultaJuzgados(tipoJuzgado);
 
@@ -166,7 +166,7 @@ namespace PoderJudicial.SIPOH.Negocio.Interfaces
             return juzgados;
         }
 
-        public List<Juzgado> ObtenerJuzgadoEjecucionPorCircuito(int IdCircuito)
+        public List<Juzgado> ObtieneJuzgadosPorCircuito(int IdCircuito)
         {
             List<Juzgado> JuzgadoEjecucion = catalogosRepositorio.ConsultaJuzgados(IdCircuito, TipoJuzgado.EJECUCION);
 

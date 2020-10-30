@@ -11,10 +11,10 @@ namespace PoderJudicial.SIPOH.Negocio.Interfaces
     public interface ICatalogosProcessor
     {
         string Mensaje { get; set; }
-        List<Juzgado> ObtieneJuzgadosPorMedioDelTipoSistema(int idCircuitoDistrito, TipoSistema tipoJuzgado);
-        List<Juzgado> ObtieneSalasPorMedioDelTipoSistema(TipoSistema tipoJuzgado);
-        List<Juzgado> ObtenerJuzgadoEjecucionPorCircuito(int IdCircuito);
-        List<Distrito> ObtieneDistritosPorMedioDelCircuito(int idCircuito);
+        List<Juzgado> ObtieneJuzgadosPorTipoSistema(int idCircuitoDistrito, TipoSistema tipoJuzgado);
+        List<Juzgado> ObtieneSalasPorTipoSistema(TipoSistema tipoJuzgado);
+        List<Juzgado> ObtieneJuzgadosPorCircuito(int IdCircuito);
+        List<Distrito> ObtieneDistritosPorCircuito(int idCircuito);
         List<Anexo> ObtieneAnexosPorTipo(string tipo);
         List<Solicitante> ObtieneSolicitantes();
         List<Solicitud> ObtieneSolicitudes();

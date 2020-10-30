@@ -36,7 +36,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         public ActionResult BusquedaNumeroEjecucion()
         {
             //metodo que retorna la lista de distritos
-            List<Distrito> listaDistrito = catalogosProcessor.ObtieneDistritosPorMedioDelCircuito(Usuario.IdCircuito);
+            List<Distrito> listaDistrito = catalogosProcessor.ObtieneDistritosPorCircuito(Usuario.IdCircuito);
             List<Juzgado> listaJuzgados = catalogosProcessor.ObtieneJuzgadosAcusatoriosPorCircuito(Usuario.IdCircuito);
             List<Solicitante> listaSolicitante = catalogosProcessor.ObtieneSolicitantes();
 
@@ -163,7 +163,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         {
             try
             {
-                List<Ejecucion> numerosDeEjecucion = busquedaProcessor.ObtieneEjecucionesPorNumeroCausa(numCausa, idJuzgado);
+                List<Ejecucion> numerosDeEjecucion = busquedaProcessor.ObtieneEjecucionesPorNumeroCausaMasIdJuzgado(numCausa, idJuzgado);
 
                 if (numerosDeEjecucion == null)
                 {
@@ -212,7 +212,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         {
             try
             {
-                List<Ejecucion> numerosDeEjecucion = busquedaProcessor.ObtieneEjecucionesPorNUC(nuc, idJuzgado);
+                List<Ejecucion> numerosDeEjecucion = busquedaProcessor.ObtieneEjecucionesPorNUCMasIdJuzgado(nuc, idJuzgado);
 
                 if (numerosDeEjecucion == null)
                 {
@@ -260,7 +260,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         {
             try
             {
-                List<Ejecucion> numerosDeEjecucion = busquedaProcessor.ObtieneEjecucionesPorSolicitante(idSolicitante, Usuario.IdCircuito);
+                List<Ejecucion> numerosDeEjecucion = busquedaProcessor.ObtieneEjecucionesPorIdSolicitante(idSolicitante, Usuario.IdCircuito);
  
                 if (numerosDeEjecucion == null)
                 {

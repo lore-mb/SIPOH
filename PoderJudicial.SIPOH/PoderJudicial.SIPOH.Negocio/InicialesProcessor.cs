@@ -28,7 +28,7 @@ namespace PoderJudicial.SIPOH.Negocio
             this.ejecucionRepository = ejecucionRepository;
         }
 
-        public Expediente ObtieneCausaPorMedioDelJuzgadoNumeroCausaNUC(int idJuzgado, string numeroExpediente, TipoNumeroExpediente expediente)
+        public Expediente ObtieneCausaPorJuzgadoMasTipoNumeroExpediente(int idJuzgado, string numeroExpediente, TipoNumeroExpediente expediente)
         {
             Expediente expedientes = expedienteRepositorio.ConsultaExpediente(idJuzgado, numeroExpediente, expediente);
 
@@ -44,7 +44,7 @@ namespace PoderJudicial.SIPOH.Negocio
             return expedientes;
         }
      
-        public List<Ejecucion> ObtieneSentenciadosBeneficiariosPorMedioDelNombre(string nombre, string apellidoPaterno, string apellidoMaterno, int idCircuito)
+        public List<Ejecucion> ObtieneSentenciadosBeneficiariosPorNombre(string nombre, string apellidoPaterno, string apellidoMaterno, int idCircuito)
         {
             List<Ejecucion> beneficiarios = ejecucionRepository.ConsultaEjecuciones(ParteCausaBeneficiario.BENEFICIARIO, nombre, apellidoPaterno, apellidoMaterno, idCircuito);
 
@@ -60,7 +60,7 @@ namespace PoderJudicial.SIPOH.Negocio
             return beneficiarios;
         }
 
-        public int? CreaRegistroInicialDeEjecucion(Ejecucion ejecucion, List<Toca> tocas, List<Anexo> anexos, List<string> amparos, List<int> causas, int circuito)
+        public int? CreaRegistroDeEjecucion(Ejecucion ejecucion, List<Toca> tocas, List<Anexo> anexos, List<string> amparos, List<int> causas, int circuito)
         {
             int? idUnidad = null;
             bool esCircuitoPachuca = true;
@@ -89,7 +89,7 @@ namespace PoderJudicial.SIPOH.Negocio
             return idEjecucion;
         }
 
-        public bool ObtieneInformacionGeneralInicialDeEjecucion(int folio, ref Ejecucion ejecucion, ref List<Expediente> causas, ref List<Toca> tocas, ref List<string> amparos, ref List<Anexo> anexos, ref List<Relacionadas> relaciones)
+        public bool ObtieneInformacionGeneralDeEjecucion(int folio, ref Ejecucion ejecucion, ref List<Expediente> causas, ref List<Toca> tocas, ref List<string> amparos, ref List<Anexo> anexos, ref List<Relacionadas> relaciones)
         {
             //Recupera la informacion de la ejecucion
             ejecucion = ejecucionRepository.ConsultaEjecucion(folio);

@@ -31,10 +31,10 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             try 
             {
                 //Obtencion de Datos para PinckList al cargado de la vista
-                List<Juzgado> juzgadosAcusatorios = catalogosProcessor.ObtieneJuzgadosPorMedioDelTipoSistema(Usuario.IdCircuito, TipoSistema.ACUSATORIO);
-                List<Distrito> distritos = catalogosProcessor.ObtieneDistritosPorMedioDelCircuito(Usuario.IdCircuito);
-                List<Juzgado> salasAcusatorio = catalogosProcessor.ObtieneSalasPorMedioDelTipoSistema(TipoSistema.ACUSATORIO);
-                List<Juzgado> salasTradicional = catalogosProcessor.ObtieneSalasPorMedioDelTipoSistema(TipoSistema.TRADICIONAL);
+                List<Juzgado> juzgadosAcusatorios = catalogosProcessor.ObtieneJuzgadosPorTipoSistema(Usuario.IdCircuito, TipoSistema.ACUSATORIO);
+                List<Distrito> distritos = catalogosProcessor.ObtieneDistritosPorCircuito(Usuario.IdCircuito);
+                List<Juzgado> salasAcusatorio = catalogosProcessor.ObtieneSalasPorTipoSistema(TipoSistema.ACUSATORIO);
+                List<Juzgado> salasTradicional = catalogosProcessor.ObtieneSalasPorTipoSistema(TipoSistema.TRADICIONAL);
                 List<Anexo> anexosEjecucion = catalogosProcessor.ObtieneAnexosPorTipo("A");
                 List<Solicitud> solicitudes = catalogosProcessor.ObtieneSolicitudes();
                 List<Solicitante> solicitantes = catalogosProcessor.ObtieneSolicitantes();
@@ -73,7 +73,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         {
             try
             {
-                List<Juzgado> juzgados = catalogosProcessor.ObtieneJuzgadosPorMedioDelTipoSistema(idDistrito, TipoSistema.TRADICIONAL);
+                List<Juzgado> juzgados = catalogosProcessor.ObtieneJuzgadosPorTipoSistema(idDistrito, TipoSistema.TRADICIONAL);
 
                 ValidaJuzgados(juzgados);
                 Respuesta.Mensaje = inicialesProcessor.Mensaje;
@@ -95,7 +95,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         {
             try
             {
-                List<Distrito> distritos = catalogosProcessor.ObtieneDistritosPorMedioDelCircuito(idCircuito);
+                List<Distrito> distritos = catalogosProcessor.ObtieneDistritosPorCircuito(idCircuito);
   
                 if (distritos == null)
                 {
@@ -135,7 +135,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         {
             try
             {
-                Expediente expedientes = inicialesProcessor.ObtieneCausaPorMedioDelJuzgadoNumeroCausaNUC(idJuzgado, nuc, TipoNumeroExpediente.NUC);
+                Expediente expedientes = inicialesProcessor.ObtieneCausaPorJuzgadoMasTipoNumeroExpediente(idJuzgado, nuc, TipoNumeroExpediente.NUC);
 
                 ValidaExpedientes(expedientes);
                 Respuesta.Mensaje = inicialesProcessor.Mensaje;
@@ -157,7 +157,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         {
             try
             {
-                Expediente expedientes = inicialesProcessor.ObtieneCausaPorMedioDelJuzgadoNumeroCausaNUC(idJuzgado, numeroCausa, TipoNumeroExpediente.CAUSA);
+                Expediente expedientes = inicialesProcessor.ObtieneCausaPorJuzgadoMasTipoNumeroExpediente(idJuzgado, numeroCausa, TipoNumeroExpediente.CAUSA);
             
                 ValidaExpedientes(expedientes);
                 Respuesta.Mensaje = inicialesProcessor.Mensaje;
@@ -179,7 +179,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         {
             try
             {
-                List<Ejecucion> beneficiarios = inicialesProcessor.ObtieneSentenciadosBeneficiariosPorMedioDelNombre(nombreBene, apellidoPaternoBene, apellidoMaternoBene, Usuario.IdCircuito);
+                List<Ejecucion> beneficiarios = inicialesProcessor.ObtieneSentenciadosBeneficiariosPorNombre(nombreBene, apellidoPaternoBene, apellidoMaternoBene, Usuario.IdCircuito);
             
                 if (beneficiarios == null)
                 {
@@ -232,7 +232,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 List<int> causas = modelo.Causas.Select(x => x.IdExpediente).ToList();
                 List<string> amparos = modelo.Amparos != null ? modelo.Amparos : new List<string>();
 
-                int? folio = inicialesProcessor.CreaRegistroInicialDeEjecucion(ejecucion, tocas, anexos, amparos, causas, Usuario.IdCircuito);
+                int? folio = inicialesProcessor.CreaRegistroDeEjecucion(ejecucion, tocas, anexos, amparos, causas, Usuario.IdCircuito);
  
                 if (folio == null) 
                 {
@@ -281,7 +281,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 List<Relacionadas> entidad = new List<Relacionadas>();
 
                 //Metodo que consulta a la bd la informacion relacionada a la ejecucion
-                bool fueCorrectoElProceso = inicialesProcessor.ObtieneInformacionGeneralInicialDeEjecucion(folio, ref inicial, ref causas, ref tocas, ref amparos, ref anexos, ref entidad);
+                bool fueCorrectoElProceso = inicialesProcessor.ObtieneInformacionGeneralDeEjecucion(folio, ref inicial, ref causas, ref tocas, ref amparos, ref anexos, ref entidad);
 
                 if (inicial != null)
                 {

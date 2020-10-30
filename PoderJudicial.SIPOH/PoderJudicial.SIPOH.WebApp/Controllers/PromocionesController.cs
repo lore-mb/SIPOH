@@ -31,7 +31,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             List<Anexo> ListarAnexosEjecucion = catalogosProcessor.ObtieneAnexosPorTipo("A");
             ViewBag.AnexoEjec = ListarAnexosEjecucion != null ? ListarAnexosEjecucion : new List<Anexo>(); 
 
-            List<Juzgado> ListaJuzgadosPick = catalogosProcessor.ObtenerJuzgadoEjecucionPorCircuito(Usuario.IdCircuito);
+            List<Juzgado> ListaJuzgadosPick = catalogosProcessor.ObtieneJuzgadosPorCircuito(Usuario.IdCircuito);
             ViewBag.JuzgadoCircuito = ListaJuzgadosPick != null ? ListaJuzgadosPick : new List<Juzgado>();
 
             return View();
@@ -42,7 +42,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         {
             try
             {
-                List<Juzgado> ListaJuzgados = catalogosProcessor.ObtenerJuzgadoEjecucionPorCircuito(idcircuito);
+                List<Juzgado> ListaJuzgados = catalogosProcessor.ObtieneJuzgadosPorCircuito(idcircuito);
 
                 ValidarJuzgado(ListaJuzgados);
 
