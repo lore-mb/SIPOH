@@ -345,7 +345,10 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             }
             else
             {
-                if (expediente.IdExpediente == default)
+                //Se genera DTO con la informacion necesaria para la solicitud Ajax
+                ExpedienteDTO causasDTO = mapper.Map<Expediente, ExpedienteDTO>(expediente);
+
+                if (causasDTO.IdExpediente == default)
                 {
                     Respuesta.Estatus = EstatusRespuestaJSON.SIN_RESPUESTA;
                     Respuesta.Data = null;
@@ -353,7 +356,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 else
                 {
                     Respuesta.Estatus = EstatusRespuestaJSON.OK;
-                    Respuesta.Data = expediente;
+                    Respuesta.Data = causasDTO;
                 }
             }
         }

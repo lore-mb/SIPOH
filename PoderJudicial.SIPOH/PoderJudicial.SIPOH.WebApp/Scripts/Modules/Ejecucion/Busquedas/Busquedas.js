@@ -383,6 +383,36 @@ function SiguienteInput()
     });
 }
 
+function LimpiaCamposFormulario(idFormulario)
+{
+    //Limpa Tabla
+    numeroEjecucionDatos = [];
+    dataTableNumeroEjecucion = GeneraTablaDatos(dataTableNumeroEjecucion, "dataTableNumeroEjecucion", numeroEjecucionDatos, estructuraTablaNumeroEjecucion, false, false, false);
+
+    //Limpia el Formulario
+    $("#" + idFormulario)[0].reset();
+
+    var form = $('#' + idFormulario)[0];
+    var validateGroup = form.getElementsByClassName('validate-me');
+
+    for (var i = 0; i < validateGroup.length; i++)
+    {
+        validateGroup[i].classList.remove('was-validated');
+    }
+}
+
+
+function LimpiaCamposFormularioSinValidacion(idFormulario)
+{
+    numeroEjecucionDatos = [];
+    dataTableNumeroEjecucion = GeneraTablaDatos(dataTableNumeroEjecucion, "dataTableNumeroEjecucion", numeroEjecucionDatos, estructuraTablaNumeroEjecucion, false, false, false);
+
+    $("#" + idFormulario)[0].reset();
+
+    var form = $('#' + idFormulario)[0];
+    $(form).removeClass('was-validated');
+}
+
 function GeneraTablaDatos(tabla, idTablaHtml, datos, estructuraTabla, ordering, searching, lengthChange, pageLength = 10)
 {
     if (tabla != null)

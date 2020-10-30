@@ -267,7 +267,7 @@
                                         @*<div class="input-group-prepend">
                             <span class="input-group-text" id="lbNombreSentenciado">Nombre(s)</span>
                             </div>*@
-                                        <input type="text" class="form-control mt-2" id="inpNombreSentenciado" aria-describedby="inpNumero" required>
+                                        <input tabindex="1" type="text" class="form-control focusNext mt-2" id="inpNombreSentenciado" aria-describedby="inpNumero" required>
                                         <div class="invalid-feedback">
                                             Introducir nombre del Beneficiario
                                         </div>
@@ -280,7 +280,7 @@
                                         @*<div class="input-group-prepend">
                             <span class="input-group-text" id="lbApellidoPaterno">Apellido Paterno</span>
                             </div>*@
-                                        <input type="text" class="form-control mt-2" id="inpApellidoPaterno" aria-describedby="inpNumero" required>
+                                        <input tabindex="2" type="text" class="form-control focusNext mt-2" id="inpApellidoPaterno" aria-describedby="inpNumero" required>
                                         <div class="invalid-feedback">
                                             Introducir apellido paterno del Beneficiario
                                         </div>
@@ -293,7 +293,7 @@
                                         @*<div class="input-group-prepend">
                             <span class="input-group-text" id="lbApellidoMaterno">Apellido Materno</span>
                             </div>*@
-                                        <input type="text" class="form-control mt-2" id="inpApellidoMaterno" aria-describedby="inpNumero" required>
+                                        <input tabindex="3" type="text" class="form-control focusNext mt-2" id="inpApellidoMaterno" aria-describedby="inpNumero" required>
                                         <div class="invalid-feedback">
                                             Introducir apellido materno del Beneficiario
                                         </div>
@@ -322,11 +322,11 @@
                                 <div class="col-12 mt-4">
                                     <label class="mr-4" for="validationCustom04"><strong>¿Sentenciado Interno?</strong></label>
                                     <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" id="customRadioInline1" name="customRadioInline1" value="S" class="custom-control-input" required>
+                                        <input tabindex="4" type="radio" id="customRadioInline1" name="customRadioInline1" value="S" class="custom-control-input focusNext" required>
                                         <label class="custom-control-label" for="customRadioInline1">SI</label>
                                     </div>
                                     <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" id="customRadioInline2" name="customRadioInline1" value="N" class="custom-control-input" required>
+                                        <input tabindex="4" type="radio" id="customRadioInline2" name="customRadioInline1" value="N" class="custom-control-input focusNext" required>
                                         <label class="custom-control-label" for="customRadioInline2">NO</label>
                                     </div>
                                 </div>
@@ -338,7 +338,7 @@
 
                                     <label for="validationCustom04"><strong>Solicitante</strong></label>
 
-                                    @Html.DropDownList("Solicitante", (SelectList)ViewBag.Solicitantes, "SELECCIONAR OPCIÓN", new { @id = "slctSolicitante", @class = "custom-select formatear", @required = "required" })
+                                    @Html.DropDownList("Solicitante", (SelectList)ViewBag.Solicitantes, "SELECCIONAR OPCIÓN", new { @id = "slctSolicitante", @class = "custom-select formatear focusNext", @required = "required", @tabindex = "5" })
 
                                     <div class="invalid-feedback">
                                         Seleccionar un Solicitante.
@@ -350,7 +350,7 @@
                                         @*<div class="input-group-prepend">
                                 <span class="input-group-text" id="lbDetalleSolicitante">Detalle del Solicitante</span>
                             </div>*@
-                                        <input type="text" class="form-control" id="ipnDetalleSolicitante" aria-describedby="ipnDetalleSolicitante" required>
+                                        <input tabindex="6" type="text" class="form-control focusNext" id="ipnDetalleSolicitante" aria-describedby="ipnDetalleSolicitante" required>
                                         <div class="invalid-feedback">
                                             Introduzca un detalle para el solicitante.
                                         </div>
@@ -364,7 +364,7 @@
 
                                     <label for="validationCustom04"><strong>Solicitud</strong></label>
 
-                                    @Html.DropDownList("Solicitud", (SelectList)ViewBag.Solicitudes, "SELECCIONAR OPCIÓN", new { @id = "slctSolicitud", @class = "custom-select formatear", @required = "required" })
+                                    @Html.DropDownList("Solicitud", (SelectList)ViewBag.Solicitudes, "SELECCIONAR OPCIÓN", new { @id = "slctSolicitud", @class = "custom-select formatear focusNext", @required = "required", @tabindex = "7" })
 
                                     <div class="invalid-feedback">
                                         Seleccione una solicitud
@@ -377,7 +377,7 @@
                                         @*<div class="input-group-prepend">
                                 <span class="input-group-text" id="lbOtraSolicitud">Otro</span>
                             </div>*@
-                                        <input type="text" class="form-control" id="inpOtraSolicitud" aria-describedby="inpOtraSolicitud" disabled>
+                                        <input tabindex="8" type="text" class="form-control focusNext focusNextEnd" id="inpOtraSolicitud" aria-describedby="inpOtraSolicitud" disabled>
                                         <div class="invalid-feedback">
                                             Introduzca otra Solicitud.
                                         </div>
@@ -405,7 +405,7 @@
                                         Seleccione una Descripción
                                     </div>
                                 </div>
-                                <div class="col-12 col-md-5 mt-1">
+                                <div class="col-12 col-md-6 mt-1">
 
                                     <label for="validationCustom04"><strong>Otro Anexo</strong></label>
                                     <div class="input-group" id="divOtroAnexo">
@@ -418,13 +418,13 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 col-md-3 mt-1">
+                                <div class="col-12 col-md-2 mt-1">
                                     <label for="validationCustom04"><strong>Cantidad</strong></label>
                                     <div class="input-group" id="divAddAnexos">
                                         @*<div class="input-group-prepend">
                         <span class="input-group-text" id="lbelAddAnexos">Cantidad</span>
                     </div>*@
-                                        <input type="number" min="1" max="99" class="form-control mr-3" id="inpAddAnexos" aria-describedby="inpAddAnexos" required>
+                                        <input type="number" min="1" max="99" value="0" class="form-control mr-3" id="inpAddAnexos" aria-describedby="inpAddAnexos" required>
                                         <button class="btn btn-success btn-sm" type="submit" id="btnAddAnexos"><i class="fas fa-plus-circle"></i></button>
                                         <div class="invalid-feedback">
                                             Introduzca una cantidad
@@ -453,9 +453,9 @@
                     <!-- FILA SEIS -->
                     <div id="seccionBotonGuardar">
                         <div class="separator-solid"></div>
-                        <div class="form-row">
+                        <div class="form-row text-center">
                             <div class="col-12">
-                                <button type="submit" form="formEjecucion" class="btn btn-outline-success text-small"><i class="fas fa-save mr-2"></i>GUARDAR</button>
+                                <button id="botonEnviar" type="submit" form="formEjecucion" class="btn btn-success disoff text-small" disabled><i class="fas fa-save mr-2"></i>GUARDAR</button>
                             </div>
                         </div>
                     </div>
@@ -486,7 +486,7 @@
             </div>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-outline-secondary" value="Cancelar" id="btnCancelar"><i class="icon-cross"></i> Cancelar</button>
-                <button type="submit" class="btn btn-outline-success" value="Aceptar" id="btnAceptar"><i class="icon-checkmark"></i> Continuar Registro</button>
+                <button type="submit" class="btn btn-outline-success" value="Aceptar" id="btnAceptar"><i class="icon-checkmark"></i> Continuar</button>
             </div>
         </div>
     </div>

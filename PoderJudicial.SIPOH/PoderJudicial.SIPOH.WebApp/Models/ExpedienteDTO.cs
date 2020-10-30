@@ -14,19 +14,13 @@ namespace PoderJudicial.SIPOH.WebApp.Models
         public string Ofendidos { set; get; }
         public string Inculpados { set; get; }
         public string Delitos { set; get; }
-
         public string CausaNuc 
         {
             get 
             {
-                return ConcatenaCausaNuc(NumeroCausa, NUC);
+                NUC = NUC != null ? "<br>" + NUC : string.Empty;
+                return string.Format("{0}{1}", NumeroCausa, NUC);
             }
-        }
-
-        private string ConcatenaCausaNuc(string causa, string nuc) 
-        {
-            nuc = nuc != string.Empty ? "<br>" + nuc : string.Empty;
-            return string.Format("{0}{1}", causa, nuc);
         }
     }
 }
