@@ -411,7 +411,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
         /// <param name="postEjecucion"></param>
         /// <param name="anexos"></param>
         /// <returns></returns>
-        public int? GuardarPostEjecucion(EjecucionPosterior ejecucionPosterior, List<Anexo> anexos)
+        public int? CreaEjecucionPosterior(EjecucionPosterior ejecucionPosterior, List<Anexo> anexos)
         {
             try
             {

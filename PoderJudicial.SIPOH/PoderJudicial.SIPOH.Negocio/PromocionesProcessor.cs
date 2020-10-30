@@ -92,7 +92,7 @@ namespace PoderJudicial.SIPOH.Negocio
 
         public int? GuardarPostEjecucion(EjecucionPosterior PostEjecucion, List<Anexo> Anexos) 
         {
-            int? IdEjecucion = ejecucionRepositorio.GuardarPostEjecucion(PostEjecucion, Anexos);
+            int? IdEjecucion = ejecucionRepositorio.CreaEjecucionPosterior(PostEjecucion, Anexos);
 
             if (ejecucionRepositorio.Estatus == Estatus.OK) 
             {
@@ -129,7 +129,7 @@ namespace PoderJudicial.SIPOH.Negocio
             
             else if (ejecucionRepositorio.Estatus == Estatus.OK) 
             {
-                Anexo = catalogosRepositorio.ConsultarAnexosPorEjecucionPosterior(FolioEjecucion);
+                Anexo = catalogosRepositorio.ConsultaAnexos(FolioEjecucion, Instancia.PROMOCION);
 
                 if (catalogosRepositorio.Estatus == Estatus.ERROR) {
                     Mensaje = "Ocurrió un error no controlado por el sistema, por favor contacte a soporte técnico.";

@@ -54,7 +54,7 @@ namespace PoderJudicial.SIPOH.UT.IgmaUT
                 new Anexo (){ IdAnexo = 8, Descripcion = "Este es otro anexo 15", Cantidad = 8 }
             };
 
-            int? GuardarPostEjecucion = RepositorioEjecucion.GuardarPostEjecucion(RepositorioPostEjecucion, anexos);
+            int? GuardarPostEjecucion = RepositorioEjecucion.CreaEjecucionPosterior(RepositorioPostEjecucion, anexos);
 
         }
 
@@ -78,7 +78,7 @@ namespace PoderJudicial.SIPOH.UT.IgmaUT
         public void AnexosPorPost() {
 
             CatalogosRepository catalogos = new CatalogosRepository(Cnx);
-            List<Anexo> anexos = catalogos.ConsultarAnexosPorEjecucionPosterior(285);
+            List<Anexo> anexos = catalogos.ConsultaAnexos(285, Entidades.Enum.Instancia.PROMOCION);
         }
 
     }

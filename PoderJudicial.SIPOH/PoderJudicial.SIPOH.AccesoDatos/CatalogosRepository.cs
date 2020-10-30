@@ -5,7 +5,6 @@ using PoderJudicial.SIPOH.Entidades;
 using PoderJudicial.SIPOH.Entidades.Enum;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -261,6 +260,53 @@ namespace PoderJudicial.SIPOH.AccesoDatos
             }
         }
 
+        public List<Anexo> ConsultaAnexos(int idEjecucion, Instancia instancia) 
+        {
+            try
+            {
+                if (!IsValidConnection)
+                    throw new Exception("No se ha creado una conexión valida.");
+
+                string storedProcedure = instancia == Instancia.INICIAL ? "sipoh_ConsultarAnexosPorEjecucion" : "sipoh_ConsultarAnexosPorEjecucionPosterior";
+
+                SqlCommand comando = new SqlCommand(storedProcedure, Cnx);
+                comando.CommandType = CommandType.StoredProcedure;
+
+                if(instancia == Instancia.INICIAL)
+                comando.Parameters.Add("@idEjecucion", SqlDbType.Int).Value = idEjecucion;
+
+                if(instancia == Instancia.PROMOCION)
+                comando.Parameters.Add("@idEjecucionPosterior", SqlDbType.Int).Value = idEjecucion;
+
+                Cnx.Open();
+
+                SqlDataReader sqlRespuesta = comando.ExecuteReader();
+
+                DataTable tabla = new DataTable();
+                tabla.Load(sqlRespuesta);
+
+                List<Anexo> anexos = DataHelper.DataTableToList<Anexo>(tabla);
+
+                if (anexos.Count > 0)
+                    Estatus = Estatus.OK;
+                else
+                    Estatus = Estatus.SIN_RESULTADO;
+
+                return anexos;
+            }
+            catch (Exception ex)
+            {
+                MensajeError = ex.Message;
+                Estatus = Estatus.ERROR;
+                return null;
+            }
+            finally
+            {
+                if (IsValidConnection && Cnx.State == ConnectionState.Open)
+                    Cnx.Close();
+            }
+        }
+
         public List<Solicitud> ConsultaSolicitudes()
         {
             try
@@ -396,7 +442,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
                 DataTable tabla = new DataTable();
                 tabla.Load(sqlRespuesta);
 
-                List<string> amparos = ObtenerAmparos(tabla);
+                List<string> amparos = CreaListaDeTipoString(tabla);
 
                 if (amparos.Count > 0)
                     Estatus = Estatus.OK;
@@ -418,91 +464,8 @@ namespace PoderJudicial.SIPOH.AccesoDatos
             }
         }
 
-        public List<Anexo> ConsultarAnexosPorEjecucionPosterior(int IdEjecucionPosterior) {
-
-            try
-            {
-                if (!IsValidConnection)
-                    throw new Exception("La conexion no es valida");
-
-                SqlCommand EjecucionStore;
-                EjecucionStore = new SqlCommand("sipoh_ConsultarAnexosPorEjecucionPosterior", Cnx);
-                EjecucionStore.CommandType = CommandType.StoredProcedure;
-                EjecucionStore.Parameters.Add("@EjecucionPosterior", SqlDbType.Int).Value = IdEjecucionPosterior;
-                Cnx.Open();
-
-                SqlDataReader dataReader = EjecucionStore.ExecuteReader();
-
-                DataTable Tabla = new DataTable();
-                Tabla.Load(dataReader);
-
-                List<Anexo> ListadoAnexos = DataHelper.DataTableToList<Anexo>(Tabla);
-
-                if (ListadoAnexos.Count > 0)
-                {
-                    Estatus = Estatus.OK;
-                }
-                else
-                {
-                    Estatus = Estatus.ERROR;
-                }
-
-                return ListadoAnexos;
-
-            }
-            catch (Exception ex)
-            {
-                MensajeError = ex.Message;
-                Estatus = Estatus.ERROR;
-                return null;
-            }
-            finally {
-                if (IsValidConnection && Cnx.State == ConnectionState.Open)
-                    Cnx.Close();
-            }
-        }   
-
-        public List<Anexo> ConsultaAnexos(int idEjecucion)
-        {
-            try
-            {
-                if (!IsValidConnection) 
-                    throw new Exception("No se ha creado una conexión valida.");
-
-                SqlCommand comando = new SqlCommand("sipoh_ConsultarAnexosPorEjecucion", Cnx);
-                comando.CommandType = CommandType.StoredProcedure;
-                comando.Parameters.Add("@idEjecucion", SqlDbType.Int).Value = idEjecucion;
-                Cnx.Open();
-
-                SqlDataReader sqlRespuesta = comando.ExecuteReader();
-
-                DataTable tabla = new DataTable();
-                tabla.Load(sqlRespuesta);
-
-                List<Anexo> anexos = DataHelper.DataTableToList<Anexo>(tabla);
-
-                if (anexos.Count > 0)
-                    Estatus = Estatus.OK;
-                else 
-                    Estatus = Estatus.SIN_RESULTADO;
-                
-                return anexos;
-            }
-            catch (Exception ex)
-            {
-                MensajeError = ex.Message;
-                Estatus = Estatus.ERROR;
-                return null;
-            }
-            finally
-            {
-                if (IsValidConnection && Cnx.State == ConnectionState.Open)
-                    Cnx.Close();
-            }
-        }
-
         #region Metodos Privados de la Clase
-        public List<string> ObtenerAmparos(DataTable dataTableAmparos)
+        private List<string> CreaListaDeTipoString(DataTable dataTableAmparos)
         {
             List<string> amparos = new List<string>();
 

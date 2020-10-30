@@ -130,7 +130,7 @@ namespace PoderJudicial.SIPOH.Negocio
                    string mensajeLogger = catalogosRepositorio.MensajeError;                
                 }
 
-                anexos = catalogosRepositorio.ConsultaAnexos(folio);   
+                anexos = catalogosRepositorio.ConsultaAnexos(folio, Instancia.INICIAL);   
                 if (catalogosRepositorio.Estatus == Estatus.ERROR)
                 {
                    relaciones.Add(Relacionadas.ANEXOS);

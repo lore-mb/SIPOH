@@ -134,7 +134,7 @@ namespace PoderJudicial.SIPOH.UT.AlbertoUT
             CatalogosRepository repoCatalogos = new CatalogosRepository(cnx);
             List<Toca> tocas = repoCatalogos.ConsultaTocas(81);
             List<string> amparos = repoCatalogos.ConsultaAmparos(78);
-            List<Anexo> anexos = repoCatalogos.ConsultaAnexos(87);
+            List<Anexo> anexos = repoCatalogos.ConsultaAnexos(1, Instancia.INICIAL);
         }
 
         [TestMethod]
