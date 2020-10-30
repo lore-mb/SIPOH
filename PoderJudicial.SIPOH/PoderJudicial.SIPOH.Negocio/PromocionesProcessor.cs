@@ -23,24 +23,6 @@ namespace PoderJudicial.SIPOH.Negocio
             this.expedienteRepositorio = expedienteRepositorio;
         }
 
-        public List<Juzgado> ObtenerJuzgadoEjecucionPorCircuito(int IdCircuito)
-        {
-            List<Juzgado> JuzgadoEjecucion = catalogosRepositorio.ConsultaJuzgados(IdCircuito, TipoJuzgado.EJECUCION);
-
-            if (catalogosRepositorio.Estatus == Estatus.SIN_RESULTADO)
-            {
-                Mensaje = "La búsqueda no obtuvo ningún resultado.";
-            }
-
-            if (catalogosRepositorio.Estatus == Estatus.ERROR)
-            {
-                Mensaje = "Ocurrió un error no controlado por el sistema, por favor contacte a soporte técnico.";
-                string InfoMensajeLogger = catalogosRepositorio.MensajeError;
-            }
-
-            return JuzgadoEjecucion;
-        }
-
         public List<Ejecucion> ObtenerEjecucionPorJuzgado(int Juzgado, string NoEjecucion)
         {
             List<Ejecucion> EjecucionPorCircuito = ejecucionRepositorio.ConsultaEjecuciones(TipoNumeroExpediente.EJECUCION, NoEjecucion, Juzgado);
@@ -72,22 +54,6 @@ namespace PoderJudicial.SIPOH.Negocio
                 string InfoMensajeLogger = expedienteRepositorio.MensajeError;
             }
             return ExpedienteListado;
-        }
-
-        public List<Anexo> ObtenerAnexosEjecucion(string Tipo) 
-        {
-            List<Anexo> ListarExpedientes = catalogosRepositorio.ConsultaAnexos(Tipo);
-
-            if (catalogosRepositorio.Estatus == Estatus.SIN_RESULTADO) {
-                Mensaje = ("La búsqueda no obtuvo ningún resultado.");
-            }
-            
-            if (catalogosRepositorio.Estatus == Estatus.ERROR) {
-                Mensaje = "Ocurrió un error no controlado por el sistema, por favor contacte a soporte técnico.";
-                string InfoMensajeLogger = expedienteRepositorio.MensajeError;
-            }
-
-            return ListarExpedientes;
         }
 
         public int? GuardarPostEjecucion(EjecucionPosterior PostEjecucion, List<Anexo> Anexos) 

@@ -166,5 +166,23 @@ namespace PoderJudicial.SIPOH.Negocio.Interfaces
             return juzgados;
         }
 
+        public List<Juzgado> ObtenerJuzgadoEjecucionPorCircuito(int IdCircuito)
+        {
+            List<Juzgado> JuzgadoEjecucion = catalogosRepositorio.ConsultaJuzgados(IdCircuito, TipoJuzgado.EJECUCION);
+
+            if (catalogosRepositorio.Estatus == Estatus.SIN_RESULTADO)
+            {
+                Mensaje = "La búsqueda no obtuvo ningún resultado.";
+            }
+
+            if (catalogosRepositorio.Estatus == Estatus.ERROR)
+            {
+                Mensaje = "Ocurrió un error no controlado por el sistema, por favor contacte a soporte técnico.";
+                string InfoMensajeLogger = catalogosRepositorio.MensajeError;
+            }
+
+            return JuzgadoEjecucion;
+        }
+
     }
 }

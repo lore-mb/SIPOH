@@ -14,11 +14,13 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
     public class PromocionesController : BaseController
     {
         private readonly IPromocionesProcessor promocionesProcessor;
+        private readonly ICatalogosProcessor catalogosProcessor;
         private readonly IMapper mapper;
 
-        public PromocionesController(IPromocionesProcessor promocionesProcessor, IMapper mapper)
+        public PromocionesController(IPromocionesProcessor promocionesProcessor, ICatalogosProcessor catalogosProcessor, IMapper mapper)
         {
             this.promocionesProcessor = promocionesProcessor;
+            this.catalogosProcessor = catalogosProcessor;
             this.mapper = mapper;
         }
 
@@ -26,10 +28,10 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
 
         public ActionResult CrearPromocion()
         {
-            List<Anexo> ListarAnexosEjecucion = promocionesProcessor.ObtenerAnexosEjecucion("A");
+            List<Anexo> ListarAnexosEjecucion = catalogosProcessor.ObtieneAnexosPorTipo("A");
             ViewBag.AnexoEjec = ListarAnexosEjecucion != null ? ListarAnexosEjecucion : new List<Anexo>(); 
 
-            List<Juzgado> ListaJuzgadosPick = promocionesProcessor.ObtenerJuzgadoEjecucionPorCircuito(Usuario.IdCircuito);
+            List<Juzgado> ListaJuzgadosPick = catalogosProcessor.ObtenerJuzgadoEjecucionPorCircuito(Usuario.IdCircuito);
             ViewBag.JuzgadoCircuito = ListaJuzgadosPick != null ? ListaJuzgadosPick : new List<Juzgado>();
 
             return View();
@@ -40,11 +42,11 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         {
             try
             {
-                List<Juzgado> ListaJuzgados = promocionesProcessor.ObtenerJuzgadoEjecucionPorCircuito(idcircuito);
+                List<Juzgado> ListaJuzgados = catalogosProcessor.ObtenerJuzgadoEjecucionPorCircuito(idcircuito);
 
                 ValidarJuzgado(ListaJuzgados);
 
-                Respuesta.Mensaje = promocionesProcessor.Mensaje;
+                Respuesta.Mensaje = catalogosProcessor.Mensaje;
 
                 return Json(Respuesta, JsonRequestBehavior.AllowGet);
             }
