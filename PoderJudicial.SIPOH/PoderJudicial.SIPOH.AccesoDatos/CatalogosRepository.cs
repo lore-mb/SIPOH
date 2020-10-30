@@ -229,7 +229,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
                 if (!IsValidConnection)
                     throw new Exception("No se ha creado una conexion valida");
 
-                SqlCommand comando = new SqlCommand("sipoh_ConsultarAnexosPorEjecucion", Cnx);
+                SqlCommand comando = new SqlCommand("sipoh_ConsultarAnexosPorTipo", Cnx);
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("@tipo", SqlDbType.VarChar).Value = tipo;
                 Cnx.Open();
@@ -469,9 +469,9 @@ namespace PoderJudicial.SIPOH.AccesoDatos
                 if (!IsValidConnection) 
                     throw new Exception("No se ha creado una conexión valida.");
 
-                SqlCommand comando = new SqlCommand("sipoh_ConsultarAnexosPorFolio", Cnx);
+                SqlCommand comando = new SqlCommand("sipoh_ConsultarAnexosPorEjecucion", Cnx);
                 comando.CommandType = CommandType.StoredProcedure;
-                comando.Parameters.Add("@folio", SqlDbType.Int).Value = idEjecucion;
+                comando.Parameters.Add("@idEjecucion", SqlDbType.Int).Value = idEjecucion;
                 Cnx.Open();
 
                 SqlDataReader sqlRespuesta = comando.ExecuteReader();

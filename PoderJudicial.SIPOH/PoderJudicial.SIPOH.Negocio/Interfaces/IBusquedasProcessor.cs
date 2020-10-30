@@ -12,16 +12,12 @@ namespace PoderJudicial.SIPOH.Negocio.Interfaces
     public interface IBusquedasProcessor 
     {
         string Mensaje { get; set; }
-        List<Ejecucion>ObtenerEjecucionPorPartesCausa(string nombre, string apellidoPaterno, string apellidoMaterno, int idCircuito);
-        List<Ejecucion> ObtenerEjecucionSentenciadoBeneficiario(string nombre,string apellidoPaterno, string apellidoMaterno, int idCircuito);
-        List<Ejecucion> ObtenerEjecucionPorNumeroCausa(string numeroCausa, int idJuzgado);
-        List<Ejecucion> ObtenerEjecucionPorNUC(string nuc, int idJuzgado);
-        List<Ejecucion> ObtenerEjecucionPorDetalleSolicitante(string detalleSolicitante, int idCircuito);
-        List<Ejecucion> ObtenerEjecucionPorSolicitante(int  idSolicitante, int idCircuito);
-        List<Distrito> ObtenerDistritoPorCircuito(int idCircuito);
-        List<Juzgado> ObtenerJuzgadosAcusatoriosPorCircuito(int idCircuito);
-        List<Juzgado> ObtenerJuzgadosPorDistritos(int idDistrito);
-        List<Solicitante> ObtenerSolicitanteEjecucion();
-        List<Expediente> ObtenerExpedientesPorEjecucion(int idEjecucion);
+        List<Ejecucion> ObtieneEjecucionesPorNombreDePartesCausa(string nombre, string apellidoPaterno, string apellidoMaterno, int idCircuito);
+        List<Ejecucion> ObtieneEjecucionesPorNombreDeSentenciadoBeneficiario(string nombre,string apellidoPaterno, string apellidoMaterno, int idCircuito);
+        List<Ejecucion> ObtieneEjecucionesPorNumeroCausa(string numeroCausa, int idJuzgado);
+        List<Ejecucion> ObtieneEjecucionesPorNUC(string nuc, int idJuzgado);
+        List<Ejecucion> ObtieneEjecucionesPorDetalleSolicitante(string detalleSolicitante, int idCircuito);
+        List<Ejecucion> ObtieneEjecucionesPorSolicitante(int  idSolicitante, int idCircuito);
+        List<Expediente> ObtieneEjecionesPorIdEjecucion(int idEjecucion);
     }
 }

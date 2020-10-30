@@ -14,7 +14,6 @@ namespace PoderJudicial.SIPOH.Negocio
     {
         //[Private Method]
         //Se instancian mis objetos:
-        private readonly ICatalogosRepository catalogoRepositorio;
         private readonly IEjecucionRepository ejecucionRepositorio;
         private readonly IExpedienteRepository expedienteRepositorio;
 
@@ -24,9 +23,8 @@ namespace PoderJudicial.SIPOH.Negocio
         /// <param name="CatalogRepositorio"></param>
         /// <param name="EjecucionRepositorio"></param>
         /// <param name="ExpedienteRepositorio"></param>
-        public BusquedasProcessor(ICatalogosRepository catalogoRepositorio, IEjecucionRepository ejecucionRepositorio, IExpedienteRepository expedienteRepositorio)
+        public BusquedasProcessor(IEjecucionRepository ejecucionRepositorio, IExpedienteRepository expedienteRepositorio)
         {
-            this.catalogoRepositorio = catalogoRepositorio;
             this.ejecucionRepositorio = ejecucionRepositorio;
             this.expedienteRepositorio = expedienteRepositorio;
         }
@@ -42,7 +40,7 @@ namespace PoderJudicial.SIPOH.Negocio
         /// </summary>
         /// <param name="detalleSolicitante"></param>
         /// <returns></returns>
-        public List<Ejecucion>ObtenerEjecucionPorDetalleSolicitante(string detalleSolicitante, int idCircuito)
+        public List<Ejecucion>ObtieneEjecucionesPorDetalleSolicitante(string detalleSolicitante, int idCircuito)
         {
             List<Ejecucion> DetalleSolicitante = ejecucionRepositorio.ConsultaEjecuciones(detalleSolicitante, idCircuito);
            
@@ -66,7 +64,7 @@ namespace PoderJudicial.SIPOH.Negocio
         /// <param name="nuc"></param>
         /// <param name="idJuzgado"></param>
         /// <returns></returns>
-        public List<Ejecucion> ObtenerEjecucionPorNUC(string nuc, int idJuzgado)
+        public List<Ejecucion> ObtieneEjecucionesPorNUC(string nuc, int idJuzgado)
         {
             List<Ejecucion> NUC = ejecucionRepositorio.ConsultaEjecuciones(TipoNumeroExpediente.NUC, nuc, idJuzgado);
            
@@ -91,7 +89,7 @@ namespace PoderJudicial.SIPOH.Negocio
         /// <param name="apellidoPaterno"></param>
         /// <param name="apellidoMaterno"></param>
         /// <returns></returns>
-        public List<Ejecucion> ObtenerEjecucionPorPartesCausa(string nombre, string apellidoPaterno, string apellidoMaterno, int idCircuito)
+        public List<Ejecucion> ObtieneEjecucionesPorNombreDePartesCausa(string nombre, string apellidoPaterno, string apellidoMaterno, int idCircuito)
         {
             List<Ejecucion> PartesCausa = ejecucionRepositorio.ConsultaEjecuciones(ParteCausaBeneficiario.PARTE, nombre, apellidoPaterno, apellidoMaterno, idCircuito);
           
@@ -114,7 +112,7 @@ namespace PoderJudicial.SIPOH.Negocio
         /// </summary>
         /// <param name="idSolicitante"></param>
         /// <returns></returns>
-        public List<Ejecucion> ObtenerEjecucionPorSolicitante(int idSolicitante, int idCircuito)
+        public List<Ejecucion> ObtieneEjecucionesPorSolicitante(int idSolicitante, int idCircuito)
         {
             List<Ejecucion> Solicitante = ejecucionRepositorio.ConsultaEjecuciones(idSolicitante, idCircuito);
             
@@ -139,7 +137,7 @@ namespace PoderJudicial.SIPOH.Negocio
         /// <param name="apellidoPaterno"></param>
         /// <param name="apellidoMaterno"></param>
         /// <returns></returns>
-        public List<Ejecucion> ObtenerEjecucionSentenciadoBeneficiario(string nombre, string apellidoPaterno, string apellidoMaterno, int idCircuito)
+        public List<Ejecucion> ObtieneEjecucionesPorNombreDeSentenciadoBeneficiario(string nombre, string apellidoPaterno, string apellidoMaterno, int idCircuito)
         {
             List<Ejecucion> Beneficiario = ejecucionRepositorio.ConsultaEjecuciones(ParteCausaBeneficiario.BENEFICIARIO, nombre, apellidoPaterno, apellidoMaterno, idCircuito);
             
@@ -163,7 +161,7 @@ namespace PoderJudicial.SIPOH.Negocio
         /// <param name="numeroCausa"></param>
         /// <param name="idJuzgado"></param>
         /// <returns></returns>
-        public List<Ejecucion> ObtenerEjecucionPorNumeroCausa(string numeroCausa, int idJuzgado)
+        public List<Ejecucion> ObtieneEjecucionesPorNumeroCausa(string numeroCausa, int idJuzgado)
         {
             List<Ejecucion> numCausa = ejecucionRepositorio.ConsultaEjecuciones(TipoNumeroExpediente.CAUSA, numeroCausa, idJuzgado);
           
@@ -180,90 +178,8 @@ namespace PoderJudicial.SIPOH.Negocio
            
             return numCausa;
         }
-
-        /// <summary>
-        /// Valida la consulta por Distrito
-        /// </summary>
-        /// <param name="idCircuito"></param>
-        /// <returns></returns>
-        public List<Distrito> ObtenerDistritoPorCircuito(int idCircuito)
-        {
-            List<Distrito> distritoCircuito = catalogoRepositorio.ConsultaDistritos(idCircuito);
-           
-            if (catalogoRepositorio.Estatus == Estatus.ERROR)
-            {
-                Mensaje = "La consulta no genero ningun resultado";
-                string messajelogger = ejecucionRepositorio.MensajeError;
-            }
-        
-            if (catalogoRepositorio.Estatus == Estatus.SIN_RESULTADO)
-            {
-                Mensaje = "Ocurrio un error interno no controlado, consulte a soporte";
-            }
-            
-            return distritoCircuito;
-        }
-        
-        /// <summary>
-        /// Valida peticion de obtencion de juzgados por distrito
-        /// </summary>
-        /// <param name="idCircuito"></param>
-        /// <param name="tipoJuzgado"></param>
-        /// <returns></returns>
-        public List<Juzgado> ObtenerJuzgadosAcusatoriosPorCircuito(int idCircuito)
-        {
-            List<Juzgado> juzgadosCiruito = catalogoRepositorio.ConsultaJuzgados(TipoSistema.ACUSATORIO, idCircuito);
-           
-            if (catalogoRepositorio.Estatus == Estatus.ERROR)
-            {
-                Mensaje = "La consulta no genero ningun resultado";
-                string messajelogger = catalogoRepositorio.MensajeError;
-            }
-          
-            if (catalogoRepositorio.Estatus == Estatus.SIN_RESULTADO)
-            {
-                Mensaje = "Ocurrio un error interno no controlado, consulte a soporte";
-            }
-            
-            return juzgadosCiruito;
-        }
-
-        public List<Solicitante> ObtenerSolicitanteEjecucion()
-        {
-            List<Solicitante> solicitanteEjecucion = catalogoRepositorio.ConsultaSolicitantes();
-            
-            if(catalogoRepositorio.Estatus == Estatus.ERROR)
-            {
-                Mensaje = "La consulta no genero ningun resultado";
-                string messajelogger = catalogoRepositorio.MensajeError;
-            }
-         
-            if(catalogoRepositorio.Estatus==Estatus.SIN_RESULTADO)
-            {
-                Mensaje = "Ocurrio un error interno no controlado, consulte a soporte";
-            }
-            return solicitanteEjecucion;
-        }
-
-        public List<Juzgado> ObtenerJuzgadosPorDistritos(int idDistrito)
-        {
-            List<Juzgado> juzgados = catalogoRepositorio.ConsultaJuzgados(idDistrito);
-
-            if (catalogoRepositorio.Estatus == Estatus.ERROR)
-            {
-                Mensaje = "La consulta no genero ningun resultado";
-                string messajelogger = ejecucionRepositorio.MensajeError;
-            }
-
-            if (catalogoRepositorio.Estatus == Estatus.SIN_RESULTADO)
-            {
-                Mensaje = "Ocurrio un error interno no controlado, consulte a soporte";
-            }
-
-            return juzgados;
-        }
-
-        public List<Expediente> ObtenerExpedientesPorEjecucion(int idEjecucion)
+ 
+        public List<Expediente> ObtieneEjecionesPorIdEjecucion(int idEjecucion)
         {
             List<Expediente> ExpedienteListado = expedienteRepositorio.ConsultaExpedientes(idEjecucion);
 

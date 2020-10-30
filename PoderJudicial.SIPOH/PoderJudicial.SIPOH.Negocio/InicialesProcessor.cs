@@ -28,40 +28,7 @@ namespace PoderJudicial.SIPOH.Negocio
             this.ejecucionRepository = ejecucionRepository;
         }
 
-        public List<Distrito> RecuperaDistrito(int idCircuito)
-        {
-            List<Distrito> distritos = catalogosRepositorio.ConsultaDistritos(idCircuito);
-   
-            if (catalogosRepositorio.Estatus == Estatus.SIN_RESULTADO)
-                Mensaje = "La consulta no genero ningun resultado";
-
-            if (catalogosRepositorio.Estatus == Estatus.ERROR)
-            {
-                Mensaje = "Ocurrio un error interno no controlado, consulte a soporte";
-                string mensajeLogger = catalogosRepositorio.MensajeError;
-                //Logica para ILogger
-            }
-            
-            return distritos;
-        }
-
-        public List<Juzgado> RecuperaJuzgado(int id, TipoSistema tipoJuzgado)
-        {
-            List<Juzgado> juzgados = catalogosRepositorio.ConsultaJuzgados(tipoJuzgado, id);
-
-            if (catalogosRepositorio.Estatus == Estatus.SIN_RESULTADO)
-                Mensaje = "La consulta no genero ningun resultado";
-
-            else if (catalogosRepositorio.Estatus == Estatus.ERROR)
-            {
-                Mensaje = "Ocurrio un error interno no controlado, consulte a soporte";
-                string mensajeLogger = catalogosRepositorio.MensajeError;
-                //Logica para ILogger
-            }           
-            return juzgados;
-        }
-
-        public Expediente RecuperaExpedientes(int idJuzgado, string numeroExpediente, TipoNumeroExpediente expediente)
+        public Expediente ObtieneCausaPorMedioDelJuzgadoNumeroCausaNUC(int idJuzgado, string numeroExpediente, TipoNumeroExpediente expediente)
         {
             Expediente expedientes = expedienteRepositorio.ConsultaExpediente(idJuzgado, numeroExpediente, expediente);
 
@@ -71,93 +38,29 @@ namespace PoderJudicial.SIPOH.Negocio
             else if (expedienteRepositorio.Estatus == Estatus.ERROR)
             {
                 Mensaje = "Ocurrio un error al consultar la informacion solicitada";
-                string mensajeLogger = catalogosRepositorio.MensajeError;
+                string mensajeLogger = expedienteRepositorio.MensajeError;
                 //Logica para ILogger
             }
             return expedientes;
         }
-
-        public List<Juzgado> RecuperaSala(TipoSistema tipoJuzgado)
-        {
-            List<Juzgado> juzgados = catalogosRepositorio.ConsultaJuzgados(tipoJuzgado);
-
-            if (catalogosRepositorio.Estatus == Estatus.SIN_RESULTADO)
-                Mensaje = "La consulta no genero ningun resultado";
-
-            else if (catalogosRepositorio.Estatus == Estatus.ERROR)
-            {
-                Mensaje = "Ocurrio un error interno no controlado, consulte a soporte";
-                string mensajeLogger = catalogosRepositorio.MensajeError;
-                //Logica para ILogger
-            }
-            return juzgados;
-        }
-
-        public List<Ejecucion> RecuperaSentenciadoBeneficiario(string nombre, string apellidoPaterno, string apellidoMaterno, int idCircuito)
+     
+        public List<Ejecucion> ObtieneSentenciadosBeneficiariosPorMedioDelNombre(string nombre, string apellidoPaterno, string apellidoMaterno, int idCircuito)
         {
             List<Ejecucion> beneficiarios = ejecucionRepository.ConsultaEjecuciones(ParteCausaBeneficiario.BENEFICIARIO, nombre, apellidoPaterno, apellidoMaterno, idCircuito);
 
-            if (catalogosRepositorio.Estatus == Estatus.SIN_RESULTADO)
+            if (ejecucionRepository.Estatus == Estatus.SIN_RESULTADO)
                 Mensaje = "La consulta no genero ningun resultado";
 
-            else if (catalogosRepositorio.Estatus == Estatus.ERROR)
+            else if (ejecucionRepository.Estatus == Estatus.ERROR)
             {
                 Mensaje = "Ocurrio un error interno no controlado por el sistema, al intentar consultar los beneficiarios coincidentes";
-                string mensajeLogger = catalogosRepositorio.MensajeError;
+                string mensajeLogger = ejecucionRepository.MensajeError;
                 //Logica para ILogger
             }
             return beneficiarios;
         }
 
-        public List<Anexo> RecuperaAnexos(string tipo) 
-        {
-            List<Anexo> anexos = catalogosRepositorio.ConsultaAnexos(tipo);
-
-            if (catalogosRepositorio.Estatus == Estatus.SIN_RESULTADO)
-                Mensaje = "La consulta no genero ningun resultado";
-
-            else if (catalogosRepositorio.Estatus == Estatus.ERROR)
-            {
-                Mensaje = "Ocurrio un error interno no controlado, consulte a soporte";
-                string mensajeLogger = catalogosRepositorio.MensajeError;
-                //Logica para ILogger
-            }
-            return anexos;
-        }
-
-        public List<Solicitante> RecuperaSolicitante()
-        {
-            List<Solicitante> solicitantes = catalogosRepositorio.ConsultaSolicitantes();
-
-            if (catalogosRepositorio.Estatus == Estatus.SIN_RESULTADO)
-                Mensaje = "La consulta no genero ningun resultado";
-
-            else if (catalogosRepositorio.Estatus == Estatus.ERROR)
-            {
-                Mensaje = "Ocurrio un error interno no controlado, consulte a soporte";
-                string mensajeLogger = catalogosRepositorio.MensajeError;
-                //Logica para ILogger
-            }
-            return solicitantes;
-        }
-
-        public List<Solicitud> RecuperaSolicitud()
-        {
-            List<Solicitud> solcitudes = catalogosRepositorio.ConsultaSolicitudes();
-
-            if (catalogosRepositorio.Estatus == Estatus.SIN_RESULTADO)
-                Mensaje = "La consulta no genero ningun resultado";
-
-            else if (catalogosRepositorio.Estatus == Estatus.ERROR)
-            {
-                Mensaje = "Ocurrio un error interno no controlado, consulte a soporte";
-                string mensajeLogger = catalogosRepositorio.MensajeError;
-                //Logica para ILogger
-            }
-            return solcitudes;
-        }
-
-        public int? CrearRegistroInicialDeEjecucion(Ejecucion ejecucion, List<Toca> tocas, List<Anexo> anexos, List<string> amparos, List<int> causas, int circuito)
+        public int? CreaRegistroInicialDeEjecucion(Ejecucion ejecucion, List<Toca> tocas, List<Anexo> anexos, List<string> amparos, List<int> causas, int circuito)
         {
             int? idUnidad = null;
             bool esCircuitoPachuca = true;
@@ -186,7 +89,7 @@ namespace PoderJudicial.SIPOH.Negocio
             return idEjecucion;
         }
 
-        public bool ObtenerInformacionGeneralInicialDeEjecucion(int folio, ref Ejecucion ejecucion, ref List<Expediente> causas, ref List<Toca> tocas, ref List<string> amparos, ref List<Anexo> anexos, ref List<Relacionadas> relaciones)
+        public bool ObtieneInformacionGeneralInicialDeEjecucion(int folio, ref Ejecucion ejecucion, ref List<Expediente> causas, ref List<Toca> tocas, ref List<string> amparos, ref List<Anexo> anexos, ref List<Relacionadas> relaciones)
         {
             //Recupera la informacion de la ejecucion
             ejecucion = ejecucionRepository.ConsultaEjecucion(folio);

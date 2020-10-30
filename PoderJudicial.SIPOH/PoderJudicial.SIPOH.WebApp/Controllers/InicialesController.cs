@@ -15,11 +15,13 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
     public class InicialesController : BaseController
     {
         private readonly IInicialesProcessor inicialesProcessor;
+        private readonly ICatalogosProcessor catalogosProcessor;
         private readonly IMapper mapper;
 
-        public InicialesController(IInicialesProcessor inicialesProcessor, IMapper mapper) 
+        public InicialesController(IInicialesProcessor inicialesProcessor, ICatalogosProcessor catalogosProcessor, IMapper mapper) 
         {
             this.inicialesProcessor = inicialesProcessor;
+            this.catalogosProcessor = catalogosProcessor;
             this.mapper = mapper;
         }
         
@@ -29,13 +31,13 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             try 
             {
                 //Obtencion de Datos para PinckList al cargado de la vista
-                List<Juzgado> juzgadosAcusatorios = inicialesProcessor.RecuperaJuzgado(Usuario.IdCircuito, TipoSistema.ACUSATORIO);
-                List<Distrito> distritos = inicialesProcessor.RecuperaDistrito(Usuario.IdCircuito);
-                List<Juzgado> salasAcusatorio = inicialesProcessor.RecuperaSala(TipoSistema.ACUSATORIO);
-                List<Juzgado> salasTradicional = inicialesProcessor.RecuperaSala(TipoSistema.TRADICIONAL);
-                List<Anexo> anexosEjecucion = inicialesProcessor.RecuperaAnexos("A");
-                List<Solicitud> solicitudes = inicialesProcessor.RecuperaSolicitud();
-                List<Solicitante> solicitantes = inicialesProcessor.RecuperaSolicitante();
+                List<Juzgado> juzgadosAcusatorios = catalogosProcessor.ObtieneJuzgadosPorMedioDelTipoSistema(Usuario.IdCircuito, TipoSistema.ACUSATORIO);
+                List<Distrito> distritos = catalogosProcessor.ObtieneDistritosPorMedioDelCircuito(Usuario.IdCircuito);
+                List<Juzgado> salasAcusatorio = catalogosProcessor.ObtieneSalasPorMedioDelTipoSistema(TipoSistema.ACUSATORIO);
+                List<Juzgado> salasTradicional = catalogosProcessor.ObtieneSalasPorMedioDelTipoSistema(TipoSistema.TRADICIONAL);
+                List<Anexo> anexosEjecucion = catalogosProcessor.ObtieneAnexosPorTipo("A");
+                List<Solicitud> solicitudes = catalogosProcessor.ObtieneSolicitudes();
+                List<Solicitante> solicitantes = catalogosProcessor.ObtieneSolicitantes();
 
                 //Obtiene los Ids del tipo "OTRO" para la validacion de Pick List
                 int idOtroAnexos = anexosEjecucion.Where(x => x.Tipo == "O").Select(x => x.IdAnexo).FirstOrDefault();
@@ -71,7 +73,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         {
             try
             {
-                List<Juzgado> juzgados = inicialesProcessor.RecuperaJuzgado(idDistrito, TipoSistema.TRADICIONAL);
+                List<Juzgado> juzgados = catalogosProcessor.ObtieneJuzgadosPorMedioDelTipoSistema(idDistrito, TipoSistema.TRADICIONAL);
 
                 ValidaJuzgados(juzgados);
                 Respuesta.Mensaje = inicialesProcessor.Mensaje;
@@ -93,7 +95,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         {
             try
             {
-                List<Distrito> distritos = inicialesProcessor.RecuperaDistrito(idCircuito);
+                List<Distrito> distritos = catalogosProcessor.ObtieneDistritosPorMedioDelCircuito(idCircuito);
   
                 if (distritos == null)
                 {
@@ -133,7 +135,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         {
             try
             {
-                Expediente expedientes = inicialesProcessor.RecuperaExpedientes(idJuzgado, nuc, TipoNumeroExpediente.NUC);
+                Expediente expedientes = inicialesProcessor.ObtieneCausaPorMedioDelJuzgadoNumeroCausaNUC(idJuzgado, nuc, TipoNumeroExpediente.NUC);
 
                 ValidaExpedientes(expedientes);
                 Respuesta.Mensaje = inicialesProcessor.Mensaje;
@@ -155,7 +157,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         {
             try
             {
-                Expediente expedientes = inicialesProcessor.RecuperaExpedientes(idJuzgado, numeroCausa, TipoNumeroExpediente.CAUSA);
+                Expediente expedientes = inicialesProcessor.ObtieneCausaPorMedioDelJuzgadoNumeroCausaNUC(idJuzgado, numeroCausa, TipoNumeroExpediente.CAUSA);
             
                 ValidaExpedientes(expedientes);
                 Respuesta.Mensaje = inicialesProcessor.Mensaje;
@@ -177,7 +179,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         {
             try
             {
-                List<Ejecucion> beneficiarios = inicialesProcessor.RecuperaSentenciadoBeneficiario(nombreBene, apellidoPaternoBene, apellidoMaternoBene, Usuario.IdCircuito);
+                List<Ejecucion> beneficiarios = inicialesProcessor.ObtieneSentenciadosBeneficiariosPorMedioDelNombre(nombreBene, apellidoPaternoBene, apellidoMaternoBene, Usuario.IdCircuito);
             
                 if (beneficiarios == null)
                 {
@@ -230,7 +232,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 List<int> causas = modelo.Causas.Select(x => x.IdExpediente).ToList();
                 List<string> amparos = modelo.Amparos != null ? modelo.Amparos : new List<string>();
 
-                int? folio = inicialesProcessor.CrearRegistroInicialDeEjecucion(ejecucion, tocas, anexos, amparos, causas, Usuario.IdCircuito);
+                int? folio = inicialesProcessor.CreaRegistroInicialDeEjecucion(ejecucion, tocas, anexos, amparos, causas, Usuario.IdCircuito);
  
                 if (folio == null) 
                 {
@@ -279,7 +281,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 List<Relacionadas> entidad = new List<Relacionadas>();
 
                 //Metodo que consulta a la bd la informacion relacionada a la ejecucion
-                bool fueCorrectoElProceso = inicialesProcessor.ObtenerInformacionGeneralInicialDeEjecucion(folio, ref inicial, ref causas, ref tocas, ref amparos, ref anexos, ref entidad);
+                bool fueCorrectoElProceso = inicialesProcessor.ObtieneInformacionGeneralInicialDeEjecucion(folio, ref inicial, ref causas, ref tocas, ref amparos, ref anexos, ref entidad);
 
                 if (inicial != null)
                 {
