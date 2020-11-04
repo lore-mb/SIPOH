@@ -83,6 +83,7 @@ namespace PoderJudicial.SIPOH.WebApp.App_Start
             kernel.Bind<IBusquedasProcessor>().To<BusquedasProcessor>();
             kernel.Bind<IReportesProcessor>().To<ReportesProcessor>();
             kernel.Bind<ICatalogosProcessor>().To<CatalogosProcessor>();
+            kernel.Bind<IConsignacionesHistoricasProcessor>().To<ConsignacionesHistoricasProcessor>();
 
             //Mapers *********************************************************
             var mapperConfiguration = CreateConfiguration();

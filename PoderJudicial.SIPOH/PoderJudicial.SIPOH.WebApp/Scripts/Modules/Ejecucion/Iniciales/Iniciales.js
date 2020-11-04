@@ -13,8 +13,8 @@ var dataTableTocas = null;
 var dataTableAmparos = null;
 
 //Estructura para data tables
-var estructuraTablaCausas = [{ data: 'CausaNuc', title: 'Causa|Nuc' }, { data: 'NombreJuzgado', title: 'N° Juzgado' }, { data: 'Ofendidos', title: 'Ofendido(s)' }, { data: 'Inculpados', title: 'Inculpado(s)' }, { data: 'Delitos', title: 'Delito(s)'}, { data: 'Eliminar', title: 'Quitar'}];
-var causas = [];
+var EstructuraTablaCausas = [{ data: 'CausaNuc', title: 'Causa|Nuc' }, { data: 'NombreJuzgado', title: 'N° Juzgado' }, { data: 'Ofendidos', title: 'Ofendido(s)' }, { data: 'Inculpados', title: 'Inculpado(s)' }, { data: 'Delitos', title: 'Delito(s)'}, { data: 'Eliminar', title: 'Quitar'}];
+var Causas = [];
 
 var estructuraTablaAnexos = [{ data: 'cantidad', title: 'Cantidad', className: "text-center" }, { data: 'descripcion', title: 'Descripción', className: "text-center" }, { data: 'eliminar', title: 'Quitar', className: "text-center" }];
 var anexos = [];
@@ -45,7 +45,7 @@ $(document).ready(function ()
     SiguienteInput();
 
     //Pintar Tablas
-    dataTable = GeneraTablaDatos(dataTable, "dataTable", causas, estructuraTablaCausas, false, false, false);
+    dataTable = GeneraTablaDatos(dataTable, "dataTable", Causas, EstructuraTablaCausas, false, false, false);
     dataTableAnex = GeneraTablaDatos(dataTableAnex, "dataTableAnexos", anexos, estructuraTablaAnexos, false, false, false);
     dataTableTocas = GeneraTablaDatos(dataTableTocas, "dataTableTocas", tocas, estructuraTablaTocas, false, false, false);
     dataTableAmparos = GeneraTablaDatos(dataTableAmparos, "dataTableAmparos", anexos, estructuraTablaAmparos, false, false, false);
@@ -161,7 +161,9 @@ function ElementosAlCargado()
         if (idDistrito != "" && idDistrito != null)
         {
             $("#slctJuzgadoTradi").prop('disabled', false);
-            DistritoJuzgadoTradicional();
+
+            var parametros = { idDistrito: idDistrito }
+            SolicitudEstandarAjax("/Iniciales/ObtenerJuzgadoTradicional", parametros, ListarJuzgadoTradicional); 
         }
         else
         {
@@ -563,19 +565,6 @@ function LlenaTablaConsultaBeneficiarios(data)
 // #endregion 
 
 // #region Distritos & Juzgados
-function DistritoJuzgadoTradicional()
-{
-    if (idDistrito != null)
-    {
-        var parametros = { idDistrito: idDistrito }
-        SolicitudEstandarAjax("/Iniciales/ObtenerJuzgadoTradicional", parametros, ListarJuzgadoTradicional);
-    }
-    else
-    {
-        alert("Error al obtener los datos");
-    }
-}
-
 function ListarJuzgadoTradicional(data)
 {
     if (data.Estatus == EstatusRespuesta.OK)
@@ -609,7 +598,8 @@ function ListarJuzgadoTradicional(data)
     }
     else if (data.Estatus == EstatusRespuesta.ERROR)
     {
-        customNotice(data.Mensaje, "Error:", "error", 3350);
+        var mensaje = "Mensaje : " + data.Mensaje;
+        Alerta(mensaje, "large", "Error no Controlado por el Sistema");
     }
 }
 // #endregion 
@@ -677,7 +667,7 @@ function ListarCausas(data)
 
                 var funcion = function ()
                 {
-                    if (causas.length == 0)
+                    if (Causas.length == 0)
                     {
                         $('#contenedorBeneficiario').removeAttr('hidden');
                         $("#contenedorBeneficiario").show();
@@ -687,9 +677,9 @@ function ListarCausas(data)
                     expediente.Eliminar = "<button type='button' class='btn btn-link btn-danger btn-sm' onclick='EliminarCausa(" + expediente.IdExpediente + ")' data-toggle='tooltip' title='Quitar Causa'><i class='icon-bin2'></i></button>";
 
                     //Agrega Causa al Arreglo de Cuasas
-                    causas.push(expediente);
+                    Causas.push(expediente);
                     //Generar Tabla 
-                    dataTable = GeneraTablaDatos(dataTable, "dataTable", causas, estructuraTablaCausas, false, false, false);
+                    dataTable = GeneraTablaDatos(dataTable, "dataTable", Causas, EstructuraTablaCausas, false, false, false);
 
                     //Limpiar Formulario CausasPorNumeroCausa
                     if (esTradicional)
@@ -719,11 +709,11 @@ function ListarCausas(data)
 
 function ValidarCuasaEnTabla(id)
 {
-    var iterarArreglo = causas;
+    var iterarArreglo = Causas;
 
     for (var index = 0; index < iterarArreglo.length; index++)
     {
-        if (causas[index].IdExpediente == id)
+        if (Causas[index].IdExpediente == id)
         {
             return true;
         }
@@ -734,11 +724,11 @@ function ValidarCuasaEnTabla(id)
 function EliminarCausa(idExpediente) 
 {
     var indexCausa = 0;
-    var iterarArreglo = causas;
+    var iterarArreglo = Causas;
 
     for (var index = 0; index < iterarArreglo.length; index++)
     {
-        if (idExpediente == causas[index].IdExpediente)
+        if (idExpediente == Causas[index].IdExpediente)
         {
             indexCausa = index;
         }
@@ -746,18 +736,18 @@ function EliminarCausa(idExpediente)
 
     var funcion = function ()
     {
-        causas.splice(indexCausa, 1);
+        Causas.splice(indexCausa, 1);
            
         //Genera nuevamente la tabla
-        dataTable = GeneraTablaDatos(dataTable, "dataTable", causas, estructuraTablaCausas, false, false, false);
+        dataTable = GeneraTablaDatos(dataTable, "dataTable", Causas, EstructuraTablaCausas, false, false, false);
 
-        if (causas.length == 0)
+        if (Causas.length == 0)
         {
             $("#contenedorBeneficiario").hide();
         }
     }
 
-    var mensaje = "¿Desea retirar la Causa <b>" + causas[indexCausa].CausaNuc + "</b> de la tabla?"; 
+    var mensaje = "¿Desea retirar la Causa <b>" + Causas[indexCausa].CausaNuc + "</b> de la tabla?"; 
 
     MensajeDeConfirmacion(mensaje, "large", funcion);
 }
@@ -1035,7 +1025,7 @@ function GenerarEjecucion()
         ApellidoPBeneficiario: $("#inpApellidoPaterno").val(),
         ApellidoMBeneficiario: $("#inpApellidoMaterno").val(),
         Interno: $('input[name="customRadioInline1"]:checked').val(),
-        Causas: causas,
+        Causas: Causas,
         Tocas: tocas,
         Amparos: GeneraArregloNumeroAmparos(),
         Anexos: anexos,

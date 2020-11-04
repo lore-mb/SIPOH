@@ -1,16 +1,16 @@
 ﻿var EstatusRespuesta = { SIN_RESPUESTA: 0, OK: 1, ERROR: 2 }
 
-var estructuraTablaNumeroEejecucionPartes = [{ data: 'NumeroEjecucion', title: 'N° Ejecución' }, { data: 'NombreJuzgado', title: 'Juzgado de Ejecución' }, { data: 'FechaEjecucion', title: 'Fecha Ejecución' }, { data: 'ParteRelacioanada', title: 'Parte Causas' }, { data: 'TipoParte', title: 'Tipo Parte' }, { data: 'DescripcionSolicitud', title: 'Solicitud' }, { data: 'DetalleSolicitante', title: 'Detalle del Solicitante' }, { data: 'Beneficiario', title: 'Beneficiario' }, { data: 'Tipo', title: 'Tipo Expediente' },{ data: 'Causas', title: 'Detalle', className: "text-center"}];
-var estructuraTablaNumeroEjecucion = [{ data: 'NumeroEjecucion', title: 'N° Ejecución' }, { data: 'NombreJuzgado', title: 'Juzgado de Ejecución' }, { data: 'FechaEjecucion', title: 'Fecha Ejecución' }, { data: 'DescripcionSolicitud', title: 'Solicitud' }, { data: 'DetalleSolicitante', title: 'Detalle del Solicitante' }, { data: 'Beneficiario', title: 'Beneficiario' }, { data: 'Tipo', title: 'Tipo Expediente' }, { data: 'Causas', title: 'Detalle', className: "text-center" }];
+var EstructuraTablaNumeroEejecucionPartes = [{ data: 'NumeroEjecucion', title: 'N° Ejecución' }, { data: 'NombreJuzgado', title: 'Juzgado de Ejecución' }, { data: 'FechaEjecucion', title: 'Fecha Ejecución' }, { data: 'ParteRelacioanada', title: 'Parte Causas' }, { data: 'TipoParte', title: 'Tipo Parte' }, { data: 'DescripcionSolicitud', title: 'Solicitud' }, { data: 'DetalleSolicitante', title: 'Detalle del Solicitante' }, { data: 'Beneficiario', title: 'Beneficiario' }, { data: 'Tipo', title: 'Tipo Expediente' },{ data: 'Causas', title: 'Detalle', className: "text-center"}];
+var EstructuraTablaNumeroEjecucion = [{ data: 'NumeroEjecucion', title: 'N° Ejecución' }, { data: 'NombreJuzgado', title: 'Juzgado de Ejecución' }, { data: 'FechaEjecucion', title: 'Fecha Ejecución' }, { data: 'DescripcionSolicitud', title: 'Solicitud' }, { data: 'DetalleSolicitante', title: 'Detalle del Solicitante' }, { data: 'Beneficiario', title: 'Beneficiario' }, { data: 'Tipo', title: 'Tipo Expediente' }, { data: 'Causas', title: 'Detalle', className: "text-center" }];
 
-var numeroEjecucionDatos = [];
-var dataTableNumeroEjecucion = null;
+var NumeroEjecucionDatos = [];
+var DataTableNumeroEjecucion = null;
 
-var estructuraTablaCausas = [{ data: 'CausaNuc', title: 'Causa|Nuc' }, { data: 'NombreJuzgado', title: 'N° Juzgado' }, { data: 'Ofendidos', title: 'Ofendido(s)' }, { data: 'Inculpados', title: 'Inculpado(s)' }, { data: 'Delitos', title: 'Delito(s)' }];
-var causas = [];
-var dataTableCausas = null;
+var EstructuraTablaCausas = [{ data: 'CausaNuc', title: 'Causa|Nuc' }, { data: 'NombreJuzgado', title: 'N° Juzgado' }, { data: 'Ofendidos', title: 'Ofendido(s)' }, { data: 'Inculpados', title: 'Inculpado(s)' }, { data: 'Delitos', title: 'Delito(s)' }];
+var Causas = [];
+var DataTableCausas = null;
 
-var formPartes = false;
+var FormularioPartes = false;
 
 $(document).ready(function ()
 {
@@ -18,7 +18,7 @@ $(document).ready(function ()
     SiguienteInput();
 
     //Pinta la tabla en el ejecucion
-    dataTableNumeroEjecucion = GeneraTablaDatos(dataTableNumeroEjecucion, "dataTableNumeroEjecucion", numeroEjecucionDatos, estructuraTablaNumeroEjecucion, false, false, false);
+    DataTableNumeroEjecucion = GeneraTablaDatos(DataTableNumeroEjecucion, "dataTableNumeroEjecucion", NumeroEjecucionDatos, EstructuraTablaNumeroEjecucion, false, false, false);
 
     //Funcionalidad de Elementos al Cargado
     ElementosAlCargado();
@@ -39,7 +39,9 @@ function ElementosAlCargado()
         if (idDistrito != "" && idDistrito != null)
         {
             $("#slctJuzgadoPorDistritos").prop('disabled', false);
-            RecuperaJuzgadosAcusatorioTradicional(idDistrito);
+
+            var parametros = { idDistrito: idDistrito }
+            SolicitudEstandarAjax("/Busquedas/ObtenerJuzgadosPorDistrito", parametros, GenerarOptionSelectJuzgadoPorDistrito);
         }
         else
         {
@@ -114,18 +116,18 @@ function ElementosAlCargado()
             }
 
             //reset de tabla "if reducido"
-            formPartes = formPartes ? false : false;
+            FormularioPartes = FormularioPartes ? false : false;
 
             if (form.checkValidity() === true && id == "formPartesCausa")
             {
                 //campo bandera que valida
-                formPartes = true;
+                FormularioPartes = true;
                 BuscarEjecucionPorPartesBeneficiarios();
             }
 
             if (form.checkValidity() === true && id == "formBeneficiario")
             {
-                formPartes = false;
+                FormularioPartes = false;
                 BuscarEjecucionPorPartesBeneficiarios();
             }
 
@@ -151,19 +153,6 @@ function ElementosAlCargado()
 
         }, false);
     });
-}
-
-function RecuperaJuzgadosAcusatorioTradicional(idDistrito)
-{
-    if (idDistrito != null)
-    {
-        var parametros = { idDistrito: idDistrito }
-        SolicitudEstandarAjax("/Busquedas/ObtenerJuzgadosPorDistrito", parametros, GenerarOptionSelectJuzgadoPorDistrito);
-    }
-    else
-    {
-        alert("Error al obtener los datos");
-    }
 }
 
 function GenerarOptionSelectJuzgadoPorDistrito(data)
@@ -192,15 +181,17 @@ function GenerarOptionSelectJuzgadoPorDistrito(data)
     }
     else if (data.Estatus == EstatusRespuesta.ERROR)
     {
-        customNotice(data.Mensaje, "Error:", "error", 3350);
+        //Muestra mensaje al Usuario
+        var mensaje = "Mensaje : " + data.Mensaje;
+        Alerta(mensaje, "large", "Error no Controlado por el Sistema");
     }
 }
 
 function BuscarEjecucionPorPartesBeneficiarios()
 {
-    var idNombre = formPartes ? "inpNombreParte" : "inpNombreBeneficiario";
-    var idApellidoPaterno = formPartes ? "inpApellidoPaternoParte" : "inpApellidoPaternoBeneficiario";
-    var idApellidoMaterno = formPartes ? "inpApellidoMaternoPartes" : "inpApellidoMaternoBeneficiario";
+    var idNombre = FormularioPartes ? "inpNombreParte" : "inpNombreBeneficiario";
+    var idApellidoPaterno = FormularioPartes ? "inpApellidoPaternoParte" : "inpApellidoPaternoBeneficiario";
+    var idApellidoMaterno = FormularioPartes ? "inpApellidoMaternoPartes" : "inpApellidoMaternoBeneficiario";
 
     var nombre = $('#' + idNombre).val();
     var apellidoPaterno = $('#' + idApellidoPaterno).val();
@@ -208,7 +199,7 @@ function BuscarEjecucionPorPartesBeneficiarios()
 
     var parametros = { nombre: nombre, apellidoPaterno: apellidoPaterno, apellidoMaterno: apellidoMaterno };
 
-    if (formPartes)
+    if (FormularioPartes)
     {
         $("#loading").fadeIn();
         SolicitudEstandarAjax("/Busquedas/BusquedaPorPartesCausa", parametros, ListarNumerosDeEjecucion);
@@ -272,20 +263,20 @@ function ListarNumerosDeEjecucion(respuesta)
         $("#loading").fadeOut();
 
         //Limpia elementos de la lista
-        numeroEjecucionDatos = [];
+        NumeroEjecucionDatos = [];
 
-        numeroEjecucionDatos = formPartes ? respuesta.Data.busquedaNumerosEjecucionPartes : respuesta.Data.busquedaNumerosEjecucion;
+        NumeroEjecucionDatos = FormularioPartes ? respuesta.Data.busquedaNumerosEjecucionPartes : respuesta.Data.busquedaNumerosEjecucion;
 
-        for (var index = 0; index < numeroEjecucionDatos.length; index++)
+        for (var index = 0; index < NumeroEjecucionDatos.length; index++)
         {
-            numeroEjecucionDatos[index].Causas = "<button type='button' onclick='BuscarCausas(" + index + ")' class='btn btn-link btn-primary' data-toggle='tooltip' title = 'Buscar Causa'><i class='fa fa-search-plus icon'></i></button>";
+            NumeroEjecucionDatos[index].Causas = "<button type='button' onclick='BuscarCausas(" + index + ")' class='btn btn-link btn-primary' data-toggle='tooltip' title = 'Buscar Causa'><i class='fa fa-search-plus icon'></i></button>";
         }
 
-        var busquedaOrdenar = numeroEjecucionDatos.length > 10 ? true : false;
-        var estructura = formPartes ? estructuraTablaNumeroEejecucionPartes : estructuraTablaNumeroEjecucion;
+        var busquedaOrdenar = NumeroEjecucionDatos.length > 10 ? true : false;
+        var estructura = FormularioPartes ? EstructuraTablaNumeroEejecucionPartes : EstructuraTablaNumeroEjecucion;
 
         //renderiza tabla 
-        dataTableNumeroEjecucion = GeneraTablaDatos(dataTableNumeroEjecucion, "dataTableNumeroEjecucion", numeroEjecucionDatos, estructura, busquedaOrdenar, busquedaOrdenar, false);
+        DataTableNumeroEjecucion = GeneraTablaDatos(DataTableNumeroEjecucion, "dataTableNumeroEjecucion", NumeroEjecucionDatos, estructura, busquedaOrdenar, busquedaOrdenar, false);
     }
     else if (respuesta.Estatus == EstatusRespuesta.ERROR)
     {
@@ -296,27 +287,27 @@ function ListarNumerosDeEjecucion(respuesta)
         $("#loading").fadeOut();
 
         //Limpia elementos de la lista
-        numeroEjecucionDatos = [];
+        NumeroEjecucionDatos = [];
 
         //Muestra al usuario un mensaje si la consulta no genero resultado
         Alerta(respuesta.Mensaje);
 
-        if (formPartes)
+        if (FormularioPartes)
         {
-            dataTableNumeroEjecucion = GeneraTablaDatos(dataTableNumeroEjecucion, "dataTableNumeroEjecucion", numeroEjecucionDatos, estructuraTablaNumeroEejecucionPartes, false, false, false);
+            DataTableNumeroEjecucion = GeneraTablaDatos(DataTableNumeroEjecucion, "dataTableNumeroEjecucion", NumeroEjecucionDatos, EstructuraTablaNumeroEejecucionPartes, false, false, false);
         }
         else
         {
-            dataTableNumeroEjecucion = GeneraTablaDatos(dataTableNumeroEjecucion, "dataTableNumeroEjecucion", numeroEjecucionDatos, estructuraTablaNumeroEjecucion, false, false, false);
+            DataTableNumeroEjecucion = GeneraTablaDatos(DataTableNumeroEjecucion, "dataTableNumeroEjecucion", NumeroEjecucionDatos, EstructuraTablaNumeroEjecucion, false, false, false);
         }
     }
 }
 
 function BuscarCausas(index)
 {
-    var idEjecucion = numeroEjecucionDatos[index].IdEjecucion;
-    var numeroEjecucion = numeroEjecucionDatos[index].NumeroEjecucion;
-    var juzgadoEjecucion = numeroEjecucionDatos[index].NombreJuzgado;
+    var idEjecucion = NumeroEjecucionDatos[index].IdEjecucion;
+    var numeroEjecucion = NumeroEjecucionDatos[index].NumeroEjecucion;
+    var juzgadoEjecucion = NumeroEjecucionDatos[index].NombreJuzgado;
 
     var parametros = { idEjecucion: idEjecucion };
     $("#detalleModal").html('Causas relacionadas a la Ejecución con Número <b>' + numeroEjecucion + ' - ' + juzgadoEjecucion +'</b>');
@@ -332,13 +323,13 @@ function ListarCausasPorEjecucion(respuesta)
         $("#loading").fadeOut();
 
         //Limpiar lista 
-        causas = [];
-        causas = respuesta.Data.CausasEjecucion;
+        Causas = [];
+        Causas = respuesta.Data.CausasEjecucion;
 
-        var busquedaOrdenar = causas.length > 10 ? true : false;
+        var busquedaOrdenar = Causas.length > 10 ? true : false;
 
         //Pinta la tabla en el ejecucion
-        dataTableCausas = GeneraTablaDatos(dataTableCausas, "dataTableCausas", causas, estructuraTablaCausas, busquedaOrdenar, busquedaOrdenar, false, 5);
+        DataTableCausas = GeneraTablaDatos(DataTableCausas, "dataTableCausas", Causas, EstructuraTablaCausas, busquedaOrdenar, busquedaOrdenar, false, 5);
           
         $("#busquedaCausasModal").modal("show");
     }
@@ -386,8 +377,8 @@ function SiguienteInput()
 function LimpiaCamposFormulario(idFormulario)
 {
     //Limpa Tabla
-    numeroEjecucionDatos = [];
-    dataTableNumeroEjecucion = GeneraTablaDatos(dataTableNumeroEjecucion, "dataTableNumeroEjecucion", numeroEjecucionDatos, estructuraTablaNumeroEjecucion, false, false, false);
+    NumeroEjecucionDatos = [];
+    DataTableNumeroEjecucion = GeneraTablaDatos(DataTableNumeroEjecucion, "dataTableNumeroEjecucion", NumeroEjecucionDatos, EstructuraTablaNumeroEjecucion, false, false, false);
 
     //Limpia el Formulario
     $("#" + idFormulario)[0].reset();
@@ -404,8 +395,8 @@ function LimpiaCamposFormulario(idFormulario)
 
 function LimpiaCamposFormularioSinValidacion(idFormulario)
 {
-    numeroEjecucionDatos = [];
-    dataTableNumeroEjecucion = GeneraTablaDatos(dataTableNumeroEjecucion, "dataTableNumeroEjecucion", numeroEjecucionDatos, estructuraTablaNumeroEjecucion, false, false, false);
+    NumeroEjecucionDatos = [];
+    DataTableNumeroEjecucion = GeneraTablaDatos(DataTableNumeroEjecucion, "dataTableNumeroEjecucion", NumeroEjecucionDatos, EstructuraTablaNumeroEjecucion, false, false, false);
 
     $("#" + idFormulario)[0].reset();
 

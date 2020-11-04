@@ -232,7 +232,7 @@
     <Content Include="Scripts\Modules\Cuenta\LoggedIn.js" />
     <Content Include="Scripts\Modules\Cuenta\LogIn.js" />
     <Content Include="Scripts\Modules\Ejecucion\Busquedas\Busquedas.js" />
-    <Content Include="Scripts\Modules\Ejecucion\Consignaciones\Consignaciones.js" />
+    <Content Include="Scripts\Modules\Ejecucion\Consignaciones\ConsignacionesHistoricas.js" />
     <Content Include="Scripts\Modules\Ejecucion\Iniciales\Detalle.js" />
     <Content Include="Scripts\Modules\Ejecucion\Iniciales\Iniciales.js" />
     <Content Include="Scripts\Modules\Ejecucion\Iniciales\Sello.js" />

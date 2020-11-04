@@ -144,6 +144,10 @@ namespace PoderJudicial.SIPOH.WebApp
                 "~/Scripts/Modules/Ejecucion/Busquedas/Busquedas.js"));
 
             // Script Ejecución - Reportes
+            bundles.Add(new ScriptBundle("~/Scripts/Modules/Ejecucion/ConsignacionesHistoricas").Include(
+                "~/Scripts/Modules/Ejecucion/Consignaciones/ConsignacionesHistoricas.js"));
+
+            // Script Ejecución - Reportes
             bundles.Add(new ScriptBundle("~/Scripts/Modules/Ejecucion/Reportes").Include(
                 "~/Scripts/Modules/Ejecucion/Reportes/Reportes.js"));
 
