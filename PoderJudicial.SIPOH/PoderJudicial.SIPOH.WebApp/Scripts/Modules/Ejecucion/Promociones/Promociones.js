@@ -59,7 +59,6 @@ function HabilitarFormulariAnexos() {
             $("#slctAnexoEjecucion").prop('disabled', false);
             $("#inpCantidadAnexos").prop('disabled', false);
             $("#btnAgregarAnexo").prop('disabled', false);
-            $("#btnGuardarAnexos").prop('disabled', false);
         }
     });
 }
@@ -67,6 +66,7 @@ function HabilitarFormulariAnexos() {
 
 // #region FUNCIONALIDAD: Mostrar Formulario
 function MostrarFormulario() {
+    $('#divResultadoPromocion').removeAttr('hidden');
     $("#divResultadoPromocion").show();
     $(".disabled").prop('disabled', true);
 }
@@ -85,16 +85,39 @@ function Resultados_OK() {
 function Resultados_NEW() {
 
     OcultarFormulario();
+
     $(".resultOK").prop('disabled', false);
+
     $(".clean").val("");
+
     var form = $('#' + "FrmCausaEjecucion")[0];
     $('#slctJuzgadoPorCircuito').prop('selectedIndex', 0);
+
     var form = $('#FrmCausaEjecucion')[0];
     $(form).removeClass('was-validated');
+
     $("#_TablaCausasEjecucion").dataTable().fnClearTable();
-    $("#btnNuevaConsultaPromocion").prop("disabled", true);
     Arreglo_TablaCausas = [];
+
+    $("#_DataTableAnexos").dataTable().fnClearTable();
+    Arreglo_TablaAnexos = [];
+
+    $("#btnNuevaConsultaPromocion").prop("disabled", true);
+
     $('#btnNuevaConsultaPromocion').tooltip('hide');
+
+    $('#slctAnexoEjecucion').prop('selectedIndex', 0);
+
+
+    var form = $('#Frm_Anexos')[0];
+    $(form).removeClass('was-validated');
+
+    $("#slctAnexoEjecucion").prop('disabled', true);
+    $("#inpCantidadAnexos").prop('disabled', true);
+    $("#btnAgregarAnexo").prop('disabled', true);
+    $("#btnGuardarAnexos").prop('disabled', true);
+
+
 
 }
 // #endregion
@@ -220,42 +243,45 @@ function AgregarAnexos() {
     var NumeroAnexo = $("#slctAnexoEjecucion").children("option:selected").val();
     var NoCantidad = $("#inpCantidadAnexos").val();
     var TxtOtro = $("#inpOtroAnexo").val();
+
     $("#btnGuardarAnexos").prop('disabled', false);
 
-    if (Validar_AnexosTabla(NumeroAnexo)) {
-        var ArregloTablaAnexos = Arreglo_TablaAnexos;
-        var AnexoValor = NumeroAnexo
-        for (var index = 0; index < ArregloTablaAnexos.length; index++) {
-            if (AnexoValor == ArregloTablaAnexos[index].IdAnexo) {
-                if (ArregloTablaAnexos[index].Cantidad != NoCantidad) {
-                    //var Mensaje_Existe = "Se han detectado cambios en la cantidad de documentos pertenecientes al anexo " + "<b>" + ArregloTablaAnexos[index].Descripcion + "</b>" + "<b> [" +"Cantidad Actual = "+ ArregloTablaAnexos[index].Cantidad + "]</b> " + "<b> ["+"Nueva Cantidad = " + NoCantidad + "]</b>"+" ¿Desea aplicar los cambios?";
-                    //var Funcion_Existe = function () {
-                    //    //nothing
-                    //}
-                    //MensajeNotificacionOK(Mensaje_Existe, "large", Funcion_Existe);
+    if (NoCantidad != 0) {
+        if (Validar_AnexosTabla(NumeroAnexo)) {
+
+            var ArregloTablaAnexos = Arreglo_TablaAnexos;
+            var AnexoValor = NumeroAnexo
+
+            for (var index = 0; index < ArregloTablaAnexos.length; index++) {
+
+                if (AnexoValor == ArregloTablaAnexos[index].IdAnexo) {
+                    // Valida cantidad para actualizar 
                     ArregloTablaAnexos[index].Cantidad = NoCantidad;
-                } else {
-                    //var Mensaje_Existe = "Anexo " + "<b>" + ArregloTablaAnexos[index].Descripcion + "</b>" + " actualmente asignado, no se admiten duplicados.";
-                    //var Funcion_Existe = function () {
-                    //    //nothing
-                    //}
-                    //MensajeNotificacionNoResult(Mensaje_Existe, "", Funcion_Existe);
                 }
             }
         }
-    } else {
-        var Objct_TablaAnexos = new Object();
-        if (NumeroAnexo == 8) {
-            Objct_TablaAnexos.Descripcion = TxtOtro;
-        } else {
-            Objct_TablaAnexos.Descripcion = TxtAnexo;
+        else {
+            var Objct_TablaAnexos = new Object();
+            if (NumeroAnexo == 8) {
+                Objct_TablaAnexos.Descripcion = TxtOtro;
+            }
+            else {
+                Objct_TablaAnexos.Descripcion = TxtAnexo;
+            }
+            Objct_TablaAnexos.IdAnexo = NumeroAnexo;
+            Objct_TablaAnexos.Cantidad = NoCantidad;
+            Objct_TablaAnexos.Acciones = "<button type='button' class='btn btn-link btn-danger btn-sm' onclick='Quitar_Anexos(" + Objct_TablaAnexos.IdAnexo + ")' data-toggle='tooltip' data-placement='top' title='Quitar Anexo'><i class='icon-bin2'></i></button>";
+            Arreglo_TablaAnexos.push(Objct_TablaAnexos);
         }
-        Objct_TablaAnexos.IdAnexo = NumeroAnexo;
-        Objct_TablaAnexos.Cantidad = NoCantidad;
-        Objct_TablaAnexos.Acciones = "<button type='button' class='btn btn-link btn-danger btn-sm' onclick='Quitar_Anexos(" + Objct_TablaAnexos.IdAnexo + ")' data-toggle='tooltip' data-placement='top' title='Quitar Anexo'><i class='icon-bin2'></i></button>";
-        Arreglo_TablaAnexos.push(Objct_TablaAnexos);
+        TablaAnexos = Consumir_DataTable(TablaAnexos, "_DataTableAnexos", Arreglo_TablaAnexos, EstructuraTabla_Anexos, false, false, false);
     }
-    TablaAnexos = Consumir_DataTable(TablaAnexos, "_DataTableAnexos", Arreglo_TablaAnexos, EstructuraTabla_Anexos, false, false, false);
+    else {
+        var Mensaje_Existe = "No se puede asignar el anexo " + " <b>" + TxtAnexo + "</b>" + " con " + "<b> " + NoCantidad + "</b> " + " copias certificadas, ingrese una cantidad valida.";
+        var Funcion_Existe = function () { }
+        MensajeNotificacionNoResult(Mensaje_Existe, "", Funcion_Existe);
+    }
+
+
 }
 
 
@@ -265,21 +291,56 @@ function AgregarAnexos() {
 
 function GuardarAnexos() {
 
-    $("#loading").fadeIn();
+    $NombrePromovente = $("#inpNombrePromovente").val() + " " + $("#inpPromoventeAP").val() + " " + $("#inpPromoventeMA").val()
+    $IdCatAnexo = $("#slctAnexoEjecucion").find('option:selected').val()
+    $Cantidad = $("#inpCantidadAnexos").val()
 
-    intentos = intentos + 1;
+    //var TablaAnexos = Arreglo_TablaAnexos;
 
-    /* Recupera datos del LocalStore */
-    var IdAnexoEjecucion = sessionStorage.getItem("IdEjecucionAnexo");
 
-    var objetoparametro = {
-        IdEjecucion: IdAnexoEjecucion,
-        Promovente: $("#inpNombrePromovente").val() + " " + $("#inpPromoventeAP").val() + " " + $("#inpPromoventeMA").val(),
-        IdCatAnexoEjecucion: $("#slctAnexoEjecucion").find('option:selected').val(),
-        Cantidad: $("#inpCantidadAnexos").val(),
-        Anexos: Arreglo_TablaAnexos
+
+    MensajeDatos = "Esta a punto de registrar una promocion, ¿Desea continuar?";
+    //    "<b>" + "PROMOVENTE: " + "</b>" + $NombrePromovente + "<br>" +
+    //    "<b>" + "ANEXOS: " + "</b>" + Arreglo_TablaAnexos[0].Descripcion + "<b>" + "   CANTIDAD: " + "</b>" + Arreglo_TablaAnexos[0].Cantidad + "<br>" +
+    //    "<b>" + "ANEXOS: " + "</b>" + Arreglo_TablaAnexos[1].Descripcion + "<b>" + "   CANTIDAD: " + "</b>" + Arreglo_TablaAnexos[0].Cantidad + "<br>";
+
+    //var MensajeDatos = "";
+    //MensajeDatos += "<table";
+    //var Llaves = Object.keys(TablaAnexos[0]);
+    //MensajeDatos += "<tbody>";
+
+    //for (i = 0; i < TablaAnexos.length; i++) {
+    //    MensajeDatos += "<tr>";
+    //    for (var j = 0; j < Llaves.length; j++) {
+    //        var LlavesTD = Llaves[j];
+    //        MensajeDatos += "<td>" + TablaAnexos[i][LlavesTD] + "</td>";
+    //    }
+    //}
+
+    //MensajeDatos += "</body>";
+    //MensajeDatos += "</Table>";
+
+    var Funcion_Ejecutar = function () {
+
+        $("#loading").fadeIn();
+
+        intentos = intentos + 1;
+
+        /* Recupera datos del LocalStore */
+        var IdAnexoEjecucion = sessionStorage.getItem("IdEjecucionAnexo");
+
+        var objetoparametro = {
+            IdEjecucion: IdAnexoEjecucion,
+            Promovente: $NombrePromovente,
+            Anexos: Arreglo_TablaAnexos
+        }
+
+        SolicitudEstandarPostAjax("/Promociones/GuardarAnexosPostEjecucion", objetoparametro, RederizarDetalleSuccess, RederizarDetalleError);
     }
-    SolicitudEstandarPostAjax("/Promociones/GuardarAnexosPostEjecucion", objetoparametro, RederizarDetalleSuccess, RederizarDetalleError);
+
+    MensajeNotificacionGuardar(MensajeDatos, "", Funcion_Ejecutar);
+
+
 }
 
 $("#btnGuardarAnexos").click(function (e) {
@@ -552,6 +613,12 @@ function Quitar_Anexos(Id_ItemTabla) {
             if (Id_ItemTabla == Arreglo_TablaAnexos[i].IdAnexo) {
                 Arreglo_TablaAnexos.splice(i, 1);
             }
+
+            // Valida si la tabla tiene N Elementos
+            if (ArregloTabla.length == 0) {
+                $("#btnGuardarAnexos").prop("disabled", true);
+            }
+
             TablaAnexos = Consumir_DataTable(TablaAnexos, "_DataTableAnexos", Arreglo_TablaAnexos, EstructuraTabla_Anexos, false, false, false);
         }
     }
@@ -559,6 +626,7 @@ function Quitar_Anexos(Id_ItemTabla) {
     for (var index = 0; index < Arreglo_TablaAnexos.length; index++) {
         if (Id_ItemTabla == Arreglo_TablaAnexos[index].IdAnexo) {
             var MensajeQuitar = "Se removera el anexo " + "<b>" + ArregloTabla[index].Descripcion + "</b>" + " con: " + "<b>" + ArregloTabla[index].Cantidad + "</b>" + " copia (s) asignada (s). ¿Desea continuar? ";
+
         }
     }
     MensajeNotificacionOK(MensajeQuitar, "default", FuncionQuitar);
@@ -682,3 +750,26 @@ function Alerta(mensaje, tamanio = null, titulo = null) {
 
 //#endregion 
 
+
+function MensajeNotificacionGuardar(mensaje, tamanio, funcion) {
+    bootbox.confirm({
+        title: "<h3>Confirmación</h3>",
+        message: mensaje,
+        buttons: {
+            confirm: {
+                label: '<i class="fa fa-check"></i> Aceptar',
+                className: 'btn btn-outline-success'
+            },
+            cancel: {
+                label: '<i class="fa fa-times"></i> Cancelar',
+                className: 'btn btn-outline-secondary'
+            }
+        },
+        callback: function (result) {
+            if (result) {
+                funcion();
+            }
+        },
+        size: tamanio
+    });
+}

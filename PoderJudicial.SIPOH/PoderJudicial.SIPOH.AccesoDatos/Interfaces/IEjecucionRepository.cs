@@ -20,5 +20,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos.Interfaces
         int ? CreaEjecucion(Ejecucion ejecucion, List<int> causas, List<Toca> tocas, List<string> amparos, List<Anexo> anexos, int? idJuzgado, bool circuitoPachuca); 
         int ? CreaEjecucionPosterior(EjecucionPosterior ejecucionPosterior, List<Anexo> anexos);
         EjecucionPosterior ConsultarRegistroEjecucionPosterior(int IdEjecucionPosterior);
+        List<Reporte> GenerarReporteRangoFecha(TipoReporteRangoFecha TipoReporte, string FechaInicial, string FechaFinal, int IdJuzgado);
+        List<Reporte> GenerarReportePorDia(TipoReporteDia TipoReporte, string FechaHoy, int IdJuzgado);
     }
 }

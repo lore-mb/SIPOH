@@ -37,7 +37,7 @@
                                 <div class="card-body">
                                     <!-- Contenido -->
                                     <div class="col">
-                                        <form class="needs-validation" id="FrmCausaEjecucion" novalidate="">
+                                        <form class="needs-validation" id="FrmReporteInicialRangoFechas" novalidate="">
                                             <div class="form-row">
                                                 
                                                 <div class="col-md-2"></div>
@@ -61,12 +61,12 @@
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text"><i class="icon-calendar"></i> </span>
                                                         </div>
-                                                        <input type="text" class="form-control text-center" id="datetimepicker6" name="datetime" placeholder="dd/mm/aaaa h:mm hh">
+                                                        <input type="text" class="form-control text-center" id="datetimepickerFechaInicial" name="datetime" placeholder="AAAA-MM-DD" required>
                                                         <div class="valid-feedback" wfd-invisible="true">
-                                                            <i class="icon-checkmark"></i> Numero de ejecución
+                                                            <i class="icon-checkmark"></i> Fecha Inicial.
                                                         </div>
                                                         <div class="invalid-feedback" wfd-invisible="true">
-                                                            <i class="icon-cancel-circle"></i> Por favor, introduce numero de ejecución.
+                                                            <i class="icon-cancel-circle"></i> Por favor, seleeciona fecha inicial.
                                                         </div>
                                                     </div>
                                                 </div>
@@ -76,13 +76,13 @@
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text"><i class="icon-calendar"></i> </span>
                                                         </div>
-                                                        <input type="text" class="form-control text-center" id="datetimepicker7" name="datetime" placeholder="dd/mm/aaaa h:mm hh">
-                                                        <button class="btn btn-success ml-2" type="submit" id="btnConsultarPromocion" data-toggle="tooltip" data-placement="top" title="" data-original-title="Generar Reporte PDF"><i class="fas fa-file-pdf"></i></button>
+                                                        <input type="text" class="form-control text-center" id="datetimepickerFechaFinal" name="datetime" placeholder="AAAA-MM-DD" required>
+                                                        <button class="btn btn-success ml-2" type="submit" id="btnConsultarPromocion" data-toggle="tooltip" data-placement="top" title="" data-original-title="Generar PDF por fechas"><i class="icon-download2"></i></button>
                                                         <div class="valid-feedback" wfd-invisible="true">
-                                                            <i class="icon-checkmark"></i> Numero de ejecución
+                                                            <i class="icon-checkmark"></i> Fecha Final.
                                                         </div>
                                                         <div class="invalid-feedback" wfd-invisible="true">
-                                                            <i class="icon-cancel-circle"></i> Por favor, introduce numero de ejecución.
+                                                            <i class="icon-cancel-circle"></i> Por favor, selecciona fecha final.
                                                         </div>
                                                     </div>
                                                 </div>
@@ -109,14 +109,14 @@
                                     <!-- Contenido -->
 
                                     <div class="col">
-                                        <form class="needs-validation" id="FrmCausaEjecucion" novalidate="">
+                                        <form class="needs-validation" id="FrmReporteInicialDia" novalidate="">
                                             <div class="form-row">
                                                 <div class="col-md-2"></div>
                                                 <div class="col-md-8 form-group">
                                                     <label for="validationCustom01">Nombre de Juzgado</label>
                                                     <div class="input-group">
-                                                        @Html.DropDownList("SelectJuzgadoPorCircuito", new SelectList(ViewBag.ListaCircuitoJuzgadoPromociones, "IdJuzgado", "Nombre"), "SELECCIONAR OPCIÓN", new { @id = "slctJuzgadoPorCircuito", @class = "custom-select form-control resultOK", @required = "required" })
-                                                        <button class="btn btn-success ml-2"><i class="icon-search"></i></button>
+                                                        @Html.DropDownList("SelectJuzgadoPorCircuito", new SelectList(ViewBag.ListaCircuitoJuzgadoPromociones, "IdJuzgado", "Nombre"), "SELECCIONAR OPCIÓN", new { @id = "slctJuzgadoPorCircuitoDia", @class = "custom-select form-control resultOK", @required = "required" })
+                                                        <button class="btn btn-success ml-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Generar PDF por día"><i class="icon-download2"></i></button>
                                                         <div class="valid-feedback" wfd-invisible="true">
                                                             <i class="icon-checkmark"></i> Juzgado Seleccionado
                                                         </div>
