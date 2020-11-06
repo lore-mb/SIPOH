@@ -76,7 +76,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 List<Juzgado> juzgados = catalogosProcessor.ObtieneJuzgadosPorTipoSistema(idDistrito, TipoSistema.TRADICIONAL);
 
                 ValidaJuzgados(juzgados);
-                Respuesta.Mensaje = inicialesProcessor.Mensaje;
+                Respuesta.Mensaje = catalogosProcessor.Mensaje;
                
                 return Json(Respuesta, JsonRequestBehavior.AllowGet);
             }
