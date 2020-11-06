@@ -16,19 +16,19 @@
             <div class="card-body">
                 <!-- Guia -->
                 <ul class="nav nav-pills nav-success" id="pills-tab" role="tablist">
-                    <li class="nav-item">
+                    <li class="nav-sm nav-item">
                         <a class="nav-link active" id="juzgadoA-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true"><i class="icon-office mr-2"></i>Juzgado Acusatorio</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-sm nav-item">
                         <a class="nav-link" id="juzgadoT-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false"><i class="icon-library mr-2"></i> Juzgado Tradicional</a>
                     </li>
                 </ul>
 
-                <div class="tab-content mt-2 mb-3" id="pills-tabContent">
+                <div class="tab-content mt-3" id="pills-tabContent">
                     <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                         <form id="formBuscaAcusatorioCausas" class="needs-validation" novalidate>
                             <div class="form-row">
-                                <div class="col-md-12 col-lg-6">
+                                <div class="col-12 col-md-6">
 
                                     <label for="validationCustom04"><strong>Juzgado de Procedencia</strong></label>
 
@@ -40,7 +40,7 @@
 
                                 </div>
 
-                                <div class="col-md-6 col-lg-3">
+                                <div class="col-12 col-md-3">
                                     <label class="" for="inpNumero" id="NumeroLabel"><b>Numero de Causa</b></label>
                                     <div class="input-group">
                                         <input type="text" id="inpCausaAcusatorio" name="NumeroExpediente" class="form-control form-control-sm mt-2" placeholder="0000/0000" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
@@ -50,11 +50,12 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-6 col-lg-3">
+                                <div class="col-12 col-md-3">
                                     <label class="" for="inpNumero" id="NumeroLabel"><b>Numero Unico de Caso</b></label>
                                     <div class="input-group">
-                                        <input type="text" id="inpNuc" placeholder="00-0000-0000" name="Nuc" class="form-control form-control-sm mt-2 mr-2" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
-                                        <button class="btn btn-success btn-sm mt-2" type="submit" id="btnNUC" data-toggle="tooltip" data-placement="top" title="Consultar Expediente"><i class="fa fa-search"></i></button>
+                                        <input type="text" id="inpNuc" name="Nuc" class="form-control form-control-sm mt-2 mr-2" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
+                                        <button class="btn btn-success btn-sm mt-2" type="submit" id="btnBuscarCuasaAcusatorio" data-toggle="tooltip" data-placement="top" title="Consultar Expediente"><i class="fa fa-search"></i></button>
+                                        <button id="botonBorrarDatos" onclick='' type="button" class="btn btn-danger btn-sm mt-2 ml-1" data-toggle="tooltip" data-placement="top" title="Limpiar Busqueda"><i class="fa fa-eraser icon"></i></button>
                                         <div class="invalid-feedback">
                                             <i class="icon-notification"></i> Introduzca un numero unico de caso.
                                         </div>
@@ -65,13 +66,13 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                         </form>
                     </div>
 
                     <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                         <form id="formBuscaCausasTradicional" class="needs-validation" novalidate>
-                            <div class="form-row">
+                            <div class="form-row mb-4">
                                 <div class="col-md-3">
                                     <label for="slcNumero"><strong>Distrito de Procedencia</strong></label>
 
@@ -97,11 +98,11 @@
                                     <label for="validationCustomUsername"><strong>Numero de Causa</strong></label>
                                     <div class="input-group" id="divCAU">
                                         <input type="text" class="form-control form-control-sm mt-2 mr-2" id="inpCausaTradicional" aria-describedby="inpCAU" placeholder="0000/0000" required>
-                                        <button class="btn btn-success btn-sm mt-2" type="submit" id="btnCausa" data-toggle="tooltip" data-placement="top" title="Consultar Causas"><i class="fas fa-search"></i></button>
+                                        <button class="btn btn-success btn-sm mt-2" type="submit" id="btnBuscarCuasaTradicional" data-toggle="tooltip" data-placement="top" title="Consultar Causas"><i class="fas fa-search"></i></button>
+                                        <button id="botonBorrarDatos" onclick='' type="button" class="btn btn-danger btn-sm mt-2 ml-1" data-toggle="tooltip" data-placement="top" title="Limpiar Busqueda"><i class="fa fa-eraser icon"></i></button>
                                         <div class="invalid-feedback">
                                             <i class="icon-notification"></i> Introduzca un Numero de Causa.
                                         </div>
-                                  
                                     </div>
                                 </div>
                             </div>
@@ -109,6 +110,17 @@
                     </div>
                 </div>
 
+                <div class="tab-content">
+                    <div class="form-row">
+                        <div class="col-12">
+                            <h6 class="m-0 font-weight-bold text-success"><i class="icon-table2"></i>Causas</h6>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table id="dataTable" class="table table-hover table-bordered" width="100%">
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

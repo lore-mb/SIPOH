@@ -22,10 +22,10 @@
                 <!-- Pestañas de Navegación -->
                 <!-- #region Pestañas -->
                 <ul class="nav nav-pills nav-success" id="pills-tab" role="tablist">
-                    <li class="nav-item">
+                    <li class="nav-sm nav-item">
                         <a class="nav-link active" id="juzgadoA-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true"><i class="icon-office mr-2"></i>Juzgado Acusatorio</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-sm nav-item">
                         <a class="nav-link" id="juzgadoT-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false"><i class="icon-library mr-2"></i> Juzgado Tradicional</a>
                     </li>
                 </ul>
@@ -40,20 +40,16 @@
 
                                     <label for="validationCustom04"><strong>Juzgado de Procedencia</strong></label>
 
-                                    @Html.DropDownList("SelectJuzgadoAcusatorio", (SelectList)ViewBag.JuzgadosAcusatorios, "SELECCIONAR OPCIÓN", new { @id = "slctJuzgado", @class = "custom-select formatear", @required = "required" })
+                                    @Html.DropDownList("SelectJuzgadoAcusatorio", (SelectList)ViewBag.JuzgadosAcusatorios, "SELECCIONAR OPCIÓN", new { @id = "slctJuzgado", @class = "custom-select custom-select-sm", @required = "required" })
 
                                     <div class="invalid-feedback">
                                         <i class="icon-notification"></i> Por favor, selecciona un juzgado.
-                                    </div>
-
-                                    <div class="valid-feedback">
-                                        <i class="icon-checkmark"></i> Juzgado seleccionado.
                                     </div>
                                 </div>
 
                                 <div class="col-md-6 col-lg-3 form-group">
                                     <label for="slcNumero"><strong> Causa | Nuc</strong></label>
-                                    <select class="custom-select" id="slctNumero">
+                                    <select class="custom-select custom-select-sm" id="slctNumero">
                                         <option value="1">NUMERO DE CAUSA</option>
                                         <option value="2">NUMERO UNICO DE CASO</option>
                                     </select>
@@ -62,13 +58,13 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-lg-3 form-group">
-                                    <label class="" for="inpNumero" id="NumeroLabel"><b>Numero de Causa</b></label>
+                                    <label class="" for="inpNumero" id="NumeroLabel"><strong>Numero de Causa</strong></label>
                                     <div class="input-group">
-                                        @*<div class="input-group-prepend">
-                                            <span class="input-group-text" id="spnNumero">Causa</span>
-                                        </div>*@
-                                        <input type="text" id="Numero" name="Numero" class="form-control mr-2" aria-label="Small" aria-describedby="inputGroup-sizing-sm" data-inputmask-clearmaskonlostfocus="true" required>
+                                        <input type="text" id="Numero" placeholder="0000/0000" name="Numero" class="form-control form-control-sm mr-2" aria-label="Small" aria-describedby="inputGroup-sizing-sm" data-inputmask-clearmaskonlostfocus="true" required>
                                         <button class="btn btn-success btn-sm" type="submit" id="btnNUC" data-toggle="tooltip" data-placement="top" title="Consultar Causas"><i class="fa fa-search"></i></button>
+                                        <div class="invalid-feedback">
+                                            <i class="icon-notification"></i> Introduzca un Numero de Causa.
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -81,7 +77,7 @@
                                 <div class="col-md-3 form-group">
                                     <label for="slcNumero"><strong>Distrito de Procedencia</strong></label>
 
-                                    @Html.DropDownList("DistritoPorCircuito", (SelectList)ViewBag.DistritosPorCircuito, "SELECCIONAR OPCIÓN", new { @id = "slctDistrito", @class = "custom-select formatear", @required = "required" })
+                                    @Html.DropDownList("DistritoPorCircuito", (SelectList)ViewBag.DistritosPorCircuito, "SELECCIONAR OPCIÓN", new { @id = "slctDistrito", @class = "custom-select custom-select-sm", @required = "required" })
 
                                     <div class="invalid-feedback">
                                         <i class="icon-notification"></i> Por favor, selecciona un distrito.
@@ -93,7 +89,7 @@
 
                                 <div class="col-md-5 form-group">
                                     <label for="validationCustom04"><strong>Juzgado de Procedencia</strong></label>
-                                    <select class="custom-select" id="slctJuzgadoTradi" required>
+                                    <select class="custom-select custom-select-sm" id="slctJuzgadoTradi" required>
                                         <option selected value="">SELECCIONAR OPCIÓN</option>
                                     </select>
                                     <div class="valid-feedback">
@@ -107,7 +103,7 @@
                                         @*<div class="input-group-prepend">
                                             <span class="input-group-text" id="inputGroupPrepend">CAUSA</span>
                                         </div>*@
-                                        <input type="text" class="form-control mr-3" id="inpCAUT" aria-describedby="inpCAU" placeholder="0000/0000" required>
+                                        <input type="text" class="form-control form-control-sm mr-2" id="inpCAUT" aria-describedby="inpCAU" placeholder="0000/0000" required>
                                         <button class="btn btn-success btn-sm" type="submit" id="btnCAU" data-toggle="tooltip" data-placement="top" title="Consultar Causas"><i class="fas fa-search"></i></button>
                                         <div class="invalid-feedback">
                                             <i class="icon-checkmark"></i> Introduce numero de causa.
@@ -152,14 +148,14 @@
 
                                         @if (ViewBag.SalasAcusatorioTotal == 1)
                                         {
-                                            @Html.DropDownList("SalasAcusatorio", (SelectList)ViewBag.SalasAcusatorio, new { @id = "slctSalaAcusatorio", @class = "custom-select formatear", @required = "required" })
+                                            @Html.DropDownList("SalasAcusatorio", (SelectList)ViewBag.SalasAcusatorio, new { @id = "slctSalaAcusatorio", @class = "custom-select custom-select-sm", @required = "required" })
                                         }
                                         else
                                         {
-                                            @Html.DropDownList("SalasAcusatorio", (SelectList)ViewBag.SalasAcusatorio, "SELECCIONAR OPCIÓN", new { @id = "slctSalaAcusatorio", @class = "custom-select formatear", @required = "required" })
+                                            @Html.DropDownList("SalasAcusatorio", (SelectList)ViewBag.SalasAcusatorio, "SELECCIONAR OPCIÓN", new { @id = "slctSalaAcusatorio", @class = "custom-select custom-select-sm", @required = "required" })
                                         }
 
-                                        @Html.DropDownList("SalasTradicional", (SelectList)ViewBag.SalasTradicional, "SELECCIONAR OPCIÓN", new { @id = "slctSalaTradicional", @class = "custom-select formatear", @hidden = "hidden" })
+                                        @Html.DropDownList("SalasTradicional", (SelectList)ViewBag.SalasTradicional, "SELECCIONAR OPCIÓN", new { @id = "slctSalaTradicional", @class = "custom-select custom-select-sm", @hidden = "hidden" })
 
                                         <div class="invalid-feedback">
                                             <i class="icon-notification"></i> Por favor, selecciona una sala.
@@ -171,7 +167,7 @@
                                             @*<div class="input-group-prepend">
                                                 <span class="input-group-text" id="lbToca">Toca</span>
                                             </div>*@
-                                            <input type="text" class="form-control mr-2" id="inpToca" aria-describedby="inpToca" data-inputmask-clearmaskonlostfocus="true" required>
+                                            <input type="text" placeholder="0000/0000"  class="form-control form-control-sm mr-2" id="inpToca" aria-describedby="inpToca" data-inputmask-clearmaskonlostfocus="true" required>
                                             <button class="btn btn-success btn-sm" type="submit" id="btnToca" data-toggle="tooltip" data-placement="top" title="Agregar Toca"><i class="fas fa-plus-circle"></i></button>
                                             <div class="invalid-feedback">
                                                 <i class="icon-notification"></i> Por favor, introduce un numero de toca.
@@ -204,7 +200,7 @@
                                             @*<div class="input-group-prepend">
                                                 <span class="input-group-text" id="lbAmparo">Amparo</span>
                                             </div>*@
-                                            <input type="text" class="form-control mr-2" id="ipnAmparo" aria-describedby="inpAmparo" required>
+                                            <input type="text" class="form-control form-control-sm mr-2" id="ipnAmparo" aria-describedby="inpAmparo" required>
                                             <button class="btn btn-success btn-sm" type="submit" id="btnAmparo" data-toggle="tooltip" data-placement="top" title="Agregar Sentencia de Amparo"><i class="fas fa-plus-circle"></i></button>
                                             <div class="invalid-feedback">
                                                 <i class="icon-notification"></i> Por favor, introcude una cantidad.
@@ -251,9 +247,9 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="lbBusquedaSentenciado">Total</span>
                                         </div>
-                                        <input type="text" class="form-control mr-3" id="inpBusquedaSentenciado" aria-describedby="inpNumero" disabled>
-                                        <button id="botonMostrarBeneficiarios" type="button" class="btn btn-secondary btn-sm mr-3" data-toggle="tooltip" data-placement="top" title="Ver Coincidencias"><i class="fa fa-eye icon"></i></button>
-                                        <button id="botonCheckBeneficiarios" type="button" class="btn btn-secondary btn-sm mr-3" data-toggle="tooltip" data-placement="top" title="Continuar Registro"><i class="icon-checkmark"></i></button>
+                                        <input type="text" class="form-control form-control-sm mr-2" id="inpBusquedaSentenciado" aria-describedby="inpNumero" disabled>
+                                        <button id="botonMostrarBeneficiarios" type="button" class="btn btn-secondary btn-sm mr-2" data-toggle="tooltip" data-placement="top" title="Ver Coincidencias"><i class="fa fa-eye icon"></i></button>
+                                        <button id="botonCheckBeneficiarios" type="button" class="btn btn-secondary btn-sm mr-2" data-toggle="tooltip" data-placement="top" title="Continuar Registro"><i class="icon-checkmark"></i></button>
                                         <button id="botonCerrarBeneficiarios" type="button" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Cancelar Registro"><i class="icon-cross"></i></button>
                                     </div>
                                 </div>
@@ -267,7 +263,7 @@
                                         @*<div class="input-group-prepend">
                             <span class="input-group-text" id="lbNombreSentenciado">Nombre(s)</span>
                             </div>*@
-                                        <input tabindex="1" type="text" class="form-control focusNext mt-2" id="inpNombreSentenciado" aria-describedby="inpNumero" required>
+                                        <input tabindex="1" type="text" class="form-control form-control-sm focusNext mt-2" id="inpNombreSentenciado" aria-describedby="inpNumero" required>
                                         <div class="invalid-feedback">
                                             Introducir nombre del Beneficiario
                                         </div>
@@ -280,7 +276,7 @@
                                         @*<div class="input-group-prepend">
                             <span class="input-group-text" id="lbApellidoPaterno">Apellido Paterno</span>
                             </div>*@
-                                        <input tabindex="2" type="text" class="form-control focusNext mt-2" id="inpApellidoPaterno" aria-describedby="inpNumero" required>
+                                        <input tabindex="2" type="text" class="form-control form-control-sm focusNext mt-2" id="inpApellidoPaterno" aria-describedby="inpNumero" required>
                                         <div class="invalid-feedback">
                                             Introducir apellido paterno del Beneficiario
                                         </div>
@@ -293,7 +289,7 @@
                                         @*<div class="input-group-prepend">
                             <span class="input-group-text" id="lbApellidoMaterno">Apellido Materno</span>
                             </div>*@
-                                        <input tabindex="3" type="text" class="form-control focusNext mt-2" id="inpApellidoMaterno" aria-describedby="inpNumero" required>
+                                        <input tabindex="3" type="text" class="form-control form-control-sm focusNext mt-2" id="inpApellidoMaterno" aria-describedby="inpNumero" required>
                                         <div class="invalid-feedback">
                                             Introducir apellido materno del Beneficiario
                                         </div>
@@ -338,7 +334,7 @@
 
                                     <label for="validationCustom04"><strong>Solicitante</strong></label>
 
-                                    @Html.DropDownList("Solicitante", (SelectList)ViewBag.Solicitantes, "SELECCIONAR OPCIÓN", new { @id = "slctSolicitante", @class = "custom-select formatear focusNext", @required = "required", @tabindex = "5" })
+                                    @Html.DropDownList("Solicitante", (SelectList)ViewBag.Solicitantes, "SELECCIONAR OPCIÓN", new { @id = "slctSolicitante", @class = "custom-select custom-select-sm focusNext", @required = "required", @tabindex = "5" })
 
                                     <div class="invalid-feedback">
                                         Seleccionar un Solicitante.
@@ -350,7 +346,7 @@
                                         @*<div class="input-group-prepend">
                                 <span class="input-group-text" id="lbDetalleSolicitante">Detalle del Solicitante</span>
                             </div>*@
-                                        <input tabindex="6" type="text" class="form-control focusNext" id="ipnDetalleSolicitante" aria-describedby="ipnDetalleSolicitante" required>
+                                        <input tabindex="6" type="text" class="form-control form-control-sm focusNext" id="ipnDetalleSolicitante" aria-describedby="ipnDetalleSolicitante" required>
                                         <div class="invalid-feedback">
                                             Introduzca un detalle para el solicitante.
                                         </div>
@@ -364,7 +360,7 @@
 
                                     <label for="validationCustom04"><strong>Solicitud</strong></label>
 
-                                    @Html.DropDownList("Solicitud", (SelectList)ViewBag.Solicitudes, "SELECCIONAR OPCIÓN", new { @id = "slctSolicitud", @class = "custom-select formatear focusNext", @required = "required", @tabindex = "7" })
+                                    @Html.DropDownList("Solicitud", (SelectList)ViewBag.Solicitudes, "SELECCIONAR OPCIÓN", new { @id = "slctSolicitud", @class = "custom-select custom-select-sm focusNext", @required = "required", @tabindex = "7" })
 
                                     <div class="invalid-feedback">
                                         Seleccione una solicitud
@@ -377,7 +373,7 @@
                                         @*<div class="input-group-prepend">
                                 <span class="input-group-text" id="lbOtraSolicitud">Otro</span>
                             </div>*@
-                                        <input tabindex="8" type="text" class="form-control focusNext focusNextEnd" id="inpOtraSolicitud" aria-describedby="inpOtraSolicitud" disabled>
+                                        <input tabindex="8" type="text" class="form-control form-control-sm focusNext focusNextEnd" id="inpOtraSolicitud" aria-describedby="inpOtraSolicitud" disabled>
                                         <div class="invalid-feedback">
                                             Introduzca otra Solicitud.
                                         </div>
@@ -399,7 +395,7 @@
                                 <div class="col-12 col-md-4 mt-1">
                                     <label for="validationCustom04"><strong>Anexos</strong></label>
 
-                                    @Html.DropDownList("AnexosInicales", (SelectList)ViewBag.AnexosInicales, "SELECCIONAR OPCIÓN", new { @id = "slctAnexosInicales", @class = "custom-select", @required = "required" })
+                                    @Html.DropDownList("AnexosInicales", (SelectList)ViewBag.AnexosInicales, "SELECCIONAR OPCIÓN", new { @id = "slctAnexosInicales", @class = "custom-select custom-select-sm", @required = "required" })
 
                                     <div class="invalid-feedback">
                                         Seleccione una Descripción
@@ -412,7 +408,7 @@
                                         @*<div class="input-group-prepend">
                         <span class="input-group-text" id="lbOtroAnexo">Otro</span>
                     </div>*@
-                                        <input type="text" class="form-control" id="inpOtroAnexo" aria-describedby="inpOtroAnexo" disabled>
+                                        <input type="text" class="form-control form-control-sm" id="inpOtroAnexo" aria-describedby="inpOtroAnexo" disabled>
                                         <div class="invalid-feedback">
                                             Introduzca otro Anexo.
                                         </div>
@@ -424,7 +420,7 @@
                                         @*<div class="input-group-prepend">
                         <span class="input-group-text" id="lbelAddAnexos">Cantidad</span>
                     </div>*@
-                                        <input type="number" min="1" max="99" value="0" class="form-control mr-3" id="inpAddAnexos" aria-describedby="inpAddAnexos" required>
+                                        <input type="number" min="1" max="99" value="0" class="form-control form-control-sm mr-2" id="inpAddAnexos" aria-describedby="inpAddAnexos" required>
                                         <button class="btn btn-success btn-sm" type="submit" id="btnAddAnexos"><i class="fas fa-plus-circle"></i></button>
                                         <div class="invalid-feedback">
                                             Introduzca una cantidad

@@ -120,55 +120,21 @@ namespace PoderJudicial.SIPOH.AccesoDatos
             }
         }
 
-        public void ConsultaTotalExpedientes(int idJuzgado, string numeroDeCausa)
+        public void ExisteExpediente(int idJuzgado, string numeroDeCausa, string nuc = null)
         {
             try
             {
                 if (!IsValidConnection)
                     throw new Exception("No se ha creado una conexion valida");
 
-                SqlCommand comando = new SqlCommand("sipoh_ConsultarTotalExpedientesPorJuzgadoNumeroCausa", Cnx);
+                string storedProcedure = nuc != null ? "sipoh_ConsultarTotalExpedientesPorJuzgadoNUC" : "sipoh_ConsultarTotalExpedientesPorJuzgadoNumeroCausa";
+
+                SqlCommand comando = new SqlCommand(storedProcedure, Cnx);
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("@idJuzgado", SqlDbType.Int).Value = idJuzgado;
                 comando.Parameters.Add("@numeroCausa", SqlDbType.VarChar).Value = numeroDeCausa;
 
-                //Parametro de Salida
-                SqlParameter totalExpediente = new SqlParameter();
-                totalExpediente.ParameterName = "@total";
-                totalExpediente.SqlDbType = SqlDbType.Int;
-                totalExpediente.Direction = ParameterDirection.Output;
-                comando.Parameters.Add(totalExpediente);
-
-                Cnx.Open();
-
-                if (Convert.ToInt32(totalExpediente.Value) > 0)
-                    Estatus = Estatus.OK;
-                else
-                    Estatus = Estatus.SIN_RESULTADO;
-            }
-            catch (Exception ex)
-            {
-                MensajeError = ex.Message;
-                Estatus = Estatus.ERROR;
-            }
-            finally
-            {
-                if (IsValidConnection && Cnx.State == ConnectionState.Open)
-                    Cnx.Close();
-            }
-        }
-
-        public void ConsultaTotalExpedientes(int idJuzgado, string numeroDeCausa, string nuc)
-        {
-            try
-            {
-                if (!IsValidConnection)
-                    throw new Exception("No se ha creado una conexion valida");
-
-                SqlCommand comando = new SqlCommand("sipoh_ConsultarTotalExpedientesPorJuzgadoNUC", Cnx);
-                comando.CommandType = CommandType.StoredProcedure;
-                comando.Parameters.Add("@idJuzgado", SqlDbType.Int).Value = idJuzgado;
-                comando.Parameters.Add("@numeroCausa", SqlDbType.VarChar).Value = numeroDeCausa;
+                if(nuc != null)
                 comando.Parameters.Add("@nuc", SqlDbType.VarChar).Value = nuc;
 
                 //Parametro de Salida
@@ -179,6 +145,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
                 comando.Parameters.Add(totalExpediente);
 
                 Cnx.Open();
+                comando.ExecuteNonQuery();
 
                 if (Convert.ToInt32(totalExpediente.Value) > 0)
                     Estatus = Estatus.OK;

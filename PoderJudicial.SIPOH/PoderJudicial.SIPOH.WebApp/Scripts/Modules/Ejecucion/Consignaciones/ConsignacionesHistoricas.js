@@ -151,13 +151,32 @@ function ElementosAlCargado()
 //Salida : NA
 function ValidarQueExisteCausaEnJuzgado()
 {
-    //Obtiene el valir del juzgado seleccionado
+    //Obtiene el valor del juzgado seleccionado
     var idJuzgado = $("#" + (!Tradicional ? "slctJuzgado" : "slctJuzgadoTradi")).find('option:selected').val(); 
+
+    //Obtiene el valor de la causa
+    var numeroDeCausa = $("#" + (!Tradicional ? "inpCausaAcusatorio" : "inpCausaTradicional")).val();
+
+    //Obtiene el año actual
+    var anioActual = new Date().getFullYear();
+    var anioCausa = numeroDeCausa.substr(5, 4);
+
+    if (anioCausa > anioActual)
+    {
+        var funcion = function ()
+        {
+            var form = $('#' + (!Tradicional ? "formBuscaAcusatorioCausas" : "formBuscaCausasTradicional"))[0];
+            $(form).removeClass('was-validated');
+
+            $("#" + (!Tradicional ? "inpCausaAcusatorio" : "inpCausaTradicional")).val("");
+        }
+
+        AlertaCallback("El Numero de Causa que intenta ingresar es mayor al año actual", funcion, "large");
+        return;
+    }
 
     if (!Tradicional)
     {
-        var numeroDeCausa = $("#inpCausaAcusatorio").val();
-
         if (!$('#checkSinNuc').is(":checked"))
         {
             var nuc = $("#inpNuc").val();
@@ -172,7 +191,6 @@ function ValidarQueExisteCausaEnJuzgado()
     }
     else
     {
-        var numeroDeCausa = $("#inpCausaTradicional").val();
         var parametros = { idJuzgado: idJuzgado, numeroDeCausa: numeroDeCausa }
         SolicitudEstandarAjax("/ConsignacionesHistoricas/ValidaCausaEnJuzgadoPorNumeroCausa", parametros, AgregaCausaAlFormulario);
     }
@@ -189,14 +207,79 @@ function AgregaCausaAlFormulario(respuesta)
     {
         var existe = respuesta.Data;
 
-        if (!existe)
+        if (existe)
         {
-            alert("Ya existe");
+            if (!Tradicional)
+            {
+                var funcion = function ()
+                {
+                    var form = $('#formBuscaAcusatorioCausas')[0];
+                    $(form).removeClass('was-validated');
+
+                    $("#inpCausaAcusatorio").val("");
+
+                    if (!$('#checkSinNuc').is(":checked"))
+                    {
+                        $("#inpNuc").val("");
+                    }
+                }
+
+                var juzgadoNombre = $("#slctJuzgado option:selected").text();
+                var causa = $("#inpCausaAcusatorio").val();
+                var mensajeNuc = "";
+
+                if (!$('#checkSinNuc').is(":checked"))
+                {
+                    mensajeNuc = "o Numero Unico de Caso <b>" + $("#inpNuc").val() + "</b>";
+                }
+
+                var mensaje = "<b>" + juzgadoNombre + "</b> ya tiene registrado un expediente con Numero de Causa <b>" + causa + "</b> " + mensajeNuc;
+                AlertaCallback(mensaje, funcion, "large");
+            }
+            else
+            {
+                var funcion = function ()
+                {
+                    var form = $('#formBuscaCausasTradicional')[0];
+                    $(form).removeClass('was-validated');
+
+                    $("#inpCausaTradicional").val("");
+                }
+
+                var juzgadoNombre = $("#slctJuzgadoTradi option:selected").text();
+                var causa = $("#inpCausaTradicional").val();
+
+                var mensaje = "<b>" + juzgadoNombre + "</b> ya tiene registrado un expediente con Numero de Causa <b>" + causa + "</b>";
+                AlertaCallback(mensaje, funcion, "large");
+            }
+        }
+        else
+        {
+            if (!Tradicional)
+            {
+                $("#slctJuzgado").prop('disabled', true);
+                $("#inpCausaAcusatorio").prop('disabled', true);
+                $("#inpNuc").prop('disabled', true);
+                $("#checkSinNuc").prop('disabled', true);
+                $("#btnBuscarCuasaAcusatorio").prop('disabled', true);
+                $("#juzgadoA-tab").prop('disabled', true);
+                $("#juzgadoT-tab").prop('disabled', true);
+            }
+            else
+            {
+                $("#slctDistrito").prop('disabled', true);
+                $("#slctJuzgadoTradi").prop('disabled', true);
+                $("#inpCausaTradicional").prop('disabled', true);
+                $("#btnBuscarCuasaTradicional").prop('disabled', true);
+                $("#juzgadoT-tab").prop('disabled', true);
+                $("#juzgadoA-tab").prop('disabled', true);
+            }
         }
     }
     else if (respuesta.Estatus == EstatusRespuesta.ERROR)
     {
-
+        var mensaje = "Mensaje : " + data.Mensaje;
+        Alerta(mensaje, "large", "Error no Controlado por el Sistema");
     }
 }
 
@@ -241,6 +324,8 @@ function ListarJuzgadoTradicional(respuesta)
         Alerta(mensaje, "large", "Error no Controlado por el Sistema");
     }
 }
+
+
 
 // #region Metodos Genericos
 function SolicitudEstandarAjax(url, parametros, functionCallbackSuccess, functionCallbackError = null)
@@ -322,4 +407,47 @@ function FormatearInput(selector, mask, placeholder, validatorRegEx, radixPoint)
             }
         }
     }).mask(selector);
+}
+
+function Alerta(mensaje, tamanio = null, titulo = null)
+{
+    titulo = titulo == null ? "¡Atención!" : titulo;
+    tamanio = tamanio == null ? "small" : tamanio;
+
+    bootbox.alert({
+        title: "<h3>" + titulo + "</h3>",
+        message: mensaje,
+        buttons:
+        {
+            ok:
+            {
+                label: '<i class="fa fa-check"></i> Aceptar',
+                className: 'btn btn-outline-success'
+            }
+        },
+        size: tamanio
+    });
+}
+
+function AlertaCallback(mensaje, funcion, tamanio = null, titulo = null)
+{
+    titulo = titulo == null ? "¡Atención!" : titulo;
+    tamanio = tamanio == null ? "small" : tamanio;
+
+    bootbox.alert({
+        title: "<h3>" + titulo + "</h3>",
+        message: mensaje,
+        buttons:
+        {
+            ok: {
+                label: '<i class="fa fa-check"></i> Aceptar',
+                className: 'btn btn-outline-success'
+            }
+        },
+        callback: function ()
+        {
+            funcion();
+        },
+        size: tamanio
+    });
 }

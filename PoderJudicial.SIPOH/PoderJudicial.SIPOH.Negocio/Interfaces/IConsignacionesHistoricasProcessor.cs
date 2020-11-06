@@ -10,6 +10,6 @@ namespace PoderJudicial.SIPOH.Negocio.Interfaces
     public interface IConsignacionesHistoricasProcessor
     {
         string Mensaje { get; set; }
-        bool ? ValidaExistenciaDeCausaPorJuzgadoMasNumeroDeCausaNUC(int idJuzgado, string numeroExpediente, string nuc = null);
+        bool ? ValidaExistenciaDeCausaPorJuzgadoMasNumeroDeCausaNUC(int idJuzgado, string numeroDeCausa, string nuc = null);
     }
 }

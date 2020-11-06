@@ -21,17 +21,25 @@ namespace PoderJudicial.SIPOH.Negocio
             this.expedienteRepositorio = expedienteRepositorio;
         }
 
-        public bool ? ValidaExistenciaDeCausaPorJuzgadoMasNumeroDeCausaNUC(int idJuzgado, string numeroExpediente, string nuc = null)
+        /// <summary>
+        /// Valida que el nuc sea nulo o contenga valor, depediento de su valor solicita acceso a datos el metodo correspondiente para
+        /// la consulta
+        /// </summary>
+        /// <param name="idJuzgado">IdJuzgado de la causa a validar</param>
+        /// <param name="numeroDeCausa">Numero de causa de la causa a validar</param>
+        /// <param name="nuc">Nuc de la causa a validar</param>
+        /// <returns>Boleano que indica verdadero si existe el registro solicitado en la base de datos</returns>
+        public bool? ValidaExistenciaDeCausaPorJuzgadoMasNumeroDeCausaNUC(int idJuzgado, string numeroDeCausa, string nuc = null)
         {
+            //Si el nuc es nulo, toma la validacion de expediente sin NUC
             if (nuc == null)
-            {
-                expedienteRepositorio.ConsultaTotalExpedientes(idJuzgado, numeroExpediente);
-            }
-            else 
-            {
-                expedienteRepositorio.ConsultaTotalExpedientes(idJuzgado, numeroExpediente, nuc);
-            }
+            expedienteRepositorio.ExisteExpediente(idJuzgado, numeroDeCausa);
 
+            //Si el nuc contiene valor, toma la validacion de expediente con NUC y Causa
+            else 
+            expedienteRepositorio.ExisteExpediente(idJuzgado, numeroDeCausa, nuc);
+            
+            //Validacion del acceso a datos
             if (expedienteRepositorio.Estatus == Estatus.SIN_RESULTADO)
             {
                 Mensaje = "La consulta no genero ningun resultado";
@@ -40,7 +48,7 @@ namespace PoderJudicial.SIPOH.Negocio
 
             else if (expedienteRepositorio.Estatus == Estatus.ERROR)
             {
-                Mensaje = "Ocurrio un error al consultar la informacion solicitada";
+                Mensaje = "Ocurrio un error interno de acceso a datos no controlado, intente nuevamente o consulte a soporte";
                 string mensajeLogger = expedienteRepositorio.MensajeError;
                 return null;
                 //Logica para ILogger

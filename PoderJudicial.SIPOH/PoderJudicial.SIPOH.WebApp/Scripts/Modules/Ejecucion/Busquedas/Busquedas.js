@@ -318,10 +318,10 @@ function BuscarCausas(index)
 
 function ListarCausasPorEjecucion(respuesta)
 {
+    $("#loading").fadeOut();
+
     if (respuesta.Estatus == EstatusRespuesta.OK)
     {
-        $("#loading").fadeOut();
-
         //Limpiar lista 
         Causas = [];
         Causas = respuesta.Data.CausasEjecucion;
@@ -335,11 +335,13 @@ function ListarCausasPorEjecucion(respuesta)
     }
     else if (respuesta.Estatus == EstatusRespuesta.SIN_RESPUESTA)
     {
-
+        var mensaje = "Mensaje : " + data.Mensaje;
+        Alerta(mensaje, "large");
     }
     else if (respuesta.Estatus == EstatusRespuesta.ERROR)
     {
-
+        var mensaje = "Mensaje : " + data.Mensaje;
+        Alerta(mensaje, "large", "Error no Controlado por el Sistema");
     }
 }
 

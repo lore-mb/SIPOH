@@ -15,6 +15,12 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         private readonly ICatalogosProcessor catalogosProcessor;
         private readonly IMapper mapper;
 
+        /// <summary>
+        /// Constructor del controlador, se inicializan objectos que son inyeccion de dependencias
+        /// </summary>
+        /// <param name="catalogosProcessor">Objeto que contiene la funcioanlidad para catalogos</param>
+        /// <param name="consignacionesProcessor">Objeto que contiene la funcionalidad para Procesos</param>
+        /// <param name="mapper">Objeto que contiene la funcioanlidad para el mapeo de objetos</param>
         public ConsignacionesHistoricasController(ICatalogosProcessor catalogosProcessor, IConsignacionesHistoricasProcessor consignacionesProcessor, IMapper mapper)
         {
             this.consignacionesProcessor = consignacionesProcessor;
@@ -30,7 +36,6 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 List<Juzgado> juzgadosAcusatorios = catalogosProcessor.ObtieneJuzgadosPorTipoSistema(Usuario.IdCircuito, TipoSistema.ACUSATORIO);
                 List<Distrito> distritos = catalogosProcessor.ObtieneDistritosPorCircuito(Usuario.IdCircuito);
 
-
                 //Parametros al View Bag PickList
                 ViewBag.IdCircuito = Usuario.IdCircuito;
                 ViewBag.JuzgadosAcusatorios = ViewHelper.CreateSelectList(juzgadosAcusatorios, "IdJuzgado", "Nombre");
@@ -40,7 +45,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             }
             catch (Exception ex)
             {
-                return View();
+                return View("Error");
             }
         }
 
@@ -64,8 +69,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             catch (Exception ex)
             {
                 Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
-                Respuesta.Mensaje = ex.Message;
-                Respuesta.Data = null;
+                Respuesta.Mensaje = "Ocurrio un error interno no controlado por el sistema, intente de nuevo o consulte a soporte";
 
                 return Json(Respuesta, JsonRequestBehavior.AllowGet);
             }
@@ -101,8 +105,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             catch (Exception ex)
             {
                 Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
-                Respuesta.Mensaje = ex.Message;
-                Respuesta.Data = null;
+                Respuesta.Mensaje = "Ocurrio un error interno no controlado por el sistema, intente de nuevo o consulte a soporte";
 
                 return Json(Respuesta, JsonRequestBehavior.AllowGet);
             }
@@ -116,19 +119,19 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         /// <param name="numeroDeCausa">Numero unico de caso de la causa</param>
         /// <returns>Retorna JSON Respuesta</returns>
         [HttpGet]
-        public ActionResult ValidaCausaEnJuzgadoPorNumeroNUC(int idJuzgado, string numeroCausa, string nuc)
+        public ActionResult ValidaCausaEnJuzgadoPorNumeroNUC(int idJuzgado, string numeroDeCausa, string nuc)
         {
             try
             {
-                bool? existe = consignacionesProcessor.ValidaExistenciaDeCausaPorJuzgadoMasNumeroDeCausaNUC(idJuzgado, numeroCausa, nuc);
+                bool? existe = consignacionesProcessor.ValidaExistenciaDeCausaPorJuzgadoMasNumeroDeCausaNUC(idJuzgado, numeroDeCausa, nuc);
 
-                if (existe.Value)
+                if (existe == null)
                 {
-                    Respuesta.Estatus = EstatusRespuestaJSON.OK;
+                    Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
                 }
                 else
                 {
-                    Respuesta.Estatus = !existe.Value ? EstatusRespuestaJSON.SIN_RESPUESTA : EstatusRespuestaJSON.ERROR;
+                    Respuesta.Estatus = EstatusRespuestaJSON.OK;
                 }
 
                 Respuesta.Data = existe;
@@ -139,13 +142,16 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             catch (Exception ex)
             {
                 Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
-                Respuesta.Mensaje = ex.Message;
-                Respuesta.Data = null;
+                Respuesta.Mensaje = "Ocurrio un error interno no controlado por el sistema, intente de nuevo o consulte a soporte";
 
                 return Json(Respuesta, JsonRequestBehavior.AllowGet);
             }
         }
 
+        /// <summary>
+        /// Meotodo que vailida los juszgados obtenidos y genera un objeto de tipo respuesta
+        /// </summary>
+        /// <param name="juzgados">Lista de juzgados</param>
         private void ValidaJuzgados(List<Juzgado> juzgados)
         {
             if (juzgados == null)

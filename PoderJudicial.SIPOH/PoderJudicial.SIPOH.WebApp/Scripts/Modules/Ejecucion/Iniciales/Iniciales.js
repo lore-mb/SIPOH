@@ -43,6 +43,9 @@ var intentos = 0;
 $(document).ready(function ()
 {
     SiguienteInput();
+    FormatearInput("#Numero", "9999/9999", "0000/0000", "[0-9\uFF11-\uFF19]", "/");
+    FormatearInput("#inpCAUT", "9999/9999", "0000/0000", "[0-9\uFF11-\uFF19]", "/");
+    FormatearInput("#inpToca", "9999/9999", "0000/0000", "[0-9\uFF11-\uFF19]", "/");
 
     //Pintar Tablas
     dataTable = GeneraTablaDatos(dataTable, "dataTable", Causas, EstructuraTablaCausas, false, false, false);
@@ -63,10 +66,6 @@ $(document).ready(function ()
 //Elementos al Cargado
 function ElementosAlCargado()
 {
-    //$("#loading").fadeIn();
-    FormatearSelects();
-    FormatearInputs();
-
     //Elementos Bloqueados
     $("#Numero").prop('disabled', true); 
     $("#slctNumero").prop('disabled', true);
@@ -368,89 +367,27 @@ function ElementosAlCargado()
             $("#inpOtroAnexo").val("");
         }
     });
-}
-// #endregion 
 
-// #region Formateo de Nuc Causas y Tocas
-
-//Formatear Inputs al Cargado
-function FormatearInputs()
-{
-    var Inputs = $(".formatInput");
-    Inputs.val('');
-}
-
-// Formaear Select el Cargado
-function FormatearSelects() {
-    var slcData = $(".formatear");
-    slcData.prop('selectedIndex', 0);
-}
-
-// Formato Numero de Tocas
-var InpNumeroTocas = $("#inpToca");
-InpNumeroTocas.attr('placeholder', '0000/0000');
-InpNumeroTocas.inputmask("9999/9999");
-
-//Variables SELECT Juzgado Acusatorio
-var InputNumero = $("#Numero");
-var lblNumero = $("#NumeroLabel");
-var slctNumero = $("#slctNumero");
-
-//FORMAT LOAD Juzgado Acusatorio
-slctNumero.prop('selectedIndex', 0);
-InputNumero.val('');
-$('#Numero').attr('placeholder', '0000/0000');
-$("#spnNumero").text('CAUSA');
-InputNumero.inputmask("9999/9999");
-//var ValorSeleccionado = $(this).children("option:selected").val();
-
-//CHANGE Juzgado Acusatorio
-slctNumero.change(function ()
-{
-    if ($(this).val() == 1)
+    //CHANGE Juzgado Acusatorio
+    $("#slctNumero").change(function ()
     {
-        //Acusatorio
-        $('#Numero').attr('placeholder', '0000/0000');
-        InputNumero.inputmask("9999/9999");
-        $("#spnNumero").text('CAUSA');
-        lblNumero.html("Numero de Causa");
-        
-    } else if ($(this).val() == 2)
-    {
-        $('#Numero').attr('placeholder', '00-0000-0000');
-        InputNumero.inputmask("99-9999-9999");
-        InputNumero.val(''); 
-        $("#spnNumero").text('NUC');
-        lblNumero.html("Numero Unico de Caso");
-    }
-});
+        if ($(this).val() == 1)
+        {
+            //Acusatorio
+            $('#Numero').attr('placeholder', '0000/0000');
+            $('#Numero').val('');
+            FormatearInput("#Numero", "9999/9999", "0000/0000", "[0-9\uFF11-\uFF19]", "/");
+            $('#NumeroLabel').html("<strong>Numero de Causa</strong>");
 
-//Varibles SELECT Juzgado Tradicional
-//var slctNumeroT = $("#slctNumeroT");
-var InpNumeroT = $("#inpCAUT");
-//var lblNumeroT = $("#NumeroLabelT");
-//
-
-// FORMAT LOAD Juzgado Tradicional
-//slctNumeroT.prop('selectedIndex', 0);
-//InpNumeroT.val('');
-//$("#spnNumeroT").text('CAUSA');
-InpNumeroT.inputmask("9999/9999");
-
-// CHANGE Juzgado Tradicional
-//slctNumeroT.change(function () {
-//    if ($(this).val() == 1) {
-//        InpNumeroT.inputmask("9999/9999");
-//        InpNumeroT.val('');
-//        $("#spnNumeroT").text('CAUSA');
-//        lblNumeroT.html("Numero de Causa:");
-//    } else if ($(this).val() == 2) {
-//        InpNumeroT.inputmask("99-9999-9999");
-//        InpNumeroT.val('');
-//        $("#spnNumeroT").text('NUC');
-//        lblNumeroT.html("Numero Unico de Caso:");
-//    }
-//});
+        } else if ($(this).val() == 2)
+        {
+            $('#Numero').attr('placeholder', '00-0000-0000');
+            $('#Numero').val('');
+            FormatearInput("#Numero", "99-9999-9999", "0000000000", "[0-9\uFF11-\uFF19]", "-");
+            $('#NumeroLabel').html("<strong>Numero Unico de Caso</strong>");
+        }
+    });
+}
 // #endregion 
 
 // #region Beneficiarios
@@ -764,12 +701,10 @@ function AgregarTocas()
     {
         var funcion = function ()
         {
-            LimpiaValidacion("formTocas", "inpToca");
-            
+            LimpiaValidacion("formTocas", "inpToca");        
         }
 
         AlertaCallback("El numero de toca que intenta añadir, es mayor al año actual", funcion);
-
         return;
     }
 
@@ -1378,5 +1313,23 @@ function AlertaCallback(mensaje, funcion, tamanio = null, titulo = null)
         },
         size: tamanio
     });
+}
+
+function FormatearInput(selector, mask, placeholder, validatorRegEx, radixPoint)
+{
+    Inputmask(mask, {
+        positionCaretOnClick: "select",
+        radixPoint: radixPoint,
+        _radixDance: true,
+        numericInput: true,
+        placeholder: placeholder,
+        definitions:
+        {
+            "0":
+            {
+                validator: validatorRegEx
+            }
+        }
+    }).mask(selector);
 }
 // #endregion 
