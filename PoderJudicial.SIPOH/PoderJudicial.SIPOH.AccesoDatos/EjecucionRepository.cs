@@ -29,7 +29,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
             IsValidConnection = connection.IsValidConnection;
         }
 
-        #region Metodos Publicos del Repositorio Ejecucion
+        #region Metodos publicos
 
         /// <summary>
         /// Consume SPSQL y retorna una lista de tipo Ejecución por medio del nombre del Sentenciado Beneficiario o una Parte de causa
@@ -558,7 +558,6 @@ namespace PoderJudicial.SIPOH.AccesoDatos
             }
         }
 
-        #endregion
         /// <summary>
         /// Metodo de consulta a SIAGA_2020 mediante SP-SQL para obtener los registros pertenecientes al rango de fechas introducidos 
         /// </summary>
@@ -667,10 +666,9 @@ namespace PoderJudicial.SIPOH.AccesoDatos
 
         }
 
-    #endregion
-
-    #region Metodos Privados
-    private DataTable CreaCausasType(List<int> causas)
+        #endregion
+        #region Metodos privados
+        private DataTable CreaCausasType(List<int> causas)
         {
             DataTable expedientesType = new DataTable();
             expedientesType.Clear();
@@ -738,9 +736,9 @@ namespace PoderJudicial.SIPOH.AccesoDatos
 
             return tocasType;
         }
+        #endregion
     }
 }
-    #endregion
 
 
 
