@@ -82,6 +82,9 @@ namespace PoderJudicial.SIPOH.WebApp
             bundles.Add(new ScriptBundle("~/Scripts/Master/Moment").Include(
                 "~/Scripts/Master/Moment/moment.min.js"));
 
+            bundles.Add(new ScriptBundle("~/Scripts/Master/LocateMX").Include(
+                "~/Scripts/Master/Locate/es-mx.js"));
+
             //-------------------------------------//
             // ------- DATATABLES CSS & JS ------- //
             //-------------------------------------//

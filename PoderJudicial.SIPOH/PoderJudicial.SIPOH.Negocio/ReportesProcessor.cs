@@ -27,7 +27,7 @@ namespace PoderJudicial.SIPOH.Negocio
 
         #endregion
 
-        #region Metodos
+        #region Metodos Publicos
 
         public List<Juzgado> ObtenerJuzgadoPorCircuito(int IdCircuito)
         {
@@ -43,6 +43,42 @@ namespace PoderJudicial.SIPOH.Negocio
             }
             return Lista;
         }
+
+        public List<Reporte> RegistrosReportePorRangoFecha(TipoReporteRangoFecha TipoReporte, string FechaInicial, string FechaFinal, int IdJuzgado) 
+        {
+            List<Reporte> ListaRegistros = ejecucionRepository.GenerarReporteRangoFecha(TipoReporte, FechaInicial, FechaFinal, IdJuzgado);
+
+            if (ejecucionRepository.Estatus == Estatus.SIN_RESULTADO)
+            {
+                Mensaje = "No hay respuesta para la solicitud";
+            }
+            else if (ejecucionRepository.Estatus == Estatus.ERROR)
+            {
+                Mensaje = "Error, la consulta no ha generado ningun resultado";
+                string MensajeLogger = catalogosRepository.MensajeError;
+            }
+            return ListaRegistros;
+        }
+
+        public List<Reporte> RegistrosReportePorDia (TipoReporteDia TipoReporte, string FechaHoy, int IdJuzgado)
+        {
+            List<Reporte> ListaRegistros = ejecucionRepository.GenerarReportePorDia(TipoReporte, FechaHoy, IdJuzgado);
+
+            if (ejecucionRepository.Estatus == Estatus.SIN_RESULTADO)
+            {
+                Mensaje = "No hay respuesta para la solicitud";
+            }
+            else if (ejecucionRepository.Estatus == Estatus.ERROR)
+            {
+                Mensaje = "Error, la consulta no ha generado ningun resultado";
+                string MensajeLogger = catalogosRepository.MensajeError;
+            }
+
+            return ListaRegistros;
+        }
+
+        // Lógica para metodos restantes
+
         #endregion
 
     }

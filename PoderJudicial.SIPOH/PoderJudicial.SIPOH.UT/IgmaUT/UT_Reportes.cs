@@ -23,5 +23,21 @@ namespace PoderJudicial.SIPOH.UT.IgmaUT
             List<Juzgado> ListaJuzgados = catalogo.ConsultaJuzgados(1, TipoJuzgado.EJECUCION);
         }
 
+
+        [TestMethod]
+        public void ConsultaInicialPorRangoFechas() 
+        {
+            EjecucionRepository TestEjecucionRepo = new EjecucionRepository(Connection);
+            List<Reporte> Registros = TestEjecucionRepo.GenerarReporteRangoFecha(TipoReporteRangoFecha.INICIAL, "2020-01-01", "2020-10-29" , 224);
+        }
+
+        [TestMethod]
+
+        public void ConsultarInicialPorDia() 
+        {
+            EjecucionRepository TestEjecucionRepo = new EjecucionRepository(Connection);
+            List<Reporte> Registros = TestEjecucionRepo.GenerarReportePorDia(TipoReporteDia.INICIAL, "2020-10-16", 223);
+        }
+
     }
 }

@@ -559,9 +559,118 @@ namespace PoderJudicial.SIPOH.AccesoDatos
         }
 
         #endregion
+        /// <summary>
+        /// Metodo de consulta a SIAGA_2020 mediante SP-SQL para obtener los registros pertenecientes al rango de fechas introducidos 
+        /// </summary>
+        /// <param name="tipoReporte"> Variable tipo ENUM </param>
+        /// <param name="FechaInicial"></param>
+        /// <param name="FechaFinal"></param>
+        /// <returns> Lista tipo Reportes</returns>
+        public List<Reporte> GenerarReporteRangoFecha(TipoReporteRangoFecha TipoReporte, string FechaInicial, string FechaFinal, int IdJuzgado)
+        {
 
-        #region Metodos Privados
-        private DataTable CreaCausasType(List<int> causas)
+            try
+            {
+                if (!IsValidConnection)
+                {
+                    throw new Exception("No se ha creado una conexion valida");
+                }
+
+                // Anexar SP Promociones
+                string objetoStoreProcedure = TipoReporte == TipoReporteRangoFecha.INICIAL ? "sipoh_GenerarReporteInicialPorRangoFecha" : "sipoh_GenerarReporteInicialPorRangoFecha";
+
+                SqlCommand Comando = new SqlCommand(objetoStoreProcedure, Cnx);
+                Comando.CommandType = CommandType.StoredProcedure;
+                Comando.Parameters.Add("@FechaInicial", SqlDbType.Date).Value = FechaInicial;
+                Comando.Parameters.Add("@FechaFinal", SqlDbType.Date).Value = FechaFinal;
+                Comando.Parameters.Add("@IdJuzgado", SqlDbType.Int).Value = IdJuzgado;
+                Cnx.Open();
+
+                SqlDataReader sqlRespuesta = Comando.ExecuteReader();
+
+                DataTable Tabla = new DataTable();
+                Tabla.Load(sqlRespuesta);
+
+                List<Reporte> Registros = DataHelper.DataTableToList<Reporte>(Tabla);
+
+                if (Registros.Count > 0)
+                    Estatus = Estatus.OK;
+                else
+                    Estatus = Estatus.SIN_RESULTADO;
+
+                return Registros;
+            }
+            catch (Exception Ex)
+            {
+                MensajeError = Ex.Message;
+                Estatus = Estatus.ERROR;
+                return null;
+            }
+            finally
+            {
+                if (IsValidConnection && Cnx.State == ConnectionState.Open)
+                    Cnx.Close();
+            }
+        }
+
+        /// <summary>
+        /// Metodo de consulta a SIAGA_2020 mediante SP-SQL para obtener los registros pertenecientes al día en que se ejecuta la consulta
+        /// </summary>
+        /// <param name="TipoReporte">
+        /// Variable tipo ENUM
+        /// </param>
+        /// <param name="FechaHoy"></param>
+        /// <returns>Lista tipo Reportes</returns>
+
+        public List<Reporte> GenerarReportePorDia(TipoReporteDia TipoReporte, string FechaHoy, int IdJuzgado)
+        {  
+            try
+            {
+                if (!IsValidConnection)
+                {
+                    throw new Exception("No se ha creado una conexion valida");
+                }
+                // Agregar SP para Promociones
+                string StoreProcedure = TipoReporte == TipoReporteDia.INICIAL ? "sipoh_GenerarReporteInicialPorDia" : "sipoh_GenerarReporteInicialPorDia";
+
+                SqlCommand Comando = new SqlCommand(StoreProcedure, Cnx);
+                Comando.CommandType = CommandType.StoredProcedure;
+                Comando.Parameters.Add("@FechaHoy", SqlDbType.Date).Value = FechaHoy;
+                Comando.Parameters.Add("@IdJuzgado", SqlDbType.Int).Value = IdJuzgado;
+                Cnx.Open();
+
+                SqlDataReader sqlRespuesta = Comando.ExecuteReader();
+
+                DataTable Tabla = new DataTable();
+                Tabla.Load(sqlRespuesta);
+
+                List<Reporte> Registros = DataHelper.DataTableToList<Reporte>(Tabla);
+
+                if (Registros.Count > 0)
+                    Estatus = Estatus.OK;
+                else
+                    Estatus = Estatus.SIN_RESULTADO;
+
+                return Registros;
+            }
+            catch (Exception Ex)
+            {
+                MensajeError = Ex.Message;
+                Estatus = Estatus.ERROR;
+                return null;
+            }
+            finally 
+            {
+                if (IsValidConnection && Cnx.State == ConnectionState.Open)
+                    Cnx.Close();
+            }
+
+        }
+
+    #endregion
+
+    #region Metodos Privados
+    private DataTable CreaCausasType(List<int> causas)
         {
             DataTable expedientesType = new DataTable();
             expedientesType.Clear();
