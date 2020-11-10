@@ -362,7 +362,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
         /// </summary>
         /// <param name="folio"></param>
         /// <returns></returns>
-        public EjecucionPosterior ConsultarRegistroEjecucionPosterior(int IdEjecucionPosterior)
+        public EjecucionPosterior ConsultaEjecucionPosterior(int IdEjecucionPosterior)
         {
             try
             {
@@ -455,6 +455,109 @@ namespace PoderJudicial.SIPOH.AccesoDatos
             }
         }
 
+        /// <summary>
+        /// Valida la existencia de un numero de ejecucion por medio del numero de ejecucion y el IdJuzgado de ejecucion asignado
+        /// </summary>
+        /// <param name="idJuzgadoEjecucion">Id del Juzgado de Ejecucion asignado el registro de ejecucion</param>
+        /// <param name="numeroEjecucion">Numero de Ejecucion</param>
+        public void ValidaNumeroEjecucion(int idJuzgadoEjecucion, string numeroEjecucion)
+        {
+            try
+            {
+                if (!IsValidConnection)
+                    throw new Exception("No se ha creado una conexion valida");
+
+                SqlCommand comando = new SqlCommand("sipoh_ConsultarTotalEjecucionPorJuzgadoNumeroEjecucion", Cnx);
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.Add("@idJuzgado", SqlDbType.Int).Value = idJuzgadoEjecucion;
+                comando.Parameters.Add("@numeroEjecucion", SqlDbType.VarChar).Value = numeroEjecucion;
+
+                //Parametro de Salida
+                SqlParameter totalExpediente = new SqlParameter();
+                totalExpediente.ParameterName = "@total";
+                totalExpediente.SqlDbType = SqlDbType.Int;
+                totalExpediente.Direction = ParameterDirection.Output;
+                comando.Parameters.Add(totalExpediente);
+
+                Cnx.Open();
+                comando.ExecuteNonQuery();
+
+                if (Convert.ToInt32(totalExpediente.Value) > 0)
+                    Estatus = Estatus.OK;
+                else
+                    Estatus = Estatus.SIN_RESULTADO;
+            }
+            catch (Exception ex)
+            {
+                MensajeError = ex.Message;
+                Estatus = Estatus.ERROR;
+            }
+            finally
+            {
+                if (IsValidConnection && Cnx.State == ConnectionState.Open)
+                    Cnx.Close();
+            }
+        }
+
+        /// <summary>
+        /// Consulta el ultimo numero de ejecucion generado por Juzgado de Ejecucion
+        /// </summary>
+        /// <param name="idJuzgadoEjecucion">Id del juzgado de ejecucion asignado al numero de ejecucion</param>
+        /// <returns></returns>
+        public void ConsultaRengoDeNumeroEjecucion(int idJuzgadoEjecucion, string anio, out string numeroEjecucionMin, out string numeroEjecucionMax)
+        {
+            try
+            {
+                if (!IsValidConnection)
+                    throw new Exception("No se ha creado una conexion valida");
+              
+                SqlCommand comandoSQL = new SqlCommand("sipoh_ConsultarRangoDeNumerosEjecucion", Cnx);
+                comandoSQL.CommandType = CommandType.StoredProcedure;
+                comandoSQL.Parameters.Add("@idJuzgadoEjecucion", SqlDbType.Int).Value = idJuzgadoEjecucion;
+                comandoSQL.Parameters.Add("@numeroEjecucionAnio", SqlDbType.VarChar).Value = anio;
+
+                //Parametro de Salida
+                SqlParameter minimo = new SqlParameter();
+                minimo.ParameterName = "@minimo";
+                minimo.Size = 255;
+                minimo.SqlDbType = SqlDbType.VarChar;
+                minimo.Direction = ParameterDirection.Output;
+                comandoSQL.Parameters.Add(minimo);
+
+                //Parametro de Salida
+                SqlParameter maximo = new SqlParameter();
+                maximo.ParameterName = "@maximo";
+                maximo.Size = 255;
+                maximo.SqlDbType = SqlDbType.VarChar;
+                maximo.Direction = ParameterDirection.Output;
+                comandoSQL.Parameters.Add(maximo);
+
+                Cnx.Open();
+                comandoSQL.ExecuteNonQuery();
+
+                numeroEjecucionMin = Convert.ToString(minimo.Value);
+                numeroEjecucionMax = Convert.ToString(maximo.Value);
+
+                if (numeroEjecucionMin == string.Empty && numeroEjecucionMax == string.Empty)
+                Estatus = Estatus.SIN_RESULTADO;
+                else
+                Estatus = Estatus.OK;         
+            }
+            catch (Exception ex)
+            {
+                numeroEjecucionMin = null;
+                numeroEjecucionMax = null;
+
+                MensajeError = ex.Message;
+                Estatus = Estatus.ERROR;
+            }
+            finally
+            {
+                if (IsValidConnection && Cnx.State == ConnectionState.Open)
+                    Cnx.Close();
+            }
+        }
+
         #endregion
 
         #region Metodos Privados
@@ -526,7 +629,6 @@ namespace PoderJudicial.SIPOH.AccesoDatos
 
             return tocasType;
         }
-
     }
 }
     #endregion

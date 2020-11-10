@@ -5,6 +5,7 @@ using PoderJudicial.SIPOH.Negocio.Interfaces;
 using PoderJudicial.SIPOH.WebApp.Helpers;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace PoderJudicial.SIPOH.WebApp.Controllers
@@ -33,13 +34,36 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         {
             try
             {
+                //Obtencion de Datos para PinckList al cargado de la vista
                 List<Juzgado> juzgadosAcusatorios = catalogosProcessor.ObtieneJuzgadosPorTipoSistema(Usuario.IdCircuito, TipoSistema.ACUSATORIO);
                 List<Distrito> distritos = catalogosProcessor.ObtieneDistritosPorCircuito(Usuario.IdCircuito);
+                List<Juzgado> salasAcusatorio = catalogosProcessor.ObtieneSalasPorTipoSistema(TipoSistema.ACUSATORIO);
+                List<Juzgado> salasTradicional = catalogosProcessor.ObtieneSalasPorTipoSistema(TipoSistema.TRADICIONAL);
+                List<Anexo> anexosEjecucion = catalogosProcessor.ObtieneAnexosPorTipo("A");
+                List<Solicitud> solicitudes = catalogosProcessor.ObtieneSolicitudes();
+                List<Solicitante> solicitantes = catalogosProcessor.ObtieneSolicitantes();
+
+                //Obtiene los Ids del tipo "OTRO" para la validacion de Pick List
+                int idOtroAnexos = anexosEjecucion.Where(x => x.Tipo == "O").Select(x => x.IdAnexo).FirstOrDefault();
+                int idOtroSolicitud = solicitudes.Where(x => x.Tipo == "O").Select(x => x.IdSolicitud).FirstOrDefault();
+                int idOtroSolicitante = solicitantes.Where(x => x.Tipo == "O").Select(x => x.IdSolicitante).FirstOrDefault();
 
                 //Parametros al View Bag PickList
                 ViewBag.IdCircuito = Usuario.IdCircuito;
                 ViewBag.JuzgadosAcusatorios = ViewHelper.CreateSelectList(juzgadosAcusatorios, "IdJuzgado", "Nombre");
                 ViewBag.DistritosPorCircuito = ViewHelper.CreateSelectList(distritos, "IdDistrito", "Nombre");
+                ViewBag.SalasAcusatorio = ViewHelper.CreateSelectList(salasAcusatorio, "IdJuzgado", "Nombre");
+                ViewBag.SalasTradicional = ViewHelper.CreateSelectList(salasTradicional, "IdJuzgado", "Nombre");
+                ViewBag.AnexosInicales = ViewHelper.CreateSelectList(anexosEjecucion, "IdAnexo", "Descripcion");
+                ViewBag.Solicitudes = ViewHelper.CreateSelectList(solicitudes, "IdSolicitud", "Descripcion");
+                ViewBag.Solicitantes = ViewHelper.CreateSelectList(solicitantes, "IdSolicitante", "Descripcion");
+
+                //Campos Banderas para validacio de "OTROS" de PickList
+                ViewBag.IdOtroAnexos = idOtroAnexos;
+                ViewBag.IdOtroSolicitud = idOtroSolicitud;
+                ViewBag.IdOtroSolicitante = idOtroSolicitante;
+                ViewBag.SalasAcusatorioTotal = salasAcusatorio != null ? salasAcusatorio.Count() : 0;
+                ViewBag.EsConsignacionHistorica = true;
 
                 return View();
             }
@@ -86,7 +110,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         {
             try
             {
-                bool? existe = consignacionesProcessor.ValidaExistenciaDeCausaPorJuzgadoMasNumeroDeCausaNUC(idJuzgado, numeroDeCausa);
+                bool? existe = consignacionesProcessor.ValidaExistenciaDeExpedientePorJuzgadoMasNumeroCausa(idJuzgado, numeroDeCausa);
 
                 if (existe == null)
                 {
@@ -123,7 +147,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         {
             try
             {
-                bool? existe = consignacionesProcessor.ValidaExistenciaDeCausaPorJuzgadoMasNumeroDeCausaNUC(idJuzgado, numeroDeCausa, nuc);
+                bool? existe = consignacionesProcessor.ValidaExistenciaDeExpedientePorJuzgadoMasNumeroCausa(idJuzgado, numeroDeCausa, nuc);
 
                 if (existe == null)
                 {

@@ -120,7 +120,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
             }
         }
 
-        public void ExisteExpediente(int idJuzgado, string numeroDeCausa, string nuc = null)
+        public void ValidaNumeroCausa(int idJuzgado, string numeroDeCausa, string nuc = null)
         {
             try
             {

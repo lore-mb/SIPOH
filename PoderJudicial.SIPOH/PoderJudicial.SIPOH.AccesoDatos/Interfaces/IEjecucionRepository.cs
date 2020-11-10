@@ -17,8 +17,10 @@ namespace PoderJudicial.SIPOH.AccesoDatos.Interfaces
         List<Ejecucion> ConsultaEjecuciones(string detalleSolicitante, int idCircuito);
         List<Ejecucion> ConsultaEjecuciones(int idSolicitante, int idCircuito);
         Ejecucion ConsultaEjecucion(int idEjecucion);
+        EjecucionPosterior ConsultaEjecucionPosterior(int IdEjecucionPosterior);
+        void ConsultaRengoDeNumeroEjecucion(int idJuzgado, string anio, out string numeroEjecucionMin, out string numeroEjecucionMax);
+        void ValidaNumeroEjecucion(int idJuzgadoEjecucion, string numeroEjecucion);
         int ? CreaEjecucion(Ejecucion ejecucion, List<int> causas, List<Toca> tocas, List<string> amparos, List<Anexo> anexos, int? idJuzgado, bool circuitoPachuca); 
         int ? CreaEjecucionPosterior(EjecucionPosterior ejecucionPosterior, List<Anexo> anexos);
-        EjecucionPosterior ConsultarRegistroEjecucionPosterior(int IdEjecucionPosterior);
     }
 }

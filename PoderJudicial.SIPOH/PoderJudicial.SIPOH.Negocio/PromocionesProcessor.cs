@@ -77,7 +77,7 @@ namespace PoderJudicial.SIPOH.Negocio
 
             // Consulta informacion relacionada a PostEjecucion
 
-            Ejecucion = ejecucionRepositorio.ConsultarRegistroEjecucionPosterior(FolioEjecucion);
+            Ejecucion = ejecucionRepositorio.ConsultaEjecucionPosterior(FolioEjecucion);
 
             if (ejecucionRepositorio.Estatus == Estatus.SIN_RESULTADO)
             {

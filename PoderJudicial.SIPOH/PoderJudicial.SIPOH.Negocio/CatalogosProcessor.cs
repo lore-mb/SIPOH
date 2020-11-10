@@ -32,7 +32,7 @@ namespace PoderJudicial.SIPOH.Negocio.Interfaces
 
             if (catalogosRepositorio.Estatus == Estatus.ERROR)
             {
-                Mensaje = "Ocurrio un error interno no controlado, consulte a soporte";
+                Mensaje = "Ocurrio un error interno no controlado de acceso a datos";
                 string mensajeLogger = catalogosRepositorio.MensajeError;
                 //Logica para ILogger
             }
@@ -49,7 +49,7 @@ namespace PoderJudicial.SIPOH.Negocio.Interfaces
 
             else if (catalogosRepositorio.Estatus == Estatus.ERROR)
             {
-                Mensaje = "Ocurrio un error interno de acceso a datos no controlado, intente nuevamente o consulte a soporte";
+                Mensaje = "Ocurrio un error interno no controlado de acceso a datos";
                 string mensajeLogger = catalogosRepositorio.MensajeError;
                 //Logica para ILogger
             }
@@ -66,7 +66,7 @@ namespace PoderJudicial.SIPOH.Negocio.Interfaces
 
             else if (catalogosRepositorio.Estatus == Estatus.ERROR)
             {
-                Mensaje = "Ocurrio un error interno de acceso a datos no controlado, intente nuevamente o consulte a soporte";
+                Mensaje = "Ocurrio un error interno no controlado de acceso a datos";
                 string mensajeLogger = catalogosRepositorio.MensajeError;
                 //Logica para ILogger
             }
@@ -83,7 +83,7 @@ namespace PoderJudicial.SIPOH.Negocio.Interfaces
 
             else if (catalogosRepositorio.Estatus == Estatus.ERROR)
             {
-                Mensaje = "Ocurrio un error interno de acceso a datos no controlado, intente nuevamente o consulte a soporte";
+                Mensaje = "Ocurrio un error interno no controlado de acceso a datos";
                 string mensajeLogger = catalogosRepositorio.MensajeError;
                 //Logica para ILogger
             }
@@ -100,7 +100,7 @@ namespace PoderJudicial.SIPOH.Negocio.Interfaces
 
             else if (catalogosRepositorio.Estatus == Estatus.ERROR)
             {
-                Mensaje = "Ocurrio un error interno de acceso a datos no controlado, intente nuevamente o consulte a soporte";
+                Mensaje = "Ocurrio un error interno no controlado de acceso a datos";
                 string mensajeLogger = catalogosRepositorio.MensajeError;
                 //Logica para ILogger
             }
@@ -117,7 +117,7 @@ namespace PoderJudicial.SIPOH.Negocio.Interfaces
 
             else if (catalogosRepositorio.Estatus == Estatus.ERROR)
             {
-                Mensaje = "Ocurrio un error interno de acceso a datos no controlado, intente nuevamente o consulte a soporte";
+                Mensaje = "Ocurrio un error interno no controlado de acceso a datos";
                 string mensajeLogger = catalogosRepositorio.MensajeError;
                 //Logica para ILogger
             }
@@ -142,7 +142,7 @@ namespace PoderJudicial.SIPOH.Negocio.Interfaces
 
             if (catalogosRepositorio.Estatus == Estatus.SIN_RESULTADO)
             {
-                Mensaje = "Ocurrio un error interno de acceso a datos no controlado, intente nuevamente o consulte a soporte";
+                Mensaje = "Ocurrio un error interno no controlado de acceso a datos";
             }
 
             return juzgadosCiruito;
@@ -160,7 +160,7 @@ namespace PoderJudicial.SIPOH.Negocio.Interfaces
 
             if (catalogosRepositorio.Estatus == Estatus.SIN_RESULTADO)
             {
-                Mensaje = "Ocurrio un error interno de acceso a datos no controlado, intente nuevamente o consulte a soporte";
+                Mensaje = "Ocurrio un error interno no controlado de acceso a datos";
             }
 
             return juzgados;
@@ -177,7 +177,7 @@ namespace PoderJudicial.SIPOH.Negocio.Interfaces
 
             if (catalogosRepositorio.Estatus == Estatus.ERROR)
             {
-                Mensaje = "Ocurrio un error interno de acceso a datos no controlado, intente nuevamente o consulte a soporte";
+                Mensaje = "Ocurrio un error interno no controlado de acceso a datos";
                 string InfoMensajeLogger = catalogosRepositorio.MensajeError;
             }
 

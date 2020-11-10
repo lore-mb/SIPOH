@@ -1,0 +1,180 @@
+﻿<div class="tab-content" id="contenedorBeneficiario" hidden>
+
+    <div class="separator-solid"></div>
+
+    <form id="formEjecucion" class="needs-validation" novalidate>
+
+        <div id="seccionBusquedaBeneficiario">
+            <div class="form-row mt-2">
+                <div class="col-12 col-md-8">
+                </div>
+                <div class="col-12 col-md-4 mt-1">
+                    <div class="input-group" id="divBusquedaSentenciado">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="lbBusquedaSentenciado">Total</span>
+                        </div>
+                        <input type="text" class="form-control form-control-sm mr-2" id="inpBusquedaSentenciado" aria-describedby="inpNumero" disabled>
+                        <button id="botonMostrarBeneficiarios" type="button" class="btn btn-secondary btn-sm mr-2" data-toggle="tooltip" data-placement="top" title="Ver Coincidencias"><i class="fa fa-eye icon"></i></button>
+                        <button id="botonCheckBeneficiarios" type="button" class="btn btn-secondary btn-sm mr-2" data-toggle="tooltip" data-placement="top" title="Continuar Registro"><i class="icon-checkmark"></i></button>
+                        <button id="botonCerrarBeneficiarios" type="button" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Cancelar Registro"><i class="icon-cross"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row  mt-1">
+                <div class="col-12 col-md-4 mt-2">
+                    <label><strong>Nombre(s) Sentenciado-Beneficiario</strong></label>
+                    <div class="input-group" id="divNombreSentenciado ">
+                        <input tabindex="1" type="text" class="form-control form-control-sm focusNext mt-2" id="inpNombreSentenciado" aria-describedby="inpNumero" required>
+                        <div class="invalid-feedback">
+                            Introducir nombre del Beneficiario
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-4 mt-2">
+                    <label><strong>Apellido Paterno</strong></label>
+                    <div class="input-group" id="divApellidoPSentenciado">
+                        <input tabindex="2" type="text" class="form-control form-control-sm focusNext mt-2" id="inpApellidoPaterno" aria-describedby="inpNumero" required>
+                        <div class="invalid-feedback">
+                            Introducir apellido paterno del Beneficiario
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-4 mt-2">
+                    <label><strong>Apellido Materno</strong></label>
+                    <div class="input-group" id="divApellidoMSentenciado">
+                        <input tabindex="3" type="text" class="form-control form-control-sm focusNext mt-2" id="inpApellidoMaterno" aria-describedby="inpNumero" required>
+                        <div class="invalid-feedback">
+                            Introducir apellido materno del Beneficiario
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="seccionBeneficiario">
+            <div class="form-row">
+                <div class="col-12 mt-4">
+                    <label class="mr-4" for="validationCustom04"><strong>¿Sentenciado Interno?</strong></label>
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input tabindex="4" type="radio" id="customRadioInline1" name="customRadioInline1" value="S" class="custom-control-input focusNext" required>
+                        <label class="custom-control-label" for="customRadioInline1">SI</label>
+                    </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input tabindex="4" type="radio" id="customRadioInline2" name="customRadioInline1" value="N" class="custom-control-input focusNext" required>
+                        <label class="custom-control-label" for="customRadioInline2">NO</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row mt-2">
+                <div class="col-12 col-md-5 mt-1">
+
+                    <label for="validationCustom04"><strong>Solicitante</strong></label>
+                    @Html.DropDownList("Solicitante", (SelectList)ViewBag.Solicitantes, "SELECCIONAR OPCIÓN", new { @id = "slctSolicitante", @class = "custom-select custom-select-sm focusNext", @required = "required", @tabindex = "5" })
+                    <div class="invalid-feedback">
+                        Seleccionar un Solicitante.
+                    </div>
+                </div>
+                <div class="col-12 col-md-7 mt-1">
+                    <label><strong>Detalle del Solicitante</strong></label>
+                    <div class="input-group" id="divDetalleSolicitante">
+                        <input tabindex="6" type="text" class="form-control form-control-sm focusNext" id="ipnDetalleSolicitante" aria-describedby="ipnDetalleSolicitante" required>
+                        <div class="invalid-feedback">
+                            Introduzca un detalle para el solicitante.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row mb-4">
+                <div class="col-12 col-md-5 mt-1">
+
+                    <label for="validationCustom04"><strong>Solicitud</strong></label>
+
+                    @Html.DropDownList("Solicitud", (SelectList)ViewBag.Solicitudes, "SELECCIONAR OPCIÓN", new { @id = "slctSolicitud", @class = "custom-select custom-select-sm focusNext", @required = "required", @tabindex = "7" })
+
+                    <div class="invalid-feedback">
+                        Seleccione una solicitud
+                    </div>
+                </div>
+                <div class="col-12 col-md-7 mt-1">
+
+                    <label><strong>Otra Solicitud</strong></label>
+                    <div class="input-group" id="divOtraSolicitud">
+                        <input tabindex="8" type="text" class="form-control form-control-sm focusNext focusNextEnd" id="inpOtraSolicitud" aria-describedby="inpOtraSolicitud" disabled>
+                        <div class="invalid-feedback">
+                            Introduzca otra Solicitud.
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <form id="formAnexos" class="needs-validation" novalidate>
+        <div id="seccionBusquedaAnexos">
+
+            <div class="separator-solid"></div>
+
+            <div class="form-row mt-2">
+                <div class="col-12 col-md-4 mt-1">
+                    <label for="validationCustom04"><strong>Anexos</strong></label>
+
+                    @Html.DropDownList("AnexosInicales", (SelectList)ViewBag.AnexosInicales, "SELECCIONAR OPCIÓN", new { @id = "slctAnexosInicales", @class = "custom-select custom-select-sm", @required = "required" })
+
+                    <div class="invalid-feedback">
+                        Seleccione una Descripción
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 mt-1">
+
+                    <label for="validationCustom04"><strong>Otro Anexo</strong></label>
+                    <div class="input-group" id="divOtroAnexo">
+                        <input type="text" class="form-control form-control-sm" id="inpOtroAnexo" aria-describedby="inpOtroAnexo" disabled>
+                        <div class="invalid-feedback">
+                            Introduzca otro Anexo.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-2 mt-1">
+                    <label for="validationCustom04"><strong>Cantidad</strong></label>
+                    <div class="input-group" id="divAddAnexos">
+                        <input type="number" min="1" max="99" value="0" class="form-control form-control-sm mr-2" id="inpAddAnexos" aria-describedby="inpAddAnexos" required>
+                        <button class="btn btn-success btn-sm" type="submit" id="btnAddAnexos"><i class="fas fa-plus-circle"></i></button>
+                        <div class="invalid-feedback">
+                            Introduzca una cantidad
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div id="seccionTablaAnexos">
+        <div class="form-row">
+            <div class="col-12 mt-3">
+                <h6 class="m-0 font-weight-bold text-success"><i class="icon-table2 mr-1"></i>Tabla de Anexos</h6>
+            </div>
+            <div class="col-12">
+                <div class="table-responsive text-small">
+                    <table class="table table-hover table-bordered" id="dataTableAnexos" width="100%" cellspacing="0">
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="seccionBotonGuardar">
+        <div class="separator-solid"></div>
+        <div class="form-row text-center">
+            <div class="col-12">
+                <button id="botonEnviar" type="submit" form="formEjecucion" class="btn btn-success disoff text-small" disabled><i class="fas fa-save mr-2"></i>GUARDAR</button>
+            </div>
+        </div>
+    </div>
+</div>

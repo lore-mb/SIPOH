@@ -3,8 +3,10 @@ using System.Data;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PoderJudicial.SIPOH.AccesoDatos;
 using PoderJudicial.SIPOH.AccesoDatos.Conexion;
+using PoderJudicial.SIPOH.AccesoDatos.Interfaces;
 using PoderJudicial.SIPOH.Entidades;
 using PoderJudicial.SIPOH.Entidades.Enum;
+using PoderJudicial.SIPOH.Negocio;
 using PoderJudicial.SIPOH.WebApp.Helpers;
 
 namespace PoderJudicial.SIPOH.UT.AlbertoUT
@@ -161,6 +163,45 @@ namespace PoderJudicial.SIPOH.UT.AlbertoUT
             int resultado = pasoParametroSinReferencia(miValor);
 
             //int resultado2 = pasoParametroConReferencia(ref miValor);
+
+        }
+
+
+        [TestMethod]
+        public void PruebaDeRangos()
+        {
+            IExpedienteRepository expedienteRepositorio = new ExpedienteRepository(cnx);
+            IEjecucionRepository ejecucionRepositorio = new EjecucionRepository(cnx);
+
+            ConsignacionesHistoricasProcessor repoCatalogos = new ConsignacionesHistoricasProcessor(expedienteRepositorio, ejecucionRepositorio);
+            string mensaje = string.Empty;
+
+            bool? existe0 = repoCatalogos.ValidaAsignacionManualDeNumeroEjecucion(223, "0091/2013");
+            mensaje = repoCatalogos.Mensaje;
+
+            bool? existe22 = repoCatalogos.ValidaAsignacionManualDeNumeroEjecucion(223, "0091/2019");
+            mensaje = repoCatalogos.Mensaje;
+
+            bool? existe6 = repoCatalogos.ValidaAsignacionManualDeNumeroEjecucion(223, "0091/2020");
+            mensaje = repoCatalogos.Mensaje;
+
+            bool? existe1 = repoCatalogos.ValidaAsignacionManualDeNumeroEjecucion(223, "0110/2020");
+            mensaje = repoCatalogos.Mensaje;
+            
+            bool? existe2 = repoCatalogos.ValidaAsignacionManualDeNumeroEjecucion(223, "0114/2020");
+            mensaje = repoCatalogos.Mensaje;
+            
+            bool? existe3 = repoCatalogos.ValidaAsignacionManualDeNumeroEjecucion(223, "0118/2020");
+            mensaje = repoCatalogos.Mensaje;
+            
+            bool? existe4 = repoCatalogos.ValidaAsignacionManualDeNumeroEjecucion(223, "0120/2020");
+            mensaje = repoCatalogos.Mensaje;
+            
+            bool? existe5 = repoCatalogos.ValidaAsignacionManualDeNumeroEjecucion(223, "0121/2020");
+            mensaje = repoCatalogos.Mensaje;
+
+            bool? existe7 = repoCatalogos.ValidaAsignacionManualDeNumeroEjecucion(223, "0121/2021");
+            mensaje = repoCatalogos.Mensaje;
 
         }
 

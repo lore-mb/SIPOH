@@ -37,7 +37,7 @@ namespace PoderJudicial.SIPOH.Negocio
 
             else if (expedienteRepositorio.Estatus == Estatus.ERROR)
             {
-                Mensaje = "Ocurrio un error al consultar la informacion solicitada";
+                Mensaje = "Ocurrio un error interno no controlado de acceso a datos";
                 string mensajeLogger = expedienteRepositorio.MensajeError;
                 //Logica para ILogger
             }
@@ -49,14 +49,15 @@ namespace PoderJudicial.SIPOH.Negocio
             List<Ejecucion> beneficiarios = ejecucionRepository.ConsultaEjecuciones(ParteCausaBeneficiario.BENEFICIARIO, nombre, apellidoPaterno, apellidoMaterno, idCircuito);
 
             if (ejecucionRepository.Estatus == Estatus.SIN_RESULTADO)
-                Mensaje = "La consulta no genero ningun resultado";
-
+            Mensaje = "La consulta no genero ningun resultado";
+            
             else if (ejecucionRepository.Estatus == Estatus.ERROR)
             {
-                Mensaje = "Ocurrio un error interno no controlado por el sistema, al intentar consultar los beneficiarios coincidentes";
+                Mensaje = "Ocurrio un error interno no controlado de acceso a datos";
                 string mensajeLogger = ejecucionRepository.MensajeError;
                 //Logica para ILogger
             }
+            
             return beneficiarios;
         }
 
