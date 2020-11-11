@@ -27,7 +27,7 @@
                     <div class="input-group" id="divNombreSentenciado ">
                         <input tabindex="1" type="text" class="form-control form-control-sm focusNext mt-2" id="inpNombreSentenciado" aria-describedby="inpNumero" required>
                         <div class="invalid-feedback">
-                            Introducir nombre del Beneficiario
+                            Introduzca el nombre del Beneficiario.
                         </div>
                     </div>
                 </div>
@@ -37,7 +37,7 @@
                     <div class="input-group" id="divApellidoPSentenciado">
                         <input tabindex="2" type="text" class="form-control form-control-sm focusNext mt-2" id="inpApellidoPaterno" aria-describedby="inpNumero" required>
                         <div class="invalid-feedback">
-                            Introducir apellido paterno del Beneficiario
+                            Introduzca el apellido paterno del Beneficiario
                         </div>
                     </div>
                 </div>
@@ -47,7 +47,7 @@
                     <div class="input-group" id="divApellidoMSentenciado">
                         <input tabindex="3" type="text" class="form-control form-control-sm focusNext mt-2" id="inpApellidoMaterno" aria-describedby="inpNumero" required>
                         <div class="invalid-feedback">
-                            Introducir apellido materno del Beneficiario
+                            Introduzca el apellido materno del Beneficiario
                         </div>
                     </div>
                 </div>
@@ -76,7 +76,7 @@
                     <label for="validationCustom04"><strong>Solicitante</strong></label>
                     @Html.DropDownList("Solicitante", (SelectList)ViewBag.Solicitantes, "SELECCIONAR OPCIÓN", new { @id = "slctSolicitante", @class = "custom-select custom-select-sm focusNext", @required = "required", @tabindex = "5" })
                     <div class="invalid-feedback">
-                        Seleccionar un Solicitante.
+                        Seleccione un Solicitante.
                     </div>
                 </div>
                 <div class="col-12 col-md-7 mt-1">
@@ -84,7 +84,7 @@
                     <div class="input-group" id="divDetalleSolicitante">
                         <input tabindex="6" type="text" class="form-control form-control-sm focusNext" id="ipnDetalleSolicitante" aria-describedby="ipnDetalleSolicitante" required>
                         <div class="invalid-feedback">
-                            Introduzca un detalle para el solicitante.
+                            Introduzca un detalle para el Solicitante.
                         </div>
                     </div>
                 </div>
@@ -122,16 +122,16 @@
             <div class="separator-solid"></div>
 
             <div class="form-row mt-2">
-                <div class="col-12 col-md-4 mt-1">
+                <div class="col-12 col-md-5 mt-1">
                     <label for="validationCustom04"><strong>Anexos</strong></label>
 
                     @Html.DropDownList("AnexosInicales", (SelectList)ViewBag.AnexosInicales, "SELECCIONAR OPCIÓN", new { @id = "slctAnexosInicales", @class = "custom-select custom-select-sm", @required = "required" })
 
                     <div class="invalid-feedback">
-                        Seleccione una Descripción
+                        Seleccione un Anexo.
                     </div>
                 </div>
-                <div class="col-12 col-md-6 mt-1">
+                <div class="col-12 col-md-5 mt-1">
 
                     <label for="validationCustom04"><strong>Otro Anexo</strong></label>
                     <div class="input-group" id="divOtroAnexo">

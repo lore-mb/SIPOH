@@ -18,7 +18,7 @@
                         @Html.DropDownList("SalasTradicional", (SelectList)ViewBag.SalasTradicional, "SELECCIONAR OPCIÓN", new { @id = "slctSalaTradicional", @class = "custom-select custom-select-sm", @hidden = "hidden" })
 
                         <div class="invalid-feedback">
-                            <i class="icon-notification"></i> Por favor, selecciona una sala.
+                            <i class="icon-notification"></i> Seleccione una Sala.
                         </div>
                     </div>
                     <div class="col-12 col-md-6">
@@ -30,10 +30,7 @@
                             <input type="text" placeholder="0000/0000" class="form-control form-control-sm mr-2" id="inpToca" aria-describedby="inpToca" data-inputmask-clearmaskonlostfocus="true" required>
                             <button class="btn btn-success btn-sm" type="submit" id="btnToca" data-toggle="tooltip" data-placement="top" title="Agregar Toca"><i class="fas fa-plus-circle"></i></button>
                             <div class="invalid-feedback">
-                                <i class="icon-notification"></i> Por favor, introduce un numero de toca.
-                            </div>
-                            <div class="valid-feedback">
-                                <i class="icon-checkmark"></i> Se introdujo numero de toca.
+                                <i class="icon-notification"></i> Introduzca un Número de Toca.
                             </div>
                         </div>
                     </div>
@@ -57,16 +54,10 @@
                     <div class="col-12 col-md-12">
                         <label for="validationCustom04"><strong>Sentencia de Amparo Vinculada</strong></label>
                         <div class="input-group" id="divAmparo">
-                            @*<div class="input-group-prepend">
-                                    <span class="input-group-text" id="lbAmparo">Amparo</span>
-                                </div>*@
                             <input type="text" class="form-control form-control-sm mr-2" id="ipnAmparo" aria-describedby="inpAmparo" required>
                             <button class="btn btn-success btn-sm" type="submit" id="btnAmparo" data-toggle="tooltip" data-placement="top" title="Agregar Sentencia de Amparo"><i class="fas fa-plus-circle"></i></button>
                             <div class="invalid-feedback">
-                                <i class="icon-notification"></i> Por favor, introcude una cantidad.
-                            </div>
-                            <div class="valid-feedback">
-                                <i class="icon-checkmark"></i> Se introdujo cantidad.
+                                <i class="icon-notification"></i> Introduzca un Número de Amparo.
                             </div>
                         </div>
                     </div>

@@ -1083,9 +1083,7 @@ function ValidarAnexoEnTabla(id, cantidad)
     {
         if (Anexos[index].id == id)
         {
-            var cantidadActual = parseInt(Anexos[index].cantidad);
-            var total = cantidadActual + parseInt(cantidad);
-            Anexos[index].cantidad = total;
+            Anexos[index].cantidad = cantidad;
             return true;
         }
     }

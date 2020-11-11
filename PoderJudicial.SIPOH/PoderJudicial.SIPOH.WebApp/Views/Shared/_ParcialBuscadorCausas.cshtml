@@ -18,7 +18,7 @@
                     @Html.DropDownList("SelectJuzgadoAcusatorio", (SelectList)ViewBag.JuzgadosAcusatorios, "SELECCIONAR OPCIÓN", new { @id = "slctJuzgado", @class = "custom-select custom-select-sm", @required = "required" })
 
                     <div class="invalid-feedback">
-                        <i class="icon-notification"></i> Por favor, selecciona un juzgado.
+                        <i class="icon-notification"></i> Seleccione un Juzgado de Procedencia.
                     </div>
                 </div>
 
@@ -28,9 +28,6 @@
                         <option value="1">NUMERO DE CAUSA</option>
                         <option value="2">NUMERO UNICO DE CASO</option>
                     </select>
-                    <div class="valid-feedback">
-                        <i class="icon-checkmark"></i> Opción seleccionada.
-                    </div>
                 </div>
                 <div class="col-md-6 col-lg-3 form-group">
                     <label class="" for="inpNumero" id="NumeroLabel"><strong>Numero de Causa</strong></label>
@@ -55,10 +52,7 @@
                     @Html.DropDownList("DistritoPorCircuito", (SelectList)ViewBag.DistritosPorCircuito, "SELECCIONAR OPCIÓN", new { @id = "slctDistrito", @class = "custom-select custom-select-sm", @required = "required" })
 
                     <div class="invalid-feedback">
-                        <i class="icon-notification"></i> Por favor, selecciona un distrito.
-                    </div>
-                    <div class="valid-feedback">
-                        <i class="icon-checkmark"></i> Distrito seleccionado.
+                        <i class="icon-notification"></i> Seleccione un Distrito de Procedencia.
                     </div>
                 </div>
 
@@ -67,24 +61,18 @@
                     <select class="custom-select custom-select-sm" id="slctJuzgadoTradi" required>
                         <option selected value="">SELECCIONAR OPCIÓN</option>
                     </select>
-                    <div class="valid-feedback">
-                        <i class="icon-checkmark"></i> Juzgado de procedencia, seleccionado.
+                    <div class="invalid-feedback">
+                        <i class="icon-notification"></i> Seleccione un Juzgado de Procedencia.
                     </div>
                 </div>
 
                 <div class="col-md-4 form-group">
                     <label for="validationCustomUsername"><strong>Numero de Causa</strong></label>
                     <div class="input-group" id="divCAU">
-                        @*<div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroupPrepend">CAUSA</span>
-                            </div>*@
                         <input type="text" class="form-control form-control-sm mr-2" id="inpCAUT" aria-describedby="inpCAU" placeholder="0000/0000" required>
                         <button class="btn btn-success btn-sm" type="submit" id="btnCAU" data-toggle="tooltip" data-placement="top" title="Consultar Causas"><i class="fas fa-search"></i></button>
                         <div class="invalid-feedback">
-                            <i class="icon-checkmark"></i> Introduce numero de causa.
-                        </div>
-                        <div class="valid-feedback">
-                            <i class="icon-checkmark"></i> Numero de causa introducido.
+                            <i class="icon-notification"></i> Introduzca Número de Causa.
                         </div>
                     </div>
                 </div>
