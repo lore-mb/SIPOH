@@ -250,7 +250,7 @@ function AgregarAnexos() {
         if (Validar_AnexosTabla(NumeroAnexo)) {
 
             var ArregloTablaAnexos = Arreglo_TablaAnexos;
-            var AnexoValor = NumeroAnexo
+            var AnexoValor = NumeroAnexo;
 
             for (var index = 0; index < ArregloTablaAnexos.length; index++) {
 
@@ -295,30 +295,9 @@ function GuardarAnexos() {
     $IdCatAnexo = $("#slctAnexoEjecucion").find('option:selected').val()
     $Cantidad = $("#inpCantidadAnexos").val()
 
-    //var TablaAnexos = Arreglo_TablaAnexos;
-
-
-
     MensajeDatos = "Esta a punto de registrar una promocion, ¿Desea continuar?";
-    //    "<b>" + "PROMOVENTE: " + "</b>" + $NombrePromovente + "<br>" +
-    //    "<b>" + "ANEXOS: " + "</b>" + Arreglo_TablaAnexos[0].Descripcion + "<b>" + "   CANTIDAD: " + "</b>" + Arreglo_TablaAnexos[0].Cantidad + "<br>" +
-    //    "<b>" + "ANEXOS: " + "</b>" + Arreglo_TablaAnexos[1].Descripcion + "<b>" + "   CANTIDAD: " + "</b>" + Arreglo_TablaAnexos[0].Cantidad + "<br>";
 
-    //var MensajeDatos = "";
-    //MensajeDatos += "<table";
-    //var Llaves = Object.keys(TablaAnexos[0]);
-    //MensajeDatos += "<tbody>";
 
-    //for (i = 0; i < TablaAnexos.length; i++) {
-    //    MensajeDatos += "<tr>";
-    //    for (var j = 0; j < Llaves.length; j++) {
-    //        var LlavesTD = Llaves[j];
-    //        MensajeDatos += "<td>" + TablaAnexos[i][LlavesTD] + "</td>";
-    //    }
-    //}
-
-    //MensajeDatos += "</body>";
-    //MensajeDatos += "</Table>";
 
     var Funcion_Ejecutar = function () {
 

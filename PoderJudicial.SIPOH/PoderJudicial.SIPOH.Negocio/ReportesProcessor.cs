@@ -44,25 +44,9 @@ namespace PoderJudicial.SIPOH.Negocio
             return Lista;
         }
 
-        public List<Reporte> RegistrosReportePorRangoFecha(TipoReporteRangoFecha TipoReporte, string FechaInicial, string FechaFinal, int IdJuzgado) 
+        public List<EjecucionCausa> ListaInicialesPromocionesPorDia(Instancia tipoReporte, string fechaHoy, int idJuzgado)
         {
-            List<Reporte> ListaRegistros = ejecucionRepository.GenerarReporteRangoFecha(TipoReporte, FechaInicial, FechaFinal, IdJuzgado);
-
-            if (ejecucionRepository.Estatus == Estatus.SIN_RESULTADO)
-            {
-                Mensaje = "No hay respuesta para la solicitud";
-            }
-            else if (ejecucionRepository.Estatus == Estatus.ERROR)
-            {
-                Mensaje = "Error, la consulta no ha generado ningun resultado";
-                string MensajeLogger = catalogosRepository.MensajeError;
-            }
-            return ListaRegistros;
-        }
-
-        public List<Reporte> RegistrosReportePorDia (TipoReporteDia TipoReporte, string FechaHoy, int IdJuzgado)
-        {
-            List<Reporte> ListaRegistros = ejecucionRepository.GenerarReportePorDia(TipoReporte, FechaHoy, IdJuzgado);
+            List<EjecucionCausa> ListaRegistros = ejecucionRepository.ConsultaInicialesPromocionesDia(tipoReporte, fechaHoy, idJuzgado);
 
             if (ejecucionRepository.Estatus == Estatus.SIN_RESULTADO)
             {
@@ -77,8 +61,21 @@ namespace PoderJudicial.SIPOH.Negocio
             return ListaRegistros;
         }
 
-        // Lógica para metodos restantes
+        public List<EjecucionCausa> ListaInicialesPromocionesPorRangoFecha(Instancia tipoReporte, string fechaInicial, string fechaFinal, int idJuzgado) 
+        {
+            List<EjecucionCausa> ListaRegistros = ejecucionRepository.ConsultaInicialesPromocionesRangoFecha(tipoReporte, fechaInicial, fechaFinal, idJuzgado);
 
+            if (ejecucionRepository.Estatus == Estatus.SIN_RESULTADO)
+            {
+                Mensaje = "No hay respuesta para la solicitud";
+            }
+            else if (ejecucionRepository.Estatus == Estatus.ERROR)
+            {
+                Mensaje = "Error, la consulta no ha generado ningun resultado";
+                string MensajeLogger = catalogosRepository.MensajeError;
+            }
+            return ListaRegistros;
+        }
         #endregion
 
     }

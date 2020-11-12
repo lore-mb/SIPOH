@@ -6,11 +6,17 @@ using System.Threading.Tasks;
 
 namespace PoderJudicial.SIPOH.Entidades
 {
-    public class Reporte : Ejecucion
+    public class EjecucionCausa : Ejecucion
     {
-        public string FechaInicial { get; set; }
-        public string FechaFinal { get; set; }
+        #region Propiedades Tabla Causa
         public string NumeroCausa { set; get; }
         public string NUC { set; get; }
+        #endregion
+
+        #region Propiedades Tabla EjecucionPosterior
+        public string Promovente { get; set; }
+        #endregion
+
+        public int Total { get; set; }
     }
 }

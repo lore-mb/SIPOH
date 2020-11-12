@@ -212,6 +212,7 @@
     <Compile Include="Models\LogInModelView.cs" />
     <Compile Include="Models\PosAnexoModelView.cs" />
     <Compile Include="Models\EjecucionPosteriorModelView.cs" />
+    <Compile Include="Models\ReporteDTO.cs" />
     <Compile Include="Models\SelloModelView.cs" />
     <Compile Include="Models\TocasModelView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
