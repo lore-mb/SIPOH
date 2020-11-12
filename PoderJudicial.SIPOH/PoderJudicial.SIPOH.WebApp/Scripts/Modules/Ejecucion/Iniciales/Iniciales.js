@@ -1,38 +1,38 @@
 ﻿ // #region Varaibles Globales
 var EstatusRespuesta = { SIN_RESPUESTA: 0, OK: 1, ERROR: 2 }
-var idCircuito = null;
-var idDistrito = null;
-var idOtroSolicitante = null;
-var idOtroSolicitud = null;
-var idOtroAnexos = null;
+var IdCircuito = null;
+var IdDistrito = null;
+var IdOtroSolicitante = null;
+var IdOtroSolicitud = null;
+var IdOtroAnexos = null;
 
-var dataTable = null;
-var dataTableAnex = null;
-var dataTableBeneficiario = null;
-var dataTableTocas = null;
-var dataTableAmparos = null;
+var DataTableCausas = null;
+var DataTableAnex = null;
+var DataTableBeneficiario = null;
+var DataTableTocas = null;
+var DataTableAmparos = null;
 
 //Estructura para data tables
-var estructuraTablaCausas = [{ data: 'CausaNuc', title: 'Causa|Nuc' }, { data: 'NombreJuzgado', title: 'N° Juzgado' }, { data: 'Ofendidos', title: 'Ofendido(s)' }, { data: 'Inculpados', title: 'Inculpado(s)' }, { data: 'Delitos', title: 'Delito(s)'}, { data: 'Eliminar', title: 'Quitar'}];
-var causas = [];
+var EstructuraTablaCausas = [{ data: 'CausaNuc', title: 'Causa|Nuc' }, { data: 'NombreJuzgado', title: 'N° Juzgado' }, { data: 'Ofendidos', title: 'Ofendido(s)' }, { data: 'Inculpados', title: 'Inculpado(s)' }, { data: 'Delitos', title: 'Delito(s)'}, { data: 'Eliminar', title: 'Quitar'}];
+var Causas = [];
 
-var estructuraTablaAnexos = [{ data: 'cantidad', title: 'Cantidad', className: "text-center" }, { data: 'descripcion', title: 'Descripción', className: "text-center" }, { data: 'eliminar', title: 'Quitar', className: "text-center" }];
-var anexos = [];
+var EstructuraTablaAnexos = [{ data: 'cantidad', title: 'Cantidad', className: "text-center" }, { data: 'descripcion', title: 'Descripción', className: "text-center" }, { data: 'eliminar', title: 'Quitar', className: "text-center" }];
+var Anexos = [];
 
-var estructuraTablaBeneficiarios = [{ data: 'NumeroEjecucion', title: 'No. Ejecución', className: "text-center" }, { data: 'NombreJuzgado', title: 'Juzgado', className: "text-center" }, { data: 'NombreBeneficiario', title: 'Nombre(s)', className: "text-center" }, { data: 'ApellidoPBeneficiario', title: 'Apellido Paterno', className: "text-center" }, { data: 'ApellidoMBeneficiario', title: 'Apellido Materno', className: "text-center" }, { data: 'FechaEjecucion', title: 'Fecha de Ejecución', className: "text-center" }];
-var beneficarios = [];
+var EstructuraTablaBeneficiarios = [{ data: 'NumeroEjecucion', title: 'No. Ejecución', className: "text-center" }, { data: 'NombreJuzgado', title: 'Juzgado', className: "text-center" }, { data: 'NombreBeneficiario', title: 'Nombre(s)', className: "text-center" }, { data: 'ApellidoPBeneficiario', title: 'Apellido Paterno', className: "text-center" }, { data: 'ApellidoMBeneficiario', title: 'Apellido Materno', className: "text-center" }, { data: 'FechaEjecucion', title: 'Fecha de Ejecución', className: "text-center" }];
+var Beneficarios = [];
 
-var estructuraTablaTocas = [{ data: 'nombreJuzgado', title: 'Sala', className: "text-center" }, { data: 'numeroDeToca', title: 'Numero De Toca', className: "text-center" }, { data: 'eliminar', title: 'Quitar', className: "text-center" }];
-var tocas = [];
+var EstructuraTablaTocas = [{ data: 'nombreJuzgado', title: 'Sala', className: "text-center" }, { data: 'numeroDeToca', title: 'Numero De Toca', className: "text-center" }, { data: 'eliminar', title: 'Quitar', className: "text-center" }];
+var Tocas = [];
 
-var estructuraTablaAmparos = [{ data: 'amparo', title: 'Numero de Amparo', className: "text-center"}, { data: 'eliminar', title: 'Quitar', className: "text-center"}];
-var amparos = [];
+var EstructuraTablaAmparos = [{ data: 'amparo', title: 'Numero de Amparo', className: "text-center"}, { data: 'eliminar', title: 'Quitar', className: "text-center"}];
+var Amparos = [];
 
-var encontroBeneficiarios = false;
-var mostrarSeccionesBeneficiario = false;
-var formEjecucionValidado = false;
-var esTradicional = false;
-var idEjecucion = null;
+var EncontroBeneficiarios = false;
+var MostrarSeccionesBeneficiario = false;
+var FormEjecucionValidado = false;
+var EsTradicional = false;
+var IdEjecucion = null;
 
 //Variables globales para intentos
 var intentos = 0;
@@ -43,30 +43,32 @@ var intentos = 0;
 $(document).ready(function ()
 {
     SiguienteInput();
+    FormatearInput("#Numero", "9999/9999", "0000/0000", "[0-9\uFF11-\uFF19]", "/");
+    FormatearInput("#inpCAUT", "9999/9999", "0000/0000", "[0-9\uFF11-\uFF19]", "/");
+    FormatearInput("#inpToca", "9999/9999", "0000/0000", "[0-9\uFF11-\uFF19]", "/");
 
     //Pintar Tablas
-    dataTable = GeneraTablaDatos(dataTable, "dataTable", causas, estructuraTablaCausas, false, false, false);
-    dataTableAnex = GeneraTablaDatos(dataTableAnex, "dataTableAnexos", anexos, estructuraTablaAnexos, false, false, false);
-    dataTableTocas = GeneraTablaDatos(dataTableTocas, "dataTableTocas", tocas, estructuraTablaTocas, false, false, false);
-    dataTableAmparos = GeneraTablaDatos(dataTableAmparos, "dataTableAmparos", anexos, estructuraTablaAmparos, false, false, false);
+    DataTableCausas = GeneraTablaDatos(DataTableCausas, "dataTable", Causas, EstructuraTablaCausas, false, false, false);
+    DataTableAnex = GeneraTablaDatos(DataTableAnex, "dataTableAnexos", Anexos, EstructuraTablaAnexos, false, false, false);
+    DataTableTocas = GeneraTablaDatos(DataTableTocas, "dataTableTocas", Tocas, EstructuraTablaTocas, false, false, false);
+    DataTableAmparos = GeneraTablaDatos(DataTableAmparos, "dataTableAmparos", Anexos, EstructuraTablaAmparos, false, false, false);
 
     //Obtener Circuito
-    idCircuito = $("#IdCircuitoHDN").val();
-    idOtroSolicitante = $("#IdOtroSolicitanteHDN").val();
-    idOtroSolicitud = $("#IdOtroSolicitudHDN").val();
-    idOtroAnexos = $("#IdOtroAnexoHDN").val();
+    IdCircuito = $("#IdCircuitoHDN").val();
+    IdOtroSolicitante = $("#IdOtroSolicitanteHDN").val();
+    IdOtroSolicitud = $("#IdOtroSolicitudHDN").val();
+    IdOtroAnexos = $("#IdOtroAnexoHDN").val();
 
     //Elemntos al Cargado
     ElementosAlCargado();
 });
 
-//Elementos al Cargado
+
+////Descripcion : Metodo que contiene todos los elementos que tienen una inicializacion al cargado del documento HTML
+////Parametros de entrada : NA
+////Salida : NA
 function ElementosAlCargado()
 {
-    //$("#loading").fadeIn();
-    FormatearSelects();
-    FormatearInputs();
-
     //Elementos Bloqueados
     $("#Numero").prop('disabled', true); 
     $("#slctNumero").prop('disabled', true);
@@ -88,7 +90,6 @@ function ElementosAlCargado()
             $("#slctNumero").prop('disabled', true);
         }
     });
-
 
     $("#contenedorBeneficiario").hide();
     $("#seccionBeneficiario").hide();
@@ -112,12 +113,12 @@ function ElementosAlCargado()
 
             if (form.checkValidity() === true && id == "formCausas")
             {
-                ConsultarCausas(true);
+                ConsultarCausas();
             }
 
             if (form.checkValidity() === true && id == "formCausasTradicional")
             {
-                ConsultarCausas(false);
+                ConsultarCausas();
             }
 
             if (form.checkValidity() === true && id == "formTocas")
@@ -142,26 +143,28 @@ function ElementosAlCargado()
 
             if (id == "formEjecucion")
             {
-                formEjecucionValidado = true;
+                FormEjecucionValidado = true;
             }
 
         }, false);
     });
 
     $("#inpBusquedaSentenciado").val("0");
-
+    
     $("#slctJuzgadoTradi").prop('disabled', true);
     $("#inpCAUT").prop('disabled', true);
 
     $('#slctDistrito').change(function ()
     {
-        idDistrito = $("#slctDistrito").find('option:selected').val();
+        IdDistrito = $("#slctDistrito").find('option:selected').val();
 
         //Metodo que contiene el proceso para llenado de pick List Juzgados Tradicionales
-        if (idDistrito != "" && idDistrito != null)
+        if (IdDistrito != "" && IdDistrito != null)
         {
             $("#slctJuzgadoTradi").prop('disabled', false);
-            DistritoJuzgadoTradicional();
+
+            var parametros = { idDistrito: IdDistrito }
+            SolicitudEstandarAjax("/Iniciales/ObtenerJuzgadoTradicional", parametros, ListarJuzgadoTradicional); 
         }
         else
         {
@@ -175,10 +178,10 @@ function ElementosAlCargado()
 
     $('#slctJuzgadoTradi').change(function ()
     {
-        idDistrito = $("#slctJuzgadoTradi").find('option:selected').val();
+        IdDistrito = $("#slctJuzgadoTradi").find('option:selected').val();
 
         //Metodo que contiene el proceso para llenado de pick List Juzgados Tradicionales
-        if (idDistrito != "" && idDistrito != null)
+        if (IdDistrito != "" && IdDistrito != null)
         {
             $("#inpCAUT").prop('disabled', false);
         }
@@ -189,13 +192,12 @@ function ElementosAlCargado()
         }
     });
 
-
     $("#botonMostrarBeneficiarios").click(function ()
     {
         var apellidoPBene = $('#inpApellidoPaterno').val();
         var NombreBene = $('#inpNombreSentenciado').val();
 
-        if (NombreBene != "" && apellidoPBene != "" && encontroBeneficiarios)
+        if (NombreBene != "" && apellidoPBene != "" && EncontroBeneficiarios)
         {
             $('#ejecucionModal').modal('show');
         }
@@ -206,9 +208,9 @@ function ElementosAlCargado()
         var apellidoPBene = $('#inpApellidoPaterno').val();
         var NombreBene = $('#inpNombreSentenciado').val();
 
-        if (NombreBene != "" && apellidoPBene != "" && !mostrarSeccionesBeneficiario)
+        if (NombreBene != "" && apellidoPBene != "" && !MostrarSeccionesBeneficiario)
         {
-            mostrarSeccionesBeneficiario = true;
+            MostrarSeccionesBeneficiario = true;
             $("#botonCerrarBeneficiarios").removeClass("btn-secondary");
             $("#botonCerrarBeneficiarios").addClass("btn-danger")
             $("#seccionBeneficiario").show();
@@ -220,7 +222,7 @@ function ElementosAlCargado()
 
     $("#botonCerrarBeneficiarios").click(function ()
     {
-        mostrarSeccionesBeneficiario = false;
+        MostrarSeccionesBeneficiario = false;
         $("#seccionBeneficiario").hide();
         $("#seccionBusquedaAnexos").hide();
         $("#seccionTablaAnexos").hide();
@@ -229,11 +231,11 @@ function ElementosAlCargado()
         $("#botonCerrarBeneficiarios").removeClass("btn-danger");
         $("#botonCerrarBeneficiarios").addClass("btn-secondary");
 
-        if (formEjecucionValidado)
+        if (FormEjecucionValidado)
         {
             var form = $('#formEjecucion')[0];
             $(form).removeClass('was-validated');
-            formEjecucionValidado = false;
+            FormEjecucionValidado = false;
         }
     });
 
@@ -247,12 +249,12 @@ function ElementosAlCargado()
         $("#botonMostrarBeneficiarios").removeClass("btn-warning");
         $("#botonMostrarBeneficiarios").addClass("btn-secondary");
 
-        beneficarios = [];
+        Beneficarios = [];
         $('#inpApellidoPaterno').val("");
         $('#inpApellidoMaterno').val("");
         $('#inpNombreSentenciado').val("");
 
-        encontroBeneficiarios = false;
+        EncontroBeneficiarios = false;
         $("#inpBusquedaSentenciado").val("0");
         $("#inpBusquedaSentenciado").css('border', function () {
             return '1px solid #b0bec5';
@@ -263,17 +265,17 @@ function ElementosAlCargado()
         $("#seccionTablaAnexos").hide();
         $("#seccionBotonGuardar").hide();
 
-        if (formEjecucionValidado)
+        if (FormEjecucionValidado)
         {
             var form = $('#formEjecucion')[0];
             $(form).removeClass('was-validated');
-            formEjecucionValidado = false;
+            FormEjecucionValidado = false;
         }
     });
 
     $("#btnAceptar").click(function ()
     {
-        mostrarSeccionesBeneficiario = true;
+        MostrarSeccionesBeneficiario = true;
         $("#ejecucionModal").modal("hide");
         $("#botonCerrarBeneficiarios").removeClass("btn-secondary");
         $("#botonCerrarBeneficiarios").addClass("btn-danger")
@@ -302,7 +304,7 @@ function ElementosAlCargado()
     {
         var value = $("#slctSolicitud").find('option:selected').val();
 
-        if (value == idOtroSolicitud)
+        if (value == IdOtroSolicitud)
         {
             $("#inpOtraSolicitud").prop('disabled', false);
             $("#inpOtraSolicitud").prop('required', true);
@@ -318,7 +320,7 @@ function ElementosAlCargado()
     $("#juzgadoT-tab").click(function ()
     {
         //Para que al cargado no se vea el elemento ocultandose
-        esTradicional = true;
+        EsTradicional = true;
         $('#slctSalaTradicional').removeAttr('hidden');
 
         $('#slctSalaTradicional').show();
@@ -330,7 +332,7 @@ function ElementosAlCargado()
 
     $("#juzgadoA-tab").click(function ()
     {
-        esTradicional = false;
+        EsTradicional = false;
         $('#slctSalaAcusatorio').show();
         $("#slctSalaAcusatorio").prop('required', true);
 
@@ -354,7 +356,7 @@ function ElementosAlCargado()
             $("#inpAddAnexos").val(0);
         }
        
-        if (value == idOtroAnexos)
+        if (value == IdOtroAnexos)
         {
             $("#inpOtroAnexo").prop('disabled', false);
             $("#inpOtroAnexo").prop('required', true);
@@ -366,95 +368,38 @@ function ElementosAlCargado()
             $("#inpOtroAnexo").val("");
         }
     });
-}
-// #endregion 
 
-// #region Formateo de Nuc Causas y Tocas
-
-//Formatear Inputs al Cargado
-function FormatearInputs()
-{
-    var Inputs = $(".formatInput");
-    Inputs.val('');
-}
-
-// Formaear Select el Cargado
-function FormatearSelects() {
-    var slcData = $(".formatear");
-    slcData.prop('selectedIndex', 0);
-}
-
-// Formato Numero de Tocas
-var InpNumeroTocas = $("#inpToca");
-InpNumeroTocas.attr('placeholder', '0000/0000');
-InpNumeroTocas.inputmask("9999/9999");
-
-//Variables SELECT Juzgado Acusatorio
-var InputNumero = $("#Numero");
-var lblNumero = $("#NumeroLabel");
-var slctNumero = $("#slctNumero");
-
-//FORMAT LOAD Juzgado Acusatorio
-slctNumero.prop('selectedIndex', 0);
-InputNumero.val('');
-$('#Numero').attr('placeholder', '0000/0000');
-$("#spnNumero").text('CAUSA');
-InputNumero.inputmask("9999/9999");
-//var ValorSeleccionado = $(this).children("option:selected").val();
-
-//CHANGE Juzgado Acusatorio
-slctNumero.change(function ()
-{
-    if ($(this).val() == 1)
+    //CHANGE Juzgado Acusatorio
+    $("#slctNumero").change(function ()
     {
-        //Acusatorio
-        $('#Numero').attr('placeholder', '0000/0000');
-        InputNumero.inputmask("9999/9999");
-        $("#spnNumero").text('CAUSA');
-        lblNumero.html("Numero de Causa");
-        
-    } else if ($(this).val() == 2)
-    {
-        $('#Numero').attr('placeholder', '00-0000-0000');
-        InputNumero.inputmask("99-9999-9999");
-        InputNumero.val(''); 
-        $("#spnNumero").text('NUC');
-        lblNumero.html("Numero Unico de Caso");
-    }
-});
+        if ($(this).val() == 1)
+        {
+            //Acusatorio
+            $('#Numero').attr('placeholder', '0000/0000');
+            $('#Numero').val('');
+            FormatearInput("#Numero", "9999/9999", "0000/0000", "[0-9\uFF11-\uFF19]", "/");
+            $('#NumeroLabel').html("<strong>Numero de Causa</strong>");
 
-//Varibles SELECT Juzgado Tradicional
-//var slctNumeroT = $("#slctNumeroT");
-var InpNumeroT = $("#inpCAUT");
-//var lblNumeroT = $("#NumeroLabelT");
-//
-
-// FORMAT LOAD Juzgado Tradicional
-//slctNumeroT.prop('selectedIndex', 0);
-//InpNumeroT.val('');
-//$("#spnNumeroT").text('CAUSA');
-InpNumeroT.inputmask("9999/9999");
-
-// CHANGE Juzgado Tradicional
-//slctNumeroT.change(function () {
-//    if ($(this).val() == 1) {
-//        InpNumeroT.inputmask("9999/9999");
-//        InpNumeroT.val('');
-//        $("#spnNumeroT").text('CAUSA');
-//        lblNumeroT.html("Numero de Causa:");
-//    } else if ($(this).val() == 2) {
-//        InpNumeroT.inputmask("99-9999-9999");
-//        InpNumeroT.val('');
-//        $("#spnNumeroT").text('NUC');
-//        lblNumeroT.html("Numero Unico de Caso:");
-//    }
-//});
+        } else if ($(this).val() == 2)
+        {
+            $('#Numero').attr('placeholder', '00-0000-0000');
+            $('#Numero').val('');
+            FormatearInput("#Numero", "99-9999-9999", "0000000000", "[0-9\uFF11-\uFF19]", "-");
+            $('#NumeroLabel').html("<strong>Numero Unico de Caso</strong>");
+        }
+    });
+}
 // #endregion 
 
 // #region Beneficiarios
+////Descripcion : Si el usuario ingreso el apellido paterno y nombre del beneficiario, este ejecuta la solicitud ajax para
+////que retonar la lista de beneficiarios que coninciden con lo escrito por el usuario, de lo contraria plica estilos al formulario
+////Parametros de entrada
+////NA
+////Salida : NA
 function ValidarBeneficiarios()
 {
-    beneficarios = [];
+    Beneficarios = [];
 
     var apellidoPBene = $('#inpApellidoPaterno').val();
     var apellidoMBene = $('#inpApellidoMaterno').val();
@@ -472,13 +417,13 @@ function ValidarBeneficiarios()
     }
     else
     {
-        if (!mostrarSeccionesBeneficiario)
+        if (!MostrarSeccionesBeneficiario)
         {
             $("#botonCheckBeneficiarios").removeClass("btn-success");
             $("#botonCheckBeneficiarios").addClass("btn-secondary");
         }
 
-        if (encontroBeneficiarios)
+        if (EncontroBeneficiarios)
         {
             $("#botonMostrarBeneficiarios").removeClass("btn-warning");
             $("#botonMostrarBeneficiarios").addClass("btn-secondary");
@@ -492,24 +437,29 @@ function ValidarBeneficiarios()
     }
 }
 
-function LlenaTablaConsultaBeneficiarios(data)
+////Descripcion : Metodo que recibe la lista de beneficiarios enviado por el metodo del controlador, valida y genera el data table por medio 
+////del arreglo de beneficiarios enviado por el objeto tipo respuesta
+////Parametros de entrada
+////<respuesta : Objeto tipo respuesta que recibe del metodo del controlador por medio de la solicitud ajax>
+////Salida : NA
+function LlenaTablaConsultaBeneficiarios(respuesta)
 {
-    if (data.Estatus == EstatusRespuesta.OK)
+    if (respuesta.Estatus == EstatusRespuesta.OK)
     {
-        encontroBeneficiarios = true;
-        beneficarios = data.Data.beneficiarios;
+        EncontroBeneficiarios = true;
+        Beneficarios = respuesta.Data.beneficiarios;
        
-        $("#inpBusquedaSentenciado").val(data.Data.total);
+        $("#inpBusquedaSentenciado").val(respuesta.Data.total);
         
         //Pintar en mostrar Bene
         $("#botonMostrarBeneficiarios").removeClass("btn-secondary");
         $("#botonMostrarBeneficiarios").addClass("btn-warning");
 
-        dataTableBeneficiario = GeneraTablaDatos(dataTableBeneficiario, "dataTableBeneficiarios", beneficarios, estructuraTablaBeneficiarios, true, true, false);
+        DataTableBeneficiario = GeneraTablaDatos(DataTableBeneficiario, "dataTableBeneficiarios", Beneficarios, EstructuraTablaBeneficiarios, true, true, false);
     }
-    else if (data.Estatus == EstatusRespuesta.SIN_RESPUESTA)
+    else if (respuesta.Estatus == EstatusRespuesta.SIN_RESPUESTA)
     {
-        encontroBeneficiarios = false;
+        EncontroBeneficiarios = false;
 
         $("#inpBusquedaSentenciado").val("0");  
         $("#inpBusquedaSentenciado").css('border', function ()
@@ -528,11 +478,11 @@ function LlenaTablaConsultaBeneficiarios(data)
         $("#seccionTablaAnexos").show();
         $("#seccionBotonGuardar").show();
 
-        mostrarSeccionesBeneficiario = true;
+        MostrarSeccionesBeneficiario = true;
     }
-    else if (data.Estatus == EstatusRespuesta.ERROR)
+    else if (respuesta.Estatus == EstatusRespuesta.ERROR)
     {
-        encontroBeneficiarios = false;
+        EncontroBeneficiarios = false;
 
         $("#inpBusquedaSentenciado").val("0");
         $("#inpBusquedaSentenciado").css('border', function () {
@@ -556,31 +506,23 @@ function LlenaTablaConsultaBeneficiarios(data)
             ValidarBeneficiarios();
         }
 
-        var mensaje = "Mensaje: " + data.Mensaje + ". Precione Aceptar para intentarlo nuevamente, si el problema continua vuelva intentarlo mas tarde o consulte a soporte.";
+        var mensaje = "Mensaje: " + respuesta.Mensaje + ". Precione Aceptar para intentarlo nuevamente, si el problema continua vuelva intentarlo mas tarde o consulte a soporte.";
         MensajeDeConfirmacion(mensaje, "large", funcion, null, "Error no Controlado por el Sistema");
     }
 }
 // #endregion 
 
 // #region Distritos & Juzgados
-function DistritoJuzgadoTradicional()
+////Descripcion : Metodo que recibe la lista de juzgados tradicionales enviado por el metodo del controlador, valida y genera 
+////el Option Select por medio de la lista recibida
+////Parametros de entrada
+////<respuesta : Objeto tipo respuesta que recibe del metodo del controlador por medio de la solicitud ajax>
+////Salida : NA
+function ListarJuzgadoTradicional(respuesta)
 {
-    if (idDistrito != null)
+    if (respuesta.Estatus == EstatusRespuesta.OK)
     {
-        var parametros = { idDistrito: idDistrito }
-        SolicitudEstandarAjax("/Iniciales/ObtenerJuzgadoTradicional", parametros, ListarJuzgadoTradicional);
-    }
-    else
-    {
-        alert("Error al obtener los datos");
-    }
-}
-
-function ListarJuzgadoTradicional(data)
-{
-    if (data.Estatus == EstatusRespuesta.OK)
-    {
-        var numero = data.Data.length;
+        var numero = respuesta.Data.length;
 
         $("#slctJuzgadoTradi").html("");
 
@@ -596,7 +538,7 @@ function ListarJuzgadoTradicional(data)
             $("#inpCAUT").prop('disabled', false);
         }
 
-        const ObjJuzgadoTra = [data.Data];
+        const ObjJuzgadoTra = [respuesta.Data];
         var $slcTradi = $('#slctJuzgadoTradi');
 
         $.each(ObjJuzgadoTra, function (id, juzgado)
@@ -607,17 +549,23 @@ function ListarJuzgadoTradicional(data)
             }
         });
     }
-    else if (data.Estatus == EstatusRespuesta.ERROR)
+    else if (respuesta.Estatus == EstatusRespuesta.ERROR)
     {
-        customNotice(data.Mensaje, "Error:", "error", 3350);
+        var mensaje = "Mensaje : " + respuesta.Mensaje;
+        Alerta(mensaje, "large", "Error no Controlado por el Sistema");
     }
 }
 // #endregion 
 
 // #region Causas
-function ConsultarCausas(esAcusatorio)
+////Descripcion : Funcion para validar que metodo del controlador consumir por medio de la solicitud ajax, valida el numero de cuasa, el
+////Nuc y el juzgado seleccionado por el usuario, 
+////Parametros de entrada :
+////NA
+////Salida : NA
+function ConsultarCausas()
 {
-    if (esAcusatorio)
+    if (!EsTradicional)
     {
         var causaNucSelect = $("#slctNumero").find('option:selected').val();
         var juzgadoId = $("#slctJuzgado").find('option:selected').val();
@@ -631,6 +579,20 @@ function ConsultarCausas(esAcusatorio)
         }
         else
         {   
+            var anioActual = new Date().getFullYear();
+            var anioCausa = causaNucText.substr(5, 4);
+
+            if (anioCausa > anioActual)
+            {
+                var funcion = function ()
+                {
+                    LimpiaValidacion("formCausas", "Numero");
+                }
+
+                AlertaCallback("El numero consecutivo de la causa no debe ser mayor al año actual", funcion);
+                return;
+            }
+           
             var parametros = { idJuzgado: juzgadoId, numeroCausa: causaNucText };
             SolicitudEstandarAjax("/Iniciales/ObtenerExpedientePorCausa", parametros, ListarCausas);
         } 
@@ -640,16 +602,37 @@ function ConsultarCausas(esAcusatorio)
         var causaNucText = $("#inpCAUT").val();
         var juzgadoId = $("#slctJuzgadoTradi").find('option:selected').val();
 
+        var anioActual = new Date().getFullYear();
+        var anioCausa = causaNucText.substr(5, 4);
+
+        if (anioCausa > anioActual)
+        {
+            var funcion = function ()
+            {
+                LimpiaValidacion("formCausasTradicional", "inpCAUT");
+            }
+
+            AlertaCallback("El numero consecutivo de la causa no debe ser mayor al año actual", funcion);
+            return;
+        }
+
         var parametros = { idJuzgado: juzgadoId, numeroCausa: causaNucText };
         SolicitudEstandarAjax("/Iniciales/ObtenerExpedientePorCausa", parametros, ListarCausas);
     }
 }
 
-function ListarCausas(data)
+////Descripcion : Recibe un objeto de tipo causa enviado por el metodo del controlador, valida y agrega al data table
+////la causa, si la vista es ejecutada desde el controlador consignaciones historicas, se valida
+////que en caso de no existir la causa ingresada se solicite al usuario si desea agregar una causa de historico a la 
+////base de datos.
+////Parametros de entrada
+////<respuesta : Objeto tipo respuesta que recibe del metodo del controlador por medio de la solicitud ajax>
+////Salida : NA
+function ListarCausas(respuesta)
 {    
-    if (data.Estatus == EstatusRespuesta.OK)
+    if (respuesta.Estatus == EstatusRespuesta.OK)
     {
-            var expediente = data.Data;           
+            var expediente = respuesta.Data;           
             var causaNucLabel = expediente.NUC != null ? "NUC " : "Numero de causa ";
             var causaNuc = expediente.NumeroCausa == null ? expediente.NUC : expediente.NumeroCausa;
 
@@ -659,7 +642,7 @@ function ListarCausas(data)
     
                 var funcion = function ()
                 {
-                    if (esTradicional)
+                    if (EsTradicional)
                     {
                         LimpiaValidacion("formCausasTradicional", "inpCAUT");
                     }
@@ -673,26 +656,25 @@ function ListarCausas(data)
             }
             else
             {     
-                var mensaje = "La consulta generó un resultado exitoso para el " + causaNucLabel + " <b>" + causaNuc + "</b> asignado al juzgado de procedencia <b>" + expediente.NombreJuzgado + "</b> seleccionado.<br><br> ¿Desea Continuar? <br>";
+                var mensaje = "Mensaje: La consulta generó un resultado exitoso <br><br> El " + causaNucLabel + " <b>" + causaNuc + "</b> se encuentra asignado al juzgado de procedencia <b>" + expediente.NombreJuzgado + "</b> seleccionado.<br><br> ¿Desea Continuar? <br>";
 
                 var funcion = function ()
                 {
-                    if (causas.length == 0)
+                    if (Causas.length == 0)
                     {
                         $('#contenedorBeneficiario').removeAttr('hidden');
                         $("#contenedorBeneficiario").show();
                     }
 
-                    var causa = new Object();
                     expediente.Eliminar = "<button type='button' class='btn btn-link btn-danger btn-sm' onclick='EliminarCausa(" + expediente.IdExpediente + ")' data-toggle='tooltip' title='Quitar Causa'><i class='icon-bin2'></i></button>";
 
                     //Agrega Causa al Arreglo de Cuasas
-                    causas.push(expediente);
+                    Causas.push(expediente);
                     //Generar Tabla 
-                    dataTable = GeneraTablaDatos(dataTable, "dataTable", causas, estructuraTablaCausas, false, false, false);
+                    DataTableCausas = GeneraTablaDatos(DataTableCausas, "dataTable", Causas, EstructuraTablaCausas, false, false, false);
 
                     //Limpiar Formulario CausasPorNumeroCausa
-                    if (esTradicional)
+                    if (EsTradicional)
                     {
                         LimpiaValidacion("formCausasTradicional", "inpCAUT");
                     }
@@ -705,25 +687,66 @@ function ListarCausas(data)
                 //Imprime Mensaje de Confirmacion
                 MensajeDeConfirmacion(mensaje, "large", funcion);
             }
-        }
-        else if (data.Estatus == EstatusRespuesta.ERROR)
+    }
+    else if (respuesta.Estatus == EstatusRespuesta.ERROR)
+    {
+        var mensaje = "Mensaje: " + respuesta.Mensaje + "<br><br>Precione <b>Aceptar</b> e intente nuevamente, si el problema continua vuelva intentarlo mas tarde o consulte a soporte.";
+        Alerta(mensaje, "large", "Error no Controlado por el Sistema");
+    }
+    else if (respuesta.Estatus == EstatusRespuesta.SIN_RESPUESTA)
+    {
+        //Muestra la palabra JUZGADO cuando se trata del sistema tradicional
+        var juzgadoEtiqueta = EsTradicional ? "JUZGADO " : "";
+
+        //Obtiene el nombre de juzgado seleccionado
+        var juzgadoNombre = $("#" + (!EsTradicional ? "slctJuzgado" : "slctJuzgadoTradi")).find('option:selected').text();
+        juzgadoNombre = juzgadoEtiqueta + juzgadoNombre;
+
+        //Obtiene el numero de causa 
+        var causaNuc = $("#" + (!EsTradicional ? "Numero" : "inpCAUT")).val();
+
+        if (!esConsignacionHistorica)
         {
-            var mensaje = "Mensaje: " + data.Mensaje + ". Precione Aceptar para intentarlo nuevamente, si el problema continua vuelva intentarlo mas tarde o consulte a soporte.";      
-            Alerta(mensaje, "large", "Error no Controlado por el Sistema");
+            var mensaje = "Mensaje: " + respuesta.Mensaje + " <br><br>El Numero de Causa <b>" + causaNuc + "</b> ingresado no se encuentra asignado en el <b>" + juzgadoNombre + "</b>";
+            Alerta(mensaje, "large");
         }
-        else if (data.Estatus == EstatusRespuesta.SIN_RESPUESTA)
+        else
         {
-            Alerta(data.Mensaje);
+            //Accion que se ejecuta cuando el usuario preciona Cancelar
+            var funcionCancelar = function ()
+            {
+                LimpiaValidacion((!EsTradicional ? "formCausas" : "formCausasTradicional"), (!EsTradicional ? "Numero" : "inpCAUT"));
+            }
+
+            //Accion que se ejecuta cuando el usuario preciona Aceptar
+            var funcionAceptar = function ()
+            {
+                alert("Crear causa");
+            }
+
+            var causaNucSelect = $("#slctNumero").find('option:selected').val();
+
+            var etiqueta = causaNucSelect != 2 ? "El Numero de Causa" : "El NUC";
+            etiqueta = !EsTradicional ? etiqueta : "El Numero de Causa";
+
+            var mensaje = "Mensaje: " + respuesta.Mensaje + ". <br><br>" + etiqueta + " <b>" + causaNuc + "</b> ingresado no se encuentra asignado en el <b>" + juzgadoNombre + "</b>, si necesita crear el rigistro de consignacion historica del numero de causa, precione <b>Aceptar</b>";
+            MensajeDeConfirmacion(mensaje, "large", funcionAceptar, funcionCancelar);
         }
+    }
 }
 
+////Descripcion : Valida si existe una causa en la tabla de Causas, si no existe el metodo retorna un false, 
+////si existe retorna true
+////Parametros de entrada
+////<id : Id de la causa a validar>
+////Salida : Tipo Boleano, si la cuasa existe retorna TRUE, si no existe retorna FALSE
 function ValidarCuasaEnTabla(id)
 {
-    var iterarArreglo = causas;
+    var iterarArreglo = Causas;
 
     for (var index = 0; index < iterarArreglo.length; index++)
     {
-        if (causas[index].IdExpediente == id)
+        if (Causas[index].IdExpediente == id)
         {
             return true;
         }
@@ -731,14 +754,19 @@ function ValidarCuasaEnTabla(id)
     return false;
 }
 
+////Descripcion : Muestra mensaje al usuario para confirmar la eliminacion de la cuasa, si el usuario preciona aceptar
+////elimina la causa del data table 
+////Parametros de entrada
+////<id : Id de la causa a eliminar>
+////Salida : NA
 function EliminarCausa(idExpediente) 
 {
     var indexCausa = 0;
-    var iterarArreglo = causas;
+    var iterarArreglo = Causas;
 
     for (var index = 0; index < iterarArreglo.length; index++)
     {
-        if (idExpediente == causas[index].IdExpediente)
+        if (idExpediente == Causas[index].IdExpediente)
         {
             indexCausa = index;
         }
@@ -746,24 +774,28 @@ function EliminarCausa(idExpediente)
 
     var funcion = function ()
     {
-        causas.splice(indexCausa, 1);
+        Causas.splice(indexCausa, 1);
            
         //Genera nuevamente la tabla
-        dataTable = GeneraTablaDatos(dataTable, "dataTable", causas, estructuraTablaCausas, false, false, false);
+        DataTableCausas = GeneraTablaDatos(DataTableCausas, "dataTable", Causas, EstructuraTablaCausas, false, false, false);
 
-        if (causas.length == 0)
+        if (Causas.length == 0)
         {
             $("#contenedorBeneficiario").hide();
         }
     }
 
-    var mensaje = "¿Desea retirar la Causa <b>" + causas[indexCausa].CausaNuc + "</b> de la tabla?"; 
+    var mensaje = "¿Desea retirar la Causa <b>" + Causas[indexCausa].CausaNuc + "</b> de la tabla?"; 
 
     MensajeDeConfirmacion(mensaje, "large", funcion);
 }
 // #endregion 
 
 // #region Tocas
+////Descripcion : Genera un objeto de tipo Tocas y lo agrega al data table de Tocas, valida que el numero de toca
+////ingresado no sea mayor al año actual y no sea repetido
+////Parametros de entrada : NA
+////Salida : NA
 function AgregarTocas()
 {
     var numToca = $("#inpToca").val();
@@ -774,12 +806,10 @@ function AgregarTocas()
     {
         var funcion = function ()
         {
-            LimpiaValidacion("formTocas", "inpToca");
-            
+            LimpiaValidacion("formTocas", "inpToca");        
         }
 
         AlertaCallback("El numero de toca que intenta añadir, es mayor al año actual", funcion);
-
         return;
     }
 
@@ -796,7 +826,7 @@ function AgregarTocas()
     }
     else
     {
-        var nombreSelect = !esTradicional ? "slctSalaAcusatorio" : "slctSalaTradicional";
+        var nombreSelect = !EsTradicional ? "slctSalaAcusatorio" : "slctSalaTradicional";
             
         var idJuzgado = $("#" + nombreSelect).find('option:selected').val();
         var nombreJuzgado = $("#" + nombreSelect).find('option:selected').text();
@@ -810,21 +840,26 @@ function AgregarTocas()
         toca.nombreJuzgado = nombreJuzgado;
         toca.numeroDeToca = numToca;
         toca.eliminar = "<button type='button' class='btn btn-link btn-danger btn-sm' onclick='EliminarToca(" + toca.id + ")' data-toggle='tooltip' title='Quitar Toca'><i class='icon-bin2'></i></button>";
-        tocas.push(toca);
+        Tocas.push(toca);
 
         //Generar Tabla
-        dataTableTocas = GeneraTablaDatos(dataTableTocas, "dataTableTocas", tocas, estructuraTablaTocas, false, false, false);
+        DataTableTocas = GeneraTablaDatos(DataTableTocas, "dataTableTocas", Tocas, EstructuraTablaTocas, false, false, false);
 
         //Limpia form de tocas despues de agregar toca a la tabla
         LimpiaValidacion("formTocas", "inpToca");
     }
 }
 
+////Descripcion : Valida si existe una toca en el data table de tocas, si no existe el metodo retorna un false, 
+////si existe retorna true
+////Parametros de entrada
+////<id : Id de la toca a validar>
+////Salida : Tipo Boleano, si la cuasa existe retorna TRUE, si no existe retorna FALSE
 function ValidarTocaEnTabla(numeroToca)
 {
-    for (var index = 0; index < tocas.length; index++)
+    for (var index = 0; index < Tocas.length; index++)
     {
-        if (tocas[index].numeroDeToca == numeroToca)
+        if (Tocas[index].numeroDeToca == numeroToca)
         {
             return true;
         }
@@ -832,14 +867,19 @@ function ValidarTocaEnTabla(numeroToca)
     return false;
 }
 
+////Descripcion : Muestra mensaje al usuario para confirmar la eliminacion de la toca, si el usuario preciona aceptar
+////elimina la causa del data table 
+////Parametros de entrada
+////<id : Id de la toca a eliminar>
+////Salida : NA
 function EliminarToca(id)
 {
     var indexToca = 0;
-    var iterarArreglo = tocas;
+    var iterarArreglo = Tocas;
 
     for (var index = 0; index < iterarArreglo.length; index++)
     {
-        if (id == tocas[index].id)
+        if (id == Tocas[index].id)
         {
             indexToca = index;
         }
@@ -847,18 +887,22 @@ function EliminarToca(id)
 
     var funcion = function ()
     {        
-        tocas.splice(indexToca, 1);
+        Tocas.splice(indexToca, 1);
 
         //Genera nuevamente la tabla
-        dataTableTocas = GeneraTablaDatos(dataTableTocas, "dataTableTocas", tocas, estructuraTablaTocas, false, false, false);
+        DataTableTocas = GeneraTablaDatos(DataTableTocas, "dataTableTocas", Tocas, EstructuraTablaTocas, false, false, false);
     }
 
-    var mensaje = "¿Desea retirar la Toca <b>" + tocas[indexToca].numeroDeToca + "</b> de la tabla?";
+    var mensaje = "¿Desea retirar la Toca <b>" + Tocas[indexToca].numeroDeToca + "</b> de la tabla?";
     MensajeDeConfirmacion(mensaje, "large", funcion);
 }
 // #endregion 
 
 // #region Amparos
+////Descripcion : Genera un objeto de tipo Amparo y lo agrega al data table de Amparos, valida que el numero de amparo
+////ingresado no sea repetido
+////Parametros de entrada : NA
+////Salida : NA
 function AgregaAmparos()
 {
     var numAmparo = $("#ipnAmparo").val();
@@ -883,20 +927,25 @@ function AgregaAmparos()
         amparo.id = numRamdom;
         amparo.amparo = numAmparo;
         amparo.eliminar = "<button type='button' class='btn btn-link btn-danger btn-sm' onclick='EliminarAmparo(" + amparo.id + ")' data-toggle='tooltip' data-placement='top' title='Quitar Sentencia de Amparo'><i class='icon-bin2'></i></button>";
-        amparos.push(amparo);
+        Amparos.push(amparo);
 
         //Generar Tabla
-        dataTableAmparos = GeneraTablaDatos(dataTableAmparos, "dataTableAmparos", amparos, estructuraTablaAmparos, false, false, false);
+        DataTableAmparos = GeneraTablaDatos(DataTableAmparos, "dataTableAmparos", Amparos, EstructuraTablaAmparos, false, false, false);
 
         LimpiaValidacion("formAmparos", "ipnAmparo");
     }
 }
 
+////Descripcion : Valida si existe una Amparo en el data table de Amparos, si no existe el metodo retorna un false, 
+////si existe retorna true
+////Parametros de entrada
+////<id : Id de la Amparo a validar>
+////Salida : Tipo Boleano, si la Amparo existe retorna TRUE, si no existe retorna FALSE
 function ValidarAmparoEnTabla(numeroAmparo)
 {
-    for (var index = 0; index < amparos.length; index++)
+    for (var index = 0; index < Amparos.length; index++)
     {
-        if (amparos[index].amparo == numeroAmparo)
+        if (Amparos[index].amparo == numeroAmparo)
         {
             return true;
         }
@@ -904,14 +953,19 @@ function ValidarAmparoEnTabla(numeroAmparo)
     return false;
 }
 
+////Descripcion : Muestra mensaje al usuario para confirmar la eliminacion del Amparo, si el usuario preciona aceptar
+////elimina el amparo del data table 
+////Parametros de entrada
+////<id : Id del Amparo a eliminar>
+////Salida : NA
 function EliminarAmparo(id)
 {
-    var iterarArreglo = amparos;
+    var iterarArreglo = Amparos;
     var indexAmparo = 0;
 
     for (var index = 0; index < iterarArreglo.length; index++)
     {
-        if (id == amparos[index].id)
+        if (id == Amparos[index].id)
         {
             indexAmparo = index;
         }
@@ -919,22 +973,25 @@ function EliminarAmparo(id)
 
     var funcion = function ()
     {
-        amparos.splice(indexAmparo, 1);
+        Amparos.splice(indexAmparo, 1);
         //Genera nuevamente la tabla
-        dataTableAmparos = GeneraTablaDatos(dataTableAmparos, "dataTableAmparos", amparos, estructuraTablaAmparos, false, false, false);
+        DataTableAmparos = GeneraTablaDatos(DataTableAmparos, "dataTableAmparos", Amparos, EstructuraTablaAmparos, false, false, false);
     }
 
-    var mensaje = "¿Desea retirar el nuemro de Amparo <b>" + amparos[indexAmparo].amparo + "</b> de la tabla?";
+    var mensaje = "¿Desea retirar el nuemro de Amparo <b>" + Amparos[indexAmparo].amparo + "</b> de la tabla?";
     MensajeDeConfirmacion(mensaje, "large", funcion);
 }
 
+////Descripcion : Genera un arreglo de string con los nuemero de amparos de data table
+////Parametros de entrada : NA
+////Salida : Arreglo de tipo strings, contiene los numeros de amparos del data table
 function GeneraArregloNumeroAmparos()
 {
     var numeroAmparos = [];
 
-    for (var index = 0; index < amparos.length; index++)
+    for (var index = 0; index < Amparos.length; index++)
     {
-        numeroAmparos.push(amparos[index].amparo);
+        numeroAmparos.push(Amparos[index].amparo);
     }
 
     return numeroAmparos;
@@ -942,6 +999,10 @@ function GeneraArregloNumeroAmparos()
 // #endregion 
 
 // #region Anexos
+////Descripcion : Genera un objeto de tipo Anexo y lo agrega al data table de Anexos, valida que el anexo 
+////ingresado no sea repetido
+////Parametros de entrada : NA
+////Salida : NA
 function AgregarAnexosInicales()
 {
     var id = $("#slctAnexosInicales").find('option:selected').val();
@@ -949,7 +1010,7 @@ function AgregarAnexosInicales()
     var cantidadAnexo = $("#inpAddAnexos").val(); 
     var idAnexo = id;
 
-    if (id == idOtroAnexos)
+    if (id == IdOtroAnexos)
     {
         descripcionAnexo = $("#inpOtroAnexo").val(); 
         idAnexo = Math.floor(Math.random() * 90000) + 10000;
@@ -963,13 +1024,13 @@ function AgregarAnexosInicales()
         anexoIniciales.descripcion = descripcionAnexo;
         anexoIniciales.cantidad = cantidadAnexo;
         anexoIniciales.eliminar = "<button type='button' class='btn btn-link btn-danger btn-sm' onclick='EliminarAnexo(" + anexoIniciales.id + ")' data-toggle='tooltip' data-placement='top' title='Quitar Sentencia de Amparo'><i class='icon-bin2'></i></button>";   
-        anexos.push(anexoIniciales);
+        Anexos.push(anexoIniciales);
     }
 
     //Generar Tabla
-    dataTableAnex = GeneraTablaDatos(dataTableAnex, "dataTableAnexos", anexos, estructuraTablaAnexos, false, false, false);
+    DataTableAnex = GeneraTablaDatos(DataTableAnex, "dataTableAnexos", Anexos, EstructuraTablaAnexos, false, false, false);
 
-    if (anexos.length > 0)
+    if (Anexos.length > 0)
     {
         $('#botonEnviar').removeAttr('disabled');
     }
@@ -977,14 +1038,19 @@ function AgregarAnexosInicales()
     LimpiaValidacion("formAnexos", "inpAddAnexos");
 }
 
+////Descripcion : Muestra mensaje al usuario para confirmar la eliminacion del Anexo, si el usuario preciona aceptar
+////elimina el anexo del data table 
+////Parametros de entrada
+////<id : Id del Anexo a eliminar>
+////Salida : NA
 function EliminarAnexo(id)
 {
-    var iterarArreglo = anexos;
+    var iterarArreglo = Anexos;
     var indexArreglo = 0;
 
     for (var index = 0; index < iterarArreglo.length; index++)
     {
-        if (id == anexos[index].id)
+        if (id == Anexos[index].id)
         {
             indexArreglo = index;
         }
@@ -992,29 +1058,34 @@ function EliminarAnexo(id)
 
     var funcion = function ()
     {
-        anexos.splice(indexArreglo, 1);
+        Anexos.splice(indexArreglo, 1);
         //Genera nuevamente la tabla
-        dataTableAnex = GeneraTablaDatos(dataTableAnex, "dataTableAnexos", anexos, estructuraTablaAnexos, false, false, false);
+        DataTableAnex = GeneraTablaDatos(DataTableAnex, "dataTableAnexos", Anexos, EstructuraTablaAnexos, false, false, false);
 
-        if (anexos.length == 0)
+        if (Anexos.length == 0)
         {
             $("#botonEnviar").prop('disabled', true);
         }
     }
 
-    var mensaje = "¿Desea retirar el Anexo <b>" + anexos[indexArreglo].descripcion + " (Cantidad : " + anexos[indexArreglo].cantidad + ")</b>   de la tabla?";
+    var mensaje = "¿Desea retirar el Anexo <b>" + Anexos[indexArreglo].descripcion + " (Cantidad : " + Anexos[indexArreglo].cantidad + ")</b>   de la tabla?";
     MensajeDeConfirmacion(mensaje, "large", funcion);
 }
 
+////Descripcion : Valida si existe una anexo en el data table de anexis, si no existe el metodo retorna un false, 
+////si existe retorna true
+////Parametros de entrada
+////<id : Id de la anexi a validar>
+////Salida : Tipo Boleano, si la anexo existe retorna TRUE, si no existe retorna FALSE
 function ValidarAnexoEnTabla(id, cantidad)
 {
-    for (var index = 0; index < anexos.length; index++)
+    for (var index = 0; index < Anexos.length; index++)
     {
-        if (anexos[index].id == id)
+        if (Anexos[index].id == id)
         {
-            var cantidadActual = parseInt(anexos[index].cantidad);
+            var cantidadActual = parseInt(Anexos[index].cantidad);
             var total = cantidadActual + parseInt(cantidad);
-            anexos[index].cantidad = total;
+            Anexos[index].cantidad = total;
             return true;
         }
     }
@@ -1023,6 +1094,10 @@ function ValidarAnexoEnTabla(id, cantidad)
 // #endregion 
 
 // #region Ejecucion
+////Descripcion : Genera un obejeto que contiene todos los elementos que solicita el metodo del controlador para
+////la creacion del registro de ejecucion valida y genera la solicitud AJAX
+////Parametros de entrada : NA
+////Salida : NA
 function GenerarEjecucion()
 {
     $("#loading").fadeIn();
@@ -1035,10 +1110,10 @@ function GenerarEjecucion()
         ApellidoPBeneficiario: $("#inpApellidoPaterno").val(),
         ApellidoMBeneficiario: $("#inpApellidoMaterno").val(),
         Interno: $('input[name="customRadioInline1"]:checked').val(),
-        Causas: causas,
-        Tocas: tocas,
+        Causas: Causas,
+        Tocas: Tocas,
         Amparos: GeneraArregloNumeroAmparos(),
-        Anexos: anexos,
+        Anexos: Anexos,
         IdSolicitante: $("#slctSolicitante").find('option:selected').val(),
         DetalleSolicitante: $("#ipnDetalleSolicitante").val(),
         IdSolicitud: $("#slctSolicitud").find('option:selected').val(),
@@ -1048,29 +1123,34 @@ function GenerarEjecucion()
     SolicitudEstandarPostAjax('/Iniciales/CrearEjecucion', parametros, RederizarDetalleSuccess, RederizarDetalleError);
 }
 
-function RederizarDetalleSuccess(data)
+////Descripcion : Si la solicitud al controlador fue exitosa, redirecciona a la vista que muestra el detalle de la
+////Ejecucion Creada, de lo contrario se le informa al usuario que ocurrio un error y le permite intentar nuevamente el registro,
+////se valida el numero de intentos si este es mayor a 3 se interumpe el proceso
+////Parametros de entrada : NA
+////Salida : NA
+function RederizarDetalleSuccess(respuesta)
 {
-    if (data.Estatus == EstatusRespuesta.OK)
+    if (respuesta.Estatus == EstatusRespuesta.OK)
     {
-        var url = data.Data.Url;
+        var url = respuesta.Data.Url;
 
         ////Redirecciona a la vista detalle
         document.location.href = url; 
     }
-    else if (data.Estatus == EstatusRespuesta.ERROR)
+    else if (respuesta.Estatus == EstatusRespuesta.ERROR)
     {
         $("#loading").fadeOut();
 
         if (intentos > 2)
         {
-            var mensaje = "Mensaje: " + data.Mensaje + ". <br><br>Intentos: " + intentos + "<br><br><b>Ha superado el numero maximo de intentos, vuelva intentarlo mas tarde o consulte a soporte</b";
+            var mensaje = "Mensaje: " + respuesta.Mensaje + ". <br><br>Intentos: " + intentos + "<br><br><b>Ha superado el numero maximo de intentos, vuelva intentarlo mas tarde o consulte a soporte</b";
             intentos = 0;
 
             Alerta(mensaje, "large");
         }
         else
         {
-            var mensaje = "Mensaje: " + data.Mensaje + ", de click en Aceptar para intentar crear el registro nuevamente.<br><br>Intentos: " + intentos;
+            var mensaje = "Mensaje: " + respuesta.Mensaje + ", de click en Aceptar para intentar crear el registro nuevamente.<br><br>Intentos: " + intentos;
 
             reintento = true;
             MensajeDeConfirmacion(mensaje, "large", GenerarEjecucion, null, titulo = "Error no controlado por el sistema");
@@ -1078,20 +1158,23 @@ function RederizarDetalleSuccess(data)
     }
 }
 
-function RederizarDetalleError(data)
+////Descripcion : Si la solicitud al controlador no fue exitosa, se valida el numero de intentos acumulados
+////Parametros de entrada : respues de la solicitud ajax
+////Salida : NA
+function RederizarDetalleError(respuesta)
 {
     $("#loading").fadeOut();
 
     if (intentos > 2)
     {
-        var mensaje = "Mensaje: " + data + ". <br><br>Intentos: " + intentos + "<br><br><b>Ha superado el numero maximo de intentos, vuelva intentarlo mas tarde o consulte a soporte</b";
+        var mensaje = "Mensaje: " + respuesta + ". <br><br>Intentos: " + intentos + "<br><br><b>Ha superado el numero maximo de intentos, vuelva intentarlo mas tarde o consulte a soporte</b";
         intentos = 0;
 
         Alerta(mensaje, "large");
     }
     else
     {
-        var mensaje = "Mensaje: " + data + ", de click en Aceptar para intentar crear el registro nuevamente.<br><br>Intentos: " + intentos;
+        var mensaje = "Mensaje: " + respuesta + ", de click en Aceptar para intentar crear el registro nuevamente.<br><br>Intentos: " + intentos;
 
         reintento = true;
         MensajeDeConfirmacion(mensaje, "large", GenerarEjecucion, null, titulo = "Error no controlado por el sistema");
@@ -1388,5 +1471,23 @@ function AlertaCallback(mensaje, funcion, tamanio = null, titulo = null)
         },
         size: tamanio
     });
+}
+
+function FormatearInput(selector, mask, placeholder, validatorRegEx, radixPoint)
+{
+    Inputmask(mask, {
+        positionCaretOnClick: "select",
+        radixPoint: radixPoint,
+        _radixDance: true,
+        numericInput: true,
+        placeholder: placeholder,
+        definitions:
+        {
+            "0":
+            {
+                validator: validatorRegEx
+            }
+        }
+    }).mask(selector);
 }
 // #endregion 

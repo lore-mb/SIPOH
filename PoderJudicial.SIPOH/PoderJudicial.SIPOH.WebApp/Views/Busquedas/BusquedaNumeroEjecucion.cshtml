@@ -15,22 +15,22 @@
             <div class="card-body">
 
                 <ul class="nav nav-pills  nav-fill nav-success" id="pills-tab" role="tablist">
-                    <li class="nav-item">
+                    <li class="nav-sm nav-item">
                         <a class="nav-link active" id="pills-pcausa-tab" data-toggle="pill" href="#pills-pcausa" role="tab" aria-controls="pills-pcausa" aria-selected="true"><i class="icon-users mr-2"></i>Partes de la Causa</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-sm nav-item">
                         <a class="nav-link" id="pills-sentebene-tab" data-toggle="pill" href="#pills-sentebene" role="tab" aria-controls="pills-sentebene" aria-selected="false"><i class="icon-user mr-2"></i>Sentenciado|Beneficiario</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-sm nav-item">
                         <a class="nav-link" id="pills-numcausa-tab" data-toggle="pill" href="#pills-numcausa" role="tab" aria-controls="pills-numcausa" aria-selected="false"><i class="icon-folder-open mr-2"></i>N° de Causa</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-sm nav-item">
                         <a class="nav-link" id="pills-NUC-tab" data-toggle="pill" href="#pills-NUC" role="tab" aria-controls="pills-NUC" aria-selected="false"><i class="icon-folder-open mr-2"></i>N° de NUC</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-sm nav-item">
                         <a class="nav-link" id="pills-solicitante-tab" data-toggle="pill" href="#pills-solicitante" role="tab" aria-controls="pills-solicitante" aria-selected="false"><i class="icon-user-tie mr-2"></i>Solicitante</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-sm nav-item">
                         <a class="nav-link" id="pills-Dsolicitante-tab" data-toggle="pill" href="#pills-Dsolicitante" role="tab" aria-controls="pills-Dsolicitante" aria-selected="false"><i class="icon-profile mr-2"></i>Detalle del Solicitante</a>
                     </li>
                 </ul>
@@ -49,7 +49,7 @@
                                         @*<div class="input-group-prepend">
                 <span class="input-group-text" id="lbApellidoPaterno">Apellido Paterno</span>
             </div>*@
-                                        <input type="text" class="form-control focusNext mt-2" id="inpNombreParte" tabindex="1" aria-describedby="inpNumero" required>
+                                        <input type="text" class="form-control form-control-sm focusNext mt-2" id="inpNombreParte" tabindex="1" aria-describedby="inpNumero" required>
                                         <div class="invalid-feedback">
                                             <i class="icon-notification"></i> Intruduzca un Nombre(s)
                                         </div>
@@ -63,7 +63,7 @@
                                         @*<div class="input-group-prepend">
                 <span class="input-group-text" id="lbApellidoPMaterno">Apellido Materno</span>
             </div>*@
-                                        <input type="text" class="form-control focusNext mt-2" id="inpApellidoPaternoParte" tabindex="2" aria-describedby="inpNumero" required>
+                                        <input type="text" class="form-control form-control-sm focusNext mt-2" id="inpApellidoPaternoParte" tabindex="2" aria-describedby="inpNumero" required>
                                         <div class="invalid-feedback">
                                             <i class="icon-notification"></i> Intruduzca un Apellido Paterno
                                         </div>
@@ -76,7 +76,7 @@
                                         @*<div class="input-group-prepend">
                 <span class="input-group-text" id="lbNombreParte">Nombre(s)</span>
             </div>*@
-                                        <input type="text" class="form-control focusNext focusNextEnd mr-2" id="inpApellidoMaternoPartes" tabindex="3" aria-describedby="inpNumero" novalidate="true">
+                                        <input type="text" class="form-control form-control-sm focusNext focusNextEnd mr-2" id="inpApellidoMaternoPartes" tabindex="3" aria-describedby="inpNumero" novalidate="true">
                                         <button id="botonBuscarNumerosDeEjecucionPartes" type="submit" class="btn btn-success btn-sm mr-2" data-toggle="tooltip" data-placement="top" title="Buscar Ejecuciones"><i class="fa fa-search icon"></i></button>
                                         <button id="botonBorrarDatos" onclick='LimpiaCamposFormulario("formPartesCausa")' type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Limpiar Busqueda"><i class="fa fa-eraser icon"></i></button>
 
@@ -103,7 +103,7 @@
                                         @*<div class="input-group-prepend">
             <span class="input-group-text" id="lbApellidoBeneficiario">Apellido Paterno</span>
         </div>*@
-                                        <input type="text" class="form-control focusNext" id="inpNombreBeneficiario" tabindex="4" aria-describedby="inpNumero" required>
+                                        <input type="text" class="form-control form-control-sm focusNext" id="inpNombreBeneficiario" tabindex="4" aria-describedby="inpNumero" required>
                                   
                                         <div class="invalid-feedback">
                                             <i class="icon-notification"></i> Intruduzca un Nombre(s)
@@ -117,7 +117,7 @@
                                         @*<div class="input-group-prepend">
             <span class="input-group-text" id="lbApellidoBMaterno">Apellido Materno</span>
         </div>*@
-                                        <input type="text" class="form-control focusNext" id="inpApellidoPaternoBeneficiario" tabindex="5" aria-describedby="inpNumero" required>
+                                        <input type="text" class="form-control form-control-sm focusNext" id="inpApellidoPaternoBeneficiario" tabindex="5" aria-describedby="inpNumero" required>
                                         <div class="invalid-feedback">
                                             <i class="icon-notification"></i> Intruduzca un Apellido Paterno
                                         </div>
@@ -130,7 +130,7 @@
                                         @*<div class="input-group-prepend">
                 <span class="input-group-text" id="lbNombreBeneficiario">Nombre(s)</span>
             </div>*@
-                                        <input type="text" class="form-control focusNext focusNextEnd mr-2" id="inpApellidoMaternoBeneficiario" tabindex="6" aria-describedby="inpNumero">
+                                        <input type="text" class="form-control form-control-sm focusNext focusNextEnd mr-2" id="inpApellidoMaternoBeneficiario" tabindex="6" aria-describedby="inpNumero">
                                         <button id="botonBuscarNumerosDeEjecucionBeneficiario" type="submit" class="btn btn-success btn-sm mr-2" data-toggle="tooltip" data-placement="top" title="Buscar Ejecuciones"><i class="fa fa-search icon"></i></button>
                                         <button id="botonBorrarDatos" onclick='LimpiaCamposFormulario("formBeneficiario")' type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Limpiar Busqueda"><i class="fa fa-eraser icon"></i></button>
                                    
@@ -146,7 +146,7 @@
                             <div class="form-row mt-2">
                                 <div class="col-md-3 form-group">
                                     <label for="slcNumero"><strong>Distrito de Procedencia</strong></label>
-                                    @Html.DropDownList("DistritoPorCircuito", (SelectList)ViewBag.DistritoPorCircuito, "SELECCIONA OPCION", new { @id = "slctDistrito", @class = "custom-select formatear", @required = "required" })
+                                    @Html.DropDownList("DistritoPorCircuito", (SelectList)ViewBag.DistritoPorCircuito, "SELECCIONA OPCION", new { @id = "slctDistrito", @class = "custom-select custom-select-sm", @required = "required" })
 
                                     <div class="invalid-feedback">
                                         <i class="icon-notification"></i> Seleccione un Distrito.
@@ -155,7 +155,7 @@
 
                                 <div class="col-md-6 form-group">
                                     <label for="validationCustom04"><strong>Juzgado de Procedencia</strong></label>
-                                    <select class="custom-select" id="slctJuzgadoPorDistritos" required>
+                                    <select class="custom-select custom-select-sm" id="slctJuzgadoPorDistritos" required>
                                         <option selected value="">SELECCIONAR OPCIÓN</option>
                                     </select>
                                     <div class="invalid-feedback">
@@ -169,7 +169,7 @@
                                         @*<div class="input-group-prepend">
                                             <span class="input-group-text" id="inputGroupPrepend">CAUSA</span>
                                         </div>*@
-                                        <input type="text" class="form-control mr-2" id="inpCausa" aria-describedby="inpCAU" placeholder="0000/0000" required>
+                                        <input type="text" class="form-control form-control-sm mr-2" id="inpCausa" aria-describedby="inpCAU" placeholder="0000/0000" required>
                                         <button class="btn btn-success btn-sm mr-2" type="submit" id="botonBuscarNumerosDeEjecucionCausas" data-toggle="tooltip" data-placement="top" title="Buscar Ejecuciones"><i class="fas fa-search"></i></button>
                                         <button id="botonBorrarDatos" onclick='LimpiaCamposFormularioSinValidacion("formCausasEjecucion")' type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Limpiar Busqueda"><i class="fa fa-eraser icon"></i></button>
                                         <div class="invalid-feedback">
@@ -186,7 +186,7 @@
                                 <div class="col-md-12 col-lg-7 form-group">
 
                                     <label for="validationCustom04"><strong>Juzgado de Procedencia</strong></label>
-                                    @Html.DropDownList("JuzgadosAcusatorios", (SelectList)ViewBag.JuzgadosAcusatorios, "SELECCIONA OPCION", new { @id = "slctJuzgadoAcusatorio", @class = "custom-select formatear", @required = "required" })
+                                    @Html.DropDownList("JuzgadosAcusatorios", (SelectList)ViewBag.JuzgadosAcusatorios, "SELECCIONA OPCION", new { @id = "slctJuzgadoAcusatorio", @class = "custom-select custom-select-sm", @required = "required" })
 
                                     <div class="invalid-feedback">
                                         <i class="icon-notification"></i> Selecciona un juzgado.
@@ -199,7 +199,7 @@
                                         @*<div class="input-group-prepend">
                                             <span class="input-group-text" id="spnNumero">NUC</span>
                                         </div>*@
-                                        <input type="text" id="inpNuc" name="inpNucName" class="form-control mr-2" aria-label="Small" aria-describedby="inputGroup-sizing-sm" data-inputmask-clearmaskonlostfocus="true" required placeholder="00-0000-0000">
+                                        <input type="text" id="inpNuc" name="inpNucName" class="form-control form-control-sm mr-2" aria-label="Small" aria-describedby="inputGroup-sizing-sm" data-inputmask-clearmaskonlostfocus="true" required placeholder="00-0000-0000">
                                         <button class="btn btn-success btn-sm mr-2" type="submit" id="botonBuscarNumerosDeEjecucionNuc" data-toggle="tooltip" data-placement="top" title="Buscar Ejecuciones"><i class="fa fa-search"></i></button>
                                         <button onclick='LimpiaCamposFormularioSinValidacion("formNucEjecucion")' id="botonBorrarDatos" type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Limpiar Busqueda"><i class="fa fa-eraser icon"></i></button>
                                         <div class="invalid-feedback">
@@ -217,7 +217,7 @@
                                 <div class="col-md-12 col-lg-5 form-group">
                                     <label class="" for="inpNumero" id="NumeroLabel"><strong>Solicitante</strong></label>
                                     <div class="input-group">
-                                        @Html.DropDownList("Solicitante", (SelectList)ViewBag.Solicitante, "SELECCIONA OPCION", new { @id = "slctSolicitante", @class = "custom-select formatear mr-2", @required = "required" })
+                                        @Html.DropDownList("Solicitante", (SelectList)ViewBag.Solicitante, "SELECCIONA OPCION", new { @id = "slctSolicitante", @class = "custom-select custom-select-sm mr-2", @required = "required" })
 
                                         <button class="btn btn-success btn-sm mr-2" type="submit" id="botonBuscarNumerosDeEjecucionSolicitante" data-toggle="tooltip" data-placement="top" title="Buscar Ejecuciones"><i class="fa fa-search"></i></button>
                                         <button onclick='LimpiaCamposFormularioSinValidacion("formSolicitanteEjecucion")' id="botonBorrarDatos" type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Limpiar Busqueda"><i class="fa fa-eraser icon"></i></button>
@@ -239,7 +239,7 @@
                                         @*<div class="input-group-prepend">
                 <span class="input-group-text" id="lbDetalleSolicitante">Detalle del Solicitante</span>
             </div>*@
-                                        <input type="text" class="form-control mr-2" id="inpDetalleSolicitante" aria-describedby="inpDetalleSolicitante" required>
+                                        <input type="text" class="form-control form-control-sm mr-2" id="inpDetalleSolicitante" aria-describedby="inpDetalleSolicitante" required>
                                         <button id="botonBuscarNumerosDeEjecucionDetalleSolicitante" type="submit" class="btn btn-success btn-sm mr-2" data-toggle="tooltip" data-placement="top" title="Buscar Ejecuciones"><i class="fa fa-search icon"></i></button>
                                         <button onclick='LimpiaCamposFormularioSinValidacion("formDetalleSolicitanteEjecucion")' id="botonBorrarDatos" type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Limpiar Busqueda"><i class="fa fa-eraser icon"></i></button>
                                         <div class="invalid-feedback">

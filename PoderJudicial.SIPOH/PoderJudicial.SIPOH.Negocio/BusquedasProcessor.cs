@@ -51,7 +51,7 @@ namespace PoderJudicial.SIPOH.Negocio
             
             if(ejecucionRepositorio.Estatus== Estatus.ERROR)
             {
-                Mensaje = "Ocurrio un error interno no controlado, consulte a soporte";
+                Mensaje = "Ocurrio un error interno no controlado de acceso a datos";
                 string messajelogger = ejecucionRepositorio.MensajeError;
             }
 
@@ -70,7 +70,7 @@ namespace PoderJudicial.SIPOH.Negocio
            
             if (ejecucionRepositorio.Estatus == Estatus.ERROR)
             {
-                Mensaje = "Ocurrio un error interno no controlado, consulte a soporte";
+                Mensaje = "Ocurrio un error interno no controlado de acceso a datos";
                 string messajelogger = ejecucionRepositorio.MensajeError;
             }
             
@@ -100,7 +100,7 @@ namespace PoderJudicial.SIPOH.Negocio
             
             if (ejecucionRepositorio.Estatus == Estatus.ERROR)
             {
-                Mensaje = "Ocurrio un error interno no controlado, consulte a soporte";
+                Mensaje = "Ocurrio un error interno no controlado de acceso a datos";
                 string messajelogger = ejecucionRepositorio.MensajeError;
             }
             
@@ -123,7 +123,7 @@ namespace PoderJudicial.SIPOH.Negocio
             
             if (ejecucionRepositorio.Estatus == Estatus.ERROR)
             {
-                Mensaje = "Ocurrio un error interno no controlado, consulte a soporte";
+                Mensaje = "Ocurrio un error interno no controlado de acceso a datos";
                 string messajelogger = ejecucionRepositorio.MensajeError;
             }
             
@@ -148,7 +148,7 @@ namespace PoderJudicial.SIPOH.Negocio
             
             if (ejecucionRepositorio.Estatus == Estatus.ERROR)
             {
-                Mensaje = "Ocurrio un error interno no controlado, consulte a soporte";
+                Mensaje = "Ocurrio un error interno no controlado de acceso a datos";
                 string messajelogger = ejecucionRepositorio.MensajeError;
             }
             
@@ -167,7 +167,7 @@ namespace PoderJudicial.SIPOH.Negocio
           
             if (ejecucionRepositorio.Estatus == Estatus.ERROR)
             {
-                Mensaje = "Ocurrio un error interno no controlado, consulte a soporte";
+                Mensaje = "Ocurrio un error interno no controlado de acceso a datos";
                 string messajelogger = ejecucionRepositorio.MensajeError;
             }
             
@@ -185,12 +185,12 @@ namespace PoderJudicial.SIPOH.Negocio
 
             if (expedienteRepositorio.Estatus == Estatus.SIN_RESULTADO)
             {
-                Mensaje = ("La consulta no ha generado ningun resultado");
+                Mensaje = "La consulta no ha generado ningun resultado";
             }
 
             if (expedienteRepositorio.Estatus == Estatus.ERROR)
             {
-                Mensaje = ("Ocurrio un error interno, consultar con soporte");
+                Mensaje = "Ocurrio un error interno no controlado de acceso a datos";
                 string messageLogger = expedienteRepositorio.MensajeError;
             }
             return ExpedienteListado;

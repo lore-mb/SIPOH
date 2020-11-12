@@ -271,7 +271,7 @@
     <Content Include="Scripts\Modules\Cuenta\LoggedIn.js" />
     <Content Include="Scripts\Modules\Cuenta\LogIn.js" />
     <Content Include="Scripts\Modules\Ejecucion\Busquedas\Busquedas.js" />
-    <Content Include="Scripts\Modules\Ejecucion\Consignaciones\Consignaciones.js" />
+    <Content Include="Scripts\Modules\Ejecucion\Consignaciones\ConsignacionesHistoricas.js" />
     <Content Include="Scripts\Modules\Ejecucion\Iniciales\Detalle.js" />
     <Content Include="Scripts\Modules\Ejecucion\Iniciales\Iniciales.js" />
     <Content Include="Scripts\Modules\Ejecucion\Iniciales\Sello.js" />
@@ -322,6 +322,11 @@
     <Content Include="Views\Cuenta\LogIn.cshtml" />
     <Content Include="Views\Iniciales\Detalle.cshtml" />
     <Content Include="Views\Promociones\Detalle.cshtml" />
+    <Content Include="Views\Shared\_ParcialBuscadorCausas.cshtml" />
+    <Content Include="Views\Shared\_ParcialAgregaTocasAmparos.cshtml" />
+    <Content Include="Views\Shared\_ParcialContenedorBeneficiario.cshtml" />
+    <Content Include="Views\Shared\_ParcialModalBeneficiarios.cshtml" />
+    <Content Include="Views\Shared\_ParcialEjecucionInicialHistorico.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

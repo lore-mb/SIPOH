@@ -60,11 +60,13 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 ViewBag.IdOtroSolicitante = idOtroSolicitante;
                 ViewBag.SalasAcusatorioTotal = salasAcusatorio != null ? salasAcusatorio.Count() : 0;
 
+                ViewBag.EsConsignacionHistorica = false;
+
                 return View();
             }
             catch (Exception ex)
             {
-                return View();
+                return View("Error");
             }
         }
 
@@ -76,15 +78,14 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 List<Juzgado> juzgados = catalogosProcessor.ObtieneJuzgadosPorTipoSistema(idDistrito, TipoSistema.TRADICIONAL);
 
                 ValidaJuzgados(juzgados);
-                Respuesta.Mensaje = inicialesProcessor.Mensaje;
+                Respuesta.Mensaje = catalogosProcessor.Mensaje;
                
                 return Json(Respuesta, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
                 Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
-                Respuesta.Mensaje = ex.Message;
-                Respuesta.Data = null;
+                Respuesta.Mensaje = "Ocurrio un error interno no controlado por el sistema";
 
                 return Json(Respuesta, JsonRequestBehavior.AllowGet);
             }
@@ -123,8 +124,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             catch (Exception ex)
             {
                 Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
-                Respuesta.Mensaje = ex.Message;
-                Respuesta.Data = null;
+                Respuesta.Mensaje = "Ocurrio un error interno no controlado por el sistema";
 
                 return Json(Respuesta, JsonRequestBehavior.AllowGet);
             }
@@ -145,8 +145,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             catch (Exception ex)
             {
                 Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
-                Respuesta.Mensaje = ex.Message;
-                Respuesta.Data = null;
+                Respuesta.Mensaje = "Ocurrio un error interno no controlado por el sistema";
 
                 return Json(Respuesta, JsonRequestBehavior.AllowGet);
             }
@@ -167,8 +166,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             catch (Exception ex)
             {
                 Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
-                Respuesta.Mensaje = ex.Message;
-                Respuesta.Data = null;
+                Respuesta.Mensaje = "Ocurrio un error interno no controlado por el sistema";
 
                 return Json(Respuesta, JsonRequestBehavior.AllowGet);
             }
@@ -209,8 +207,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             catch (Exception ex)
             {
                 Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
-                Respuesta.Mensaje = ex.Message;
-                Respuesta.Data = null;
+                Respuesta.Mensaje = "Ocurrio un error interno no controlado por el sistema";
 
                 return Json(Respuesta, JsonRequestBehavior.AllowGet);
             }
@@ -256,8 +253,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             catch (Exception ex)
             {
                 Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
-                Respuesta.Mensaje = ex.Message;
-                Respuesta.Data = null;
+                Respuesta.Mensaje = "Ocurrio un error interno no controlado por el sistema";
 
                 return Json(Respuesta, JsonRequestBehavior.AllowGet);
             }
@@ -304,11 +300,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             }
             catch (Exception ex)
             {
-                Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
-                Respuesta.Mensaje = ex.Message;
-                Respuesta.Data = null;
-
-                return Json(Respuesta, JsonRequestBehavior.AllowGet);
+                return View("Error");
             }
         }
 

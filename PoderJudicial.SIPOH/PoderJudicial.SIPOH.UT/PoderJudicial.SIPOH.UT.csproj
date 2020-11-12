@@ -108,6 +108,10 @@
       <Project>{5B679286-5F8A-490B-AF41-06322870BFCA}</Project>
       <Name>PoderJudicial.SIPOH.Entidades</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PoderJudicial.SIPOH.Negocio\PoderJudicial.SIPOH.Negocio.csproj">
+      <Project>{7587105B-9EEB-486D-9796-72971CF140C0}</Project>
+      <Name>PoderJudicial.SIPOH.Negocio</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PoderJudicial.SIPOH.WebApp\PoderJudicial.SIPOH.WebApp.csproj">
       <Project>{F5E950CD-8610-439A-AE4C-D986C3866155}</Project>
       <Name>PoderJudicial.SIPOH.WebApp</Name>
