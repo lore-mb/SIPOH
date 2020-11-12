@@ -181,7 +181,7 @@ namespace PoderJudicial.SIPOH.Negocio
  
         public List<Expediente> ObtieneEjecionesPorIdEjecucion(int idEjecucion)
         {
-            List<Expediente> ExpedienteListado = expedienteRepositorio.ConsultaExpedientes(idEjecucion);
+            List<Expediente> ExpedienteListado = expedienteRepositorio.ConsultaCausas(idEjecucion);
 
             if (expedienteRepositorio.Estatus == Estatus.SIN_RESULTADO)
             {

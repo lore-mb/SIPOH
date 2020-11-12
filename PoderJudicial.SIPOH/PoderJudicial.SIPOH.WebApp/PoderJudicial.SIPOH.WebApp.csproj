@@ -322,10 +322,9 @@
     <Content Include="Views\Iniciales\Detalle.cshtml" />
     <Content Include="Views\Promociones\Detalle.cshtml" />
     <Content Include="Views\Shared\_ParcialBuscadorCausas.cshtml" />
-    <Content Include="Views\Shared\_ParcialAgregaTocasAmparos.cshtml" />
     <Content Include="Views\Shared\_ParcialContenedorBeneficiario.cshtml" />
     <Content Include="Views\Shared\_ParcialModalBeneficiarios.cshtml" />
-    <Content Include="Views\Shared\_ParcialEjecucionInicialHistorico.cshtml" />
+    <Content Include="Views\Shared\_ParcialHistoricoCausas.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

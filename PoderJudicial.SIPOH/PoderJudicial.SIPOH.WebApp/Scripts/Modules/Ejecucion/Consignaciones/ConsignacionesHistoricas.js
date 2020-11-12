@@ -1,317 +1,231 @@
 ﻿// #region Varaibles Globales
-//var Tradicional = false;
+var TradicionalHistorico = false;
+var IdJuzgadoSeleccionado = null;
+var TabHistoricoCausa = false;
+var CausaValidada = true;
+var IngresaCausaManual = false;
 
-////Descripcion : Metodo que contiene todos los elementos que tienen una inicializacion al cargado del documento HTML
-////Parametros de entrada : NA
-////Salida : NA
-//function ElementosAlCargadoConsignaciones()
-//{
-//    //Agregar formato a NUC Y Causas
-//    FormatearInput("#inpCausaAcusatorio", "9999/9999", "0000/0000", "[0-9\uFF11-\uFF19]", "/");
-//    FormatearInput("#inpCausaTradicional", "9999/9999", "0000/0000", "[0-9\uFF11-\uFF19]", "/");
-//    FormatearInput("#inpNuc", "99-9999-9999", "0000000000", "[0-9\uFF11-\uFF19]", "-");
+//Descripcion : Metodo que contiene todos los elementos que tienen una inicializacion al cargado del documento HTML
+//Parametros de entrada : NA
+//Salida : NA
+function ElementosAlCargadoConsignaciones()
+{
+    $("#juzgado-Historico").prop('disabled', true);
 
-//    //Inhabilita elementos del formulario
-//    $("#inpCausaAcusatorio").prop('disabled', true);
-//    $("#inpNuc").prop('disabled', true);
-//    $("#checkSinNuc").prop('disabled', true);
-//    $("#slctJuzgadoTradi").prop('disabled', true);
-//    $("#inpCausaTradicional").prop('disabled', true);
+    //Agregar formato a NUC Y Causas 
+    FormatearInput("#inpCausaAcusatorioHistoricoCausa", "9999/9999", "0000/0000", "[0-9\uFF11-\uFF19]", "/");
+    FormatearInput("#inpCausaTradicionalHistoricoCausa", "9999/9999", "0000/0000", "[0-9\uFF11-\uFF19]", "/");
+    FormatearInput("#inpNucHistoricoCausa", "99-9999-9999", "0000000000", "[0-9\uFF11-\uFF19]", "-");
 
-//    //Funcionalidad al cambio del select #slctJuzgado
-//    $('#slctJuzgado').change(function ()
-//    {
-//        var idJuzgado = $("#slctJuzgado").find('option:selected').val();
+    //Funcionalidad al cambio del select #checkSinNuc
+    $('#checkSinNuc').change(function ()
+    {
+        if ($('#checkSinNuc').is(":checked"))
+        {
+            $("#inpNucHistoricoCausa").prop('disabled', true);
+            $("#inpNucHistoricoCausa").val("");
+            $("#btnCausaNuc").prop('disabled', true);  
+            CausaValidada = true;
+        }
+        else
+        {
+            $("#btnCausaNuc").prop('disabled', false);  
+            $("#inpNucHistoricoCausa").prop('disabled', false);
+            CausaValidada = false;
+        }
+    });
+}
 
-//        //Metodo que contiene el proceso para llenado de pick List Juzgados Tradicionales
-//        if (idJuzgado != "" && idJuzgado != null)
-//        {
-//            $("#inpCausaAcusatorio").prop('disabled', false);
-//            $("#checkSinNuc").prop('disabled', false);
-//        }
-//        else
-//        {
-//            $("#inpCausaAcusatorio").prop('disabled', true);
-//            $("#inpCausaAcusatorio").val("");
-//            $("#inpNuc").prop('disabled', true);
-//            $("#checkSinNuc").prop('disabled', true);
-//            $("#checkSinNuc").prop("checked", true);
-//            $("#inpNuc").val("");
-//        }
-//    });
+//Descripcion : Valida si el tipo juzgado es tradicional o acusatorio y genera un objeto que contiene los parametros
+//que recibe el contrlador de consignaciones historicas con los valores obtenidos por medio del fomulario
+//Parametros de entrada
+//<tradicional : valor de tipo boleano que regresenta si es un juzgado tradicional o no>
+//Salida : NA
+function ValidarQueExisteCausaEnJuzgado()
+{
+    //Obtiene el valor del juzgado seleccionado
+    var idJuzgado = $("#" + ("slctJuzgadoHistoricoCausa")).find('option:selected').val(); 
 
-//    //Funcionalidad al cambio del select #checkSinNuc
-//    $('#checkSinNuc').change(function ()
-//    {
-//        if ($('#checkSinNuc').is(":checked"))
-//        {
-//            $("#inpNuc").prop('disabled', true);
-//            $("#inpNuc").val("");
-//        }
-//        else
-//        {
-//            $("#inpNuc").prop('disabled', false);
-//        }
-//    });
+    //Obtiene el valor de la causa
+    var numeroDeCausa = $("#inpCausaAcusatorioHistoricoCausa").val();
 
-//    //Funcionalidad al cambio del select #slctDistrito
-//    $('#slctDistrito').change(function ()
-//    {
-//        var idDistrito = $("#slctDistrito").find('option:selected').val();
+    //Obtiene el año actual 
+    var anioActual = new Date().getFullYear();
+    var anioCausa = numeroDeCausa.substr(5, 4);
 
-//        //Metodo que contiene el proceso para llenado de pick List Juzgados Tradicionales
-//        if (idDistrito != "" && idDistrito != null)
-//        {
-//            $("#slctJuzgadoTradi").prop('disabled', false);   
+    if (anioCausa > anioActual)
+    {
+        var funcion = function ()
+        {
+            var form = $('#formBuscaAcusatorioHistoricoCausa')[0];
+            $(form).removeClass('was-validated');
+            $("#inpCausaAcusatorioHistoricoCausa").val("");
+        }
 
-//            var parametros = { idDistrito: idDistrito }
-//            SolicitudEstandarAjax("/ConsignacionesHistoricas/ObtenerJuzgadoTradicional", parametros, ListarJuzgadoTradicional);
-//        }
-//        else
-//        {
-//            $("#inpCausaTradicional").val("");
-//            $("#inpCausaTradicional").prop('disabled', true);
-//            $("#slctJuzgadoTradi").prop('disabled', true);
-//            $("#slctJuzgadoTradi").html("");
-//            $("#slctJuzgadoTradi").append($("<option/>", { value: "", text: "SELECCIONAR OPCIÓN" }));
-//        }
-//    });
+        AlertaCallback("El Numero de Causa que intenta ingresar es mayor al año actual", funcion, "large");
+        return;
+    }
 
-//    //Funcionalidad al cambio del select #slctJuzgadoTradi
-//    $('#slctJuzgadoTradi').change(function ()
-//    {
-//        var idJuzgado = $("#slctJuzgadoTradi").find('option:selected').val();
+    var nuc = $("#inpNucHistoricoCausa").val();
+    var parametros = { idJuzgado: idJuzgado, numeroDeCausa: numeroDeCausa, nuc: nuc }
+    SolicitudEstandarAjax("/ConsignacionesHistoricas/ValidaCausaEnJuzgadoPorNumeroNUC", parametros, AgregaCausaAlFormulario);
+}
 
-//        //Metodo que contiene el proceso para llenado de pick List Juzgados Tradicionales
-//        if (idJuzgado != "" && idJuzgado != null)
-//        {
-//            $("#inpCausaTradicional").prop('disabled', false);
-//        }
-//        else
-//        {
-//            $("#inpCausaTradicional").val("");
-//            $("#inpCausaTradicional").prop('disabled', true);
-//        }
-//    });
+//Descripcion : Muestra un mensaje al usuario indicado que la causa que intenta anexanar al formulario 
+//ya existe en la base de datos, de lo contrario anexa la causa al formulario
+//Parametros de entrada: 
+//<respuesta : Objeto que recibe del metodo del controlador>
+//Salida : NA
+function AgregaCausaAlFormulario(respuesta)
+{
+    if (respuesta.Estatus == EstatusRespuesta.OK)
+    {
+        var existe = respuesta.Data;
 
-//    //Funcionalidad para validar formularios
-//    var forms = document.getElementsByClassName('needs-validation');
+        if (existe)
+        {
+            var tipo = IngresaCausaManual ? "La Causa ya se encuentra asignada en el juzgado morocho" : "El NUC ya se encuentra asignado al juzgado morocho";
+            alert(tipo)
+        }
+    }
+    else if (respuesta.Estatus == EstatusRespuesta.ERROR)
+    {
+       
+    }
+}
 
-//    Array.prototype.filter.call(forms, function (form)
-//    {
-//        form.addEventListener('submit', function (event)
-//        {
-//            var id = form.id;
+//Descripcion : Genera las opciones del Select #slctJuzgadoTradi por medio del objeto respuesta que recibe del controlador
+//Parametros de entrada: 
+//<respuesta : Objeto que recibe del metodo del controlador>
+//Salida : NA
+function ListarJuzgadoTradicionalFormHistorico(respuesta)
+{
+    if (respuesta.Estatus == EstatusRespuesta.OK)
+    {
+        const ObjJuzgadoTra = [respuesta.Data];
+        var $slcTradi = $('#slctJuzgadoTradiHistoricoCausa');
 
-//            event.preventDefault();
-//            event.stopPropagation();
+        $.each(ObjJuzgadoTra, function (id, juzgado)
+        {
+            for (var i = 0; i < juzgado.length; i++)
+            {
+                $slcTradi.append('<option value=' + juzgado[i].Value + '>' + juzgado[i].Text + '</option>');
+            }
+        });
 
-//            form.classList.add('was-validated');
+        $("#slctJuzgadoTradiHistoricoCausa option[value='" + IdJuzgadoSeleccionado + "']").prop('selected', true);
+        $("#slctJuzgadoTradiHistoricoCausa").prop('disabled', true);
+    }
+    else if (respuesta.Estatus == EstatusRespuesta.ERROR)
+    {
+        var mensaje = "Mensaje : " + data.Mensaje;
+        Alerta(mensaje, "large", "Error no Controlado por el Sistema");
+    }
+}
 
-//            if (form.checkValidity() === true && id == "formBuscaAcusatorioCausas")
-//            {
-//                ValidarQueExisteCausaEnJuzgado()
-//            }
+function CargaElementosHitoricoCausa()
+{
+    TabHistoricoCausa = true;
 
-//            if (form.checkValidity() === true && id == "formBuscaCausasTradicional")
-//            {
-//                ValidarQueExisteCausaEnJuzgado();
-//            }
+    $("#contenedorBeneficiario").hide();
+    $("#pills-Historico").addClass("show active");
+    $('#juzgado-Historico').addClass('active'); 
 
-//        }, false);
-//    });
+    if (!EsTradicional)
+    {
+        $("#pills-home").removeClass("show active");
+        $('#juzgadoA-tab').removeClass('active');
+        $('#inpNucHistoricoCausa').val("");   
+        $('#inpCausaAcusatorioHistoricoCausa').val("");  
 
-//    //Se le setea valor verdadero a la variable tradicional cada que se le de clic en el tab Tradicional
-//    $("#juzgadoT-tab").click(function ()
-//    {
-//        Tradicional = true;
-//    });
+        var causaNucSelect = $("#slctNumero").find('option:selected').val();
+        var juzgadoId = $("#slctJuzgado").find('option:selected').val();
 
-//    //Se le setea valor falso a la variable tradicional cada que se le de clic en el tab de Acusatorio
-//    $("#juzgadoA-tab").click(function ()
-//    {
-//        Tradicional = false;
-//    });
-//}
+        if (causaNucSelect == 1)
+        {
+            IngresaCausaManual = false;
 
-////Descripcion : Valida si el tipo juzgado es tradicional o acusatorio y genera un objeto que contiene los parametros
-////que recibe el contrlador de consignaciones historicas con los valores obtenidos por medio del fomulario
-////Parametros de entrada
-////<tradicional : valor de tipo boleano que regresenta si es un juzgado tradicional o no>
-////Salida : NA
-//function ValidarQueExisteCausaEnJuzgado()
-//{
-//    //Obtiene el valor del juzgado seleccionado
-//    var idJuzgado = $("#" + (!Tradicional ? "slctJuzgado" : "slctJuzgadoTradi")).find('option:selected').val(); 
+            $("#checkSinNuc").prop('disabled', false);
+            $("#checkSinNuc").prop("checked", true);
 
-//    //Obtiene el valor de la causa
-//    var numeroDeCausa = $("#" + (!Tradicional ? "inpCausaAcusatorio" : "inpCausaTradicional")).val();
+            $("#inpCausaAcusatorioHistoricoCausa").prop('disabled', true);
+            $("#btnCausaNuc").prop('disabled', true);        
+            $("#inpNucHistoricoCausa").prop('disabled', true);
 
-//    //Obtiene el año actual
-//    var anioActual = new Date().getFullYear();
-//    var anioCausa = numeroDeCausa.substr(5, 4);
+            var causaNucText = $('#Numero').val();
+            SeteaFormularioHistoricoCausa(causaNucText, null, null, juzgadoId);
+        }
+        else
+        {
+            IngresaCausaManual = true;
+            CausaValidada = false;
 
-//    if (anioCausa > anioActual)
-//    {
-//        var funcion = function ()
-//        {
-//            var form = $('#' + (!Tradicional ? "formBuscaAcusatorioCausas" : "formBuscaCausasTradicional"))[0];
-//            $(form).removeClass('was-validated');
+            $("#inpNucHistoricoCausa").prop('disabled', true);
+            $("#inpCausaAcusatorioHistoricoCausa").prop('disabled', false);
+            $("#checkSinNuc").prop('disabled', true);
+            $("#btnCausaNuc").prop('disabled', false);     
 
-//            $("#" + (!Tradicional ? "inpCausaAcusatorio" : "inpCausaTradicional")).val("");
-//        }
+            var causaNucText = $('#Numero').val();  
+            SeteaFormularioHistoricoCausa(null, causaNucText, null, juzgadoId);
+        }
+    }
+    else
+    {
+        $("#pills-profile").removeClass("show active");
+        $('#juzgadoT-tab').removeClass('active');
 
-//        AlertaCallback("El Numero de Causa que intenta ingresar es mayor al año actual", funcion, "large");
-//        return;
-//    }
+        var causaText = $("#inpCAUT").val();
+        var distrito = $("#slctDistrito").find('option:selected').val();
+        var juzgadoId = $("#slctJuzgadoTradi").find('option:selected').val();
+        SeteaFormularioHistoricoCausa(causaText, null, distrito, juzgadoId);
+    }
+}
 
-//    if (!Tradicional)
-//    {
-//        if (!$('#checkSinNuc').is(":checked"))
-//        {
-//            var nuc = $("#inpNuc").val();
-//            var parametros = { idJuzgado: idJuzgado, numeroDeCausa: numeroDeCausa, nuc: nuc }
-//            SolicitudEstandarAjax("/ConsignacionesHistoricas/ValidaCausaEnJuzgadoPorNumeroNUC", parametros, AgregaCausaAlFormulario);
-//        }
-//        else
-//        {
-//            var parametros = { idJuzgado: idJuzgado, numeroDeCausa: numeroDeCausa}
-//            SolicitudEstandarAjax("/ConsignacionesHistoricas/ValidaCausaEnJuzgadoPorNumeroCausa", parametros, AgregaCausaAlFormulario);
-//        }
-//    }
-//    else
-//    {
-//        var parametros = { idJuzgado: idJuzgado, numeroDeCausa: numeroDeCausa }
-//        SolicitudEstandarAjax("/ConsignacionesHistoricas/ValidaCausaEnJuzgadoPorNumeroCausa", parametros, AgregaCausaAlFormulario);
-//    }
-//}
+function SeteaFormularioHistoricoCausa(numeroCausa, nuc, idDistrito, idJuzgado)
+{
+    if (EsTradicional)
+    {
+        $('#contenedorformBuscaAcusatorioHistoricoCausa').hide();
+        $('#contenedorformBuscaTradicionalHistoricoCausa').removeAttr('hidden');
+        $('#contenedorformBuscaTradicionalHistoricoCausa').show();
 
-////Descripcion : Muestra un mensaje al usuario indicado que la causa que intenta anexanar al formulario 
-////ya existe en la base de datos, de lo contrario anexa la causa al formulario
-////Parametros de entrada: 
-////<respuesta : Objeto que recibe del metodo del controlador>
-////Salida : NA
-//function AgregaCausaAlFormulario(respuesta)
-//{
-//    if (respuesta.Estatus == EstatusRespuesta.OK)
-//    {
-//        var existe = respuesta.Data;
+        $("#slctDistritoHistoricoCausa option[value='" + idDistrito + "']").prop('selected', true);
+        $('#inpCausaTradicionalHistoricoCausa').val(numeroCausa);   
 
-//        if (existe)
-//        {
-//            if (!Tradicional)
-//            {
-//                var funcion = function ()
-//                {
-//                    var form = $('#formBuscaAcusatorioCausas')[0];
-//                    $(form).removeClass('was-validated');
+        IdJuzgadoSeleccionado = idJuzgado;
+        var parametros = { idDistrito: idDistrito }
+        SolicitudEstandarAjax("/ConsignacionesHistoricas/ObtenerJuzgadoTradicional", parametros, ListarJuzgadoTradicionalFormHistorico);
+    }
+    else
+    {
+        $('#contenedorformBuscaTradicionalHistoricoCausa').hide();
+        $('#contenedorformBuscaAcusatorioHistoricoCausa').show();
+     
+        $("#slctJuzgadoHistoricoCausa option[value='" + idJuzgado + "']").prop('selected', true);
+        $("#slctJuzgadoHistoricoCausa").prop('disabled', true);
 
-//                    $("#inpCausaAcusatorio").val("");
+        if (numeroCausa != null)
+        {
+            $('#inpCausaAcusatorioHistoricoCausa').val(numeroCausa);   
+        }
 
-//                    if (!$('#checkSinNuc').is(":checked"))
-//                    {
-//                        $("#inpNuc").val("");
-//                    }
-//                }
+        if (nuc != null)
+        {
+            $("#checkSinNuc").prop("checked", false);
+            $('#inpNucHistoricoCausa').val(nuc);   
+        }
+    }
+}
 
-//                var juzgadoNombre = $("#slctJuzgado option:selected").text();
-//                var causa = $("#inpCausaAcusatorio").val();
-//                var mensajeNuc = "";
-
-//                if (!$('#checkSinNuc').is(":checked"))
-//                {
-//                    mensajeNuc = "o Numero Unico de Caso <b>" + $("#inpNuc").val() + "</b>";
-//                }
-
-//                var mensaje = "<b>" + juzgadoNombre + "</b> ya tiene registrado un expediente con Numero de Causa <b>" + causa + "</b> " + mensajeNuc;
-//                AlertaCallback(mensaje, funcion, "large");
-//            }
-//            else
-//            {
-//                var funcion = function ()
-//                {
-//                    var form = $('#formBuscaCausasTradicional')[0];
-//                    $(form).removeClass('was-validated');
-
-//                    $("#inpCausaTradicional").val("");
-//                }
-
-//                var juzgadoNombre = $("#slctJuzgadoTradi option:selected").text();
-//                var causa = $("#inpCausaTradicional").val();
-
-//                var mensaje = "<b>" + juzgadoNombre + "</b> ya tiene registrado un expediente con Numero de Causa <b>" + causa + "</b>";
-//                AlertaCallback(mensaje, funcion, "large");
-//            }
-//        }
-//        else
-//        {
-//            if (!Tradicional)
-//            {
-//                $("#slctJuzgado").prop('disabled', true);
-//                $("#inpCausaAcusatorio").prop('disabled', true);
-//                $("#inpNuc").prop('disabled', true);
-//                $("#checkSinNuc").prop('disabled', true);
-//                $("#btnBuscarCuasaAcusatorio").prop('disabled', true);
-//                $("#juzgadoA-tab").prop('disabled', true);
-//                $("#juzgadoT-tab").prop('disabled', true);
-//            }
-//            else
-//            {
-//                $("#slctDistrito").prop('disabled', true);
-//                $("#slctJuzgadoTradi").prop('disabled', true);
-//                $("#inpCausaTradicional").prop('disabled', true);
-//                $("#btnBuscarCuasaTradicional").prop('disabled', true);
-//                $("#juzgadoT-tab").prop('disabled', true);
-//                $("#juzgadoA-tab").prop('disabled', true);
-//            }
-//        }
-//    }
-//    else if (respuesta.Estatus == EstatusRespuesta.ERROR)
-//    {
-//        var mensaje = "Mensaje : " + data.Mensaje;
-//        Alerta(mensaje, "large", "Error no Controlado por el Sistema");
-//    }
-//}
-
-////Descripcion : Genera las opciones del Select #slctJuzgadoTradi por medio del objeto respuesta que recibe del controlador
-////Parametros de entrada: 
-////<respuesta : Objeto que recibe del metodo del controlador>
-////Salida : NA
-//function ListarJuzgadoTradicional(respuesta)
-//{
-//    if (respuesta.Estatus == EstatusRespuesta.OK)
-//    {
-//        var numero = respuesta.Data.length;
-
-//        $("#slctJuzgadoTradi").html("");
-
-//        if (numero > 1)
-//        {
-//            $("#slctJuzgadoTradi").append($("<option/>", { value: "", text: "SELECCIONAR OPCIÓN" }));
-
-//            $("#inpCausaTradicional").val("");
-//            $("#inpCausaTradicional").prop('disabled', true);
-//        }
-//        if (numero == 1)
-//        {
-//            $("#inpCausaTradicional").prop('disabled', false);
-//        }
-
-//        const ObjJuzgadoTra = [respuesta.Data];
-//        var $slcTradi = $('#slctJuzgadoTradi');
-
-//        $.each(ObjJuzgadoTra, function (id, juzgado)
-//        {
-//            for (var i = 0; i < juzgado.length; i++)
-//            {
-//                $slcTradi.append('<option value=' + juzgado[i].Value + '>' + juzgado[i].Text + '</option>');
-//            }
-//        });
-//    }
-//    else if (respuesta.Estatus == EstatusRespuesta.ERROR)
-//    {
-//        var mensaje = "Mensaje : " + data.Mensaje;
-//        Alerta(mensaje, "large", "Error no Controlado por el Sistema");
-//    }
-//}
-
+function ValidaSeccionDeBeneficiario()
+{
+    if (TabHistoricoCausa)
+    {
+        TabHistoricoCausa = false;
+        var total = Causas.length;
+        if (total > 0)
+        {
+            $("#contenedorBeneficiario").show();
+        }
+    }
+}

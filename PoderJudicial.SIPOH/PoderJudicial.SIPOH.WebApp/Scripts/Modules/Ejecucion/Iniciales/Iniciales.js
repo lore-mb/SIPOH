@@ -111,6 +111,11 @@ function ElementosAlCargado()
 
             form.classList.add('was-validated');
 
+            if (form.checkValidity() === true && id == "formBuscaAcusatorioHistoricoCausa")
+            {
+                ValidarQueExisteCausaEnJuzgado()
+            }
+
             if (form.checkValidity() === true && id == "formCausas")
             {
                 ConsultarCausas();
@@ -328,6 +333,11 @@ function ElementosAlCargado()
 
         $('#slctSalaAcusatorio').hide();
         $("#slctSalaAcusatorio").prop('required', false);
+
+        if (esConsignacionHistorica)
+        {
+            ValidaSeccionDeBeneficiario();
+        }
     });
 
     $("#juzgadoA-tab").click(function ()
@@ -338,6 +348,11 @@ function ElementosAlCargado()
 
         $('#slctSalaTradicional').hide();
         $("#slctSalaTradicional").prop('required', false);
+
+        if (esConsignacionHistorica)
+        {
+            ValidaSeccionDeBeneficiario();
+        }
     });
 
     $("#inpAddAnexos").prop('disabled', true);
@@ -388,6 +403,11 @@ function ElementosAlCargado()
             $('#NumeroLabel').html("<strong>Numero Unico de Caso</strong>");
         }
     });
+
+    if (esConsignacionHistorica)
+    {
+        ElementosAlCargadoConsignaciones();
+    }
 }
 // #endregion 
 
@@ -718,10 +738,10 @@ function ListarCausas(respuesta)
                 LimpiaValidacion((!EsTradicional ? "formCausas" : "formCausasTradicional"), (!EsTradicional ? "Numero" : "inpCAUT"));
             }
 
-            //Accion que se ejecuta cuando el usuario preciona Aceptar
+            //Metodo que activa la funcionalidad para el formumario de Historico de Causa
             var funcionAceptar = function ()
             {
-                alert("Crear causa");
+                CargaElementosHitoricoCausa();
             }
 
             var causaNucSelect = $("#slctNumero").find('option:selected').val();

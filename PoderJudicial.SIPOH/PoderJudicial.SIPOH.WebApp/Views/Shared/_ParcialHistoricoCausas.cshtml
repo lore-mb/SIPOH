@@ -1,0 +1,64 @@
+﻿<div id="contenedorformBuscaAcusatorioHistoricoCausa">
+    <form id="formBuscaAcusatorioHistoricoCausa" class="needs-validation" novalidate>
+        <div class="form-row">
+            <div class="col-md-12 col-lg-6 form-group">
+
+                <label for="validationCustom04"><strong>Juzgado de Procedencia</strong></label>
+
+                @Html.DropDownList("SelectJuzgadoAcusatorio", (SelectList)ViewBag.JuzgadosAcusatorios, "SELECCIONAR OPCIÓN", new { @id = "slctJuzgadoHistoricoCausa", @class = "custom-select custom-select-sm", @required = "required" })
+
+                <div class="invalid-feedback">
+                    <i class="icon-notification"></i> Seleccione un Juzgado de Procedencia.
+                </div>
+
+            </div>
+
+            <div class="col-md-6 col-lg-3 form-group">
+                <label class="" for="inpNumero" id="NumeroLabel"><b>Numero de Causa</b></label>
+                <div class="input-group">
+                    <input type="text" id="inpCausaAcusatorioHistoricoCausa" name="NumeroExpediente" class="form-control form-control-sm" placeholder="0000/0000" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
+                    <div class="invalid-feedback">
+                        <i class="icon-notification"></i> Introduzca un numero de causa.
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3 form-group">
+                <label class="" for="inpNumero" id="NumeroLabel"><b>Numero Unico de Caso</b></label>
+                <div class="input-group">
+                    <input type="text" id="inpNucHistoricoCausa" placeholder="00-0000-0000" name="Nuc" class="form-control form-control-sm mr-2" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
+                    <button class="btn btn-success btn-sm" type="submit" id="btnCausaNuc" data-toggle="tooltip" data-placement="top" title="Validar Expediente"><i class="icon-checkmark"></i></button>
+                    <div class="invalid-feedback">
+                        <i class="icon-notification"></i> Introduzca un numero unico de caso.
+                    </div>
+                    <div class="input-group">
+                        <input class="mt-1 mr-2" type="checkbox" value="" id="checkSinNuc" checked>
+                        <label class="mt-1" for="checkSinNuc">Sin NUC</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div id="contenedorformBuscaTradicionalHistoricoCausa" hidden>
+        <div class="form-row">
+            <div class="col-12 col-md-3 form-group">
+                <label for="slcNumero"><strong>Distrito de Procedencia</strong></label>
+                @Html.DropDownList("DistritoPorCircuito", (SelectList)ViewBag.DistritosPorCircuito, "SELECCIONAR OPCIÓN", new { @id = "slctDistritoHistoricoCausa", @class = "custom-select custom-select-sm", @required = "required" , @disabled = "true"})
+            </div>
+            <div class="col-12 col-md-5 form-group">
+                <label for="validationCustom04"><strong>Juzgado de Procedencia</strong></label>
+                <select class="custom-select custom-select-sm" id="slctJuzgadoTradiHistoricoCausa" required disabled>
+                    <option selected value="">SELECCIONAR OPCIÓN</option>
+                </select>
+            </div>
+            <div class="col-12 col-md-4 form-group">
+                <label for="validationCustomUsername"><strong>Numero de Causa</strong></label>
+                <div class="input-group" id="divCAU">
+                    <input disabled type="text" class="form-control form-control-sm mr-2" id="inpCausaTradicionalHistoricoCausa" aria-describedby="inpCAU" placeholder="0000/0000" required>
+                </div>
+            </div>
+        </div>
+</div>
+

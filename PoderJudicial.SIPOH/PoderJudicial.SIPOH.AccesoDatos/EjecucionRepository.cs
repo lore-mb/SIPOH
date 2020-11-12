@@ -460,7 +460,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
         /// </summary>
         /// <param name="idJuzgadoEjecucion">Id del Juzgado de Ejecucion asignado el registro de ejecucion</param>
         /// <param name="numeroEjecucion">Numero de Ejecucion</param>
-        public void ValidaNumeroEjecucion(int idJuzgadoEjecucion, string numeroEjecucion)
+        public void ValidaEjecucion(int idJuzgadoEjecucion, string numeroEjecucion)
         {
             try
             {
@@ -504,7 +504,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
         /// </summary>
         /// <param name="idJuzgadoEjecucion">Id del juzgado de ejecucion asignado al numero de ejecucion</param>
         /// <returns></returns>
-        public void ConsultaRengoDeNumeroEjecucion(int idJuzgadoEjecucion, string anio, out string numeroEjecucionMin, out string numeroEjecucionMax)
+        public void ConsultaRengoDeNumerosDeEjecucion(int idJuzgadoEjecucion, string anio, out string numeroEjecucionMin, out string numeroEjecucionMax)
         {
             try
             {

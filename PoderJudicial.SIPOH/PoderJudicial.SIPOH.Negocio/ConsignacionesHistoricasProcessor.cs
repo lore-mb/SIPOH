@@ -27,15 +27,9 @@ namespace PoderJudicial.SIPOH.Negocio
         /// <param name="numeroDeCausa">Numero de causa de la causa a validar</param>
         /// <param name="nuc">Nuc de la causa a validar</param>
         /// <returns>Boleano que indica verdadero si existe el registro solicitado en la base de datos</returns>
-        public bool? ValidaExistenciaDeExpedientePorJuzgadoMasNumeroCausa(int idJuzgado, string numeroDeCausa, string nuc = null)
+        public bool? ValidaExistenciaDeCausaEnJuzgado(int idJuzgado, string numeroDeCausa, string nuc)
         {
-            //Si el nuc es nulo, toma la validacion de expediente sin NUC
-            if (nuc == null)
-            expedienteRepositorio.ValidaNumeroCausa(idJuzgado, numeroDeCausa);
-
-            //Si el nuc contiene valor, toma la validacion de expediente con NUC y Causa
-            else 
-            expedienteRepositorio.ValidaNumeroCausa(idJuzgado, numeroDeCausa, nuc);
+            expedienteRepositorio.ValidaCausa(idJuzgado, numeroDeCausa, nuc);
             
             //Validacion del acceso a datos
             if (expedienteRepositorio.Estatus == Estatus.SIN_RESULTADO)
@@ -61,10 +55,10 @@ namespace PoderJudicial.SIPOH.Negocio
         /// <param name="idJuzgado">Id de Juzgado de Ejecucion</param>
         /// <param name="numeroDeEjecucion">Numero de Ejecucion</param>
         /// <returns></returns>
-        public bool? ValidaAsignacionManualDeNumeroEjecucion(int idJuzgado, string numeroEjecucion)
+        public bool? ValidaAsignacionManualDeNumeroDeEjecucion(int idJuzgado, string numeroEjecucion)
         {
             //Metodo del repositorio que valida que el numero de ejecucion exista ya en la base de datos
-            ejecucionRepositorio.ValidaNumeroEjecucion(idJuzgado, numeroEjecucion);
+            ejecucionRepositorio.ValidaEjecucion(idJuzgado, numeroEjecucion);
 
             if (ejecucionRepositorio.Estatus == Estatus.OK) 
             {
@@ -84,7 +78,7 @@ namespace PoderJudicial.SIPOH.Negocio
                 int numeroConsecutivo = Convert.ToInt32(numeroEjecucion.Split('/')[0]);
                 string anio = Convert.ToString(numeroEjecucion.Split('/')[1]);
 
-                ejecucionRepositorio.ConsultaRengoDeNumeroEjecucion(idJuzgado, anio, out string numeroEjecucionMinimo, out string numeroEjecucionMaximo);
+                ejecucionRepositorio.ConsultaRengoDeNumerosDeEjecucion(idJuzgado, anio, out string numeroEjecucionMinimo, out string numeroEjecucionMaximo);
 
                 if (ejecucionRepositorio.Estatus == Estatus.ERROR)
                 {

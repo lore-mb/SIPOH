@@ -8,8 +8,8 @@
         <div class="card shadow-sm  col-sm-12">
 
             <div class="card-header">
-                <h6 class="card-title">
-                    Registro de Consignación Historica
+                <h6 class="card-title" id="titulo">
+                    Registro de Consignación Historica de Ejecución
                 </h6>
             </div>
 
@@ -21,16 +21,13 @@
                 @Html.Hidden("IdOtroSolicitanteHDN", (int)ViewBag.IdOtroSolicitante)
 
                 <!-- Busqueda de Cuasas Acusatorio y tradicional -->
-                @Html.Partial("_ParcialBuscadorCausas")
+                <div id="contenedorBusquedaCausa">
+                    @Html.Partial("_ParcialBuscadorCausas")
+                </div>
 
-                <div class="separator-solid"></div>
-
-                <!-- Formularios para agregar tocas y amparos a la Consignacion Historica -->
-                @Html.Partial("_ParcialAgregaTocasAmparos")
-
-                <!-- Contenedor del Beneficiario-->
-                @Html.Partial("_ParcialContenedorBeneficiario")
-
+                <div id="contenedorTocasBeneficiario">
+                   @Html.Partial("_ParcialContenedorBeneficiario")
+                </div>
             </div>
         </div>
     </div>

@@ -41,7 +41,7 @@ namespace PoderJudicial.SIPOH.Negocio
 
         public List<Expediente> ObtenerExpedientesRelacionadoEjecucion(int IdExpediente)
         {
-            List<Expediente> ExpedienteListado = expedienteRepositorio.ConsultaExpedientes(IdExpediente);
+            List<Expediente> ExpedienteListado = expedienteRepositorio.ConsultaCausas(IdExpediente);
 
             if (expedienteRepositorio.Estatus == Estatus.SIN_RESULTADO)
             {

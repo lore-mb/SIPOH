@@ -131,7 +131,7 @@ namespace PoderJudicial.SIPOH.UT.AlbertoUT
         public void ExpedientePorFolio()
         {
             ExpedienteRepository repo = new ExpedienteRepository(cnx);
-            List<Expediente> expedientes = repo.ConsultaExpedientes(86);
+            List<Expediente> expedientes = repo.ConsultaCausas(86);
 
             CatalogosRepository repoCatalogos = new CatalogosRepository(cnx);
             List<Toca> tocas = repoCatalogos.ConsultaTocas(81);
@@ -176,31 +176,31 @@ namespace PoderJudicial.SIPOH.UT.AlbertoUT
             ConsignacionesHistoricasProcessor repoCatalogos = new ConsignacionesHistoricasProcessor(expedienteRepositorio, ejecucionRepositorio);
             string mensaje = string.Empty;
 
-            bool? existe0 = repoCatalogos.ValidaAsignacionManualDeNumeroEjecucion(223, "0091/2013");
+            bool? existe0 = repoCatalogos.ValidaAsignacionManualDeNumeroDeEjecucion(223, "0091/2013");
             mensaje = repoCatalogos.Mensaje;
 
-            bool? existe22 = repoCatalogos.ValidaAsignacionManualDeNumeroEjecucion(223, "0091/2019");
+            bool? existe22 = repoCatalogos.ValidaAsignacionManualDeNumeroDeEjecucion(223, "0091/2019");
             mensaje = repoCatalogos.Mensaje;
 
-            bool? existe6 = repoCatalogos.ValidaAsignacionManualDeNumeroEjecucion(223, "0091/2020");
+            bool? existe6 = repoCatalogos.ValidaAsignacionManualDeNumeroDeEjecucion(223, "0091/2020");
             mensaje = repoCatalogos.Mensaje;
 
-            bool? existe1 = repoCatalogos.ValidaAsignacionManualDeNumeroEjecucion(223, "0110/2020");
+            bool? existe1 = repoCatalogos.ValidaAsignacionManualDeNumeroDeEjecucion(223, "0110/2020");
             mensaje = repoCatalogos.Mensaje;
             
-            bool? existe2 = repoCatalogos.ValidaAsignacionManualDeNumeroEjecucion(223, "0114/2020");
+            bool? existe2 = repoCatalogos.ValidaAsignacionManualDeNumeroDeEjecucion(223, "0114/2020");
             mensaje = repoCatalogos.Mensaje;
             
-            bool? existe3 = repoCatalogos.ValidaAsignacionManualDeNumeroEjecucion(223, "0118/2020");
+            bool? existe3 = repoCatalogos.ValidaAsignacionManualDeNumeroDeEjecucion(223, "0118/2020");
             mensaje = repoCatalogos.Mensaje;
             
-            bool? existe4 = repoCatalogos.ValidaAsignacionManualDeNumeroEjecucion(223, "0120/2020");
+            bool? existe4 = repoCatalogos.ValidaAsignacionManualDeNumeroDeEjecucion(223, "0120/2020");
             mensaje = repoCatalogos.Mensaje;
             
-            bool? existe5 = repoCatalogos.ValidaAsignacionManualDeNumeroEjecucion(223, "0121/2020");
+            bool? existe5 = repoCatalogos.ValidaAsignacionManualDeNumeroDeEjecucion(223, "0121/2020");
             mensaje = repoCatalogos.Mensaje;
 
-            bool? existe7 = repoCatalogos.ValidaAsignacionManualDeNumeroEjecucion(223, "0121/2021");
+            bool? existe7 = repoCatalogos.ValidaAsignacionManualDeNumeroDeEjecucion(223, "0121/2021");
             mensaje = repoCatalogos.Mensaje;
 
         }

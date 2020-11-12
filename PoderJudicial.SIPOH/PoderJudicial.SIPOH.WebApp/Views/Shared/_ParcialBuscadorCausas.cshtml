@@ -1,10 +1,18 @@
 ﻿<ul class="nav nav-pills nav-success" id="pills-tab" role="tablist">
     <li class="nav-sm nav-item">
-        <a class="nav-link active" id="juzgadoA-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true"><i class="icon-office mr-2"></i>Juzgado Acusatorio</a>
+        <a class="nav-link active" id="juzgadoA-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true"><i class="icon-office mr-2"></i>Sistema Acusatorio</a>
     </li>
     <li class="nav-sm nav-item">
-        <a class="nav-link" id="juzgadoT-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false"><i class="icon-library mr-2"></i> Juzgado Tradicional</a>
+        <a class="nav-link" id="juzgadoT-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false"><i class="icon-library mr-2"></i>Sistema Tradicional</a>
     </li>
+
+    @if (ViewBag.EsConsignacionHistorica)
+    {
+        <li class="nav-sm nav-item">
+            <a class="nav-link" id="juzgado-Historico" data-toggle="pill" role="tab" aria-controls="pills-Historico" aria-selected="false"><i class="icon-folder-open mr-2"></i> Consignacion Historica de Causa</a>
+        </li>
+    }
+
 </ul>
 
 <div class="tab-content mt-2 mb-3" id="pills-tabContent">
@@ -49,7 +57,7 @@
                 <div class="col-md-3 form-group">
                     <label for="slcNumero"><strong>Distrito de Procedencia</strong></label>
 
-                    @Html.DropDownList("DistritoPorCircuito", (SelectList)ViewBag.DistritosPorCircuito, "SELECCIONAR OPCIÓN", new { @id = "slctDistrito", @class = "custom-select custom-select-sm", @required = "required" })
+                    @Html.DropDownList("DistritoPorCircuito", (SelectList)ViewBag.DistritosPorCircuito, "SELECCIONAR OPCIÓN", new { @id = "slctDistrito", @class = "custom-select custom-select-sm", @required = "required"})
 
                     <div class="invalid-feedback">
                         <i class="icon-notification"></i> Seleccione un Distrito de Procedencia.
@@ -79,16 +87,24 @@
             </div>
         </form>
     </div>
+
+    @if (ViewBag.EsConsignacionHistorica)
+    {
+    <div class="tab-pane fade" id="pills-Historico" role="tabpanel" aria-labelledby="pills-Historico-tab">
+    @Html.Partial("_ParcialHistoricoCausas")
+    </div>
+    }
+
 </div>
 
 <div class="tab-content">
-    <div class="form-row">
-        <div class="col-12">
-            <h6 class="m-0 font-weight-bold text-success"><i class="icon-table2"></i> Tabla de Causas</h6>
-        </div>
-    </div>
-    <div class="table-responsive">
-        <table id="dataTable" class="table table-hover table-bordered" width="100%">
-        </table>
-    </div>
+   <div class="form-row">
+      <div class="col-12">
+          <h6 class="m-0 font-weight-bold text-success"><i class="icon-table2"></i> Tabla de Causas</h6>
+      </div>
+   </div>
+   <div class="table-responsive">
+      <table id="dataTable" class="table table-hover table-bordered" width="100%">
+      </table>
+   </div>
 </div>

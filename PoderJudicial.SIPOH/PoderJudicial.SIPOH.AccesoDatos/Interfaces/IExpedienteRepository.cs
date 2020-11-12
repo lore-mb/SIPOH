@@ -12,8 +12,8 @@ namespace PoderJudicial.SIPOH.AccesoDatos.Interfaces
     {
         string MensajeError { get; set; }
         Estatus Estatus { get; set; }
-        Expediente ConsultaExpediente(int idJuzgado, string causaNuc, TipoNumeroExpediente expediente);
-        List<Expediente> ConsultaExpedientes(int idEjecucion);
-        void ValidaNumeroCausa(int idJuzgado, string numeroDeCausa, string nuc = null);
+        Expediente ConsultaCausas(int idJuzgado, string causaNuc, TipoNumeroExpediente expediente);
+        List<Expediente> ConsultaCausas(int idEjecucion);
+        void ValidaCausa(int idJuzgado, string numeroDeCausa, string nuc);
     }
 }

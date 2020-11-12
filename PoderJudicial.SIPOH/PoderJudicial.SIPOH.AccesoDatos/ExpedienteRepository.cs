@@ -28,7 +28,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
             IsValidConnection = connection.IsValidConnection;
         }
 
-        public Expediente ConsultaExpediente(int idJuzgado, string numeroExpediente, TipoNumeroExpediente expediente)
+        public Expediente ConsultaCausas(int idJuzgado, string numeroExpediente, TipoNumeroExpediente expediente)
         {
             try
             {
@@ -80,7 +80,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
             }
         }
       
-        public List<Expediente> ConsultaExpedientes(int idEjecucion)
+        public List<Expediente> ConsultaCausas(int idEjecucion)
         {
             try
             {
@@ -120,21 +120,17 @@ namespace PoderJudicial.SIPOH.AccesoDatos
             }
         }
 
-        public void ValidaNumeroCausa(int idJuzgado, string numeroDeCausa, string nuc = null)
+        public void ValidaCausa(int idJuzgado, string numeroDeCausa, string nuc)
         {
             try
             {
                 if (!IsValidConnection)
                     throw new Exception("No se ha creado una conexion valida");
 
-                string storedProcedure = nuc != null ? "sipoh_ConsultarTotalExpedientesPorJuzgadoNUC" : "sipoh_ConsultarTotalExpedientesPorJuzgadoNumeroCausa";
-
-                SqlCommand comando = new SqlCommand(storedProcedure, Cnx);
+                SqlCommand comando = new SqlCommand("sipoh_ConsultarTotalExpedientesPorJuzgadoNUC", Cnx);
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("@idJuzgado", SqlDbType.Int).Value = idJuzgado;
                 comando.Parameters.Add("@numeroCausa", SqlDbType.VarChar).Value = numeroDeCausa;
-
-                if(nuc != null)
                 comando.Parameters.Add("@nuc", SqlDbType.VarChar).Value = nuc;
 
                 //Parametro de Salida
