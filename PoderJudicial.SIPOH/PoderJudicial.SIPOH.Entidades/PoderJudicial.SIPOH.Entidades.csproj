@@ -86,7 +86,7 @@
     <Compile Include="PartesExpediente.cs" />
     <Compile Include="EjecucionPosterior.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Reporte.cs" />
+    <Compile Include="EjecucionCausa.cs" />
     <Compile Include="Solicitante.cs" />
     <Compile Include="Solicitud.cs" />
     <Compile Include="Toca.cs" />

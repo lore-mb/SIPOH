@@ -146,6 +146,12 @@ namespace PoderJudicial.SIPOH.WebApp
             bundles.Add(new ScriptBundle("~/Scripts/Modules/Ejecucion/Busquedas").Include(
                 "~/Scripts/Modules/Ejecucion/Busquedas/Busquedas.js"));
 
+            // Scripts Ejecución - Promociones
+            bundles.Add(new ScriptBundle("~/Scripts/Modules/Ejecucion/Promociones").Include(
+                "~/Scripts/Modules/Ejecucion/Promociones/Promociones.js"));
+            bundles.Add(new ScriptBundle("~/Scripts/Modules/Ejecucion/Promociones/Detalle").Include(
+                "~/Scripts/Modules/Ejecucion/Promociones/Detalle.js"));
+
             // Script Ejecución - Reportes
             bundles.Add(new ScriptBundle("~/Scripts/Modules/Ejecucion/ConsignacionesHistoricas").Include(
                 "~/Scripts/Modules/Ejecucion/Consignaciones/ConsignacionesHistoricas.js"));
@@ -155,14 +161,9 @@ namespace PoderJudicial.SIPOH.WebApp
                 "~/Scripts/Modules/Ejecucion/Reportes/Reportes.js"));
 
             //-------------------------------------//
-            //-- SCRIPTS SUB MODULO PROMOCIONES -- //
+            //------ SCRIPTS MODULO CONTROL ------ //
             //-------------------------------------//
-            
-            bundles.Add(new ScriptBundle("~/Scripts/Modules/Ejecucion/Promociones").Include(
-                "~/Scripts/Modules/Ejecucion/Promociones/Promociones.js"));
 
-            bundles.Add(new ScriptBundle("~/Scripts/Modules/Ejecucion/Promociones/Detalle").Include(
-                "~/Scripts/Modules/Ejecucion/Promociones/Detalle.js"));
         }
     }
 }

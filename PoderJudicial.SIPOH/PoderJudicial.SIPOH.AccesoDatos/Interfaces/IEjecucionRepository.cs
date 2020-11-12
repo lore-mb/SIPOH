@@ -22,7 +22,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos.Interfaces
         void ValidaEjecucion(int idJuzgadoEjecucion, string numeroEjecucion);
         int ? CreaEjecucion(Ejecucion ejecucion, List<int> causas, List<Toca> tocas, List<string> amparos, List<Anexo> anexos, int? idJuzgado, bool circuitoPachuca); 
         int ? CreaEjecucionPosterior(EjecucionPosterior ejecucionPosterior, List<Anexo> anexos);
-        List<Reporte> GenerarReporteRangoFecha(TipoReporteRangoFecha TipoReporte, string FechaInicial, string FechaFinal, int IdJuzgado);
-        List<Reporte> GenerarReportePorDia(TipoReporteDia TipoReporte, string FechaHoy, int IdJuzgado);
+        List<EjecucionCausa> ConsultaInicialesPromocionesDia(Instancia tipoReporte, string fechaHoy, int idJuzgado);
+        List<EjecucionCausa> ConsultaInicialesPromocionesRangoFecha(Instancia tipoReporte, string fechaInicial, string fechaFinal, int idJuzgado);
     }
 }

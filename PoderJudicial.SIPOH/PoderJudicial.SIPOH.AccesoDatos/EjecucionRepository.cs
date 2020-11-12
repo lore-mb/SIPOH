@@ -455,6 +455,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
             }
         }
 
+
         /// <summary>
         /// Valida la existencia de un numero de ejecucion por medio del numero de ejecucion y el IdJuzgado de ejecucion asignado
         /// </summary>
@@ -561,67 +562,13 @@ namespace PoderJudicial.SIPOH.AccesoDatos
         /// <summary>
         /// Metodo de consulta a SIAGA_2020 mediante SP-SQL para obtener los registros pertenecientes al rango de fechas introducidos 
         /// </summary>
-        /// <param name="tipoReporte"> Variable tipo ENUM </param>
-        /// <param name="FechaInicial"></param>
-        /// <param name="FechaFinal"></param>
-        /// <returns> Lista tipo Reportes</returns>
-        public List<Reporte> GenerarReporteRangoFecha(TipoReporteRangoFecha TipoReporte, string FechaInicial, string FechaFinal, int IdJuzgado)
-        {
-
-            try
-            {
-                if (!IsValidConnection)
-                {
-                    throw new Exception("No se ha creado una conexion valida");
-                }
-
-                // Anexar SP Promociones
-                string objetoStoreProcedure = TipoReporte == TipoReporteRangoFecha.INICIAL ? "sipoh_GenerarReporteInicialPorRangoFecha" : "sipoh_GenerarReporteInicialPorRangoFecha";
-
-                SqlCommand Comando = new SqlCommand(objetoStoreProcedure, Cnx);
-                Comando.CommandType = CommandType.StoredProcedure;
-                Comando.Parameters.Add("@FechaInicial", SqlDbType.Date).Value = FechaInicial;
-                Comando.Parameters.Add("@FechaFinal", SqlDbType.Date).Value = FechaFinal;
-                Comando.Parameters.Add("@IdJuzgado", SqlDbType.Int).Value = IdJuzgado;
-                Cnx.Open();
-
-                SqlDataReader sqlRespuesta = Comando.ExecuteReader();
-
-                DataTable Tabla = new DataTable();
-                Tabla.Load(sqlRespuesta);
-
-                List<Reporte> Registros = DataHelper.DataTableToList<Reporte>(Tabla);
-
-                if (Registros.Count > 0)
-                    Estatus = Estatus.OK;
-                else
-                    Estatus = Estatus.SIN_RESULTADO;
-
-                return Registros;
-            }
-            catch (Exception Ex)
-            {
-                MensajeError = Ex.Message;
-                Estatus = Estatus.ERROR;
-                return null;
-            }
-            finally
-            {
-                if (IsValidConnection && Cnx.State == ConnectionState.Open)
-                    Cnx.Close();
-            }
-        }
-
-        /// <summary>
-        /// Metodo de consulta a SIAGA_2020 mediante SP-SQL para obtener los registros pertenecientes al día en que se ejecuta la consulta
-        /// </summary>
         /// <param name="TipoReporte">
         /// Variable tipo ENUM
         /// </param>
         /// <param name="FechaHoy"></param>
         /// <returns>Lista tipo Reportes</returns>
 
-        public List<Reporte> GenerarReportePorDia(TipoReporteDia TipoReporte, string FechaHoy, int IdJuzgado)
+        public List<EjecucionCausa> ConsultaInicialesPromocionesDia(Instancia tipoReporte, string fechaHoy, int idJuzgado)
         {  
             try
             {
@@ -629,13 +576,13 @@ namespace PoderJudicial.SIPOH.AccesoDatos
                 {
                     throw new Exception("No se ha creado una conexion valida");
                 }
-                // Agregar SP para Promociones
-                string StoreProcedure = TipoReporte == TipoReporteDia.INICIAL ? "sipoh_GenerarReporteInicialPorDia" : "sipoh_GenerarReporteInicialPorDia";
+
+                string StoreProcedure = tipoReporte == Instancia.INICIAL ? "sipoh_ConsultarInicialesPorDia" : "sipoh_ConsultarPromocionesPorDia";
 
                 SqlCommand Comando = new SqlCommand(StoreProcedure, Cnx);
                 Comando.CommandType = CommandType.StoredProcedure;
-                Comando.Parameters.Add("@FechaHoy", SqlDbType.Date).Value = FechaHoy;
-                Comando.Parameters.Add("@IdJuzgado", SqlDbType.Int).Value = IdJuzgado;
+                Comando.Parameters.Add("@FechaHoy", SqlDbType.Date).Value = fechaHoy;
+                Comando.Parameters.Add("@IdJuzgado", SqlDbType.Int).Value = idJuzgado;
                 Cnx.Open();
 
                 SqlDataReader sqlRespuesta = Comando.ExecuteReader();
@@ -643,7 +590,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
                 DataTable Tabla = new DataTable();
                 Tabla.Load(sqlRespuesta);
 
-                List<Reporte> Registros = DataHelper.DataTableToList<Reporte>(Tabla);
+                List<EjecucionCausa> Registros = DataHelper.DataTableToList<EjecucionCausa>(Tabla);
 
                 if (Registros.Count > 0)
                     Estatus = Estatus.OK;
@@ -664,6 +611,59 @@ namespace PoderJudicial.SIPOH.AccesoDatos
                     Cnx.Close();
             }
 
+        }
+
+
+        /// <summary>
+        /// Metodo de consulta a SIAGA_2020 mediante SP-SQL para obtener listado de registros pertenecientes al rango de fechas introducidos.
+        /// </summary>
+        /// <param name="tipoReporte"> Variable tipo ENUM </param>
+        /// <param name="FechaInicial"></param>
+        /// <param name="FechaFinal"></param>
+        /// <returns> Lista tipo Reportes</returns>
+        public List<EjecucionCausa> ConsultaInicialesPromocionesRangoFecha(Instancia tipoReporte, string fechaInicial, string fechaFinal, int idJuzgado)
+        {
+            try
+            {
+                if (!IsValidConnection)
+                {
+                    throw new Exception("No se ha creado una conexion valida");
+                }
+
+                string objetoStoreProcedure = tipoReporte == Instancia.INICIAL ? "sipoh_ConsultarInicialesPorRangoFecha" : "sipoh_ConsultarPromocionesPorRangoFecha";
+
+                SqlCommand Comando = new SqlCommand(objetoStoreProcedure, Cnx);
+                Comando.CommandType = CommandType.StoredProcedure;
+                Comando.Parameters.Add("@FechaInicial", SqlDbType.Date).Value = fechaInicial;
+                Comando.Parameters.Add("@FechaFinal", SqlDbType.Date).Value = fechaFinal;
+                Comando.Parameters.Add("@IdJuzgado", SqlDbType.Int).Value = idJuzgado;
+                Cnx.Open();
+
+                SqlDataReader sqlRespuesta = Comando.ExecuteReader();
+
+                DataTable Tabla = new DataTable();
+                Tabla.Load(sqlRespuesta);
+
+                List<EjecucionCausa> Registros = DataHelper.DataTableToList<EjecucionCausa>(Tabla);
+
+                if (Registros.Count > 0)
+                    Estatus = Estatus.OK;
+                else
+                    Estatus = Estatus.SIN_RESULTADO;
+
+                return Registros;
+            }
+            catch (Exception Ex)
+            {
+                MensajeError = Ex.Message;
+                Estatus = Estatus.ERROR;
+                return null;
+            }
+            finally
+            {
+                if (IsValidConnection && Cnx.State == ConnectionState.Open)
+                    Cnx.Close();
+            }
         }
 
         #endregion

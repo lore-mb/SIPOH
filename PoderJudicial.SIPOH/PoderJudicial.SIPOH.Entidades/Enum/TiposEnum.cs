@@ -64,16 +64,4 @@ namespace PoderJudicial.SIPOH.Entidades.Enum
        PROMOCION = 2
     }
 
-    public enum TipoReporteDia
-    { 
-      INICIAL = 0,
-      PROMOCION = 1
-    }
-
-    public enum TipoReporteRangoFecha
-    { 
-    INICIAL = 0,
-    PROMOCION = 1
-    }
-
 }

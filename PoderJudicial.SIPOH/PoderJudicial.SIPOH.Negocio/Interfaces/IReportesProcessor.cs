@@ -12,8 +12,8 @@ namespace PoderJudicial.SIPOH.Negocio.Interfaces
 
         #region Metodos
         List<Juzgado> ObtenerJuzgadoPorCircuito(int IdCircuito);
-        List<Reporte> RegistrosReportePorRangoFecha(TipoReporteRangoFecha TipoReporte, string FechaInicial, string FechaFinal, int IdJuzgado);
-        List<Reporte> RegistrosReportePorDia(TipoReporteDia TipoReporte, string FechaHoy, int IdJuzgado);
+        List<EjecucionCausa> ListaInicialesPromocionesPorDia(Instancia tipoReporte, string fechaHoy, int idJuzgado);
+        List<EjecucionCausa> ListaInicialesPromocionesPorRangoFecha(Instancia tipoReporte, string fechaInicial, string fechaFinal, int idJuzgado);
         #endregion
     }
 }

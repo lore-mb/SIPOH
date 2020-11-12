@@ -28,7 +28,7 @@ namespace PoderJudicial.SIPOH.UT.IgmaUT
         public void ConsultaInicialPorRangoFechas() 
         {
             EjecucionRepository TestEjecucionRepo = new EjecucionRepository(Connection);
-            List<Reporte> Registros = TestEjecucionRepo.GenerarReporteRangoFecha(TipoReporteRangoFecha.INICIAL, "2020-01-01", "2020-10-29" , 224);
+            List<EjecucionCausa> Registros = TestEjecucionRepo.GenerarReporteRangoFecha(TipoReporteRangoFecha.INICIAL, "2020-01-01", "2020-10-29" , 224);
         }
 
         [TestMethod]
@@ -36,7 +36,21 @@ namespace PoderJudicial.SIPOH.UT.IgmaUT
         public void ConsultarInicialPorDia() 
         {
             EjecucionRepository TestEjecucionRepo = new EjecucionRepository(Connection);
-            List<Reporte> Registros = TestEjecucionRepo.GenerarReportePorDia(TipoReporteDia.INICIAL, "2020-10-16", 223);
+            List<EjecucionCausa> Registros = TestEjecucionRepo.GenerarReportePorDia(TipoReporteDia.INICIAL, "2020-10-16", 223);
+        }
+
+        [TestMethod]
+        public void CosultarPromocionPorDia() 
+        {
+            EjecucionRepository TestPromocionRepo = new EjecucionRepository(Connection);
+            List<EjecucionCausa> ListaRegistros = TestPromocionRepo.GenerarReportePorDia(TipoReporteDia.PROMOCION, "2020-11-09", 223);
+        }
+
+        [TestMethod]
+        public void CosultarPromocionPorFecha() 
+        {
+            EjecucionRepository TestRepoPromociones = new EjecucionRepository(Connection);
+            List<EjecucionCausa> ListaRegistros = TestRepoPromociones.GenerarReporteRangoFecha(TipoReporteRangoFecha.PROMOCION, "2020-10-01", "2020-11-10", 223);
         }
 
     }

@@ -1,48 +1,43 @@
-﻿$(function () {
+﻿
+$(document).ready(function () {
 
     CargarDatepickers();
+    CargarHoraLocal();
+
+    var ViewBagText = $("#valorViewBag").data("value");
+
+    if (ViewBagText != null) {
+        MensajeAlerta("" + ViewBagText, null, "Atención");
+    }
 
 });
 
+function GenerarReporteInicialPorDia() {
+
+    var fechaInput = $("#inpFechaHoy").val();
+    var idJuzgadoPickList = $("#slctJuzgadoPorCircuitoDia").val();
+    var tipoBusqueda = $('#slcFormatoReporte').val();
+
+    window.location.href = '/Reportes/FormatoReportePorDia/?FechaHoy=' + fechaInput +
+        '&IdJuzgado=' + idJuzgadoPickList +
+        '&TipoBusqueda=' + tipoBusqueda;
+}
 
 function GenerarReporteInicialPorRangoFecha() {
-
-    $("#loading").fadeIn();
 
     var IdJuzgadoPickList = $("#slctJuzgadoPorCircuito").val();
     var FechaInicialDatePicker = $("#datetimepickerFechaInicial").val();
     var FechaFinalDatePicker = $("#datetimepickerFechaFinal").val();
+    var TipoBusqueda = $('#slcFormatoReporteFecha').val();
 
-    // Direcciona al metodo del controlador
-    window.location.href = '/Reportes/ReporteInicialesPorFecha/?FechaInicial=' + FechaInicialDatePicker + '&FechaFinal=' + FechaFinalDatePicker + '&IdJuzgado=' + IdJuzgadoPickList;
-
-    $("#loading").fadeOut();
-}
-
-
-function GenerarReporteInicialPorDia() {
-
-    $("#loading").fadeIn();
-
-    // Obtiene Fecha Local
-    var Fecha = new Date();
-    var Mes = Fecha.getMonth() + 1;
-    var Dia = Fecha.getDate();
-    var output = Fecha.getFullYear() + '-' +
-        (Mes < 10 ? '0' : '') + Mes + '-' +
-        (Dia < 10 ? '0' : '') + Dia;
-
-    var IdJuzgadoPickList = $("#slctJuzgadoPorCircuitoDia").val();
-
-    // Direcciona al metodo del controlador
-    window.location.href = '/Reportes/ReporteInicialesDeHoy/?FechaHoy=' + output + '&IdJuzgado=' + IdJuzgadoPickList;
-
-    $("#loading").fadeOut();
+    window.location.href = '/Reportes/FormatoReportePorRangoFecha/?FechaInicial=' + FechaInicialDatePicker +
+        '&FechaFinal=' + FechaFinalDatePicker +
+        '&IdJuzgado=' + IdJuzgadoPickList +
+        '&TipoBusqueda=' + TipoBusqueda;
 }
 
 function CargarDatepickers()
 {
-    //  Iniciales - Rango Fechas 
     $('#datetimepickerFechaInicial').datetimepicker({
         format: 'YYYY-MM-DD'
     });
@@ -57,8 +52,18 @@ function CargarDatepickers()
         $('#datetimepickerFechaInicial').data("DateTimePicker").maxDate(e.date);
     });
 
-    // Promociones - Rango Fecha
+}
 
+function CargarHoraLocal()
+{
+    var Fecha = new Date();
+    var Mes = Fecha.getMonth() + 1;
+    var Dia = Fecha.getDate();
+    var SalidaFormatoFecha = Fecha.getFullYear() + '-' +
+        (Mes < 10 ? '0' : '') + Mes + '-' +
+        (Dia < 10 ? '0' : '') + Dia;
+
+    $('#inpFechaHoy').val(SalidaFormatoFecha);
 }
 
 var forms = document.getElementsByClassName('needs-validation');
@@ -79,3 +84,17 @@ Array.prototype.filter.call(forms, function (form) {
     }, false);
 });
 
+function MensajeAlerta(mensaje, tamanio, titulo) {
+    bootbox.alert({
+        title: "<h3>" + titulo + "</h3>",
+        message: mensaje,
+        buttons:
+        {
+            ok: {
+                label: '<i class="fa fa-check"></i> Aceptar',
+                className: 'btn btn-outline-danger'
+            }
+        },
+        size: tamanio
+    });
+}
