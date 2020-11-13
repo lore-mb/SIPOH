@@ -749,7 +749,7 @@ function ListarCausas(respuesta)
             var etiqueta = causaNucSelect != 2 ? "El Numero de Causa" : "El NUC";
             etiqueta = !EsTradicional ? etiqueta : "El Numero de Causa";
 
-            var mensaje = "Mensaje: " + respuesta.Mensaje + ". <br><br>" + etiqueta + " <b>" + causaNuc + "</b> ingresado no se encuentra asignado en el <b>" + juzgadoNombre + "</b>, si necesita crear el rigistro de consignacion historica del numero de causa, precione <b>Aceptar</b>";
+            var mensaje = "Mensaje: " + respuesta.Mensaje + ". <br><br>" + etiqueta + " <b>" + causaNuc + "</b> ingresado no se encuentra asignado en el <b>" + juzgadoNombre + "</b>, si necesita crear el rigistro de consignacion historica del numero de causa, presione <b>Aceptar</b>";
             MensajeDeConfirmacion(mensaje, "large", funcionAceptar, funcionCancelar);
         }
     }

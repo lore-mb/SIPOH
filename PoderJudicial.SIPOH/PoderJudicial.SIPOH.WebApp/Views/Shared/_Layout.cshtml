@@ -208,9 +208,9 @@
                                     </div>
                                 </li>
                                 <li>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">Mi Perfil</a>
-                                    <a class="dropdown-item" href="#">Mensajes</a>
+                                    @*<div class="dropdown-divider"></div>*@
+                                    @*<a class="dropdown-item" href="#">Mi Perfil</a>*@
+                                    @*<a class="dropdown-item" href="#">Mensajes</a>*@
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="#">Ajustes de Perfil</a>
                                     <div class="dropdown-divider"></div>
@@ -244,7 +244,7 @@
                                 </span>
                             </a>
 
-                            <div class="collapse in" id="collapseExample">
+                            <div class="collapse show" id="collapseExample">
                                 <ul class="nav">
                                     <li class="text-center">
                                         <span class="text-dark">@Usuario.Nombre</span>
@@ -257,8 +257,8 @@
                     <ul class="nav">
                         <li class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")">
                             <a href="@Url.Action("Index", "Home")">
-                                <i class="icon-home"></i>
-                                <p>Panel de Control</p>
+                                <i class="icon-stats-bars"></i>
+                                <p>Estadística</p>
                                 <!--<span class="badge badge-count">5</span>-->
                             </a>
                         </li>
@@ -341,7 +341,7 @@
                               @(ViewContext.RouteData.Values["Controller"].ToString() == "ConsignacionesHistoricas" ? "active submenu" : "")  
                               @(ViewContext.RouteData.Values["Controller"].ToString() == "Reportes" ? "active submenu" : "")">                         
                             <a data-toggle="collapse" href="#submenuEJ">
-                                <i class="icon-books"></i>
+                                <i class="icon-hammer2"></i>
                                 <p>Ejecución</p>
                                 <span class="caret"></span>
                             </a>
@@ -381,7 +381,7 @@
                                 </ul>
                             </div>
                         </li>
-                        <li class="nav-item">
+                        @*<li class="nav-item">
                             <a data-toggle="collapse" href="#submenuJO">
                                 <i class="icon-hammer2"></i>
                                 <p>Juicios Orales</p>
@@ -411,7 +411,7 @@
                                     </li>
                                 </ul>
                             </div>
-                        </li>
+                        </li>*@
 
                         <li class="nav-section">
                             <span class="sidebar-mini-icon">
@@ -483,7 +483,7 @@
                             }
                         </ul>
 
-                        <div class="btn-group btn-group-page-header ml-auto">
+                        @*<div class="btn-group btn-group-page-header ml-auto">
                             <button type="button" class="btn btn-light btn-round btn-page-header-dropdown dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-ellipsis-h"></i>
                             </button>
@@ -495,7 +495,7 @@
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#">Separated link</a>
                             </div>
-                        </div>
+                        </div>*@
                     </div>
 
                     <!-- Lógica para Render Body-->

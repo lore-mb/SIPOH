@@ -84,8 +84,25 @@ function AgregaCausaAlFormulario(respuesta)
 
         if (existe)
         {
-            var tipo = IngresaCausaManual ? "La Causa ya se encuentra asignada en el juzgado morocho" : "El NUC ya se encuentra asignado al juzgado morocho";
-            alert(tipo)
+            var funcion = function ()
+            {
+                var elementoIput = IngresaCausaManual ? "inpCausaAcusatorioHistoricoCausa" : "inpNucHistoricoCausa";
+                LimpiaValidacion("formBuscaAcusatorioHistoricoCausa", elementoIput);
+            }
+
+            var juzgadoNombre = $("#slctJuzgadoHistoricoCausa").find('option:selected').text();
+            var nucCausa = IngresaCausaManual ? $("#inpCausaAcusatorioHistoricoCausa").val() : $("#inpNucHistoricoCausa").val();
+            var mensaje = IngresaCausaManual ? "El Número de Causa <b>" + nucCausa + "</b> ya se encuentra asignado en el <b>" + juzgadoNombre + "</b>" : "El NUC <b>" + nucCausa + "</b> ya se encuentra asignado en el <b>" + juzgadoNombre + "</b>";
+
+            AlertaCallback(mensaje, funcion, "large");
+            return;
+        }
+        else
+        {
+            var funcion = function ()
+            {
+
+            }
         }
     }
     else if (respuesta.Estatus == EstatusRespuesta.ERROR)
