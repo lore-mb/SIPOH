@@ -15,7 +15,7 @@
                             <div class="form-row">
                                 <div class="col-md-8 form-group">
                                     <label for="validationCustom01"><strong>Nombre de Juzgado</strong></label>
-                                    @Html.DropDownList("SelectJuzgadoPorCircuito", new SelectList(ViewBag.JuzgadoCircuito, "IdJuzgado", "Nombre"), "SELECCIONAR OPCIÓN", new { @id = "slctJuzgadoPorCircuito", @class = "custom-select form-control resultOK", @required = "required" })
+                                    @Html.DropDownList("SelectJuzgadoPorCircuito", new SelectList(ViewBag.JuzgadoCircuito, "IdJuzgado", "Nombre"), "SELECCIONAR OPCIÓN", new { @id = "slctJuzgadoPorCircuito", @class = "custom-select custom-select-sm resultOK", @required = "required" })
                                     <div class="valid-feedback">
                                         <i class="icon-checkmark"></i> Juzgado Seleccionado
                                     </div>
@@ -26,7 +26,7 @@
                                 <div class="col-md-4 form-group">
                                     <label for="validationCustomUsername"><strong>Numero de Ejecución</strong></label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control mr-2 resultOK clean" id="inpNumeroEjecucion" aria-describedby="inputGroupPrepend" required>
+                                        <input type="text" class="form-control form-control-sm mr-2 resultOK clean" id="inpNumeroEjecucion" aria-describedby="inputGroupPrepend" required>
                                         <button class="btn btn-success mr-2 resultOK" type="submit" id="btnConsultarPromocion" data-toggle="tooltip" data-placement="top" title="Consultar"><i class="icon-search"></i></button>
                                         <button class="btn btn-danger disoff" id="btnNuevaConsultaPromocion" data-toggle="tooltip" data-placement="top" title="Nueva Consulta" disabled><i class="fas fa-eraser"></i></button>
                                         <div class="valid-feedback">
@@ -100,7 +100,7 @@
                             <div class="col-md-4 form-group">
                                 <label for="validationCustom02"><strong>Promovente Nombre (s)</strong></label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control mr-2 clean" id="inpNombrePromovente" placeholder="" required>
+                                    <input type="text" class="form-control form-control-sm mr-2 clean" id="inpNombrePromovente" placeholder="" required>
                                     <div class="invalid-feedback">
                                         <i class="icon-cancel-circle"></i> Por favor, introdusca nombre de promovente.
                                     </div>
@@ -113,7 +113,7 @@
                                 <label for="validationCustom02"><strong>Apellido Paterno</strong></label>
                                 <div class="input-group">
 
-                                    <input type="text" class="form-control mr-2 clean" id="inpPromoventeAP" placeholder="" required>
+                                    <input type="text" class="form-control form-control-sm mr-2 clean" id="inpPromoventeAP" placeholder="" required>
                                     <div class="invalid-feedback">
                                         <i class="icon-cancel-circle"></i> Por favor, introdusca apellido paterno.
                                     </div>
@@ -125,7 +125,7 @@
                             <div class="col-md-4 form-group">
                                 <label for="validationCustom02"><strong>Apellido Materno</strong></label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control mr-2 clean" id="inpPromoventeMA" placeholder="" required>
+                                    <input type="text" class="form-control form-control-sm mr-2 clean" id="inpPromoventeMA" placeholder="" required>
                                     <div class="invalid-feedback">
                                         <i class="icon-cancel-circle"></i> Por favor, introdusca apellido materno.
                                     </div>
@@ -144,7 +144,7 @@
                         <div class="form-row ">
                             <div class="col-md-5 form-group">
                                 <label for="validationCustom01"><strong>Anexos</strong></label>
-                                @Html.DropDownList("SelectAnexo", new SelectList(ViewBag.AnexoEjec, "IdAnexo", "Descripcion"), "SELECCIONAR OPCION", new { @id = "slctAnexoEjecucion", @class = "custom-select form-control disabled", @required = "required" })
+                                @Html.DropDownList("SelectAnexo", new SelectList(ViewBag.AnexoEjec, "IdAnexo", "Descripcion"), "SELECCIONAR OPCION", new { @id = "slctAnexoEjecucion", @class = "custom-select custom-select-sm disabled", @required = "required" })
                                 <div class="valid-feedback">
                                     <i class="icon-checkmark"></i> Anexo Seleccionado
                                 </div>
@@ -158,7 +158,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="inputGroupPrepend">Descripción</i></span>
                                     </div>
-                                    <input type="text" class="form-control mr-2 clearanexo" id="inpOtroAnexo" placeholder="">
+                                    <input type="text" class="form-control form-control-sm mr-2 clearanexo" id="inpOtroAnexo" placeholder="">
                                     <div class="invalid-feedback">
                                         <i class="icon-cancel-circle"></i> Por favor, introdusca una descripción.
                                     </div>
@@ -170,7 +170,7 @@
                             <div class="col-md-2 form-group">
                                 <label for="inpCantidadAnexos"><strong>Cantidad</strong></label>
                                 <div class="input-group">
-                                    <input type="number" class="form-control mr-2 clean" placeholder="0" id="inpCantidadAnexos" name="quantity" min="0" max="3000" required disabled>
+                                    <input type="number" class="form-control form-control-sm mr-2 clean" placeholder="0" id="inpCantidadAnexos" name="quantity" min="0" max="3000" required disabled>
                                     <button class="btn btn-success mr-2" id="btnAgregarAnexo" type="submit" data-toggle="tooltip" data-placement="top" title="Agregar Anexo" disabled><i class="fas fa-plus-circle"></i></button>
                                     <div class="invalid-feedback">
                                         <i class="icon-cancel-circle"></i> Determine cantidad.
