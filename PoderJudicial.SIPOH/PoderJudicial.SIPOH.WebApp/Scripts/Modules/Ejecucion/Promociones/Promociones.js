@@ -10,15 +10,23 @@ $(document).ready(function () {
     TablaCausas = Consumir_DataTable(TablaCausas, "_TablaCausasEjecucion", Arreglo_TablaCausas, EstructuraTabla_Causas, false, false, false);
     TablaAnexos = Consumir_DataTable(TablaAnexos, "_DataTableAnexos", Arreglo_TablaAnexos, EstructuraTabla_Anexos, false, false, false);
     FuncionalidadesListas();
-
 });
 
 // #endregion 
 
 /* FUNCIONALIDADES DE FORM & DOM */
 
+
 // #region FUNCIONALIDADES AL CARGADO
 function FuncionalidadesListas() {
+
+    // Convierte minusculas a mayusculas
+    $(".UpperCase").on("keypress", function () {
+        $textoInput = $(this);
+        setTimeout(function () {
+            $textoInput.val($textoInput.val().toUpperCase());
+        }, 50);
+    })
 
     // Button Disabled
     $("#btnNuevaConsultaPromocion").prop("disabled", true);
