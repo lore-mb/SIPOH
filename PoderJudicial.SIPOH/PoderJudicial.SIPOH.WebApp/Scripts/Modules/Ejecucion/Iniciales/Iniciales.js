@@ -143,7 +143,19 @@ function ElementosAlCargado()
 
             if (form.checkValidity() === true && id == "formEjecucion")
             {
-                GenerarEjecucion();
+                if (!esConsignacionHistorica)
+                {
+                    GenerarEjecucion();
+                }
+                else
+                {
+                    GenerarHistoricoDeEjecucion();
+                }
+            }
+
+            if (form.checkValidity() === true && id == "frmBusquedaDeNumeroEjecucion")
+            {
+                ValidarExistenciaDeNumeroEjecucion();
             }
 
             if (id == "formEjecucion")
@@ -197,113 +209,104 @@ function ElementosAlCargado()
         }
     });
 
-    $("#botonMostrarBeneficiarios").click(function ()
+    if (!esConsignacionHistorica)
     {
-        var apellidoPBene = $('#inpApellidoPaterno').val();
-        var NombreBene = $('#inpNombreSentenciado').val();
+        $("#botonMostrarBeneficiarios").click(function () {
+            var apellidoPBene = $('#inpApellidoPaterno').val();
+            var NombreBene = $('#inpNombreSentenciado').val();
 
-        if (NombreBene != "" && apellidoPBene != "" && EncontroBeneficiarios)
-        {
-            $('#ejecucionModal').modal('show');
-        }
-    });
+            if (NombreBene != "" && apellidoPBene != "" && EncontroBeneficiarios) {
+                $('#ejecucionModal').modal('show');
+            }
+        });
 
-    $("#botonCheckBeneficiarios").click(function ()
-    {
-        var apellidoPBene = $('#inpApellidoPaterno').val();
-        var NombreBene = $('#inpNombreSentenciado').val();
+        $("#botonCheckBeneficiarios").click(function () {
+            var apellidoPBene = $('#inpApellidoPaterno').val();
+            var NombreBene = $('#inpNombreSentenciado').val();
 
-        if (NombreBene != "" && apellidoPBene != "" && !MostrarSeccionesBeneficiario)
-        {
+            if (NombreBene != "" && apellidoPBene != "" && !MostrarSeccionesBeneficiario) {
+                MostrarSeccionesBeneficiario = true;
+                $("#botonCerrarBeneficiarios").removeClass("btn-secondary");
+                $("#botonCerrarBeneficiarios").addClass("btn-danger")
+                $("#seccionBeneficiario").show();
+                $("#seccionBusquedaAnexos").show();
+                $("#seccionTablaAnexos").show();
+                $("#seccionBotonGuardar").show();
+            }
+        });
+
+        $("#botonCerrarBeneficiarios").click(function () {
+            MostrarSeccionesBeneficiario = false;
+            $("#seccionBeneficiario").hide();
+            $("#seccionBusquedaAnexos").hide();
+            $("#seccionTablaAnexos").hide();
+            $("#seccionBotonGuardar").hide();
+
+            $("#botonCerrarBeneficiarios").removeClass("btn-danger");
+            $("#botonCerrarBeneficiarios").addClass("btn-secondary");
+
+            if (FormEjecucionValidado) {
+                var form = $('#formEjecucion')[0];
+                $(form).removeClass('was-validated');
+                FormEjecucionValidado = false;
+            }
+        });
+
+        $('#inpApellidoPaterno').change(function () {
+            ValidarBeneficiarios();
+        });
+
+        $('#inpNombreSentenciado').change(function () {
+            ValidarBeneficiarios();
+        });
+
+        $('#inpApellidoMaterno').change(function () {
+            ValidarBeneficiarios();
+        });
+
+        $("#btnCancelar").click(function () {
+            $("#ejecucionModal").modal("hide");
+
+            $("#botonCheckBeneficiarios").removeClass("btn-success");
+            $("#botonCheckBeneficiarios").addClass("btn-secondary");
+
+            $("#botonMostrarBeneficiarios").removeClass("btn-warning");
+            $("#botonMostrarBeneficiarios").addClass("btn-secondary");
+
+            Beneficarios = [];
+            $('#inpApellidoPaterno').val("");
+            $('#inpApellidoMaterno').val("");
+            $('#inpNombreSentenciado').val("");
+
+            EncontroBeneficiarios = false;
+            $("#inpBusquedaSentenciado").val("0");
+            $("#inpBusquedaSentenciado").css('border', function () {
+                return '1px solid #b0bec5';
+            });
+
+            $("#seccionBeneficiario").hide();
+            $("#seccionBusquedaAnexos").hide();
+            $("#seccionTablaAnexos").hide();
+            $("#seccionBotonGuardar").hide();
+
+            if (FormEjecucionValidado) {
+                var form = $('#formEjecucion')[0];
+                $(form).removeClass('was-validated');
+                FormEjecucionValidado = false;
+            }
+        });
+
+        $("#btnAceptar").click(function () {
             MostrarSeccionesBeneficiario = true;
+            $("#ejecucionModal").modal("hide");
             $("#botonCerrarBeneficiarios").removeClass("btn-secondary");
             $("#botonCerrarBeneficiarios").addClass("btn-danger")
             $("#seccionBeneficiario").show();
             $("#seccionBusquedaAnexos").show();
             $("#seccionTablaAnexos").show();
             $("#seccionBotonGuardar").show();
-        }
-    });
-
-    $("#botonCerrarBeneficiarios").click(function ()
-    {
-        MostrarSeccionesBeneficiario = false;
-        $("#seccionBeneficiario").hide();
-        $("#seccionBusquedaAnexos").hide();
-        $("#seccionTablaAnexos").hide();
-        $("#seccionBotonGuardar").hide();
-
-        $("#botonCerrarBeneficiarios").removeClass("btn-danger");
-        $("#botonCerrarBeneficiarios").addClass("btn-secondary");
-
-        if (FormEjecucionValidado)
-        {
-            var form = $('#formEjecucion')[0];
-            $(form).removeClass('was-validated');
-            FormEjecucionValidado = false;
-        }
-    });
-
-    $("#btnCancelar").click(function ()
-    {
-        $("#ejecucionModal").modal("hide");
-
-        $("#botonCheckBeneficiarios").removeClass("btn-success");
-        $("#botonCheckBeneficiarios").addClass("btn-secondary");
-
-        $("#botonMostrarBeneficiarios").removeClass("btn-warning");
-        $("#botonMostrarBeneficiarios").addClass("btn-secondary");
-
-        Beneficarios = [];
-        $('#inpApellidoPaterno').val("");
-        $('#inpApellidoMaterno').val("");
-        $('#inpNombreSentenciado').val("");
-
-        EncontroBeneficiarios = false;
-        $("#inpBusquedaSentenciado").val("0");
-        $("#inpBusquedaSentenciado").css('border', function () {
-            return '1px solid #b0bec5';
         });
-
-        $("#seccionBeneficiario").hide();
-        $("#seccionBusquedaAnexos").hide();
-        $("#seccionTablaAnexos").hide();
-        $("#seccionBotonGuardar").hide();
-
-        if (FormEjecucionValidado)
-        {
-            var form = $('#formEjecucion')[0];
-            $(form).removeClass('was-validated');
-            FormEjecucionValidado = false;
-        }
-    });
-
-    $("#btnAceptar").click(function ()
-    {
-        MostrarSeccionesBeneficiario = true;
-        $("#ejecucionModal").modal("hide");
-        $("#botonCerrarBeneficiarios").removeClass("btn-secondary");
-        $("#botonCerrarBeneficiarios").addClass("btn-danger")
-        $("#seccionBeneficiario").show();
-        $("#seccionBusquedaAnexos").show();
-        $("#seccionTablaAnexos").show();
-        $("#seccionBotonGuardar").show();
-    });
-
-    $('#inpApellidoPaterno').change(function ()
-    {
-        ValidarBeneficiarios();
-    });
-
-    $('#inpNombreSentenciado').change(function ()
-    {
-        ValidarBeneficiarios();
-    });
-
-    $('#inpApellidoMaterno').change(function ()
-    {
-        ValidarBeneficiarios();
-    });
+    }
 
     $('#slctSolicitud').change(function ()
     {
@@ -684,6 +687,14 @@ function ListarCausas(respuesta)
                     {
                         $('#contenedorBeneficiario').removeAttr('hidden');
                         $("#contenedorBeneficiario").show();
+
+                        if (esConsignacionHistorica)
+                        {
+                            if ($("#" + ("slctJuzgadoEjecucion")).find('option:selected').val() == "" && $("#inpNumeroEjecucion").val() == "")
+                            {
+                                $("#seccionBusquedaBeneficiario").hide();
+                            }
+                        }
                     }
 
                     expediente.Eliminar = "<button type='button' class='btn btn-link btn-danger btn-sm' onclick='EliminarCausa(" + expediente.IdExpediente + ")' data-toggle='tooltip' title='Quitar Causa'><i class='icon-bin2'></i></button>";
@@ -724,15 +735,18 @@ function ListarCausas(respuesta)
 
         //Obtiene el numero de causa 
         var causaNuc = $("#" + (!EsTradicional ? "Numero" : "inpCAUT")).val();
+        var causaNucSelect = $("#slctNumero").find('option:selected').val();
 
-        if (!esConsignacionHistorica)
+        var etiqueta = causaNucSelect != 2 ? "El Numero de Causa" : "El NUC";
+        etiqueta = !EsTradicional ? etiqueta : "El Numero de Causa";
+
+        if (!esConsignacionHistorica || causaNucSelect == 2)
         {
-            var mensaje = "Mensaje: " + respuesta.Mensaje + " <br><br>El Numero de Causa <b>" + causaNuc + "</b> ingresado no se encuentra asignado en el <b>" + juzgadoNombre + "</b>";
+            var mensaje = "Mensaje: " + respuesta.Mensaje + ". <br><br>" + etiqueta + " <b>" + causaNuc + "</b> ingresado no se encuentra asignado en el <b>" + juzgadoNombre + "</b>";
             Alerta(mensaje, "large");
         }
         else
         {
-            //Accion que se ejecuta cuando el usuario preciona Cancelar
             var funcionCancelar = function ()
             {
                 LimpiaValidacion((!EsTradicional ? "formCausas" : "formCausasTradicional"), (!EsTradicional ? "Numero" : "inpCAUT"));
@@ -743,11 +757,6 @@ function ListarCausas(respuesta)
             {
                 CargaElementosHitoricoCausa();
             }
-
-            var causaNucSelect = $("#slctNumero").find('option:selected').val();
-
-            var etiqueta = causaNucSelect != 2 ? "El Numero de Causa" : "El NUC";
-            etiqueta = !EsTradicional ? etiqueta : "El Numero de Causa";
 
             var mensaje = "Mensaje: " + respuesta.Mensaje + ". <br><br>" + etiqueta + " <b>" + causaNuc + "</b> ingresado no se encuentra asignado en el <b>" + juzgadoNombre + "</b>, si necesita crear el rigistro de consignacion historica del numero de causa, presione <b>Aceptar</b>";
             MensajeDeConfirmacion(mensaje, "large", funcionAceptar, funcionCancelar);

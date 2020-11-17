@@ -1189,7 +1189,7 @@ body {
         float: right;
         padding-left: 15px; }
   .card .separator-solid {
-    border-top: 1px solid #ebecec;
+    border-top: 2px solid #ebecec;
     margin: 15px 0; }
   .card .separator-dashed {
     border-top: 1px dashed #ebecec;

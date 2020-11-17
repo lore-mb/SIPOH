@@ -10,12 +10,21 @@ var IngresaCausaManual = false;
 //Salida : NA
 function ElementosAlCargadoConsignaciones()
 {
+    $('#datetimepickerFechaAcusatorio').datetimepicker({
+        format: 'YYYY-MM-DD'
+    });
+
+    $('#datetimepickerFechaTradicional').datetimepicker({
+        format: 'YYYY-MM-DD'
+    });
+
     $("#juzgado-Historico").prop('disabled', true);
 
     //Agregar formato a NUC Y Causas 
     FormatearInput("#inpCausaAcusatorioHistoricoCausa", "9999/9999", "0000/0000", "[0-9\uFF11-\uFF19]", "/");
     FormatearInput("#inpCausaTradicionalHistoricoCausa", "9999/9999", "0000/0000", "[0-9\uFF11-\uFF19]", "/");
     FormatearInput("#inpNucHistoricoCausa", "99-9999-9999", "0000000000", "[0-9\uFF11-\uFF19]", "-");
+    FormatearInput("#inpNumeroEjecucion", "9999/9999", "0000/0000", "[0-9\uFF11-\uFF19]", "/");
 
     //Funcionalidad al cambio del select #checkSinNuc
     $('#checkSinNuc').change(function ()
@@ -68,7 +77,7 @@ function ValidarQueExisteCausaEnJuzgado()
 
     var nuc = $("#inpNucHistoricoCausa").val();
     var parametros = { idJuzgado: idJuzgado, numeroDeCausa: numeroDeCausa, nuc: nuc }
-    SolicitudEstandarAjax("/ConsignacionesHistoricas/ValidaCausaEnJuzgadoPorNumeroNUC", parametros, AgregaCausaAlFormulario);
+    SolicitudEstandarAjax("/ConsignacionesHistoricas/ValidaNumeroDeCausa", parametros, MuestraFormularioHistoricoCausa);
 }
 
 //Descripcion : Muestra un mensaje al usuario indicado que la causa que intenta anexanar al formulario 
@@ -76,7 +85,7 @@ function ValidarQueExisteCausaEnJuzgado()
 //Parametros de entrada: 
 //<respuesta : Objeto que recibe del metodo del controlador>
 //Salida : NA
-function AgregaCausaAlFormulario(respuesta)
+function MuestraFormularioHistoricoCausa(respuesta)
 {
     if (respuesta.Estatus == EstatusRespuesta.OK)
     {
@@ -135,7 +144,7 @@ function ListarJuzgadoTradicionalFormHistorico(respuesta)
     }
     else if (respuesta.Estatus == EstatusRespuesta.ERROR)
     {
-        var mensaje = "Mensaje : " + data.Mensaje;
+        var mensaje = "Mensaje : " + respuesta.Mensaje;
         Alerta(mensaje, "large", "Error no Controlado por el Sistema");
     }
 }
@@ -245,4 +254,95 @@ function ValidaSeccionDeBeneficiario()
             $("#contenedorBeneficiario").show();
         }
     }
+}
+
+function ValidarExistenciaDeNumeroEjecucion()
+{
+    //Obtiene el valor del numero de Ejecucion
+    var numeroEjecucion = $("#inpNumeroEjecucion").val();
+
+    //Obtiene el año actual 
+    var anioActual = new Date().getFullYear();
+    var anioCausa = numeroEjecucion.substr(5, 4);
+
+    if (anioCausa > anioActual)
+    {
+        var funcion = function ()
+        {
+            var form = $('#frmBusquedaDeNumeroEjecucion')[0];
+            $(form).removeClass('was-validated');
+            $("#inpNumeroEjecucion").val("");
+        }
+
+        AlertaCallback("El Numero de Ejecución que intenta ingresar es mayor al año actual", funcion, "large");
+        return;
+    }
+
+    $("#loading").fadeIn();
+
+    var idJuzgadoEjecucion = $("#" + ("slctJuzgadoEjecucion")).find('option:selected').val(); 
+    var parametros = { idJuzgadoEjecucion: idJuzgadoEjecucion, numeroEjecucion: numeroEjecucion }
+
+    SolicitudEstandarAjax("/ConsignacionesHistoricas/ValidaNumeroDeEjecucion", parametros, MostrarFormularioBeneficiarios);
+}
+
+function MostrarFormularioBeneficiarios(respuesta)
+{
+    $("#loading").fadeOut();
+
+    if (respuesta.Estatus == EstatusRespuesta.OK)
+    {
+        var disponible = respuesta.Data;
+
+        if (!disponible)
+        {
+            var funcion = function ()
+            {
+                var form = $('#frmBusquedaDeNumeroEjecucion')[0];
+                $(form).removeClass('was-validated');
+                $("#inpNumeroEjecucion").val("");
+            }
+
+            var mensaje = "Mensaje : " + respuesta.Mensaje;
+            AlertaCallback(mensaje, funcion, "large");
+        }
+        else
+        {
+            var funcion = function ()
+            {
+                $("#slctJuzgadoEjecucion").prop('disabled', true);
+                $("#inpNumeroEjecucion").prop('disabled', true);
+                $("#btnConsultarEjecucion").prop('disabled', true);
+                $('#seccionBusquedaBeneficiario').show();
+                $('#seccionBeneficiario').show(); 
+                $('#seccionBusquedaAnexos').show();
+                $('#seccionTablaAnexos').show();
+                $('#seccionBotonGuardar').show();
+            }
+
+            var mensaje = "Mensaje : " + respuesta.Mensaje + ".<br><br> ¿Desea continuar con el registro?";
+            MensajeDeConfirmacion(mensaje, "large", funcion);
+        }
+    }
+    else if (respuesta.Estatus == EstatusRespuesta.ERROR)
+    {
+        alert("Error");
+    }
+}
+
+function GenerarHistoricoDeEjecucion()
+{
+    alert("Se crea historico de ejecucion");
+}
+
+function DeshabilitarNumeroEjecucion()
+{
+    $("#slctJuzgadoEjecucion").prop('disabled', false);
+    $("#inpNumeroEjecucion").prop('disabled', false);
+    $("#btnConsultarEjecucion").prop('disabled', false);
+    $('#seccionBusquedaBeneficiario').hide();
+    $('#seccionBeneficiario').hide();
+    $('#seccionBusquedaAnexos').hide();
+    $('#seccionTablaAnexos').hide();
+    $('#seccionBotonGuardar').hide(); 
 }

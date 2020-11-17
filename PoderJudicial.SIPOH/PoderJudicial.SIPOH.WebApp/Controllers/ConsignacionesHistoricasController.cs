@@ -6,6 +6,7 @@ using PoderJudicial.SIPOH.WebApp.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Web.Mvc;
 
 namespace PoderJudicial.SIPOH.WebApp.Controllers
@@ -42,6 +43,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 List<Anexo> anexosEjecucion = catalogosProcessor.ObtieneAnexosPorTipo("A");
                 List<Solicitud> solicitudes = catalogosProcessor.ObtieneSolicitudes();
                 List<Solicitante> solicitantes = catalogosProcessor.ObtieneSolicitantes();
+                List<Juzgado> juzgadosEjecucion = catalogosProcessor.ObtieneJuzgadosPorCircuito(Usuario.IdCircuito);
 
                 //Obtiene los Ids del tipo "OTRO" para la validacion de Pick List
                 int idOtroAnexos = anexosEjecucion.Where(x => x.Tipo == "O").Select(x => x.IdAnexo).FirstOrDefault();
@@ -57,6 +59,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 ViewBag.AnexosInicales = ViewHelper.CreateSelectList(anexosEjecucion, "IdAnexo", "Descripcion");
                 ViewBag.Solicitudes = ViewHelper.CreateSelectList(solicitudes, "IdSolicitud", "Descripcion");
                 ViewBag.Solicitantes = ViewHelper.CreateSelectList(solicitantes, "IdSolicitante", "Descripcion");
+                ViewBag.JuzgadosEjecucion = ViewHelper.CreateSelectList(juzgadosEjecucion, "IdJuzgado", "Nombre");
 
                 //Campos Banderas para validacio de "OTROS" de PickList
                 ViewBag.IdOtroAnexos = idOtroAnexos;
@@ -106,7 +109,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         /// <param name="numeroDeCausa">Numero unico de caso de la causa</param>
         /// <returns>Retorna JSON Respuesta</returns>
         [HttpGet]
-        public ActionResult ValidaCausaEnJuzgadoPorNumeroNUC(int idJuzgado, string numeroDeCausa, string nuc)
+        public ActionResult ValidaNumeroDeCausa(int idJuzgado, string numeroDeCausa, string nuc)
         {
             try
             {
@@ -124,6 +127,37 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 Respuesta.Data = existe;
                 Respuesta.Mensaje = consignacionesProcessor.Mensaje;
 
+                return Json(Respuesta, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
+                Respuesta.Mensaje = "Ocurrio un error interno no controlado por el sistema, intente de nuevo o consulte a soporte";
+
+                return Json(Respuesta, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult ValidaNumeroDeEjecucion(int idJuzgadoEjecucion, string numeroEjecucion) 
+        {
+            try
+            {
+                bool? disponible = consignacionesProcessor.ValidaAsignacionManualDeNumeroDeEjecucion(idJuzgadoEjecucion, numeroEjecucion);
+
+                if (disponible == null)
+                {
+                    Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
+                }
+                else
+                {
+                    Respuesta.Estatus = EstatusRespuestaJSON.OK;
+                }
+
+                Respuesta.Data = disponible;
+                Respuesta.Mensaje = consignacionesProcessor.Mensaje;
+
+                Thread.Sleep(500);
                 return Json(Respuesta, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

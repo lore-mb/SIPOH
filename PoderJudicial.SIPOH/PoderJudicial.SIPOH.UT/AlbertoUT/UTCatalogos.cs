@@ -200,6 +200,9 @@ namespace PoderJudicial.SIPOH.UT.AlbertoUT
             bool? existe5 = repoCatalogos.ValidaAsignacionManualDeNumeroDeEjecucion(223, "0121/2020");
             mensaje = repoCatalogos.Mensaje;
 
+            bool? existe8 = repoCatalogos.ValidaAsignacionManualDeNumeroDeEjecucion(223, "0127/2020");
+            mensaje = repoCatalogos.Mensaje;
+
             bool? existe7 = repoCatalogos.ValidaAsignacionManualDeNumeroDeEjecucion(223, "0121/2021");
             mensaje = repoCatalogos.Mensaje;
 

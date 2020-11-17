@@ -62,7 +62,7 @@ namespace PoderJudicial.SIPOH.Negocio
 
             if (ejecucionRepositorio.Estatus == Estatus.OK) 
             {
-                Mensaje = string.Format("El numero de Ejecucion {0} asignado ya existe en el juzgado seleccionado", numeroEjecucion);
+                Mensaje = string.Format("El numero de Ejecucion <b>{0}</b> asignado ya existe en el juzgado seleccionado", numeroEjecucion);
                 return false;
             }
             else if (ejecucionRepositorio.Estatus == Estatus.ERROR) 
@@ -95,17 +95,17 @@ namespace PoderJudicial.SIPOH.Negocio
 
                     if (numeroConsecutivo < numeroConsecutivoMinimo)
                     {
-                        Mensaje = string.Format("El Número de Ejecución {0} ingresado se encuentra disponible para el registro de Consignacion Historica", numeroEjecucion);
+                        Mensaje = string.Format("El Número de Ejecución <b>{0}</b> ingresado se encuentra disponible para el registro de Consignacion Historica", numeroEjecucion);
                         return true;
                     }
 
                     if (numeroConsecutivo > numeroConsecutivoMaximo)
                     {
-                        Mensaje = string.Format("El consecutivo del Número de Ejecución {0} no puede ser mayor o igual al ultimo Numero de Ejecucion generado", numeroEjecucion);
+                        Mensaje = string.Format("El consecutivo del Número de Ejecución <b>{0}</b> no puede ser mayor o igual al ultimo Numero de Ejecucion generado", numeroEjecucion);
                         return false;
                     }
 
-                    Mensaje = string.Format("El consecutivo del Número de Ejecución {0} ingresado ya se encuentra asignado al juzgado actualmente", numeroEjecucion);
+                    Mensaje = string.Format("El consecutivo del Número de Ejecución <b>{0}</b> ingresado ya se encuentra asignado al juzgado actualmente", numeroEjecucion);
                     return false;
                 }
                 else 
@@ -115,11 +115,11 @@ namespace PoderJudicial.SIPOH.Negocio
 
                     if (anioNumero > anioActual) 
                     {
-                        Mensaje = string.Format("El año del Número de Ejecución {0} ingresado no puede ser mayor al año actual", numeroEjecucion);
+                        Mensaje = string.Format("El año del Número de Ejecución <b>{0}</b> ingresado no puede ser mayor al año actual", numeroEjecucion);
                         return false;
                     }
 
-                    Mensaje = string.Format("El Número de Ejecución {0} ingresado se encuentra disponible para el registro de consignacion historica", numeroEjecucion);
+                    Mensaje = string.Format("El Número de Ejecución <b>{0}</b> ingresado se encuentra disponible para el registro de consignacion historica", numeroEjecucion);
                     return true;
                 }
             }       
