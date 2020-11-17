@@ -21,7 +21,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
 {
     public class ReportesController : BaseController
     {
-        #region Inyección Dependencias 
+        #region Inyección de despendecias y mapeado de clases.
         public readonly IReportesProcessor reportesProcessor;
         private readonly IMapper mapper;
 
@@ -32,20 +32,20 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         }
         #endregion
 
-        #region Metodos publicos
+        #region Metodos publicos.
         public ActionResult Reportes()
         {
             List<Juzgado> ComboListaJuzgadosIniciales = reportesProcessor.ObtenerJuzgadoPorCircuito(Usuario.IdCircuito);
             List<Juzgado> ComboListaJuzgadosPromociones = reportesProcessor.ObtenerJuzgadoPorCircuito(Usuario.IdCircuito);
             ViewBag.ListaCircuitoJuzgadoIniciales = ComboListaJuzgadosIniciales != null ? ComboListaJuzgadosIniciales : new List<Juzgado>();
             ViewBag.ListaCircuitoJuzgadoPromociones = ComboListaJuzgadosPromociones != null ? ComboListaJuzgadosPromociones : new List<Juzgado>();
-           
+
             ViewBag.Mensaje = TempData["Mensaje"];
 
             return View();
         }
 
-        public ActionResult FormatoReportePorDia(string FechaHoy, int IdJuzgado, int TipoBusqueda) 
+        public ActionResult FormatoReportePorDia(string fechaHoy, int idJuzgado, int tipoBusqueda)
         {
             // Guardado Temporal en RAM
             MemoryStream _MemorySt = new MemoryStream();
@@ -106,12 +106,12 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             Image LogoPJ = new Image(ImageDataFactory.Create(LogoPoderJudicial));
             Image LogoCJ = new Image(ImageDataFactory.Create(LogoConsejoJudicatura));
 
-            if (TipoBusqueda == 0)
+            if (tipoBusqueda == 0)
             {
                 string MensajeTituloReporteIniciales = "REPORTE INICIALES DE EJECUCIÓN";
                 _DocumentoReporte.AddEventHandler(PdfDocumentEvent.START_PAGE, new HeaderEventHandler1(LogoPJ, LogoCJ, MensajeTituloReporteIniciales));
             }
-            else 
+            else
             {
                 string MensajeTituloReportePromociones = "REPORTE PROMOCIÓNES DE EJECUCIÓN";
                 _DocumentoReporte.AddEventHandler(PdfDocumentEvent.START_PAGE, new HeaderEventHandler1(LogoPJ, LogoCJ, MensajeTituloReportePromociones));
@@ -126,40 +126,40 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
 
             Table TabEncabezadoRegitros;
 
-            if (TipoBusqueda == 0)
+            if (tipoBusqueda == 0)
                 TabEncabezadoRegitros = new Table(7).UseAllAvailableWidth();
             else
                 TabEncabezadoRegitros = new Table(5).UseAllAvailableWidth();
 
             Table TabTotal = new Table(2).UseAllAvailableWidth();
 
-            List <Juzgado> ListaJuzgadosIniciales = reportesProcessor.ObtenerJuzgadoPorCircuito(Usuario.IdCircuito);
+            List<Juzgado> ListaJuzgadosIniciales = reportesProcessor.ObtenerJuzgadoPorCircuito(Usuario.IdCircuito);
 
             List<EjecucionCausa> ListaRegistros;
 
-            if (TipoBusqueda == 0)
-                ListaRegistros = reportesProcessor.ListaInicialesPromocionesPorDia(Instancia.INICIAL, FechaHoy, IdJuzgado);  
+            if (tipoBusqueda == 0)
+                ListaRegistros = reportesProcessor.ListaInicialesPromocionesPorDia(Instancia.INICIAL, fechaHoy, idJuzgado);
             else
-                ListaRegistros = reportesProcessor.ListaInicialesPromocionesPorDia(Instancia.PROMOCION, FechaHoy, IdJuzgado); 
+                ListaRegistros = reportesProcessor.ListaInicialesPromocionesPorDia(Instancia.PROMOCION, fechaHoy, idJuzgado);
 
-                List<ReporteDTO> ListaRegistrosReporteDTO = mapper.Map<List<EjecucionCausa>, List<ReporteDTO>>(ListaRegistros);
+            List<ReporteDTO> ListaRegistrosReporteDTO = mapper.Map<List<EjecucionCausa>, List<ReporteDTO>>(ListaRegistros);
 
             if (ListaRegistros.Count == 0)
             {
-                if (TipoBusqueda == 0)
+                if (tipoBusqueda == 0)
                     TempData.Add("Mensaje", "No se han dado de alta registros de iniciales en el juzgado seleccionado.");
                 else
                     TempData.Add("Mensaje", "No se han dado de alta registros de promociones en el juzgado seleccionado");
 
                 return RedirectToAction("Reportes");
             }
-            else 
+            else
             {
                 var NombreJuzgadoToCell = "";
 
                 foreach (var ParametroNombreJuzgado in ListaJuzgadosIniciales)
                 {
-                    if (ParametroNombreJuzgado.IdJuzgado == IdJuzgado) 
+                    if (ParametroNombreJuzgado.IdJuzgado == idJuzgado)
                         NombreJuzgadoToCell = ParametroNombreJuzgado.Nombre.ToString();
                 }
 
@@ -167,7 +167,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 Cell CellNombreJuzgadoParametro = new Cell(2, 0).Add(new Paragraph(NombreJuzgadoToCell)).AddStyle(EstiloEncabezadoParametros);
 
                 Cell CellFechaInicial = new Cell(2, 0).Add(new Paragraph("Fecha del día actual")).AddStyle(EstiloEncabezadoRegistros);
-                Cell CellFechaInicialParametro = new Cell(2, 0).Add(new Paragraph(FechaHoy.ToString())).AddStyle(EstiloEncabezadoParametros);
+                Cell CellFechaInicialParametro = new Cell(2, 0).Add(new Paragraph(fechaHoy.ToString())).AddStyle(EstiloEncabezadoParametros);
 
                 Cell CellTextoTotal = new Cell();
 
@@ -176,7 +176,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                     Cell CellContenidoEncabezado = new Cell(1, 1).Add(new Paragraph("No. Ejecución")).AddStyle(EstiloEncabezadoRegistros);
                     TabEncabezadoRegitros.AddCell(CellContenidoEncabezado);
 
-                    if (TipoBusqueda == 0)
+                    if (tipoBusqueda == 0)
                     {
                         CellContenidoEncabezado = new Cell(1, 1).Add(new Paragraph("Fecha Ingreso")).AddStyle(EstiloEncabezadoRegistros);
                         TabEncabezadoRegitros.AddCell(CellContenidoEncabezado);
@@ -351,14 +351,14 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 _MemorySt.Write(ByteStream, 0, ByteStream.Length);
                 _MemorySt.Position = 0;
 
-                if (TipoBusqueda == 0)
-                    return File(ByteStream, "application/pdf", "REP_INI_EJEC " + FechaHoy.ToString() + ".pdf");
+                if (tipoBusqueda == 0)
+                    return File(ByteStream, "application/pdf", "REP_INI_EJEC " + fechaHoy.ToString() + ".pdf");
                 else
-                    return File(ByteStream, "application/pdf", "REP_PROM_EJEC " + FechaHoy.ToString() + ".pdf");
+                    return File(ByteStream, "application/pdf", "REP_PROM_EJEC " + fechaHoy.ToString() + ".pdf");
             }
         }
 
-        public ActionResult FormatoReportePorRangoFecha (string FechaInicial, string FechaFinal, int IdJuzgado, int TipoBusqueda) 
+        public ActionResult FormatoReportePorRangoFecha(string fechaInicial, string fechaFinal, int idJuzgado, int tipoBusqueda)
         {
             // Guardado Temporal en RAM
             MemoryStream _MemorySt = new MemoryStream();
@@ -419,7 +419,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             Image LogoPJ = new Image(ImageDataFactory.Create(LogoPoderJudicial));
             Image LogoCJ = new Image(ImageDataFactory.Create(LogoConsejoJudicatura));
 
-            if (TipoBusqueda == 0)
+            if (tipoBusqueda == 0)
             {
                 string MensajeTituloReporteIniciales = "REPORTE INICIALES DE EJECUCIÓN";
                 _DocumentoReporte.AddEventHandler(PdfDocumentEvent.START_PAGE, new HeaderEventHandler1(LogoPJ, LogoCJ, MensajeTituloReporteIniciales));
@@ -439,7 +439,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
 
             Table TabEncabezadoRegitros;
 
-            if (TipoBusqueda == 0)
+            if (tipoBusqueda == 0)
                 TabEncabezadoRegitros = new Table(7).UseAllAvailableWidth();
             else
                 TabEncabezadoRegitros = new Table(5).UseAllAvailableWidth();
@@ -450,30 +450,30 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
 
             List<EjecucionCausa> ListaRegistros;
 
-            if (TipoBusqueda == 0)
-                ListaRegistros = reportesProcessor.ListaInicialesPromocionesPorRangoFecha(Instancia.INICIAL, FechaInicial, FechaFinal, IdJuzgado);
+            if (tipoBusqueda == 0)
+                ListaRegistros = reportesProcessor.ListaInicialesPromocionesPorRangoFecha(Instancia.INICIAL, fechaInicial, fechaFinal, idJuzgado);
             else
-                ListaRegistros = reportesProcessor.ListaInicialesPromocionesPorRangoFecha(Instancia.PROMOCION, FechaInicial, FechaFinal, IdJuzgado);
+                ListaRegistros = reportesProcessor.ListaInicialesPromocionesPorRangoFecha(Instancia.PROMOCION, fechaInicial, fechaFinal, idJuzgado);
 
-            List < ReporteDTO > ListaRegistrosReporteDTO = mapper.Map<List<EjecucionCausa>, List<ReporteDTO>>(ListaRegistros);
+            List<ReporteDTO> ListaRegistrosReporteDTO = mapper.Map<List<EjecucionCausa>, List<ReporteDTO>>(ListaRegistros);
 
 
             if (ListaRegistros.Count == 0)
             {
-                if (TipoBusqueda == 0)
-                    TempData.Add("Mensaje", "No se han dado de alta registros de iniciales en el juzgado seleccionado entre la fecha " + FechaInicial.ToString() + " y " + FechaFinal.ToString() +".");
+                if (tipoBusqueda == 0)
+                    TempData.Add("Mensaje", "No se han dado de alta registros de iniciales en el juzgado seleccionado entre la fecha " + fechaInicial.ToString() + " y " + fechaFinal.ToString() + ".");
                 else
-                    TempData.Add("Mensaje", "No se han dado de alta registros de promociones en el juzgado seleccionado entre la fecha " + FechaInicial.ToString() + " y " + FechaFinal.ToString() + ".");
+                    TempData.Add("Mensaje", "No se han dado de alta registros de promociones en el juzgado seleccionado entre la fecha " + fechaInicial.ToString() + " y " + fechaFinal.ToString() + ".");
 
                 return RedirectToAction("Reportes");
             }
-            else 
+            else
             {
                 var NombreJuzgadoToCell = "";
 
                 foreach (var ParametroNombreJuzgado in ListaJuzgadosIniciales)
                 {
-                    if (ParametroNombreJuzgado.IdJuzgado == IdJuzgado)
+                    if (ParametroNombreJuzgado.IdJuzgado == idJuzgado)
                     {
                         NombreJuzgadoToCell = ParametroNombreJuzgado.Nombre.ToString();
                     }
@@ -483,10 +483,10 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 Cell CellNombreJuzgadoParametro = new Cell(2, 0).Add(new Paragraph(NombreJuzgadoToCell)).AddStyle(EstiloEncabezadoParametros);
 
                 Cell CellFechaInicial = new Cell(2, 0).Add(new Paragraph("Periodo Inicial")).AddStyle(EstiloEncabezadoRegistros);
-                Cell CellFechaInicialParametro = new Cell(2, 0).Add(new Paragraph(FechaInicial.ToString())).AddStyle(EstiloEncabezadoParametros);
+                Cell CellFechaInicialParametro = new Cell(2, 0).Add(new Paragraph(fechaInicial.ToString())).AddStyle(EstiloEncabezadoParametros);
 
                 Cell CellFechaFinal = new Cell(2, 0).Add(new Paragraph("Periodo Final ")).AddStyle(EstiloEncabezadoRegistros);
-                Cell CellFechaFinalParametro = new Cell(2, 0).Add(new Paragraph(FechaFinal.ToString())).AddStyle(EstiloEncabezadoParametros);
+                Cell CellFechaFinalParametro = new Cell(2, 0).Add(new Paragraph(fechaInicial.ToString())).AddStyle(EstiloEncabezadoParametros);
 
                 Cell CellTextoTotal = new Cell();
 
@@ -495,7 +495,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                     Cell CellContenidoEncabezado = new Cell(1, 1).Add(new Paragraph("No. Ejecución")).AddStyle(EstiloEncabezadoRegistros);
                     TabEncabezadoRegitros.AddCell(CellContenidoEncabezado);
 
-                    if (TipoBusqueda == 0)
+                    if (tipoBusqueda == 0)
                     {
                         CellContenidoEncabezado = new Cell(1, 1).Add(new Paragraph("Fecha Ingreso")).AddStyle(EstiloEncabezadoRegistros);
                         TabEncabezadoRegitros.AddCell(CellContenidoEncabezado);
@@ -672,10 +672,10 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 _MemorySt.Write(ByteStream, 0, ByteStream.Length);
                 _MemorySt.Position = 0;
 
-                if (TipoBusqueda == 0)
-                    return File(ByteStream, "application/pdf", "REP_INI_EJEC " + FechaInicial.ToString() + " a " + FechaFinal.ToString() + ".pdf");
+                if (tipoBusqueda == 0)
+                    return File(ByteStream, "application/pdf", "REP_INI_EJEC " + fechaInicial.ToString() + " a " + fechaFinal.ToString() + ".pdf");
                 else
-                    return File(ByteStream, "application/pdf", "REP_PROM_EJEC " + FechaFinal.ToString() + " a " + FechaFinal.ToString() + ".pdf");
+                    return File(ByteStream, "application/pdf", "REP_PROM_EJEC " + fechaInicial.ToString() + " a " + fechaFinal.ToString() + ".pdf");
             }
         }
         public class HeaderEventHandler1 : IEventHandler
@@ -742,28 +742,28 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         }
         #endregion
 
-        #region Metodos Privados
+        #region Metodos Privados.
         private void ValidarJuzgado(List<Juzgado> ListaJuzgados)
         {
-          if (ListaJuzgados == null)
-          {
-             Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
-             Respuesta.Data = null;
-          }
-          else
-          {
-            if (ListaJuzgados.Count > 0)
+            if (ListaJuzgados == null)
             {
-              var ListadoJuzgados = ViewHelper.Options(ListaJuzgados, "IdJuzgado", "Nombre");
-              Respuesta.Estatus = EstatusRespuestaJSON.OK;
-              Respuesta.Data = ListadoJuzgados;
+                Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
+                Respuesta.Data = null;
             }
             else
             {
-              Respuesta.Data = new object();
-              Respuesta.Estatus = EstatusRespuestaJSON.SIN_RESPUESTA;
+                if (ListaJuzgados.Count > 0)
+                {
+                    var ListadoJuzgados = ViewHelper.Options(ListaJuzgados, "IdJuzgado", "Nombre");
+                    Respuesta.Estatus = EstatusRespuestaJSON.OK;
+                    Respuesta.Data = ListadoJuzgados;
+                }
+                else
+                {
+                    Respuesta.Data = new object();
+                    Respuesta.Estatus = EstatusRespuestaJSON.SIN_RESPUESTA;
+                }
             }
-          }
         }
         #endregion
     }

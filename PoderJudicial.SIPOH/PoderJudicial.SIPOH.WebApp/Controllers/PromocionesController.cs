@@ -8,11 +8,11 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using AutoMapper;
 
-
 namespace PoderJudicial.SIPOH.WebApp.Controllers
 {
     public class PromocionesController : BaseController
     {
+        #region Inyección de dependencias y mapeado de clases.
         private readonly IPromocionesProcessor promocionesProcessor;
         private readonly ICatalogosProcessor catalogosProcessor;
         private readonly IMapper mapper;
@@ -23,13 +23,14 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             this.catalogosProcessor = catalogosProcessor;
             this.mapper = mapper;
         }
+        #endregion
 
-        #region Public Methods
+        #region Metodos Publicos.
 
         public ActionResult CrearPromocion()
         {
             List<Anexo> ListarAnexosEjecucion = catalogosProcessor.ObtieneAnexosPorTipo("A");
-            ViewBag.AnexoEjec = ListarAnexosEjecucion != null ? ListarAnexosEjecucion : new List<Anexo>(); 
+            ViewBag.AnexoEjec = ListarAnexosEjecucion != null ? ListarAnexosEjecucion : new List<Anexo>();
 
             List<Juzgado> ListaJuzgadosPick = catalogosProcessor.ObtieneJuzgadosPorCircuito(Usuario.IdCircuito);
             ViewBag.JuzgadoCircuito = ListaJuzgadosPick != null ? ListaJuzgadosPick : new List<Juzgado>();
@@ -38,33 +39,11 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         }
 
         [HttpGet]
-        public ActionResult ObtenerJuzgadoEjecucionPorCircuito(int idcircuito)
+        public ActionResult ObtenerEjecucionPorJuzgado(int juzgado, string noEjecucion)
         {
             try
             {
-                List<Juzgado> ListaJuzgados = catalogosProcessor.ObtieneJuzgadosPorCircuito(idcircuito);
-
-                ValidarJuzgado(ListaJuzgados);
-
-                Respuesta.Mensaje = catalogosProcessor.Mensaje;
-
-                return Json(Respuesta, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
-                Respuesta.Mensaje = ex.Message;
-                Respuesta.Data = null;
-                return Json(Respuesta, JsonRequestBehavior.AllowGet);
-            }
-        }
-
-        [HttpGet]
-        public ActionResult ObtenerEjecucionPorJuzgado(int Juzgado, string NoEjecucion)
-        {
-            try
-            {
-                List<Ejecucion> ListaInformacion = promocionesProcessor.ObtenerEjecucionPorJuzgado(Juzgado, NoEjecucion);
+                List<Ejecucion> ListaInformacion = promocionesProcessor.ObtenerEjecucionPorJuzgado(juzgado, noEjecucion);
 
                 if (ListaInformacion == null)
                 {
@@ -87,7 +66,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 Respuesta.Mensaje = promocionesProcessor.Mensaje;
                 return Json(Respuesta, JsonRequestBehavior.AllowGet);
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
                 Respuesta.Mensaje = ex.Message;
@@ -97,7 +76,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         }
 
         [HttpGet]
-        public ActionResult ObtenerExpedientesPorEjecucion(int idEjecucion) 
+        public ActionResult ObtenerExpedientesPorEjecucion(int idEjecucion)
         {
             try
             {
@@ -144,20 +123,20 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 parametrosPost.IdEjecucionPosterior = 0;
 
                 // Parametros Anexos & Mapeado
-                List<Anexo> parametrosAnexos = mapper.Map<List<AnexosModelView>,List<Anexo>>(Promociones.Anexos);
+                List<Anexo> parametrosAnexos = mapper.Map<List<AnexosModelView>, List<Anexo>>(Promociones.Anexos);
 
                 // Asignamos Parametros a nuestro metodo
-                int? IdEjecucion = promocionesProcessor.GuardarPostEjecucion(parametrosPost, parametrosAnexos);
+                int? IdEjecucion = promocionesProcessor.RegistrarEjecucionPosterior(parametrosPost, parametrosAnexos);
 
-                if (IdEjecucion == null) 
+                if (IdEjecucion == null)
                 {
 
                     Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
                     Respuesta.Mensaje = promocionesProcessor.Mensaje;
                     Respuesta.Data = null;
 
-                } 
-                else if (IdEjecucion != null) 
+                }
+                else if (IdEjecucion != null)
                 {
                     // Generacion de parametros cifrados
                     string Link = ViewHelper.EncodedActionLink("Detalle", "Promociones", new { IdEjecucion = IdEjecucion });
@@ -168,7 +147,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 System.Threading.Thread.Sleep(2000);
                 return Json(Respuesta, JsonRequestBehavior.AllowGet);
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
                 Respuesta.Mensaje = ex.Message;
@@ -179,7 +158,8 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
 
         [HttpGet]
         [EncriptarParametroFilter]
-        public ActionResult Detalle(int IdEjecucion) {
+        public ActionResult Detalle(int IdEjecucion)
+        {
             try
             {
                 //// Este modelo se manda a la vista
@@ -191,13 +171,14 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 List<Relacionadas> ListRelacionadas = new List<Relacionadas>();
 
                 // Acceder al metodo en proccesor y pasar Obtetos como referencia
-                bool RespuestaMetodo = promocionesProcessor.InformacionRegistroPromocion(IdEjecucion, ref ejecucion, ref anexos, ref ListRelacionadas);
+                bool RespuestaMetodo = promocionesProcessor.ObtenerInformacionRegistroEjecucionPosterior(IdEjecucion, ref ejecucion, ref anexos, ref ListRelacionadas);
 
-                if (ejecucion != null) {
+                if (ejecucion != null)
+                {
                     ModeloEjecucionPosterior = mapper.Map<EjecucionPosterior, EjecucionPosteriorModelView>(ejecucion);
                     ModeloEjecucionPosterior.Anexos = mapper.Map<List<Anexo>, List<AnexosModelView>>(anexos);
                 }
-              
+
                 ViewBag.Ejecucion = ListRelacionadas.Contains(Relacionadas.EJECUCION);
                 ViewBag.Anexos = ListRelacionadas.Contains(Relacionadas.ANEXOS);
                 ViewBag.RespuestaMetodo = RespuestaMetodo;
@@ -212,30 +193,32 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 Respuesta.Data = null;
                 return Json(Respuesta, JsonRequestBehavior.AllowGet);
             }
-
         }
 
         #endregion
 
-        #region Private method
-        private void ValidarJuzgado(List<Juzgado> ListaJuzgados) {
+        #region Metodos Privados.
+        private void ValidarJuzgado(List<Juzgado> ListaJuzgados)
+        {
             if (ListaJuzgados == null)
             {
                 Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
                 Respuesta.Data = null;
             }
-            else {
+            else
+            {
                 if (ListaJuzgados.Count > 0)
                 {
                     var ListadoJuzgados = ViewHelper.Options(ListaJuzgados, "IdJuzgado", "Nombre");
                     Respuesta.Estatus = EstatusRespuestaJSON.OK;
                     Respuesta.Data = ListadoJuzgados;
                 }
-                else {
+                else
+                {
                     Respuesta.Data = new object();
                     Respuesta.Estatus = EstatusRespuestaJSON.SIN_RESPUESTA;
                 }
-            } 
+            }
         }
         #endregion
     }

@@ -160,7 +160,6 @@ function ListarInformacionEjecucion(data) {
     }
 }
 
-
 function ConsultarExpedientesRelacionadosEjecucion(idEjecucion) {
     var ObjParametros = { idEjecucion: idEjecucion };
     SolicitudEstandarGetAjax("/Promociones/ObtenerExpedientesPorEjecucion", ObjParametros, ListarExpedientesRelacionadosEjecucion);
