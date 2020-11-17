@@ -19,7 +19,8 @@ namespace PoderJudicial.SIPOH.Negocio
         private readonly IEjecucionRepository ejecucionRepository;
         private readonly IExpedienteRepository expedienteRepository;
 
-        public ReportesProcessor(ICatalogosRepository catalogosRepository, IEjecucionRepository ejecucionRepository, IExpedienteRepository expedienteRepository) {
+        public ReportesProcessor(ICatalogosRepository catalogosRepository, IEjecucionRepository ejecucionRepository, IExpedienteRepository expedienteRepository)
+        {
             this.catalogosRepository = catalogosRepository;
             this.ejecucionRepository = ejecucionRepository;
             this.expedienteRepository = expedienteRepository;
@@ -37,7 +38,8 @@ namespace PoderJudicial.SIPOH.Negocio
             {
                 Mensaje = "No hay respuesta para la solicitud";
             }
-            else if (catalogosRepository.Estatus == Estatus.ERROR) {
+            else if (catalogosRepository.Estatus == Estatus.ERROR)
+            {
                 Mensaje = "Error, la consulta no ha generado ningun resultado";
                 string MensajeLogger = catalogosRepository.MensajeError;
             }
@@ -46,7 +48,7 @@ namespace PoderJudicial.SIPOH.Negocio
 
         public List<EjecucionCausa> ListaInicialesPromocionesPorDia(Instancia tipoReporte, string fechaHoy, int idJuzgado)
         {
-            List<EjecucionCausa> ListaRegistros = ejecucionRepository.ConsultaInicialesPromocionesDia(tipoReporte, fechaHoy, idJuzgado);
+            List<EjecucionCausa> ListaRegistros = ejecucionRepository.ConsultaEjecuciones(tipoReporte, fechaHoy, idJuzgado);
 
             if (ejecucionRepository.Estatus == Estatus.SIN_RESULTADO)
             {
@@ -61,9 +63,9 @@ namespace PoderJudicial.SIPOH.Negocio
             return ListaRegistros;
         }
 
-        public List<EjecucionCausa> ListaInicialesPromocionesPorRangoFecha(Instancia tipoReporte, string fechaInicial, string fechaFinal, int idJuzgado) 
+        public List<EjecucionCausa> ListaInicialesPromocionesPorRangoFecha(Instancia tipoReporte, string fechaInicial, string fechaFinal, int idJuzgado)
         {
-            List<EjecucionCausa> ListaRegistros = ejecucionRepository.ConsultaInicialesPromocionesRangoFecha(tipoReporte, fechaInicial, fechaFinal, idJuzgado);
+            List<EjecucionCausa> ListaRegistros = ejecucionRepository.ConsultaEjecuciones(tipoReporte, fechaInicial, fechaFinal, idJuzgado);
 
             if (ejecucionRepository.Estatus == Estatus.SIN_RESULTADO)
             {

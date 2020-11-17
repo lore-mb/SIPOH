@@ -97,8 +97,8 @@ namespace PoderJudicial.SIPOH.AccesoDatos
             try
             {
                 if (!IsValidConnection)
-                   throw new Exception("No se ha creado una conexion válida");
-                
+                    throw new Exception("No se ha creado una conexion válida");
+
 
                 var storeProcedure = tipoNumeroExpediente == TipoNumeroExpediente.CAUSA ? "sipoh_ConsultarEjecucionPorCausa" : tipoNumeroExpediente == TipoNumeroExpediente.NUC ? "sipoh_ConsultarEjecucionPorNUC" : "sipoh_ConsultarEjecucionPorJuzgado";
 
@@ -106,13 +106,13 @@ namespace PoderJudicial.SIPOH.AccesoDatos
                 comando.CommandType = CommandType.StoredProcedure;
 
                 if (tipoNumeroExpediente == TipoNumeroExpediente.CAUSA)
-                comando.Parameters.Add("@numeroCausa", SqlDbType.VarChar).Value = numeroExpediente;
+                    comando.Parameters.Add("@numeroCausa", SqlDbType.VarChar).Value = numeroExpediente;
 
                 if (tipoNumeroExpediente == TipoNumeroExpediente.NUC)
-                comando.Parameters.Add("@nuc", SqlDbType.VarChar).Value = numeroExpediente;
+                    comando.Parameters.Add("@nuc", SqlDbType.VarChar).Value = numeroExpediente;
 
                 if (tipoNumeroExpediente == TipoNumeroExpediente.EJECUCION)
-                comando.Parameters.Add("@numeroEjecucion", SqlDbType.VarChar).Value = numeroExpediente;
+                    comando.Parameters.Add("@numeroEjecucion", SqlDbType.VarChar).Value = numeroExpediente;
 
                 comando.Parameters.Add("@idJuzgado", SqlDbType.Int).Value = idJuzgado;
 
@@ -160,7 +160,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
         /// <param name="idJuzgado">Contiene el id del juzgado de ejecución asignado al registro de ejecucion creado es de tipo null</param>
         /// <param name="circuitoPachuca">Contiene el id del circuito al que se ara la asignacion</param>
         /// <returns>Id de la Ejecucion</returns>
-        public int ? CreaEjecucion(Ejecucion ejecucion, List<int> causas, List<Toca> tocas, List<string> amparos, List<Anexo> anexos, int ? idJuzgado, bool circuitoPachuca)
+        public int? CreaEjecucion(Ejecucion ejecucion, List<int> causas, List<Toca> tocas, List<string> amparos, List<Anexo> anexos, int? idJuzgado, bool circuitoPachuca)
         {
             try
             {
@@ -180,7 +180,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
                 comando.Parameters.Add("@idUser", SqlDbType.Int).Value = ejecucion.IdUsuario;
                 comando.Parameters.Add("@idUnidad", SqlDbType.Int).Value = idJuzgado;
                 comando.Parameters.Add("@esCircuito", SqlDbType.Bit).Value = circuitoPachuca;
-                
+
                 //Tipos Data Table
                 comando.Parameters.Add("@expedientes", SqlDbType.Structured).Value = CreaCausasType(causas);
                 comando.Parameters.Add("@tocas", SqlDbType.Structured).Value = CreaTocasType(tocas);
@@ -417,7 +417,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
             {
                 if (!IsValidConnection)
                     throw new Exception("No se ha creado una conexion valida");
-                
+
                 SqlCommand comandoSQL = new SqlCommand("sipoh_CrearEjecucionPosterior", Cnx);
                 comandoSQL.CommandType = CommandType.StoredProcedure;
                 comandoSQL.Parameters.Add("@IdEjecucion", SqlDbType.Int).Value = ejecucionPosterior.IdEjecucion;
@@ -451,7 +451,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
             finally
             {
                 if (IsValidConnection && Cnx.State == ConnectionState.Open)
-                   Cnx.Close();
+                    Cnx.Close();
             }
         }
 
@@ -511,7 +511,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
             {
                 if (!IsValidConnection)
                     throw new Exception("No se ha creado una conexion valida");
-              
+
                 SqlCommand comandoSQL = new SqlCommand("sipoh_ConsultarRangoDeNumerosEjecucion", Cnx);
                 comandoSQL.CommandType = CommandType.StoredProcedure;
                 comandoSQL.Parameters.Add("@idJuzgadoEjecucion", SqlDbType.Int).Value = idJuzgadoEjecucion;
@@ -540,9 +540,9 @@ namespace PoderJudicial.SIPOH.AccesoDatos
                 numeroEjecucionMax = Convert.ToString(maximo.Value);
 
                 if (numeroEjecucionMin == string.Empty && numeroEjecucionMax == string.Empty)
-                Estatus = Estatus.SIN_RESULTADO;
+                    Estatus = Estatus.SIN_RESULTADO;
                 else
-                Estatus = Estatus.OK;         
+                    Estatus = Estatus.OK;
             }
             catch (Exception ex)
             {
@@ -568,8 +568,8 @@ namespace PoderJudicial.SIPOH.AccesoDatos
         /// <param name="FechaHoy"></param>
         /// <returns>Lista tipo Reportes</returns>
 
-        public List<EjecucionCausa> ConsultaInicialesPromocionesDia(Instancia tipoReporte, string fechaHoy, int idJuzgado)
-        {  
+        public List<EjecucionCausa> ConsultaEjecuciones(Instancia tipoReporte, string fechaHoy, int idJuzgado)
+        {
             try
             {
                 if (!IsValidConnection)
@@ -605,7 +605,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
                 Estatus = Estatus.ERROR;
                 return null;
             }
-            finally 
+            finally
             {
                 if (IsValidConnection && Cnx.State == ConnectionState.Open)
                     Cnx.Close();
@@ -621,7 +621,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
         /// <param name="FechaInicial"></param>
         /// <param name="FechaFinal"></param>
         /// <returns> Lista tipo Reportes</returns>
-        public List<EjecucionCausa> ConsultaInicialesPromocionesRangoFecha(Instancia tipoReporte, string fechaInicial, string fechaFinal, int idJuzgado)
+        public List<EjecucionCausa> ConsultaEjecuciones(Instancia tipoReporte, string fechaInicial, string fechaFinal, int idJuzgado)
         {
             try
             {

@@ -13,44 +13,46 @@ namespace PoderJudicial.SIPOH.UT.IgmaUT
         ServerConnection Connection = null;
 
         [TestInitialize]
-        public void ConexionPrueba() {
+        public void ConexionPrueba()
+        {
             Connection = ServerConnection.GetConnection();
         }
 
         [TestMethod]
-        public void ObtenerJuzadosPorCircuito() {
+        public void ObtenerJuzadosPorCircuito()
+        {
             CatalogosRepository catalogo = new CatalogosRepository(Connection);
             List<Juzgado> ListaJuzgados = catalogo.ConsultaJuzgados(1, TipoJuzgado.EJECUCION);
         }
 
 
         [TestMethod]
-        public void ConsultaInicialPorRangoFechas() 
+        public void ConsultaInicialPorRangoFechas()
         {
             EjecucionRepository TestEjecucionRepo = new EjecucionRepository(Connection);
-            List<EjecucionCausa> Registros = TestEjecucionRepo.GenerarReporteRangoFecha(TipoReporteRangoFecha.INICIAL, "2020-01-01", "2020-10-29" , 224);
+            List<EjecucionCausa> Registros = TestEjecucionRepo.ConsultaEjecuciones(Instancia.INICIAL, "2020-01-01", "2020-10-29", 224);
         }
 
         [TestMethod]
 
-        public void ConsultarInicialPorDia() 
+        public void ConsultarInicialPorDia()
         {
             EjecucionRepository TestEjecucionRepo = new EjecucionRepository(Connection);
-            List<EjecucionCausa> Registros = TestEjecucionRepo.GenerarReportePorDia(TipoReporteDia.INICIAL, "2020-10-16", 223);
+            List<EjecucionCausa> Registros = TestEjecucionRepo.ConsultaEjecuciones(Instancia.INICIAL, "2020-10-16", 223);
         }
 
         [TestMethod]
-        public void CosultarPromocionPorDia() 
+        public void CosultarPromocionPorDia()
         {
             EjecucionRepository TestPromocionRepo = new EjecucionRepository(Connection);
-            List<EjecucionCausa> ListaRegistros = TestPromocionRepo.GenerarReportePorDia(TipoReporteDia.PROMOCION, "2020-11-09", 223);
+            List<EjecucionCausa> ListaRegistros = TestPromocionRepo.ConsultaEjecuciones(Instancia.PROMOCION, "2020-11-09", 223);
         }
 
         [TestMethod]
-        public void CosultarPromocionPorFecha() 
+        public void CosultarPromocionPorFecha()
         {
             EjecucionRepository TestRepoPromociones = new EjecucionRepository(Connection);
-            List<EjecucionCausa> ListaRegistros = TestRepoPromociones.GenerarReporteRangoFecha(TipoReporteRangoFecha.PROMOCION, "2020-10-01", "2020-11-10", 223);
+            List<EjecucionCausa> ListaRegistros = TestRepoPromociones.ConsultaEjecuciones(Instancia.PROMOCION, "2020-10-01", "2020-11-10", 223);
         }
 
     }
