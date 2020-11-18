@@ -1,13 +1,13 @@
-﻿
-$(document).ready(function () {
+﻿$(document).ready(function () {
 
     CargarDatepickers();
     CargarHoraLocal();
+    ValidarFormularios();
 
     var ViewBagText = $("#valorViewBag").data("value");
 
     if (ViewBagText != null) {
-        MensajeAlerta("" + ViewBagText, null, "Atención");
+        MostrarAlertaError("" + ViewBagText, null, "Atención");
     }
 
 });
@@ -36,8 +36,7 @@ function GenerarReporteInicialPorRangoFecha() {
         '&TipoBusqueda=' + TipoBusqueda;
 }
 
-function CargarDatepickers()
-{
+function CargarDatepickers() {
     $('#datetimepickerFechaInicial').datetimepicker({
         format: 'YYYY-MM-DD'
     });
@@ -54,8 +53,7 @@ function CargarDatepickers()
 
 }
 
-function CargarHoraLocal()
-{
+function CargarHoraLocal() {
     var Fecha = new Date();
     var Mes = Fecha.getMonth() + 1;
     var Dia = Fecha.getDate();
@@ -66,25 +64,25 @@ function CargarHoraLocal()
     $('#inpFechaHoy').val(SalidaFormatoFecha);
 }
 
-var forms = document.getElementsByClassName('needs-validation');
+function ValidarFormularios() {
+    var forms = document.getElementsByClassName('needs-validation');
+    Array.prototype.filter.call(forms, function (form) {
+        form.addEventListener('submit', function (event) {
+            var id = form.id;
+            event.preventDefault();
+            event.stopPropagation();
+            form.classList.add('was-validated');
+            if (form.checkValidity() === true && id == "FrmReporteInicialRangoFechas") {
+                GenerarReporteInicialPorRangoFecha();
+            }
+            if (form.checkValidity() === true && id == "FrmReporteInicialDia") {
+                GenerarReporteInicialPorDia();
+            }
+        }, false);
+    });
+}
 
-Array.prototype.filter.call(forms, function (form) {
-    form.addEventListener('submit', function (event) {
-        var id = form.id;
-        event.preventDefault();
-        event.stopPropagation();
-        form.classList.add('was-validated');
-        if (form.checkValidity() === true && id == "FrmReporteInicialRangoFechas") {
-            GenerarReporteInicialPorRangoFecha();
-        }
-        if (form.checkValidity() === true && id == "FrmReporteInicialDia")
-        {
-            GenerarReporteInicialPorDia();
-        }
-    }, false);
-});
-
-function MensajeAlerta(mensaje, tamanio, titulo) {
+function MostrarAlertaError(mensaje, tamanio, titulo) {
     bootbox.alert({
         title: "<h3>" + titulo + "</h3>",
         message: mensaje,
