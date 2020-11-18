@@ -5,6 +5,15 @@ var TabHistoricoCausa = false;
 var CausaValidada = true;
 var IngresaCausaManual = false;
 
+var DataTableImputados = null;
+var EstructuraTablaImputados = [{ data: 'Nombre', title: 'Nombre o Rezón Social' }, { data: 'Genero', title: 'Genero' }, { data: 'Opciones', title: 'Opciones' }];
+var Imputados = [];
+
+var DataTableOfendidos = null;
+var EstructuraOfendidos = [{ data: 'Nombre', title: 'Nombre o Rezón Social' }, { data: 'Genero', title: 'Genero' }, { data: 'Opciones', title: 'Opciones' }];
+var Ofendidos = [];
+
+
 //Descripcion : Metodo que contiene todos los elementos que tienen una inicializacion al cargado del documento HTML
 //Parametros de entrada : NA
 //Salida : NA
@@ -17,6 +26,9 @@ function ElementosAlCargadoConsignaciones()
     $('#datetimepickerFechaTradicional').datetimepicker({
         format: 'YYYY-MM-DD'
     });
+
+    DataTableImputados = GeneraTablaDatos(DataTableImputados, "dataTableImputados", Imputados, EstructuraTablaImputados, false, false, false);
+    DataTableOfendidos = GeneraTablaDatos(DataTableOfendidos, "dataTableOfendidos", Ofendidos, EstructuraOfendidos, false, false, false);
 
     $("#juzgado-Historico").prop('disabled', true);
 

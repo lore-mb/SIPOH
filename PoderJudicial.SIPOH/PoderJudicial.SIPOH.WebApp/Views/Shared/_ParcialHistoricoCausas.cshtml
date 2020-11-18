@@ -40,19 +40,19 @@
             </div>
 
             @*<div class="col-md-6 col-lg-3 form-group">
-            <label class="" for="inpNumero" id="NumeroLabel"><b>Numero Unico de Caso</b></label>
-            <div class="input-group">
-                <input type="text" id="inpNucHistoricoCausa" placeholder="00-0000-0000" name="Nuc" class="form-control form-control-sm mr-2" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
-                <button class="btn btn-success btn-sm" type="submit" id="btnCausaNuc" data-toggle="tooltip" data-placement="top" title="Validar Expediente"><i class="icon-checkmark"></i></button>
-                <div class="invalid-feedback">
-                    <i class="icon-notification"></i> Introduzca un numero unico de caso.
-                </div>
-                <div class="input-group">
-                    <input class="mt-1 mr-2" type="checkbox" value="" id="checkSinNuc" checked>
-                    <label class="mt-1" for="checkSinNuc">Sin NUC</label>
-                </div>
-            </div>
-        </div>*@
+                    <label class="" for="inpNumero" id="NumeroLabel"><b>Numero Unico de Caso</b></label>
+                    <div class="input-group">
+                        <input type="text" id="inpNucHistoricoCausa" placeholder="00-0000-0000" name="Nuc" class="form-control form-control-sm mr-2" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
+                        <button class="btn btn-success btn-sm" type="submit" id="btnCausaNuc" data-toggle="tooltip" data-placement="top" title="Validar Expediente"><i class="icon-checkmark"></i></button>
+                        <div class="invalid-feedback">
+                            <i class="icon-notification"></i> Introduzca un numero unico de caso.
+                        </div>
+                        <div class="input-group">
+                            <input class="mt-1 mr-2" type="checkbox" value="" id="checkSinNuc" checked>
+                            <label class="mt-1" for="checkSinNuc">Sin NUC</label>
+                        </div>
+                    </div>
+                </div>*@
         </div>
     </form>
 </div>
@@ -92,6 +92,45 @@
             </div>
         </div>
 
+    </div>
+</div>
+
+<div class="tab-content">
+    <div class="form-row">
+        <div class="col-12 col-md-6 form-group">
+            <div class="form-row">
+                <div class="col-10">
+                    <h6 class="ml-1 m-0 font-weight-bold text-success">Imputado(s)</h6>
+                </div>
+                <div class="col-2 d-flex flex-row justify-content-end">
+                    @*<i class="fas fa-search"></i>*@
+                    <i onclick="alert('Hola')" class="ml-1 fas fa-plus"></i>
+                </div>
+                <div class="col-12">
+                    <div class="table-responsive text-small">
+                        <table class="table table-hover table-bordered" id="dataTableImputados" width="100%" cellspacing="0">
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 form-group">
+            <div class="form-row">
+                <div class="col-10 align-items-end">
+                    <h6 class="ml-1 m-0 font-weight-bold text-success">Victima u Ofendido(S)</h6>
+                </div>
+                <div class="col-2 d-flex flex-row justify-content-end">
+                    @*<i class="fas fa-search"></i>*@
+                    <i onclick="alert('Hola')" class="ml-1 fas fa-plus"></i>
+                </div>
+                <div class="col-12">
+                    <div class="table-responsive text-small">
+                        <table class="table table-hover table-bordered" id="dataTableOfendidos" width="100%" cellspacing="0">
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
