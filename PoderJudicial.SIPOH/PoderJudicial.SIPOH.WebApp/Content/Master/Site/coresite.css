@@ -7844,3 +7844,9 @@ table.dataTable thead
 {
     cursor: pointer;
 }
+
+/* Hover para icono*/
+.fa-plus:hover {
+    color: #1976d2 !important;
+    cursor: pointer;
+}
