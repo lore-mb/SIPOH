@@ -358,3 +358,9 @@ function DeshabilitarNumeroEjecucion()
     $('#seccionTablaAnexos').hide();
     $('#seccionBotonGuardar').hide(); 
 }
+
+function MuestraModalPartesCausa(esImputado)
+{
+    var modal = esImputado ? "imputadoModal" : "victimaModal";
+    $("#" + modal).modal("show");
+}

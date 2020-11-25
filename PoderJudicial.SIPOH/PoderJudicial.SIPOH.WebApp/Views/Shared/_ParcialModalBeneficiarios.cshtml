@@ -22,3 +22,119 @@
         </div>
     </div>
 </div>
+
+<div id="imputadoModal" class="modal fade" data-backdrop="static" data-keyboard="false" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLongTitle"><i class="fa fa-user mr-2"></i>Agregar Inculpado</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="modalContainer">
+                    <div>
+                        <p>Nota: En caso de que desconozca algunos de los datos ingrese un punto(.) en la caja de texto del dato que desconoce. </p>
+                        <form id="formImputado" class="needs-validation" novalidate>
+                            <div class="form-row">
+
+                            </div>
+                            <div class="form-row">
+                                <div class="col-12 col-lg-3 form-group">
+                                    <label for="slcNumero"><strong> Tipo Persona</strong></label>
+                                    <select class="custom-select custom-select-sm" id="slctNumero">
+                                        <option value="1">PERSONA FISICA</option>
+                                        <option value="2">PERSONA MORAL</option>
+                                    </select>
+                                </div>
+                                <div class="col-12 col-md-3 form-group">
+                                    <label class="" for="inpNumero" id="NumeroLabel"><strong>Apellido Paterno</strong></label>
+                                    <div class="input-group">
+                                        <input type="text" id="apellidoPaternoImputado" name="apellidoPaternoImputado" class="form-control form-control-sm" aria-label="Small" aria-describedby="inputGroup-sizing-sm" data-inputmask-clearmaskonlostfocus="true" required>
+                                        <div class="invalid-feedback">
+                                            <i class="icon-notification"></i> Introduzca un Numero de Causa.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-3 form-group">
+                                    <label class="" for="inpNumero" id="NumeroLabel"><strong>Apellido Materno</strong></label>
+                                    <div class="input-group">
+                                        <input type="text" id="apellidoPaternoImputado" name="apellidoPaternoImputado" class="form-control form-control-sm" aria-label="Small" aria-describedby="inputGroup-sizing-sm" data-inputmask-clearmaskonlostfocus="true" required>
+                                        <div class="invalid-feedback">
+                                            <i class="icon-notification"></i> Introduzca un Numero de Causa.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-3 form-group">
+                                    <label class="" for="inpNumero" id="NumeroLabel"><strong>Nombre Imputado</strong></label>
+                                    <div class="input-group">
+                                        <input type="text" id="apellidoPaternoImputado" name="apellidoPaternoImputado" class="form-control form-control-sm" aria-label="Small" aria-describedby="inputGroup-sizing-sm" data-inputmask-clearmaskonlostfocus="true" required>
+                                        <div class="invalid-feedback">
+                                            <i class="icon-notification"></i> Introduzca un Numero de Causa.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-12 col-md-6 form-group">
+                                    <label class="" for="inpNumero" id="NumeroLabel"><strong>Alias</strong></label>
+                                    <div class="input-group">
+                                        <input type="text" id="apellidoPaternoImputado" name="apellidoPaternoImputado" class="form-control form-control-sm" aria-label="Small" aria-describedby="inputGroup-sizing-sm" data-inputmask-clearmaskonlostfocus="true" required>
+                                        <div class="invalid-feedback">
+                                            <i class="icon-notification"></i> Introduzca un Numero de Causa.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 form-group">
+                                    <label class="mr-4" for="validationCustom04"><strong>Genero</strong></label><br>
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" id="generoRadioInput1" name="generoRadioInput" value="S" class="custom-control-input mr-1" required>
+                                        <label class="custom-control-label" for="generoRadioInput1">M</label>
+                                    </div>
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" id="generoRadioInput2" name="generoRadioInput" value="N" class="custom-control-input mr-1" required>
+                                        <label class="custom-control-label" for="generoRadioInput2">F</label>
+                                    </div>
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" id="generoRadioInput3" name="generoRadioInput" value="N" class="custom-control-input" required>
+                                        <label class="custom-control-label" for="generoRadioInput3">O</label>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+                        <div class="separator-solid"></div>
+                        sadsad
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-outline-secondary" value="Cancelar" id="btnCancelar"><i class="icon-cross"></i> Cancelar</button>
+                <button type="submit" class="btn btn-outline-success" value="Aceptar" id="btnAceptar"><i class="icon-checkmark"></i> Continuar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="victimaModal" class="modal fade" data-backdrop="static" data-keyboard="false" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLongTitle"><i class="fa fa-user mr-2"></i> Agregar Victima</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="modalContainer">
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-outline-secondary" value="Cancelar" id="btnCancelar"><i class="icon-cross"></i> Cancelar</button>
+                <button type="submit" class="btn btn-outline-success" value="Aceptar" id="btnAceptar"><i class="icon-checkmark"></i> Continuar</button>
+            </div>
+        </div>
+    </div>
+</div>
