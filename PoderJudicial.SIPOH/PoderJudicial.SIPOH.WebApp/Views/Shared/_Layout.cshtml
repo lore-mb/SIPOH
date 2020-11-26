@@ -286,41 +286,14 @@
                                             <span class="sub-item">Historicos</span>
                                         </a>
                                     </li>
-                                    <li>
-                                        <a data-toggle="collapse" href="#subnav1">
+
+                                    <li class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "CrearInicialControl" ? "active" : "")">
+                                        <a href="@Url.Action("CrearInicialControl","InicialesControl")">
                                             <span class="sub-item">Iniciales</span>
-                                            <span class="caret"></span>
                                         </a>
-                                        <div class="collapse" id="subnav1">
-                                            <ul class="nav nav-collapse subnav">
-                                                <li>
-                                                    <a href="#">
-                                                        <span class="sub-item">Amparo</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <span class="sub-item">Causas</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <span class="sub-item">Cupres</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <span class="sub-item">Exorto</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <span class="sub-item">Requisitorios</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
                                     </li>
+
+
                                     <li>
                                         <a href="#">
                                             <span class="sub-item">Promociones</span>

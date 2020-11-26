@@ -1,0 +1,399 @@
+﻿
+@{
+    ViewBag.Title = "Atencion Ciudadana";
+}
+
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Registrar Iniciales</h4>
+            </div>
+
+            <div class="card-body">
+
+                <ul class="nav nav-pills nav-sm nav-success" id="pills-tab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="pills-amparo-tab" data-toggle="pill" href="#pills-amparo" role="tab" aria-controls="pills-amparo" aria-selected="true">Amparo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-causa-tab" data-toggle="pill" href="#pills-causa" role="tab" aria-controls="pills-causa" aria-selected="false">Causa</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-cupre" role="tab" aria-controls="pills-cupre" aria-selected="false">Cupre</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-despacho" role="tab" aria-controls="pills-despacho" aria-selected="false">Despacho</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-exhorto-tab" data-toggle="pill" href="#pills-exhorto" role="tab" aria-controls="pills-exhorto" aria-selected="false">Exhorto</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-juicio" role="tab" aria-controls="pills-profile" aria-selected="false">Juicio Oral</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-requisitoria-tab" data-toggle="pill" href="#pills-requisitoria" role="tab" aria-controls="pills-requisitoria" aria-selected="false">Requisitoria</a>
+                    </li>
+                </ul>   
+
+                <div class="tab-content mt-2 mb-3" id="pills-tabContent">
+
+                    <div class="tab-pane fade show active" id="pills-amparo" role="tabpanel" aria-labelledby="pills-amparo-tab">
+                        <!-- #region Formulario (Nombre Formulario) -->
+                        <form class="needs-validation" id="FrmReporteInicialDia" novalidate="">
+                            <div class="form-row">
+
+                                <div class="col-md-2 form-group">
+                                    <label><strong>Nombre Amparo </strong></label>
+                                    <div class="input-group">
+                                        <select id="slcFormatoReporte" class="custom-select custom-select-sm">
+                                            <option value="0">OPCION 1</option>
+                                            <option value="1">OPCION 2</option>
+                                        </select>
+                                        <div class="valid-feedback" wfd-invisible="true">
+                                            <i class="icon-checkmark"></i> Opción Seleccionada.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-7 form-group">
+                                    <label><strong>Nombre 2</strong></label>
+                                    <div class="input-group">
+                                        <select id="slcFormatoReporte" class="custom-select custom-select-sm">
+                                            <option value="0">OPCION 1</option>
+                                            <option value="1">OPCION 2</option>
+                                        </select>
+                                        <div class="valid-feedback" wfd-invisible="true">
+                                            <i class="icon-checkmark"></i> Opción Seleccionada.
+                                        </div>
+                                        <div class="invalid-feedback" wfd-invisible="true">
+                                            <i class="icon-cancel-circle"></i> Por favor, selecciona una opción.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class=" col-md-3 form-group">
+                                    <label><strong>Nombre 3</strong></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="icon-calendar"></i> </span>
+                                        </div>
+                                        <input type="text" class="form-control form-control-sm text-center" />
+                                        <button class="btn btn-success btn-sm ml-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tooltip"><i class="icon-download2"></i></button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+                        <!-- #endregion Formulario Reporte por Día -->
+                    </div>
+
+                    <div class="tab-pane fade show" id="pills-causa" role="tabpanel" aria-labelledby="pills-causa-tab">
+                        <!-- #region Formulario (Nombre Formulario) -->
+                        <form class="needs-validation" id="FrmReporteInicialDia" novalidate="">
+                            <div class="form-row">
+
+                                <div class="col-md-2 form-group">
+                                    <label><strong>Nombre Causa </strong></label>
+                                    <div class="input-group">
+                                        <select id="slcFormatoReporte" class="custom-select custom-select-sm">
+                                            <option value="0">OPCION 1</option>
+                                            <option value="1">OPCION 2</option>
+                                        </select>
+                                        <div class="valid-feedback" wfd-invisible="true">
+                                            <i class="icon-checkmark"></i> Opción Seleccionada.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-7 form-group">
+                                    <label><strong>Nombre 2</strong></label>
+                                    <div class="input-group">
+                                        <select id="slcFormatoReporte" class="custom-select custom-select-sm">
+                                            <option value="0">OPCION 1</option>
+                                            <option value="1">OPCION 2</option>
+                                        </select>
+                                        <div class="valid-feedback" wfd-invisible="true">
+                                            <i class="icon-checkmark"></i> Opción Seleccionada.
+                                        </div>
+                                        <div class="invalid-feedback" wfd-invisible="true">
+                                            <i class="icon-cancel-circle"></i> Por favor, selecciona una opción.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class=" col-md-3 form-group">
+                                    <label><strong>Nombre 3</strong></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="icon-calendar"></i> </span>
+                                        </div>
+                                        <input type="text" class="form-control form-control-sm text-center" />
+                                        <button class="btn btn-success btn-sm ml-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tooltip"><i class="icon-download2"></i></button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+                        <!-- #endregion Formulario Reporte por Día -->
+                    </div>
+
+                    <div class="tab-pane fade show" id="pills-cupre" role="tabpanel" aria-labelledby="pills-cupre-tab">
+                        <!-- #region Formulario (Nombre Formulario) -->
+                        <form class="needs-validation" id="FrmReporteInicialDia" novalidate="">
+                            <div class="form-row">
+
+                                <div class="col-md-2 form-group">
+                                    <label><strong>Nombre Cupre </strong></label>
+                                    <div class="input-group">
+                                        <select id="slcFormatoReporte" class="custom-select custom-select-sm">
+                                            <option value="0">OPCION 1</option>
+                                            <option value="1">OPCION 2</option>
+                                        </select>
+                                        <div class="valid-feedback" wfd-invisible="true">
+                                            <i class="icon-checkmark"></i> Opción Seleccionada.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-7 form-group">
+                                    <label><strong>Nombre 2</strong></label>
+                                    <div class="input-group">
+                                        <select id="slcFormatoReporte" class="custom-select custom-select-sm">
+                                            <option value="0">OPCION 1</option>
+                                            <option value="1">OPCION 2</option>
+                                        </select>
+                                        <div class="valid-feedback" wfd-invisible="true">
+                                            <i class="icon-checkmark"></i> Opción Seleccionada.
+                                        </div>
+                                        <div class="invalid-feedback" wfd-invisible="true">
+                                            <i class="icon-cancel-circle"></i> Por favor, selecciona una opción.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class=" col-md-3 form-group">
+                                    <label><strong>Nombre 3</strong></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="icon-calendar"></i> </span>
+                                        </div>
+                                        <input type="text" class="form-control form-control-sm text-center" />
+                                        <button class="btn btn-success btn-sm ml-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tooltip"><i class="icon-download2"></i></button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+                        <!-- #endregion Formulario Reporte por Día -->
+                    </div>
+
+
+                    <div class="tab-pane fade show" id="pills-despacho" role="tabpanel" aria-labelledby="pills-despacho-tab">
+                        <!-- #region Formulario (Nombre Formulario) -->
+                        <form class="needs-validation" id="FrmReporteInicialDia" novalidate="">
+                            <div class="form-row">
+
+                                <div class="col-md-2 form-group">
+                                    <label><strong>Nombre Despacho </strong></label>
+                                    <div class="input-group">
+                                        <select id="slcFormatoReporte" class="custom-select custom-select-sm">
+                                            <option value="0">OPCION 1</option>
+                                            <option value="1">OPCION 2</option>
+                                        </select>
+                                        <div class="valid-feedback" wfd-invisible="true">
+                                            <i class="icon-checkmark"></i> Opción Seleccionada.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-7 form-group">
+                                    <label><strong>Nombre 2</strong></label>
+                                    <div class="input-group">
+                                        <select id="slcFormatoReporte" class="custom-select custom-select-sm">
+                                            <option value="0">OPCION 1</option>
+                                            <option value="1">OPCION 2</option>
+                                        </select>
+                                        <div class="valid-feedback" wfd-invisible="true">
+                                            <i class="icon-checkmark"></i> Opción Seleccionada.
+                                        </div>
+                                        <div class="invalid-feedback" wfd-invisible="true">
+                                            <i class="icon-cancel-circle"></i> Por favor, selecciona una opción.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class=" col-md-3 form-group">
+                                    <label><strong>Nombre 3</strong></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="icon-calendar"></i> </span>
+                                        </div>
+                                        <input type="text" class="form-control form-control-sm text-center" />
+                                        <button class="btn btn-success btn-sm ml-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tooltip"><i class="icon-download2"></i></button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+                        <!-- #endregion Formulario Reporte por Día -->
+                    </div>
+
+
+                    <div class="tab-pane fade show" id="pills-exhorto" role="tabpanel" aria-labelledby="pills-exhorto-tab">
+                        <!-- #region Formulario (Nombre Formulario) -->
+                        <form class="needs-validation" id="FrmReporteInicialDia" novalidate="">
+                            <div class="form-row">
+
+                                <div class="col-md-2 form-group">
+                                    <label><strong>Nombre Exhorto</strong></label>
+                                    <div class="input-group">
+                                        <select id="slcFormatoReporte" class="custom-select custom-select-sm">
+                                            <option value="0">OPCION 1</option>
+                                            <option value="1">OPCION 2</option>
+                                        </select>
+                                        <div class="valid-feedback" wfd-invisible="true">
+                                            <i class="icon-checkmark"></i> Opción Seleccionada.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-7 form-group">
+                                    <label><strong>Nombre 2</strong></label>
+                                    <div class="input-group">
+                                        <select id="slcFormatoReporte" class="custom-select custom-select-sm">
+                                            <option value="0">OPCION 1</option>
+                                            <option value="1">OPCION 2</option>
+                                        </select>
+                                        <div class="valid-feedback" wfd-invisible="true">
+                                            <i class="icon-checkmark"></i> Opción Seleccionada.
+                                        </div>
+                                        <div class="invalid-feedback" wfd-invisible="true">
+                                            <i class="icon-cancel-circle"></i> Por favor, selecciona una opción.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class=" col-md-3 form-group">
+                                    <label><strong>Nombre 3</strong></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="icon-calendar"></i> </span>
+                                        </div>
+                                        <input type="text" class="form-control form-control-sm text-center" />
+                                        <button class="btn btn-success btn-sm ml-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tooltip"><i class="icon-download2"></i></button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+                        <!-- #endregion Formulario Reporte por Día -->
+                    </div>
+
+
+                    <div class="tab-pane fade show" id="pills-juicio" role="tabpanel" aria-labelledby="pills-juicio-tab">
+                        <!-- #region Formulario (Nombre Formulario) -->
+                        <form class="needs-validation" id="FrmReporteInicialDia" novalidate="">
+                            <div class="form-row">
+
+                                <div class="col-md-2 form-group">
+                                    <label><strong>Nombre Juicio Oral </strong></label>
+                                    <div class="input-group">
+                                        <select id="slcFormatoReporte" class="custom-select custom-select-sm">
+                                            <option value="0">OPCION 1</option>
+                                            <option value="1">OPCION 2</option>
+                                        </select>
+                                        <div class="valid-feedback" wfd-invisible="true">
+                                            <i class="icon-checkmark"></i> Opción Seleccionada.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-7 form-group">
+                                    <label><strong>Nombre 2</strong></label>
+                                    <div class="input-group">
+                                        <select id="slcFormatoReporte" class="custom-select custom-select-sm">
+                                            <option value="0">OPCION 1</option>
+                                            <option value="1">OPCION 2</option>
+                                        </select>
+                                        <div class="valid-feedback" wfd-invisible="true">
+                                            <i class="icon-checkmark"></i> Opción Seleccionada.
+                                        </div>
+                                        <div class="invalid-feedback" wfd-invisible="true">
+                                            <i class="icon-cancel-circle"></i> Por favor, selecciona una opción.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class=" col-md-3 form-group">
+                                    <label><strong>Nombre 3</strong></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="icon-calendar"></i> </span>
+                                        </div>
+                                        <input type="text" class="form-control form-control-sm text-center" />
+                                        <button class="btn btn-success btn-sm ml-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tooltip"><i class="icon-download2"></i></button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+                        <!-- #endregion Formulario Reporte por Día -->
+                    </div>
+
+
+                    <div class="tab-pane fade show" id="pills-requisitoria" role="tabpanel" aria-labelledby="pills-requisitoria-tab">
+                        <!-- #region Formulario (Nombre Formulario) -->
+                        <form class="needs-validation" id="FrmReporteInicialDia" novalidate="">
+                            <div class="form-row">
+
+                                <div class="col-md-2 form-group">
+                                    <label><strong>Nombre Requisitoria </strong></label>
+                                    <div class="input-group">
+                                        <select id="slcFormatoReporte" class="custom-select custom-select-sm">
+                                            <option value="0">OPCION 1</option>
+                                            <option value="1">OPCION 2</option>
+                                        </select>
+                                        <div class="valid-feedback" wfd-invisible="true">
+                                            <i class="icon-checkmark"></i> Opción Seleccionada.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-7 form-group">
+                                    <label><strong>Nombre 2</strong></label>
+                                    <div class="input-group">
+                                        <select id="slcFormatoReporte" class="custom-select custom-select-sm">
+                                            <option value="0">OPCION 1</option>
+                                            <option value="1">OPCION 2</option>
+                                        </select>
+                                        <div class="valid-feedback" wfd-invisible="true">
+                                            <i class="icon-checkmark"></i> Opción Seleccionada.
+                                        </div>
+                                        <div class="invalid-feedback" wfd-invisible="true">
+                                            <i class="icon-cancel-circle"></i> Por favor, selecciona una opción.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class=" col-md-3 form-group">
+                                    <label><strong>Nombre 3</strong></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="icon-calendar"></i> </span>
+                                        </div>
+                                        <input type="text" class="form-control form-control-sm text-center" />
+                                        <button class="btn btn-success btn-sm ml-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tooltip"><i class="icon-download2"></i></button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+                        <!-- #endregion Formulario Reporte por Día -->
+                    </div>
+
+                </div>
+    
+
+            </div>
+        </div>
+    </div>
