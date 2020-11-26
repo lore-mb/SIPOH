@@ -44,6 +44,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 List<Solicitud> solicitudes = catalogosProcessor.ObtieneSolicitudes();
                 List<Solicitante> solicitantes = catalogosProcessor.ObtieneSolicitantes();
                 List<Juzgado> juzgadosEjecucion = catalogosProcessor.ObtieneJuzgadosPorCircuito(Usuario.IdCircuito);
+                List<Delito> delitosImputado = catalogosProcessor.ObtieneDelitosDelImputado();
 
                 //Obtiene los Ids del tipo "OTRO" para la validacion de Pick List
                 int idOtroAnexos = anexosEjecucion.Where(x => x.Tipo == "O").Select(x => x.IdAnexo).FirstOrDefault();
@@ -60,6 +61,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 ViewBag.Solicitudes = ViewHelper.CreateSelectList(solicitudes, "IdSolicitud", "Descripcion");
                 ViewBag.Solicitantes = ViewHelper.CreateSelectList(solicitantes, "IdSolicitante", "Descripcion");
                 ViewBag.JuzgadosEjecucion = ViewHelper.CreateSelectList(juzgadosEjecucion, "IdJuzgado", "Nombre");
+                ViewBag.Delitos = ViewHelper.CreateSelectList(delitosImputado, "IdDelito", "Nombre");
 
                 //Campos Banderas para validacio de "OTROS" de PickList
                 ViewBag.IdOtroAnexos = idOtroAnexos;
@@ -67,6 +69,8 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 ViewBag.IdOtroSolicitante = idOtroSolicitante;
                 ViewBag.SalasAcusatorioTotal = salasAcusatorio != null ? salasAcusatorio.Count() : 0;
                 ViewBag.EsConsignacionHistorica = true;
+
+                ViewBag.DelitosLista = delitosImputado;
 
                 return View();
             }

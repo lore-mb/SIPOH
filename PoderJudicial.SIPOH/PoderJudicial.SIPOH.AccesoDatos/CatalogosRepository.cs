@@ -464,6 +464,45 @@ namespace PoderJudicial.SIPOH.AccesoDatos
             }
         }
 
+        public List<Delito> ConsultaDelitos()
+        {
+            try
+            {
+                if (!IsValidConnection)
+                    throw new Exception("No se ha creado una conexion valida");
+
+                string query = "SELECT IdSubSerie AS IdDelito, Nombre FROM S_SubSerie WHERE Mostrar = 'S'";
+
+                SqlCommand comando = new SqlCommand(query, Cnx);
+                Cnx.Open();
+
+                SqlDataReader sqlRespuesta = comando.ExecuteReader();
+
+                DataTable tabla = new DataTable();
+                tabla.Load(sqlRespuesta);
+
+                List<Delito> delitos = DataHelper.DataTableToList<Delito>(tabla);
+
+                if (delitos.Count > 0)
+                    Estatus = Estatus.OK;
+                else
+                    Estatus = Estatus.SIN_RESULTADO;
+
+                return delitos;
+            }
+            catch (Exception ex)
+            {
+                MensajeError = ex.Message;
+                Estatus = Estatus.ERROR;
+                return null;
+            }
+            finally
+            {
+                if (IsValidConnection && Cnx.State == ConnectionState.Open)
+                    Cnx.Close();
+            }
+        }
+
         #region Metodos Privados de la Clase
         private List<string> CreaListaDeTipoString(DataTable dataTableAmparos)
         {

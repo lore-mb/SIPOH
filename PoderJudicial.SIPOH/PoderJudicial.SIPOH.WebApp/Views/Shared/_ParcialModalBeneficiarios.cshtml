@@ -23,118 +23,136 @@
     </div>
 </div>
 
-<div id="imputadoModal" class="modal fade" data-backdrop="static" data-keyboard="false" role="dialog">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title" id="exampleModalLongTitle"><i class="fa fa-user mr-2"></i>Agregar Inculpado</h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div id="modalContainer">
-                    <div>
-                        <p>Nota: En caso de que desconozca algunos de los datos ingrese un punto(.) en la caja de texto del dato que desconoce. </p>
-                        <form id="formImputado" class="needs-validation" novalidate>
-                            <div class="form-row">
+@if (ViewBag.EsConsignacionHistorica)
+{
+    <div id="partesCausaModal" class="modal fade" data-backdrop="static" data-keyboard="false" role="dialog">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="exampleModalLongTitle"><i class="fa fa-user mr-2"></i>Agregar Partes</h3>
+                    <button type="button" onclick="CerrarModalPartes()" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="modalContainer">
 
-                            </div>
+                        <form id="formAgregarParte" class="needs-validation customValidation" novalidate>  
+
                             <div class="form-row">
-                                <div class="col-12 col-lg-3 form-group">
-                                    <label for="slcNumero"><strong> Tipo Persona</strong></label>
-                                    <select class="custom-select custom-select-sm" id="slctNumero">
+                                <div class="col-12 col-md-12 col-lg-3 form-group">
+                                    <label for=""><strong> Tipo Parte</strong></label>
+                                    <select class="custom-select custom-select-sm focusNext" id="slcTipoParte" tabindex="9">
+                                        <option value="1">IMPUTADO</option>
+                                        <option value="2">VICTIMA</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-12 col-md-12 col-lg-3 form-group">
+                                    <label for=""><strong> Tipo Persona</strong></label>
+                                    <select class="custom-select custom-select-sm focusNext" id="slcTipoPersona" tabindex="10">
                                         <option value="1">PERSONA FISICA</option>
                                         <option value="2">PERSONA MORAL</option>
                                     </select>
                                 </div>
-                                <div class="col-12 col-md-3 form-group">
-                                    <label class="" for="inpNumero" id="NumeroLabel"><strong>Apellido Paterno</strong></label>
-                                    <div class="input-group">
-                                        <input type="text" id="apellidoPaternoImputado" name="apellidoPaternoImputado" class="form-control form-control-sm" aria-label="Small" aria-describedby="inputGroup-sizing-sm" data-inputmask-clearmaskonlostfocus="true" required>
+
+                                <div class="col-12 col-md-12 col-lg-6 form-group personaFisica">
+                                    <label class="" for="inpNumero" id="NumeroLabel"><strong>Nombre(s)</strong></label>
+                                    <div class="input-group validate-me">
+                                        <input form="formAgregarParte" tabindex="11" type="text" id="ipnNombreParte" name="nombreParte" class="form-control form-control-sm focusNext requeridoPf" aria-label="Small" aria-describedby="inputGroup-sizing-sm" data-inputmask-clearmaskonlostfocus="true">
                                         <div class="invalid-feedback">
-                                            <i class="icon-notification"></i> Introduzca un Numero de Causa.
+                                            <i class="icon-notification"></i> Introduzca el Nombre de la Parte.
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 col-md-3 form-group">
-                                    <label class="" for="inpNumero" id="NumeroLabel"><strong>Apellido Materno</strong></label>
-                                    <div class="input-group">
-                                        <input type="text" id="apellidoPaternoImputado" name="apellidoPaternoImputado" class="form-control form-control-sm" aria-label="Small" aria-describedby="inputGroup-sizing-sm" data-inputmask-clearmaskonlostfocus="true" required>
+
+                                <div class="col-12 col-md-12 col-lg-6 form-group personaMoral">
+                                    <label class="" for="inpNumero" id="NumeroLabel"><strong>Rezón Social</strong></label>
+                                    <div class="input-group validate-me">
+                                        <input type="text" id="inpRazonSocial" name="razonSocial" class="form-control form-control-sm requeridoPm" aria-label="Small" aria-describedby="inputGroup-sizing-sm" data-inputmask-clearmaskonlostfocus="true">
                                         <div class="invalid-feedback">
-                                            <i class="icon-notification"></i> Introduzca un Numero de Causa.
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-md-3 form-group">
-                                    <label class="" for="inpNumero" id="NumeroLabel"><strong>Nombre Imputado</strong></label>
-                                    <div class="input-group">
-                                        <input type="text" id="apellidoPaternoImputado" name="apellidoPaternoImputado" class="form-control form-control-sm" aria-label="Small" aria-describedby="inputGroup-sizing-sm" data-inputmask-clearmaskonlostfocus="true" required>
-                                        <div class="invalid-feedback">
-                                            <i class="icon-notification"></i> Introduzca un Numero de Causa.
+                                            <i class="icon-notification"></i> Introduzca una Razón Social.
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
                             <div class="form-row">
-                                <div class="col-12 col-md-6 form-group">
-                                    <label class="" for="inpNumero" id="NumeroLabel"><strong>Alias</strong></label>
-                                    <div class="input-group">
-                                        <input type="text" id="apellidoPaternoImputado" name="apellidoPaternoImputado" class="form-control form-control-sm" aria-label="Small" aria-describedby="inputGroup-sizing-sm" data-inputmask-clearmaskonlostfocus="true" required>
+                                <div class="col-12 col-md-12 col-lg-3 form-group personaFisica">
+                                    <label class="" for="inpNumero" id="NumeroLabel"><strong>Apellido Paterno</strong></label>
+                                    <div class="input-group validate-me">
+                                        <input tabindex="12" type="text" id="inpApellidoPaternoParte" name="apellidoPaternoParte" class="form-control form-control-sm focusNext requeridoPf" aria-label="Small" aria-describedby="inputGroup-sizing-sm" data-inputmask-clearmaskonlostfocus="true">
                                         <div class="invalid-feedback">
-                                            <i class="icon-notification"></i> Introduzca un Numero de Causa.
+                                            <i class="icon-notification"></i> Introduzca un apellido paterno.
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 col-md-6 form-group">
-                                    <label class="mr-4" for="validationCustom04"><strong>Genero</strong></label><br>
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" id="generoRadioInput1" name="generoRadioInput" value="S" class="custom-control-input mr-1" required>
-                                        <label class="custom-control-label" for="generoRadioInput1">M</label>
-                                    </div>
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" id="generoRadioInput2" name="generoRadioInput" value="N" class="custom-control-input mr-1" required>
-                                        <label class="custom-control-label" for="generoRadioInput2">F</label>
-                                    </div>
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" id="generoRadioInput3" name="generoRadioInput" value="N" class="custom-control-input" required>
-                                        <label class="custom-control-label" for="generoRadioInput3">O</label>
+
+                                <div class="col-12 col-md-12 col-lg-3 form-group personaFisica">
+                                    <label class="" for="inpNumero validate-me" id="NumeroLabel"><strong>Apellido Materno</strong></label>
+                                    <div class="input-group validate-me">
+                                        <input tabindex="13" type="text" id="ipnApellidoMaternoParte" name="apellidoMaternoParte" class="form-control form-control-sm focusNext requeridoPf" aria-label="Small" aria-describedby="inputGroup-sizing-sm" data-inputmask-clearmaskonlostfocus="true">
+                                        <div class="invalid-feedback">
+                                            <i class="icon-notification"></i> Introduzca un apellido materno.
+                                        </div>
                                     </div>
                                 </div>
 
+                                <div class="col-12 col-md-12 col-lg-3 form-group personaFisica">
+                                    <label><strong>Genero</strong></label><br>
+                                    <select class="custom-select custom-select-sm focusNext requeridoPf" id="slcGenero" tabindex="14" required>
+                                        <option value="M">MASCULINO</option>
+                                        <option value="F">FEMENINO</option>
+                                        <option value="O">OTRO</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-12 col-md-12 col-lg-3 form-group personaFisica">
+                                    <label for="inpNumero" id="NumeroLabel"><strong>Alias</strong></label>
+                                    <div class="input-group">
+                                        <input tabindex="15" type="text" id="ipnAliasParte" name="AliasParte" class="form-control form-control-sm focusNext focusNextEnd" aria-label="Small" aria-describedby="inputGroup-sizing-sm" data-inputmask-clearmaskonlostfocus="true">
+                                        <div class="invalid-feedback">
+                                            <i class="icon-notification"></i> Introduzca un Alias.
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </form>
-                        <div class="separator-solid"></div>
-                        sadsad
+                        <form id="formAgregaDelito" class="needs-validation" novalidate>
+                            <div class="form-row">
+                                <div class="col-12 col-md-12 form-group">
+                                    <label for="validationCustom04"><strong>Catálogo de Delitos</strong></label>
+                                    <div class="input-group " id="divToca">
+                                        @*@Html.DropDownList("SelectDelitos", (SelectList)ViewBag.Delitos, "SELECCIONAR OPCIÓN", new { @id = "slctDelitosInputados", @class = "custom-select custom-select-sm", @required = "required", @title = "Tooltip" })*@
+
+                                        <select id="slctDelitosInputados" class="custom-select custom-select-sm mr-2" required>
+                                            <option value="">SELECCIONAR OPCIÓN</option>
+                                            @foreach (var item in ViewBag.Delitos)
+                                            {
+                                                <option title="@item.Text" value="@item.Value">@item.Text</option>
+                                            }
+                                        </select>
+                                        <button class="btn btn-success btn-sm" type="submit" id="btnToca" data-toggle="tooltip" data-placement="top" title="Agregar Delito"><i class="fas fa-plus-circle"></i></button>
+                                        <div class="invalid-feedback" id="checkInputadoInvalido">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-responsive text-small">
+                                <table class="table table-hover table-bordered" id="dataTableDelitos" width="100%" cellspacing="0">
+                                </table>
+                            </div>
+                        </form>
+
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-outline-secondary" value="Cancelar" id="btnCancelar"><i class="icon-cross"></i> Cancelar</button>
-                <button type="submit" class="btn btn-outline-success" value="Aceptar" id="btnAceptar"><i class="icon-checkmark"></i> Continuar</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div id="victimaModal" class="modal fade" data-backdrop="static" data-keyboard="false" role="dialog">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title" id="exampleModalLongTitle"><i class="fa fa-user mr-2"></i> Agregar Victima</h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div id="modalContainer">
-
+                <div class="modal-footer">
+                    <button type="button" onclick="CerrarModalPartes()" class="btn btn-outline-secondary" value="Cancelar" id="btnCancelarParte"><i class="icon-cross"></i> Cancelar</button>
+                    <button type="submit" form="formAgregarParte" class="btn btn-outline-success" value="Agregar" id="btnAceptarParte"><i class="icon-checkmark"></i> Aceptar</button>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-outline-secondary" value="Cancelar" id="btnCancelar"><i class="icon-cross"></i> Cancelar</button>
-                <button type="submit" class="btn btn-outline-success" value="Aceptar" id="btnAceptar"><i class="icon-checkmark"></i> Continuar</button>
-            </div>
         </div>
     </div>
-</div>
+}
+

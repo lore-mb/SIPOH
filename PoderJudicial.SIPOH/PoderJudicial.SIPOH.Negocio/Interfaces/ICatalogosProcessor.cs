@@ -20,5 +20,6 @@ namespace PoderJudicial.SIPOH.Negocio.Interfaces
         List<Solicitud> ObtieneSolicitudes();
         List<Juzgado> ObtieneJuzgadosAcusatoriosPorCircuito(int idCircuito);
         List<Juzgado> ObtieneJuzgadosPorDistrito(int idDistrito);
+        List<Delito> ObtieneDelitosDelImputado();
     }
 }

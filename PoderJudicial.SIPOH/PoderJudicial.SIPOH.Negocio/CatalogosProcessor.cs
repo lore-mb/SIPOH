@@ -184,5 +184,20 @@ namespace PoderJudicial.SIPOH.Negocio.Interfaces
             return JuzgadoEjecucion;
         }
 
+        public List<Delito> ObtieneDelitosDelImputado()
+        {
+            List<Delito> delitos = catalogosRepositorio.ConsultaDelitos();
+
+            if (catalogosRepositorio.Estatus == Estatus.SIN_RESULTADO)
+            Mensaje = "La consulta no genero ningun resultado";
+
+            else if (catalogosRepositorio.Estatus == Estatus.ERROR)
+            {
+                Mensaje = "Ocurrio un error interno no controlado de acceso a datos";
+                string mensajeLogger = catalogosRepositorio.MensajeError;
+                //Logica para ILogger
+            }
+            return delitos;
+        }
     }
 }

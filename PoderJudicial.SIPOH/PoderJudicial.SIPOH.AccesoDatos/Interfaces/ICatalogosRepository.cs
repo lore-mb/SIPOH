@@ -19,5 +19,6 @@ namespace PoderJudicial.SIPOH.AccesoDatos.Interfaces
         List<string> ConsultaAmparos(int idEjecucion);
         List<Anexo> ConsultaAnexos(string tipo);
         List<Anexo> ConsultaAnexos(int idEjecucion, Instancia proceso);
+        List<Delito> ConsultaDelitos();
     }
 }

@@ -1,4 +1,4 @@
-﻿ // #region Varaibles Globales
+﻿// #region Varaibles Globales
 var EstatusRespuesta = { SIN_RESPUESTA: 0, OK: 1, ERROR: 2 }
 var IdCircuito = null;
 var IdDistrito = null;
@@ -109,11 +109,36 @@ function ElementosAlCargado()
             event.preventDefault();
             event.stopPropagation();
 
-            form.classList.add('was-validated');
+            if (form.classList.contains("customValidation"))
+            {
+                //Valida solo campos especificos del formulario
+                var validateGroup = form.getElementsByClassName('validate-me');
+
+                for (var i = 0; i < validateGroup.length; i++)
+                {
+                    validateGroup[i].classList.add('was-validated');
+                }
+            }
+            else
+            {
+                form.classList.add('was-validated');
+            }
+
+            //form.classList.add('was-validated');
 
             if (form.checkValidity() === true && id == "formBuscaAcusatorioHistoricoCausa")
             {
                 ValidarQueExisteCausaEnJuzgado()
+            }
+
+            if (form.checkValidity() === true && id == "formAgregaDelito")
+            {
+                AgregarDelitoAlDataTableDelitos();
+            }
+
+            if (form.checkValidity() === true && id == "formAgregarParte")
+            {
+                AgregarParteAlDataTables();
             }
 
             if (form.checkValidity() === true && id == "formCausas")
@@ -1282,7 +1307,6 @@ function SiguienteInput()
 {
     document.addEventListener('keypress', function (evt)
     {
-
         // Si el evento NO es una tecla Enter
         if (evt.key !== 'Enter')
         {

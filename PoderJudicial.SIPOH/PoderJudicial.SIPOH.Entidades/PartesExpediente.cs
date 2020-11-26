@@ -12,5 +12,6 @@ namespace PoderJudicial.SIPOH.Entidades
         public string ApellidoPParte { get; set; }
         public string ApellidoMParte { get; set; }
         public string TipoParte { get; set; }
+        public string Genero { get; set; }
     }
 }
