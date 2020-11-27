@@ -92,10 +92,12 @@ namespace PoderJudicial.SIPOH.WebApp
                 "~/Scripts/Lib_Popper.min.js"
                 ));
 
+            /* Ready */
             bundles.Add(new ScriptBundle("~/Scripts/Lib_Ready.min").Include(
                 "~/Scripts/Lib_Ready.min.js"
                 ));
 
+            /* WebFont */
             bundles.Add(new ScriptBundle("~/Scripts/Lib_WebFont").Include(
                 "~/Scripts/Lib_WebFont.min.js"
                 ));
