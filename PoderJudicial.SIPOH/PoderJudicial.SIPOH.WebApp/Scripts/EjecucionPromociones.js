@@ -128,7 +128,7 @@ function ConsultarInformacionDeEjecucion() {
     var slctJuzgado = $("#slctJuzgadoPorCircuito").val();
     var inpNoEjecucion = $("#inpNumeroEjecucion").val();
     var objParametros = { Juzgado: slctJuzgado, NoEjecucion: inpNoEjecucion };
-    SolicitudEstandarGetAjax("/Promociones/ObtenerEjecucionPorJuzgado", objParametros, ListarInformacionEjecucion);
+    SolicitudEstandarGetAjax("Promociones/ObtenerEjecucionPorJuzgado", objParametros, ListarInformacionEjecucion);
 }
 
 function ListarInformacionEjecucion(data) {
@@ -162,7 +162,7 @@ function ListarInformacionEjecucion(data) {
 
 function ConsultarExpedientesRelacionadosEjecucion(idEjecucion) {
     var ObjParametros = { idEjecucion: idEjecucion };
-    SolicitudEstandarGetAjax("/Promociones/ObtenerExpedientesPorEjecucion", ObjParametros, ListarExpedientesRelacionadosEjecucion);
+    SolicitudEstandarGetAjax("Promociones/ObtenerExpedientesPorEjecucion", ObjParametros, ListarExpedientesRelacionadosEjecucion);
 }
 
 function ListarExpedientesRelacionadosEjecucion(data) {
@@ -256,7 +256,7 @@ function GuardarAnexos() {
             Promovente: $NombrePromovente,
             Anexos: Arreglo_TablaAnexos
         }
-        SolicitudEstandarPostAjax("/Promociones/GuardarAnexosPostEjecucion", objetoparametro, RederizarDetalleSuccess, RederizarDetalleError);
+        SolicitudEstandarPostAjax("Promociones/GuardarAnexosPostEjecucion", objetoparametro, RederizarDetalleSuccess, RederizarDetalleError);
     }
     MensajeNotificacionGuardar(MensajeDatos, "", Funcion_Ejecutar);
 }
@@ -293,7 +293,7 @@ var TablaAnexos = null;
 function SolicitudEstandarGetAjax(url, parametros, funcion) {
     $.ajax(
         {
-            url: url,
+            url: urlBase + url,
             type: "GET",
             cache: false,
             traditional: true,
@@ -314,7 +314,7 @@ function SolicitudEstandarGetAjax(url, parametros, funcion) {
 
 function SolicitudEstandarPostAjax(urlAction, parameters, functionCallbackSuccess) {
     $.ajax({
-        url: urlAction,
+        url: urlBase + urlAction,
         type: "POST",
         traditional: true,
         contentType: "application/json; charset=utf-8",

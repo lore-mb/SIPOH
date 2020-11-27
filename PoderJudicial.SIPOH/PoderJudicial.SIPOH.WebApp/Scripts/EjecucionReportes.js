@@ -30,7 +30,7 @@ function GenerarReporteInicialPorRangoFecha() {
     var FechaFinalDatePicker = $("#datetimepickerFechaFinal").val();
     var TipoBusqueda = $('#slcFormatoReporteFecha').val();
 
-    window.location.href = '/Reportes/FormatoReportePorRangoFecha/?FechaInicial=' + FechaInicialDatePicker +
+    window.location.href = urlBase + 'Reportes/FormatoReportePorRangoFecha/?FechaInicial=' + FechaInicialDatePicker +
         '&FechaFinal=' + FechaFinalDatePicker +
         '&IdJuzgado=' + IdJuzgadoPickList +
         '&TipoBusqueda=' + TipoBusqueda;
