@@ -1,6 +1,6 @@
 ﻿
-$(document).ready(function ()
-{
+$(document).ready(function () {
+
     var proceso = $("#IdProceso").val();
     proceso = proceso.toLowerCase();
     proceso = JSON.parse(proceso);
@@ -9,113 +9,11 @@ $(document).ready(function ()
     ejecucion = ejecucion.toLowerCase();
     ejecucion = JSON.parse(ejecucion);
 
-    var causas = JSON.parse($("#IdCausas").val().toLowerCase());
-    var tocas = JSON.parse($("#IdTocas").val().toLowerCase());
     var anexos = JSON.parse($("#IdAnexos").val().toLowerCase());
-    var amparos = JSON.parse($("#IdAmparos").val().toLowerCase());
 
     //Funcionalidad para abrir Modal
-    $("#btnGeneraSello").click(function ()
-    {
+    $("#btnGeneraSello").click(function () {
         ImprimirSello();
-    });
-
-    $('#dataTableExpedienteDetalle').DataTable({
-        searching: false,
-        ordering: false,
-        lengthChange: false,
-        responsive: true,
-        "language":
-        {
-            "sProcessing": "Procesando...",
-            "sLengthMenu": "Mostrar _MENU_ registros",
-            "sZeroRecords": "No se encontraron resultados",
-            "sEmptyTable": (causas ? "Ocurrio un error al consultar la informacion de esta tabla" : "Ningún dato disponible en esta tabla"),
-            "sInfo": "_START_ al _END_ de _TOTAL_",
-            "sInfoEmpty": "0 al 0 de 0",
-            "sInfoFiltered": "(Total _MAX_ registros)",
-            "sInfoPostFix": "",
-            "sSearch": "Buscar:",
-            "sUrl": "",
-            "sInfoThousands": ",",
-            "sLoadingRecords": "Cargando...",
-            "oPaginate": {
-                "sFirst": "Primero",
-                "sLast": "Último",
-                "sNext": "Siguiente",
-                "sPrevious": "Anterior"
-            },
-            "oAria": {
-                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-            }
-        }
-    });
-
-    $('#dataTableTocasDetalle').DataTable({
-        searching: false,
-        ordering: false,
-        paging: false,
-        info: false,
-        "language":
-        {
-            "sProcessing": "Procesando...",
-            "sLengthMenu": "Mostrar _MENU_ registros",
-            "sZeroRecords": "No se encontraron resultados",
-            "sEmptyTable": (tocas ? "Ocurrio un error al consultar la informacion de esta tabla" : "Ningún dato disponible en esta tabla"),
-            "sInfo": "_START_ al _END_ de _TOTAL_",
-            "sInfoEmpty": "0 al 0 de 0",
-            "sInfoFiltered": "(Total _MAX_ registros)",
-            "sInfoPostFix": "",
-            "sSearch": "Buscar:",
-            "sUrl": "",
-            "sInfoThousands": ",",
-            "sLoadingRecords": "Cargando...",
-            "oPaginate": {
-                "sFirst": "Primero",
-                "sLast": "Último",
-                "sNext": "Siguiente",
-                "sPrevious": "Anterior"
-            },
-            "oAria": {
-                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-            }
-        },
-        responsive: true
-    });
-
-    $('#dataTableAmparosDetalle').DataTable({
-        searching: false,
-        ordering: false,
-        paging: false, 
-        info: false,
-        "language":
-        {
-            "sProcessing": "Procesando...",
-            "sLengthMenu": "Mostrar _MENU_ registros",
-            "sZeroRecords": "No se encontraron resultados",
-            "sEmptyTable": (amparos ? "Ocurrio un error al consultar la informacion de esta tabla" : "Ningún dato disponible en esta tabla"),
-            "sInfo": "_START_ al _END_ de _TOTAL_",
-            "sInfoEmpty": "0 al 0 de 0",
-            "sInfoFiltered": "(Total _MAX_ registros)",
-            "sInfoPostFix": "",
-            "sSearch": "Buscar:",
-            "sUrl": "",
-            "sInfoThousands": ",",
-            "sLoadingRecords": "Cargando...",
-            "oPaginate": {
-                "sFirst": "Primero",
-                "sLast": "Último",
-                "sNext": "Siguiente",
-                "sPrevious": "Anterior"
-            },
-            "oAria": {
-                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-            }
-        },
-        responsive: true
     });
 
     $('#dataTableAnexosDetalle').DataTable({
@@ -151,15 +49,12 @@ $(document).ready(function ()
         responsive: true
     });
 
-    if (!proceso)
-    {
-        if (ejecucion)
-        {
+    if (!proceso) {
+        if (ejecucion) {
             var mensaje = $("#IdMensajeError").val();
             Alerta(mensaje, "large");
         }
-        else
-        {
+        else {
             var mensaje = $("#IdMensajeError").val();
             mensaje = mensaje + ", precione el boton <b>Actualizar</b> para generar el detalle nuevamente, si continua el problema consulte con soporte.";
             Alerta(mensaje, "large");
@@ -168,42 +63,38 @@ $(document).ready(function ()
 });
 
 //Funcion para abrir ventana que imprimira sello
-function ImprimirSello()
-{
+function ImprimirSello() {
     var sello = "";
 
     var selloArregloSeccion1 = [JustificarEspacio("TRIBUNAL SUPERIOR", 35),
-        JustificarEspacio("DE JUSTICIA", 35),
-        JustificarEspacio("DEL ESTADO DE HIDALGO", 35),
-        JustificarEspacio("ATENCION CIUDADANA", 35),
-        JustificarEspacio("SENTENCIA EJECUTORIADA", 35),
-        JustificarEspacio("INICIAL", 35),
-        JustificarEspacio("------------------", 35)];
+    JustificarEspacio("DE JUSTICIA", 35),
+    JustificarEspacio("DEL ESTADO DE HIDALGO", 35),
+    JustificarEspacio("ATENCION CIUDADANA", 35),
+    JustificarEspacio("SENTENCIA EJECUTORIADA", 35),
+    JustificarEspacio("PROMOCIÓN", 35),
+    JustificarEspacio("------------------", 35)];
 
     var juzgadoSello = RemoverAcentos($("#juzgadoSello").text());
     var juzgadoArreglo = JustificarEspacioMaximo(juzgadoSello, 35);
 
-    selloArregloSeccion1.forEach(function (valor, indice, array)
-    {
+    selloArregloSeccion1.forEach(function (valor, indice, array) {
         sello = sello + valor;
     });
 
-    juzgadoArreglo.forEach(function (valor, indice, array)
-    {
+    juzgadoArreglo.forEach(function (valor, indice, array) {
         sello = sello + valor;
     });
-
+    
     var numeroEjecucionSello = $("#numeroEjecucionSello").text() + "<br>";
     var folioSello = $("#folioSello").text() + "<br>";
-    var fechaEjecucion = $("#fechaEjecucion").text() + "<br>";
+    var fechaEjecucion = $("#fechaIngreso").text() + "<br>";
 
     var selloArregloSeccion2 = [JustificarEspacio("------------------", 35),
         numeroEjecucionSello,
         folioSello,
         fechaEjecucion];
 
-    selloArregloSeccion2.forEach(function (valor, indice, array)
-    {
+    selloArregloSeccion2.forEach(function (valor, indice, array) {
         sello = sello + valor;
     });
 
@@ -215,8 +106,7 @@ function ImprimirSello()
     var cantidadTotal = 0;
     var datosAnexo = [];
 
-    for (var i = 0; i < totalAnexos; i++)
-    {
+    for (var i = 0; i < totalAnexos; i++) {
         var descripcion = RemoverAcentos($("#descripcion" + i).text());
         var cantidad = $("#cantidad" + i).text();
 
@@ -231,28 +121,25 @@ function ImprimirSello()
 
     var selloArregloSeccion3 = GeneraAnexos(datosAnexo, 35);
 
-    selloArregloSeccion3.forEach(function (valor, indice, array)
-    {
+    selloArregloSeccion3.forEach(function (valor, indice, array) {
         sello = sello + valor;
     });
 
     //Necesario para Google Chrome
-    sello = "  <BR>"+ sello + "<BR>   <BR>"
+    sello = "  <BR>" + sello + "<BR>   <BR>"
 
     var ventana = window.open();
     ventana.document.write("<html><head><title></title>");
     ventana.document.write("<script src=\"/Scripts/Master/Jquery/jquery.min.js\"></script>");
-    ventana.document.write("<script src=\"/Scripts/Modules/Ejecucion/Iniciales/Sello.js\"></script>");       
+    ventana.document.write("<script src=\"/Scripts/EjecucionInicialesSello.js\"></script>");
     ventana.document.write("</head><body>");
     ventana.document.write("<PRE>" + sello + "</PRE>");
     ventana.document.write("</body></html>");
-    ventana.document.close(); 
+    ventana.document.close();
 }
 
-function Alerta(mensaje, tamanio = null)
-{
+function Alerta(mensaje, tamanio = null) {
     tamanio = tamanio == null ? "small" : tamanio;
-
     bootbox.alert({
         title: "<h3>¡Atención!</h3>",
         message: mensaje,
@@ -267,55 +154,46 @@ function Alerta(mensaje, tamanio = null)
     });
 }
 
-function JustificarEspacio(cadena, cantidad)
-{
+function JustificarEspacio(cadena, cantidad) {
     var totalCadena = cadena.length;
     var resto = cantidad - totalCadena;
     var divisor = resto % 2;
 
-    if (divisor == 0)
-    {
+    if (divisor == 0) {
         var rest = resto / 2;
         return ' '.repeat(rest) + cadena + '<br>';
     }
-    else
-    {
+    else {
         var izquierda = (resto - divisor) / 2;
         var derecha = izquierda + divisor;
         return ' '.repeat(izquierda) + cadena + '<br>';
     }
 }
 
-function JustificarEspacioMaximo(cadena, maximo)
-{
+function JustificarEspacioMaximo(cadena, maximo) {
     var arreglo = cadena.split(' ');
     var total = arreglo.length;
     var cadenaNew = "";
     var cadenaAnte = "";
     var newArreglo = [];
 
-    for (var i = 0; i < total; i++)
-    {
+    for (var i = 0; i < total; i++) {
         cadenaNew = cadenaNew + (i == 0 ? arreglo[i] : " " + arreglo[i]);
 
-        if (cadenaNew.length < maximo) 
-        {
+        if (cadenaNew.length < maximo) {
             cadenaAnte = cadenaNew;
 
-            if ((i + 1) == total)
-            {
+            if ((i + 1) == total) {
                 newArreglo.push(JustificarEspacio(cadenaAnte, maximo));
             }
         }
 
-        if (cadenaNew.length >= maximo)
-        {
+        if (cadenaNew.length >= maximo) {
             newArreglo.push(JustificarEspacio(cadenaAnte, maximo));
             cadenaAnte = arreglo[i];
             cadenaNew = cadenaAnte;
 
-            if ((i + 1) == total)
-            {
+            if ((i + 1) == total) {
                 newArreglo.push(JustificarEspacio(cadenaNew, maximo));
             }
         }
@@ -324,52 +202,44 @@ function JustificarEspacioMaximo(cadena, maximo)
     return newArreglo;
 }
 
-function GeneraAnexos(datos, cantidadMaxima)
-{
+function GeneraAnexos(datos, cantidadMaxima) {
     var anexos = [];
     var total2 = datos.length;
 
-    for (var a = 0; a < total2; a++)
-    {
+    for (var a = 0; a < total2; a++) {
         var arreglo = datos[a].descripcion.split(' ');
         var total = arreglo.length;
         var cadenaNew = "";
         var cadenaAnte = "";
 
 
-        for (var i = 0; i < total; i++)
-        {
+        for (var i = 0; i < total; i++) {
             cadenaNew = cadenaNew + (i == 0 ? arreglo[i] : " " + arreglo[i]);
 
-            if (cadenaNew.length < cantidadMaxima)
-            {
+            if (cadenaNew.length < cantidadMaxima) {
                 cadenaAnte = cadenaNew;
 
-                if ((i + 1) == total)
-                {
+                if ((i + 1) == total) {
                     anexos.push(AgregarPuntos(cadenaAnte, cantidadMaxima, datos[a].cantidad));
                 }
             }
 
-            if (cadenaNew.length >= cantidadMaxima)
-            {
+            if (cadenaNew.length >= cantidadMaxima) {
                 anexos.push(cadenaAnte + '<br>');
                 cadenaAnte = arreglo[i];
                 cadenaNew = cadenaAnte;
 
-                if ((i + 1) == total)
-                {
+                if ((i + 1) == total) {
                     anexos.push(AgregarPuntos(cadenaNew, cantidadMaxima, datos[a].cantidad));
                 }
             }
         }
-    }  
+    }
 
     return anexos;
 }
 
-function AgregarPuntos(cadena, cantidad, cantidadAnexo)
-{
+function AgregarPuntos(cadena, cantidad, cantidadAnexo) {
     var totalCadena = cadena.length;
     var resto = cantidad - totalCadena;
     var lengCantidadAnexo = cantidadAnexo.toString().length;
@@ -381,7 +251,6 @@ function AgregarPuntos(cadena, cantidad, cantidadAnexo)
     return res;
 }
 
-function RemoverAcentos(str)
-{
+function RemoverAcentos(str) {
     return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }

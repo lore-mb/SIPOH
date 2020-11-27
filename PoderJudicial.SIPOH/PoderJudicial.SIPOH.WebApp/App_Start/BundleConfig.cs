@@ -10,159 +10,148 @@ namespace PoderJudicial.SIPOH.WebApp
         {
 
             //-------------------------------------//
-            // --------- CSS CORE SIPOH ---------- //
+            //-------- STILOS CSS SITE    -------- //
             //-------------------------------------//
+            bundles.Add(new StyleBundle("~/Content/Style_Datatables").Include(
+                "~/Content/Style_Datatables.min.css"
+                ));
 
-            // CSS CORE para sitio
-            bundles.Add(new StyleBundle("~/Content/Master/Site").Include(
-                "~/Content/Master/Site/bootstrap.css",
-                "~/Content/Master/Site/coresite.css"));
+            bundles.Add(new StyleBundle("~/Content/Style_DateTimePicker").Include(
+                "~/Content/Style_DateTimePicker.min.css"
+                ));
 
-            bundles.Add(new ScriptBundle("~/Scripts/Master/WebFonts").Include(
-                "~/Scripts/Master/WebFonts/webfont.min.js"));
+            bundles.Add(new StyleBundle("~/Content/StyleSite").Include(
+               "~/Content/Style_Bootstrap.css",
+               "~/Content/Style_CapaPersonalizada.css"
+               ));
 
-            //-------------------------------------//
-            // ------------- ICON PACK ----------- //
-            //-------------------------------------//
+            bundles.Add(new StyleBundle("~/Content/FontAwesome").Include(
+               "~/Content/FontAwesome/all.min.css"
+               ));
 
-            // Paqueteria IconMoon [Iconos]
-            bundles.Add(new StyleBundle("~/Content/Master/Fonts/IcoMoon/").Include(
-                "~/Content/Master/Fonts/IcoMoon/style.css"));
+            bundles.Add(new StyleBundle("~/Content/IcoMoon").Include(
+               "~/Content/IcoMoon/style.css"
+               ));
 
-            // Paqueteria FontAwesome [Iconos]
-            bundles.Add(new StyleBundle("~/Content/Master/Fonts/FontAwesome").Include(
-                "~/Content/Master/Fonts/FontAwesome/all.min.css"));
-
-            //-------------------------------------//
-            // ---------- JQUERY SCRIPTS --------- //
-            //-------------------------------------//
-
-            // Script Jquery 3.5.1
-            bundles.Add(new ScriptBundle("~/Scripts/Master/Jquery").Include(
-              "~/Scripts/Master/Jquery/jquery-3.5.1.min.js"));
-
-            // Jquery UI - Custom
-            bundles.Add(new ScriptBundle("~/Scripts/Master/Jquery_UI_Custom").Include(
-                "~/Scripts/Master/Jquery_UI_Custom/jquery-ui.min.js"));
-
-            // Jquery UI Touch
-            bundles.Add(new ScriptBundle("~/Scripts/Master/Jquery_UI_Touch").Include(
-                "~/Scripts/Master/Jquery_UI_Touch/jquery.ui.touch-punch.min.js"));
-
-            // JQuery Scrollbar
-            bundles.Add(new ScriptBundle("~/Scripts/Master/Jquery_Scrollbar").Include(
-                "~/Scripts/Master/Jquery_Scrollbar/jquery.scrollbar.min.js"));
 
             //-------------------------------------//
-            // ---- BOOTSTRAP & DEPENDENCIES ----- //
+            //------- SCRIPTS LIBRERIAS   -------- //
             //-------------------------------------//
 
-            // Scripts Bootstrap
-            bundles.Add(new ScriptBundle("~/Scripts/Master/Bootstrap").Include(
-                "~/Scripts/Master/Bootstrap/bootstrap.min.js"));
+            /* BootBox */
+            bundles.Add(new ScriptBundle("~/Scripts/Lib_Bootbox").Include(
+                "~/Scripts/Lib_Bootbox.min.js",
+                "~/Scripts/Lib_BootboxPopper.min.js"
+                ));
 
-            // Scripts Popper
-            bundles.Add(new ScriptBundle("~/Scripts/Master/Popper").Include(
-                "~/Scripts/Master/Popper/popper.min.js"));
+            /* Bootstrap */
+            bundles.Add(new ScriptBundle("~/Scripts/Lib_Bootstrap.min").Include(
+                "~/Scripts/Lib_Bootstrap.min.js"
+                ));
 
-            // Scripts Popper
-            bundles.Add(new ScriptBundle("~/Scripts/Master/Notify").Include(
-                "~/Scripts/Master/Notify/bootstrap-notify.min.js"));
+            /* DataTable */
+            bundles.Add(new ScriptBundle("~/Scripts/Lib_DataTables.min").Include(
+                "~/Scripts/Lib_DataTables.min.js"
+                ));
 
-            //-------------------------------------//
-            // ----------- DATEPICKER ------------ //
-            //-------------------------------------//
+            /* DateTimePicker */
+            bundles.Add(new ScriptBundle("~/Scripts/Libs_DateTimePicker").Include(
+                "~/Scripts/Lib_Moment.min.js",
+                "~/Scripts/Lib_Traslate_Es-mx.js",
+                "~/Scripts/Lib_DateTimePicker.min.js"
+                ));
 
-            bundles.Add(new StyleBundle("~/Content/Master/DatePicker").Include(
-                "~/Content/Master/DatePicker/bootstrap-datetimepicker.min.css"));
+            /* InputMask */
+            bundles.Add(new ScriptBundle("~/Scripts/Lib_Inputmask").Include(
+                "~/Scripts/Lib_Inputmask.js"
+                ));
 
-            bundles.Add(new ScriptBundle("~/Scripts/Master/DatePicker").Include(
-                "~/Scripts/Master/DatePicker/bootstrap-datetimepicker.min.js"));
+            /* JQuery */
+            bundles.Add(new ScriptBundle("~/Scripts/Lib_JQuery.min").Include(
+                "~/Scripts/Lib_JQuery.min.js"
+                ));
 
-            bundles.Add(new ScriptBundle("~/Scripts/Master/Moment").Include(
-                "~/Scripts/Master/Moment/moment.min.js"));
+            /* JQuery Scrollbar */
+            bundles.Add(new ScriptBundle("~/Scripts/Lib_JQueryScrollbarMin").Include(
+                "~/Scripts/Lib_JQueryScrollbarMin.js"
+                ));
 
-            bundles.Add(new ScriptBundle("~/Scripts/Master/LocateMX").Include(
-                "~/Scripts/Master/Locate/es-mx.js"));
+            /* JQuery UI Touch*/
+            bundles.Add(new ScriptBundle("~/Scripts/Lib_UITouch").Include(
+                "~/Scripts/Lib_JQueryUI.js",
+                "~/Scripts/Lib_JQueryUITouchPunch.js"
+                ));
 
-            //-------------------------------------//
-            // ------- DATATABLES CSS & JS ------- //
-            //-------------------------------------//
+            /* Notify */
+            bundles.Add(new ScriptBundle("~/Scripts/Lib_BootstrapNotify.min").Include(
+                "~/Scripts/Lib_BootstrapNotify.min.js"
+                ));
 
-            // Estilos DataTables
-            bundles.Add(new StyleBundle("~/Content/Master/DataTables").Include(
-                "~/Content/Master/DataTables/datatables.min.css"));
+            /* Popper */
+            bundles.Add(new ScriptBundle("~/Scripts/Lib_Popper").Include(
+                "~/Scripts/Lib_Popper.min.js"
+                ));
 
-            // Scripts DataTables
-            bundles.Add(new ScriptBundle("~/Scripts/Master/DataTables").Include(
-                "~/Scripts/Master/DataTables/datatables.min.js"));
+            bundles.Add(new ScriptBundle("~/Scripts/Lib_Ready.min").Include(
+                "~/Scripts/Lib_Ready.min.js"
+                ));
 
-            //-------------------------------------//
-            // --------- SCRIPTS ALERTS ---------- //
-            //-------------------------------------//
-            // Script BootBox
-            bundles.Add(new ScriptBundle("~/Scripts/Master/BootBox").Include(
-            "~/Scripts/Master/BootBox/bootbox.min.js",
-            "~/Scripts/Master/BootBox/popper.min.js"));
+            bundles.Add(new ScriptBundle("~/Scripts/Lib_WebFont").Include(
+                "~/Scripts/Lib_WebFont.min.js"
+                ));
 
-            //-------------------------------------//
-            // --------- SCRIPT INPUTMASK -------- //
-            //-------------------------------------//
-
-            // Scripts InputMask
-            bundles.Add(new ScriptBundle("~/Scripts/Master/InptuMask").Include(
-                "~/Scripts/Master/InptuMask/jquery.inputmask.js"));
-
-            //-------------------------------------//
-            // ---------- CUSTOM SCRIPTS --------- //
-            //-------------------------------------//
-
-            // Scripts Ready
-            bundles.Add(new ScriptBundle("~/Scripts/Master/Ready").Include(
-                "~/Scripts/Master/Ready/ready.min.js"));
-
-            //-------------------------------------//
-            // ------ SCRIPTS CUENTA USUARIO ----- //
-            //-------------------------------------//
-
-            // Script Cuenta Login
-            bundles.Add(new ScriptBundle("~/Scripts/Modules/Cuenta").Include(
-                "~/Scripts/Modules/Cuenta/LogIn.js"));
-
-            bundles.Add(new ScriptBundle("~/Scripts/Modules/Cuenta/LoggedIn").Include(
-                "~/Scripts/Modules/Cuenta/LoggedIn.js"));
 
             //-------------------------------------//
-            //-- SCRIPTS SUB MODULO EJECUCIÓN ---- //
+            //------ SCRIPTS MODULO CUENTA  ------ //
             //-------------------------------------//
+            bundles.Add(new ScriptBundle("~/Scripts/Cuenta").Include(
+                "~/Scripts/LogIn.js"
+                ));
 
-            // Script Ejecución - Iniciales
-            bundles.Add(new ScriptBundle("~/Scripts/Modules/Ejecucion/Iniciales").Include(
-                "~/Scripts/Modules/Ejecucion/Iniciales/Iniciales.js"));
-            bundles.Add(new ScriptBundle("~/Scripts/Modules/Ejecucion/Detalle").Include(
-            "~/Scripts/Modules/Ejecucion/Iniciales/Detalle.js"));
-
-            // Script Ejecución - Busquedas
-            bundles.Add(new ScriptBundle("~/Scripts/Modules/Ejecucion/Busquedas").Include(
-                "~/Scripts/Modules/Ejecucion/Busquedas/Busquedas.js"));
-
-            // Scripts Ejecución - Promociones
-            bundles.Add(new ScriptBundle("~/Scripts/Modules/Ejecucion/Promociones").Include(
-                "~/Scripts/Modules/Ejecucion/Promociones/Promociones.js"));
-            bundles.Add(new ScriptBundle("~/Scripts/Modules/Ejecucion/Promociones/Detalle").Include(
-                "~/Scripts/Modules/Ejecucion/Promociones/Detalle.js"));
-
-            // Script Ejecución - Reportes
-            bundles.Add(new ScriptBundle("~/Scripts/Modules/Ejecucion/ConsignacionesHistoricas").Include(
-                "~/Scripts/Modules/Ejecucion/Consignaciones/ConsignacionesHistoricas.js"));
-
-            // Script Ejecución - Reportes
-            bundles.Add(new ScriptBundle("~/Scripts/Modules/Ejecucion/Reportes").Include(
-                "~/Scripts/Modules/Ejecucion/Reportes/Reportes.js"));
+            bundles.Add(new ScriptBundle("~/Scripts/LoggedIn").Include(
+                "~/Scripts/LoggedIn.js"
+                ));
 
             //-------------------------------------//
-            //------ SCRIPTS MODULO CONTROL ------ //
+            //----- SCRIPTS MODULO EJECUCION ----- //
             //-------------------------------------//
+
+            /* INICIALES */
+            bundles.Add(new ScriptBundle("~/Scripts/EjecucionIniciales").Include(
+                "~/Scripts/EjecucionIniciales.js"
+                ));
+
+            bundles.Add(new ScriptBundle("~/Scripts/EjecucionInicialesDetalle").Include(
+                "~/Scripts/EjecucionInicialesDetalle.js"
+                 ));            
+            
+            bundles.Add(new ScriptBundle("~/Scripts/EjecucionInicialesSello").Include(
+                "~/Scripts/EjecucionInicialesSello.js"
+                 ));
+
+            /* CONSIGNACIONE HISTORICAS */
+            bundles.Add(new ScriptBundle("~/Scripts/EjecucionConsignaciones").Include(
+                "~/Scripts/EjecucionConsignacionesHistoricas.js"
+                ));
+
+            /* BUSQUEDAS */
+            bundles.Add(new ScriptBundle("~/Scripts/EjecucionBusquedas").Include(
+                "~/Scripts/EjecucionBusquedas.js"
+                ));
+
+            /* PROMOCIONES */
+            bundles.Add(new ScriptBundle("~/Scripts/EjecucionPromociones").Include(
+                "~/Scripts/EjecucionPromociones.js"
+                )); 
+            
+            bundles.Add(new ScriptBundle("~/Scripts/EjecucionPromocionesDetalle").Include(
+                "~/Scripts/EjecucionPromocionesDetalle.js"
+                ));
+
+            /* REPORTES */
+            bundles.Add(new ScriptBundle("~/Scripts/EjecucionReportes").Include(
+                "~/Scripts/EjecucionReportes.js"
+                ));
 
         }
     }
