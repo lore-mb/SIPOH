@@ -7,7 +7,7 @@
     <link rel="icon" href="~/Content/Master/Img/PoderJudicialHgo.png" type="image/x-icon" />
 
     <!-- Fonts and icons -->
-    @Scripts.Render("~/Scripts/Lib_WebFont")
+    @Scripts.Render("~/Scripts/webFont")
     @Styles.Render("~/Content/FontAwesome")
 
     <script>
@@ -491,28 +491,29 @@
     </div>
 
     <!--   Core JS Files   -->
-    @Scripts.Render("~/Scripts/Lib_JQuery.min")
+    @Scripts.Render("~/Scripts/jQuery")
     <!-- Style DataTable -->
-    @Styles.Render("~/Content/Style_Datatables")
+    @Styles.Render("~/Content/StyleDatatables")
     <!-- *** Script DataTable -->
-    @Scripts.Render("~/Scripts/Lib_DataTables.min")
+    @Scripts.Render("~/Scripts/dataTables")
     <!-- Popper Bootstrap -->
-    @Scripts.Render("~/Scripts/Lib_Popper")
+    @Scripts.Render("~/Scripts/popper")
     <!-- *** Bootstrap -->
-    @Scripts.Render("~/Scripts/Lib_Bootstrap.min")
+    @Scripts.Render("~/Scripts/bootstrap")
     <!-- *** jQuery UI -->
-    @Scripts.Render("~/Scripts/Lib_UITouch")
+    @Scripts.Render("~/Scripts/uITouch")
     <!-- *** jQuery Scrollbar -->
-    @Scripts.Render("~/Scripts/Lib_JQueryScrollbarMin")
+    @Scripts.Render("~/Scripts/jQueryScrollbar")
     <!-- DatePicker -->
-    @Styles.Render("~/Content/Style_DateTimePicker")
-    @Scripts.Render("~/Scripts/Libs_DateTimePicker")
+    @Styles.Render("~/Content/StyleDateTimePicker")
+    @Scripts.Render("~/Scripts/dateTimePicker")
     <!-- Ready -->
-    @Scripts.Render("~/Scripts/Lib_Ready.min")
+    @Scripts.Render("~/Scripts/ready")
     <!-- *** BootBox -->
-    @Scripts.Render("~/Scripts/Lib_Bootbox")
+    @Scripts.Render("~/Scripts/bootbox")
     <!-- Notify -->
-    @Scripts.Render("~/Scripts/Lib_BootstrapNotify.min")
+    @Scripts.Render("~/Scripts/bootstrapNotify")
 
+    @RenderSection("scripts", required: false)
 </body>
 </html>

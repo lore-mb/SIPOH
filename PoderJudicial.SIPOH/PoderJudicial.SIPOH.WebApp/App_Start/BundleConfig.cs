@@ -12,25 +12,25 @@ namespace PoderJudicial.SIPOH.WebApp
             //-------------------------------------//
             //-------- STILOS CSS SITE    -------- //
             //-------------------------------------//
-            bundles.Add(new StyleBundle("~/Content/Style_Datatables").Include(
-                "~/Content/Style_Datatables.min.css"
+            bundles.Add(new StyleBundle("~/Content/StyleDatatables").Include(
+                "~/Content/StyleDatatables.min.css"
                 ));
 
-            bundles.Add(new StyleBundle("~/Content/Style_DateTimePicker").Include(
-                "~/Content/Style_DateTimePicker.min.css"
+            bundles.Add(new StyleBundle("~/Content/StyleDateTimePicker").Include(
+                "~/Content/StyleDateTimePicker.min.css"
                 ));
 
             bundles.Add(new StyleBundle("~/Content/StyleSite").Include(
-               "~/Content/Style_Bootstrap.css",
-               "~/Content/Style_CapaPersonalizada.css"
+               "~/Content/StyleBootstrap.css",
+               "~/Content/StyleCapaPersonalizada.css"
                ));
 
             bundles.Add(new StyleBundle("~/Content/FontAwesome").Include(
-               "~/Content/FontAwesome/all.min.css"
+               "~/Content/StyleFontAwesome.min.css"
                ));
 
             bundles.Add(new StyleBundle("~/Content/IcoMoon").Include(
-               "~/Content/IcoMoon/style.css"
+               "~/Content/StyleIconMoon.css"
                ));
 
 
@@ -39,67 +39,67 @@ namespace PoderJudicial.SIPOH.WebApp
             //-------------------------------------//
 
             /* BootBox */
-            bundles.Add(new ScriptBundle("~/Scripts/Lib_Bootbox").Include(
-                "~/Scripts/Lib_Bootbox.min.js",
-                "~/Scripts/Lib_BootboxPopper.min.js"
+            bundles.Add(new ScriptBundle("~/Scripts/bootbox").Include(
+                "~/Scripts/LibBootbox.min.js",
+                "~/Scripts/LibBootboxPopper.min.js"
                 ));
 
             /* Bootstrap */
-            bundles.Add(new ScriptBundle("~/Scripts/Lib_Bootstrap.min").Include(
-                "~/Scripts/Lib_Bootstrap.min.js"
+            bundles.Add(new ScriptBundle("~/Scripts/bootstrap").Include(
+                "~/Scripts/LibBootstrap.min.js"
                 ));
 
             /* DataTable */
-            bundles.Add(new ScriptBundle("~/Scripts/Lib_DataTables.min").Include(
-                "~/Scripts/Lib_DataTables.min.js"
+            bundles.Add(new ScriptBundle("~/Scripts/dataTables").Include(
+                "~/Scripts/LibDataTables.min.js"
                 ));
 
             /* DateTimePicker */
-            bundles.Add(new ScriptBundle("~/Scripts/Libs_DateTimePicker").Include(
-                "~/Scripts/Lib_Moment.min.js",
-                "~/Scripts/Lib_Traslate_Es-mx.js",
-                "~/Scripts/Lib_DateTimePicker.min.js"
+            bundles.Add(new ScriptBundle("~/Scripts/dateTimePicker").Include(
+                "~/Scripts/LibMoment.min.js",
+                "~/Scripts/LibTraslateEsmx.js",
+                "~/Scripts/LibDateTimePicker.min.js"
                 ));
 
             /* InputMask */
-            bundles.Add(new ScriptBundle("~/Scripts/Lib_Inputmask").Include(
-                "~/Scripts/Lib_Inputmask.js"
+            bundles.Add(new ScriptBundle("~/Scripts/inputmask").Include(
+                "~/Scripts/LibInputmask.js"
                 ));
 
             /* JQuery */
-            bundles.Add(new ScriptBundle("~/Scripts/Lib_JQuery.min").Include(
-                "~/Scripts/Lib_JQuery.min.js"
+            bundles.Add(new ScriptBundle("~/Scripts/jQuery").Include(
+                "~/Scripts/LibJQuery.min.js"
                 ));
 
             /* JQuery Scrollbar */
-            bundles.Add(new ScriptBundle("~/Scripts/Lib_JQueryScrollbarMin").Include(
-                "~/Scripts/Lib_JQueryScrollbarMin.js"
+            bundles.Add(new ScriptBundle("~/Scripts/jQueryScrollbar").Include(
+                "~/Scripts/LibJQueryScrollbarMin.js"
                 ));
 
             /* JQuery UI Touch*/
-            bundles.Add(new ScriptBundle("~/Scripts/Lib_UITouch").Include(
-                "~/Scripts/Lib_JQueryUI.js",
-                "~/Scripts/Lib_JQueryUITouchPunch.js"
+            bundles.Add(new ScriptBundle("~/Scripts/uITouch").Include(
+                "~/Scripts/LibJQueryUI.js",
+                "~/Scripts/LibJQueryUITouchPunch.js"
                 ));
 
             /* Notify */
-            bundles.Add(new ScriptBundle("~/Scripts/Lib_BootstrapNotify.min").Include(
-                "~/Scripts/Lib_BootstrapNotify.min.js"
+            bundles.Add(new ScriptBundle("~/Scripts/bootstrapNotify").Include(
+                "~/Scripts/LibBootstrapNotify.min.js"
                 ));
 
             /* Popper */
-            bundles.Add(new ScriptBundle("~/Scripts/Lib_Popper").Include(
-                "~/Scripts/Lib_Popper.min.js"
+            bundles.Add(new ScriptBundle("~/Scripts/popper").Include(
+                "~/Scripts/LibPopper.min.js"
                 ));
 
             /* Ready */
-            bundles.Add(new ScriptBundle("~/Scripts/Lib_Ready.min").Include(
-                "~/Scripts/Lib_Ready.min.js"
+            bundles.Add(new ScriptBundle("~/Scripts/ready").Include(
+                "~/Scripts/LibReady.min.js"
                 ));
 
             /* WebFont */
-            bundles.Add(new ScriptBundle("~/Scripts/Lib_WebFont").Include(
-                "~/Scripts/Lib_WebFont.min.js"
+            bundles.Add(new ScriptBundle("~/Scripts/webFont").Include(
+                "~/Scripts/LibWebFont.min.js"
                 ));
 
 

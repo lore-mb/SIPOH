@@ -7732,7 +7732,7 @@ div.table-responsive > div.dataTables_wrapper > div.row {
         height: 100%;
         display: block;
         z-index: -1;
-        background: url(/Content/Master/Img/Background_ProcuradoriaHidalgo.jpg);
+        background: url(Master/Img/Background_ProcuradoriaHidalgo.jpg);
         background-size: cover;
         -webkit-filter: blur(7px);
         filter: blur(7px);

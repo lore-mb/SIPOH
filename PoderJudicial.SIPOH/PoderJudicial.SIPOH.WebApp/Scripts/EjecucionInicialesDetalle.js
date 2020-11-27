@@ -241,7 +241,7 @@ function ImprimirSello()
 
     var ventana = window.open();
     ventana.document.write("<html><head><title></title>");
-    ventana.document.write("<script src=\"/Scripts/Lib_JQuery.min.js\"></script>");
+    ventana.document.write("<script src=\"/Scripts/LibJQuery.min.js\"></script>");
     ventana.document.write("<script src=\"/Scripts/EjecucionInicialesSello.js\"></script>");       
     ventana.document.write("</head><body>");
     ventana.document.write("<PRE>" + sello + "</PRE>");

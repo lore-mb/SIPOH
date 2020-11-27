@@ -9,13 +9,13 @@
     <meta name="robots" content="all,follow">
     <link rel="icon" href="~/Content/Master/Img/PoderJudicialHgo.png" type="image/x-icon" />
     <!-- Fonts and icons -->
-    @Scripts.Render("~/Scripts/Lib_WebFont")
+    @Scripts.Render("~/Scripts/webFont")
     @Styles.Render("~/Content/FontAwesome")
 
     <script>
         WebFont.load({
             google: { "families": ["Open+Sans:300,400,600,700"] },
-            custom: { urls: ['~/Content/Style_Fonts.css'] },
+            custom: { urls: ['~/Content/StyleFonts.css'] },
 
         });
     </script>
@@ -32,36 +32,38 @@
         </div>
 
         @*<div class="container container-signup animated fadeIn">
-            <h3 class="text-center">SIPOH</h3>
-            <div class="login-form">
-                <div class="form-group">
-                    <label for="fullname" class="placeholder"><b>Fullname</b></label>
-                    <input  id="fullname" name="fullname" type="text" class="form-control" required>
-                </div>
-
-
-                <div class="row form-action">
-                    <div class="col-md-6">
-                        <a href="#" id="show-signin" class="btn btn-danger btn-link w-100 fw-bold">Regresar</a>
+                <h3 class="text-center">SIPOH</h3>
+                <div class="login-form">
+                    <div class="form-group">
+                        <label for="fullname" class="placeholder"><b>Fullname</b></label>
+                        <input  id="fullname" name="fullname" type="text" class="form-control" required>
                     </div>
 
+
+                    <div class="row form-action">
+                        <div class="col-md-6">
+                            <a href="#" id="show-signin" class="btn btn-danger btn-link w-100 fw-bold">Regresar</a>
+                        </div>
+
+                    </div>
                 </div>
-            </div>
-        </div>*@
+            </div>*@
     </div>
     <!--   Core JS Files   -->
-    @Scripts.Render("~/Scripts/Lib_JQuery.min")
-    @Scripts.Render("~/Scripts/Lib_Popper")
-    @Scripts.Render("~/Scripts/Lib_Bootstrap.min")
+    @Scripts.Render("~/Scripts/jQuery")
+    @Scripts.Render("~/Scripts/popper")
+    @Scripts.Render("~/Scripts/bootstrap")
 
     <!-- jQuery UI -->
-    @Scripts.Render("~/Scripts/Lib_UITouch")
+    @Scripts.Render("~/Scripts/uITouch")
 
     <!-- jQuery Scrollbar -->
-    @Scripts.Render("~/Scripts/Lib_JQueryScrollbarMin"  )
+    @Scripts.Render("~/Scripts/jQueryScrollbar")
 
     <!-- Ready -->
-    @Scripts.Render("~/Scripts/Lib_Ready.min")
+    @Scripts.Render("~/Scripts/ready")
+
+    @RenderSection("scripts", required: false)
 </body>
 
 </html>

@@ -143,6 +143,7 @@ function ElementosAlCargado()
 
             if (form.checkValidity() === true && id == "formCausas")
             {
+               
                 ConsultarCausas();
             }
 
@@ -206,7 +207,7 @@ function ElementosAlCargado()
             $("#slctJuzgadoTradi").prop('disabled', false);
 
             var parametros = { idDistrito: IdDistrito }
-            SolicitudEstandarAjax("/Iniciales/ObtenerJuzgadoTradicional", parametros, ListarJuzgadoTradicional); 
+            SolicitudEstandarAjax("Iniciales/ObtenerJuzgadoTradicional", parametros, ListarJuzgadoTradicional); 
         }
         else
         {
@@ -623,7 +624,7 @@ function ConsultarCausas()
         if (causaNucSelect == 2)
         {
             var parametros = { idJuzgado: juzgadoId, nuc: causaNucText };
-            SolicitudEstandarAjax("/Iniciales/ObtenerExpedientePorNUC", parametros, ListarCausas);
+            SolicitudEstandarAjax("Iniciales/ObtenerExpedientePorNUC", parametros, ListarCausas);
         }
         else
         {   
@@ -642,7 +643,7 @@ function ConsultarCausas()
             }
            
             var parametros = { idJuzgado: juzgadoId, numeroCausa: causaNucText };
-            SolicitudEstandarAjax("/Iniciales/ObtenerExpedientePorCausa", parametros, ListarCausas);
+            SolicitudEstandarAjax("Iniciales/ObtenerExpedientePorCausa", parametros, ListarCausas);
         } 
     }
     else
@@ -665,7 +666,7 @@ function ConsultarCausas()
         }
 
         var parametros = { idJuzgado: juzgadoId, numeroCausa: causaNucText };
-        SolicitudEstandarAjax("/Iniciales/ObtenerExpedientePorCausa", parametros, ListarCausas);
+        SolicitudEstandarAjax("Iniciales/ObtenerExpedientePorCausa", parametros, ListarCausas);
     }
 }
 
@@ -1238,7 +1239,7 @@ function RederizarDetalleError(respuesta)
 function SolicitudEstandarAjax(url, parametros, functionCallbackSuccess, functionCallbackError = null)
 {
     $.ajax({
-        url: url,
+        url: urlBase + url,
         type: "GET",
         cache: false,
         traditional: true,

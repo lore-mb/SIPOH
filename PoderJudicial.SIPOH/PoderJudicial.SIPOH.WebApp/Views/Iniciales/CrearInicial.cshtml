@@ -34,8 +34,9 @@
 
 <script>
     var esConsignacionHistorica = @(ViewBag.EsConsignacionHistorica.ToString().ToLower());
+    var urlBase = '@Url.Content("~")';
 </script>
 
-@Scripts.Render("~/Scripts/Lib_JQuery.min")
-@Scripts.Render("~/Scripts/Lib_Inputmask")
+@Scripts.Render("~/Scripts/jQuery")
+@Scripts.Render("~/Scripts/inputmask")
 @Scripts.Render("~/Scripts/EjecucionIniciales")
