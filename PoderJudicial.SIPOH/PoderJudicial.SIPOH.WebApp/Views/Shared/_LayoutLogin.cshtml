@@ -9,19 +9,20 @@
     <meta name="robots" content="all,follow">
     <link rel="icon" href="~/Content/Master/Img/PoderJudicialHgo.png" type="image/x-icon" />
     <!-- Fonts and icons -->
-    @Scripts.Render("~/Scripts/Master/WebFonts")
-    @Styles.Render("~/Content/Master/Fonts/FontAwesome")
+    @Scripts.Render("~/Scripts/Lib_WebFont")
+    @Styles.Render("~/Content/FontAwesome")
+
     <script>
         WebFont.load({
             google: { "families": ["Open+Sans:300,400,600,700"] },
-            custom: { urls: ['~/Content/Master/fonts.css'] },
+            custom: { urls: ['~/Content/Style_Fonts.css'] },
 
         });
     </script>
 
-    @Styles.Render("~/Content/Master/Fonts/IcoMoon/")
+    @Styles.Render("~/Content/IcoMoon")
     <!-- CSS Files -->
-    @Styles.Render("~/Content/Master/Site")
+    @Styles.Render("~/Content/StyleSite")
 </head>
 
 <body class="login login-page ">
@@ -49,19 +50,18 @@
         </div>*@
     </div>
     <!--   Core JS Files   -->
-    @Scripts.Render("~/Scripts/Master/Jquery")
-    @Scripts.Render("~/Scripts/Master/Popper")
-    @Scripts.Render("~/Scripts/Master/Bootstrap")
+    @Scripts.Render("~/Scripts/Lib_JQuery.min")
+    @Scripts.Render("~/Scripts/Lib_Popper")
+    @Scripts.Render("~/Scripts/Lib_Bootstrap.min")
 
     <!-- jQuery UI -->
-    @Scripts.Render("~/Scripts/Master/Jquery_UI_Custom")
-    @Scripts.Render("~/Scripts/Master/Jquery_UI_Touch")
+    @Scripts.Render("~/Scripts/Lib_UITouch")
 
     <!-- jQuery Scrollbar -->
-    @Scripts.Render("~/Scripts/Master/Jquery_Scrollbar")
+    @Scripts.Render("~/Scripts/Lib_JQueryScrollbarMin"  )
 
     <!-- Ready -->
-    @Scripts.Render("~/Scripts/Master/Ready")
+    @Scripts.Render("~/Scripts/Lib_Ready.min")
 </body>
 
 </html>

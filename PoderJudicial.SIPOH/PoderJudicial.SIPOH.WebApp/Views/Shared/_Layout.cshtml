@@ -7,17 +7,18 @@
     <link rel="icon" href="~/Content/Master/Img/PoderJudicialHgo.png" type="image/x-icon" />
 
     <!-- Fonts and icons -->
-    @Scripts.Render("~/Scripts/Master/WebFonts")
-    @Styles.Render("~/Content/Master/Fonts/FontAwesome")
+    @Scripts.Render("~/Scripts/Lib_WebFont")
+    @Styles.Render("~/Content/FontAwesome")
+
     <script>
         WebFont.load({
             google: { "families": ["Open+Sans:300,400,600,700"] }
         });
     </script>
 
-    @Styles.Render("~/Content/Master/Fonts/IcoMoon/")
+    @Styles.Render("~/Content/IcoMoon")
     <!-- CSS Files -->
-    @Styles.Render("~/Content/Master/Site")
+    @Styles.Render("~/Content/StyleSite")
 
 </head>
 <body data-background-color="bg3">
@@ -307,18 +308,18 @@
                                 </ul>
                             </div>
                         </li>
-                        <li class="nav-item 
+                        <li class="nav-item
                               @(ViewContext.RouteData.Values["Controller"].ToString() == "Iniciales" ? "active submenu" : "")
-                              @(ViewContext.RouteData.Values["Controller"].ToString() == "Promociones" ? "active submenu" : "")  
-                              @(ViewContext.RouteData.Values["Controller"].ToString() == "Busquedas" ? "active submenu" : "")  
-                              @(ViewContext.RouteData.Values["Controller"].ToString() == "ConsignacionesHistoricas" ? "active submenu" : "")  
-                              @(ViewContext.RouteData.Values["Controller"].ToString() == "Reportes" ? "active submenu" : "")">                         
+                              @(ViewContext.RouteData.Values["Controller"].ToString() == "Promociones" ? "active submenu" : "")
+                              @(ViewContext.RouteData.Values["Controller"].ToString() == "Busquedas" ? "active submenu" : "")
+                              @(ViewContext.RouteData.Values["Controller"].ToString() == "ConsignacionesHistoricas" ? "active submenu" : "")
+                              @(ViewContext.RouteData.Values["Controller"].ToString() == "Reportes" ? "active submenu" : "")">
                             <a data-toggle="collapse" href="#submenuEJ">
                                 <i class="icon-hammer2"></i>
                                 <p>Ejecución</p>
                                 <span class="caret"></span>
                             </a>
-                            <div class="collapse 
+                            <div class="collapse
                                     @(ViewContext.RouteData.Values["Controller"].ToString() == "Iniciales" ? "show" : "")
                                     @(ViewContext.RouteData.Values["Controller"].ToString() == "Promociones" ? "show" : "")
                                     @(ViewContext.RouteData.Values["Controller"].ToString() == "Busquedas" ? "show" : "")
@@ -355,36 +356,36 @@
                             </div>
                         </li>
                         @*<li class="nav-item">
-                            <a data-toggle="collapse" href="#submenuJO">
-                                <i class="icon-hammer2"></i>
-                                <p>Juicios Orales</p>
-                                <span class="caret"></span>
-                            </a>
-                            <div class="collapse" id="submenuJO">
-                                <ul class="nav nav-collapse">
-                                    <li>
-                                        <a data-toggle="collapse" href="#subnav2">
-                                            <span class="sub-item">Level 1</span>
-                                            <span class="caret"></span>
-                                        </a>
-                                        <div class="collapse" id="subnav2">
-                                            <ul class="nav nav-collapse subnav">
-                                                <li>
-                                                    <a href="#">
-                                                        <span class="sub-item">Level 2</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <span class="sub-item">Level 1</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>*@
+                                <a data-toggle="collapse" href="#submenuJO">
+                                    <i class="icon-hammer2"></i>
+                                    <p>Juicios Orales</p>
+                                    <span class="caret"></span>
+                                </a>
+                                <div class="collapse" id="submenuJO">
+                                    <ul class="nav nav-collapse">
+                                        <li>
+                                            <a data-toggle="collapse" href="#subnav2">
+                                                <span class="sub-item">Level 1</span>
+                                                <span class="caret"></span>
+                                            </a>
+                                            <div class="collapse" id="subnav2">
+                                                <ul class="nav nav-collapse subnav">
+                                                    <li>
+                                                        <a href="#">
+                                                            <span class="sub-item">Level 2</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <span class="sub-item">Level 1</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>*@
 
                         <li class="nav-section">
                             <span class="sidebar-mini-icon">
@@ -457,18 +458,18 @@
                         </ul>
 
                         @*<div class="btn-group btn-group-page-header ml-auto">
-                            <button type="button" class="btn btn-light btn-round btn-page-header-dropdown dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-ellipsis-h"></i>
-                            </button>
-                            <div class="dropdown-menu">
-                                <div class="arrow"></div>
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Separated link</a>
-                            </div>
-                        </div>*@
+                                <button type="button" class="btn btn-light btn-round btn-page-header-dropdown dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-ellipsis-h"></i>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <div class="arrow"></div>
+                                    <a class="dropdown-item" href="#">Action</a>
+                                    <a class="dropdown-item" href="#">Another action</a>
+                                    <a class="dropdown-item" href="#">Something else here</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">Separated link</a>
+                                </div>
+                            </div>*@
                     </div>
 
                     <!-- Lógica para Render Body-->
@@ -482,38 +483,36 @@
     <div id="loading">
         <div id="loadingcontent">
             @*<p id="loadingspinner">*@
-                @*<img src="~/Content/Master/Img/loading.gif" />*@
-                <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-                <div class="letraSpinner">Procesando ...</div>
+            @*<img src="~/Content/Master/Img/loading.gif" />*@
+            <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+            <div class="letraSpinner">Procesando ...</div>
             @*</p>*@
         </div>
     </div>
 
     <!--   Core JS Files   -->
-    @Scripts.Render("~/Scripts/Master/Jquery")
+    @Scripts.Render("~/Scripts/Lib_JQuery.min")
     <!-- Style DataTable -->
-    @Styles.Render("~/Content/Master/DataTables")
-    <!-- Script DataTable -->
-    @Scripts.Render("~/Scripts/Master/DataTables")
+    @Styles.Render("~/Content/Style_Datatables")
+    <!-- *** Script DataTable -->
+    @Scripts.Render("~/Scripts/Lib_DataTables.min")
     <!-- Popper Bootstrap -->
-    @Scripts.Render("~/Scripts/Master/Popper")
-    <!-- Bootstrap -->
-    @Scripts.Render("~/Scripts/Master/Bootstrap")
-    <!-- jQuery UI -->
-    @Scripts.Render("~/Scripts/Master/Jquery_UI_Custom")
-    @Scripts.Render("~/Scripts/Master/Jquery_UI_Touch")
-    <!-- jQuery Scrollbar -->
-    @Scripts.Render("~/Scripts/Master/Jquery_Scrollbar")
+    @Scripts.Render("~/Scripts/Lib_Popper")
+    <!-- *** Bootstrap -->
+    @Scripts.Render("~/Scripts/Lib_Bootstrap.min")
+    <!-- *** jQuery UI -->
+    @Scripts.Render("~/Scripts/Lib_UITouch")
+    <!-- *** jQuery Scrollbar -->
+    @Scripts.Render("~/Scripts/Lib_JQueryScrollbarMin")
     <!-- DatePicker -->
-    @Scripts.Render("~/Scripts/Master/Moment")
-    @Scripts.Render("~/Scripts/Master/LocateMX")
-    @Styles.Render("~/Content/Master/DatePicker")
-    @Scripts.Render("~/Scripts/Master/DatePicker")
+    @Styles.Render("~/Content/Style_DateTimePicker")
+    @Scripts.Render("~/Scripts/Libs_DateTimePicker")
     <!-- Ready -->
-    @Scripts.Render("~/Scripts/Master/Ready")
-    <!-- BootBpx -->
-    @Scripts.Render("~/Scripts/Master/BootBox")
+    @Scripts.Render("~/Scripts/Lib_Ready.min")
+    <!-- *** BootBox -->
+    @Scripts.Render("~/Scripts/Lib_Bootbox")
     <!-- Notify -->
-    @Scripts.Render("~/Scripts/Master/Notify")
+    @Scripts.Render("~/Scripts/Lib_BootstrapNotify.min")
+
 </body>
 </html>
