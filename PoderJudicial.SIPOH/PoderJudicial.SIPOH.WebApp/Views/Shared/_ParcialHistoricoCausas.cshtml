@@ -58,41 +58,42 @@
 </div>
 
 <div id="contenedorformBuscaTradicionalHistoricoCausa" hidden>
-    <div class="form-row">
-        <div class="col-12 col-md-3 form-group">
-            <label for="slcNumero"><strong>Distrito de Procedencia</strong></label>
-            @Html.DropDownList("DistritoPorCircuito", (SelectList)ViewBag.DistritosPorCircuito, "SELECCIONAR OPCIÓN", new { @id = "slctDistritoHistoricoCausa", @class = "custom-select custom-select-sm", @required = "required", @disabled = "true" })
-        </div>
-        <div class="col-12 col-md-5 form-group">
-            <label for="validationCustom04"><strong>Juzgado de Procedencia</strong></label>
-            <select class="custom-select custom-select-sm" id="slctJuzgadoTradiHistoricoCausa" required disabled>
-                <option selected value="">SELECCIONAR OPCIÓN</option>
-            </select>
-        </div>
-        <div class="col-12 col-md-2 form-group">
-            <label for="validationCustomUsername"><strong>Numero de Causa</strong></label>
-            <div class="input-group" id="divCAU">
-                <input disabled type="text" class="form-control form-control-sm" id="inpCausaTradicionalHistoricoCausa" aria-describedby="inpCAU" placeholder="0000/0000" required>
+    <form id="formBuscaTradicionalHistoricoCausa" class="needs-validation" novalidate>
+        <div class="form-row">
+            <div class="col-12 col-md-3 form-group">
+                <label for="slcNumero"><strong>Distrito de Procedencia</strong></label>
+                @Html.DropDownList("DistritoPorCircuito", (SelectList)ViewBag.DistritosPorCircuito, "SELECCIONAR OPCIÓN", new { @id = "slctDistritoHistoricoCausa", @class = "custom-select custom-select-sm", @required = "required", @disabled = "true" })
             </div>
-        </div>
-
-        <div class="col-md-12 col-lg-2 form-group">
-            <label><strong>Fecha de Recepción</strong></label>
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="icon-calendar"></i> </span>
-                </div>
-                <input type="text" class="form-control form-control-sm" id="datetimepickerFechaTradicional" name="datetime" placeholder="AAAA-MM-DD" required>
-                <div class="valid-feedback" wfd-invisible="true">
-                    <i class="icon-checkmark"></i> 	Fecha de Recepción.
-                </div>
-                <div class="invalid-feedback" wfd-invisible="true">
-                    <i class="icon-cancel-circle"></i> Por favor, seleeciona fecha inicial.
+            <div class="col-12 col-md-5 form-group">
+                <label for="validationCustom04"><strong>Juzgado de Procedencia</strong></label>
+                <select class="custom-select custom-select-sm" id="slctJuzgadoTradiHistoricoCausa" required disabled>
+                    <option selected value="">SELECCIONAR OPCIÓN</option>
+                </select>
+            </div>
+            <div class="col-12 col-md-2 form-group">
+                <label for="validationCustomUsername"><strong>Numero de Causa</strong></label>
+                <div class="input-group" id="divCAU">
+                    <input disabled type="text" class="form-control form-control-sm" id="inpCausaTradicionalHistoricoCausa" aria-describedby="inpCAU" placeholder="0000/0000" required>
                 </div>
             </div>
-        </div>
 
-    </div>
+            <div class="col-md-12 col-lg-2 form-group">
+                <label><strong>Fecha de Recepción</strong></label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="icon-calendar"></i> </span>
+                    </div>
+                    <input type="text" class="form-control form-control-sm" id="datetimepickerFechaTradicional" name="datetime" placeholder="AAAA-MM-DD" required>
+                    <div class="valid-feedback" wfd-invisible="true">
+                        <i class="icon-checkmark"></i> 	Fecha de Recepción.
+                    </div>
+                    <div class="invalid-feedback" wfd-invisible="true">
+                        <i class="icon-cancel-circle"></i> Por favor, seleeciona fecha inicial.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
 </div>
 
 <div class="tab-content">
@@ -100,7 +101,7 @@
         <div class="col-12 col-md-6 form-group">
             <div class="form-row">
                 <div class="col-10">
-                    <h6 class="ml-1 m-0 font-weight-bold text-success">Imputado(s)</h6>
+                    <h6 class="ml-1 m-0 font-weight-bold text-success"><i class="icon-table2"></i> Imputado(s)</h6>
                 </div>
                 <div class="col-2 d-flex flex-row justify-content-end">
                     @*<i class="fas fa-search"></i>*@
@@ -108,7 +109,7 @@
                 </div>
                 <div class="col-12">
                     <div class="table-responsive text-small">
-                        <table class="table table-hover table-bordered" id="dataTableImputados" width="100%" cellspacing="0">
+                        <table class="table table-bordered" id="dataTableImputados" width="100%" cellspacing="0">
                         </table>
                     </div>
                 </div>
@@ -117,7 +118,7 @@
         <div class="col-12 col-md-6 form-group">
             <div class="form-row">
                 <div class="col-10 align-items-end">
-                    <h6 class="ml-1 m-0 font-weight-bold text-success">Victima u Ofendido(S)</h6>
+                    <h6 class="ml-1 m-0 font-weight-bold text-success"><i class="icon-table2"></i> Victima u Ofendido(S)</h6>
                 </div>
                 <div class="col-2 d-flex flex-row justify-content-end">
                     @*<i class="fas fa-search"></i>*@
@@ -125,7 +126,7 @@
                 </div>
                 <div class="col-12">
                     <div class="table-responsive text-small">
-                        <table class="table table-hover table-bordered" id="dataTableOfendidos" width="100%" cellspacing="0">
+                        <table class="table table-bordered" id="dataTableOfendidos" width="100%" cellspacing="0">
                         </table>
                     </div>
                 </div>
