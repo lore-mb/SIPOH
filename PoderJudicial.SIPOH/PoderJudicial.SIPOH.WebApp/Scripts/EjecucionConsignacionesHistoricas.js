@@ -155,7 +155,7 @@ function ValidarQueExisteCausaEnJuzgado()
 
     var nuc = $("#inpNucHistoricoCausa").val();
     var parametros = { idJuzgado: idJuzgado, numeroDeCausa: numeroDeCausa, nuc: nuc }
-    SolicitudEstandarAjax("/ConsignacionesHistoricas/ValidaNumeroDeCausa", parametros, MuestraFormularioHistoricoCausa);
+    SolicitudEstandarAjax("ConsignacionesHistoricas/ValidaNumeroDeCausa", parametros, MuestraFormularioHistoricoCausa);
 }
 
 //Descripcion : Muestra un mensaje al usuario indicado que la causa que intenta anexanar al formulario 
@@ -298,7 +298,7 @@ function SeteaFormularioHistoricoCausa(numeroCausa, nuc, idDistrito, idJuzgado)
 
         IdJuzgadoSeleccionado = idJuzgado;
         var parametros = { idDistrito: idDistrito }
-        SolicitudEstandarAjax("/ConsignacionesHistoricas/ObtenerJuzgadoTradicional", parametros, ListarJuzgadoTradicionalFormHistorico);
+        SolicitudEstandarAjax("ConsignacionesHistoricas/ObtenerJuzgadoTradicional", parametros, ListarJuzgadoTradicionalFormHistorico);
     }
     else
     {
@@ -362,7 +362,7 @@ function ValidarExistenciaDeNumeroEjecucion()
     var idJuzgadoEjecucion = $("#" + ("slctJuzgadoEjecucion")).find('option:selected').val(); 
     var parametros = { idJuzgadoEjecucion: idJuzgadoEjecucion, numeroEjecucion: numeroEjecucion }
 
-    SolicitudEstandarAjax("/ConsignacionesHistoricas/ValidaNumeroDeEjecucion", parametros, MostrarFormularioBeneficiarios);
+    SolicitudEstandarAjax("ConsignacionesHistoricas/ValidaNumeroDeEjecucion", parametros, MostrarFormularioBeneficiarios);
 }
 
 function MostrarFormularioBeneficiarios(respuesta)
@@ -576,6 +576,7 @@ function AgregarParteAlDataTables()
     //Crea objeto de tipo Parte
     var parte = new Object();
     parte.IdParte = Math.floor(Math.random() * 90000) + 10000;
+
     //Atributos generales
     parte.Nombre = idTipoPersona == 1 ? ($('#ipnNombreParte').val() + " " + $('#inpApellidoPaternoParte').val() + " " + $('#ipnApellidoMaternoParte').val()): $('#inpRazonSocial').val();
     parte.NombreParte = idTipoPersona == 1 ? $('#ipnNombreParte').val() : $('#inpRazonSocial').val();

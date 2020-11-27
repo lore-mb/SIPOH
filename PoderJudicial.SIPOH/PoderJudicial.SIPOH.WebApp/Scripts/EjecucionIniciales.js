@@ -462,7 +462,7 @@ function ValidarBeneficiarios()
 
         //Consumir Metodo del Controlador
         var parametros = { nombreBene: nombreBene, apellidoPaternoBene: apellidoPBene, apellidoMaternoBene: apellidoMBene }
-        SolicitudEstandarAjax("/Iniciales/ConsultarSentenciadoBeneficiario", parametros, LlenaTablaConsultaBeneficiarios);
+        SolicitudEstandarAjax("Iniciales/ConsultarSentenciadoBeneficiario", parametros, LlenaTablaConsultaBeneficiarios);
     }
     else
     {
@@ -1173,7 +1173,7 @@ function GenerarEjecucion()
         OtraSolicita: $("#inpOtraSolicitud").val()
     };
 
-    SolicitudEstandarPostAjax('/Iniciales/CrearEjecucion', parametros, RederizarDetalleSuccess, RederizarDetalleError);
+    SolicitudEstandarPostAjax('Iniciales/CrearEjecucion', parametros, RederizarDetalleSuccess, RederizarDetalleError);
 }
 
 ////Descripcion : Si la solicitud al controlador fue exitosa, redirecciona a la vista que muestra el detalle de la
@@ -1335,10 +1335,10 @@ function SiguienteInput()
     });
 }
 
-function SolicitudEstandarPostAjax(urlAction, parameters, functionCallbackSuccess, functionCallbackError = null)
+function SolicitudEstandarPostAjax(url, parameters, functionCallbackSuccess, functionCallbackError = null)
 {
     $.ajax({
-        url: urlAction,
+        url: urlBase + url,
         type: "POST",
         traditional: true,
         contentType: "application/json; charset=utf-8",
