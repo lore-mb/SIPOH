@@ -128,7 +128,12 @@ function ElementosAlCargado()
 
             if (form.checkValidity() === true && id == "formBuscaAcusatorioHistoricoCausa")
             {
-                ValidarQueExisteCausaEnJuzgado()
+                AgregarCausaAlDataTable(false)
+            }
+
+            if (form.checkValidity() === true && id == "formBuscaTradicionalHistoricoCausa")
+            {
+                AgregarCausaAlDataTable(true)
             }
 
             if (form.checkValidity() === true && id == "formAgregaDelito")
@@ -142,8 +147,7 @@ function ElementosAlCargado()
             }
 
             if (form.checkValidity() === true && id == "formCausas")
-            {
-               
+            {               
                 ConsultarCausas();
             }
 
@@ -723,6 +727,7 @@ function ListarCausas(respuesta)
                         }
                     }
 
+                    expediente.Historico = false;
                     expediente.Eliminar = "<button type='button' class='btn btn-link btn-danger btn-sm' onclick='EliminarCausa(" + expediente.IdExpediente + ")' data-toggle='tooltip' title='Quitar Causa'><i class='icon-bin2'></i></button>";
 
                     //Agrega Causa al Arreglo de Cuasas
@@ -773,19 +778,29 @@ function ListarCausas(respuesta)
         }
         else
         {
-            var funcionCancelar = function ()
-            {
-                LimpiaValidacion((!EsTradicional ? "formCausas" : "formCausasTradicional"), (!EsTradicional ? "Numero" : "inpCAUT"));
-            }
+            var idJuzgado = $("#" + (!EsTradicional ? "slctJuzgado" : "slctJuzgadoTradi")).find('option:selected').val();
 
-            //Metodo que activa la funcionalidad para el formumario de Historico de Causa
-            var funcionAceptar = function ()
+            if (!ValidarCuasaHistoricaEnTabla(idJuzgado, causaNuc))
             {
-                CargaElementosHitoricoCausa();
-            }
+                var funcionCancelar = function ()
+                {
+                    LimpiaValidacion((!EsTradicional ? "formCausas" : "formCausasTradicional"), (!EsTradicional ? "Numero" : "inpCAUT"));
+                }
 
-            var mensaje = "Mensaje: " + respuesta.Mensaje + ". <br><br>" + etiqueta + " <b>" + causaNuc + "</b> ingresado no se encuentra asignado en el <b>" + juzgadoNombre + "</b>, si necesita crear el rigistro de consignacion historica del numero de causa, presione <b>Aceptar</b>";
-            MensajeDeConfirmacion(mensaje, "large", funcionAceptar, funcionCancelar);
+                //Metodo que activa la funcionalidad para el formumario de Historico de Causa
+                var funcionAceptar = function ()
+                {
+                    CargaElementosHitoricoCausa();
+                }
+
+                var mensaje = "Mensaje: " + respuesta.Mensaje + ". <br><br>" + etiqueta + " <b>" + causaNuc + "</b> ingresado no se encuentra asignado en el <b>" + juzgadoNombre + "</b>, si necesita crear el rigistro de consignacion historica del numero de causa, presione <b>Aceptar</b>";
+                MensajeDeConfirmacion(mensaje, "large", funcionAceptar, funcionCancelar);
+            }
+            else
+            {
+                var mensaje = etiqueta + " <b>" + causaNuc + "</b> que intenta agregar, ya se encuentra en la tabla.";
+                Alerta(mensaje, "small");
+            }
         }
     }
 }
@@ -804,6 +819,28 @@ function ValidarCuasaEnTabla(id)
         if (Causas[index].IdExpediente == id)
         {
             return true;
+        }
+    }
+    return false;
+}
+
+////Descripcion : Valida si existe una causa de historico en la tabla de Causas, si no existe el metodo retorna un false, 
+////si existe retorna true
+////Parametros de entrada
+////<id : Id de la causa a validar>
+////Salida : Tipo Boleano, si la cuasa existe retorna TRUE, si no existe retorna FALSE
+function ValidarCuasaHistoricaEnTabla(idJuzgado, numeroCausa)
+{
+    var iterarArreglo = Causas;
+
+    for (var index = 0; index < iterarArreglo.length; index++)
+    {
+        if (Causas[index].Historico == true)
+        {
+            if (Causas[index].IdJuzgado == idJuzgado && Causas[index].NumeroCausa == numeroCausa)
+            {
+                return true;
+            }
         }
     }
     return false;
