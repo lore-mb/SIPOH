@@ -486,7 +486,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 Cell CellFechaInicialParametro = new Cell(2, 0).Add(new Paragraph(fechaInicial.ToString())).AddStyle(EstiloEncabezadoParametros);
 
                 Cell CellFechaFinal = new Cell(2, 0).Add(new Paragraph("Periodo Final ")).AddStyle(EstiloEncabezadoRegistros);
-                Cell CellFechaFinalParametro = new Cell(2, 0).Add(new Paragraph(fechaInicial.ToString())).AddStyle(EstiloEncabezadoParametros);
+                Cell CellFechaFinalParametro = new Cell(2, 0).Add(new Paragraph(fechaFinal.ToString())).AddStyle(EstiloEncabezadoParametros);
 
                 Cell CellTextoTotal = new Cell();
 
