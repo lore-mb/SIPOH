@@ -2,8 +2,6 @@
 var TradicionalHistorico = false;
 var IdJuzgadoSeleccionado = null;
 var TabHistoricoCausa = false;
-var CausaValidada = true;
-var IngresaCausaManual = false;
 
 var DataTableImputados = null;
 var EstructuraTablaImputados = [{ data: 'Nombre', title: 'Nombre o Rezón Social' }, { data: 'Genero', title: 'Genero' }, { data: 'Opciones', title: 'Opciones', className: "text-center" }];
@@ -91,24 +89,6 @@ function ElementosAlCargadoConsignaciones()
     FormatearInput("#inpNucHistoricoCausa", "99-9999-9999", "0000000000", "[0-9\uFF11-\uFF19]", "-");
     FormatearInput("#inpNumeroEjecucion", "9999/9999", "0000/0000", "[0-9\uFF11-\uFF19]", "/");
 
-    //Funcionalidad al cambio del select #checkSinNuc
-    $('#checkSinNuc').change(function ()
-    {
-        if ($('#checkSinNuc').is(":checked"))
-        {
-            $("#inpNucHistoricoCausa").prop('disabled', true);
-            $("#inpNucHistoricoCausa").val("");
-            $("#btnCausaNuc").prop('disabled', true);  
-            CausaValidada = true;
-        }
-        else
-        {
-            $("#btnCausaNuc").prop('disabled', false);  
-            $("#inpNucHistoricoCausa").prop('disabled', false);
-            CausaValidada = false;
-        }
-    });
-
     $('#slctDelitosInputados').change(function ()
     {
         var idDelito = $("#slctDelitosInputados").find('option:selected').val();
@@ -121,81 +101,19 @@ function ElementosAlCargadoConsignaciones()
             $('#checkInputadoInvalido').html('<i class="icon-notification"></i> Seleccione un Delito');
         }
     });
-}
 
-//Descripcion : Valida si el tipo juzgado es tradicional o acusatorio y genera un objeto que contiene los parametros
-//que recibe el contrlador de consignaciones historicas con los valores obtenidos por medio del fomulario
-//Parametros de entrada
-//<tradicional : valor de tipo boleano que regresenta si es un juzgado tradicional o no>
-//Salida : NA
-function ValidarQueExisteCausaEnJuzgado()
-{
-    //Obtiene el valor del juzgado seleccionado
-    var idJuzgado = $("#" + ("slctJuzgadoHistoricoCausa")).find('option:selected').val(); 
-
-    //Obtiene el valor de la causa
-    var numeroDeCausa = $("#inpCausaAcusatorioHistoricoCausa").val();
-
-    //Obtiene el año actual 
-    var anioActual = new Date().getFullYear();
-    var anioCausa = numeroDeCausa.substr(5, 4);
-
-    if (anioCausa > anioActual)
+    $("#juzgado-Historico").click(function ()
     {
-        var funcion = function ()
+        var contieneCausa = $("#juzgado-Historico").hasClass("contieneCausa");
+
+        if (contieneCausa)
         {
-            var form = $('#formBuscaAcusatorioHistoricoCausa')[0];
-            $(form).removeClass('was-validated');
-            $("#inpCausaAcusatorioHistoricoCausa").val("");
-        }
+            EsTradicional = false;
+            TabHistoricoCausa = true;
 
-        AlertaCallback("El Numero de Causa que intenta ingresar es mayor al año actual", funcion, "large");
-        return;
-    }
-
-    var nuc = $("#inpNucHistoricoCausa").val();
-    var parametros = { idJuzgado: idJuzgado, numeroDeCausa: numeroDeCausa, nuc: nuc }
-    SolicitudEstandarAjax("/ConsignacionesHistoricas/ValidaNumeroDeCausa", parametros, MuestraFormularioHistoricoCausa);
-}
-
-//Descripcion : Muestra un mensaje al usuario indicado que la causa que intenta anexanar al formulario 
-//ya existe en la base de datos, de lo contrario anexa la causa al formulario
-//Parametros de entrada: 
-//<respuesta : Objeto que recibe del metodo del controlador>
-//Salida : NA
-function MuestraFormularioHistoricoCausa(respuesta)
-{
-    if (respuesta.Estatus == EstatusRespuesta.OK)
-    {
-        var existe = respuesta.Data;
-
-        if (existe)
-        {
-            var funcion = function ()
-            {
-                var elementoIput = IngresaCausaManual ? "inpCausaAcusatorioHistoricoCausa" : "inpNucHistoricoCausa";
-                LimpiaValidacion("formBuscaAcusatorioHistoricoCausa", elementoIput);
-            }
-
-            var juzgadoNombre = $("#slctJuzgadoHistoricoCausa").find('option:selected').text();
-            var nucCausa = IngresaCausaManual ? $("#inpCausaAcusatorioHistoricoCausa").val() : $("#inpNucHistoricoCausa").val();
-            var mensaje = IngresaCausaManual ? "El Número de Causa <b>" + nucCausa + "</b> ya se encuentra asignado en el <b>" + juzgadoNombre + "</b>" : "El NUC <b>" + nucCausa + "</b> ya se encuentra asignado en el <b>" + juzgadoNombre + "</b>";
-
-            AlertaCallback(mensaje, funcion, "large");
-            return;
-        }
-        else
-        {
-            var funcion = function ()
-            {
-
-            }
-        }
-    }
-    else if (respuesta.Estatus == EstatusRespuesta.ERROR)
-    {
-       
-    }
+            $("#contenedorBeneficiario").hide();
+        }      
+    });
 }
 
 //Descripcion : Genera las opciones del Select #slctJuzgadoTradi por medio del objeto respuesta que recibe del controlador
@@ -231,61 +149,57 @@ function CargaElementosHitoricoCausa()
 {
     TabHistoricoCausa = true;
 
+    $("#juzgado-Historico").prop('disabled', false);
+    $("#juzgado-Historico").attr("href", "#pills-Historico");
+    $("#juzgado-Historico").addClass("contieneCausa");
+
+    $(".causaAceptada").show();
+
     $("#contenedorBeneficiario").hide();
     $("#pills-Historico").addClass("show active");
     $('#juzgado-Historico').addClass('active'); 
 
     if (!EsTradicional)
     {
+        $("#btnAgregarHistoricoCausa").prop('disabled', true);
+
+        $("#datetimepickerFechaAcusatorio").prop('disabled', false);
+        $("#datetimepickerFechaAcusatorio").val("");
+
+        $("#btnAgregarHistoricoCausa").attr("form", "formBuscaAcusatorioHistoricoCausa");
+        LimpiaFormularioConValidacion("formBuscaAcusatorioHistoricoCausa");
+
         $("#pills-home").removeClass("show active");
         $('#juzgadoA-tab').removeClass('active');
         $('#inpNucHistoricoCausa').val("");   
         $('#inpCausaAcusatorioHistoricoCausa').val("");  
 
-        var causaNucSelect = $("#slctNumero").find('option:selected').val();
         var juzgadoId = $("#slctJuzgado").find('option:selected').val();
 
-        if (causaNucSelect == 1)
-        {
-            IngresaCausaManual = false;
+        $("#inpCausaAcusatorioHistoricoCausa").prop('disabled', true);
+        var causaNucText = $('#Numero').val();
 
-            $("#checkSinNuc").prop('disabled', false);
-            $("#checkSinNuc").prop("checked", true);
-
-            $("#inpCausaAcusatorioHistoricoCausa").prop('disabled', true);
-            $("#btnCausaNuc").prop('disabled', true);        
-            $("#inpNucHistoricoCausa").prop('disabled', true);
-
-            var causaNucText = $('#Numero').val();
-            SeteaFormularioHistoricoCausa(causaNucText, null, null, juzgadoId);
-        }
-        else
-        {
-            IngresaCausaManual = true;
-            CausaValidada = false;
-
-            $("#inpNucHistoricoCausa").prop('disabled', true);
-            $("#inpCausaAcusatorioHistoricoCausa").prop('disabled', false);
-            $("#checkSinNuc").prop('disabled', true);
-            $("#btnCausaNuc").prop('disabled', false);     
-
-            var causaNucText = $('#Numero').val();  
-            SeteaFormularioHistoricoCausa(null, causaNucText, null, juzgadoId);
-        }
+        SeteaFormularioHistoricoCausa(causaNucText, null, juzgadoId);
     }
     else
     {
+        $("#datetimepickerFechaTradicional").prop('disabled', false);
+        $("#datetimepickerFechaTradicional").val("");
+
+        $("#btnAgregarHistoricoCausa").attr("form", "formBuscaTradicionalHistoricoCausa");
+        LimpiaFormularioConValidacion("formBuscaTradicionalHistoricoCausa");
+
         $("#pills-profile").removeClass("show active");
         $('#juzgadoT-tab').removeClass('active');
 
         var causaText = $("#inpCAUT").val();
         var distrito = $("#slctDistrito").find('option:selected').val();
         var juzgadoId = $("#slctJuzgadoTradi").find('option:selected').val();
-        SeteaFormularioHistoricoCausa(causaText, null, distrito, juzgadoId);
+        SeteaFormularioHistoricoCausa(causaText, distrito, juzgadoId);
     }
 }
 
-function SeteaFormularioHistoricoCausa(numeroCausa, nuc, idDistrito, idJuzgado)
+function SeteaFormularioHistoricoCausa(numeroCausa, idDistrito, idJuzgado)
 {
     if (EsTradicional)
     {
@@ -298,26 +212,15 @@ function SeteaFormularioHistoricoCausa(numeroCausa, nuc, idDistrito, idJuzgado)
 
         IdJuzgadoSeleccionado = idJuzgado;
         var parametros = { idDistrito: idDistrito }
-        SolicitudEstandarAjax("/ConsignacionesHistoricas/ObtenerJuzgadoTradicional", parametros, ListarJuzgadoTradicionalFormHistorico);
+        SolicitudEstandarAjax("ConsignacionesHistoricas/ObtenerJuzgadoTradicional", parametros, ListarJuzgadoTradicionalFormHistorico);
     }
     else
     {
         $('#contenedorformBuscaTradicionalHistoricoCausa').hide();
         $('#contenedorformBuscaAcusatorioHistoricoCausa').show();
-     
         $("#slctJuzgadoHistoricoCausa option[value='" + idJuzgado + "']").prop('selected', true);
         $("#slctJuzgadoHistoricoCausa").prop('disabled', true);
-
-        if (numeroCausa != null)
-        {
-            $('#inpCausaAcusatorioHistoricoCausa').val(numeroCausa);   
-        }
-
-        if (nuc != null)
-        {
-            $("#checkSinNuc").prop("checked", false);
-            $('#inpNucHistoricoCausa').val(nuc);   
-        }
+        $('#inpCausaAcusatorioHistoricoCausa').val(numeroCausa);   
     }
 }
 
@@ -362,7 +265,7 @@ function ValidarExistenciaDeNumeroEjecucion()
     var idJuzgadoEjecucion = $("#" + ("slctJuzgadoEjecucion")).find('option:selected').val(); 
     var parametros = { idJuzgadoEjecucion: idJuzgadoEjecucion, numeroEjecucion: numeroEjecucion }
 
-    SolicitudEstandarAjax("/ConsignacionesHistoricas/ValidaNumeroDeEjecucion", parametros, MostrarFormularioBeneficiarios);
+    SolicitudEstandarAjax("ConsignacionesHistoricas/ValidaNumeroDeEjecucion", parametros, MostrarFormularioBeneficiarios);
 }
 
 function MostrarFormularioBeneficiarios(respuesta)
@@ -576,8 +479,9 @@ function AgregarParteAlDataTables()
     //Crea objeto de tipo Parte
     var parte = new Object();
     parte.IdParte = Math.floor(Math.random() * 90000) + 10000;
+
     //Atributos generales
-    parte.Nombre = idTipoPersona == 1 ? ($('#ipnNombreParte').val() + " " + $('#inpApellidoPaternoParte').val() + " " + $('#ipnApellidoMaternoParte').val()): $('#inpRazonSocial').val();
+    parte.Nombre = idTipoPersona == 1 ? ($('#ipnNombreParte').val() + " " + $('#inpApellidoPaternoParte').val() + " " + $('#ipnApellidoMaternoParte').val()) : $('#inpRazonSocial').val();
     parte.NombreParte = idTipoPersona == 1 ? $('#ipnNombreParte').val() : $('#inpRazonSocial').val();
 
     //atributos cuando es una persona fisica
@@ -695,5 +599,87 @@ function EliminarParteDelDataTable(id, esInculpado)
 
     var mensaje = "¿Desea retirar la parte con nombre <b>" + nombreParte + "</b> de la tabla de " + nombreTabla + "?";
     MensajeDeConfirmacion(mensaje, "large", funcion);
+}
+
+function AgregarCausaAlDataTable(tradicional)
+{
+    //Toma los valores del formulario
+    var nombreJuzgado = $("#" + (!tradicional ? "slctJuzgadoHistoricoCausa" : "slctJuzgadoTradiHistoricoCausa")).find('option:selected').text();
+    var idJuzgado = $("#" + (!tradicional ? "slctJuzgadoHistoricoCausa" : "slctJuzgadoTradiHistoricoCausa")).find('option:selected').val();
+    var fechaRecepcion = $("#" + (!tradicional ? "datetimepickerFechaAcusatorio" : "datetimepickerFechaTradicional")).val();
+    var numeroCausa = $("#" + (!tradicional ? "inpCausaAcusatorioHistoricoCausa" : "inpCausaTradicionalHistoricoCausa")).val();  
+
+    //Crea Objeto tipo Cuasa
+    var expediente = new Object();
+    expediente.IdExpediente = Math.floor(Math.random() * 90000) + 10000;
+    expediente.Historico = true;
+    expediente.CausaNuc = numeroCausa;
+    expediente.NombreJuzgado = nombreJuzgado
+  
+    expediente.Ofendidos = GeneraCadenaNombrePartes(false);
+    expediente.Inculpados = GeneraCadenaNombrePartes(true);
+    expediente.Delitos = GeneraCadenaDelitosPartes();
+    expediente.Eliminar = "<button type='button' class='btn btn-link btn-danger btn-sm' onclick='EliminarCausa(" + expediente.IdExpediente + ")' data-toggle='tooltip' title='Quitar Causa'><i class='icon-bin2'></i></button>";
+
+    expediente.NumeroCausa = numeroCausa;
+    expediente.IdJuzgado = idJuzgado;
+    expediente.FechaRecepcion = fechaRecepcion;
+
+    //Agrega Causa al Arreglo de Cuasas
+    Causas.push(expediente);
+    //Generar Tabla 
+    DataTableCausas = GeneraTablaDatos(DataTableCausas, "dataTable", Causas, EstructuraTablaCausas, false, false, false);
+
+    //Bloquea Fecha
+    $("#" + (!tradicional ? "datetimepickerFechaAcusatorio" : "datetimepickerFechaTradicional")).prop('disabled', true);
+
+    //Limpia Data Tables
+    Ofendidos = [];
+    Imputados = [];
+
+    //Actualiza Data Tables
+    DataTableImputados = GeneraTablaDatos(DataTableImputados, "dataTableImputados", Imputados, EstructuraTablaImputados, false, false, false);
+    DataTableOfendidos = GeneraTablaDatos(DataTableOfendidos, "dataTableOfendidos", Ofendidos, EstructuraOfendidos, false, false, false);
+
+    //Oculta Secciones
+    $(".causaAceptada").hide();
+
+    $("#juzgado-Historico").prop('disabled', true);
+    $("#juzgado-Historico").removeClass("contieneCausa");
+    $("#juzgado-Historico").removeAttr("href");
+
+    $('#contenedorBeneficiario').removeAttr('hidden');
+    $("#contenedorBeneficiario").show();
+}
+
+function GeneraCadenaNombrePartes(esImputado)
+{
+    var cadenaNombrePartes = "";
+    var iterarArreglo = esImputado ? Imputados : Ofendidos;
+
+    for (var index = 0; index < iterarArreglo.length; index++)
+    {
+        cadenaNombrePartes = cadenaNombrePartes + (iterarArreglo[index].Nombre + (index == (iterarArreglo.length - 1) ? "" : ", "));
+    }
+
+    return cadenaNombrePartes;
+}
+
+function GeneraCadenaDelitosPartes()
+{
+    var cadenaDelitosPorPartes = "";
+    var iterarArreglo = Imputados;
+
+    for (var index = 0; index < iterarArreglo.length; index++)
+    {
+        var iterarArregloDelito = iterarArreglo[index].Delitos;
+
+        for (var index2 = 0; index2 < iterarArregloDelito.length; index2++)
+        {
+            cadenaDelitosPorPartes = cadenaDelitosPorPartes + (iterarArregloDelito[index2].Delito + (index2 == (iterarArregloDelito.length - 1) && index == (iterarArreglo.length - 1) ? "" : ", "));  
+        }
+    }
+
+    return cadenaDelitosPorPartes;
 }
 

@@ -41,7 +41,7 @@ function ElementosAlCargado()
             $("#slctJuzgadoPorDistritos").prop('disabled', false);
 
             var parametros = { idDistrito: idDistrito }
-            SolicitudEstandarAjax("/Busquedas/ObtenerJuzgadosPorDistrito", parametros, GenerarOptionSelectJuzgadoPorDistrito);
+            SolicitudEstandarAjax("Busquedas/ObtenerJuzgadosPorDistrito", parametros, GenerarOptionSelectJuzgadoPorDistrito);
         }
         else
         {
@@ -202,12 +202,12 @@ function BuscarEjecucionPorPartesBeneficiarios()
     if (FormularioPartes)
     {
         $("#loading").fadeIn();
-        SolicitudEstandarAjax("/Busquedas/BusquedaPorPartesCausa", parametros, ListarNumerosDeEjecucion);
+        SolicitudEstandarAjax("Busquedas/BusquedaPorPartesCausa", parametros, ListarNumerosDeEjecucion);
     }
     else
     {
         $("#loading").fadeIn();
-        SolicitudEstandarAjax("/Busquedas/BusquedaPorBeneficiario", parametros, ListarNumerosDeEjecucion);
+        SolicitudEstandarAjax("Busquedas/BusquedaPorBeneficiario", parametros, ListarNumerosDeEjecucion);
     } 
 }
 
@@ -221,7 +221,7 @@ function BuscarEjecucionPorNumerodeCausa()
     var parametros = { idJuzgado: juzgado, numCausa: numCausa };
 
     $("#loading").fadeIn();
-    SolicitudEstandarAjax("/Busquedas/BusquedaPorNumeroCausa", parametros, ListarNumerosDeEjecucion);
+    SolicitudEstandarAjax("Busquedas/BusquedaPorNumeroCausa", parametros, ListarNumerosDeEjecucion);
 }
 
 function BuscarEjecucionPorNUC()
@@ -232,7 +232,7 @@ function BuscarEjecucionPorNUC()
     var parametros = { NUC: nuc, idJuzgado: juzgado };
 
     $("#loading").fadeIn();
-    SolicitudEstandarAjax("/Busquedas/BusquedaPorNUC", parametros, ListarNumerosDeEjecucion);
+    SolicitudEstandarAjax("Busquedas/BusquedaPorNUC", parametros, ListarNumerosDeEjecucion);
 }
 
 function BuscarPorSolicitante()
@@ -241,7 +241,7 @@ function BuscarPorSolicitante()
     var parametros = { idSolicitante: solicitante };
 
     $("#loading").fadeIn();
-    SolicitudEstandarAjax("/Busquedas/BusquedaPorSolicitante", parametros, ListarNumerosDeEjecucion);
+    SolicitudEstandarAjax("Busquedas/BusquedaPorSolicitante", parametros, ListarNumerosDeEjecucion);
 }
 
 function BuscarPorDetalleSolicitante()
@@ -252,7 +252,7 @@ function BuscarPorDetalleSolicitante()
     $("#loading").fadeIn();
 
     //Se ejecuta solictud por url (nombre modulo, nombre de metodo en controlador), parametros y funcion callbacksuccess
-    SolicitudEstandarAjax("/Busquedas/BusquedaPorDetalleSolicitante", parametros, ListarNumerosDeEjecucion);
+    SolicitudEstandarAjax("Busquedas/BusquedaPorDetalleSolicitante", parametros, ListarNumerosDeEjecucion);
 }
 
 //Fucion general para busquedas  nota: de PartesCausa y Beneficiario
@@ -313,7 +313,7 @@ function BuscarCausas(index)
     $("#detalleModal").html('Causas relacionadas a la Ejecución con Número <b>' + numeroEjecucion + ' - ' + juzgadoEjecucion +'</b>');
 
     $("#loading").fadeIn();
-    SolicitudEstandarAjax("/Busquedas/ObtenerCausasRelacionadasEjecucion", parametros, ListarCausasPorEjecucion);
+    SolicitudEstandarAjax("Busquedas/ObtenerCausasRelacionadasEjecucion", parametros, ListarCausasPorEjecucion);
 }
 
 function ListarCausasPorEjecucion(respuesta)
@@ -458,7 +458,7 @@ function GeneraTablaDatos(tabla, idTablaHtml, datos, estructuraTabla, ordering, 
 function SolicitudEstandarAjax(url, parametros, functionCallbackSuccess, functionCallbackError = null)
 {
     $.ajax({
-        url: url,
+        url: urlBase + url,
         type: "GET",
         cache: false,
         traditional: true,
