@@ -30,7 +30,7 @@ namespace PoderJudicial.SIPOH.Negocio
 
         public Expediente ObtieneCausaPorJuzgadoMasTipoNumeroExpediente(int idJuzgado, string numeroExpediente, TipoNumeroExpediente expediente)
         {
-            Expediente expedientes = expedienteRepositorio.ConsultaCausas(idJuzgado, numeroExpediente, expediente);
+            Expediente expedientes = expedienteRepositorio.ConsultaCausa(idJuzgado, numeroExpediente, expediente);
 
             if (expedienteRepositorio.Estatus == Estatus.SIN_RESULTADO)
                 Mensaje = "La consulta no genero ningun resultado";

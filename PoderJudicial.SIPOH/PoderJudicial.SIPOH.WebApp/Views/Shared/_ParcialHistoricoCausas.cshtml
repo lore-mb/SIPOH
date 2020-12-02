@@ -38,21 +38,6 @@
                     </div>
                 </div>
             </div>
-
-            @*<div class="col-md-6 col-lg-3 form-group">
-                    <label class="" for="inpNumero" id="NumeroLabel"><b>Numero Unico de Caso</b></label>
-                    <div class="input-group">
-                        <input type="text" id="inpNucHistoricoCausa" placeholder="00-0000-0000" name="Nuc" class="form-control form-control-sm mr-2" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
-                        <button class="btn btn-success btn-sm" type="submit" id="btnCausaNuc" data-toggle="tooltip" data-placement="top" title="Validar Expediente"><i class="icon-checkmark"></i></button>
-                        <div class="invalid-feedback">
-                            <i class="icon-notification"></i> Introduzca un numero unico de caso.
-                        </div>
-                        <div class="input-group">
-                            <input class="mt-1 mr-2" type="checkbox" value="" id="checkSinNuc" checked>
-                            <label class="mt-1" for="checkSinNuc">Sin NUC</label>
-                        </div>
-                    </div>
-                </div>*@
         </div>
     </form>
 </div>
@@ -133,6 +118,32 @@
             </div>
         </div>
     </div>
+    <form id="formAgregaDelito" class="needs-validation" novalidate>
+        <div class="form-row">
+            <div class="col-12 col-md-12 form-group">
+                <label for="validationCustom04"><strong>Catálogo de Delitos</strong></label>
+                <div class="input-group " id="divToca">
+                    @*@Html.DropDownList("SelectDelitos", (SelectList)ViewBag.Delitos, "SELECCIONAR OPCIÓN", new { @id = "slctDelitosInputados", @class = "custom-select custom-select-sm", @required = "required", @title = "Tooltip" })*@
+
+                    <select id="slctDelitosInputados" class="custom-select custom-select-sm mr-2" required>
+                        <option value="">SELECCIONAR OPCIÓN</option>
+                        @foreach (var item in ViewBag.Delitos)
+                        {
+                            <option title="@item.Text" value="@item.Value">@item.Text</option>
+                        }
+                    </select>
+                    <button class="btn btn-success btn-sm" type="submit" id="btnToca" data-toggle="tooltip" data-placement="top" title="Agregar Delito"><i class="fas fa-plus-circle"></i></button>
+                    <div class="invalid-feedback" id="checkInputadoInvalido">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="table-responsive text-small">
+            <table class="table table-hover table-bordered" id="dataTableDelitos" width="100%" cellspacing="0">
+            </table>
+        </div>
+    </form>
 </div>
 
 <div class="form-row  text-center causaAceptada">
