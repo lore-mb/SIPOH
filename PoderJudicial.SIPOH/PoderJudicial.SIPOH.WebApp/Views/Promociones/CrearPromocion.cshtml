@@ -1,211 +1,211 @@
 ﻿@{
     ViewBag.Title = "Promociones";
 }
-<div class="container-fluid">
-    <div class="row">
-        <div class="card shadow-sm col-sm-12">
-            <div class="card-header">
-                <h6 class="card-title">Registro de Promoción de Ejecución</h6>
-            </div>
-            <div class="card-body">
-                <!-- #region Filtrado para busqueda -->
-                <div class="align-items-center">
-                    <div class="col">
-                        <form class="needs-validation" id="FrmCausaEjecucion" novalidate>
-                            <div class="form-row">
-                                <div class="col-md-8 form-group">
-                                    <label for="validationCustom01"><strong>Nombre de Juzgado</strong></label>
-                                    @Html.DropDownList("SelectJuzgadoPorCircuito", new SelectList(ViewBag.JuzgadoCircuito, "IdJuzgado", "Nombre"), "SELECCIONAR OPCIÓN", new { @id = "slctJuzgadoPorCircuito", @class = "custom-select custom-select-sm resultOK", @required = "required" })
-                                    <div class="valid-feedback">
-                                        <i class="icon-checkmark"></i> Juzgado Seleccionado
-                                    </div>
-                                    <div class="invalid-feedback">
-                                        <i class="icon-cancel-circle"></i> Por favor, selecciona un juzgado.
-                                    </div>
-                                </div>
-                                <div class="col-md-4 form-group">
-                                    <label for="validationCustomUsername"><strong>Numero de Ejecución</strong></label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control form-control-sm mr-2 resultOK clean" id="inpNumeroEjecucion" aria-describedby="inputGroupPrepend" required>
-                                        <button class="btn btn-success mr-2 resultOK" type="submit" id="btnConsultarPromocion" data-toggle="tooltip" data-placement="top" title="Consultar"><i class="icon-search"></i></button>
-                                        <button class="btn btn-danger disoff" id="btnNuevaConsultaPromocion" data-toggle="tooltip" data-placement="top" title="Nueva Consulta" disabled><i class="fas fa-eraser"></i></button>
-                                        <div class="valid-feedback">
-                                            <i class="icon-checkmark"></i> Numero de ejecución
-                                        </div>
-                                        <div class="invalid-feedback">
-                                            <i class="icon-cancel-circle"></i> Por favor, introduce numero de ejecución.
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <!-- #endregion -->
 
-                <div id="divResultadoPromocion" class="mt-3" hidden>
-                    <div class="col-12 text-center">
-                        <h4 class="m-0 font-weight mr-2">Datos Generales de Ejecución</h4>
-                    </div>
-                    <!-- #region Formulario Datos Generales -->
-                    <div class="bordeParaInfo rounded p-3 mt-3 mb-3">
-                        <div class="form-row">
-                            <div class="col-12 col-md-8">
-                                <label for="validationCustom04"><b><li>Juzgado de Ejecución</li></b></label>
-                                <div class="input-group ml-3" id="NombreJuzgado"></div>
-                            </div>
 
-                            <div class="col-12 col-md-4">
-                                <label for="validationCustom04"><b><li>Numero de Ejecución</li></b></label>
-                                <div class="input-group ml-3" id="NumeroEjecucion"></div>
+<div class="card shadow-sm col-sm-12">
+    <div class="card-header">
+        <h6 class="card-title">Registro de Promoción de Ejecución</h6>
+    </div>
+    <div class="card-body">
+        <!-- #region Filtrado para busqueda -->
+        <div class="align-items-center">
+            <div class="col">
+                <form class="needs-validation" id="FrmCausaEjecucion" novalidate>
+                    <div class="form-row">
+                        <div class="col-md-8 form-group">
+                            <label for="validationCustom01"><strong>Nombre de Juzgado</strong></label>
+                            @Html.DropDownList("SelectJuzgadoPorCircuito", new SelectList(ViewBag.JuzgadoCircuito, "IdJuzgado", "Nombre"), "SELECCIONAR OPCIÓN", new { @id = "slctJuzgadoPorCircuito", @class = "custom-select custom-select-sm resultOK", @required = "required" })
+                            <div class="valid-feedback">
+                                <i class="icon-checkmark"></i> Juzgado Seleccionado
+                            </div>
+                            <div class="invalid-feedback">
+                                <i class="icon-cancel-circle"></i> Por favor, selecciona un juzgado.
                             </div>
                         </div>
-
-                        <div class="form-row mt-1 mt-md-3">
-                            <div class="col-12 col-md-4">
-                                <label for="validationCustom04"><b><li>Sentenciado | Beneficiario</li></b></label>
-                                <div class="input-group ml-3" id="NombreBeneficiario"></div>
-                            </div>
-
-                            <div class="col-12 col-md-4">
-                                <label for="validationCustom04"><b><li>Solicitante</li></b></label>
-                                <div class="input-group ml-3" id="DecSolicitante"></div>
-                            </div>
-
-                            <div class="col-12 col-md-4">
-                                <label for="validationCustom04"><b><li>Solicitud</li></b></label>
-                                <div class="input-group ml-3" id="DecSolicitud"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- #endregion-->
-                    <!-- #region Tabla Causas -->
-                    <div class="tab-content">
-                        <div class="form-row">
-                            <div class="col-12">
-                                <h6 class="m-0 font-weight-bold text-success"><i class="icon-table2"></i> Tabla de Causas Relacionadas</h6>
-                            </div>
-                        </div>
-                        <div class="table-responsive">
-                            <table id="_TablaCausasEjecucion" class="display table table-hover table-striped table-bordered" width="100%">
-                            </table>
-                        </div>
-                    </div>
-                    <!-- #endregion -->
-                    <div class="separator-solid"></div>
-                    <form id="formulario" action="">
-                        <div class="form-row">
-                            <div class="col-md-4 form-group">
-                                <label for="validationCustom02"><strong>Promovente Nombre (s)</strong></label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control form-control-sm mr-2 clean UpperCase" id="inpNombrePromovente" placeholder="" required>
-                                    <div class="invalid-feedback">
-                                        <i class="icon-cancel-circle"></i> Por favor, introdusca nombre de promovente.
-                                    </div>
-                                    <div class="valid-feedback">
-                                        <i class="icon-checkmark"></i> Nombre de promovente.
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 form-group">
-                                <label for="validationCustom02"><strong>Apellido Paterno</strong></label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control form-control-sm mr-2 clean UpperCase" id="inpPromoventeAP" placeholder="" required>
-                                    <div class="invalid-feedback">
-                                        <i class="icon-cancel-circle"></i> Por favor, introdusca apellido paterno.
-                                    </div>
-                                    <div class="valid-feedback">
-                                        <i class="icon-checkmark"></i> Apellido Paterno.
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 form-group">
-                                <label for="validationCustom02"><strong>Apellido Materno</strong></label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control form-control-sm mr-2 clean UpperCase" id="inpPromoventeMA" placeholder="" required>
-                                    <div class="invalid-feedback">
-                                        <i class="icon-cancel-circle"></i> Por favor, introdusca apellido materno.
-                                    </div>
-                                    <div class="valid-feedback">
-                                        <i class="icon-checkmark"></i> Apellido Materno.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                    <div class="separator-solid"></div>
-
-                    <!--#region Formulario Agregar Anexos-->
-                    <form class="needs-validation" id="Frm_Anexos" novalidate>
-                        <div class="form-row ">
-                            <div class="col-md-5 form-group">
-                                <label for="validationCustom01"><strong>Anexos</strong></label>
-                                @Html.DropDownList("SelectAnexo", new SelectList(ViewBag.AnexoEjec, "IdAnexo", "Descripcion"), "SELECCIONAR OPCION", new { @id = "slctAnexoEjecucion", @class = "custom-select custom-select-sm disabled", @required = "required" })
+                        <div class="col-md-4 form-group">
+                            <label for="validationCustomUsername"><strong>Numero de Ejecución</strong></label>
+                            <div class="input-group">
+                                <input type="text" class="form-control form-control-sm mr-2 resultOK clean" id="inpNumeroEjecucion" aria-describedby="inputGroupPrepend" required>
+                                <button class="btn btn-success mr-2 resultOK" type="submit" id="btnConsultarPromocion" data-toggle="tooltip" data-placement="top" title="Consultar"><i class="icon-search"></i></button>
+                                <button class="btn btn-danger disoff" id="btnNuevaConsultaPromocion" data-toggle="tooltip" data-placement="top" title="Nueva Consulta" disabled><i class="fas fa-eraser"></i></button>
                                 <div class="valid-feedback">
-                                    <i class="icon-checkmark"></i> Anexo Seleccionado
+                                    <i class="icon-checkmark"></i> Numero de ejecución
                                 </div>
                                 <div class="invalid-feedback">
-                                    <i class=" icon-cancel-circle"></i> Por favor, seleccione un anexo.
+                                    <i class="icon-cancel-circle"></i> Por favor, introduce numero de ejecución.
                                 </div>
                             </div>
-                            <div class="col-md-5 form-group">
-                                <label for="validationCustom02"><strong>Otros Anexos (Descripción)</strong></label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="inputGroupPrepend">Descripción</i></span>
-                                    </div>
-                                    <input type="text" class="form-control form-control-sm mr-2 clearanexo UpperCase" id="inpOtroAnexo" placeholder="">
-                                    <div class="invalid-feedback">
-                                        <i class="icon-cancel-circle"></i> Por favor, introdusca una descripción.
-                                    </div>
-                                    <div class="valid-feedback">
-                                        <i class="icon-checkmark"></i> Nombre de promovente.
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-2 form-group">
-                                <label for="inpCantidadAnexos"><strong>Cantidad</strong></label>
-                                <div class="input-group">
-                                    <input type="number" class="form-control form-control-sm mr-2 clean" placeholder="0" id="inpCantidadAnexos" name="quantity" min="0" max="3000" required disabled>
-                                    <button class="btn btn-success mr-2" id="btnAgregarAnexo" type="submit" data-toggle="tooltip" data-placement="top" title="Agregar Anexo" disabled><i class="fas fa-plus-circle"></i></button>
-                                    <div class="invalid-feedback">
-                                        <i class="icon-cancel-circle"></i> Determine cantidad.
-                                    </div>
-                                    <div class="valid-feedback">
-                                        <i class="icon-checkmark"></i> Cantidad determinada.
-                                    </div>
-                                </div>
-                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- #endregion -->
 
-                        </div>
-                    </form>
-                    <!--#endregion-->
-                    <!-- #region Tabla Anexos-->
-                    <div class="tab-content">
-                        <div class="form-row">
-                            <div class="col-12">
-                                <h6 class="m-0 font-weight-bold text-success"><i class="icon-table2"></i> Tabla de Anexos </h6>
+        <div id="divResultadoPromocion" class="mt-3" hidden>
+            <div class="col-12 text-center">
+                <h4 class="m-0 font-weight mr-2">Datos Generales de Ejecución</h4>
+            </div>
+            <!-- #region Formulario Datos Generales -->
+            <div class="bordeParaInfo rounded p-3 mt-3 mb-3">
+                <div class="form-row">
+                    <div class="col-12 col-md-8">
+                        <label for="validationCustom04"><b><li>Juzgado de Ejecución</li></b></label>
+                        <div class="input-group ml-3" id="NombreJuzgado"></div>
+                    </div>
+
+                    <div class="col-12 col-md-4">
+                        <label for="validationCustom04"><b><li>Numero de Ejecución</li></b></label>
+                        <div class="input-group ml-3" id="NumeroEjecucion"></div>
+                    </div>
+                </div>
+
+                <div class="form-row mt-1 mt-md-3">
+                    <div class="col-12 col-md-4">
+                        <label for="validationCustom04"><b><li>Sentenciado | Beneficiario</li></b></label>
+                        <div class="input-group ml-3" id="NombreBeneficiario"></div>
+                    </div>
+
+                    <div class="col-12 col-md-4">
+                        <label for="validationCustom04"><b><li>Solicitante</li></b></label>
+                        <div class="input-group ml-3" id="DecSolicitante"></div>
+                    </div>
+
+                    <div class="col-12 col-md-4">
+                        <label for="validationCustom04"><b><li>Solicitud</li></b></label>
+                        <div class="input-group ml-3" id="DecSolicitud"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- #endregion-->
+            <!-- #region Tabla Causas -->
+            <div class="tab-content">
+                <div class="form-row">
+                    <div class="col-12">
+                        <h6 class="m-0 font-weight-bold text-success"><i class="icon-table2"></i> Tabla de Causas Relacionadas</h6>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table id="_TablaCausasEjecucion" class="display table table-hover table-striped table-bordered" width="100%">
+                    </table>
+                </div>
+            </div>
+            <!-- #endregion -->
+            <div class="separator-solid"></div>
+            <form id="formulario" action="">
+                <div class="form-row">
+                    <div class="col-md-4 form-group">
+                        <label for="validationCustom02"><strong>Promovente Nombre (s)</strong></label>
+                        <div class="input-group">
+                            <input type="text" class="form-control form-control-sm mr-2 clean UpperCase" id="inpNombrePromovente" placeholder="" required>
+                            <div class="invalid-feedback">
+                                <i class="icon-cancel-circle"></i> Por favor, introdusca nombre de promovente.
+                            </div>
+                            <div class="valid-feedback">
+                                <i class="icon-checkmark"></i> Nombre de promovente.
                             </div>
                         </div>
-                        <div class="table-responsive">
-                            <table id="_DataTableAnexos" class="display table table-hover table-striped table-bordered table-sm nowrap" width="100%">
-                            </table>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <label for="validationCustom02"><strong>Apellido Paterno</strong></label>
+                        <div class="input-group">
+                            <input type="text" class="form-control form-control-sm mr-2 clean UpperCase" id="inpPromoventeAP" placeholder="" required>
+                            <div class="invalid-feedback">
+                                <i class="icon-cancel-circle"></i> Por favor, introdusca apellido paterno.
+                            </div>
+                            <div class="valid-feedback">
+                                <i class="icon-checkmark"></i> Apellido Paterno.
+                            </div>
                         </div>
                     </div>
-                    <!-- #endregion -->
-                    <div class="separator-solid"></div>
-                    <div class="tab-content justify-content-center">
-                        <div class="form-row text-center">
-                            <div class="col-4"></div>
-                            <div class="col-4"> <button class="btn btn-success disoff" id="btnGuardarAnexos" data-toggle="tooltip" data-placement="top" title="Registrar Promoción"><i class="fa fa-save"></i> Registrar </button></div>
-                            <div class="col-4"></div>
+                    <div class="col-md-4 form-group">
+                        <label for="validationCustom02"><strong>Apellido Materno</strong></label>
+                        <div class="input-group">
+                            <input type="text" class="form-control form-control-sm mr-2 clean UpperCase" id="inpPromoventeMA" placeholder="" required>
+                            <div class="invalid-feedback">
+                                <i class="icon-cancel-circle"></i> Por favor, introdusca apellido materno.
+                            </div>
+                            <div class="valid-feedback">
+                                <i class="icon-checkmark"></i> Apellido Materno.
+                            </div>
                         </div>
                     </div>
+                </div>
+            </form>
+            <div class="separator-solid"></div>
+
+            <!--#region Formulario Agregar Anexos-->
+            <form class="needs-validation" id="Frm_Anexos" novalidate>
+                <div class="form-row ">
+                    <div class="col-md-5 form-group">
+                        <label for="validationCustom01"><strong>Anexos</strong></label>
+                        @Html.DropDownList("SelectAnexo", new SelectList(ViewBag.AnexoEjec, "IdAnexo", "Descripcion"), "SELECCIONAR OPCION", new { @id = "slctAnexoEjecucion", @class = "custom-select custom-select-sm disabled", @required = "required" })
+                        <div class="valid-feedback">
+                            <i class="icon-checkmark"></i> Anexo Seleccionado
+                        </div>
+                        <div class="invalid-feedback">
+                            <i class=" icon-cancel-circle"></i> Por favor, seleccione un anexo.
+                        </div>
+                    </div>
+                    <div class="col-md-5 form-group">
+                        <label for="validationCustom02"><strong>Otros Anexos (Descripción)</strong></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroupPrepend">Descripción</i></span>
+                            </div>
+                            <input type="text" class="form-control form-control-sm mr-2 clearanexo UpperCase" id="inpOtroAnexo" placeholder="">
+                            <div class="invalid-feedback">
+                                <i class="icon-cancel-circle"></i> Por favor, introdusca una descripción.
+                            </div>
+                            <div class="valid-feedback">
+                                <i class="icon-checkmark"></i> Nombre de promovente.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 form-group">
+                        <label for="inpCantidadAnexos"><strong>Cantidad</strong></label>
+                        <div class="input-group">
+                            <input type="number" class="form-control form-control-sm mr-2 clean" placeholder="0" id="inpCantidadAnexos" name="quantity" min="0" max="3000" required disabled>
+                            <button class="btn btn-success mr-2" id="btnAgregarAnexo" type="submit" data-toggle="tooltip" data-placement="top" title="Agregar Anexo" disabled><i class="fas fa-plus-circle"></i></button>
+                            <div class="invalid-feedback">
+                                <i class="icon-cancel-circle"></i> Determine cantidad.
+                            </div>
+                            <div class="valid-feedback">
+                                <i class="icon-checkmark"></i> Cantidad determinada.
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+            <!--#endregion-->
+            <!-- #region Tabla Anexos-->
+            <div class="tab-content">
+                <div class="form-row">
+                    <div class="col-12">
+                        <h6 class="m-0 font-weight-bold text-success"><i class="icon-table2"></i> Tabla de Anexos </h6>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table id="_DataTableAnexos" class="display table table-hover table-striped table-bordered" width="100%">
+                    </table>
+                </div>
+            </div>
+            <!-- #endregion -->
+            <div class="separator-solid"></div>
+            <div class="tab-content justify-content-center">
+                <div class="form-row text-center">
+                    <div class="col-4"></div>
+                    <div class="col-4"> <button class="btn btn-success disoff" id="btnGuardarAnexos" data-toggle="tooltip" data-placement="top" title="Registrar Promoción"><i class="fa fa-save"></i> Registrar </button></div>
+                    <div class="col-4"></div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+
 
 <script>
     var urlBase = '@Url.Content("~")';

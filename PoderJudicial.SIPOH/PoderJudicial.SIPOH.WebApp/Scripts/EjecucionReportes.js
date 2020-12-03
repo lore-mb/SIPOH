@@ -7,7 +7,8 @@
     var ViewBagText = $("#valorViewBag").data("value");
 
     if (ViewBagText != null) {
-        MostrarAlertaError("" + ViewBagText, null, "Atención");
+        MostrarAlertaError("<b>" + "SISTEMA: " + "</b>" + ViewBagText + "</br>"
+                           + "<b>" + "SUGERENCIA:" + "</b>" + " De clic en " + "<b class='text-danger'>" + "Aceptar " + "</b>" + " e intente consultar mas tarde.", null, "Atención");
     }
 
 });
@@ -18,9 +19,10 @@ function GenerarReporteInicialPorDia() {
     var idJuzgadoPickList = $("#slctJuzgadoPorCircuitoDia").val();
     var tipoBusqueda = $('#slcFormatoReporte').val();
 
-    window.location.href = '/Reportes/FormatoReportePorDia/?FechaHoy=' + fechaInput +
+    window.location.href = urlBase + 'Reportes/FormatoReportePorDia/?FechaHoy=' + fechaInput +
         '&IdJuzgado=' + idJuzgadoPickList +
         '&TipoBusqueda=' + tipoBusqueda;
+
 }
 
 function GenerarReporteInicialPorRangoFecha() {
@@ -34,9 +36,11 @@ function GenerarReporteInicialPorRangoFecha() {
         '&FechaFinal=' + FechaFinalDatePicker +
         '&IdJuzgado=' + IdJuzgadoPickList +
         '&TipoBusqueda=' + TipoBusqueda;
+
 }
 
 function CargarDatepickers() {
+
     $('#datetimepickerFechaInicial').datetimepicker({
         format: 'YYYY-MM-DD'
     });
@@ -84,7 +88,7 @@ function ValidarFormularios() {
 
 function MostrarAlertaError(mensaje, tamanio, titulo) {
     bootbox.alert({
-        title: "<h3>" + titulo + "</h3>",
+        title: "<h2>" + "<i class='icon-info text-danger'></i> " + titulo + "</h2>",
         message: mensaje,
         buttons:
         {

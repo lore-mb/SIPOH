@@ -114,9 +114,6 @@ namespace PoderJudicial.SIPOH.WebApp
                 "~/Scripts/LoggedIn.js"
                 ));
 
-            //-------------------------------------//
-            //----- SCRIPTS MODULO EJECUCION ----- //
-            //-------------------------------------//
 
             /* INICIALES */
             bundles.Add(new ScriptBundle("~/Scripts/EjecucionIniciales").Include(
@@ -154,6 +151,16 @@ namespace PoderJudicial.SIPOH.WebApp
             bundles.Add(new ScriptBundle("~/Scripts/EjecucionReportes").Include(
                 "~/Scripts/EjecucionReportes.js"
                 ));
+
+
+            //-------------------------------------//
+            //------ SCRIPTS MODULO CUENTA  ------ //
+            //-------------------------------------//
+
+            /* INICIALES */
+            bundles.Add(new ScriptBundle("~/Scripts/ControlIniciales").Include(
+                "~/Scripts/ControlIniciales.js"
+    ));
 
         }
     }
