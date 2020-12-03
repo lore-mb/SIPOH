@@ -129,9 +129,11 @@ function ConsultarInformacionDeEjecucion() {
     var inpNoEjecucion = $("#inpNumeroEjecucion").val();
     var objParametros = { Juzgado: slctJuzgado, NoEjecucion: inpNoEjecucion };
     SolicitudEstandarGetAjax("Promociones/ObtenerEjecucionPorJuzgado", objParametros, ListarInformacionEjecucion);
+    $("#loading").fadeIn();
 }
 
 function ListarInformacionEjecucion(data) {
+    $("#loading").fadeOut();
     if (data.Estatus == EstatusRespuesta.OK) {
         var Array = data.Data.ListaInformacion;
         var MensajeConfirmacion = "Se encontrarón coincidencias para el número de ejecución " + "<b>" + Array[0].NumeroEjecucion + "</b>" + " perteneciente al " + "<b>" + Array[0].NombreJuzgado + "</b>";
