@@ -209,6 +209,134 @@ namespace PoderJudicial.SIPOH.UT.AlbertoUT
 
         }
 
+        [TestMethod]
+        public void PruebaTrasaccionesDesdeAdoNet()
+        {
+            EjecucionRepository repo = new EjecucionRepository(cnx);
+
+            Ejecucion ejecucionHistorico = new Ejecucion();
+            ejecucionHistorico.NumeroEjecucion = "0027/2020";
+            ejecucionHistorico.IdSolicitante = 3;
+            ejecucionHistorico.DetalleSolicitante = "ESTE ES UN REGISTRO DE HISTORICO DE EJECUCION";
+            ejecucionHistorico.IdSolicitud = 1;
+            ejecucionHistorico.OtraSolicita = null;
+            ejecucionHistorico.NombreBeneficiario = "CARLOS ENRIQUE";
+            ejecucionHistorico.ApellidoPBeneficiario = "HERNANDEZ";
+            ejecucionHistorico.ApellidoMBeneficiario = "PEREZ";
+            ejecucionHistorico.Interno = "S";
+            ejecucionHistorico.IdJuzgado = 223;
+            ejecucionHistorico.IdUsuario = 22;
+
+            List<int> causas = new List<int>() { 456, 457, 458, 459 };
+            List<Toca> tocas = new List<Toca>()
+            {
+                new Toca (){ NumeroDeToca = "22/2020", IdJuzgado = 232 },
+                new Toca (){ NumeroDeToca = "23/2020", IdJuzgado = 232 }
+            };
+
+            List<string> amparos = new List<string>() { "23423", "54645" };
+            List<Anexo> anexos = new List<Anexo>()
+            {
+                new Anexo(){ IdAnexo = 3, Cantidad = 2, Descripcion = null },
+                new Anexo(){ IdAnexo = 8, Cantidad =3, Descripcion= "ESTE ES OTRO ANEXO UT"}
+            };
+
+            ejecucionHistorico.IdExpedientes = causas;
+            ejecucionHistorico.Tocas = tocas;
+            ejecucionHistorico.Amparos = amparos;
+            ejecucionHistorico.Anexos = anexos;
+                     
+            List<Expediente> causasHistoricos = new List<Expediente>();
+            Expediente expediente1 = new Expediente();
+            expediente1.NumeroExpediente = "0030/2020";
+            expediente1.IdJuzgado = 221;
+            expediente1.FechaIngreso = "01/12/2020";
+            
+            List<PartesExpediente> partes = new List<PartesExpediente>();
+            PartesExpediente parteOfendido = new PartesExpediente();
+            parteOfendido.NombreParte = "ROMAN";
+            parteOfendido.ApellidoPParte = "CASTRO";
+            parteOfendido.ApellidoMParte = "HERNANDEZ";
+            parteOfendido.Genero = "M";
+            parteOfendido.Alias = "ROMITA";
+            parteOfendido.TipoParte = "O";
+
+            PartesExpediente parteinculpado = new PartesExpediente();
+            parteinculpado.NombreParte = "CARMEN";
+            parteinculpado.ApellidoPParte = "LUSTRO";
+            parteinculpado.ApellidoMParte = "CHAVACANO";
+            parteinculpado.Genero = "F";
+            parteinculpado.Alias = "CAERMELITA";
+            parteinculpado.TipoParte = "I";
+            partes.Add(parteOfendido);
+            partes.Add(parteinculpado);
+
+            List<int> delitos = new List<int>() {650, 651, 652};
+            expediente1.Partes = partes;
+            expediente1.IdDelitos = delitos;
+
+            Expediente expediente2 = new Expediente();
+            expediente2.NumeroExpediente = "0031/2020";
+            expediente2.IdJuzgado = 221;
+            expediente2.FechaIngreso = "01/12/2020";
+
+            List<PartesExpediente> partes2 = new List<PartesExpediente>();
+            PartesExpediente parteOfendido2 = new PartesExpediente();
+            parteOfendido2.NombreParte = "SANDRA";
+            parteOfendido2.ApellidoPParte = "CARDENAS";
+            parteOfendido2.ApellidoMParte = "MOZTEZUME";
+            parteOfendido2.Genero = "M";
+            parteOfendido2.Alias = "SAND";
+            parteOfendido2.TipoParte = "O";
+
+            PartesExpediente parteinculpado2 = new PartesExpediente();
+            parteinculpado2.NombreParte = "FERNANDO";
+            parteinculpado2.ApellidoPParte = "LECHUGA";
+            parteinculpado2.ApellidoMParte = "ELIZALDE";
+            parteinculpado2.Genero = "F";
+            parteinculpado2.Alias = "FERCHO";
+            parteinculpado2.TipoParte = "I";
+
+            partes2.Add(parteOfendido2);
+            partes2.Add(parteinculpado2);
+
+            List<int> delitos2 = new List<int>() { 668, 669, 670, 674};
+
+            expediente2.Partes = partes2;
+            expediente2.IdDelitos = delitos2;
+
+            causasHistoricos.Add(expediente1);
+            causasHistoricos.Add(expediente2);
+
+            ejecucionHistorico.CausasHistoricas = causasHistoricos;
+
+            repo.CreaEjecucion(ejecucionHistorico);
+        }
+
+        [TestMethod]
+        public void PruebaConexion() 
+        {
+            EjecucionRepository repo1 = new EjecucionRepository(cnx);
+            repo1.CreaEjecucion(new Ejecucion());
+            repo1.CreaEjecucion(new Ejecucion());
+            repo1.CreaEjecucion(new Ejecucion());
+
+            ExpedienteRepository repoEx = new ExpedienteRepository(cnx);
+            repoEx.CreaCausa(new Expediente());
+            repoEx.CreaCausa(new Expediente());
+            repoEx.CreaCausa(new Expediente());
+
+            cnx.SqlConnection.Close();
+
+            EjecucionRepository repo2 = new EjecucionRepository(cnx);
+            repo2.CreaEjecucion(new Ejecucion());
+            repo2.CreaEjecucion(new Ejecucion());
+            repo2.CreaEjecucion(new Ejecucion());
+
+            
+
+        }
+
         public int pasoParametroSinReferencia(int valor) 
         {
              valor = valor + 3;
