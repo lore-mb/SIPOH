@@ -29,10 +29,14 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         }
 
         #region Metodos Publicos 
+
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
+
         /// <summary>
         /// Metodo del controlador que retorna la vista a rederizar para el modulo de Busquedas
         /// </summary>
         /// <returns>Vista BusquedaNumeroEjecucion</returns>
+      
         public ActionResult BusquedaNumeroEjecucion()
         {
             try

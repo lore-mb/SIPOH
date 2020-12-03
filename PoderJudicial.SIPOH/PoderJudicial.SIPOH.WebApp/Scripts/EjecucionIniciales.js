@@ -173,14 +173,20 @@ function ElementosAlCargado()
 
             if (form.checkValidity() === true && id == "formEjecucion")
             {
-                if (!esConsignacionHistorica)
+                var funcion = function ()
                 {
-                    GenerarEjecucion();
+                    if (!esConsignacionHistorica)
+                    {
+                        GenerarEjecucion();
+                    }
+                    else
+                    {
+                        GenerarHistoricoDeEjecucion();
+                    }
                 }
-                else
-                {
-                    GenerarHistoricoDeEjecucion();
-                }
+
+                var mensaje = "Esta a punto de registrar una " + (!esConsignacionHistorica ? "Inicial de Ejecución" : "Consignacion Historica de Ejecucion") + ", ¿Desea continuar?";
+                MensajeDeConfirmacion(mensaje, "large", funcion);
             }
 
             if (form.checkValidity() === true && id == "frmBusquedaDeNumeroEjecucion")

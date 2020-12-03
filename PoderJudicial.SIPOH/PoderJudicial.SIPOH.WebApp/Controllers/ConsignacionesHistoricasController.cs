@@ -31,6 +31,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         }
 
         // GET: ConsignacionesHistoricas
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public ActionResult CrearConsignacionHistorica()
         {
             try
