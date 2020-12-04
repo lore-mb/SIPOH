@@ -113,7 +113,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             }
             else
             {
-                string MensajeTituloReportePromociones = "REPORTE PROMOCIÓNES DE EJECUCIÓN";
+                string MensajeTituloReportePromociones = "REPORTE PROMOCIONES DE EJECUCIÓN";
                 _DocumentoReporte.AddEventHandler(PdfDocumentEvent.START_PAGE, new HeaderEventHandler1(LogoPJ, LogoCJ, MensajeTituloReportePromociones));
             }
 
@@ -426,7 +426,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             }
             else
             {
-                string MensajeTituloReportePromociones = "REPORTE PROMOCIÓNES DE EJECUCIÓN";
+                string MensajeTituloReportePromociones = "REPORTE PROMOCIONES DE EJECUCIÓN";
                 _DocumentoReporte.AddEventHandler(PdfDocumentEvent.START_PAGE, new HeaderEventHandler1(LogoPJ, LogoCJ, MensajeTituloReportePromociones));
             }
 
@@ -482,10 +482,10 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 Cell CellNombreJuzgado = new Cell(2, 0).Add(new Paragraph("Nombre de Juzgado")).AddStyle(EstiloEncabezadoRegistros);
                 Cell CellNombreJuzgadoParametro = new Cell(2, 0).Add(new Paragraph(NombreJuzgadoToCell)).AddStyle(EstiloEncabezadoParametros);
 
-                Cell CellFechaInicial = new Cell(2, 0).Add(new Paragraph("Periodo Inicial")).AddStyle(EstiloEncabezadoRegistros);
+                Cell CellFechaInicial = new Cell(2, 0).Add(new Paragraph("Período Inicial")).AddStyle(EstiloEncabezadoRegistros);
                 Cell CellFechaInicialParametro = new Cell(2, 0).Add(new Paragraph(fechaInicial.ToString())).AddStyle(EstiloEncabezadoParametros);
 
-                Cell CellFechaFinal = new Cell(2, 0).Add(new Paragraph("Periodo Final ")).AddStyle(EstiloEncabezadoRegistros);
+                Cell CellFechaFinal = new Cell(2, 0).Add(new Paragraph("Período Final ")).AddStyle(EstiloEncabezadoRegistros);
                 Cell CellFechaFinalParametro = new Cell(2, 0).Add(new Paragraph(fechaFinal.ToString())).AddStyle(EstiloEncabezadoParametros);
 
                 Cell CellTextoTotal = new Cell();
