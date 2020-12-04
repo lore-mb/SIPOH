@@ -279,8 +279,8 @@ function MostrarFormularioBeneficiarios(respuesta)
                 $("#slctJuzgadoEjecucion").prop('disabled', true);
                 $("#inpNumeroEjecucion").prop('disabled', true);
                 $("#btnConsultarEjecucion").prop('disabled', true);
-                $('#seccionBusquedaBeneficiario').show();
-                $('#seccionBeneficiario').show(); 
+                $('#seccionBusquedaBeneficiario').show(500);
+                $('#seccionBeneficiario').show(500); 
                 $('#seccionBusquedaAnexos').show();
                 $('#seccionTablaAnexos').show();
                 $('#seccionBotonGuardar').show();
@@ -301,8 +301,8 @@ function DeshabilitarNumeroEjecucion()
     $("#slctJuzgadoEjecucion").prop('disabled', false);
     $("#inpNumeroEjecucion").prop('disabled', false);
     $("#btnConsultarEjecucion").prop('disabled', false);
-    $('#seccionBusquedaBeneficiario').hide();
-    $('#seccionBeneficiario').hide();
+    $('#seccionBusquedaBeneficiario').hide(500);
+    $('#seccionBeneficiario').hide(500);
     $('#seccionBusquedaAnexos').hide();
     $('#seccionTablaAnexos').hide();
     $('#seccionBotonGuardar').hide(); 
@@ -646,14 +646,14 @@ function AgregarCausaAlDataTable(tradicional)
         $("#seccionBusquedaBeneficiario").hide();
     }
 
-    $("#contenedorBeneficiario").show();
+    $("#contenedorBeneficiario").show(500);
 }
 
 function GenerarHistoricoDeEjecucion()
 {
     $("#loading").fadeIn();
 
-    //intentos = intentos + 1;
+    intentos = intentos + 1;
 
     var parametros =
     {

@@ -148,7 +148,7 @@ namespace PoderJudicial.SIPOH.Negocio
 
             else if (ejecucionRepositorio.Estatus == Estatus.ERROR)
             {
-                Mensaje = "Ocurrio un error al intentar generar el registro de Ejecución";
+                Mensaje = "Ocurrio un error al intentar generar el registro Historico de Ejecución <br>" + ejecucionRepositorio.MensajeError;
                 string mensajeLogger = ejecucionRepositorio.MensajeError;
 
                 //Logica para ILogger

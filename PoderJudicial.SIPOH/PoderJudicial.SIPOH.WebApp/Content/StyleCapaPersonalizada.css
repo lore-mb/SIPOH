@@ -3053,10 +3053,14 @@ label.error {
     background: rgba(222, 222, 222, 0.4); }
   .nav-pills.flex-column .nav-link.active {
     background: #177dff; }
-  .nav-pills.flex-column .nav-link:first-child {
-    border-radius: 4px 4px 0 0 !important; }
-  .nav-pills.flex-column .nav-link:last-child {
-    border-radius: 0 0 4px 4px !important; }
+  .nav-pills.flex-column .nav-link:first-child 
+  {
+    /*border-radius: 4px 4px 0 0 !important;*/ 
+  }
+  .nav-pills.flex-column .nav-link:last-child 
+  {
+   /*border-radius: 0 0 4px 4px !important;*/ 
+  }
 .nav-pills.flex-column.nav-pills-no-bd .nav-link {
   border: 0px !important;
   border-radius: 50px !important;

@@ -310,7 +310,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
             {
                 transaccion.Rollback();
 
-                MensajeError = ex.Message;
+                MensajeError = "ERROR SQL" + ex.Message;
                 Estatus = Estatus.ERROR;
                 return null;
             }

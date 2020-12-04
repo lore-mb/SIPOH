@@ -726,7 +726,7 @@ function ListarCausas(respuesta)
                     if (Causas.length == 0)
                     {
                         $('#contenedorBeneficiario').removeAttr('hidden');
-                        $("#contenedorBeneficiario").show();
+                        $("#contenedorBeneficiario").show(500);
 
                         if (esConsignacionHistorica)
                         {
@@ -846,12 +846,9 @@ function ValidarCuasaHistoricaEnTabla(idJuzgado, numeroCausa)
 
     for (var index = 0; index < iterarArreglo.length; index++)
     {
-        if (Causas[index].Historico == true)
+        if (Causas[index].IdJuzgado == idJuzgado && Causas[index].NumeroExpediente == numeroCausa)
         {
-            if (Causas[index].IdJuzgado == idJuzgado && Causas[index].NumeroCausa == numeroCausa)
-            {
-                return true;
-            }
+            return true;
         }
     }
     return false;
@@ -884,13 +881,13 @@ function EliminarCausa(idExpediente)
 
         if (Causas.length == 0)
         {
-            $("#contenedorBeneficiario").hide();
+            $("#contenedorBeneficiario").hide(500);
         }
     }
 
     var mensaje = "¿Desea retirar la Causa <b>" + Causas[indexCausa].CausaNuc + "</b> de la tabla?"; 
 
-    MensajeDeConfirmacion(mensaje, "large", funcion);
+    MensajeDeConfirmacion(mensaje, "small", funcion);
 }
 // #endregion 
 

@@ -241,7 +241,7 @@ namespace PoderJudicial.SIPOH.UT.AlbertoUT
                 new Anexo(){ IdAnexo = 8, Cantidad =3, Descripcion= "ESTE ES OTRO ANEXO UT"}
             };
 
-            ejecucionHistorico.IdExpedientes = causas;
+            //ejecucionHistorico.IdExpedientes = causas;
             ejecucionHistorico.Tocas = tocas;
             ejecucionHistorico.Amparos = amparos;
             ejecucionHistorico.Anexos = anexos;
@@ -308,30 +308,30 @@ namespace PoderJudicial.SIPOH.UT.AlbertoUT
             causasHistoricos.Add(expediente1);
             causasHistoricos.Add(expediente2);
 
-            ejecucionHistorico.CausasHistoricas = causasHistoricos;
+            //ejecucionHistorico.CausasHistoricas = causasHistoricos;
 
-            repo.CreaEjecucion(ejecucionHistorico);
+            //repo.CreaEjecucion(ejecucionHistorico);
         }
 
         [TestMethod]
         public void PruebaConexion() 
         {
-            EjecucionRepository repo1 = new EjecucionRepository(cnx);
-            repo1.CreaEjecucion(new Ejecucion());
-            repo1.CreaEjecucion(new Ejecucion());
-            repo1.CreaEjecucion(new Ejecucion());
+            //EjecucionRepository repo1 = new EjecucionRepository(cnx);
+            //repo1.CreaEjecucion(new Ejecucion());
+            //repo1.CreaEjecucion(new Ejecucion());
+            //repo1.CreaEjecucion(new Ejecucion());
 
-            ExpedienteRepository repoEx = new ExpedienteRepository(cnx);
-            repoEx.CreaCausa(new Expediente());
-            repoEx.CreaCausa(new Expediente());
-            repoEx.CreaCausa(new Expediente());
+            //ExpedienteRepository repoEx = new ExpedienteRepository(cnx);
+            //repoEx.CreaCausa(new Expediente());
+            //repoEx.CreaCausa(new Expediente());
+            //repoEx.CreaCausa(new Expediente());
 
-            cnx.SqlConnection.Close();
+            //cnx.SqlConnection.Close();
 
-            EjecucionRepository repo2 = new EjecucionRepository(cnx);
-            repo2.CreaEjecucion(new Ejecucion());
-            repo2.CreaEjecucion(new Ejecucion());
-            repo2.CreaEjecucion(new Ejecucion());
+            //EjecucionRepository repo2 = new EjecucionRepository(cnx);
+            //repo2.CreaEjecucion(new Ejecucion());
+            //repo2.CreaEjecucion(new Ejecucion());
+            //repo2.CreaEjecucion(new Ejecucion());
 
             
 
