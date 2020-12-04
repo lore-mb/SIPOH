@@ -37,7 +37,7 @@ function RegistrarAmparoConCausa()
 
 function MensajeNotificacionGuardar(mensaje, tamanio, funcion) {
     bootbox.confirm({
-        title: "<h2>" +"<i class='icon-question text-success'></i>"+" Verificacion de datos a guardar</h2>",
+        title: "<h2>" +"<i class='icon-question text-success'></i>"+" Verificación de datos a guardar</h2>",
         message: mensaje,
         buttons: {
             confirm: {

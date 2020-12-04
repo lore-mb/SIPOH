@@ -60,7 +60,7 @@ function HabilitarFormularioAnexos() {
 
 function MostrarFormularioEjecucion() {
     $('#divResultadoPromocion').removeAttr('hidden');
-    $("#divResultadoPromocion").show();
+    $("#divResultadoPromocion").show(1000);
     $(".disabled").prop('disabled', true);
 }
 
@@ -243,7 +243,7 @@ function GuardarAnexos() {
     $IdCatAnexo = $("#slctAnexoEjecucion").find('option:selected').val();
     $Cantidad = $("#inpCantidadAnexos").val();
 
-    MensajeDatos = "Esta a punto de registrar una promocion, ¿Desea continuar?";
+    MensajeDatos = "Está a punto de registrar una promoción, ¿Desea continuar?";
 
     var Funcion_Ejecutar = function () {
         $("#loading").fadeIn();
@@ -614,7 +614,7 @@ function Alerta(mensaje, tamanio = null, titulo = null) {
 
 function MensajeNotificacionGuardar(mensaje, tamanio, funcion) {
     bootbox.confirm({
-        title: "<h3>Confirmación</h3>",
+        title: "<h2>" + "<i class='icon-question text-success'></i>" + " Verificación de datos a guardar </h2>",
         message: mensaje,
         buttons: {
             confirm: {
