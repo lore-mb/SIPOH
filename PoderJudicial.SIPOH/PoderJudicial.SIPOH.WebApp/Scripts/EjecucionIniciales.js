@@ -737,7 +737,8 @@ function ListarCausas(respuesta)
                         }
                     }
 
-                    expediente.Historico = false;
+                    //Id para el DataTable
+                    expediente.Id = expediente.IdExpediente;
                     expediente.Eliminar = "<button type='button' class='btn btn-link btn-danger btn-sm' onclick='EliminarCausa(" + expediente.IdExpediente + ")' data-toggle='tooltip' title='Quitar Causa'><i class='icon-bin2'></i></button>";
 
                     //Agrega Causa al Arreglo de Cuasas
@@ -826,7 +827,7 @@ function ValidarCuasaEnTabla(id)
 
     for (var index = 0; index < iterarArreglo.length; index++)
     {
-        if (Causas[index].IdExpediente == id)
+        if (Causas[index].Id == id)
         {
             return true;
         }
@@ -868,7 +869,7 @@ function EliminarCausa(idExpediente)
 
     for (var index = 0; index < iterarArreglo.length; index++)
     {
-        if (idExpediente == Causas[index].IdExpediente)
+        if (idExpediente == Causas[index].Id)
         {
             indexCausa = index;
         }
@@ -1210,7 +1211,7 @@ function GenerarEjecucion()
         ApellidoPBeneficiario: $("#inpApellidoPaterno").val(),
         ApellidoMBeneficiario: $("#inpApellidoMaterno").val(),
         Interno: $('input[name="customRadioInline1"]:checked').val(),
-        Causas: Causas,
+        IdExpedientes: Causas,
         Tocas: Tocas,
         Amparos: GeneraArregloNumeroAmparos(),
         Anexos: Anexos,

@@ -296,11 +296,6 @@ function MostrarFormularioBeneficiarios(respuesta)
     }
 }
 
-function GenerarHistoricoDeEjecucion()
-{
-    alert("Se crea historico de ejecucion");
-}
-
 function DeshabilitarNumeroEjecucion()
 {
     $("#slctJuzgadoEjecucion").prop('disabled', false);
@@ -594,20 +589,23 @@ function AgregarCausaAlDataTable(tradicional)
 
     //Crea Objeto tipo Cuasa
     var expediente = new Object();
-    expediente.IdExpediente = Math.floor(Math.random() * 90000) + 10000;
-    expediente.Historico = true;
+
+    //Datos del DataTable
+    expediente.Id = Math.floor(Math.random() * 90000) + 10000;
     expediente.CausaNuc = numeroCausa;
     expediente.NombreJuzgado = nombreJuzgado
-  
     expediente.Ofendidos = GeneraCadenaNombrePartes(false);
     expediente.Inculpados = GeneraCadenaNombrePartes(true);
     expediente.Delitos = GeneraCadenaDelitosCausa();
-    expediente.DelitosCausa = Delitos;
-    expediente.Eliminar = "<button type='button' class='btn btn-link btn-danger btn-sm' onclick='EliminarCausa(" + expediente.IdExpediente + ")' data-toggle='tooltip' title='Quitar Causa'><i class='icon-bin2'></i></button>";
+    expediente.Eliminar = "<button type='button' class='btn btn-link btn-danger btn-sm' onclick='EliminarCausa(" + expediente.Id + ")' data-toggle='tooltip' title='Quitar Causa'><i class='icon-bin2'></i></button>";
 
-    expediente.NumeroCausa = numeroCausa;
+    //Datos a base de datos
+    expediente.IdExpediente = 0;
+    expediente.NumeroExpediente = numeroCausa;
     expediente.IdJuzgado = idJuzgado;
-    expediente.FechaRecepcion = fechaRecepcion;
+    expediente.FechaIngreso = fechaRecepcion;
+    expediente.IdDelitos = ObtieneIdDelitos();
+    expediente.Partes = Ofendidos.concat(Imputados);
 
     //Agrega Causa al Arreglo de Cuasas
     Causas.push(expediente);
@@ -651,6 +649,83 @@ function AgregarCausaAlDataTable(tradicional)
     $("#contenedorBeneficiario").show();
 }
 
+function GenerarHistoricoDeEjecucion()
+{
+    $("#loading").fadeIn();
+
+    //intentos = intentos + 1;
+
+    var parametros =
+    {
+        NumeroEjecucion: $("#inpNumeroEjecucion").val(),
+        IdJuzgado: $("#slctJuzgadoEjecucion").find('option:selected').val(),
+        NombreBeneficiario : $("#inpNombreSentenciado").val(),
+        ApellidoPBeneficiario : $("#inpApellidoPaterno").val(),
+        ApellidoMBeneficiario : $("#inpApellidoMaterno").val(),
+        Interno : $('input[name="customRadioInline1"]:checked').val(),
+        Causas : Causas,
+        Tocas : Tocas,
+        Amparos : GeneraArregloNumeroAmparos(),
+        Anexos : Anexos,
+        IdSolicitante : $("#slctSolicitante").find('option:selected').val(),
+        DetalleSolicitante : $("#ipnDetalleSolicitante").val(),
+        IdSolicitud : $("#slctSolicitud").find('option:selected').val(),
+        OtraSolicita : $("#inpOtraSolicitud").val()
+    };
+
+    SolicitudEstandarPostAjax('ConsignacionesHistoricas/CreaEjecucion', parametros, RederizarDetalleHistoricoSuccess, RederizarDetalleHistoricoError);
+}
+
+function RederizarDetalleHistoricoSuccess(respuesta)
+{
+    if (respuesta.Estatus == EstatusRespuesta.OK)
+    {
+        var url = respuesta.Data.Url;
+
+        ////Redirecciona a la vista detalle
+        document.location.href = url;
+    }
+    else if (respuesta.Estatus == EstatusRespuesta.ERROR)
+    {
+        $("#loading").fadeOut();
+
+        if (intentos > 2)
+        {
+            var mensaje = "Mensaje: " + respuesta.Mensaje + ". <br><br>Intentos: " + intentos + "<br><br><b>Ha superado el numero maximo de intentos, vuelva intentarlo mas tarde o consulte a soporte</b";
+            intentos = 0;
+
+            Alerta(mensaje, "large");
+        }
+        else
+        {
+            var mensaje = "Mensaje: " + respuesta.Mensaje + ", de click en Aceptar para intentar crear el registro nuevamente.<br><br>Intentos: " + intentos;
+
+            reintento = true;
+            MensajeDeConfirmacion(mensaje, "large", GenerarHistoricoDeEjecucion, null, titulo = "Error no controlado por el sistema");
+        }
+    }
+}
+
+function RederizarDetalleHistoricoError(respuesta)
+{
+    $("#loading").fadeOut();
+
+    if (intentos > 2)
+    {
+        var mensaje = "Mensaje: " + respuesta + ". <br><br>Intentos: " + intentos + "<br><br><b>Ha superado el numero maximo de intentos, vuelva intentarlo mas tarde o consulte a soporte</b";
+        intentos = 0;
+
+        Alerta(mensaje, "large");
+    }
+    else
+    {
+        var mensaje = "Mensaje: " + respuesta + ", de click en Aceptar para intentar crear el registro nuevamente.<br><br>Intentos: " + intentos;
+
+        reintento = true;
+        MensajeDeConfirmacion(mensaje, "large", GenerarHistoricoDeEjecucion, null, titulo = "Error no controlado por el sistema");
+    }
+}
+
 function GeneraCadenaNombrePartes(esImputado)
 {
     var cadenaNombrePartes = "";
@@ -677,3 +752,15 @@ function GeneraCadenaDelitosCausa()
     return cadenaDelitosCausa;
 }
 
+function ObtieneIdDelitos()
+{
+    var idDelitos = [];
+
+    for (var index = 0; index < Delitos.length; index++)
+    {
+        var id = Delitos[index].IdDelito;
+        idDelitos.push(id);
+    }
+
+    return idDelitos;
+}

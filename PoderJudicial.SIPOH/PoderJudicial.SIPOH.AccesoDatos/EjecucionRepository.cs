@@ -226,9 +226,9 @@ namespace PoderJudicial.SIPOH.AccesoDatos
         /// <param name="anexos"></param>
         /// <param name="idJuzgado"></param>
         /// <returns></returns>
-        public int? CreaEjecucion(Ejecucion ejecucion)
+        public int? CreaEjecucion(Ejecucion ejecucion, List<int> causas, List<Expediente> causasHistoricas)
         {
-            //SqlTransaction transaccion = null;
+            SqlTransaction transaccion = null;
 
             try
             {
@@ -238,79 +238,77 @@ namespace PoderJudicial.SIPOH.AccesoDatos
                 if (Cnx.State == ConnectionState.Closed)
                 Cnx.Open();
 
-                //List<int> idCausasHistorico = new List<int>();
+                List<int> idCausasHistorico = new List<int>();
 
-                //Cnx.Open();
+                //Crear transaccion
+                transaccion = Cnx.BeginTransaction();
 
-                ////Crear transaccion
-                //transaccion = Cnx.BeginTransaction();
+                //En caso de tener Historico de causas hace la insercion
+                foreach (Expediente causaHistorica in causasHistoricas)
+                {
+                    SqlCommand comandoCreaCausa = new SqlCommand("sipoh_CrearCausaHistoricaDeEjecucion", Cnx, transaccion);
 
-                ////En caso de tener Historico de causas hace la insercion
-                //foreach (Expediente causaHistorica in ejecucion.CausasHistoricas) 
-                //{
-                //    SqlCommand comandoCreaCausa = new SqlCommand("sipoh_CrearCausaHistoricaDeEjecucion", Cnx, transaccion);
+                    comandoCreaCausa.CommandType = CommandType.StoredProcedure;
+                    comandoCreaCausa.Parameters.Add("@numeroExpediente", SqlDbType.VarChar).Value = causaHistorica.NumeroExpediente;
+                    comandoCreaCausa.Parameters.Add("@idJuzgado", SqlDbType.Int).Value = causaHistorica.IdJuzgado;
+                    comandoCreaCausa.Parameters.Add("@fechaIngreso", SqlDbType.VarChar).Value = causaHistorica.FechaIngreso;
+                    comandoCreaCausa.Parameters.Add("@partesExpediente", SqlDbType.Structured).Value = CreaDataTableType(causaHistorica.Partes, "NombreParte", "ApellidoPParte", "ApellidoMParte", "Genero", "TipoParte", "Alias");
+                    comandoCreaCausa.Parameters.Add("@delitosExpediente", SqlDbType.Structured).Value = CreaDataTableType(causaHistorica.IdDelitos, "IdDelito");
 
-                //    comandoCreaCausa.CommandType = CommandType.StoredProcedure;
-                //    comandoCreaCausa.Parameters.Add("@numeroExpediente", SqlDbType.VarChar).Value = causaHistorica.NumeroExpediente;
-                //    comandoCreaCausa.Parameters.Add("@idJuzgado", SqlDbType.Int).Value = causaHistorica.IdJuzgado;
-                //    comandoCreaCausa.Parameters.Add("@fechaIngreso", SqlDbType.VarChar).Value = causaHistorica.FechaIngreso;
-                //    comandoCreaCausa.Parameters.Add("@partesExpediente", SqlDbType.Structured).Value = CreaDataTableType(causaHistorica.Partes, "NombreParte", "ApellidoPParte", "ApellidoMParte", "Genero", "TipoParte", "Alias");
-                //    comandoCreaCausa.Parameters.Add("@delitosExpediente", SqlDbType.Structured).Value = CreaDataTableType(causaHistorica.IdDelitos, "IdDelito");
+                    //Parametro de Salida
+                    SqlParameter idCausa = new SqlParameter();
+                    idCausa.ParameterName = "@idCausa";
+                    idCausa.SqlDbType = SqlDbType.Int;
+                    idCausa.Direction = ParameterDirection.Output;
+                    comandoCreaCausa.Parameters.Add(idCausa);
 
-                //    //Parametro de Salida
-                //    SqlParameter idCausa = new SqlParameter();
-                //    idCausa.ParameterName = "@idCausa";
-                //    idCausa.SqlDbType = SqlDbType.Int;
-                //    idCausa.Direction = ParameterDirection.Output;
-                //    comandoCreaCausa.Parameters.Add(idCausa);
+                    comandoCreaCausa.ExecuteNonQuery();
+                    var idExpediente = Convert.ToInt32(idCausa.Value);
 
-                //    comandoCreaCausa.ExecuteNonQuery();
-                //    var idExpediente =  Convert.ToInt32(idCausa.Value);
+                    //Id de Causas Historico
+                    idCausasHistorico.Add(idExpediente);
+                }
 
-                //    //Id de Causas Historico
-                //    idCausasHistorico.Add(idExpediente);
-                //}
+                if (idCausasHistorico.Count > 0)
+                causas.AddRange(idCausasHistorico);
 
-                //if (idCausasHistorico.Count > 0)
-                //    ejecucion.IdExpedientes.AddRange(idCausasHistorico);
+                SqlCommand comandoCreaEjecucion = new SqlCommand("sipoh_CrearEjecucionHistorico", Cnx, transaccion);
+                comandoCreaEjecucion.CommandType = CommandType.StoredProcedure;
+                comandoCreaEjecucion.Parameters.Add("@numEjec", SqlDbType.VarChar).Value = ejecucion.NumeroEjecucion;
+                comandoCreaEjecucion.Parameters.Add("@idSolicitante", SqlDbType.VarChar).Value = ejecucion.IdSolicitante;
+                comandoCreaEjecucion.Parameters.Add("@detalleSolicitante", SqlDbType.VarChar).Value = ejecucion.DetalleSolicitante;
+                comandoCreaEjecucion.Parameters.Add("@idSolicitud", SqlDbType.VarChar).Value = ejecucion.IdSolicitud;
+                comandoCreaEjecucion.Parameters.Add("@otraSolicita", SqlDbType.VarChar).Value = ejecucion.OtraSolicita;
+                comandoCreaEjecucion.Parameters.Add("@beneficiarioNombre", SqlDbType.VarChar).Value = ejecucion.NombreBeneficiario;
+                comandoCreaEjecucion.Parameters.Add("@beneficiarioApellidoPaterno", SqlDbType.VarChar).Value = ejecucion.ApellidoPBeneficiario;
+                comandoCreaEjecucion.Parameters.Add("@beneficiarioApellidoMaterno", SqlDbType.VarChar).Value = ejecucion.ApellidoMBeneficiario;
+                comandoCreaEjecucion.Parameters.Add("@interno", SqlDbType.Char).Value = ejecucion.Interno;
+                comandoCreaEjecucion.Parameters.Add("@idUser", SqlDbType.Int).Value = ejecucion.IdUsuario;
+                comandoCreaEjecucion.Parameters.Add("@idUnidad", SqlDbType.Int).Value = ejecucion.IdJuzgado;
 
-                //SqlCommand comandoCreaEjecucion = new SqlCommand("sipoh_CrearEjecucionHistorico", Cnx, transaccion);
-                //comandoCreaEjecucion.CommandType = CommandType.StoredProcedure;
-                //comandoCreaEjecucion.Parameters.Add("@numEjec", SqlDbType.VarChar).Value = ejecucion.NumeroEjecucion;
-                //comandoCreaEjecucion.Parameters.Add("@idSolicitante", SqlDbType.VarChar).Value = ejecucion.IdSolicitante;
-                //comandoCreaEjecucion.Parameters.Add("@detalleSolicitante", SqlDbType.VarChar).Value = ejecucion.DetalleSolicitante;
-                //comandoCreaEjecucion.Parameters.Add("@idSolicitud", SqlDbType.VarChar).Value = ejecucion.IdSolicitud;
-                //comandoCreaEjecucion.Parameters.Add("@otraSolicita", SqlDbType.VarChar).Value = ejecucion.OtraSolicita;
-                //comandoCreaEjecucion.Parameters.Add("@beneficiarioNombre", SqlDbType.VarChar).Value = ejecucion.NombreBeneficiario;
-                //comandoCreaEjecucion.Parameters.Add("@beneficiarioApellidoPaterno", SqlDbType.VarChar).Value = ejecucion.ApellidoPBeneficiario;
-                //comandoCreaEjecucion.Parameters.Add("@beneficiarioApellidoMaterno", SqlDbType.VarChar).Value = ejecucion.ApellidoMBeneficiario;
-                //comandoCreaEjecucion.Parameters.Add("@interno", SqlDbType.Char).Value = ejecucion.Interno;
-                //comandoCreaEjecucion.Parameters.Add("@idUser", SqlDbType.Int).Value = ejecucion.IdUsuario;
-                //comandoCreaEjecucion.Parameters.Add("@idUnidad", SqlDbType.Int).Value = ejecucion.IdJuzgado;
+                //Tipos Data Table
+                comandoCreaEjecucion.Parameters.Add("@expedientes", SqlDbType.Structured).Value = CreaCausasType(causas);
+                comandoCreaEjecucion.Parameters.Add("@tocas", SqlDbType.Structured).Value = CreaTocasType(ejecucion.Tocas);
+                comandoCreaEjecucion.Parameters.Add("@amparos", SqlDbType.Structured).Value = CreaAmparosType(ejecucion.Amparos);
+                comandoCreaEjecucion.Parameters.Add("@anexos", SqlDbType.Structured).Value = CreaAnexoType(ejecucion.Anexos);
 
-                ////Tipos Data Table
-                //comandoCreaEjecucion.Parameters.Add("@expedientes", SqlDbType.Structured).Value = CreaCausasType(ejecucion.IdExpedientes);
-                //comandoCreaEjecucion.Parameters.Add("@tocas", SqlDbType.Structured).Value = CreaTocasType(ejecucion.Tocas);
-                //comandoCreaEjecucion.Parameters.Add("@amparos", SqlDbType.Structured).Value = CreaAmparosType(ejecucion.Amparos);
-                //comandoCreaEjecucion.Parameters.Add("@anexos", SqlDbType.Structured).Value = CreaAnexoType(ejecucion.Anexos);
+                //Parametro de Salida
+                SqlParameter idEjecucion = new SqlParameter();
+                idEjecucion.ParameterName = "@idEjecucion";
+                idEjecucion.SqlDbType = SqlDbType.Int;
+                idEjecucion.Direction = ParameterDirection.Output;
+                comandoCreaEjecucion.Parameters.Add(idEjecucion);
 
-                ////Parametro de Salida
-                //SqlParameter idEjecucion = new SqlParameter();
-                //idEjecucion.ParameterName = "@idEjecucion";
-                //idEjecucion.SqlDbType = SqlDbType.Int;
-                //idEjecucion.Direction = ParameterDirection.Output;
-                //comandoCreaEjecucion.Parameters.Add(idEjecucion);
+                comandoCreaEjecucion.ExecuteNonQuery();
+                var idEjecucionRes = Convert.ToInt32(idEjecucion.Value);
 
-                //comandoCreaEjecucion.ExecuteNonQuery();
-                //var idEjecucionRes = Convert.ToInt32(idEjecucion.Value);
-
-                ////Comienza transaccion             
-                //transaccion.Commit();
-                return /*idEjecucionRes*/ null;
+                //Comienza transaccion             
+                transaccion.Commit();
+                return idEjecucionRes;
             }
             catch (Exception ex)
             {
-                //transaccion.Rollback();
+                transaccion.Rollback();
 
                 MensajeError = ex.Message;
                 Estatus = Estatus.ERROR;
@@ -318,8 +316,8 @@ namespace PoderJudicial.SIPOH.AccesoDatos
             }
             finally
             {
-                //if (IsValidConnection && Cnx.State == ConnectionState.Open)
-                //    Cnx.Close();
+                if (IsValidConnection && Cnx.State == ConnectionState.Open)
+                    Cnx.Close();
             }
         }
         /// <summary>
