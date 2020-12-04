@@ -23,13 +23,15 @@ namespace PoderJudicial.SIPOH.WebApp.Models
         public string DescripcionSolicitud { set; get; }
         public string OtraSolicita { set; get; }
         public string Interno { set; get; }
-        public List<CausasModelView> Causas { set; get; }
+
+        //Entidades Relacionadas
+        public List<CausasModelView> IdExpedientes { set; get; }
         public List<Toca> Tocas { set; get; }
         public List<string> Amparos { set; get; }
         public List<AnexosModelView> Anexos {set; get;}
         public DetalleEjecucionModelView() 
         {
-            Causas = new List<CausasModelView>();
+            IdExpedientes = new List<CausasModelView>();
             Tocas = new List<Toca>();
             Amparos = new List<string>();
             Anexos = new List<AnexosModelView>();

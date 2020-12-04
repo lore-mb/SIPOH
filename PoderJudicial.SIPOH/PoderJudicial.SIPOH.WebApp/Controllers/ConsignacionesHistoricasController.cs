@@ -3,6 +3,7 @@ using PoderJudicial.SIPOH.Entidades;
 using PoderJudicial.SIPOH.Entidades.Enum;
 using PoderJudicial.SIPOH.Negocio.Interfaces;
 using PoderJudicial.SIPOH.WebApp.Helpers;
+using PoderJudicial.SIPOH.WebApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -174,6 +175,43 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
             }
         }
 
+        [HttpPost]
+        public ActionResult CreaEjecucion(Ejecucion ejecucion) 
+        {
+            try
+            {
+                //Id del usuario logeado
+                ejecucion.IdUsuario = Usuario.Id;
+
+                int? folio = consignacionesProcessor.CreaRegistroDeEjecucionHistorica(ejecucion);
+
+                if (folio == null)
+                {
+                    Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
+                    Respuesta.Mensaje = consignacionesProcessor.Mensaje;
+                }
+
+                if (folio != null)
+                {
+                    //Genera los parametro encriptados
+                    string url = ViewHelper.EncodedActionLink("Detalle", "Iniciales", new { Folio = folio });
+
+                    Respuesta.Estatus = EstatusRespuestaJSON.OK;
+                    Respuesta.Mensaje = consignacionesProcessor.Mensaje;
+                    Respuesta.Data = new { Url = url };
+                }
+
+                return Json(Respuesta, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                Respuesta.Estatus = EstatusRespuestaJSON.ERROR;
+                Respuesta.Mensaje = "Ocurrio un error interno no controlado por el sistema";
+
+                return Json(Respuesta, JsonRequestBehavior.AllowGet);
+            }
+        } 
+             
         /// <summary>
         /// Meotodo que vailida los juszgados obtenidos y genera un objeto de tipo respuesta
         /// </summary>

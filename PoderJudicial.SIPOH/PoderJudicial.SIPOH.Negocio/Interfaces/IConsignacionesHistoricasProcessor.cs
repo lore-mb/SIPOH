@@ -1,4 +1,5 @@
-﻿using PoderJudicial.SIPOH.Entidades.Enum;
+﻿using PoderJudicial.SIPOH.Entidades;
+using PoderJudicial.SIPOH.Entidades.Enum;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +13,6 @@ namespace PoderJudicial.SIPOH.Negocio.Interfaces
         string Mensaje { get; set; }
         bool? ValidaAsignacionManualDeNumeroDeEjecucion(int idJuzgado, string numeroDeEjecucion);
         bool? ValidaExistenciaDeCausaEnJuzgado(int idJuzgado, string numeroDeCausa, string nuc);
+        int? CreaRegistroDeEjecucionHistorica(Ejecucion ejecucion);
     }
 }

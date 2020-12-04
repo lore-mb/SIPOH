@@ -26,6 +26,9 @@ $(document).ready(function ()
 
 function ElementosAlCargado()
 {
+    FormatearInput("#inpCausa", "9999/9999", "0000/0000", "[0-9\uFF11-\uFF19]", "/");
+    FormatearInput("#inpNuc", "99-9999-9999", "0000000000", "[0-9\uFF11-\uFF19]", "-");
+
     //Deshabilita option para juzgado acusatorio
     $("#slctJuzgadoPorDistritos").prop('disabled', true);
 
@@ -535,4 +538,22 @@ function Alerta(mensaje, tamanio = null, titulo = null)
         },
         size: tamanio
     });
+}
+
+function FormatearInput(selector, mask, placeholder, validatorRegEx, radixPoint)
+{
+    Inputmask(mask, {
+        positionCaretOnClick: "select",
+        radixPoint: radixPoint,
+        _radixDance: true,
+        numericInput: true,
+        placeholder: placeholder,
+        definitions:
+        {
+            "0":
+            {
+                validator: validatorRegEx
+            }
+        }
+    }).mask(selector);
 }

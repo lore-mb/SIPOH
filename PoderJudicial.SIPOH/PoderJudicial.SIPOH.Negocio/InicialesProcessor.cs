@@ -76,10 +76,10 @@ namespace PoderJudicial.SIPOH.Negocio
 
             int? idEjecucion = ejecucionRepository.CreaEjecucion(ejecucion, causas, tocas, amparos, anexos, idUnidad, esCircuitoPachuca);
 
-            if (catalogosRepositorio.Estatus == Estatus.OK)
+            if (ejecucionRepository.Estatus == Estatus.OK)
             Mensaje = "La inserción de datos fue correcta, folio de ejecucion generado : " + idEjecucion;
 
-            else if (catalogosRepositorio.Estatus == Estatus.ERROR)
+            else if (ejecucionRepository.Estatus == Estatus.ERROR)
             {
                 Mensaje = "Ocurrio un error al intentar generar el registro de Ejecución";
                 string mensajeLogger = catalogosRepositorio.MensajeError;

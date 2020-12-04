@@ -1,7 +1,11 @@
-﻿using PoderJudicial.SIPOH.AccesoDatos.Interfaces;
+﻿using iText.Layout.Element;
+using PoderJudicial.SIPOH.AccesoDatos.Interfaces;
+using PoderJudicial.SIPOH.Entidades;
 using PoderJudicial.SIPOH.Entidades.Enum;
 using PoderJudicial.SIPOH.Negocio.Interfaces;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace PoderJudicial.SIPOH.Negocio
 {
@@ -123,6 +127,34 @@ namespace PoderJudicial.SIPOH.Negocio
                     return true;
                 }
             }       
+        }
+
+        public int? CreaRegistroDeEjecucionHistorica(Ejecucion ejecucion)
+        {
+            //Genera la lista de id de causas a relacionar
+            List<int> causas = ejecucion.Causas.Where(x => x.IdExpediente != 0).Select(x => x.IdExpediente).ToList();
+
+            //Genera la lista de causas a crear
+            List<Expediente> causasHistoricas = ejecucion.Causas.Where(x => x.IdExpediente == 0).ToList();
+
+            //Limpia Causas
+            ejecucion.Causas = null;
+
+            //Crea registro de historico de ejecucion
+            int? idEjecucion = ejecucionRepositorio.CreaEjecucion(ejecucion, causas, causasHistoricas);
+
+            if (ejecucionRepositorio.Estatus == Estatus.OK)
+            Mensaje = "La inserción de datos fue correcta, folio de ejecucion generado : " + idEjecucion;
+
+            else if (ejecucionRepositorio.Estatus == Estatus.ERROR)
+            {
+                Mensaje = "Ocurrio un error al intentar generar el registro de Ejecución";
+                string mensajeLogger = ejecucionRepositorio.MensajeError;
+
+                //Logica para ILogger
+            }
+
+            return idEjecucion;
         }
     }
 }

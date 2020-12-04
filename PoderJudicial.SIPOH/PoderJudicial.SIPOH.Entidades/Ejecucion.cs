@@ -25,8 +25,7 @@ namespace PoderJudicial.SIPOH.Entidades
         public string Tipo { set; get; }
 
         //Campos para Tipos de Negocio
-        public List<int> IdExpedientes { set; get; }
-        public List<Expediente> CausasHistoricas { set; get; } 
+        public List<Expediente> Causas { set; get; } 
         public List<Toca> Tocas { set; get; }
         public List<string> Amparos { set; get; }
         public List<Anexo> Anexos { set; get; }

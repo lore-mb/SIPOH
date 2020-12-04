@@ -21,7 +21,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos.Interfaces
         void ConsultaRengoDeNumerosDeEjecucion(int idJuzgado, string anio, out string numeroEjecucionMin, out string numeroEjecucionMax);
         void ValidaEjecucion(int idJuzgadoEjecucion, string numeroEjecucion);
         int? CreaEjecucion(Ejecucion ejecucion, List<int> causas, List<Toca> tocas, List<string> amparos, List<Anexo> anexos, int? idJuzgado, bool circuitoPachuca);
-        int? CreaEjecucion(Ejecucion ejecucion);
+        int? CreaEjecucion(Ejecucion ejecucion, List<int> causas, List<Expediente> causasHistoricas);
         int? CreaEjecucionPosterior(EjecucionPosterior ejecucionPosterior, List<Anexo> anexos);
         List<EjecucionCausa> ConsultaEjecuciones(Instancia tipoReporte, string fechaHoy, int idJuzgado);
         List<EjecucionCausa> ConsultaEjecuciones(Instancia tipoReporte, string fechaInicial, string fechaFinal, int idJuzgado);

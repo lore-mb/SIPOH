@@ -238,7 +238,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
 
                 List<Toca> tocas = modelo.Tocas != null ? modelo.Tocas : new List<Toca>();
                 List<Anexo> anexos = mapper.Map<List<AnexosModelView>, List<Anexo>>(modelo.Anexos);
-                List<int> causas = modelo.Causas.Select(x => x.IdExpediente).ToList();
+                List<int> causas = modelo.IdExpedientes.Select(x => x.IdExpediente).ToList();
                 List<string> amparos = modelo.Amparos != null ? modelo.Amparos : new List<string>();
 
                 int? folio = inicialesProcessor.CreaRegistroDeEjecucion(ejecucion, tocas, anexos, amparos, causas, Usuario.IdCircuito);
@@ -259,7 +259,6 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                    Respuesta.Data = new { Url = url };
                 }
    
-                System.Threading.Thread.Sleep(2000);
                 return Json(Respuesta, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -295,7 +294,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 if (inicial != null)
                 {
                     modelo = mapper.Map<Ejecucion, DetalleEjecucionModelView>(inicial);
-                    modelo.Causas = mapper.Map<List<Expediente>, List<CausasModelView>>(causas);
+                    modelo.IdExpedientes = mapper.Map<List<Expediente>, List<CausasModelView>>(causas);
                     modelo.Tocas = tocas == null ? new List<Toca>() : tocas;
                     modelo.Amparos = amparos == null ? new List<string>() : amparos;
                     modelo.Anexos = mapper.Map<List<Anexo>, List<AnexosModelView>>(anexos);
