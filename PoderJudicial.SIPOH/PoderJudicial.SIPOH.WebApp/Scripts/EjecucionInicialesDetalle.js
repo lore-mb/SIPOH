@@ -161,7 +161,7 @@ $(document).ready(function ()
         else
         {
             var mensaje = $("#IdMensajeError").val();
-            mensaje = mensaje + ", precione el boton <b>Actualizar</b> para generar el detalle nuevamente, si continua el problema consulte con soporte.";
+            mensaje = mensaje + ", presione el botón <b>Actualizar</b> para generar el detalle nuevamente, si continúa el problema consulte con soporte.";
             Alerta(mensaje, "large");
         }
     }
@@ -171,13 +171,14 @@ $(document).ready(function ()
 function ImprimirSello()
 {
     var sello = "";
+    var inicialConsignacion = esConsignacionHistorica ? "HISTORICO" : "INICIAL";
 
     var selloArregloSeccion1 = [JustificarEspacio("TRIBUNAL SUPERIOR", 35),
         JustificarEspacio("DE JUSTICIA", 35),
         JustificarEspacio("DEL ESTADO DE HIDALGO", 35),
         JustificarEspacio("ATENCION CIUDADANA", 35),
         JustificarEspacio("SENTENCIA EJECUTORIADA", 35),
-        JustificarEspacio("INICIAL", 35),
+        JustificarEspacio(inicialConsignacion, 35),
         JustificarEspacio("------------------", 35)];
 
     var juzgadoSello = RemoverAcentos($("#juzgadoSello").text());

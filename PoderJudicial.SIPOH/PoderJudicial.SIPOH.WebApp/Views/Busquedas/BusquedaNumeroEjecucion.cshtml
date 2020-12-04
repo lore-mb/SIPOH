@@ -1,12 +1,12 @@
 ﻿@{
-    ViewBag.Title = "Busquedas";
+    ViewBag.Title = "Búsquedas";
 }
 
  <div class="card shadow-sm col-sm-12">
 
             <div class="card-header">
                 <h4 class="card-title">
-                    Busqueda de Numero De Ejecución
+                    Búsqueda de Número De Ejecución
                 </h4>
             </div>
 
@@ -76,7 +76,7 @@
             </div>*@
                                         <input type="text" class="form-control form-control-sm focusNext focusNextEnd mr-2" id="inpApellidoMaternoPartes" tabindex="3" aria-describedby="inpNumero" novalidate="true">
                                         <button id="botonBuscarNumerosDeEjecucionPartes" type="submit" class="btn btn-success btn-sm mr-2" data-toggle="tooltip" data-placement="top" title="Buscar Ejecuciones"><i class="fa fa-search icon"></i></button>
-                                        <button id="botonBorrarDatos" onclick='LimpiaCamposFormulario("formPartesCausa")' type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Limpiar Busqueda"><i class="fa fa-eraser icon"></i></button>
+                                        <button id="botonBorrarDatos" onclick='LimpiaCamposFormulario("formPartesCausa")' type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Limpiar Búsqueda"><i class="fa fa-eraser icon"></i></button>
 
                                         
                                     </div>
@@ -130,7 +130,7 @@
             </div>*@
                                         <input type="text" class="form-control form-control-sm focusNext focusNextEnd mr-2" id="inpApellidoMaternoBeneficiario" tabindex="6" aria-describedby="inpNumero">
                                         <button id="botonBuscarNumerosDeEjecucionBeneficiario" type="submit" class="btn btn-success btn-sm mr-2" data-toggle="tooltip" data-placement="top" title="Buscar Ejecuciones"><i class="fa fa-search icon"></i></button>
-                                        <button id="botonBorrarDatos" onclick='LimpiaCamposFormulario("formBeneficiario")' type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Limpiar Busqueda"><i class="fa fa-eraser icon"></i></button>
+                                        <button id="botonBorrarDatos" onclick='LimpiaCamposFormulario("formBeneficiario")' type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Limpiar Búsqueda"><i class="fa fa-eraser icon"></i></button>
                                    
                                     </div>
                                 </div>
@@ -169,7 +169,7 @@
                                         </div>*@
                                         <input type="text" class="form-control form-control-sm mr-2" id="inpCausa" aria-describedby="inpCAU" placeholder="0000/0000" required>
                                         <button class="btn btn-success btn-sm mr-2" type="submit" id="botonBuscarNumerosDeEjecucionCausas" data-toggle="tooltip" data-placement="top" title="Buscar Ejecuciones"><i class="fas fa-search"></i></button>
-                                        <button id="botonBorrarDatos" onclick='LimpiaCamposFormularioSinValidacion("formCausasEjecucion")' type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Limpiar Busqueda"><i class="fa fa-eraser icon"></i></button>
+                                        <button id="botonBorrarDatos" onclick='LimpiaCamposFormularioSinValidacion("formCausasEjecucion")' type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Limpiar Búsqueda"><i class="fa fa-eraser icon"></i></button>
                                         <div class="invalid-feedback">
                                             <i class="icon-notification"></i> Introduce un Numero de Causa.
                                         </div>
@@ -199,7 +199,7 @@
                                         </div>*@
                                         <input type="text" id="inpNuc" name="inpNucName" class="form-control form-control-sm mr-2" aria-label="Small" aria-describedby="inputGroup-sizing-sm" data-inputmask-clearmaskonlostfocus="true" required placeholder="00-0000-0000">
                                         <button class="btn btn-success btn-sm mr-2" type="submit" id="botonBuscarNumerosDeEjecucionNuc" data-toggle="tooltip" data-placement="top" title="Buscar Ejecuciones"><i class="fa fa-search"></i></button>
-                                        <button onclick='LimpiaCamposFormularioSinValidacion("formNucEjecucion")' id="botonBorrarDatos" type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Limpiar Busqueda"><i class="fa fa-eraser icon"></i></button>
+                                        <button onclick='LimpiaCamposFormularioSinValidacion("formNucEjecucion")' id="botonBorrarDatos" type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Limpiar Búsqueda"><i class="fa fa-eraser icon"></i></button>
                                         <div class="invalid-feedback">
                                             <i class="icon-notification"></i> Intruduzca un Numero Unico de Caso.
                                         </div>
@@ -218,7 +218,7 @@
                                         @Html.DropDownList("Solicitante", (SelectList)ViewBag.Solicitante, "SELECCIONA OPCION", new { @id = "slctSolicitante", @class = "custom-select custom-select-sm mr-2", @required = "required" })
 
                                         <button class="btn btn-success btn-sm mr-2" type="submit" id="botonBuscarNumerosDeEjecucionSolicitante" data-toggle="tooltip" data-placement="top" title="Buscar Ejecuciones"><i class="fa fa-search"></i></button>
-                                        <button onclick='LimpiaCamposFormularioSinValidacion("formSolicitanteEjecucion")' id="botonBorrarDatos" type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Limpiar Busqueda"><i class="fa fa-eraser icon"></i></button>
+                                        <button onclick='LimpiaCamposFormularioSinValidacion("formSolicitanteEjecucion")' id="botonBorrarDatos" type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Limpiar Búsqueda"><i class="fa fa-eraser icon"></i></button>
                                         <div class="invalid-feedback">
                                             <i class="icon-notification"></i> Intruduzca un Numero Unico de Caso.
                                         </div>
@@ -239,7 +239,7 @@
             </div>*@
                                         <input type="text" class="form-control form-control-sm mr-2" id="inpDetalleSolicitante" aria-describedby="inpDetalleSolicitante" required>
                                         <button id="botonBuscarNumerosDeEjecucionDetalleSolicitante" type="submit" class="btn btn-success btn-sm mr-2" data-toggle="tooltip" data-placement="top" title="Buscar Ejecuciones"><i class="fa fa-search icon"></i></button>
-                                        <button onclick='LimpiaCamposFormularioSinValidacion("formDetalleSolicitanteEjecucion")' id="botonBorrarDatos" type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Limpiar Busqueda"><i class="fa fa-eraser icon"></i></button>
+                                        <button onclick='LimpiaCamposFormularioSinValidacion("formDetalleSolicitanteEjecucion")' id="botonBorrarDatos" type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Limpiar Búsqueda"><i class="fa fa-eraser icon"></i></button>
                                         <div class="invalid-feedback">
                                             <i class="icon-notification"></i> Intruduzca un Detalle del Solicitante.
                                         </div>

@@ -22,10 +22,10 @@ var Anexos = [];
 var EstructuraTablaBeneficiarios = [{ data: 'NumeroEjecucion', title: 'No. Ejecución', className: "text-center" }, { data: 'NombreJuzgado', title: 'Juzgado', className: "text-center" }, { data: 'NombreBeneficiario', title: 'Nombre(s)', className: "text-center" }, { data: 'ApellidoPBeneficiario', title: 'Apellido Paterno', className: "text-center" }, { data: 'ApellidoMBeneficiario', title: 'Apellido Materno', className: "text-center" }, { data: 'FechaEjecucion', title: 'Fecha de Ejecución', className: "text-center" }];
 var Beneficarios = [];
 
-var EstructuraTablaTocas = [{ data: 'nombreJuzgado', title: 'Sala', className: "text-center" }, { data: 'numeroDeToca', title: 'Numero De Toca', className: "text-center" }, { data: 'eliminar', title: 'Quitar', className: "text-center" }];
+var EstructuraTablaTocas = [{ data: 'nombreJuzgado', title: 'Sala', className: "text-center" }, { data: 'numeroDeToca', title: 'Número De Toca', className: "text-center" }, { data: 'eliminar', title: 'Quitar', className: "text-center" }];
 var Tocas = [];
 
-var EstructuraTablaAmparos = [{ data: 'amparo', title: 'Numero de Amparo', className: "text-center"}, { data: 'eliminar', title: 'Quitar', className: "text-center"}];
+var EstructuraTablaAmparos = [{ data: 'amparo', title: 'Número de Amparo', className: "text-center"}, { data: 'eliminar', title: 'Quitar', className: "text-center"}];
 var Amparos = [];
 
 var EncontroBeneficiarios = false;
@@ -185,7 +185,7 @@ function ElementosAlCargado()
                     }
                 }
 
-                var mensaje = "Esta a punto de registrar una " + (!esConsignacionHistorica ? "Inicial de Ejecución" : "Consignacion Historica de Ejecucion") + ", ¿Desea continuar?";
+                var mensaje = "Esta a punto de registrar una " + (!esConsignacionHistorica ? "Inicial de Ejecución" : "Consignación Histórica de Ejecución") + ", ¿Desea continuar?";
                 MensajeDeConfirmacion(mensaje, "large", funcion);
             }
 
@@ -432,14 +432,14 @@ function ElementosAlCargado()
             $('#Numero').attr('placeholder', '0000/0000');
             $('#Numero').val('');
             FormatearInput("#Numero", "9999/9999", "0000/0000", "[0-9\uFF11-\uFF19]", "/");
-            $('#NumeroLabel').html("<strong>Numero de Causa</strong>");
+            $('#NumeroLabel').html("<strong>Número de Causa</strong>");
 
         } else if ($(this).val() == 2)
         {
             $('#Numero').attr('placeholder', '00-0000-0000');
             $('#Numero').val('');
             FormatearInput("#Numero", "99-9999-9999", "0000000000", "[0-9\uFF11-\uFF19]", "-");
-            $('#NumeroLabel').html("<strong>Numero Unico de Caso</strong>");
+            $('#NumeroLabel').html("<strong>Número Unico de Caso</strong>");
         }
     });
 
@@ -565,7 +565,7 @@ function LlenaTablaConsultaBeneficiarios(respuesta)
             ValidarBeneficiarios();
         }
 
-        var mensaje = "Mensaje: " + respuesta.Mensaje + ". Precione Aceptar para intentarlo nuevamente, si el problema continua vuelva intentarlo mas tarde o consulte a soporte.";
+        var mensaje = "Mensaje: " + respuesta.Mensaje + ". Presione Aceptar para intentarlo nuevamente, si el problema continúa vuelva intentarlo mas tarde o consulte a soporte.";
         MensajeDeConfirmacion(mensaje, "large", funcion, null, "Error no Controlado por el Sistema");
     }
 }
@@ -649,7 +649,7 @@ function ConsultarCausas()
                     LimpiaValidacion("formCausas", "Numero");
                 }
 
-                AlertaCallback("El numero consecutivo de la causa no debe ser mayor al año actual", funcion);
+                AlertaCallback("El número consecutivo de la causa no debe ser mayor al año actual", funcion);
                 return;
             }
 
@@ -673,7 +673,7 @@ function ConsultarCausas()
                 LimpiaValidacion("formCausasTradicional", "inpCAUT");
             }
 
-            AlertaCallback("El numero consecutivo de la causa no debe ser mayor al año actual", funcion);
+            AlertaCallback("El número consecutivo de la causa no debe ser mayor al año actual", funcion);
             return;
         }
 
@@ -696,7 +696,7 @@ function ListarCausas(respuesta)
     if (respuesta.Estatus == EstatusRespuesta.OK)
     {
             var expediente = respuesta.Data;           
-            var causaNucLabel = expediente.NUC != null ? "NUC " : "Numero de causa ";
+            var causaNucLabel = expediente.NUC != null ? "NUC " : "Número de Causa ";
             var causaNuc = expediente.NumeroCausa == null ? expediente.NUC : expediente.NumeroCausa;
 
             if (ValidarCuasaEnTabla(expediente.IdExpediente))
@@ -763,7 +763,7 @@ function ListarCausas(respuesta)
     }
     else if (respuesta.Estatus == EstatusRespuesta.ERROR)
     {
-        var mensaje = "Mensaje: " + respuesta.Mensaje + "<br><br>Precione <b>Aceptar</b> e intente nuevamente, si el problema continua vuelva intentarlo mas tarde o consulte a soporte.";
+        var mensaje = "Mensaje: " + respuesta.Mensaje + "<br><br>Presione <b>Aceptar</b> e intente nuevamente, si el problema continúa vuelva intentarlo mas tarde o consulte a soporte.";
         Alerta(mensaje, "large", "Error no Controlado por el Sistema");
     }
     else if (respuesta.Estatus == EstatusRespuesta.SIN_RESPUESTA)
@@ -779,8 +779,8 @@ function ListarCausas(respuesta)
         var causaNuc = $("#" + (!EsTradicional ? "Numero" : "inpCAUT")).val();
         var causaNucSelect = $("#slctNumero").find('option:selected').val();
 
-        var etiqueta = causaNucSelect != 2 ? "El Numero de Causa" : "El NUC";
-        etiqueta = !EsTradicional ? etiqueta : "El Numero de Causa";
+        var etiqueta = causaNucSelect != 2 ? "El Número de Causa" : "El NUC";
+        etiqueta = !EsTradicional ? etiqueta : "El Número de Causa";
 
         if (!esConsignacionHistorica || causaNucSelect == 2)
         {
@@ -804,7 +804,7 @@ function ListarCausas(respuesta)
                     CargaElementosHitoricoCausa();
                 }
 
-                var mensaje = "Mensaje: " + respuesta.Mensaje + ". <br><br>" + etiqueta + " <b>" + causaNuc + "</b> ingresado no se encuentra asignado en el <b>" + juzgadoNombre + "</b>, si necesita crear el registro de consignacion historica del numero de causa, presione <b>Aceptar</b>.";
+                var mensaje = "Mensaje: " + respuesta.Mensaje + ". <br><br>" + etiqueta + " <b>" + causaNuc + "</b> ingresado no se encuentra asignado en el <b>" + juzgadoNombre + "</b>, si necesita crear el registro de consignación histórica del número de causa presione <b>Aceptar</b>.";
                 MensajeDeConfirmacion(mensaje, "large", funcionAceptar, funcionCancelar);
             }
             else
@@ -909,13 +909,13 @@ function AgregarTocas()
             LimpiaValidacion("formTocas", "inpToca");        
         }
 
-        AlertaCallback("El numero de toca que intenta añadir, es mayor al año actual", funcion);
+        AlertaCallback("El Número de Toca que intenta añadir, es mayor al año actual", funcion);
         return;
     }
 
     if (ValidarTocaEnTabla(numToca))
     {
-        var mensaje = "El numero de Toca <b>" + numToca + "</b> que intenta agregar, ya se encuentra en la tabla.";
+        var mensaje = "El Número de Toca <b>" + numToca + "</b> que intenta agregar, ya se encuentra en la tabla.";
 
         var funcion = function ()
         {
@@ -1009,7 +1009,7 @@ function AgregaAmparos()
 
     if (ValidarAmparoEnTabla(numAmparo))
     {
-        var mensaje = "El numero de Amparo <b>" + numAmparo + "</b> que intenta agregar, ya se encuentra en la tabla.";
+        var mensaje = "El Número de Amparo <b>" + numAmparo + "</b> que intenta agregar, ya se encuentra en la tabla.";
 
         var funcion = function ()
         {
@@ -1241,7 +1241,7 @@ function RederizarDetalleSuccess(respuesta)
 
         if (intentos > 2)
         {
-            var mensaje = "Mensaje: " + respuesta.Mensaje + ". <br><br>Intentos: " + intentos + "<br><br><b>Ha superado el numero maximo de intentos, vuelva intentarlo mas tarde o consulte a soporte</b";
+            var mensaje = "Mensaje: " + respuesta.Mensaje + ". <br><br>Intentos: " + intentos + "<br><br><b>Ha superado el número maximo de intentos, vuelva intentarlo mas tarde o consulte a soporte</b";
             intentos = 0;
 
             Alerta(mensaje, "large");
@@ -1265,7 +1265,7 @@ function RederizarDetalleError(respuesta)
 
     if (intentos > 2)
     {
-        var mensaje = "Mensaje: " + respuesta + ". <br><br>Intentos: " + intentos + "<br><br><b>Ha superado el numero maximo de intentos, vuelva intentarlo mas tarde o consulte a soporte</b";
+        var mensaje = "Mensaje: " + respuesta + ". <br><br>Intentos: " + intentos + "<br><br><b>Ha superado el número maximo de intentos, vuelva intentarlo mas tarde o consulte a soporte</b";
         intentos = 0;
 
         Alerta(mensaje, "large");

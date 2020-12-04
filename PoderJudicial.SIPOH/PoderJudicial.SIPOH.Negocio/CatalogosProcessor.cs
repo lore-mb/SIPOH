@@ -28,7 +28,7 @@ namespace PoderJudicial.SIPOH.Negocio.Interfaces
             List<Distrito> distritos = catalogosRepositorio.ConsultaDistritos(idCircuito);
 
             if (catalogosRepositorio.Estatus == Estatus.SIN_RESULTADO)
-                Mensaje = "La consulta no genero ningun resultado";
+                Mensaje = "La consulta no generó ningún resultado";
 
             if (catalogosRepositorio.Estatus == Estatus.ERROR)
             {
@@ -45,7 +45,7 @@ namespace PoderJudicial.SIPOH.Negocio.Interfaces
             List<Juzgado> juzgados = catalogosRepositorio.ConsultaJuzgados(tipoJuzgado, idCircuitoDistrito);
 
             if (catalogosRepositorio.Estatus == Estatus.SIN_RESULTADO)
-                Mensaje = "La consulta no genero ningun resultado";
+                Mensaje = "La consulta no generó ningún resultado";
 
             else if (catalogosRepositorio.Estatus == Estatus.ERROR)
             {
@@ -62,7 +62,7 @@ namespace PoderJudicial.SIPOH.Negocio.Interfaces
             List<Juzgado> juzgados = catalogosRepositorio.ConsultaJuzgados(tipoJuzgado);
 
             if (catalogosRepositorio.Estatus == Estatus.SIN_RESULTADO)
-                Mensaje = "La consulta no genero ningun resultado";
+                Mensaje = "La consulta no generó ningún resultado";
 
             else if (catalogosRepositorio.Estatus == Estatus.ERROR)
             {
@@ -79,7 +79,7 @@ namespace PoderJudicial.SIPOH.Negocio.Interfaces
             List<Anexo> anexos = catalogosRepositorio.ConsultaAnexos(tipo);
 
             if (catalogosRepositorio.Estatus == Estatus.SIN_RESULTADO)
-                Mensaje = "La consulta no genero ningun resultado";
+                Mensaje = "La consulta no generó ningún resultado";
 
             else if (catalogosRepositorio.Estatus == Estatus.ERROR)
             {
@@ -96,7 +96,7 @@ namespace PoderJudicial.SIPOH.Negocio.Interfaces
             List<Solicitante> solicitantes = catalogosRepositorio.ConsultaSolicitantes();
 
             if (catalogosRepositorio.Estatus == Estatus.SIN_RESULTADO)
-                Mensaje = "La consulta no genero ningun resultado";
+                Mensaje = "La consulta no generó ningún resultado";
 
             else if (catalogosRepositorio.Estatus == Estatus.ERROR)
             {
@@ -113,7 +113,7 @@ namespace PoderJudicial.SIPOH.Negocio.Interfaces
             List<Solicitud> solcitudes = catalogosRepositorio.ConsultaSolicitudes();
 
             if (catalogosRepositorio.Estatus == Estatus.SIN_RESULTADO)
-                Mensaje = "La consulta no genero ningun resultado";
+                Mensaje = "La consulta no generó ningún resultado";
 
             else if (catalogosRepositorio.Estatus == Estatus.ERROR)
             {
@@ -136,7 +136,7 @@ namespace PoderJudicial.SIPOH.Negocio.Interfaces
 
             if (catalogosRepositorio.Estatus == Estatus.ERROR)
             {
-                Mensaje = "La consulta no genero ningun resultado";
+                Mensaje = "La consulta no generó ningún resultado";
                 string messajelogger = catalogosRepositorio.MensajeError;
             }
 
@@ -154,7 +154,7 @@ namespace PoderJudicial.SIPOH.Negocio.Interfaces
 
             if (catalogosRepositorio.Estatus == Estatus.ERROR)
             {
-                Mensaje = "La consulta no genero ningun resultado";
+                Mensaje = "La consulta no generó ningún resultado";
                 string messajelogger = catalogosRepositorio.MensajeError;
             }
 
@@ -189,7 +189,7 @@ namespace PoderJudicial.SIPOH.Negocio.Interfaces
             List<Delito> delitos = catalogosRepositorio.ConsultaDelitos();
 
             if (catalogosRepositorio.Estatus == Estatus.SIN_RESULTADO)
-            Mensaje = "La consulta no genero ningun resultado";
+            Mensaje = "La consulta no generó ningún resultado";
 
             else if (catalogosRepositorio.Estatus == Estatus.ERROR)
             {

@@ -4,11 +4,11 @@ var IdJuzgadoSeleccionado = null;
 var TabHistoricoCausa = false;
 
 var DataTableImputados = null;
-var EstructuraTablaImputados = [{ data: 'Nombre', title: 'Nombre o Rezón Social' }, { data: 'Genero', title: 'Genero' }, { data: 'Opciones', title: 'Opciones', className: "text-center" }];
+var EstructuraTablaImputados = [{ data: 'Nombre', title: 'Nombre o Razón Social' }, { data: 'Genero', title: 'Género' }, { data: 'Opciones', title: 'Opciones', className: "text-center" }];
 var Imputados = [];
 
 var DataTableOfendidos = null;
-var EstructuraOfendidos = [{ data: 'Nombre', title: 'Nombre o Rezón Social' }, { data: 'Genero', title: 'Genero' }, { data: 'Opciones', title: 'Opciones', className: "text-center" }];
+var EstructuraOfendidos = [{ data: 'Nombre', title: 'Nombre o Razón Social' }, { data: 'Genero', title: 'Género' }, { data: 'Opciones', title: 'Opciones', className: "text-center" }];
 var Ofendidos = [];
 
 var DataTableDelitos = null;
@@ -464,9 +464,9 @@ function AgregarParteAlDataTables()
     parte.NombreParte = idTipoPersona == 1 ? $('#ipnNombreParte').val() : $('#inpRazonSocial').val();
 
     //atributos cuando es una persona fisica
-    parte.ApellidoPParte = idTipoPersona == 1 ? $('#inpApellidoPaternoParte').val() : "";
-    parte.ApellidoMParte = idTipoPersona == 1 ? $('#ipnApellidoMaternoParte').val() : "";
-    parte.Alias = idTipoPersona == 1 ? $('#ipnAliasParte').val() : "";
+    parte.ApellidoPParte = idTipoPersona == 1 ? $('#inpApellidoPaternoParte').val() : " ";
+    parte.ApellidoMParte = idTipoPersona == 1 ? $('#ipnApellidoMaternoParte').val() : " ";
+    parte.Alias = idTipoPersona == 1 ? $('#ipnAliasParte').val() : " ";
     parte.Genero = idTipoPersona == 1 ? $("#slcGenero").find('option:selected').val() : "O";
 
     //Tipo de parte

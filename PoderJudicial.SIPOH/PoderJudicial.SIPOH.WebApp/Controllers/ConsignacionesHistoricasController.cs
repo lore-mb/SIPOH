@@ -16,6 +16,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
     {
         private readonly IConsignacionesHistoricasProcessor consignacionesProcessor;
         private readonly ICatalogosProcessor catalogosProcessor;
+        private readonly IInicialesProcessor inicialesProcessor;
         private readonly IMapper mapper;
 
         /// <summary>
@@ -24,10 +25,11 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
         /// <param name="catalogosProcessor">Objeto que contiene la funcioanlidad para catalogos</param>
         /// <param name="consignacionesProcessor">Objeto que contiene la funcionalidad para Procesos</param>
         /// <param name="mapper">Objeto que contiene la funcioanlidad para el mapeo de objetos</param>
-        public ConsignacionesHistoricasController(ICatalogosProcessor catalogosProcessor, IConsignacionesHistoricasProcessor consignacionesProcessor, IMapper mapper)
+        public ConsignacionesHistoricasController(ICatalogosProcessor catalogosProcessor, IInicialesProcessor inicialesProcessor,  IConsignacionesHistoricasProcessor consignacionesProcessor, IMapper mapper)
         {
             this.consignacionesProcessor = consignacionesProcessor;
             this.catalogosProcessor = catalogosProcessor;
+            this.inicialesProcessor = inicialesProcessor;
             this.mapper = mapper;
         }
 
@@ -210,8 +212,54 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
 
                 return Json(Respuesta, JsonRequestBehavior.AllowGet);
             }
-        } 
-             
+        }
+
+        [HttpGet]
+        [EncriptarParametroFilter]
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
+        public ActionResult Detalle(int folio)
+        {
+            try
+            {
+                //Creacion del modelo que se enviara a la vista
+                DetalleEjecucionModelView modelo = new DetalleEjecucionModelView();
+
+                //Objetos para pasar como referencia
+                Ejecucion inicial = new Ejecucion();
+                List<Expediente> causas = new List<Expediente>();
+                List<Toca> tocas = new List<Toca>();
+                List<string> amparos = new List<string>();
+                List<Anexo> anexos = new List<Anexo>();
+                List<Relacionadas> entidad = new List<Relacionadas>();
+
+                //Metodo que consulta a la bd la informacion relacionada a la ejecucion
+                bool fueCorrectoElProceso = inicialesProcessor.ObtieneInformacionGeneralDeEjecucion(folio, ref inicial, ref causas, ref tocas, ref amparos, ref anexos, ref entidad);
+
+                if (inicial != null)
+                {
+                    modelo = mapper.Map<Ejecucion, DetalleEjecucionModelView>(inicial);
+                    modelo.IdExpedientes = mapper.Map<List<Expediente>, List<CausasModelView>>(causas);
+                    modelo.Tocas = tocas == null ? new List<Toca>() : tocas;
+                    modelo.Amparos = amparos == null ? new List<string>() : amparos;
+                    modelo.Anexos = mapper.Map<List<Anexo>, List<AnexosModelView>>(anexos);
+                }
+
+                ViewBag.Ejecucion = entidad.Contains(Relacionadas.EJECUCION);
+                ViewBag.Tocas = entidad.Contains(Relacionadas.TOCAS);
+                ViewBag.Amparos = entidad.Contains(Relacionadas.AMPAROS);
+                ViewBag.Causas = entidad.Contains(Relacionadas.CAUSAS);
+                ViewBag.Anexos = entidad.Contains(Relacionadas.ANEXOS);
+                ViewBag.fueCorrectoElProceso = fueCorrectoElProceso;
+                ViewBag.Mensaje = inicialesProcessor.Mensaje;
+
+                return View(modelo);
+            }
+            catch (Exception ex)
+            {
+                return View("Error");
+            }
+        }
+
         /// <summary>
         /// Meotodo que vailida los juszgados obtenidos y genera un objeto de tipo respuesta
         /// </summary>

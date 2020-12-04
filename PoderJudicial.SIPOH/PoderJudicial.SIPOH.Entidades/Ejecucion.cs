@@ -29,5 +29,14 @@ namespace PoderJudicial.SIPOH.Entidades
         public List<Toca> Tocas { set; get; }
         public List<string> Amparos { set; get; }
         public List<Anexo> Anexos { set; get; }
+
+        //Inicializacion de Tipos
+        public Ejecucion() 
+        {
+            Causas = new List<Expediente>();
+            Tocas = new List<Toca>();
+            Amparos = new List<string>();
+            Anexos = new List<Anexo>();
+        }
     }
 }

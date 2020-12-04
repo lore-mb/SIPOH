@@ -331,6 +331,7 @@
     <Content Include="Views\Shared\_ParcialModalBeneficiarios.cshtml" />
     <Content Include="Views\Shared\_ParcialHistoricoCausas.cshtml" />
     <Content Include="Views\InicialesControl\CrearInicialControl.cshtml" />
+    <Content Include="Views\ConsignacionesHistoricas\Detalle.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -40,7 +40,7 @@ namespace PoderJudicial.SIPOH.Negocio
             }
             else if (catalogosRepository.Estatus == Estatus.ERROR)
             {
-                Mensaje = "Error, la consulta no ha generado ningun resultado";
+                Mensaje = "Error, la consulta no ha generado ningún resultado";
                 string MensajeLogger = catalogosRepository.MensajeError;
             }
             return Lista;
@@ -56,7 +56,7 @@ namespace PoderJudicial.SIPOH.Negocio
             }
             else if (ejecucionRepository.Estatus == Estatus.ERROR)
             {
-                Mensaje = "Error, la consulta no ha generado ningun resultado";
+                Mensaje = "Error, la consulta no ha generado ningún resultado";
                 string MensajeLogger = catalogosRepository.MensajeError;
             }
 
@@ -73,7 +73,7 @@ namespace PoderJudicial.SIPOH.Negocio
             }
             else if (ejecucionRepository.Estatus == Estatus.ERROR)
             {
-                Mensaje = "Error, la consulta no ha generado ningun resultado";
+                Mensaje = "Error, la consulta no ha generado ningún resultado";
                 string MensajeLogger = catalogosRepository.MensajeError;
             }
             return ListaRegistros;

@@ -38,7 +38,7 @@ namespace PoderJudicial.SIPOH.Negocio
             //Validacion del acceso a datos
             if (expedienteRepositorio.Estatus == Estatus.SIN_RESULTADO)
             {
-                Mensaje = "La consulta no genero ningun resultado";
+                Mensaje = "La consulta no generó ningún resultado";
                 return false;
             }
 
@@ -148,7 +148,7 @@ namespace PoderJudicial.SIPOH.Negocio
 
             else if (ejecucionRepositorio.Estatus == Estatus.ERROR)
             {
-                Mensaje = "Ocurrio un error al intentar generar el registro Historico de Ejecución <br>" + ejecucionRepositorio.MensajeError;
+                Mensaje = "Ocurrio un error al intentar generar el registro Historico de Ejecución";
                 string mensajeLogger = ejecucionRepositorio.MensajeError;
 
                 //Logica para ILogger

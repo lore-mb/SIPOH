@@ -56,7 +56,7 @@ $(document).ready(function () {
         }
         else {
             var mensaje = $("#IdMensajeError").val();
-            mensaje = mensaje + ", precione el boton <b>Actualizar</b> para generar el detalle nuevamente, si continua el problema consulte con soporte.";
+            mensaje = mensaje + ", presione el boton <b>Actualizar</b> para generar el detalle nuevamente, si continúa el problema consulte con soporte.";
             Alerta(mensaje, "large");
         }
     }

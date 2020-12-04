@@ -46,7 +46,7 @@ namespace PoderJudicial.SIPOH.Negocio
            
             if (ejecucionRepositorio.Estatus == Estatus.SIN_RESULTADO)
             {
-                Mensaje = "La consulta no genero ningun resultado";
+                Mensaje = "La consulta no generó ningún resultado";
             }
             
             if(ejecucionRepositorio.Estatus== Estatus.ERROR)
@@ -76,7 +76,7 @@ namespace PoderJudicial.SIPOH.Negocio
             
             if (ejecucionRepositorio.Estatus == Estatus.SIN_RESULTADO)
             {
-                Mensaje = "La consulta no genero ningun resultado";
+                Mensaje = "La consulta no generó ningún resultado";
             }
             
             return NUC;
@@ -95,7 +95,7 @@ namespace PoderJudicial.SIPOH.Negocio
           
             if (ejecucionRepositorio.Estatus == Estatus.SIN_RESULTADO)
             {
-                Mensaje = "La consulta no genero ningun resultado";
+                Mensaje = "La consulta no generó ningún resultado";
             }
             
             if (ejecucionRepositorio.Estatus == Estatus.ERROR)
@@ -118,7 +118,7 @@ namespace PoderJudicial.SIPOH.Negocio
             
             if(ejecucionRepositorio.Estatus== Estatus.SIN_RESULTADO)
             {
-                Mensaje = "La consulta no genero ningun resultado";
+                Mensaje = "La consulta no generó ningún resultado";
             }
             
             if (ejecucionRepositorio.Estatus == Estatus.ERROR)
@@ -143,7 +143,7 @@ namespace PoderJudicial.SIPOH.Negocio
             
             if (ejecucionRepositorio.Estatus == Estatus.SIN_RESULTADO)
             {
-                Mensaje = "La consulta no genero ningun resultado";
+                Mensaje = "La consulta no generó ningún resultado";
             }
             
             if (ejecucionRepositorio.Estatus == Estatus.ERROR)
@@ -173,7 +173,7 @@ namespace PoderJudicial.SIPOH.Negocio
             
             if (ejecucionRepositorio.Estatus == Estatus.SIN_RESULTADO)
             {
-                Mensaje = "La consulta no genero ningun resultado";
+                Mensaje = "La consulta no generó ningún resultado";
             }
            
             return numCausa;
@@ -185,7 +185,7 @@ namespace PoderJudicial.SIPOH.Negocio
 
             if (expedienteRepositorio.Estatus == Estatus.SIN_RESULTADO)
             {
-                Mensaje = "La consulta no ha generado ningun resultado";
+                Mensaje = "La consulta no ha generado ningún resultado";
             }
 
             if (expedienteRepositorio.Estatus == Estatus.ERROR)

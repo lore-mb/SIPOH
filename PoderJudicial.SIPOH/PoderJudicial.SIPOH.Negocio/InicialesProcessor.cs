@@ -33,7 +33,7 @@ namespace PoderJudicial.SIPOH.Negocio
             Expediente expedientes = expedienteRepositorio.ConsultaCausa(idJuzgado, numeroExpediente, expediente);
 
             if (expedienteRepositorio.Estatus == Estatus.SIN_RESULTADO)
-                Mensaje = "La consulta no genero ningun resultado";
+                Mensaje = "La consulta no generó ningún resultado";
 
             else if (expedienteRepositorio.Estatus == Estatus.ERROR)
             {
@@ -49,7 +49,7 @@ namespace PoderJudicial.SIPOH.Negocio
             List<Ejecucion> beneficiarios = ejecucionRepository.ConsultaEjecuciones(ParteCausaBeneficiario.BENEFICIARIO, nombre, apellidoPaterno, apellidoMaterno, idCircuito);
 
             if (ejecucionRepository.Estatus == Estatus.SIN_RESULTADO)
-            Mensaje = "La consulta no genero ningun resultado";
+            Mensaje = "La consulta no generó ningún resultado";
             
             else if (ejecucionRepository.Estatus == Estatus.ERROR)
             {
@@ -77,7 +77,7 @@ namespace PoderJudicial.SIPOH.Negocio
             int? idEjecucion = ejecucionRepository.CreaEjecucion(ejecucion, causas, tocas, amparos, anexos, idUnidad, esCircuitoPachuca);
 
             if (ejecucionRepository.Estatus == Estatus.OK)
-            Mensaje = "La inserción de datos fue correcta, folio de ejecucion generado : " + idEjecucion;
+            Mensaje = "La inserción de datos fue correcta, folio de ejecución generado : " + idEjecucion;
 
             else if (ejecucionRepository.Estatus == Estatus.ERROR)
             {
@@ -98,13 +98,13 @@ namespace PoderJudicial.SIPOH.Negocio
             if (ejecucionRepository.Estatus == Estatus.SIN_RESULTADO)
             {
                 relaciones.Add(Relacionadas.EJECUCION);
-                Mensaje = "No es posible generar el detalle, el numero de folio <b>" + folio + "</b> no existe en la base de datos, consulte a soporte.";
+                Mensaje = "No es posible generar el detalle, el número de folio <b>" + folio + "</b> no existe en la base de datos, consulte a soporte.";
                 return false;
             }
 
             if (ejecucionRepository.Estatus == Estatus.ERROR)
             {
-                Mensaje = "Ocurrio un error al tratar de consultar el registro de ejecución con numero de folio <b>" + folio + "</b>";
+                Mensaje = "Ocurrio un error al tratar de consultar el registro de ejecución con número de folio <b>" + folio + "</b>";
                 string mensajeLogger = ejecucionRepository.MensajeError;
                 return false;
             }
@@ -141,7 +141,7 @@ namespace PoderJudicial.SIPOH.Negocio
 
             if (relaciones.Count > 0)
             {
-                Mensaje = "Ocurrio un error al tratar de consultar la información relacionada al registro de ejecución con numero <b>" + ejecucion.NumeroEjecucion +"</b>";
+                Mensaje = "Ocurrio un error al tratar de consultar la información relacionada al registro de ejecución con número <b>" + ejecucion.NumeroEjecucion +"</b>";
                 return false;
             }
             else
