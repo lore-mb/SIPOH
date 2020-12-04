@@ -28,7 +28,7 @@ namespace PoderJudicial.SIPOH.AccesoDatos
             IsValidConnection = connection.IsValidConnection;
         }
 
-        public Expediente ConsultaCausas(int idJuzgado, string numeroExpediente, TipoNumeroExpediente expediente)
+        public Expediente ConsultaCausa(int idJuzgado, string numeroExpediente, TipoNumeroExpediente expediente)
         {
             try
             {
@@ -117,6 +117,53 @@ namespace PoderJudicial.SIPOH.AccesoDatos
             {
                 if (IsValidConnection && Cnx.State == ConnectionState.Open)
                     Cnx.Close();
+            }
+        }
+
+        public int? CreaCausa(Expediente expediente)
+        {
+            try
+            {
+                if (!IsValidConnection)
+                    throw new Exception("No se ha creado una conexion valida");
+
+                if (Cnx.State == ConnectionState.Closed)
+                    Cnx.Open();
+
+
+                //SqlCommand comandoCreaCausa = new SqlCommand("sipoh_CrearCausaHistoricaDeEjecucion", Cnx);
+
+                //comandoCreaCausa.CommandType = CommandType.StoredProcedure;
+                //comandoCreaCausa.Parameters.Add("@numeroExpediente", SqlDbType.VarChar).Value = expediente.NumeroExpediente;
+                //comandoCreaCausa.Parameters.Add("@idJuzgado", SqlDbType.Int).Value = expediente.IdJuzgado;
+                //comandoCreaCausa.Parameters.Add("@fechaIngreso", SqlDbType.VarChar).Value = expediente.FechaIngreso;
+                //comandoCreaCausa.Parameters.Add("@partesExpediente", SqlDbType.Structured).Value = CreaDataTableType(causaHistorica.Partes, "NombreParte", "ApellidoPParte", "ApellidoMParte", "Genero", "TipoParte", "Alias");
+                //comandoCreaCausa.Parameters.Add("@delitosExpediente", SqlDbType.Structured).Value = CreaDataTableType(causaHistorica.IdDelitos, "IdDelito");
+
+                ////Parametro de Salida
+                //SqlParameter idCausa = new SqlParameter();
+                //idCausa.ParameterName = "@idCausa";
+                //idCausa.SqlDbType = SqlDbType.Int;
+                //idCausa.Direction = ParameterDirection.Output;
+                //comandoCreaCausa.Parameters.Add(idCausa);
+
+                //comandoCreaCausa.ExecuteNonQuery();
+                //var idExpediente = Convert.ToInt32(idCausa.Value);
+
+                //return idExpediente; 
+                return null;
+            }
+            catch (Exception ex)
+            {
+                MensajeError = ex.Message;
+                Estatus = Estatus.ERROR;
+
+                return null;
+            }
+            finally
+            {
+                //if (IsValidConnection && Cnx.State == ConnectionState.Open)
+                //    Cnx.Close();
             }
         }
 

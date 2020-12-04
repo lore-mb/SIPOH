@@ -173,14 +173,20 @@ function ElementosAlCargado()
 
             if (form.checkValidity() === true && id == "formEjecucion")
             {
-                if (!esConsignacionHistorica)
+                var funcion = function ()
                 {
-                    GenerarEjecucion();
+                    if (!esConsignacionHistorica)
+                    {
+                        GenerarEjecucion();
+                    }
+                    else
+                    {
+                        GenerarHistoricoDeEjecucion();
+                    }
                 }
-                else
-                {
-                    GenerarHistoricoDeEjecucion();
-                }
+
+                var mensaje = "Esta a punto de registrar una " + (!esConsignacionHistorica ? "Inicial de Ejecución" : "Consignacion Historica de Ejecucion") + ", ¿Desea continuar?";
+                MensajeDeConfirmacion(mensaje, "large", funcion);
             }
 
             if (form.checkValidity() === true && id == "frmBusquedaDeNumeroEjecucion")
@@ -627,6 +633,7 @@ function ConsultarCausas()
 
         if (causaNucSelect == 2)
         {
+            $("#loading").fadeIn();
             var parametros = { idJuzgado: juzgadoId, nuc: causaNucText };
             SolicitudEstandarAjax("Iniciales/ObtenerExpedientePorNUC", parametros, ListarCausas);
         }
@@ -645,7 +652,8 @@ function ConsultarCausas()
                 AlertaCallback("El numero consecutivo de la causa no debe ser mayor al año actual", funcion);
                 return;
             }
-           
+
+            $("#loading").fadeIn();
             var parametros = { idJuzgado: juzgadoId, numeroCausa: causaNucText };
             SolicitudEstandarAjax("Iniciales/ObtenerExpedientePorCausa", parametros, ListarCausas);
         } 
@@ -669,6 +677,7 @@ function ConsultarCausas()
             return;
         }
 
+        $("#loading").fadeIn();
         var parametros = { idJuzgado: juzgadoId, numeroCausa: causaNucText };
         SolicitudEstandarAjax("Iniciales/ObtenerExpedientePorCausa", parametros, ListarCausas);
     }
@@ -682,7 +691,8 @@ function ConsultarCausas()
 ////<respuesta : Objeto tipo respuesta que recibe del metodo del controlador por medio de la solicitud ajax>
 ////Salida : NA
 function ListarCausas(respuesta)
-{    
+{
+    $("#loading").fadeOut();
     if (respuesta.Estatus == EstatusRespuesta.OK)
     {
             var expediente = respuesta.Data;           
@@ -793,7 +803,7 @@ function ListarCausas(respuesta)
                     CargaElementosHitoricoCausa();
                 }
 
-                var mensaje = "Mensaje: " + respuesta.Mensaje + ". <br><br>" + etiqueta + " <b>" + causaNuc + "</b> ingresado no se encuentra asignado en el <b>" + juzgadoNombre + "</b>, si necesita crear el rigistro de consignacion historica del numero de causa, presione <b>Aceptar</b>";
+                var mensaje = "Mensaje: " + respuesta.Mensaje + ". <br><br>" + etiqueta + " <b>" + causaNuc + "</b> ingresado no se encuentra asignado en el <b>" + juzgadoNombre + "</b>, si necesita crear el registro de consignacion historica del numero de causa, presione <b>Aceptar</b>.";
                 MensajeDeConfirmacion(mensaje, "large", funcionAceptar, funcionCancelar);
             }
             else

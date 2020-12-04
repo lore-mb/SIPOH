@@ -1,4 +1,6 @@
-﻿using System;
+﻿using iText.Layout.Element;
+using System;
+using System.Collections.Generic;
 
 namespace PoderJudicial.SIPOH.Entidades
 {
@@ -21,5 +23,12 @@ namespace PoderJudicial.SIPOH.Entidades
         public string Interno { set; get; }
         public int IdUsuario { set; get; }
         public string Tipo { set; get; }
+
+        //Campos para Tipos de Negocio
+        public List<int> IdExpedientes { set; get; }
+        public List<Expediente> CausasHistoricas { set; get; } 
+        public List<Toca> Tocas { set; get; }
+        public List<string> Amparos { set; get; }
+        public List<Anexo> Anexos { set; get; }
     }
 }

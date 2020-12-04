@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Reflection;
 
 namespace PoderJudicial.SIPOH.AccesoDatos
 {
@@ -213,6 +214,114 @@ namespace PoderJudicial.SIPOH.AccesoDatos
             }
         }
 
+        /// <summary>
+        /// Crea un registro de ejecucion de tipo historico, genera registros de causas historicas en conjunto de las partes y delitos relacionados en caso de tener casusas historicas, posteriomente liga esos registros de causa a la ejecucion creada
+        /// </summary>
+        /// <param name="ejecucion">Objeto de tipo ejecucion</param>
+        /// <param name="causas"></param>
+        /// <param name="partes"></param>
+        /// <param name="delitos"></param>
+        /// <param name="tocas"></param>
+        /// <param name="amparos"></param>
+        /// <param name="anexos"></param>
+        /// <param name="idJuzgado"></param>
+        /// <returns></returns>
+        public int? CreaEjecucion(Ejecucion ejecucion)
+        {
+            //SqlTransaction transaccion = null;
+
+            try
+            {
+                if (!IsValidConnection)
+                    throw new Exception("No se ha creado una conexion valida");
+
+                if (Cnx.State == ConnectionState.Closed)
+                Cnx.Open();
+
+                //List<int> idCausasHistorico = new List<int>();
+
+                //Cnx.Open();
+
+                ////Crear transaccion
+                //transaccion = Cnx.BeginTransaction();
+
+                ////En caso de tener Historico de causas hace la insercion
+                //foreach (Expediente causaHistorica in ejecucion.CausasHistoricas) 
+                //{
+                //    SqlCommand comandoCreaCausa = new SqlCommand("sipoh_CrearCausaHistoricaDeEjecucion", Cnx, transaccion);
+
+                //    comandoCreaCausa.CommandType = CommandType.StoredProcedure;
+                //    comandoCreaCausa.Parameters.Add("@numeroExpediente", SqlDbType.VarChar).Value = causaHistorica.NumeroExpediente;
+                //    comandoCreaCausa.Parameters.Add("@idJuzgado", SqlDbType.Int).Value = causaHistorica.IdJuzgado;
+                //    comandoCreaCausa.Parameters.Add("@fechaIngreso", SqlDbType.VarChar).Value = causaHistorica.FechaIngreso;
+                //    comandoCreaCausa.Parameters.Add("@partesExpediente", SqlDbType.Structured).Value = CreaDataTableType(causaHistorica.Partes, "NombreParte", "ApellidoPParte", "ApellidoMParte", "Genero", "TipoParte", "Alias");
+                //    comandoCreaCausa.Parameters.Add("@delitosExpediente", SqlDbType.Structured).Value = CreaDataTableType(causaHistorica.IdDelitos, "IdDelito");
+
+                //    //Parametro de Salida
+                //    SqlParameter idCausa = new SqlParameter();
+                //    idCausa.ParameterName = "@idCausa";
+                //    idCausa.SqlDbType = SqlDbType.Int;
+                //    idCausa.Direction = ParameterDirection.Output;
+                //    comandoCreaCausa.Parameters.Add(idCausa);
+
+                //    comandoCreaCausa.ExecuteNonQuery();
+                //    var idExpediente =  Convert.ToInt32(idCausa.Value);
+
+                //    //Id de Causas Historico
+                //    idCausasHistorico.Add(idExpediente);
+                //}
+
+                //if (idCausasHistorico.Count > 0)
+                //    ejecucion.IdExpedientes.AddRange(idCausasHistorico);
+
+                //SqlCommand comandoCreaEjecucion = new SqlCommand("sipoh_CrearEjecucionHistorico", Cnx, transaccion);
+                //comandoCreaEjecucion.CommandType = CommandType.StoredProcedure;
+                //comandoCreaEjecucion.Parameters.Add("@numEjec", SqlDbType.VarChar).Value = ejecucion.NumeroEjecucion;
+                //comandoCreaEjecucion.Parameters.Add("@idSolicitante", SqlDbType.VarChar).Value = ejecucion.IdSolicitante;
+                //comandoCreaEjecucion.Parameters.Add("@detalleSolicitante", SqlDbType.VarChar).Value = ejecucion.DetalleSolicitante;
+                //comandoCreaEjecucion.Parameters.Add("@idSolicitud", SqlDbType.VarChar).Value = ejecucion.IdSolicitud;
+                //comandoCreaEjecucion.Parameters.Add("@otraSolicita", SqlDbType.VarChar).Value = ejecucion.OtraSolicita;
+                //comandoCreaEjecucion.Parameters.Add("@beneficiarioNombre", SqlDbType.VarChar).Value = ejecucion.NombreBeneficiario;
+                //comandoCreaEjecucion.Parameters.Add("@beneficiarioApellidoPaterno", SqlDbType.VarChar).Value = ejecucion.ApellidoPBeneficiario;
+                //comandoCreaEjecucion.Parameters.Add("@beneficiarioApellidoMaterno", SqlDbType.VarChar).Value = ejecucion.ApellidoMBeneficiario;
+                //comandoCreaEjecucion.Parameters.Add("@interno", SqlDbType.Char).Value = ejecucion.Interno;
+                //comandoCreaEjecucion.Parameters.Add("@idUser", SqlDbType.Int).Value = ejecucion.IdUsuario;
+                //comandoCreaEjecucion.Parameters.Add("@idUnidad", SqlDbType.Int).Value = ejecucion.IdJuzgado;
+
+                ////Tipos Data Table
+                //comandoCreaEjecucion.Parameters.Add("@expedientes", SqlDbType.Structured).Value = CreaCausasType(ejecucion.IdExpedientes);
+                //comandoCreaEjecucion.Parameters.Add("@tocas", SqlDbType.Structured).Value = CreaTocasType(ejecucion.Tocas);
+                //comandoCreaEjecucion.Parameters.Add("@amparos", SqlDbType.Structured).Value = CreaAmparosType(ejecucion.Amparos);
+                //comandoCreaEjecucion.Parameters.Add("@anexos", SqlDbType.Structured).Value = CreaAnexoType(ejecucion.Anexos);
+
+                ////Parametro de Salida
+                //SqlParameter idEjecucion = new SqlParameter();
+                //idEjecucion.ParameterName = "@idEjecucion";
+                //idEjecucion.SqlDbType = SqlDbType.Int;
+                //idEjecucion.Direction = ParameterDirection.Output;
+                //comandoCreaEjecucion.Parameters.Add(idEjecucion);
+
+                //comandoCreaEjecucion.ExecuteNonQuery();
+                //var idEjecucionRes = Convert.ToInt32(idEjecucion.Value);
+
+                ////Comienza transaccion             
+                //transaccion.Commit();
+                return /*idEjecucionRes*/ null;
+            }
+            catch (Exception ex)
+            {
+                //transaccion.Rollback();
+
+                MensajeError = ex.Message;
+                Estatus = Estatus.ERROR;
+                return null;
+            }
+            finally
+            {
+                //if (IsValidConnection && Cnx.State == ConnectionState.Open)
+                //    Cnx.Close();
+            }
+        }
         /// <summary>
         /// Consume SPSQL y retorna un objeto de tipo ejecucion por medio del idEjecucion
         /// </summary>
@@ -735,6 +844,53 @@ namespace PoderJudicial.SIPOH.AccesoDatos
             }
 
             return tocasType;
+        }
+
+        private DataTable CreaDataTableType<T>(List<T> listaDeObjetos, params string[] columnas)
+        {
+            DataTable dataTableType = new DataTable();
+            dataTableType.Clear();
+
+            //Genera Columnas
+            foreach (string calumna in columnas)
+            {
+                dataTableType.Columns.Add(calumna);
+            }
+
+            foreach (T objeto in listaDeObjetos)
+            {
+                PropertyInfo[] properties = typeof(T).GetProperties();
+              
+                DataRow fila = dataTableType.NewRow();
+                
+                foreach (PropertyInfo property in properties)
+                {
+                    if (columnas.Contains(property.Name)) 
+                    {
+                        fila[property.Name] = property.GetValue(objeto);
+                    }
+                }
+
+                dataTableType.Rows.Add(fila);
+            }
+            return dataTableType;
+        }
+
+        private DataTable CreaDataTableType<T>(List<T> listaDeObjetos, string columna)
+        {
+            DataTable dataTableType = new DataTable();
+            dataTableType.Clear();
+          
+            dataTableType.Columns.Add(columna);
+
+            foreach (T objeto in listaDeObjetos)
+            {
+                DataRow fila = dataTableType.NewRow();
+                fila[columna] = objeto;
+                dataTableType.Rows.Add(fila);
+            }
+
+            return dataTableType;
         }
         #endregion
     }

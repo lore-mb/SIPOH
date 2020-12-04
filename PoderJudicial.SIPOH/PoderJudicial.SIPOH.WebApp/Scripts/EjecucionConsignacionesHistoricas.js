@@ -47,24 +47,10 @@ function ElementosAlCargadoConsignaciones()
         var idTipoParte = $("#slcTipoParte").find('option:selected').val();
         if (idTipoParte == 1)
         {
-            $("#formAgregaDelito").show();
-     
             $(".requeridoPfIn").prop('required', true);
-
-            if (Delitos.length == 0)
-            {
-                $("#btnAceptarParte").prop('disabled', true);
-            }
-            else
-            {
-                $("#btnAceptarParte").prop('disabled', false);
-            }
         }
         else
-        {
-            $("#btnAceptarParte").prop('disabled', false);
-            $("#formAgregaDelito").hide();
-     
+        {     
             $(".requeridoPfIn").prop('required', false);
         }
     });
@@ -161,8 +147,6 @@ function CargaElementosHitoricoCausa()
 
     if (!EsTradicional)
     {
-        $("#btnAgregarHistoricoCausa").prop('disabled', true);
-
         $("#datetimepickerFechaAcusatorio").prop('disabled', false);
         $("#datetimepickerFechaAcusatorio").val("");
 
@@ -340,18 +324,19 @@ function MuestraModalPartesCausa(esImputado)
     {
         $("#divAliasParte").hide();
         $(".requeridoPfIn").prop('required', false);
-        $("#formAgregaDelito").hide();
+        //$("#formAgregaDelito").hide();
         $("#slcTipoParte option[value='2']").prop('selected', true); 
-        $("#btnAceptarParte").prop('disabled', false);
+        //$("#btnAceptarParte").prop('disabled', false);
     }
     else
     {
         $("#divAliasParte").show();
         $(".requeridoPfIn").prop('required', true);
-        $("#btnAceptarParte").prop('disabled', true);
-        $("#formAgregaDelito").show();
+        //$("#btnAceptarParte").prop('disabled', true);
+        //$("#formAgregaDelito").show();
         $("#slcTipoParte option[value='1']").prop('selected', true); 
     }
+
     $("#partesCausaModal").modal("show");
 }
 
@@ -359,12 +344,6 @@ function CerrarModalPartes()
 {
     //Limpia Formularios del Modal
     LimpiaFormularioConValidacion("formAgregarParte");
-    LimpiaFormularioConValidacion("formAgregaDelito");
-
-    //Limpia tabla delitos del Modal
-    Delitos = [];
-    DataTableDelitos = GeneraTablaDatos(DataTableDelitos, "dataTableDelitos", Delitos, EstructuraDelitos, false, false, false);
-
     //Cierra Modal Partes
     $("#partesCausaModal").modal("hide");
 }
@@ -410,7 +389,12 @@ function AgregarDelitoAlDataTableDelitos()
         Delitos.push(delito);
 
         DataTableDelitos = GeneraTablaDatos(DataTableDelitos, "dataTableDelitos", Delitos, EstructuraDelitos, false, false, false);
-        $("#btnAceptarParte").prop('disabled', false);
+
+        //Habilita boton para agregar historico de causa
+        if (Imputados.length > 0 && Ofendidos.length > 0 && Delitos.length > 0)
+        {
+            $("#btnAgregarHistoricoCausa").prop('disabled', false);
+        }
     }
     else
     {
@@ -462,7 +446,7 @@ function EliminarDelitoDelDataTable(id)
 
     if (Delitos.length == 0)
     {
-        $("#btnAceptarParte").prop('disabled', true);
+        $("#btnAgregarHistoricoCausa").prop('disabled', true);
     }
 }
 
@@ -495,10 +479,10 @@ function AgregarParteAlDataTables()
 
     if (tipoParte == 1)
     {
-        parte.Delitos = Delitos;
-        parte.CadenaDelitos = GeneraCadenaDelitos(Delitos);
-        parte.Opciones = "<button type='button' class='btn btn-link btn-danger btn-sm' onclick='EliminarParteDelDataTable(" + parte.IdParte + "," + true + ")' data-toggle='tooltip' title='Quitar Imputado'><i class='icon-bin2'></i></button>" +
-        "<button type='button' onclick='MuestraDelitos(" + parte.IdParte + ")' class='btn btn-link btn-primary' data-toggle='tooltip' title = 'Ver Delitos'><i class='icon-search'></i></button>"; 
+        //parte.Delitos = Delitos;
+        //parte.CadenaDelitos = GeneraCadenaDelitos(Delitos);
+        parte.Opciones = "<button type='button' class='btn btn-link btn-danger btn-sm' onclick='EliminarParteDelDataTable(" + parte.IdParte + "," + true + ")' data-toggle='tooltip' title='Quitar Imputado'><i class='icon-bin2'></i></button>";
+        //"<button type='button' onclick='MuestraDelitos(" + parte.IdParte + ")' class='btn btn-link btn-primary' data-toggle='tooltip' title = 'Ver Delitos'><i class='icon-search'></i></button>"; 
         //+"<button type='button' onclick='alert(" + parte.IdParte + ")' class='btn btn-link btn-warning' data-toggle='tooltip' title = 'Editar'><i class='icon-pencil icon'></i></button>";
         Imputados.push(parte);
         DataTableImputados = GeneraTablaDatos(DataTableImputados, "dataTableImputados", Imputados, EstructuraTablaImputados, false, false, false);
@@ -515,11 +499,10 @@ function AgregarParteAlDataTables()
     CerrarModalPartes();
 
     //Habilita boton para agregar historico de causa
-    if (Imputados.length > 0 && Ofendidos.length > 0)
+    if (Imputados.length > 0 && Ofendidos.length > 0 && Delitos.length > 0)
     {
         $("#btnAgregarHistoricoCausa").prop('disabled', false);  
     }
-
 }
 
 function GeneraCadenaDelitos(delitos)
@@ -618,7 +601,8 @@ function AgregarCausaAlDataTable(tradicional)
   
     expediente.Ofendidos = GeneraCadenaNombrePartes(false);
     expediente.Inculpados = GeneraCadenaNombrePartes(true);
-    expediente.Delitos = GeneraCadenaDelitosPartes();
+    expediente.Delitos = GeneraCadenaDelitosCausa();
+    expediente.DelitosCausa = Delitos;
     expediente.Eliminar = "<button type='button' class='btn btn-link btn-danger btn-sm' onclick='EliminarCausa(" + expediente.IdExpediente + ")' data-toggle='tooltip' title='Quitar Causa'><i class='icon-bin2'></i></button>";
 
     expediente.NumeroCausa = numeroCausa;
@@ -641,14 +625,29 @@ function AgregarCausaAlDataTable(tradicional)
     DataTableImputados = GeneraTablaDatos(DataTableImputados, "dataTableImputados", Imputados, EstructuraTablaImputados, false, false, false);
     DataTableOfendidos = GeneraTablaDatos(DataTableOfendidos, "dataTableOfendidos", Ofendidos, EstructuraOfendidos, false, false, false);
 
+    LimpiaFormularioConValidacion("formAgregaDelito");
+
+    //Limpia tabla delitos del Modal
+    Delitos = [];
+    DataTableDelitos = GeneraTablaDatos(DataTableDelitos, "dataTableDelitos", Delitos, EstructuraDelitos, false, false, false);
+
+    //Bloquea Boton
+    $("#btnAgregarHistoricoCausa").prop('disabled', true);
+
     //Oculta Secciones
-    $(".causaAceptada").hide();
+    $(".causaAceptada").hide(500);
 
     $("#juzgado-Historico").prop('disabled', true);
     $("#juzgado-Historico").removeClass("contieneCausa");
     $("#juzgado-Historico").removeAttr("href");
 
     $('#contenedorBeneficiario').removeAttr('hidden');
+
+    if ($("#" + ("slctJuzgadoEjecucion")).find('option:selected').val() == "" && $("#inpNumeroEjecucion").val() == "")
+    {
+        $("#seccionBusquedaBeneficiario").hide();
+    }
+
     $("#contenedorBeneficiario").show();
 }
 
@@ -665,21 +664,16 @@ function GeneraCadenaNombrePartes(esImputado)
     return cadenaNombrePartes;
 }
 
-function GeneraCadenaDelitosPartes()
+function GeneraCadenaDelitosCausa()
 {
-    var cadenaDelitosPorPartes = "";
-    var iterarArreglo = Imputados;
+    var cadenaDelitosCausa = "";
+    var iterarArreglo = Delitos;
 
     for (var index = 0; index < iterarArreglo.length; index++)
     {
-        var iterarArregloDelito = iterarArreglo[index].Delitos;
-
-        for (var index2 = 0; index2 < iterarArregloDelito.length; index2++)
-        {
-            cadenaDelitosPorPartes = cadenaDelitosPorPartes + (iterarArregloDelito[index2].Delito + (index2 == (iterarArregloDelito.length - 1) && index == (iterarArreglo.length - 1) ? "" : ", "));  
-        }
+        cadenaDelitosCausa = cadenaDelitosCausa + (iterarArreglo[index].Delito + (index == (iterarArreglo.length - 1) ? "" : ", "));
     }
 
-    return cadenaDelitosPorPartes;
+    return cadenaDelitosCausa;
 }
 

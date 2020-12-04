@@ -7,6 +7,8 @@ using PoderJudicial.SIPOH.WebApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 
@@ -20,11 +22,21 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
 
         public InicialesController(IInicialesProcessor inicialesProcessor, ICatalogosProcessor catalogosProcessor, IMapper mapper) 
         {
+            
+            var identity = (ClaimsPrincipal)Thread.CurrentPrincipal;
+            var estaAutenticado = identity.Identity.IsAuthenticated;
+            
+            if (!estaAutenticado)
+            {
+                RedirectToAction("index", "home");
+            }
+
             this.inicialesProcessor = inicialesProcessor;
             this.catalogosProcessor = catalogosProcessor;
             this.mapper = mapper;
         }
-        
+
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         #region Metodos Publicos del Controlador
         public ActionResult CrearInicial()
         {
@@ -261,6 +273,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
 
         [HttpGet]
         [EncriptarParametroFilter]
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public ActionResult Detalle(int folio)
         {
             try
