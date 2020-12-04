@@ -102,6 +102,9 @@ namespace PoderJudicial.SIPOH.WebApp
                 "~/Scripts/LibWebFont.min.js"
                 ));
 
+            /* Charts */
+            bundles.Add(new ScriptBundle("~/Scripts/Charts").Include(
+                "~/Scripts/LibCharts.js"));
 
             //-------------------------------------//
             //------ SCRIPTS MODULO CUENTA  ------ //
