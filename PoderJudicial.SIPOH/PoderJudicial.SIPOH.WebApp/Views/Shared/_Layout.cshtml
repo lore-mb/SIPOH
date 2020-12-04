@@ -275,11 +275,19 @@
                                 <p>Control</p>
                                 <span class="caret"></span>
                             </a>
-                            <div class="collapse" id="submenu">
+                            <div class="collapse
+                                    @(ViewContext.RouteData.Values["Controller"].ToString() == "InicialesControl" ? "show" : "")
+                                 " id="submenu">
                                 <ul class="nav nav-collapse">
+
                                     <li>
                                         <a href="#">
-                                            <span class="sub-item">Consulta</span>
+                                            <span class="sub-item">Agenda</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <span class="sub-item">Consultas</span>
                                         </a>
                                     </li>
                                     <li>
@@ -294,12 +302,24 @@
                                         </a>
                                     </li>
 
+                                    <li>
+                                        <a href="">
+                                            <span class="sub-item">Solicitud de CD'S</span>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="">
+                                            <span class="sub-item">Soporte</span>
+                                        </a>
+                                    </li>
 
                                     <li>
                                         <a href="#">
                                             <span class="sub-item">Promociones</span>
                                         </a>
                                     </li>
+
                                     <li>
                                         <a href="#">
                                             <span class="sub-item">Reportes</span>
@@ -437,7 +457,18 @@
                                     <i class="fas fa-angle-right"></i>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#">Ejecución</a>
+                                   @(ViewContext.RouteData.Values["Controller"].ToString() == "InicialesControl" ? "Control" : "Ejecución")
+
+                                    @*@if ()
+                                    {
+                                        <a href="#">Control</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="#">Ejecución</a>
+                                    }*@
+
+                                    @*<a href="#">Control</a>*@
                                 </li>
                                 <li class="separator">
                                     <i class="fas fa-angle-right"></i>
@@ -513,6 +544,8 @@
     @Scripts.Render("~/Scripts/bootbox")
     <!-- Notify -->
     @Scripts.Render("~/Scripts/bootstrapNotify")
+    <!-- Charts-->
+    @Scripts.Render("~/Scripts/Charts")
 
     @RenderSection("scripts", required: false)
 </body>

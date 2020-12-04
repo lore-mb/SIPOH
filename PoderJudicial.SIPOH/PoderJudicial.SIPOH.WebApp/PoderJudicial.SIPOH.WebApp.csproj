@@ -249,6 +249,7 @@
     <Content Include="Content\Master\Vectors\Sipoh.svg" />
     <Content Include="Content\Master\Img\user_default_2d.png" />
     <Content Include="Content\StyleFonts.css" />
+    <Content Include="Scripts\LibCharts.js" />
     <Content Include="Scripts\ControlIniciales.js" />
     <Content Include="Scripts\LibBootbox.min.js" />
     <Content Include="Scripts\LibBootboxPopper.min.js" />
