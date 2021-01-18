@@ -196,7 +196,7 @@ namespace PoderJudicial.SIPOH.WebApp.Controllers
                 if (folio != null)
                 {
                     //Genera los parametro encriptados
-                    string url = ViewHelper.EncodedActionLink("Detalle", "Iniciales", new { Folio = folio });
+                    string url = ViewHelper.EncodedActionLink("Detalle", "ConsignacionesHistoricas", new { Folio = folio });
 
                     Respuesta.Estatus = EstatusRespuestaJSON.OK;
                     Respuesta.Mensaje = consignacionesProcessor.Mensaje;
